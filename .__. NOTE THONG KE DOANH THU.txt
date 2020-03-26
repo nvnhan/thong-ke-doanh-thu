@@ -1,0 +1,10 @@
+Project: Thống kê doanh thu
+Web App
+Convert từ phần mềm THỐNG KÊ DOANH THU viết cho DANH THANH
+
+Ngày bắt đầu 19/02/2020
+Chi phí 11 triệu (Bao gồm chi phí convert + thêm chức năng)
+
+Đã cọc 2 + 4 triệu
+
+Ngày 24/03/2020 Bắt đầu lại

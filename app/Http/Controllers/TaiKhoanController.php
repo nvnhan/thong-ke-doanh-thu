@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\TaiKhoan;
 use Illuminate\Http\Request;
 
-class TaiKhoanController extends Controller
+class TaiKhoanController extends BaseController
 {
     /**
      * Display a listing of the resource.

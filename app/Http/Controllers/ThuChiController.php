@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\ThuChi;
 use Illuminate\Http\Request;
 
-class ThuChiController extends Controller
+class ThuChiController extends BaseController
 {
     /**
      * Display a listing of the resource.

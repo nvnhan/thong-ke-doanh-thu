@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\PhiHanhLy;
 use Illuminate\Http\Request;
 
-class PhiHanhLyController extends Controller
+class PhiHanhLyController extends BaseController
 {
     /**
      * Display a listing of the resource.

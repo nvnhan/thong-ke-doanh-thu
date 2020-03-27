@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\TourChiTiet;
 use Illuminate\Http\Request;
 
-class TourChiTietController extends Controller
+class TourChiTietController extends BaseController
 {
     /**
      * Display a listing of the resource.

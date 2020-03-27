@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DatVe;
 use Illuminate\Http\Request;
 
-class DatVeController extends Controller
+class DatVeController extends BaseController
 {
     /**
      * Display a listing of the resource.

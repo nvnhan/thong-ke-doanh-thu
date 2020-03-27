@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Visa;
 use Illuminate\Http\Request;
 
-class VisaController extends Controller
+class VisaController extends BaseController
 {
     /**
      * Display a listing of the resource.

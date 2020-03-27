@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class KhachHangController extends Controller
+class KhachHangController extends BaseController
 {
     /**
      * Display a listing of the resource.

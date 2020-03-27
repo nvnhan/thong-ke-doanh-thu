@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\SanBay;
 use Illuminate\Http\Request;
 
-class SanBayController extends Controller
+class SanBayController extends BaseController
 {
     /**
      * Display a listing of the resource.

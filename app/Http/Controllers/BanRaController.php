@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\BanRa;
 use Illuminate\Http\Request;
 
-class BanRaController extends Controller
+class BanRaController extends BaseController
 {
     /**
      * Display a listing of the resource.

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\ThuePhi;
 use Illuminate\Http\Request;
 
-class ThuePhiController extends Controller
+class ThuePhiController extends BaseController
 {
     /**
      * Display a listing of the resource.

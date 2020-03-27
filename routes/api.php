@@ -13,6 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::resource('user', 'UserController');
+    Route::resource('ban-ra', 'BanRaController');
+    Route::resource('mua-vao', 'MuaVaoController');
+    Route::resource('dat-ve', 'DatVeController');
+    Route::resource('hang-hoa', 'HangHoaController');
+    Route::resource('khach-hang', 'KhachHangController');
+    Route::resource('phi-hanh-ly', 'PhiHanhLyController');
+    Route::resource('san-bay', 'SanBayController');
+    Route::resource('tai-khoan', 'TaiKhoanController');
+    Route::resource('thu-chi', 'ThuChiController');
+    Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');
+    Route::resource('thue-phi', 'ThuePhiController');
+    Route::resource('tour', 'TourController');
+    Route::resource('tour-chi-tiet', 'TourChiTietController');
+    Route::resource('visa', 'VisaController');
 });

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\MuaVao;
 use Illuminate\Http\Request;
 
-class MuaVaoController extends Controller
+class MuaVaoController extends BaseController
 {
     /**
      * Display a listing of the resource.

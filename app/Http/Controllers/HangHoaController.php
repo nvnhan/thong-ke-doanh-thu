@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\HangHoa;
 use Illuminate\Http\Request;
 
-class HangHoaController extends Controller
+class HangHoaController extends BaseController
 {
     /**
      * Display a listing of the resource.

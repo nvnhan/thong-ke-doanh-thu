@@ -14,7 +14,7 @@ class CreatePhiHanhLiesTable extends Migration
     public function up()
     {
         Schema::create('phi_hanh_ly', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('hanh_ly', 50);
             $table->decimal('phi', 11, 2)->default(0);
             

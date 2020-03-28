@@ -14,13 +14,13 @@ class CreateThuChisTable extends Migration
     public function up()
     {
         Schema::create('thu_chi', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->date('ngay_thang')->useCurrent();
             $table->string('hang_muc', 500)->nullable();
             $table->decimal('so_tien', 11, 2)->default(0);
-            $table->integer('id_tai_khoan_di')->nullable();
-            $table->integer('id_tai_khoan_den')->nullable();
-            $table->integer('id_khach_hang')->nullable();
+            $table->integer('id_tai_khoan_di')->unsigned()->nullable();
+            $table->integer('id_tai_khoan_den')->unsigned()->nullable();
+            $table->integer('id_khach_hang')->unsigned()->nullable();
             $table->string('username', 50)->nullable();
         });
     }

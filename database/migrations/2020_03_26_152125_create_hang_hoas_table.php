@@ -14,8 +14,8 @@ class CreateHangHoasTable extends Migration
     public function up()
     {
         Schema::create('hang_hoa', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('id_tai_khoan');
+            $table->increments('id');
+            $table->integer('id_tai_khoan')->unsigned();
             $table->string('ma_hang', 50);
             $table->string('ten_hang', 200);
             $table->string('phan_loai', 50)->nullable();

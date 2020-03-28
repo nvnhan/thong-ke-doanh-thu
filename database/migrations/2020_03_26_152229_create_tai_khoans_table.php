@@ -14,7 +14,7 @@ class CreateTaiKhoansTable extends Migration
     public function up()
     {
         Schema::create('tai_khoan', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('ky_hieu', 50);
             $table->string('mo_ta', 500)->nullable();
             $table->integer('loai')->default(0);

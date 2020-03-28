@@ -14,18 +14,18 @@ class CreateBanRasTable extends Migration
     public function up()
     {
         Schema::create('ban_ra', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->date('ngay_thang')->useCurrent();
-            $table->integer('id_hang_hoa');
+            $table->integer('id_hang_hoa')->unsigned();
             $table->integer('so_luong')->default(1);
             $table->decimal('don_gia_mua', 11, 2);
             $table->decimal('don_gia_ban', 11, 2);
-            $table->integer('id_khach_hang')->nullable();
+            $table->integer('id_khach_hang')->unsigned()->nullable();
             $table->date('ngay_thanh_toan')->nullable();
-            $table->integer('id_tai_khoan')->nullable();
+            $table->integer('id_tai_khoan')->unsigned()->nullable();
             $table->date('ngay_hoan_doi')->nullable();
             $table->date('ngay_thanh_toan_hoan_doi')->nullable();
-            $table->integer('id_tai_khoan_tra_hoan_doi')->nullable();            
+            $table->integer('id_tai_khoan_tra_hoan_doi')->unsigned()->nullable();            
             $table->date('ngay_hoan_doi_xong')->nullable();
             $table->string('ghi_chu', 500)->nullable();
             $table->string('username', 50)->nullable();

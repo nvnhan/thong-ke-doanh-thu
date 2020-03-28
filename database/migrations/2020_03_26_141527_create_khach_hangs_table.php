@@ -14,7 +14,7 @@ class CreateKhachHangsTable extends Migration
     public function up()
     {
         Schema::create('khach_hang', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('ma_khach_hang', 50);
             $table->string('ho_ten', 500)->default('');
             $table->string('sdt', 50)->nullable();

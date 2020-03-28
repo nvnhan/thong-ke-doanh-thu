@@ -14,16 +14,16 @@ class CreateTourChiTietsTable extends Migration
     public function up()
     {
         Schema::create('tour_chi_tiet', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('id_tour');
-            $table->integer('id_hang_hoa');
+            $table->increments('id');
+            $table->integer('id_tour')->unsigned();
+            $table->integer('id_hang_hoa')->unsigned();
             $table->date('ngay_thang')->useCurrent();
             $table->date('bat_dau')->nullable();
             $table->date('ket_thuc')->nullable();
 
             $table->decimal('don_gia', 11, 2)->default(0);
             $table->integer('so_luong')->default(1);
-            $table->integer('id_tai_khoan')->nullable();
+            $table->integer('id_tai_khoan')->unsigned()->nullable();
             $table->date('ngay_thanh_toan')->nullable();
 
             $table->string('ghi_chu', 500)->nullable();

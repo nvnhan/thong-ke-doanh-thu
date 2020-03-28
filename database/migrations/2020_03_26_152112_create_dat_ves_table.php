@@ -14,7 +14,7 @@ class CreateDatVesTable extends Migration
     public function up()
     {
         Schema::create('dat_ve', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->date('ngay_thang')->useCurrent();
             $table->string('ma_giu_cho', 50)->nullable();
             $table->string('so_ve', 50);
@@ -35,7 +35,7 @@ class CreateDatVesTable extends Migration
             $table->decimal('phi_san_bay', 11, 2)->nullable();
             $table->decimal('phu_phi_san_bay', 11, 2)->nullable();
             $table->decimal('hanh_ly', 11, 2)->nullable();
-            $table->integer('id_phi_hanh_ly')->nullable();
+            $table->integer('id_phi_hanh_ly')->unsigned()->nullable();
             $table->decimal('vat', 11, 2)->nullable();
             $table->decimal('phu_phi', 11, 2)->nullable();
             $table->decimal('hoa_hong', 11, 2)->nullable();
@@ -45,9 +45,9 @@ class CreateDatVesTable extends Migration
             $table->decimal('tong_tien_thu_khach', 11, 2)->default(0);
 
             $table->date('ngay_thanh_toan')->nullable();
-            $table->integer('id_tai_khoan')->nullable();
-            $table->integer('id_tai_khoan_mua')->nullable();
-            $table->integer('id_khach_hang')->nullable();
+            $table->integer('id_tai_khoan')->unsigned()->nullable();
+            $table->integer('id_tai_khoan_mua')->unsigned()->nullable();
+            $table->integer('id_khach_hang')->unsigned()->nullable();
             
             $table->dateTime('canh_bao_xuat_ve')->nullable();
             $table->boolean('chua_xuat_ve')->default(false);

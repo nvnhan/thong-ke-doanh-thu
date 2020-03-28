@@ -14,7 +14,7 @@ class CreateToursTable extends Migration
     public function up()
     {
         Schema::create('tour', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('phan_loai', 50)->nullable();
             $table->string('ma_tour');
             $table->string('ten_tour');
@@ -23,9 +23,9 @@ class CreateToursTable extends Migration
             $table->date('ket_thuc')->nullable();
             $table->decimal('gia_ban', 11, 2);
             $table->integer('so_luong')->default(1);
-            $table->integer('id_khach_hang')->nullable();
+            $table->integer('id_khach_hang')->unsigned()->nullable();
             $table->date('ngay_thanh_toan')->nullable();
-            $table->integer('id_tai_khoan')->nullable();
+            $table->integer('id_tai_khoan')->unsigned()->nullable();
             $table->boolean('hoan_thanh')->default(false);
             
             $table->string('ghi_chu', 500)->nullable();

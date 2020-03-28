@@ -14,17 +14,17 @@ class CreateThuChiChiTietsTable extends Migration
     public function up()
     {
         Schema::create('thu_chi_chi_tiet', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('id_thu_chi');
+            $table->increments('id');
+            $table->integer('id_thu_chi')->unsigned();
             $table->string('loai_doi_tuong', 50);
             $table->decimal('so_tien', 11, 2)->default(0);
             $table->decimal('so_tien_goc', 11, 2)->nullable();
-            $table->integer('id_dat_ve')->nullable();
-            $table->integer('id_tour')->nullable();
-            $table->integer('id_tour_chi_tiet')->nullable();
-            $table->integer('id_mua_vao')->nullable();
-            $table->integer('id_ban_ra')->nullable();
-            $table->integer('id_visa')->nullable();
+            $table->integer('id_dat_ve')->unsigned()->nullable();
+            $table->integer('id_tour')->unsigned()->nullable();
+            $table->integer('id_tour_chi_tiet')->unsigned()->nullable();
+            $table->integer('id_mua_vao')->unsigned()->nullable();
+            $table->integer('id_ban_ra')->unsigned()->nullable();
+            $table->integer('id_visa')->unsigned()->nullable();
         });
     }
 

@@ -14,7 +14,7 @@ class CreateThuePhisTable extends Migration
     public function up()
     {
         Schema::create('thue_phi', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('loai_phi', 50)->nullable();
             $table->decimal('muc_phi', 11, 2)->nullable();
             $table->string('ghi_chu', 500)->nullable();

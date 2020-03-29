@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// Tất cả route đều vào SPA VIew
+Route::get('{path?}', 'RenderSpaView')->where('path', '[a-zA-Z0-9-/]+');

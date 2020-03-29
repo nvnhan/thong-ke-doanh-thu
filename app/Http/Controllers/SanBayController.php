@@ -14,7 +14,8 @@ class SanBayController extends BaseController
      */
     public function index()
     {
-        //
+        $san_bay = SanBay::get();
+        return $this->sendResponse($san_bay, "SanBay retrieved successfully");
     }
 
     /**

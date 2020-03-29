@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore } from "redux";
@@ -14,7 +14,7 @@ import Content from './includes/Content';
 import MyFooter from './includes/MyFooter';
 
 
-export default class App extends Component {
+export default class App extends PureComponent {
     
     render() {
         return (

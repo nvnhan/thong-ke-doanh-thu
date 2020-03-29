@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader, Button } from 'antd';
 import { connect } from "react-redux";
 
-class MyHeader extends React.Component {
+class MyHeader extends PureComponent {
     render () {
         return (
             <div>

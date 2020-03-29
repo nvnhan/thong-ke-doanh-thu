@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 
 import * as actions from "../../actions";
 import * as menus from "../../constants/SideMenus";
 
-class TrangChu extends Component {
+class TrangChu extends PureComponent {
     componentDidMount() {
         this.props.onChangeMenu(menus.HOME);
         this.props.onChangeTitle("Thống kê doanh thu");

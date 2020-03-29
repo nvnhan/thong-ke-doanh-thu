@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -14,11 +14,7 @@ const { SubMenu } = Menu;
 
 import * as SideMenus from "../../constants/SideMenus";
 
-class SideBar extends React.Component {
-    componentDidMount() {
-        console.log(this.props.menuActive)
-    }
-    
+class SideBar extends PureComponent {    
     render() {
         return (
             <Sider
@@ -29,7 +25,9 @@ class SideBar extends React.Component {
                 collapsedWidth="0"
                 collapsible
             >
-                <div className="logo">LOGO</div>
+                <div className="logo">
+                <img src="/img/logo.png"/> TKDT
+                </div>
                 <Menu
                     theme="dark"
                     selectedKeys={this.props.menuActive}
@@ -62,7 +60,9 @@ class SideBar extends React.Component {
                     >
                         <Menu.Item key="3">Tài khoản</Menu.Item>
                         <Menu.Item key="4">Khách hàng</Menu.Item>
-                        <Menu.Item key="5">Sân bay</Menu.Item>
+                        <Menu.Item key={SideMenus.SAN_BAY}>
+                            <Link to="/san-bay">Sân bay</Link>
+                        </Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>

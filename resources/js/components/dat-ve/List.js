@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button, List } from "antd";
@@ -6,7 +6,7 @@ import axios from "axios";
 import * as actions from '../../actions'
 import * as menus from '../../constants/SideMenus'
 
-class ListPosts extends React.Component {
+class ListPosts extends PureComponent {
     constructor(props) {
         super(props);
 

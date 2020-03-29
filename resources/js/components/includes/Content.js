@@ -1,12 +1,11 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import { Switch, Route } from 'react-router-dom';
 
-// import Add from '../posts/Add';
-import List from '../dat-ve/List';
-import TrangChu from '../trang-chu'
-// import Edit from "../posts/Edit";
+import ListDatVe from '../dat-ve/List';
+import TrangChu from '../trang-chu';
+import ListSanBay from '../san-bay/List'
 
-export default class Content extends React.Component {
+export default class Content extends PureComponent {
     render() {
         return (
             <div
@@ -21,7 +20,8 @@ export default class Content extends React.Component {
                     <Route exact path="/" component={TrangChu} />
                     {/* <Route path="/create" component={Add} /> */}
                     {/* <Route path="/edit/:id" component={Edit} /> */}
-                    <Route path="/dat-ve" component={List} />
+                    <Route path="/dat-ve" component={ListDatVe} />
+                    <Route path="/san-bay" component={ListSanBay} />
                 </Switch>
             </div>
         );

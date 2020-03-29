@@ -1,10 +1,10 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import axios from "axios";
 import { Form, Input, Button } from "antd";
 
 const { TextArea } = Input;
 
-class Add extends React.Component {
+class Add extends PureComponent {
     constructor(props) {
         super(props);
     }

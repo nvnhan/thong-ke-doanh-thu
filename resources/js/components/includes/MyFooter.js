@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from "react";
 import { Layout } from "antd";
 
-export default class MyFooter extends Component {
+export default class MyFooter extends PureComponent {
     render() {
         return (
             <Layout.Footer style={{ textAlign: "center" }}>

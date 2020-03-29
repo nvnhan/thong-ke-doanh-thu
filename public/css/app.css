@@ -1,12 +1,17 @@
 
 
 .logo {
-    height: 32px;
     background: rgba(255, 255, 255, 0.2);
-    margin: 16px;
+    margin: 0;
+    padding: 16px;
+    font-size: 16px;
     line-height: 32px;
-    font-size: 20px;
     text-align: center;
     color: white;
     font-weight: bold
+}
+
+.logo img {
+    height: 28px;
+    margin: 0 10px;
 }

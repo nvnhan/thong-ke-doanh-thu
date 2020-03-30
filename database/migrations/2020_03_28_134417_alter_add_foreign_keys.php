@@ -16,12 +16,10 @@ class AlterAddForeignKeys extends Migration
         Schema::table('ban_ra', function (Blueprint $table) {
             $table->foreign('id_hang_hoa')->references('id')->on('hang_hoa');
             $table->foreign('id_khach_hang')->references('id')->on('khach_hang')->onDelete('set null');
-            $table->foreign('id_tai_khoan')->references('id')->on('tai_khoan');
             $table->foreign('id_tai_khoan_tra_hoan_doi')->references('id')->on('tai_khoan');
         });
         Schema::table('dat_ve', function (Blueprint $table) {
             $table->foreign('id_khach_hang')->references('id')->on('khach_hang');
-            $table->foreign('id_tai_khoan')->references('id')->on('tai_khoan');
             $table->foreign('id_tai_khoan_mua')->references('id')->on('tai_khoan');
         });
         Schema::table('hang_hoa', function (Blueprint $table) {
@@ -29,7 +27,6 @@ class AlterAddForeignKeys extends Migration
         });
         Schema::table('mua_vao', function (Blueprint $table) {
             $table->foreign('id_hang_hoa')->references('id')->on('hang_hoa');
-            $table->foreign('id_tai_khoan')->references('id')->on('tai_khoan');
         });
         Schema::table('thu_chi', function (Blueprint $table) {
             $table->foreign('id_khach_hang')->references('id')->on('khach_hang');
@@ -47,16 +44,13 @@ class AlterAddForeignKeys extends Migration
         });
         Schema::table('tour', function (Blueprint $table) {
             $table->foreign('id_khach_hang')->references('id')->on('khach_hang');
-            $table->foreign('id_tai_khoan')->references('id')->on('tai_khoan');
         });
         Schema::table('tour_chi_tiet', function (Blueprint $table) {
             $table->foreign('id_hang_hoa')->references('id')->on('hang_hoa')->onDelete('cascade');
             $table->foreign('id_tour')->references('id')->on('tour');
-            $table->foreign('id_tai_khoan')->references('id')->on('tai_khoan');
         });
         Schema::table('visa', function (Blueprint $table) {
             $table->foreign('id_khach_hang')->references('id')->on('khach_hang');
-            $table->foreign('id_tai_khoan')->references('id')->on('tai_khoan');
             $table->foreign('id_nha_cung_cap')->references('id')->on('tai_khoan');
         });
     }

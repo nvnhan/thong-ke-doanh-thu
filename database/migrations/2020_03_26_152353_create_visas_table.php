@@ -28,7 +28,6 @@ class CreateVisasTable extends Migration
             $table->integer('id_nha_cung_cap')->unsigned()->nullable();
             $table->integer('id_khach_hang')->unsigned()->nullable();
             
-            $table->integer('id_tai_khoan')->unsigned()->nullable();
             $table->date('ngay_thanh_toan')->nullable();
 
             $table->string('ghi_chu', 500)->nullable();

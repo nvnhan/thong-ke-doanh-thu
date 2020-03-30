@@ -21,7 +21,6 @@ class CreateMuaVaosTable extends Migration
 
             $table->decimal('don_gia', 11, 2)->default(0);
             $table->date('ngay_thanh_toan')->nullable();
-            $table->integer('id_tai_khoan')->unsigned()->nullable();
             
             $table->string('ghi_chu', 500)->nullable();
             $table->string('username', 50)->nullable();

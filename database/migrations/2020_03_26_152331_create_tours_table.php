@@ -25,7 +25,6 @@ class CreateToursTable extends Migration
             $table->integer('so_luong')->default(1);
             $table->integer('id_khach_hang')->unsigned()->nullable();
             $table->date('ngay_thanh_toan')->nullable();
-            $table->integer('id_tai_khoan')->unsigned()->nullable();
             $table->boolean('hoan_thanh')->default(false);
             
             $table->string('ghi_chu', 500)->nullable();

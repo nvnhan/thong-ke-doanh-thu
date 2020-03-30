@@ -22,7 +22,7 @@ class CreateBanRasTable extends Migration
             $table->decimal('don_gia_ban', 11, 2);
             $table->integer('id_khach_hang')->unsigned()->nullable();
             $table->date('ngay_thanh_toan')->nullable();
-            $table->integer('id_tai_khoan')->unsigned()->nullable();
+            
             $table->date('ngay_hoan_doi')->nullable();
             $table->date('ngay_thanh_toan_hoan_doi')->nullable();
             $table->integer('id_tai_khoan_tra_hoan_doi')->unsigned()->nullable();            

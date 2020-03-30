@@ -23,7 +23,6 @@ class CreateTourChiTietsTable extends Migration
 
             $table->decimal('don_gia', 11, 2)->default(0);
             $table->integer('so_luong')->default(1);
-            $table->integer('id_tai_khoan')->unsigned()->nullable();
             $table->date('ngay_thanh_toan')->nullable();
 
             $table->string('ghi_chu', 500)->nullable();

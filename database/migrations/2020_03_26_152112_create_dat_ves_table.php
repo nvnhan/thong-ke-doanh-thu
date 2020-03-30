@@ -45,7 +45,6 @@ class CreateDatVesTable extends Migration
             $table->decimal('tong_tien_thu_khach', 11, 2)->default(0);
 
             $table->date('ngay_thanh_toan')->nullable();
-            $table->integer('id_tai_khoan')->unsigned()->nullable();
             $table->integer('id_tai_khoan_mua')->unsigned()->nullable();
             $table->integer('id_khach_hang')->unsigned()->nullable();
             

@@ -1,27 +1,23 @@
 import React, { PureComponent } from "react";
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route } from "react-router-dom";
 
-import ListDatVe from '../dat-ve/List';
-import TrangChu from '../trang-chu';
-import ListSanBay from '../san-bay/List'
+import ListDatVe from "../dat-ve/List";
+import TrangChu from "../trang-chu";
+import ListSanBay from "../san-bay/List";
+import NotFound from "./NotFound";
 
 export default class Content extends PureComponent {
     render() {
         return (
-            <div
-                style={{
-                    margin: "24px 16px 0",
-                    padding: 24,
-                    background: "#fff",
-                    textAlign: "center"
-                }}
-            >
+            <div className="content">
                 <Switch>
                     <Route exact path="/" component={TrangChu} />
                     {/* <Route path="/create" component={Add} /> */}
                     {/* <Route path="/edit/:id" component={Edit} /> */}
                     <Route path="/dat-ve" component={ListDatVe} />
                     <Route path="/san-bay" component={ListSanBay} />
+
+                    <Route component={NotFound} />
                 </Switch>
             </div>
         );

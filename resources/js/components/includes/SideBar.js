@@ -14,7 +14,7 @@ const { SubMenu } = Menu;
 
 import * as SideMenus from "../../constants/SideMenus";
 
-class SideBar extends PureComponent {    
+class SideBar extends PureComponent {
     render() {
         return (
             <Sider
@@ -26,12 +26,12 @@ class SideBar extends PureComponent {
                 collapsible
             >
                 <div className="logo">
-                <img src="/img/logo.png"/> TKDT
+                    <img src="/img/logo.png" /> TKDT
                 </div>
                 <Menu
                     theme="dark"
-                    selectedKeys={this.props.menuActive}
                     mode="inline"
+                    selectedKeys={this.props.menuActive}
                 >
                     <Menu.Item key={SideMenus.HOME}>
                         <Link to="/">

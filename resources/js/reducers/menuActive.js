@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes'
 import * as menus from '../constants/SideMenus'
 
-var initialState = menus.HOME;
+var initialState = '';
 
 const myReducer = (state = initialState, action) => {
     if (action.type === types.CHANGE_MENU_ACTIVE) {

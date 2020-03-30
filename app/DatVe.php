@@ -35,11 +35,11 @@ class DatVe extends Model
     }
 
     public function khach_hang() {
-        return $this->belongsTo('App\KhachHang', 'id_khach_hang');
+        return $this->belongsTo('App\KhachHang', 'id_khach_hang')->withDefault();
     }
 
     public function tai_khoan_mua() {
-        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_mua');
+        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_mua')->withDefault();
     }
 
     public function thu_chi_chi_tiets() {

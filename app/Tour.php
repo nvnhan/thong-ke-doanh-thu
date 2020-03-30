@@ -39,7 +39,7 @@ class Tour extends Model
     }
 
     public function khach_hang() {
-        return $this->belongsTo('App\KhachHang', 'id_khach_hang');
+        return $this->belongsTo('App\KhachHang', 'id_khach_hang')->withDefault();
     }
 
     public function thu_chi_chi_tiets() {

@@ -33,32 +33,32 @@ class ThuChiChiTiet extends Model
 
     public function ban_ra()
     {
-        return $this->belongsTo('App\BanRa', 'id_ban_ra');
+        return $this->belongsTo('App\BanRa', 'id_ban_ra')->withDefault();
     }
 
     public function mua_vao()
     {
-        return $this->belongsTo('App\MuaVao', 'id_mua_vao');
+        return $this->belongsTo('App\MuaVao', 'id_mua_vao')->withDefault();
     }
 
     public function dat_ve()
     {
-        return $this->belongsTo('App\DatVe', 'id_dat_ve');
+        return $this->belongsTo('App\DatVe', 'id_dat_ve')->withDefault();
     }
 
     public function tour()
     {
-        return $this->belongsTo('App\Tour', 'id_tour');
+        return $this->belongsTo('App\Tour', 'id_tour')->withDefault();
     }
 
     public function tour_chi_tiet()
     {
-        return $this->belongsTo('App\TourChiTiet', 'id_tour_chi_tiet');
+        return $this->belongsTo('App\TourChiTiet', 'id_tour_chi_tiet')->withDefault();
     }
 
     public function visa()
     {
-        return $this->belongsTo('App\Visa', 'id_visa');
+        return $this->belongsTo('App\Visa', 'id_visa')->withDefault();
     }
 
     public function getNgayThangAttribute() {

@@ -9,6 +9,10 @@
     font-weight: bold;
 }
 
+.ant-layout-sider-light .logo {
+    background-color: #616161;
+}
+
 .logo img {
     height: 28px;
     margin: 0 10px;
@@ -16,7 +20,18 @@
 
 .content {
     margin: 24px 16px 0;
-    padding: 24px;
-    background: #fff;
+    /* padding: 24px; */
+    /* background: #fff; */
     text-align: center;
 }
+
+.ant-layout-sider-light .ant-layout-sider-zero-width-trigger {
+    color: rgb(255, 255, 255) !important;
+    background: #616161 !important;
+}
+
+/* @media (max-witdh: 768px) {
+    .ant-layout-sider-zero-width-trigger {
+        top: 110px !important;
+    }
+} */

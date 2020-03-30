@@ -1,11 +1,19 @@
 import React, { PureComponent } from "react";
-import { Link } from "react-router-dom";
-import { PageHeader, Button, Avatar } from "antd";
+import { PageHeader, Menu, Dropdown, Avatar } from "antd";
 import { connect } from "react-redux";
 import { UserOutlined } from "@ant-design/icons";
 
 class MyHeader extends PureComponent {
     render() {
+        const menu = (
+            <Menu>
+                <Menu.Item key="1">Cấu hình</Menu.Item>
+                <Menu.Item key="2">Phân quyền</Menu.Item>
+                <Menu.Item key="4">Cài đặt</Menu.Item>
+                <Menu.Divider />
+                <Menu.Item key="3">Đăng xuất</Menu.Item>
+            </Menu>
+        );
         return (
             <div>
                 <PageHeader
@@ -13,10 +21,9 @@ class MyHeader extends PureComponent {
                     onBack={() => window.history.back()}
                     title={this.props.title}
                     extra={
-                        <div>
+                        <Dropdown overlay={menu}>
                             <Avatar icon={<UserOutlined />} />
-                            <span>username</span>
-                        </div>
+                        </Dropdown>
                     }
                 />
             </div>

@@ -19,24 +19,20 @@ class SideBar extends PureComponent {
         return (
             <Sider
                 style={{
-                    height: "100vh"
+                    minHeight: "100vh"
                 }}
                 breakpoint="md"
                 collapsedWidth="0"
-                collapsible
+                theme="light"
             >
                 <div className="logo">
                     <img src="/img/logo.png" /> TKDT
                 </div>
-                <Menu
-                    theme="dark"
-                    mode="inline"
-                    selectedKeys={this.props.menuActive}
-                >
+                <Menu mode="inline" selectedKeys={this.props.menuActive}>
                     <Menu.Item key={SideMenus.HOME}>
                         <Link to="/">
                             <DashboardOutlined />
-                            Tổng quan
+                            <span>Tổng quan</span>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key={SideMenus.DAT_VE}>

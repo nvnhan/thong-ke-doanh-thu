@@ -1,5 +1,5 @@
 .logo {
-    background: rgba(255, 255, 255, 0.2);
+    /* background: rgba(174, 174, 179, 0.342); */
     margin: 0;
     padding: 16px;
     font-size: 16px;
@@ -21,7 +21,7 @@
 .content {
     margin: 24px 16px 0;
     /* padding: 24px; */
-    /* background: #fff; */
+    background: #fff;
     text-align: center;
 }
 
@@ -30,8 +30,6 @@
     background: #616161 !important;
 }
 
-@media(max-witdh: 767px) {
-    .ant-layout-sider-zero-width-trigger {
-        top: 110px !important;
-    }
+.nav-user .ant-menu-submenu-title {
+  padding-right: 0;
 }

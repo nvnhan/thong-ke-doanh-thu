@@ -7,7 +7,8 @@ import {
     BarsOutlined,
     DesktopOutlined,
     PieChartOutlined,
-    DashboardOutlined, CaretRightOutlined
+    DashboardOutlined,
+    CaretRightOutlined
 } from "@ant-design/icons";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -15,8 +16,14 @@ const { SubMenu } = Menu;
 import * as SideMenus from "../../constants/SideMenus";
 
 class SideBar extends PureComponent {
+    getActiveMenu() {
+        let tmp = [];
+        tmp.push(this.props.menuActive);
+        return tmp;
+    }
+
     render() {
-        const { menuActive } = this.props;
+        console.log(this.getActiveMenu());
 
         return (
             <Sider
@@ -25,12 +32,17 @@ class SideBar extends PureComponent {
                 }}
                 breakpoint="md"
                 collapsedWidth="0"
-                theme="light"
+                collapsible
             >
                 <div className="logo">
                     <img src="/img/logo.png" /> TKDT
                 </div>
-                <Menu selectedKeys={[menuActive]}>
+                <Menu
+                    mode="inline"
+                    theme="dark"
+                    selectedKeys={this.getActiveMenu()}
+                    // defaultOpenKeys={[selectedSubMenu]}
+                >
                     <Menu.Item key={SideMenus.HOME}>
                         <Link to="/">
                             <DashboardOutlined />
@@ -66,7 +78,7 @@ class SideBar extends PureComponent {
                         </Menu.Item>
                         <Menu.Item key={SideMenus.SAN_BAY}>
                             <Link to="/san-bay">
-                            <CaretRightOutlined />
+                                <CaretRightOutlined />
                                 <span>Sân bay</span>
                             </Link>
                         </Menu.Item>
@@ -80,11 +92,9 @@ class SideBar extends PureComponent {
  * Store trả state về thông qua connect
  * Connect dùng hàm này để map các state => props cho component
  */
-const mapStatetoProps = state => {
-    return {
-        menuActive: state.menuActive
-    };
-};
+const mapStatetoProps = state => ({
+    menuActive: state.menuActive
+});
 
 /**
  * Connect của react-redux sẽ giao tiếp giữa store và component

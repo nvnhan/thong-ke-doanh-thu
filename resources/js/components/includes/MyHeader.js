@@ -2,28 +2,44 @@ import React, { PureComponent } from "react";
 import { PageHeader, Menu, Dropdown, Avatar } from "antd";
 import { connect } from "react-redux";
 import { UserOutlined } from "@ant-design/icons";
+const { SubMenu } = Menu;
 
 class MyHeader extends PureComponent {
     render() {
-        const menu = (
-            <Menu>
-                <Menu.Item key="1">Cấu hình</Menu.Item>
-                <Menu.Item key="2">Phân quyền</Menu.Item>
-                <Menu.Item key="4">Cài đặt</Menu.Item>
-                <Menu.Divider />
-                <Menu.Item key="3">Đăng xuất</Menu.Item>
-            </Menu>
-        );
         return (
             <div>
                 <PageHeader
-                    style={{ background: "#fff" }}
+                    style={{ background: "white", paddingBottom: 0, minWidth: '320px' }}
                     onBack={() => window.history.back()}
                     title={this.props.title}
                     extra={
-                        <Dropdown overlay={menu}>
-                            <Avatar icon={<UserOutlined />} />
-                        </Dropdown>
+                        <Menu key="user" mode="horizontal">
+                            <SubMenu className="nav-user"
+                                title={
+                                    <div>
+                                        <span
+                                            style={{
+                                                color: "#999",
+                                                marginRight: 4
+                                            }}
+                                        >
+                                            Chào
+                                        </span>
+                                        <span>XXXX</span>
+                                        <Avatar
+                                            style={{
+                                                marginLeft: 8,
+                                                background: "chocolate",
+                                                float: "none"
+                                            }}
+                                            icon={<UserOutlined />}
+                                        />
+                                    </div>
+                                }
+                            >
+                                <Menu.Item key="SignOut">Đăng xuất</Menu.Item>
+                            </SubMenu>
+                        </Menu>
                     }
                 />
             </div>

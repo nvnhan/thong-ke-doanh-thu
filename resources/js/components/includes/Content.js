@@ -5,6 +5,7 @@ import ListDatVe from "../DatVe/List";
 import TrangChu from "../TrangChu";
 import ListSanBay from "../SanBay/List";
 import NotFound from "./NotFound";
+import MyHeader from "./MyHeader";
 
 export default class Content extends PureComponent {
     render() {

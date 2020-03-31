@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import ListDatVe from "../dat-ve/List";
-import TrangChu from "../trang-chu";
-import ListSanBay from "../san-bay/List";
+import ListDatVe from "../DatVe/List";
+import TrangChu from "../TrangChu";
+import ListSanBay from "../SanBay/List";
 import NotFound from "./NotFound";
 
 export default class Content extends PureComponent {

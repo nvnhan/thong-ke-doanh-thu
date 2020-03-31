@@ -8,7 +8,7 @@ export const changeMenu = (menu = menus.HOME) => {
     }
 }
 
-export const changeTitle = (title = "THỐNG KÊ DOANH THU") => {
+export const changeTitle = title => {
     return {
         type : types.CHANGE_PAGE_TITLE,
         title

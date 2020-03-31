@@ -7,10 +7,18 @@
 
 # Install
 ```
+// Install modules
 $ npm install
+
+// Migrate tables to database
 $ php artisan migrate
+
+// Install Passport users
 $ php artisan passport:install
 
+// Run React
 $ npm run watch
+
+// Run Laravel
 $ php artisan serve
 ```

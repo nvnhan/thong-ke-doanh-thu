@@ -30,8 +30,8 @@
     background: #616161 !important;
 }
 
-/* @media (max-witdh: 768px) {
+@media(max-witdh: 767px) {
     .ant-layout-sider-zero-width-trigger {
         top: 110px !important;
     }
-} */
+}

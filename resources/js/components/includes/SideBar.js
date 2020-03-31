@@ -7,7 +7,7 @@ import {
     BarsOutlined,
     DesktopOutlined,
     PieChartOutlined,
-    DashboardOutlined
+    DashboardOutlined, CaretRightOutlined
 } from "@ant-design/icons";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -16,6 +16,8 @@ import * as SideMenus from "../../constants/SideMenus";
 
 class SideBar extends PureComponent {
     render() {
+        const { menuActive } = this.props;
+
         return (
             <Sider
                 style={{
@@ -28,7 +30,7 @@ class SideBar extends PureComponent {
                 <div className="logo">
                     <img src="/img/logo.png" /> TKDT
                 </div>
-                <Menu mode="inline" selectedKeys={this.props.menuActive}>
+                <Menu selectedKeys={[menuActive]}>
                     <Menu.Item key={SideMenus.HOME}>
                         <Link to="/">
                             <DashboardOutlined />
@@ -46,7 +48,7 @@ class SideBar extends PureComponent {
                         <span>Option 2</span>
                     </Menu.Item>
                     <SubMenu
-                        key="sub1"
+                        key="SUB_DM"
                         title={
                             <span>
                                 <BarsOutlined />
@@ -54,10 +56,19 @@ class SideBar extends PureComponent {
                             </span>
                         }
                     >
-                        <Menu.Item key="3">Tài khoản</Menu.Item>
-                        <Menu.Item key="4">Khách hàng</Menu.Item>
+                        <Menu.Item key="3">
+                            <CaretRightOutlined />
+                            <span>Tài khoản</span>
+                        </Menu.Item>
+                        <Menu.Item key="4">
+                            <CaretRightOutlined />
+                            <span>Khách hàng</span>
+                        </Menu.Item>
                         <Menu.Item key={SideMenus.SAN_BAY}>
-                            <Link to="/san-bay">Sân bay</Link>
+                            <Link to="/san-bay">
+                            <CaretRightOutlined />
+                                <span>Sân bay</span>
+                            </Link>
                         </Menu.Item>
                     </SubMenu>
                 </Menu>

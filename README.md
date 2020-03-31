@@ -6,8 +6,11 @@
 - Convert từ phần mềm THỐNG KÊ DOANH THU viết cho DANH THANH
 
 ### Install
-````
+```
 $ npm install
 $ php artisan migrate
-$ passport
+$ php artisan passport:install
+
+$ npm run watch
+$ php artisan serve
 ```

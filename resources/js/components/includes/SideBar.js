@@ -1,20 +1,10 @@
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import items from "./SideBarItems";
 import { Layout, Menu } from "antd";
-import {
-    BarsOutlined,
-    DesktopOutlined,
-    PieChartOutlined,
-    DashboardOutlined,
-    CaretRightOutlined
-} from "@ant-design/icons";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
-
-import * as SideMenus from "../../constants/SideMenus";
-import MenuItem from "antd/lib/menu/MenuItem";
 
 class SideBar extends PureComponent {
     genLinkMenuItem = item => {
@@ -55,46 +45,6 @@ class SideBar extends PureComponent {
     render() {
         const { menuActive } = this.props;
         const selectedSubMenu = "SUB_" + menuActive.split("_")[0];
-
-        const items = [
-            {
-                key: SideMenus.HOME,
-                href: "/",
-                icon: <DashboardOutlined />,
-                title: "Tổng quan"
-            },
-            {
-                key: SideMenus.DAT_VE,
-                href: "/dat-ve",
-                icon: <PieChartOutlined />,
-                title: "Đặt vé"
-            },
-            {
-                key: "SUB_DM",
-                icon: <BarsOutlined />,
-                title: "Danh mục",
-                childs: [
-                    {
-                        key: SideMenus.DM_SAN_BAY,
-                        href: "/san-bay",
-                        icon: <CaretRightOutlined />,
-                        title: "Sân bay"
-                    },
-                    {
-                        key: "3",
-                        href: "/tai-khoan",
-                        icon: <CaretRightOutlined />,
-                        title: "Tài khoản"
-                    },
-                    {
-                        key: "4",
-                        href: "/khach-hang",
-                        icon: <CaretRightOutlined />,
-                        title: "Khách hàng"
-                    }
-                ]
-            }
-        ];
 
         return (
             <Sider

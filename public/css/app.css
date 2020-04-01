@@ -22,7 +22,7 @@
     margin: 24px 16px 0;
     padding: 16px 0;
     background: #fff;
-    text-align: center;
+    /* text-align: center; */
 }
 
 .ant-layout-sider-light .ant-layout-sider-zero-width-trigger {

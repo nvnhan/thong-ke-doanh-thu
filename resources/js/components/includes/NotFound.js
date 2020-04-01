@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { Result, Button } from "antd";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../../actions";
 
-export default class NotFound extends Component {
+class NotFound extends Component {
+    componentDidMount() {
+        this.props.onChangeMenu('');
+        this.props.onChangeTitle("Lỗi 404");
+    }
+    
     render() {
         return (
             <Result
@@ -18,3 +25,31 @@ export default class NotFound extends Component {
         );
     }
 }
+
+
+/**
+ * Store trả state về thông qua connect
+ * Connect dùng hàm này để map các state => props cho component
+ */
+const mapStatetoProps = state => {
+    return {};
+};
+/**
+ * Map dispatch ==> Props
+ * Gọi hàm ở  props + biến => dispatch 1 action nào đó
+ */
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onChangeMenu: menu => {
+            dispatch(actions.changeMenu(menu));
+        },
+        onChangeTitle: title => {
+            dispatch(actions.changeTitle(title));
+        }
+    };
+};
+
+/**
+ * Connect của react-redux sẽ giao tiếp giữa store và component
+ */
+export default connect(mapStatetoProps, mapDispatchToProps)(NotFound);

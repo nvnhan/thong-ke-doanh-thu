@@ -35,7 +35,10 @@ export default class App extends PureComponent {
  * Tạo 1 store cho cả APP
  * Dùng Provider để map toàn bộ APP
  */
-const store = createStore(myReducer);
+const store = createStore(
+    myReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(
     <Provider store={store}>

@@ -15,7 +15,11 @@
 </head>
 
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <div class="loading-screen">
+    <div class="ant-spin ant-spin-lg ant-spin-spinning"><span class="ant-spin-dot ant-spin-dot-spin"><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i></span></div>
+    </div>
+    </div>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

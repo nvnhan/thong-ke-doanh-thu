@@ -14,16 +14,87 @@ const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 import * as SideMenus from "../../constants/SideMenus";
+import MenuItem from "antd/lib/menu/MenuItem";
 
 class SideBar extends PureComponent {
-    getActiveMenu() {
-        let tmp = [];
-        tmp.push(this.props.menuActive);
-        return tmp;
-    }
+    genLinkMenuItem = item => {
+        return (
+            <Menu.Item key={item.key}>
+                <Link to={item.href}>
+                    {item.icon}
+                    <span>{item.title}</span>
+                </Link>
+            </Menu.Item>
+        );
+    };
+
+    genSiderMenu = items => {
+        return items.map(item => {
+            if (item.childs) {
+                return (
+                    <SubMenu
+                        key={item.key}
+                        title={
+                            <span>
+                                {item.icon}
+                                <span>{item.title}</span>
+                            </span>
+                        }
+                    >
+                        {item.childs.map(subItem =>
+                            this.genLinkMenuItem(subItem)
+                        )}
+                    </SubMenu>
+                );
+            } else {
+                return this.genLinkMenuItem(item);
+            }
+        });
+    };
 
     render() {
-        console.log(this.getActiveMenu());
+        const { menuActive } = this.props;
+        const selectedSubMenu = "SUB_" + menuActive.split("_")[0];
+
+        const items = [
+            {
+                key: SideMenus.HOME,
+                href: "/",
+                icon: <DashboardOutlined />,
+                title: "Tổng quan"
+            },
+            {
+                key: SideMenus.DAT_VE,
+                href: "/dat-ve",
+                icon: <PieChartOutlined />,
+                title: "Đặt vé"
+            },
+            {
+                key: "SUB_DM",
+                icon: <BarsOutlined />,
+                title: "Danh mục",
+                childs: [
+                    {
+                        key: SideMenus.DM_SAN_BAY,
+                        href: "/san-bay",
+                        icon: <CaretRightOutlined />,
+                        title: "Sân bay"
+                    },
+                    {
+                        key: "3",
+                        href: "/tai-khoan",
+                        icon: <CaretRightOutlined />,
+                        title: "Tài khoản"
+                    },
+                    {
+                        key: "4",
+                        href: "/khach-hang",
+                        icon: <CaretRightOutlined />,
+                        title: "Khách hàng"
+                    }
+                ]
+            }
+        ];
 
         return (
             <Sider
@@ -40,49 +111,10 @@ class SideBar extends PureComponent {
                 <Menu
                     mode="inline"
                     theme="dark"
-                    selectedKeys={this.getActiveMenu()}
-                    // defaultOpenKeys={[selectedSubMenu]}
+                    selectedKeys={[menuActive]}
+                    defaultOpenKeys={[selectedSubMenu]}
                 >
-                    <Menu.Item key={SideMenus.HOME}>
-                        <Link to="/">
-                            <DashboardOutlined />
-                            <span>Tổng quan</span>
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key={SideMenus.DAT_VE}>
-                        <Link to="/dat-ve">
-                            <PieChartOutlined />
-                            <span>Đặt vé</span>
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                        <DesktopOutlined />
-                        <span>Option 2</span>
-                    </Menu.Item>
-                    <SubMenu
-                        key="SUB_DM"
-                        title={
-                            <span>
-                                <BarsOutlined />
-                                <span>Danh mục</span>
-                            </span>
-                        }
-                    >
-                        <Menu.Item key="3">
-                            <CaretRightOutlined />
-                            <span>Tài khoản</span>
-                        </Menu.Item>
-                        <Menu.Item key="4">
-                            <CaretRightOutlined />
-                            <span>Khách hàng</span>
-                        </Menu.Item>
-                        <Menu.Item key={SideMenus.SAN_BAY}>
-                            <Link to="/san-bay">
-                                <CaretRightOutlined />
-                                <span>Sân bay</span>
-                            </Link>
-                        </Menu.Item>
-                    </SubMenu>
+                    {this.genSiderMenu(items)}
                 </Menu>
             </Sider>
         );

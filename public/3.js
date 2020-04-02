@@ -1,9 +1,40 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./resources/js/pages/VeMayBay/ThuePhi/index.js":
-/*!******************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/ThuePhi/index.js ***!
-  \******************************************************/
+/***/ "./resources/js/actions/index.js":
+/*!***************************************!*\
+  !*** ./resources/js/actions/index.js ***!
+  \***************************************/
+/*! exports provided: changeMenu, changeTitle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeMenu", function() { return changeMenu; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTitle", function() { return changeTitle; });
+/* harmony import */ var _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/ActionTypes */ "./resources/js/constants/ActionTypes.js");
+/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
+
+
+var changeMenu = function changeMenu() {
+  var menu = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _constants_SideMenus__WEBPACK_IMPORTED_MODULE_1__["HOME"];
+  return {
+    type: _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__["CHANGE_MENU_ACTIVE"],
+    menu: menu
+  };
+};
+var changeTitle = function changeTitle(title) {
+  return {
+    type: _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__["CHANGE_PAGE_TITLE"],
+    title: title
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/pages/TrangChu/index.jsx":
+/*!***********************************************!*\
+  !*** ./resources/js/pages/TrangChu/index.jsx ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -12,10 +43,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
-/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
-/* harmony import */ var _components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/Includes/ListForm */ "./resources/js/components/Includes/ListForm.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43,79 +72,36 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+var TrangChu = /*#__PURE__*/function (_PureComponent) {
+  _inherits(TrangChu, _PureComponent);
 
+  var _super = _createSuper(TrangChu);
 
-var List = /*#__PURE__*/function (_PureComponent) {
-  _inherits(List, _PureComponent);
-
-  var _super = _createSuper(List);
-
-  function List() {
-    _classCallCheck(this, List);
+  function TrangChu() {
+    _classCallCheck(this, TrangChu);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(List, [{
+  _createClass(TrangChu, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_THUE_PHI"]);
-      this.props.onChangeTitle("Thuế phí");
+      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["HOME"]);
+      this.props.onChangeTitle("Thống kê doanh thu");
     }
-    /**
-     * Hàm render
-     */
-
   }, {
     key: "render",
     value: function render() {
-      var columns = [{
-        title: "Loại phí",
-        dataIndex: "loai_phi",
-        optFind: true
-      }, {
-        title: "Mức phí",
-        dataIndex: "muc_phi",
-        render: function render(number) {
-          return new Intl.NumberFormat("vi-VN", {
-            style: "currency",
-            currency: "VND"
-          }).format(number);
-        }
-      }, {
-        title: "Ghi chú",
-        dataIndex: "ghi_chu",
-        ellipsis: true
-      }];
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        url: "thue-phi",
-        columns: columns,
-        selectable: false,
-        addNew: false,
-        editable: true,
-        deleteable: false,
-        primaryKey: "loai_phi",
-        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "S\u1EEDa thu\u1EBF ph\xED")
-      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "TRANG CH\u1EE6");
     }
   }]);
 
-  return List;
+  return TrangChu;
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
-/**
- * Store trả state về thông qua connect
- * Connect dùng hàm này để map các state => props cho component
- */
 
-
-var mapStatetoProps = function mapStatetoProps(state) {
+var mapStateToProps = function mapStateToProps(state) {
   return {};
 };
-/**
- * Map dispatch ==> Props
- * Gọi hàm ở  props + biến => dispatch 1 action nào đó
- */
-
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
@@ -127,12 +113,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
     }
   };
 };
-/**
- * Connect của react-redux sẽ giao tiếp giữa store và component
- */
 
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStatetoProps, mapDispatchToProps)(List));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(TrangChu));
 
 /***/ })
 

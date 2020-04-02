@@ -14,7 +14,8 @@ class PhiHanhLyController extends BaseController
      */
     public function index()
     {
-        //
+        $objs = PhiHanhLy::get();
+        return $this->sendResponse($objs, "PhiHanhLy retrieved successfully");
     }
 
     /**
@@ -24,7 +25,7 @@ class PhiHanhLyController extends BaseController
      */
     public function create()
     {
-        //
+        
     }
 
     /**

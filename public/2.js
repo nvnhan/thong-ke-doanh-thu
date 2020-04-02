@@ -31,10 +31,10 @@ var changeTitle = function changeTitle(title) {
 
 /***/ }),
 
-/***/ "./resources/js/components/TrangChu/index.js":
-/*!***************************************************!*\
-  !*** ./resources/js/components/TrangChu/index.js ***!
-  \***************************************************/
+/***/ "./resources/js/pages/VeMayBay/DatVe/index.js":
+/*!****************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/DatVe/index.js ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -42,9 +42,13 @@ var changeTitle = function changeTitle(title) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions */ "./resources/js/actions/index.js");
-/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -67,54 +71,119 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
-var TrangChu = /*#__PURE__*/function (_PureComponent) {
-  _inherits(TrangChu, _PureComponent);
 
-  var _super = _createSuper(TrangChu);
 
-  function TrangChu() {
-    _classCallCheck(this, TrangChu);
 
-    return _super.apply(this, arguments);
+
+var ListPosts = /*#__PURE__*/function (_PureComponent) {
+  _inherits(ListPosts, _PureComponent);
+
+  var _super = _createSuper(ListPosts);
+
+  function ListPosts(props) {
+    var _this;
+
+    _classCallCheck(this, ListPosts);
+
+    _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "deletePost", function (id) {// axios
+      //     .post(`/api/posts/delete/${id}`)
+      //     .then(response => {
+      //         alert("Xoa thanh cong");
+      //         this.setState({
+      //             data: response.data
+      //         });
+      //     })
+      //     .catch(error => {
+      //         console.log(error);
+      //     });
+    });
+
+    _this.state = {
+      data: []
+    };
+    return _this;
   }
 
-  _createClass(TrangChu, [{
+  _createClass(ListPosts, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["HOME"]);
-      this.props.onChangeTitle("Thống kê doanh thu");
+      // axios.get("/api/posts").then(response => {
+      //     this.setState({
+      //         data: response.data
+      //     });
+      // });
+      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_6__["VMB_DAT_VE"]);
+      this.props.onChangeTitle("Đặt vé");
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "TRANG CH\u1EE6");
+      var _this2 = this;
+
+      var data = this.state.data;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"], {
+        itemLayout: "horizontal",
+        dataSource: data,
+        renderItem: function renderItem(item) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"].Item.Meta, {
+            title: item.title,
+            description: item.content
+          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+            to: "edit/".concat(item.id)
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+            type: "primary"
+          }, "Ch\u1EC9nh s\u1EEDa")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+            type: "danger",
+            onClick: function onClick() {
+              return _this2.deletePost(item.id);
+            }
+          }, "X\xF3a"));
+        }
+      });
     }
   }]);
 
-  return TrangChu;
+  return ListPosts;
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
+/**
+ * Store trả state về thông qua connect
+ * Connect dùng hàm này để map các state => props cho component
+ */
 
-var mapStateToProps = function mapStateToProps(state) {
+
+var mapStatetoProps = function mapStatetoProps(state) {
   return {};
 };
+/**
+ * Map dispatch ==> Props
+ * Gọi hàm ở  props + biến => dispatch 1 action nào đó
+ */
+
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     onChangeMenu: function onChangeMenu(menu) {
-      dispatch(_actions__WEBPACK_IMPORTED_MODULE_2__["changeMenu"](menu));
+      dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__["changeMenu"](menu));
     },
     onChangeTitle: function onChangeTitle(title) {
-      dispatch(_actions__WEBPACK_IMPORTED_MODULE_2__["changeTitle"](title));
+      dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__["changeTitle"](title));
     }
   };
 };
+/**
+ * Connect của react-redux sẽ giao tiếp giữa store và component
+ */
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(TrangChu));
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStatetoProps, mapDispatchToProps)(ListPosts));
 
 /***/ })
 

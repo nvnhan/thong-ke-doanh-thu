@@ -1,32 +1,20 @@
 import React, { PureComponent, Suspense, lazy } from "react";
 import { Switch, Route } from "react-router-dom";
+import Loader from './Loader'
 
-const TrangChu = lazy(() => import("../TrangChu"));
+const TrangChu = lazy(() => import("../../pages/TrangChu"));
 const NotFound = lazy(() => import("./NotFound"));
 
-const DatVe = lazy(() => import("../VeMayBay/DatVe"));
-const SanBay = lazy(() => import("../VeMayBay/SanBay/test"));
-const ThuePhi = lazy(() => import("../VeMayBay/ThuePhi/test"));
-const PhiHanhLy = lazy(() => import("../VeMayBay/PhiHanhLy"));
+const DatVe = lazy(() => import("../../pages/VeMayBay/DatVe"));
+const SanBay = lazy(() => import("../../pages/VeMayBay/SanBay/test"));
+const ThuePhi = lazy(() => import("../../pages/VeMayBay/ThuePhi"));
+const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
 
 export default class Content extends PureComponent {
     render() {
         return (
             <div className="content">
-                <Suspense
-                    fallback={
-                        <div className="loading-screen">
-                            <div className="ant-spin ant-spin-lg ant-spin-spinning">
-                                <span className="ant-spin-dot ant-spin-dot-spin">
-                                    <i className="ant-spin-dot-item"></i>
-                                    <i className="ant-spin-dot-item"></i>
-                                    <i className="ant-spin-dot-item"></i>
-                                    <i className="ant-spin-dot-item"></i>
-                                </span>
-                            </div>
-                        </div>
-                    }
-                >
+                <Suspense fallback={<Loader />}>
                     <Switch>
                         <Route exact path="/" component={TrangChu} />
 

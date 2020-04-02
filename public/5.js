@@ -1,9 +1,40 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./resources/js/components/VeMayBay/PhiHanhLy/index.js":
-/*!*************************************************************!*\
-  !*** ./resources/js/components/VeMayBay/PhiHanhLy/index.js ***!
-  \*************************************************************/
+/***/ "./resources/js/actions/index.js":
+/*!***************************************!*\
+  !*** ./resources/js/actions/index.js ***!
+  \***************************************/
+/*! exports provided: changeMenu, changeTitle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeMenu", function() { return changeMenu; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTitle", function() { return changeTitle; });
+/* harmony import */ var _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/ActionTypes */ "./resources/js/constants/ActionTypes.js");
+/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
+
+
+var changeMenu = function changeMenu() {
+  var menu = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _constants_SideMenus__WEBPACK_IMPORTED_MODULE_1__["HOME"];
+  return {
+    type: _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__["CHANGE_MENU_ACTIVE"],
+    menu: menu
+  };
+};
+var changeTitle = function changeTitle(title) {
+  return {
+    type: _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__["CHANGE_PAGE_TITLE"],
+    title: title
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/ThuePhi/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ThuePhi/index.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -14,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
 /* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
-/* harmony import */ var _Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Includes/ListForm */ "./resources/js/components/Includes/ListForm.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module '../../Includes/ListForm'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -59,8 +90,8 @@ var List = /*#__PURE__*/function (_PureComponent) {
   _createClass(List, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_HANH_LY"]);
-      this.props.onChangeTitle("Hành lý");
+      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_THUE_PHI"]);
+      this.props.onChangeTitle("Thuế phí");
     }
     /**
      * Hàm render
@@ -70,16 +101,12 @@ var List = /*#__PURE__*/function (_PureComponent) {
     key: "render",
     value: function render() {
       var columns = [{
-        title: "Loại hành lý",
-        dataIndex: "hanh_ly",
-        optFind: true
-      }, {
-        title: "Hãng bay",
-        dataIndex: "hang_bay",
+        title: "Loại phí",
+        dataIndex: "loai_phi",
         optFind: true
       }, {
         title: "Mức phí",
-        dataIndex: "phi",
+        dataIndex: "muc_phi",
         render: function render(number) {
           return new Intl.NumberFormat("vi-VN", {
             style: "currency",
@@ -91,17 +118,14 @@ var List = /*#__PURE__*/function (_PureComponent) {
         dataIndex: "ghi_chu",
         ellipsis: true
       }];
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        url: "phi-hanh-ly",
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(!(function webpackMissingModule() { var e = new Error("Cannot find module '../../Includes/ListForm'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+        url: "thue-phi",
         columns: columns,
-        selectable: true,
-        addNew: true,
+        selectable: false,
+        addNew: false,
         editable: true,
-        deleteable: true,
-        primaryKey: "hanh_ly",
-        scroll: {
-          x: 600
-        },
+        deleteable: false,
+        primaryKey: "loai_phi",
         formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "S\u1EEDa thu\u1EBF ph\xED")
       });
     }

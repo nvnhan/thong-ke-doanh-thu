@@ -7,7 +7,7 @@ export default class Loader extends PureComponent {
         if (this.props.tip)
             s = this.props.tip;
         return (
-            <div>
+            <div className="loading-screen">
                 <Spin tip={s} />
             </div>
         )

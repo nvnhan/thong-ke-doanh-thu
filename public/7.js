@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
-/***/ "./resources/js/components/VeMayBay/ThuePhi/test.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/components/VeMayBay/ThuePhi/test.js ***!
-  \**********************************************************/
+/***/ "./resources/js/pages/VeMayBay/PhiHanhLy/index.js":
+/*!********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/PhiHanhLy/index.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -14,8 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
 /* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
-/* harmony import */ var _Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Includes/ListForm */ "./resources/js/components/Includes/ListForm.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var _components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/Includes/ListForm */ "./resources/js/components/Includes/ListForm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44,7 +43,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var List = /*#__PURE__*/function (_PureComponent) {
   _inherits(List, _PureComponent);
 
@@ -59,8 +57,8 @@ var List = /*#__PURE__*/function (_PureComponent) {
   _createClass(List, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_THUE_PHI"]);
-      this.props.onChangeTitle("Thuế phí");
+      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_HANH_LY"]);
+      this.props.onChangeTitle("Hành lý");
     }
     /**
      * Hàm render
@@ -70,12 +68,16 @@ var List = /*#__PURE__*/function (_PureComponent) {
     key: "render",
     value: function render() {
       var columns = [{
-        title: "Loại phí",
-        dataIndex: "loai_phi",
+        title: "Loại hành lý",
+        dataIndex: "hanh_ly",
+        optFind: true
+      }, {
+        title: "Hãng bay",
+        dataIndex: "hang_bay",
         optFind: true
       }, {
         title: "Mức phí",
-        dataIndex: "muc_phi",
+        dataIndex: "phi",
         render: function render(number) {
           return new Intl.NumberFormat("vi-VN", {
             style: "currency",
@@ -87,14 +89,17 @@ var List = /*#__PURE__*/function (_PureComponent) {
         dataIndex: "ghi_chu",
         ellipsis: true
       }];
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        url: "thue-phi",
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        url: "phi-hanh-ly",
         columns: columns,
-        selectable: false,
-        addNew: false,
+        selectable: true,
+        addNew: true,
         editable: true,
-        deleteable: false,
-        primaryKey: "loai_phi",
+        deleteable: true,
+        primaryKey: "hanh_ly",
+        scroll: {
+          x: 600
+        },
         formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "S\u1EEDa thu\u1EBF ph\xED")
       });
     }

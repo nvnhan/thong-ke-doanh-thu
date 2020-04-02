@@ -2,13 +2,12 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import * as menus from "../../../constants/SideMenus";
-import ListForm from "../../Includes/ListForm";
-import { Checkbox } from "antd";
+import ListForm from "../../../components/Includes/ListForm";
 
 class List extends PureComponent {
     componentDidMount() {
-        this.props.onChangeMenu(menus.VMB_SAN_BAY);
-        this.props.onChangeTitle("Sân bay");
+        this.props.onChangeMenu(menus.VMB_HANH_LY);
+        this.props.onChangeTitle("Hành lý");
     }
 
     /**
@@ -17,37 +16,42 @@ class List extends PureComponent {
     render() {
         const columns = [
             {
-                title: "Mã sân bay",
-                dataIndex: "ma_san_bay",
+                title: "Loại hành lý",
+                dataIndex: "hanh_ly",
                 optFind: true
             },
             {
-                title: "Tên sân bay",
-                dataIndex: "ten_san_bay",
+                title: "Hãng bay",
+                dataIndex: "hang_bay",
                 optFind: true
             },
             {
-                title: "Khu vực",
-                dataIndex: "phan_loai",
-                optFilter: true,
+                title: "Mức phí",
+                dataIndex: "phi",
+                render: number =>
+                    new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND"
+                    }).format(number)
             },
             {
-                title: "Sân bay loại A",
-                dataIndex: "loai_a",
-                render: text => <Checkbox checked={text === 1} />
+                title: "Ghi chú",
+                dataIndex: "ghi_chu",
+                ellipsis: true
             }
         ];
 
         return (
             <ListForm
-                url="san-bay"
+                url="phi-hanh-ly"
                 columns={columns}
                 selectable={true}
                 addNew={true}
                 editable={true}
                 deleteable={true}
-                primaryKey="ma_san_bay"
-                formTemplate={<div>Sửa sân bay</div>}
+                primaryKey="hanh_ly"
+                scroll={{x : 600}}
+                formTemplate={<div>Sửa thuế phí</div>}
             />
         );
     }

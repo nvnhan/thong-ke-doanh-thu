@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
     Route::resource('san-bay', 'SanBayController');
-Route::middleware('auth:api')->group(function () {
+// Route::middleware('auth:api')->group(function () {
     Route::resource('user', 'UserController');
     Route::resource('ban-ra', 'BanRaController');
     Route::resource('mua-vao', 'MuaVaoController');
@@ -29,4 +29,4 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('tour', 'TourController');
     Route::resource('tour-chi-tiet', 'TourChiTietController');
     Route::resource('visa', 'VisaController');
-});
+// });

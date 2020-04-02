@@ -14,7 +14,8 @@ class ThuePhiController extends BaseController
      */
     public function index()
     {
-        //
+        $objs = ThuePhi::get();
+        return $this->sendResponse($objs, "ThuePhi retrieved successfully");
     }
 
     /**

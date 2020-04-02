@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
     BarsOutlined,
     DesktopOutlined,
@@ -17,33 +17,70 @@ const items = [
         title: "Tổng quan"
     },
     {
-        key: SideMenus.DAT_VE,
-        href: "/dat-ve",
-        icon: <PieChartOutlined />,
-        title: "Đặt vé"
+        key: SideMenus.THU_CHI,
+        href: "/thu-chi",
+        icon: <DashboardOutlined />,
+        title: "Thu chi"
     },
     {
-        key: "SUB_DM",
+        key: "SUB_VMB",
         icon: <BarsOutlined />,
-        title: "Danh mục",
+        title: "Vé máy bay",
         childs: [
             {
-                key: SideMenus.DM_SAN_BAY,
+                key: SideMenus.VMB_DAT_VE,
+                href: "/dat-ve",
+                icon: <PieChartOutlined />,
+                title: "Đặt vé"
+            },
+            {
+                key: SideMenus.VMB_SAN_BAY,
                 href: "/san-bay",
                 icon: <CaretRightOutlined />,
                 title: "Sân bay"
             },
             {
-                key: "3",
+                key: SideMenus.VMB_THUE_PHI,
+                href: "/thue-phi",
+                icon: <CaretRightOutlined />,
+                title: "Thuế phí"
+            },
+            {
+                key: SideMenus.VMB_HANH_LY,
+                href: "/hanh-ly",
+                icon: <CaretRightOutlined />,
+                title: "Danh mục hành lý"
+            }
+        ]
+    },
+    {
+        key: "SUB_DM",
+        icon: <BarsOutlined />,
+        title: "Thông tin chung",
+        childs: [
+            {
+                key: "2",
                 href: "/tai-khoan",
                 icon: <CaretRightOutlined />,
                 title: "Tài khoản"
+            },
+            {
+                key: "3",
+                href: "/nha-cung-cap",
+                icon: <CaretRightOutlined />,
+                title: "Nhà cung cấp"
             },
             {
                 key: "4",
                 href: "/khach-hang",
                 icon: <CaretRightOutlined />,
                 title: "Khách hàng"
+            },
+            {
+                key: "5",
+                href: "/hang-hoa",
+                icon: <CaretRightOutlined />,
+                title: "Hàng hóa"
             }
         ]
     }

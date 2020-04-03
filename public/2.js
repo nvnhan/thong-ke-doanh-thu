@@ -31,10 +31,10 @@ var changeTitle = function changeTitle(title) {
 
 /***/ }),
 
-/***/ "./resources/js/components/includes/NotFound.js":
-/*!******************************************************!*\
-  !*** ./resources/js/components/includes/NotFound.js ***!
-  \******************************************************/
+/***/ "./resources/js/components/includes/NotFound.jsx":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/includes/NotFound.jsx ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -74,8 +74,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var NotFound = /*#__PURE__*/function (_Component) {
-  _inherits(NotFound, _Component);
+var NotFound = /*#__PURE__*/function (_PureComponent) {
+  _inherits(NotFound, _PureComponent);
 
   var _super = _createSuper(NotFound);
 
@@ -108,7 +108,7 @@ var NotFound = /*#__PURE__*/function (_Component) {
   }]);
 
   return NotFound;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
 /**
  * Store trả state về thông qua connect
  * Connect dùng hàm này để map các state => props cho component

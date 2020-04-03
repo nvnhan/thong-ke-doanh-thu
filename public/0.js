@@ -31,10 +31,10 @@ var changeTitle = function changeTitle(title) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Includes/ListForm.js":
-/*!******************************************************!*\
-  !*** ./resources/js/components/Includes/ListForm.js ***!
-  \******************************************************/
+/***/ "./resources/js/components/Includes/ListForm.jsx":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Includes/ListForm.jsx ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

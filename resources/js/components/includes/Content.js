@@ -1,6 +1,6 @@
-import React, { PureComponent, Suspense, lazy } from "react";
+import React, { Suspense, lazy } from "react";
 import { Switch, Route } from "react-router-dom";
-import Loader from './Loader'
+import Loader from "./Loader";
 
 const TrangChu = lazy(() => import("../../pages/TrangChu"));
 const NotFound = lazy(() => import("./NotFound"));
@@ -10,23 +10,21 @@ const SanBay = lazy(() => import("../../pages/VeMayBay/SanBay"));
 const ThuePhi = lazy(() => import("../../pages/VeMayBay/ThuePhi"));
 const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
 
-export default class Content extends PureComponent {
-    render() {
-        return (
-            <div className="content">
-                <Suspense fallback={<Loader />}>
-                    <Switch>
-                        <Route exact path="/" component={TrangChu} />
+export default function Content() {
+    return (
+        <div className="content">
+            <Suspense fallback={<Loader />}>
+                <Switch>
+                    <Route exact path="/" component={TrangChu} />
 
-                        <Route path="/dat-ve" component={DatVe} />
-                        <Route path="/san-bay" component={SanBay} />
-                        <Route path="/thue-phi" component={ThuePhi} />
-                        <Route path="/phi-hanh-ly" component={PhiHanhLy} />
+                    <Route path="/dat-ve" component={DatVe} />
+                    <Route path="/san-bay" component={SanBay} />
+                    <Route path="/thue-phi" component={ThuePhi} />
+                    <Route path="/phi-hanh-ly" component={PhiHanhLy} />
 
-                        <Route component={NotFound} />
-                    </Switch>
-                </Suspense>
-            </div>
-        );
-    }
+                    <Route component={NotFound} />
+                </Switch>
+            </Suspense>
+        </div>
+    );
 }

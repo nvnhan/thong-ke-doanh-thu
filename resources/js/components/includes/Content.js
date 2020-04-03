@@ -6,7 +6,7 @@ const TrangChu = lazy(() => import("../../pages/TrangChu"));
 const NotFound = lazy(() => import("./NotFound"));
 
 const DatVe = lazy(() => import("../../pages/VeMayBay/DatVe"));
-const SanBay = lazy(() => import("../../pages/VeMayBay/SanBay/test"));
+const SanBay = lazy(() => import("../../pages/VeMayBay/SanBay"));
 const ThuePhi = lazy(() => import("../../pages/VeMayBay/ThuePhi"));
 const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
 
@@ -21,7 +21,7 @@ export default class Content extends PureComponent {
                         <Route path="/dat-ve" component={DatVe} />
                         <Route path="/san-bay" component={SanBay} />
                         <Route path="/thue-phi" component={ThuePhi} />
-                        <Route path="/hanh-ly" component={PhiHanhLy} />
+                        <Route path="/phi-hanh-ly" component={PhiHanhLy} />
 
                         <Route component={NotFound} />
                     </Switch>

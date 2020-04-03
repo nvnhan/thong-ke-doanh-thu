@@ -19,16 +19,6 @@ class SanBayController extends BaseController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -36,29 +26,9 @@ class SanBayController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\SanBay  $sanBay
-     * @return \Illuminate\Http\Response
-     */
-    public function show(SanBay $sanBay)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\SanBay  $sanBay
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SanBay $sanBay)
-    {
-        //
+        $data = $request->all();
+        $obj = SanBay::create($data);
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
@@ -68,9 +38,13 @@ class SanBayController extends BaseController
      * @param  \App\SanBay  $sanBay
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SanBay $sanBay)
+    public function update(Request $request, $id)
     {
-        //
+        $model = SanBay::find($id);
+        $data = $request->all();
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
@@ -79,8 +53,28 @@ class SanBayController extends BaseController
      * @param  \App\SanBay  $sanBay
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SanBay $sanBay)
+    public function destroy($id)
     {
-        //
+        SanBay::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công sân bay");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs))
+        {
+            $cnt = count($objs);
+            SanBay::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+        
+        return $this->sendError('Không xóa được', []);
     }
 }

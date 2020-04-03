@@ -9,6 +9,7 @@ class PhiHanhLy extends Model
     //
     protected $table = "phi_hanh_ly";
     public $timestamps = false;
+    protected $fillable = ['hanh_ly', 'muc_phi', 'hang_bay', 'ghi_chu'];
     // protected $dateFormat = 'd/m/Y';
     protected $casts = [
     ];

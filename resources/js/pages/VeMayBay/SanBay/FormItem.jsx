@@ -1,0 +1,42 @@
+import React, { Component } from "react";
+import { Form, Input, Checkbox } from "antd";
+
+export default class form extends Component {
+    render() {
+        return (
+            <div>
+                <Form.Item
+                    name="ma_san_bay"
+                    label="Mã sân bay"
+                    rules={[
+                        { required: true, message: "Nhập đầy đủ thông tin!" }
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="ten_san_bay"
+                    label="Tên sân bay"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Nhập đầy đủ thông tin!"
+                        }
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item name="phan_loai" label="Khu vực">
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    wrapperCol={{ offset: 6, span: 18 }}
+                    name="loai_a"
+                    valuePropName="checked"
+                >
+                    <Checkbox>Sân bay loại A</Checkbox>
+                </Form.Item>
+            </div>
+        );
+    }
+}

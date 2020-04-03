@@ -13,7 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-    Route::resource('san-bay', 'SanBayController');
+
+
+    Route::delete('phi-hanh-ly/deletes', 'PhiHanhLyController@deletes');
+    Route::resource('phi-hanh-ly', 'PhiHanhLyController')->only(['index', 'store', 'update', 'destroy']);
+    Route::delete('san-bay/deletes', 'SanBayController@deletes');
+    Route::resource('san-bay', 'SanBayController')->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('thue-phi', 'ThuePhiController')->only(['index', 'update']);
+    
 // Route::middleware('auth:api')->group(function () {
     Route::resource('user', 'UserController');
     Route::resource('ban-ra', 'BanRaController');
@@ -21,11 +28,11 @@ use Illuminate\Http\Request;
     Route::resource('dat-ve', 'DatVeController');
     Route::resource('hang-hoa', 'HangHoaController');
     Route::resource('khach-hang', 'KhachHangController');
-    Route::resource('phi-hanh-ly', 'PhiHanhLyController');
+    
     Route::resource('tai-khoan', 'TaiKhoanController');
     Route::resource('thu-chi', 'ThuChiController');
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');
-    Route::resource('thue-phi', 'ThuePhiController');
+
     Route::resource('tour', 'TourController');
     Route::resource('tour-chi-tiet', 'TourChiTietController');
     Route::resource('visa', 'VisaController');

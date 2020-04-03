@@ -19,68 +19,18 @@ class ThuePhiController extends BaseController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ThuePhi  $thuePhi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ThuePhi $thuePhi)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ThuePhi  $thuePhi
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ThuePhi $thuePhi)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\ThuePhi  $thuePhi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ThuePhi $thuePhi)
+    public function update(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ThuePhi  $thuePhi
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ThuePhi $thuePhi)
-    {
-        //
+        $model = ThuePhi::find($id);
+        $data =$request->all();
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 }

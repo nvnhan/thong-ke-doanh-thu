@@ -47,9 +47,9 @@ const items = [
             },
             {
                 key: SideMenus.VMB_HANH_LY,
-                href: "/hanh-ly",
+                href: "/phi-hanh-ly",
                 icon: <CaretRightOutlined />,
-                title: "Danh mục hành lý"
+                title: "Phí hành lý"
             }
         ]
     },

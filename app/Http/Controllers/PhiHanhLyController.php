@@ -19,16 +19,6 @@ class PhiHanhLyController extends BaseController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -36,51 +26,55 @@ class PhiHanhLyController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PhiHanhLy  $phiHanhLy
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PhiHanhLy $phiHanhLy)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PhiHanhLy  $phiHanhLy
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PhiHanhLy $phiHanhLy)
-    {
-        //
+        $data = $request->all();
+        $obj = PhiHanhLy::create($data);
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PhiHanhLy  $phiHanhLy
+     * @param  \App\PhiHanhLy  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PhiHanhLy $phiHanhLy)
+    public function update(Request $request, $id)
     {
-        //
+        $data =$request->all();
+        $model = PhiHanhLy::find($id);
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PhiHanhLy  $phiHanhLy
+     * @param  \App\PhiHanhLy  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PhiHanhLy $phiHanhLy)
+    public function destroy($id)
     {
-        //
+        PhiHanhLy::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công phí hành lý");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs))
+        {
+            $cnt = count($objs);
+            PhiHanhLy::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+        
+        return $this->sendError('Không xóa được', []);
     }
 }

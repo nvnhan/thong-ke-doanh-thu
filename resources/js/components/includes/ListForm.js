@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import axios from "axios";
-import { Table, Input, Button, Modal } from "antd";
+import { Table, Input, Button, Modal, Form, message } from "antd";
 import Highlighter from "react-highlight-words";
 import {
     SearchOutlined,
@@ -21,10 +21,11 @@ class ListForm extends PureComponent {
             searchedColumn: "",
             modalVisible: false,
             formSubmiting: false,
-            selectedRowKeys: [],
-            currentRecord: undefined
+            selectedRowKeys: []
         };
         this.isComponentMounted = false;
+        this.formRef = React.createRef();
+        this.currentRecord = undefined;
     }
 
     componentDidMount() {
@@ -43,6 +44,22 @@ class ListForm extends PureComponent {
     componentWillUnmount() {
         this.isComponentMounted = false;
     }
+
+    /**
+     * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
+     */
+    isChangeData = (record, data) => {
+        let key1 = Object.keys(record);
+        let key2 = Object.keys(data);
+        let isChanged = false;
+        for (const k of key1) {
+            if (key2.indexOf(k) >= 0 && record[k] !== data[k]) {
+                isChanged = true;
+                break;
+            }
+        }
+        return isChanged;
+    };
 
     /**
      * Thao tác tìm kiếm trên cột
@@ -134,35 +151,108 @@ class ListForm extends PureComponent {
      * Show modal Thêm mới, Sửa
      */
     showModal = () => {
+        console.log(
+            "ListForm -> showModal -> this.formRef.current",
+            this.formRef.current
+        );
+        if (this.formRef && this.formRef.current) {
+            this.formRef.current.resetFields();
+            if (this.currentRecord !== undefined)
+                this.formRef.current.setFieldsValue(this.currentRecord);
+        }
         this.setState({
             modalVisible: true
         });
-        //TODO: Render current record
+        //TODO: Show field immidate
     };
 
     handleOk = () => {
-        this.setState({ formSubmiting: true });
-        //TODO: Submit form
-        setTimeout(() => {
-            this.setState({ formSubmiting: false, modalVisible: false });
-        }, 3000);
+        this.formRef.current
+            .validateFields()
+            .then(value => {
+                this.setState({ formSubmiting: true });
+                // Thêm mới
+                if (this.currentRecord === undefined) {
+                    this.onAdd(value);
+                } else if (this.isChangeData(this.currentRecord, value)) {
+                    // Chỉnh sửa
+                    this.onUpdate(value);
+                }
+                // Tắt loading & modal
+                this.setState({ formSubmiting: false, modalVisible: false });
+            })
+            .catch(error => {
+                console.log(error);
+            });
     };
 
     handleCancel = () => {
         this.setState({ modalVisible: false });
     };
 
-    onAddNew = () => {
-        this.setState({ currentRecord: undefined });
+    onAdd = value => {
+        const { url } = this.props;
+        axios
+            .post(`/api/${url}`, value)
+            .then(response => {
+                if (response.data.success) {
+                    this.setState({
+                        data: [...this.state.data, response.data.data] // Thêm object vào list lấy từ state
+                    });
+                    message.info(response.data.message);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
+    onUpdate = value => {
+        const { url, primaryKey } = this.props;
+        const { data } = this.state;
+        axios
+            .put(`/api/${url}/${this.currentRecord[primaryKey]}`, value)
+            .then(response => {
+                if (response.data.success) {
+                    let newData = [];
+                    Object.assign(
+                        newData,
+                        data.map(el =>
+                            el[primaryKey] === this.currentRecord[primaryKey]
+                                ? response.data.data
+                                : el
+                        )
+                    );
+                    this.setState({
+                        data: newData
+                    });
+                    message.info(response.data.message);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
+    /**
+     * Xử lý sự kiện
+     */
+    handleAddNew = () => {
+        this.currentRecord = undefined;
         this.showModal();
     };
 
-    onEdit = record => {
-        this.setState({ currentRecord: record });
+    handleEdit = record => {
+        this.currentRecord = record;
         this.showModal();
     };
 
+    /**
+     * Handle sự kiện xóa
+     */
     onDelete = id => {
+        const { url, primaryKey } = this.props;
+        const { data } = this.state;
         confirm({
             title: "Bạn muốn xóa mục này?",
             icon: <ExclamationCircleOutlined />,
@@ -170,26 +260,29 @@ class ListForm extends PureComponent {
             okText: "Đồng ý",
             okType: "danger",
             cancelText: "Không",
-            onOk() {
-                //TODO: Submit delete
-                console.log("List -> id", id);
+            onOk: () => {
+                axios
+                    .delete(`/api/${url}/${id}`)
+                    .then(response => {
+                        if (response.data.success) {
+                            this.setState({
+                                data: data.filter(
+                                    item => item[primaryKey] !== id
+                                )
+                            });
+                            message.info(response.data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
         });
-        // axios
-        //     .post(`/api/posts/delete/${id}`)
-        //     .then(response => {
-        //         alert("Xoa thanh cong");
-        //         this.setState({
-        //             data: response.data
-        //         });
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
     };
 
     onMultiDelete = () => {
-        const { selectedRowKeys } = this.state;
+        const { selectedRowKeys, data } = this.state;
+        const { url, primaryKey } = this.props;
         confirm({
             title: "Bạn muốn xóa những mục này?",
             icon: <ExclamationCircleOutlined />,
@@ -197,16 +290,35 @@ class ListForm extends PureComponent {
             okText: "Đồng ý",
             okType: "danger",
             cancelText: "Không",
-            onOk() {
-                //TODO: Submit multi delete
-                console.log(
-                    "List -> onMultiDelete -> selectedRowKeys",
-                    selectedRowKeys
-                );
+            onOk: () => {
+                axios
+                    .delete(`/api/${url}/deletes`, {
+                        params: { objects: selectedRowKeys.join("|") }
+                    })
+                    .then(response => {
+                        if (response.data.success) {
+                            this.setState({
+                                data: data.filter(
+                                    item =>
+                                        selectedRowKeys.indexOf(
+                                            item[primaryKey]
+                                        ) === -1
+                                ),
+                                selectedRowKeys: []
+                            });
+                            message.info(response.data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
         });
     };
 
+    /**
+     * Create column for ant's table
+     */
     getColumn = (column, data) => {
         if (column.optFilter) {
             // Lọc dữ liệu và mô tả các cột dữ liệu
@@ -246,14 +358,15 @@ class ListForm extends PureComponent {
         } = this.state;
         const {
             selectable,
-            addNew,
+            insertable,
             editable,
             deleteable,
             columns,
             primaryKey,
-            formTemplate
+            formTemplate,
+            formInitialValues
         } = this.props;
-        let scroll = this.props.scroll;
+        let scroll = this.props.tableSize;
         if (!scroll) scroll = { x: 500 };
 
         const rowSelection = {
@@ -261,7 +374,7 @@ class ListForm extends PureComponent {
             onChange: selectedRowKeys => this.setState({ selectedRowKeys })
         };
 
-        const col = columns.map(column => this.getColumn(column, data));
+        let col = columns.map(column => this.getColumn(column, data));
         if (editable || deleteable)
             col.push({
                 title: "",
@@ -274,7 +387,7 @@ class ListForm extends PureComponent {
                             <Button
                                 type="link"
                                 icon={<EditOutlined />}
-                                onClick={() => this.onEdit(record)}
+                                onClick={() => this.handleEdit(record)}
                             ></Button>
                         ) : (
                             ""
@@ -297,10 +410,10 @@ class ListForm extends PureComponent {
 
         return (
             <div>
-                {addNew ? (
+                {insertable ? (
                     <Button
                         type="primary"
-                        onClick={this.onAddNew}
+                        onClick={this.handleAddNew}
                         style={{ margin: 10 }}
                     >
                         Thêm mới
@@ -384,7 +497,14 @@ class ListForm extends PureComponent {
                         </Button>
                     ]}
                 >
-                    {formTemplate}
+                    <Form
+                        ref={this.formRef}
+                        initialValues={formInitialValues}
+                        labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 18 }}
+                    >
+                        {formTemplate}
+                    </Form>
                 </Modal>
             </div>
         );

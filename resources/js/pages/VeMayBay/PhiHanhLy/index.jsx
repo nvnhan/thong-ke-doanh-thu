@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import * as menus from "../../../constants/SideMenus";
 import ListForm from "../../../components/Includes/ListForm";
+import FormItem from "./FormItem";
 
 class List extends PureComponent {
     componentDidMount() {
@@ -21,18 +22,18 @@ class List extends PureComponent {
                 optFind: true
             },
             {
-                title: "Hãng bay",
-                dataIndex: "hang_bay",
-                optFind: true
-            },
-            {
                 title: "Mức phí",
-                dataIndex: "phi",
+                dataIndex: "muc_phi",
                 render: number =>
                     new Intl.NumberFormat("vi-VN", {
                         style: "currency",
                         currency: "VND"
                     }).format(number)
+            },
+            {
+                title: "Hãng bay",
+                dataIndex: "hang_bay",
+                optFind: true
             },
             {
                 title: "Ghi chú",
@@ -46,12 +47,13 @@ class List extends PureComponent {
                 url="phi-hanh-ly"
                 columns={columns}
                 selectable={true}
-                addNew={true}
+                insertable={true}
                 editable={true}
                 deleteable={true}
-                primaryKey="hanh_ly"
-                scroll={{x : 600}}
-                formTemplate={<div>Sửa thuế phí</div>}
+                primaryKey="id"
+                tableSize={{ x: 600 }}
+                formTemplate={<FormItem />}
+                formInitialValues={{ phi : 100000 }}
             />
         );
     }

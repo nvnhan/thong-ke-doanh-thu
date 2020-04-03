@@ -107,6 +107,23 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
 
     _this = _super.call(this, props);
 
+    _defineProperty(_assertThisInitialized(_this), "isChangeData", function (record, data) {
+      var key1 = Object.keys(record);
+      var key2 = Object.keys(data);
+      var isChanged = false;
+
+      for (var _i = 0, _key = key1; _i < _key.length; _i++) {
+        var k = _key[_i];
+
+        if (key2.indexOf(k) >= 0 && record[k] !== data[k]) {
+          isChanged = true;
+          break;
+        }
+      }
+
+      return isChanged;
+    });
+
     _defineProperty(_assertThisInitialized(_this), "getColumnSearchProps", function (dataIndex) {
       return {
         filterDropdown: function filterDropdown(_ref) {
@@ -206,24 +223,42 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "showModal", function () {
+      console.log("ListForm -> showModal -> this.formRef.current", _this.formRef.current);
+
+      if (_this.formRef && _this.formRef.current) {
+        _this.formRef.current.resetFields();
+
+        if (_this.currentRecord !== undefined) _this.formRef.current.setFieldsValue(_this.currentRecord);
+      }
+
       _this.setState({
         modalVisible: true
-      }); //TODO: Render current record
+      }); //TODO: Show field immidate
 
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleOk", function () {
-      _this.setState({
-        formSubmiting: true
-      }); //TODO: Submit form
+      _this.formRef.current.validateFields().then(function (value) {
+        _this.setState({
+          formSubmiting: true
+        }); // Thêm mới
 
 
-      setTimeout(function () {
+        if (_this.currentRecord === undefined) {
+          _this.onAdd(value);
+        } else if (_this.isChangeData(_this.currentRecord, value)) {
+          // Chỉnh sửa
+          _this.onUpdate(value);
+        } // Tắt loading & modal
+
+
         _this.setState({
           formSubmiting: false,
           modalVisible: false
         });
-      }, 3000);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleCancel", function () {
@@ -232,23 +267,62 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onAddNew", function () {
-      _this.setState({
-        currentRecord: undefined
+    _defineProperty(_assertThisInitialized(_this), "onAdd", function (value) {
+      var url = _this.props.url;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/".concat(url), value).then(function (response) {
+        if (response.data.success) {
+          _this.setState({
+            data: [].concat(_toConsumableArray(_this.state.data), [response.data.data]) // Thêm object vào list lấy từ state
+
+          });
+
+          antd__WEBPACK_IMPORTED_MODULE_2__["message"].info(response.data.message);
+        }
+      })["catch"](function (error) {
+        console.log(error);
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onUpdate", function (value) {
+      var _this$props = _this.props,
+          url = _this$props.url,
+          primaryKey = _this$props.primaryKey;
+      var data = _this.state.data;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/".concat(url, "/").concat(_this.currentRecord[primaryKey]), value).then(function (response) {
+        if (response.data.success) {
+          var newData = [];
+          Object.assign(newData, data.map(function (el) {
+            return el[primaryKey] === _this.currentRecord[primaryKey] ? response.data.data : el;
+          }));
+
+          _this.setState({
+            data: newData
+          });
+
+          antd__WEBPACK_IMPORTED_MODULE_2__["message"].info(response.data.message);
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleAddNew", function () {
+      _this.currentRecord = undefined;
 
       _this.showModal();
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onEdit", function (record) {
-      _this.setState({
-        currentRecord: record
-      });
+    _defineProperty(_assertThisInitialized(_this), "handleEdit", function (record) {
+      _this.currentRecord = record;
 
       _this.showModal();
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDelete", function (id) {
+      var _this$props2 = _this.props,
+          url = _this$props2.url,
+          primaryKey = _this$props2.primaryKey;
+      var data = _this.state.data;
       confirm({
         title: "Bạn muốn xóa mục này?",
         icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["ExclamationCircleOutlined"], null),
@@ -257,24 +331,30 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
         okType: "danger",
         cancelText: "Không",
         onOk: function onOk() {
-          //TODO: Submit delete
-          console.log("List -> id", id);
+          axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/".concat(url, "/").concat(id)).then(function (response) {
+            if (response.data.success) {
+              _this.setState({
+                data: data.filter(function (item) {
+                  return item[primaryKey] !== id;
+                })
+              });
+
+              antd__WEBPACK_IMPORTED_MODULE_2__["message"].info(response.data.message);
+            }
+          })["catch"](function (error) {
+            console.log(error);
+          });
         }
-      }); // axios
-      //     .post(`/api/posts/delete/${id}`)
-      //     .then(response => {
-      //         alert("Xoa thanh cong");
-      //         this.setState({
-      //             data: response.data
-      //         });
-      //     })
-      //     .catch(error => {
-      //         console.log(error);
-      //     });
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "onMultiDelete", function () {
-      var selectedRowKeys = _this.state.selectedRowKeys;
+      var _this$state = _this.state,
+          selectedRowKeys = _this$state.selectedRowKeys,
+          data = _this$state.data;
+      var _this$props3 = _this.props,
+          url = _this$props3.url,
+          primaryKey = _this$props3.primaryKey;
       confirm({
         title: "Bạn muốn xóa những mục này?",
         icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["ExclamationCircleOutlined"], null),
@@ -283,8 +363,24 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
         okType: "danger",
         cancelText: "Không",
         onOk: function onOk() {
-          //TODO: Submit multi delete
-          console.log("List -> onMultiDelete -> selectedRowKeys", selectedRowKeys);
+          axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/".concat(url, "/deletes"), {
+            params: {
+              objects: selectedRowKeys.join("|")
+            }
+          }).then(function (response) {
+            if (response.data.success) {
+              _this.setState({
+                data: data.filter(function (item) {
+                  return selectedRowKeys.indexOf(item[primaryKey]) === -1;
+                }),
+                selectedRowKeys: []
+              });
+
+              antd__WEBPACK_IMPORTED_MODULE_2__["message"].info(response.data.message);
+            }
+          })["catch"](function (error) {
+            console.log(error);
+          });
         }
       });
     });
@@ -326,10 +422,11 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       searchedColumn: "",
       modalVisible: false,
       formSubmiting: false,
-      selectedRowKeys: [],
-      currentRecord: undefined
+      selectedRowKeys: []
     };
     _this.isComponentMounted = false;
+    _this.formRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+    _this.currentRecord = undefined;
     return _this;
   }
 
@@ -353,7 +450,7 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       this.isComponentMounted = false;
     }
     /**
-     * Thao tác tìm kiếm trên cột
+     * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
      */
 
   }, {
@@ -365,21 +462,22 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     value: function render() {
       var _this3 = this;
 
-      var _this$state = this.state,
-          data = _this$state.data,
-          isLoading = _this$state.isLoading,
-          modalVisible = _this$state.modalVisible,
-          formSubmiting = _this$state.formSubmiting,
-          selectedRowKeys = _this$state.selectedRowKeys;
-      var _this$props = this.props,
-          selectable = _this$props.selectable,
-          addNew = _this$props.addNew,
-          editable = _this$props.editable,
-          deleteable = _this$props.deleteable,
-          columns = _this$props.columns,
-          primaryKey = _this$props.primaryKey,
-          formTemplate = _this$props.formTemplate;
-      var scroll = this.props.scroll;
+      var _this$state2 = this.state,
+          data = _this$state2.data,
+          isLoading = _this$state2.isLoading,
+          modalVisible = _this$state2.modalVisible,
+          formSubmiting = _this$state2.formSubmiting,
+          selectedRowKeys = _this$state2.selectedRowKeys;
+      var _this$props4 = this.props,
+          selectable = _this$props4.selectable,
+          insertable = _this$props4.insertable,
+          editable = _this$props4.editable,
+          deleteable = _this$props4.deleteable,
+          columns = _this$props4.columns,
+          primaryKey = _this$props4.primaryKey,
+          formTemplate = _this$props4.formTemplate,
+          formInitialValues = _this$props4.formInitialValues;
+      var scroll = this.props.tableSize;
       if (!scroll) scroll = {
         x: 500
       };
@@ -404,7 +502,7 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
             type: "link",
             icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["EditOutlined"], null),
             onClick: function onClick() {
-              return _this3.onEdit(record);
+              return _this3.handleEdit(record);
             }
           }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
             onClick: function onClick() {
@@ -416,9 +514,9 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
           }) : "");
         }
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, addNew ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, insertable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         type: "primary",
-        onClick: this.onAddNew,
+        onClick: this.handleAddNew,
         style: {
           margin: 10
         }
@@ -486,7 +584,16 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
           loading: formSubmiting,
           onClick: this.handleOk
         }, "\u0110\u1ED3ng \xFD")]
-      }, formTemplate));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
+        ref: this.formRef,
+        initialValues: formInitialValues,
+        labelCol: {
+          span: 6
+        },
+        wrapperCol: {
+          span: 18
+        }
+      }, formTemplate)));
     }
   }]);
 

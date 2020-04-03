@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import * as menus from "../../../constants/SideMenus";
 import ListForm from "../../../components/Includes/ListForm";
-import { Checkbox } from "antd";
+import FormItem from "./FormItem";
 
 class List extends PureComponent {
     componentDidMount() {
@@ -42,11 +42,11 @@ class List extends PureComponent {
                 url="thue-phi"
                 columns={columns}
                 selectable={false}
-                addNew={false}
+                insertable={false}
                 editable={true}
                 deleteable={false}
-                primaryKey="loai_phi"
-                formTemplate={<div>Sửa thuế phí</div>}
+                primaryKey="id"
+                formTemplate={<FormItem />}
             />
         );
     }

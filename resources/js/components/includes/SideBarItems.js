@@ -59,7 +59,7 @@ const items = [
         title: "Thông tin chung",
         childs: [
             {
-                key: "2",
+                key: SideMenus.TT_TAI_KHOAN,
                 href: "/tai-khoan",
                 icon: <CaretRightOutlined />,
                 title: "Tài khoản"
@@ -71,7 +71,7 @@ const items = [
                 title: "Nhà cung cấp"
             },
             {
-                key: "4",
+                key: SideMenus.TT_KHACH_HANG,
                 href: "/khach-hang",
                 icon: <CaretRightOutlined />,
                 title: "Khách hàng"

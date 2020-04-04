@@ -1,5 +1,125 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
+/***/ "./node_modules/antd/es/date-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/date-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rc-picker/es/locale/vi_VN */ "./node_modules/rc-picker/es/locale/vi_VN.js");
+/* harmony import */ var _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../time-picker/locale/vi_VN */ "./node_modules/antd/es/time-picker/locale/vi_VN.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+ // Merge into a locale object
+
+var locale = {
+  lang: _extends({
+    placeholder: 'Chọn thời điểm',
+    rangePlaceholder: ['Ngày bắt đầu', 'Ngày kết thúc']
+  }, rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"]),
+  timePickerLocale: _extends({}, _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"])
+}; // All settings at:
+// https://github.com/ant-design/ant-design/blob/master/components/date-picker/locale/example.json
+
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/antd/es/time-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/time-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  placeholder: 'Chọn thời gian'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/rc-picker/es/locale/vi_VN.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rc-picker/es/locale/vi_VN.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  locale: 'vi_VN',
+  today: 'Hôm nay',
+  now: 'Bây giờ',
+  backToToday: 'Trở về hôm nay',
+  ok: 'Ok',
+  clear: 'Xóa',
+  month: 'Tháng',
+  year: 'Năm',
+  timeSelect: 'Chọn thời gian',
+  dateSelect: 'Chọn ngày',
+  weekSelect: 'Chọn tuần',
+  monthSelect: 'Chọn tháng',
+  yearSelect: 'Chọn năm',
+  decadeSelect: 'Chọn thập kỷ',
+  yearFormat: 'YYYY',
+  dateFormat: 'D/M/YYYY',
+  dayFormat: 'D',
+  dateTimeFormat: 'D/M/YYYY HH:mm:ss',
+  monthBeforeYear: true,
+  previousMonth: 'Tháng trước (PageUp)',
+  nextMonth: 'Tháng sau (PageDown)',
+  previousYear: 'Năm trước (Control + left)',
+  nextYear: 'Năm sau (Control + right)',
+  previousDecade: 'Thập kỷ trước',
+  nextDecade: 'Thập kỷ sau',
+  previousCentury: 'Thế kỷ trước',
+  nextCentury: 'Thế kỷ sau'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./resources/js/components/Includes/MyDatePicker.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/Includes/MyDatePicker.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+
+
+var MyDatePicker = function MyDatePicker(props) {
+  if (props.value && typeof props.value == "string") {
+    var objMoment = moment__WEBPACK_IMPORTED_MODULE_2___default()(props.value, "HH:mm DD/MM/YYYY");
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], _extends({}, props, {
+      value: objMoment
+    }));
+  } else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], props);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MyDatePicker);
+
+/***/ }),
+
 /***/ "./resources/js/pages/ThongTin/KhachHang/FormItem.js":
 /*!***********************************************************!*\
   !*** ./resources/js/pages/ThongTin/KhachHang/FormItem.js ***!
@@ -12,30 +132,101 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var _components_Includes_MyDatePicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/Includes/MyDatePicker */ "./resources/js/components/Includes/MyDatePicker.js");
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
 
 
 var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
 
+
+
 function form() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "hanh_ly",
-    label: "H\xE0nh l\xFD",
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+    gutter: [5, 5]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ma_khach_hang",
+    label: "M\xE3 KH",
     rules: [{
       required: true,
       message: "Nhập đầy đủ thông tin!"
     }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "muc_phi",
-    label: "M\u1EE9c ph\xED",
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ho_ten",
+    label: "H\u1ECD t\xEAn",
     rules: [{
       required: true,
       message: "Nhập đầy đủ thông tin!"
     }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phan_loai",
+    label: "Ph\xE2n lo\u1EA1i",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "mst",
+    label: "M\xE3 s\u1ED1 thu\u1EBF"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "sdt",
+    label: "S\u0110T"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "email",
+    label: "Email"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    type: "email"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "dia_chi",
+    label: "\u0110\u1ECBa ch\u1EC9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ma_dai_ly",
+    label: "M\xE3 \u0111\u1EA1i l\xFD"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    placeholder: "C\xE1c m\xE3 c\xE1ch nhau b\u1EB1ng d\u1EA5u ,"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "so_du_ky_truoc",
+    label: "S\u1ED1 d\u01B0 \u0111\u1EA7u"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
     style: {
       width: "100%"
     },
-    min: 1000,
+    min: 0,
     step: 1000,
     formatter: function formatter(value) {
       return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
@@ -43,23 +234,105 @@ function form() {
     parser: function parser(value) {
       return value.replace(/\₫\s?|(,*)/g, "");
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "hang_bay",
-    label: "H\xE3ng bay"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
-    allowClear: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "VN"
-  }, "VN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "VJ"
-  }, "VJ"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "Jets"
-  }, "Jets"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "BB"
-  }, "BB"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_vn",
+    label: "Ph\xED VN"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_vj",
+    label: "Ph\xED VJ"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_jets",
+    label: "Ph\xED Jets"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_bb",
+    label: "Ph\xED BB"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ngay_nhac",
+    label: "Ng\xE0y nh\u1EAFc"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Includes_MyDatePicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    style: {
+      width: "100%"
+    },
+    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_3__["default"],
+    format: "HH:mm DD/MM/YYYY",
+    showTime: true,
+    showSecond: false
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     name: "ghi_chu",
     label: "Ghi ch\xFA"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (form);
@@ -250,6 +523,7 @@ var List = /*#__PURE__*/function (_PureComponent) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
         url: "khach-hang",
         columns: columns,
+        modalWidth: "1100px",
         selectable: true,
         insertable: true,
         editable: true,

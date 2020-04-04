@@ -56,7 +56,7 @@ class TaiKhoanController extends BaseController
     public function destroy($id)
     {
         TaiKhoan::find($id)->delete();
-        return $this->sendResponse('', "Xóa thành công phí hành lý");
+        return $this->sendResponse('', "Xóa thành công tài khoản");
     }
 
     /**

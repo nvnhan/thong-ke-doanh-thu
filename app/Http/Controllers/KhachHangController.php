@@ -56,7 +56,7 @@ class KhachHangController extends BaseController
     public function destroy($id)
     {
         KhachHang::find($id)->delete();
-        return $this->sendResponse('', "Xóa thành công phí hành lý");
+        return $this->sendResponse('', "Xóa thành công khách hàng");
     }
 
     /**

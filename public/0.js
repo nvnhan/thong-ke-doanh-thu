@@ -48,16 +48,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-highlight-words */ "./node_modules/react-highlight-words/dist/main.js");
 /* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_highlight_words__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -66,13 +58,23 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -102,6 +104,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var confirm = antd__WEBPACK_IMPORTED_MODULE_2__["Modal"].confirm;
+
 
 var ListForm = /*#__PURE__*/function (_PureComponent) {
   _inherits(ListForm, _PureComponent);
@@ -261,19 +264,28 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleOk", function (value) {
+    _defineProperty(_assertThisInitialized(_this), "handleOk", function (values) {
       var currentRecord = _this.state.currentRecord;
 
       _this.setState({
         formSubmiting: true
-      }); // Thêm mới
+      }); // Parse các ô ngày tháng
+
+
+      for (var _i2 = 0, _Object$entries = Object.entries(values); _i2 < _Object$entries.length; _i2++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+            key = _Object$entries$_i[0],
+            value = _Object$entries$_i[1];
+
+        if (value !== null && value !== undefined) if (_typeof(value) === "object") values[key] = value.format("YYYY-MM-DD HH:mm:ss");else if (typeof value === "string" && value.match(/(.*?):(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_5___default()(value, "HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss");
+      } // Thêm mới
 
 
       if (currentRecord === undefined) {
-        _this.onAdd(value);
-      } else if (_this.isChangeData(currentRecord, value)) {
+        _this.onAdd(values);
+      } else if (_this.isChangeData(currentRecord, values)) {
         // Chỉnh sửa
-        _this.onUpdate(value);
+        _this.onUpdate(values);
       } // Tắt loading & modal
 
 
@@ -505,6 +517,8 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
             isLoading: false
           });
         }
+      })["catch"](function (error) {
+        return console.log(error);
       });
     }
   }, {
@@ -533,7 +547,8 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
           primaryKey = _this$props6.primaryKey,
           formTemplate = _this$props6.formTemplate,
           formInitialValues = _this$props6.formInitialValues,
-          tableSize = _this$props6.tableSize;
+          tableSize = _this$props6.tableSize,
+          modalWidth = _this$props6.modalWidth;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ToolsButton, {
         insertable: insertable,
         selectable: selectable,
@@ -554,6 +569,7 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
         scroll: tableSize
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalConfirm, {
         modalVisible: modalVisible,
+        modalWidth: modalWidth,
         handleOk: this.handleOk,
         handleCancel: this.handleCancel,
         formSubmiting: formSubmiting,
@@ -627,7 +643,6 @@ var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (p
 
   var handleOk = function handleOk() {
     form.validateFields().then(function (value) {
-      form.resetFields();
       props.handleOk(value);
     })["catch"](function (info) {
       console.log("Validate Failed: ", info);
@@ -635,6 +650,7 @@ var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (p
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
+    width: props.modalWidth,
     visible: props.modalVisible,
     title: "Chi ti\u1EBFt",
     onOk: handleOk,
@@ -657,8 +673,7 @@ var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (p
 });
 var FormEdit = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"])(function () {
-    props.form.resetFields();
-    if (props.currentRecord !== undefined) props.form.setFieldsValue(props.currentRecord);
+    if (props.currentRecord !== undefined) props.form.setFieldsValue(props.currentRecord);else props.form.resetFields();
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
     form: props.form,

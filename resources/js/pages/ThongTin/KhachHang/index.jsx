@@ -144,6 +144,7 @@ class List extends PureComponent {
             <ListForm
                 url="khach-hang"
                 columns={columns}
+                modalWidth="1100px"
                 selectable={true}
                 insertable={true}
                 editable={true}

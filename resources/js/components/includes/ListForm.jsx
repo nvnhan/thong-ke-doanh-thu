@@ -9,6 +9,7 @@ import {
     ExclamationCircleOutlined,
 } from "@ant-design/icons";
 const { confirm } = Modal;
+import moment from "moment";
 
 class ListForm extends PureComponent {
     constructor(props) {
@@ -47,7 +48,7 @@ class ListForm extends PureComponent {
                     isLoading: false,
                 });
             }
-        });
+        }).catch(error => console.log(error));
     }
 
     componentWillUnmount() {
@@ -89,7 +90,7 @@ class ListForm extends PureComponent {
                     </span>
                 ),
             };
-        return {}
+        return {};
     };
 
     /**
@@ -197,19 +198,34 @@ class ListForm extends PureComponent {
     /**
      * Show modal Thêm mới, Sửa
      */
-    handleOk = (value) => {
+    handleOk = (values) => {
         const { currentRecord } = this.state;
         this.setState({ formSubmiting: true });
-
+        // Parse các ô ngày tháng
+        for (let [key, value] of Object.entries(values)) {
+            if (value !== null && value !== undefined)
+                if (typeof value === "object")
+                    values[key] = value.format("YYYY-MM-DD HH:mm:ss");
+                else if (
+                    typeof value === "string" &&
+                    value.match(/(.*?):(.*?)\/(.*?)\//g)
+                )
+                    values[key] = moment(value, "HH:mm DD/MM/YYYY").format(
+                        "YYYY-MM-DD HH:mm:ss"
+                    );
+        }
         // Thêm mới
         if (currentRecord === undefined) {
-            this.onAdd(value);
-        } else if (this.isChangeData(currentRecord, value)) {
+            this.onAdd(values);
+        } else if (this.isChangeData(currentRecord, values)) {
             // Chỉnh sửa
-            this.onUpdate(value);
+            this.onUpdate(values);
         }
         // Tắt loading & modal
-        this.setState({ formSubmiting: false, modalVisible: false });
+        this.setState({
+            formSubmiting: false,
+            modalVisible: false,
+        });
     };
 
     handleCancel = () => {
@@ -411,6 +427,7 @@ class ListForm extends PureComponent {
             formTemplate,
             formInitialValues,
             tableSize,
+            modalWidth,
         } = this.props;
 
         return (
@@ -437,6 +454,7 @@ class ListForm extends PureComponent {
                 />
                 <ModalConfirm
                     modalVisible={modalVisible}
+                    modalWidth={modalWidth}
                     handleOk={this.handleOk}
                     handleCancel={this.handleCancel}
                     formSubmiting={formSubmiting}
@@ -523,7 +541,6 @@ const ModalConfirm = React.memo((props) => {
     const handleOk = () => {
         form.validateFields()
             .then((value) => {
-                form.resetFields();
                 props.handleOk(value);
             })
             .catch((info) => {
@@ -532,6 +549,7 @@ const ModalConfirm = React.memo((props) => {
     };
     return (
         <Modal
+            width={props.modalWidth}
             visible={props.modalVisible}
             title="Chi tiết"
             onOk={handleOk}
@@ -562,9 +580,9 @@ const ModalConfirm = React.memo((props) => {
 
 const FormEdit = React.memo((props) => {
     useLayoutEffect(() => {
-        props.form.resetFields();
         if (props.currentRecord !== undefined)
             props.form.setFieldsValue(props.currentRecord);
+        else props.form.resetFields();
     });
 
     return (

@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js":
+/***/ "./resources/js/pages/ThongTin/KhachHang/FormItem.js":
 /*!***********************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js ***!
+  !*** ./resources/js/pages/ThongTin/KhachHang/FormItem.js ***!
   \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -66,9 +66,9 @@ function form() {
 
 /***/ }),
 
-/***/ "./resources/js/pages/VeMayBay/PhiHanhLy/index.jsx":
+/***/ "./resources/js/pages/ThongTin/KhachHang/index.jsx":
 /*!*********************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/PhiHanhLy/index.jsx ***!
+  !*** ./resources/js/pages/ThongTin/KhachHang/index.jsx ***!
   \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -81,7 +81,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
 /* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
 /* harmony import */ var _components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/Includes/ListForm */ "./resources/js/components/Includes/ListForm.jsx");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/KhachHang/FormItem.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -125,8 +125,8 @@ var List = /*#__PURE__*/function (_PureComponent) {
   _createClass(List, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_HANH_LY"]);
-      this.props.onChangeTitle("Hành lý");
+      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["TT_KHACH_HANG"]);
+      this.props.onChangeTitle("Khách hàng");
     }
     /**
      * Hàm render
@@ -136,29 +136,119 @@ var List = /*#__PURE__*/function (_PureComponent) {
     key: "render",
     value: function render() {
       var columns = [{
-        title: "Loại hành lý",
-        dataIndex: "hanh_ly",
+        title: "Mã khách hàng",
+        dataIndex: "ma_khach_hang",
+        width: 120,
+        optFind: true,
+        fixed: "left"
+      }, {
+        title: "Họ tên",
+        dataIndex: "ho_ten",
+        width: 120,
         optFind: true
       }, {
-        title: "Mức phí",
-        dataIndex: "muc_phi",
+        title: "Phân loại",
+        dataIndex: "phan_loai",
+        width: 120,
+        optFilter: true
+      }, {
+        title: "MST",
+        dataIndex: "mst",
+        width: 120
+      }, {
+        title: "SĐT",
+        dataIndex: "sdt",
+        width: 120
+      }, {
+        title: "Email",
+        dataIndex: "email",
+        width: 120
+      }, {
+        title: "Địa chỉ",
+        dataIndex: "dia_chi",
+        ellipsis: true,
+        width: 120
+      }, {
+        title: "Mã đại lý",
+        dataIndex: "ma_dai_ly",
+        ellipsis: true,
+        width: 120
+      }, {
+        title: "Số dư ban đầu",
+        dataIndex: "so_du_ky_truoc",
         render: function render(number) {
           return new Intl.NumberFormat("vi-VN", {
             style: "currency",
             currency: "VND"
           }).format(number);
-        }
+        },
+        width: 120
       }, {
-        title: "Hãng bay",
-        dataIndex: "hang_bay",
-        optFind: true
+        title: "Số tiền thu dư",
+        dataIndex: "so_tien_thu_du",
+        render: function render(number) {
+          return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND"
+          }).format(number);
+        },
+        width: 120
+      }, {
+        title: "Phí VN",
+        dataIndex: "phi_vn",
+        render: function render(number) {
+          return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND"
+          }).format(number);
+        },
+        width: 120
+      }, {
+        title: "Phí VJ",
+        dataIndex: "phi_vj",
+        render: function render(number) {
+          return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND"
+          }).format(number);
+        },
+        width: 120
+      }, {
+        title: "Phí Jets",
+        dataIndex: "phi_jets",
+        render: function render(number) {
+          return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND"
+          }).format(number);
+        },
+        width: 120
+      }, {
+        title: "Phí BB",
+        dataIndex: "phi_bb",
+        render: function render(number) {
+          return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND"
+          }).format(number);
+        },
+        width: 120
+      }, {
+        title: "Ngày nhắc",
+        dataIndex: "ngay_nhac",
+        width: 120
+      }, {
+        title: "Ngày tạo",
+        dataIndex: "ngay_tao",
+        width: 120
       }, {
         title: "Ghi chú",
         dataIndex: "ghi_chu",
+        width: 150,
         ellipsis: true
       }];
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        url: "phi-hanh-ly",
+        url: "khach-hang",
         columns: columns,
         selectable: true,
         insertable: true,
@@ -166,12 +256,9 @@ var List = /*#__PURE__*/function (_PureComponent) {
         deleteable: true,
         primaryKey: "id",
         tableSize: {
-          x: 600
+          x: 1000
         },
-        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_5__["default"], null),
-        formInitialValues: {
-          phi: 100000
-        }
+        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_5__["default"], null)
       });
     }
   }]);

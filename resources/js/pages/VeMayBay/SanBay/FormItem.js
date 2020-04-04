@@ -17,14 +17,22 @@ function form() {
                 rules={[
                     {
                         required: true,
-                        message: "Nhập đầy đủ thông tin!"
-                    }
+                        message: "Nhập đầy đủ thông tin!",
+                    },
                 ]}
             >
                 <Input />
             </Form.Item>
             <Form.Item name="phan_loai" label="Khu vực">
-                <Input />
+                <Select allowClear>
+                    <Option value="Châu Âu">Châu Âu</Option>
+                    <Option value="Châu Úc">Châu Úc</Option>
+                    <Option value="Đông Bắc Á">Đông Bắc Á</Option>
+                    <Option value="Đông Dương">Đông Dương</Option>
+                    <Option value="Đông Nam Á">Đông Nam Á</Option>
+                    <Option value="Hoa Kỳ">Hoa Kỳ</Option>
+                    <Option value="Việt Nam">Việt Nam</Option>
+                </Select>
             </Form.Item>
             <Form.Item
                 wrapperCol={{ offset: 6, span: 18 }}

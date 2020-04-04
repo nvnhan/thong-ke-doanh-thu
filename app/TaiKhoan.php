@@ -14,12 +14,14 @@ class TaiKhoan extends Model
         'ngay_tao' => 'date:d/m/Y'
     ];
 
+    protected $fillable = ['ky_hieu', 'mo_ta', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb', 'mst', 'dia_chi', 'email', 'sdt', 'so_du_ky_truoc', 'ghi_chu'];
+
     public static function boot()
     {
         parent::boot();
         self::creating(function($model) {
-            $model->ngay_thang = now(); //date("Y-m-d");
-            $model->so_luong = 1;
+            $model->ngay_tao = now(); //date("Y-m-d");
+            $model->loai = 0;
             // $model->username = xxx;
         });
         self::updating(function($model) {

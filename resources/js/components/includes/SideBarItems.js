@@ -54,7 +54,7 @@ const items = [
         ]
     },
     {
-        key: "SUB_DM",
+        key: "SUB_TT",
         icon: <BarsOutlined />,
         title: "Thông tin chung",
         childs: [

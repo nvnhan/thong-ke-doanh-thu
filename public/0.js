@@ -115,6 +115,37 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
 
     _this = _super.call(this, props);
 
+    _defineProperty(_assertThisInitialized(_this), "addColumn", function () {
+      var _this$props = _this.props,
+          editable = _this$props.editable,
+          deleteable = _this$props.deleteable,
+          primaryKey = _this$props.primaryKey;
+      if (editable || deleteable) return {
+        title: "",
+        key: "action",
+        fixed: "right",
+        align: "center",
+        width: 100,
+        render: function render(text, record) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+            type: "link",
+            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["EditOutlined"], null),
+            onClick: function onClick() {
+              return _this.handleEdit(record);
+            }
+          }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+            onClick: function onClick() {
+              return _this.onDelete(record[primaryKey]);
+            },
+            danger: true,
+            type: "link",
+            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["DeleteOutlined"], null)
+          }) : "");
+        }
+      };
+      return {};
+    });
+
     _defineProperty(_assertThisInitialized(_this), "isChangeData", function (record, data) {
       var key1 = Object.keys(record);
       var key2 = Object.keys(data);
@@ -312,9 +343,9 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onUpdate", function (value) {
-      var _this$props = _this.props,
-          url = _this$props.url,
-          primaryKey = _this$props.primaryKey;
+      var _this$props2 = _this.props,
+          url = _this$props2.url,
+          primaryKey = _this$props2.primaryKey;
       var _this$state = _this.state,
           data = _this$state.data,
           currentRecord = _this$state.currentRecord;
@@ -337,9 +368,9 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDelete", function (id) {
-      var _this$props2 = _this.props,
-          url = _this$props2.url,
-          primaryKey = _this$props2.primaryKey;
+      var _this$props3 = _this.props,
+          url = _this$props3.url,
+          primaryKey = _this$props3.primaryKey;
       var data = _this.state.data;
       confirm({
         title: "Bạn muốn xóa mục này?",
@@ -370,9 +401,9 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       var _this$state2 = _this.state,
           selectedRowKeys = _this$state2.selectedRowKeys,
           data = _this$state2.data;
-      var _this$props3 = _this.props,
-          url = _this$props3.url,
-          primaryKey = _this$props3.primaryKey;
+      var _this$props4 = _this.props,
+          url = _this$props4.url,
+          primaryKey = _this$props4.primaryKey;
       confirm({
         title: "Bạn muốn xóa những mục này?",
         icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["ExclamationCircleOutlined"], null),
@@ -421,7 +452,7 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
           // specify the condition of filtering result
           // here is that finding the name started with `value`
           onFilter: function onFilter(value, record) {
-            return record.phan_loai.indexOf(value) === 0;
+            return record[dataIndex].indexOf(value) === 0;
           }
         });
       }
@@ -454,47 +485,25 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       var _this2 = this;
 
       this.isComponentMounted = true;
-      var _this$props4 = this.props,
-          url = _this$props4.url,
-          columns = _this$props4.columns,
-          editable = _this$props4.editable,
-          deleteable = _this$props4.deleteable,
-          primaryKey = _this$props4.primaryKey;
-      var data = this.state.data;
+      var _this$props5 = this.props,
+          url = _this$props5.url,
+          columns = _this$props5.columns;
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/" + url).then(function (response) {
-        if (_this2.isComponentMounted && response.data.success) _this2.setState({
-          data: response.data.data,
-          isLoading: false
-        });
-      });
-      /**
-       * Tính các cột cần thiết
-       * Chạy 1 lần duy nhất
-       */
+        if (_this2.isComponentMounted && response.data.success) {
+          /**
+           * Tính các cột cần thiết
+           * Chạy 1 lần duy nhất
+           */
+          _this2.columns = columns.map(function (column) {
+            return _this2.getColumn(column, response.data.data);
+          });
 
-      this.columns = columns.map(function (column) {
-        return _this2.getColumn(column, data);
-      });
-      if (editable || deleteable) this.columns.push({
-        title: "",
-        key: "action",
-        fixed: "right",
-        align: "center",
-        render: function render(text, record) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-            type: "link",
-            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["EditOutlined"], null),
-            onClick: function onClick() {
-              return _this2.handleEdit(record);
-            }
-          }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-            onClick: function onClick() {
-              return _this2.onDelete(record[primaryKey]);
-            },
-            danger: true,
-            type: "link",
-            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["DeleteOutlined"], null)
-          }) : "");
+          _this2.columns.push(_this2.addColumn());
+
+          _this2.setState({
+            data: response.data.data,
+            isLoading: false
+          });
         }
       });
     }
@@ -503,10 +512,6 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     value: function componentWillUnmount() {
       this.isComponentMounted = false;
     }
-    /**
-     * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
-     */
-
   }, {
     key: "render",
 
@@ -521,14 +526,14 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
           formSubmiting = _this$state3.formSubmiting,
           selectedRowKeys = _this$state3.selectedRowKeys,
           currentRecord = _this$state3.currentRecord;
-      var _this$props5 = this.props,
-          selectable = _this$props5.selectable,
-          insertable = _this$props5.insertable,
-          deleteable = _this$props5.deleteable,
-          primaryKey = _this$props5.primaryKey,
-          formTemplate = _this$props5.formTemplate,
-          formInitialValues = _this$props5.formInitialValues,
-          tableSize = _this$props5.tableSize;
+      var _this$props6 = this.props,
+          selectable = _this$props6.selectable,
+          insertable = _this$props6.insertable,
+          deleteable = _this$props6.deleteable,
+          primaryKey = _this$props6.primaryKey,
+          formTemplate = _this$props6.formTemplate,
+          formInitialValues = _this$props6.formInitialValues,
+          tableSize = _this$props6.tableSize;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ToolsButton, {
         insertable: insertable,
         selectable: selectable,

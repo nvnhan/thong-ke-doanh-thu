@@ -30,28 +30,39 @@ class ListForm extends PureComponent {
 
     componentDidMount() {
         this.isComponentMounted = true;
-        const { url, columns, editable, deleteable, primaryKey } = this.props;
-        const { data } = this.state;
+        const { url, columns } = this.props;
 
         axios.get("/api/" + url).then((response) => {
-            if (this.isComponentMounted && response.data.success)
+            if (this.isComponentMounted && response.data.success) {
+                /**
+                 * Tính các cột cần thiết
+                 * Chạy 1 lần duy nhất
+                 */
+                this.columns = columns.map((column) =>
+                    this.getColumn(column, response.data.data)
+                );
+                this.columns.push(this.addColumn());
                 this.setState({
                     data: response.data.data,
                     isLoading: false,
                 });
+            }
         });
+    }
 
-        /**
-         * Tính các cột cần thiết
-         * Chạy 1 lần duy nhất
-         */
-        this.columns = columns.map((column) => this.getColumn(column, data));
+    componentWillUnmount() {
+        this.isComponentMounted = false;
+    }
+
+    addColumn = () => {
+        const { editable, deleteable, primaryKey } = this.props;
         if (editable || deleteable)
-            this.columns.push({
+            return {
                 title: "",
                 key: "action",
                 fixed: "right",
                 align: "center",
+                width: 100,
                 render: (text, record) => (
                     <span>
                         {editable ? (
@@ -77,12 +88,9 @@ class ListForm extends PureComponent {
                         )}
                     </span>
                 ),
-            });
-    }
-
-    componentWillUnmount() {
-        this.isComponentMounted = false;
-    }
+            };
+        return {}
+    };
 
     /**
      * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
@@ -372,7 +380,7 @@ class ListForm extends PureComponent {
                 // specify the condition of filtering result
                 // here is that finding the name started with `value`
                 onFilter: (value, record) =>
-                    record.phan_loai.indexOf(value) === 0,
+                    record[dataIndex].indexOf(value) === 0,
             });
         }
         if (column.optFind) {

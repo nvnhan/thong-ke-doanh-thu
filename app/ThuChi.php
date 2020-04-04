@@ -46,6 +46,6 @@ class ThuChi extends Model
     }
 
     public function getConDuAttribute() {
-        return $this->so_tien - $this->thu_chi_chi_tiets()->sum('so_tien');
+        return $this->so_tien - $this->thu_chi_chi_tiets()->get()->sum('so_tien');
     }
 }

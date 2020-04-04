@@ -12,13 +12,18 @@ class KhachHang extends Model
     // protected $dateFormat = 'd/m/Y';
     protected $casts = [
         'ngay_tao' => 'date:d/m/Y',
-        'ngay_nhac' => 'date:d/m/Y'
+        'ngay_nhac' => 'datetime:H:i d/m/Y'
     ];
+
+    protected $fillable = ['ma_khach_hang', 'ho_ten', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb', 'mst', 'dia_chi', 'email', 'sdt', 'so_du_ky_truoc','ngay_nhac', 'ma_dai_ly', 'ghi_chu'];
+
+    protected $appends = ['so_tien_thu_du'];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function($model) {
+            $model->ngay_tao = now();
         });
         self::updating(function($model) {
 
@@ -54,7 +59,7 @@ class KhachHang extends Model
     }
 
     public function getSoTienThuDuAttribute() {
-        return $this->so_du_ky_truoc + $this->thu_chis()->sum('con_du');
+        return $this->so_du_ky_truoc + $this->thu_chis()->get()->sum('con_du');
     }
 
     public function getDaiLysAttribute() {

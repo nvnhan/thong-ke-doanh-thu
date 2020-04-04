@@ -1,32 +1,30 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
-/***/ "./resources/js/pages/VeMayBay/ThuePhi/FormItem.js":
-/*!*********************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/ThuePhi/FormItem.js ***!
-  \*********************************************************/
+/***/ "./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return form; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
 
 
 var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
+
 function form() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "loai_phi",
-    label: "Lo\u1EA1i ph\xED",
+    name: "hanh_ly",
+    label: "H\xE0nh l\xFD",
     rules: [{
       required: true,
       message: "Nhập đầy đủ thông tin!"
     }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    disabled: true
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     name: "muc_phi",
     label: "M\u1EE9c ph\xED",
     rules: [{
@@ -46,17 +44,32 @@ function form() {
       return value.replace(/\₫\s?|(,*)/g, "");
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "hang_bay",
+    label: "H\xE3ng bay"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
+    allowClear: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "VN"
+  }, "VN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "VJ"
+  }, "VJ"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Jets"
+  }, "Jets"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "BB"
+  }, "BB"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     name: "ghi_chu",
     label: "Ghi ch\xFA"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)));
 }
 
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
 /***/ }),
 
-/***/ "./resources/js/pages/VeMayBay/ThuePhi/index.jsx":
-/*!*******************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/ThuePhi/index.jsx ***!
-  \*******************************************************/
+/***/ "./resources/js/pages/VeMayBay/PhiHanhLy/index.jsx":
+/*!*********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/PhiHanhLy/index.jsx ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -68,7 +81,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
 /* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
 /* harmony import */ var _components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/Includes/ListForm */ "./resources/js/components/Includes/ListForm.jsx");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/ThuePhi/FormItem.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -112,8 +125,8 @@ var List = /*#__PURE__*/function (_PureComponent) {
   _createClass(List, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_THUE_PHI"]);
-      this.props.onChangeTitle("Thuế phí");
+      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_HANH_LY"]);
+      this.props.onChangeTitle("Hành lý");
     }
     /**
      * Hàm render
@@ -123,8 +136,8 @@ var List = /*#__PURE__*/function (_PureComponent) {
     key: "render",
     value: function render() {
       var columns = [{
-        title: "Loại phí",
-        dataIndex: "loai_phi",
+        title: "Loại hành lý",
+        dataIndex: "hanh_ly",
         optFind: true
       }, {
         title: "Mức phí",
@@ -136,19 +149,29 @@ var List = /*#__PURE__*/function (_PureComponent) {
           }).format(number);
         }
       }, {
+        title: "Hãng bay",
+        dataIndex: "hang_bay",
+        optFind: true
+      }, {
         title: "Ghi chú",
         dataIndex: "ghi_chu",
         ellipsis: true
       }];
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Includes_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        url: "thue-phi",
+        url: "phi-hanh-ly",
         columns: columns,
-        selectable: false,
-        insertable: false,
+        selectable: true,
+        insertable: true,
         editable: true,
-        deleteable: false,
+        deleteable: true,
         primaryKey: "id",
-        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_5__["default"], null)
+        tableSize: {
+          x: 600
+        },
+        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_5__["default"], null),
+        formInitialValues: {
+          phi: 100000
+        }
       });
     }
   }]);

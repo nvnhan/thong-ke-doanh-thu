@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\KhachHang;
 use Illuminate\Http\Request;
 
 class KhachHangController extends BaseController
@@ -13,17 +14,8 @@ class KhachHangController extends BaseController
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $objs = KhachHang::get();
+        return $this->sendResponse($objs, "KhachHang retrieved successfully");
     }
 
     /**
@@ -34,51 +26,55 @@ class KhachHangController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $data = $request->all();
+        $obj = KhachHang::create($data);
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\KhachHang  $model
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $data =$request->all();
+        $model = KhachHang::find($id);
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\KhachHang  $model
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        KhachHang::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công phí hành lý");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs))
+        {
+            $cnt = count($objs);
+            KhachHang::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+        
+        return $this->sendError('Không xóa được', []);
     }
 }

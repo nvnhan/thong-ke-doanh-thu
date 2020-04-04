@@ -14,17 +14,8 @@ class TaiKhoanController extends BaseController
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $objs = TaiKhoan::whereLoai(0)->get();
+        return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
     }
 
     /**
@@ -35,51 +26,55 @@ class TaiKhoanController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\TaiKhoan  $taiKhoan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TaiKhoan $taiKhoan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\TaiKhoan  $taiKhoan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TaiKhoan $taiKhoan)
-    {
-        //
+        $data = $request->all();
+        $obj = TaiKhoan::create($data);
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TaiKhoan  $taiKhoan
+     * @param  \App\TaiKhoan  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TaiKhoan $taiKhoan)
+    public function update(Request $request, $id)
     {
-        //
+        $data =$request->all();
+        $model = TaiKhoan::find($id);
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TaiKhoan  $taiKhoan
+     * @param  \App\TaiKhoan  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TaiKhoan $taiKhoan)
+    public function destroy($id)
     {
-        //
+        TaiKhoan::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công phí hành lý");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs))
+        {
+            $cnt = count($objs);
+            TaiKhoan::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+        
+        return $this->sendError('Không xóa được', []);
     }
 }

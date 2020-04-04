@@ -48,6 +48,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-highlight-words */ "./node_modules/react-highlight-words/dist/main.js");
 /* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_highlight_words__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -222,42 +230,25 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "showModal", function () {
-      console.log("ListForm -> showModal -> this.formRef.current", _this.formRef.current);
-
-      if (_this.formRef && _this.formRef.current) {
-        _this.formRef.current.resetFields();
-
-        if (_this.currentRecord !== undefined) _this.formRef.current.setFieldsValue(_this.currentRecord);
-      }
+    _defineProperty(_assertThisInitialized(_this), "handleOk", function (value) {
+      var currentRecord = _this.state.currentRecord;
 
       _this.setState({
-        modalVisible: true
-      }); //TODO: Show field immidate
-
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleOk", function () {
-      _this.formRef.current.validateFields().then(function (value) {
-        _this.setState({
-          formSubmiting: true
-        }); // Thêm mới
+        formSubmiting: true
+      }); // Thêm mới
 
 
-        if (_this.currentRecord === undefined) {
-          _this.onAdd(value);
-        } else if (_this.isChangeData(_this.currentRecord, value)) {
-          // Chỉnh sửa
-          _this.onUpdate(value);
-        } // Tắt loading & modal
+      if (currentRecord === undefined) {
+        _this.onAdd(value);
+      } else if (_this.isChangeData(currentRecord, value)) {
+        // Chỉnh sửa
+        _this.onUpdate(value);
+      } // Tắt loading & modal
 
 
-        _this.setState({
-          formSubmiting: false,
-          modalVisible: false
-        });
-      })["catch"](function (error) {
-        console.log(error);
+      _this.setState({
+        formSubmiting: false,
+        modalVisible: false
       });
     });
 
@@ -267,49 +258,18 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onAdd", function (value) {
-      var url = _this.props.url;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/".concat(url), value).then(function (response) {
-        if (response.data.success) {
-          _this.setState({
-            data: [].concat(_toConsumableArray(_this.state.data), [response.data.data]) // Thêm object vào list lấy từ state
-
-          });
-
-          antd__WEBPACK_IMPORTED_MODULE_2__["message"].info(response.data.message);
-        }
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onUpdate", function (value) {
-      var _this$props = _this.props,
-          url = _this$props.url,
-          primaryKey = _this$props.primaryKey;
-      var data = _this.state.data;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/".concat(url, "/").concat(_this.currentRecord[primaryKey]), value).then(function (response) {
-        if (response.data.success) {
-          var newData = [];
-          Object.assign(newData, data.map(function (el) {
-            return el[primaryKey] === _this.currentRecord[primaryKey] ? response.data.data : el;
-          }));
-
-          _this.setState({
-            data: newData
-          });
-
-          antd__WEBPACK_IMPORTED_MODULE_2__["message"].info(response.data.message);
-        }
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    });
-
     _defineProperty(_assertThisInitialized(_this), "handleAddNew", function () {
-      _this.currentRecord = undefined;
+      _this.setState({
+        currentRecord: undefined,
+        modalVisible: true
+      });
+    });
 
-      _this.showModal();
+    _defineProperty(_assertThisInitialized(_this), "handleEdit", function (record) {
+      _this.setState({
+        modalVisible: true,
+        currentRecord: record
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleSelectAll", function () {
@@ -335,10 +295,45 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleEdit", function (record) {
-      _this.currentRecord = record;
+    _defineProperty(_assertThisInitialized(_this), "onAdd", function (value) {
+      var url = _this.props.url;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/".concat(url), value).then(function (response) {
+        if (response.data.success) {
+          _this.setState({
+            data: [].concat(_toConsumableArray(_this.state.data), [response.data.data]) // Thêm object vào list lấy từ state
 
-      _this.showModal();
+          });
+
+          antd__WEBPACK_IMPORTED_MODULE_2__["message"].info(response.data.message);
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onUpdate", function (value) {
+      var _this$props = _this.props,
+          url = _this$props.url,
+          primaryKey = _this$props.primaryKey;
+      var _this$state = _this.state,
+          data = _this$state.data,
+          currentRecord = _this$state.currentRecord;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/".concat(url, "/").concat(currentRecord[primaryKey]), value).then(function (response) {
+        if (response.data.success) {
+          var newData = [];
+          Object.assign(newData, data.map(function (el) {
+            return el[primaryKey] === currentRecord[primaryKey] ? response.data.data : el;
+          }));
+
+          _this.setState({
+            data: newData
+          });
+
+          antd__WEBPACK_IMPORTED_MODULE_2__["message"].info(response.data.message);
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDelete", function (id) {
@@ -372,9 +367,9 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onMultiDelete", function () {
-      var _this$state = _this.state,
-          selectedRowKeys = _this$state.selectedRowKeys,
-          data = _this$state.data;
+      var _this$state2 = _this.state,
+          selectedRowKeys = _this$state2.selectedRowKeys,
+          data = _this$state2.data;
       var _this$props3 = _this.props,
           url = _this$props3.url,
           primaryKey = _this$props3.primaryKey;
@@ -445,12 +440,11 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       searchedColumn: "",
       modalVisible: false,
       formSubmiting: false,
-      selectedRowKeys: []
+      selectedRowKeys: [],
+      currentRecord: undefined
     };
     _this.columns = [];
     _this.isComponentMounted = false;
-    _this.formRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-    _this.currentRecord = undefined;
     return _this;
   }
 
@@ -473,6 +467,11 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
           isLoading: false
         });
       });
+      /**
+       * Tính các cột cần thiết
+       * Chạy 1 lần duy nhất
+       */
+
       this.columns = columns.map(function (column) {
         return _this2.getColumn(column, data);
       });
@@ -515,12 +514,13 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
      * Hàm render
      */
     value: function render() {
-      var _this$state2 = this.state,
-          data = _this$state2.data,
-          isLoading = _this$state2.isLoading,
-          modalVisible = _this$state2.modalVisible,
-          formSubmiting = _this$state2.formSubmiting,
-          selectedRowKeys = _this$state2.selectedRowKeys;
+      var _this$state3 = this.state,
+          data = _this$state3.data,
+          isLoading = _this$state3.isLoading,
+          modalVisible = _this$state3.modalVisible,
+          formSubmiting = _this$state3.formSubmiting,
+          selectedRowKeys = _this$state3.selectedRowKeys,
+          currentRecord = _this$state3.currentRecord;
       var _this$props5 = this.props,
           selectable = _this$props5.selectable,
           insertable = _this$props5.insertable,
@@ -552,7 +552,7 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
         handleOk: this.handleOk,
         handleCancel: this.handleCancel,
         formSubmiting: formSubmiting,
-        formRef: this.formRef,
+        currentRecord: currentRecord,
         formInitialValues: formInitialValues,
         formTemplate: formTemplate
       }));
@@ -563,6 +563,10 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (ListForm);
+/**
+ * Dùng React.memo để lưu lại Component, ko bị load lại trừ trường hợp cần thiết
+ */
+
 var ToolsButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "tools-button"
@@ -612,10 +616,23 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (prop
   });
 });
 var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_2__["Form"].useForm(),
+      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
+      form = _Form$useForm2[0];
+
+  var handleOk = function handleOk() {
+    form.validateFields().then(function (value) {
+      form.resetFields();
+      props.handleOk(value);
+    })["catch"](function (info) {
+      console.log("Validate Failed: ", info);
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
     visible: props.modalVisible,
     title: "Chi ti\u1EBFt",
-    onOk: props.handleOk,
+    onOk: handleOk,
     onCancel: props.handleCancel,
     footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
       key: "back",
@@ -624,10 +641,22 @@ var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (p
       key: "submit",
       type: "primary",
       loading: props.formSubmiting,
-      onClick: props.handleOk
+      onClick: handleOk
     }, "\u0110\u1ED3ng \xFD")]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
-    ref: props.formRef,
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormEdit, {
+    form: form,
+    formInitialValues: props.formInitialValues,
+    currentRecord: props.currentRecord,
+    formTemplate: props.formTemplate
+  }));
+});
+var FormEdit = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"])(function () {
+    props.form.resetFields();
+    if (props.currentRecord !== undefined) props.form.setFieldsValue(props.currentRecord);
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
+    form: props.form,
     initialValues: props.formInitialValues,
     labelCol: {
       span: 6
@@ -635,7 +664,7 @@ var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (p
     wrapperCol: {
       span: 18
     }
-  }, props.formTemplate));
+  }, props.formTemplate);
 });
 
 /***/ })

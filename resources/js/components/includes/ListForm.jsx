@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useLayoutEffect } from "react";
 import axios from "axios";
 import { Table, Input, Button, Modal, Form, message } from "antd";
 import Highlighter from "react-highlight-words";
@@ -22,11 +22,10 @@ class ListForm extends PureComponent {
             modalVisible: false,
             formSubmiting: false,
             selectedRowKeys: [],
+            currentRecord: undefined,
         };
         this.columns = [];
         this.isComponentMounted = false;
-        this.formRef = React.createRef();
-        this.currentRecord = undefined;
     }
 
     componentDidMount() {
@@ -42,6 +41,10 @@ class ListForm extends PureComponent {
                 });
         });
 
+        /**
+         * Tính các cột cần thiết
+         * Chạy 1 lần duy nhất
+         */
         this.columns = columns.map((column) => this.getColumn(column, data));
         if (editable || deleteable)
             this.columns.push({
@@ -186,45 +189,57 @@ class ListForm extends PureComponent {
     /**
      * Show modal Thêm mới, Sửa
      */
-    showModal = () => {
-        console.log(
-            "ListForm -> showModal -> this.formRef.current",
-            this.formRef.current
-        );
-        if (this.formRef && this.formRef.current) {
-            this.formRef.current.resetFields();
-            if (this.currentRecord !== undefined)
-                this.formRef.current.setFieldsValue(this.currentRecord);
-        }
-        this.setState({
-            modalVisible: true,
-        });
-        //TODO: Show field immidate
-    };
+    handleOk = (value) => {
+        const { currentRecord } = this.state;
+        this.setState({ formSubmiting: true });
 
-    handleOk = () => {
-        this.formRef.current
-            .validateFields()
-            .then((value) => {
-                this.setState({ formSubmiting: true });
-                // Thêm mới
-                if (this.currentRecord === undefined) {
-                    this.onAdd(value);
-                } else if (this.isChangeData(this.currentRecord, value)) {
-                    // Chỉnh sửa
-                    this.onUpdate(value);
-                }
-                // Tắt loading & modal
-                this.setState({ formSubmiting: false, modalVisible: false });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        // Thêm mới
+        if (currentRecord === undefined) {
+            this.onAdd(value);
+        } else if (this.isChangeData(currentRecord, value)) {
+            // Chỉnh sửa
+            this.onUpdate(value);
+        }
+        // Tắt loading & modal
+        this.setState({ formSubmiting: false, modalVisible: false });
     };
 
     handleCancel = () => {
         this.setState({ modalVisible: false });
     };
+
+    /**
+     * Xử lý sự kiện
+     */
+    handleAddNew = () => {
+        this.setState({
+            currentRecord: undefined,
+            modalVisible: true,
+        });
+    };
+
+    handleEdit = (record) => {
+        this.setState({
+            modalVisible: true,
+            currentRecord: record,
+        });
+    };
+
+    handleSelectAll = () => {
+        const { primaryKey } = this.props;
+        const { data } = this.state;
+        this.setState({
+            selectedRowKeys: data.map((item) => item[primaryKey]),
+        });
+    };
+
+    handleClearSelected = () => {
+        this.setState({
+            selectedRowKeys: [],
+        });
+    };
+
+    handleSelectRow = (selectedRowKeys) => this.setState({ selectedRowKeys });
 
     onAdd = (value) => {
         const { url } = this.props;
@@ -245,16 +260,16 @@ class ListForm extends PureComponent {
 
     onUpdate = (value) => {
         const { url, primaryKey } = this.props;
-        const { data } = this.state;
+        const { data, currentRecord } = this.state;
         axios
-            .put(`/api/${url}/${this.currentRecord[primaryKey]}`, value)
+            .put(`/api/${url}/${currentRecord[primaryKey]}`, value)
             .then((response) => {
                 if (response.data.success) {
                     let newData = [];
                     Object.assign(
                         newData,
                         data.map((el) =>
-                            el[primaryKey] === this.currentRecord[primaryKey]
+                            el[primaryKey] === currentRecord[primaryKey]
                                 ? response.data.data
                                 : el
                         )
@@ -268,35 +283,6 @@ class ListForm extends PureComponent {
             .catch((error) => {
                 console.log(error);
             });
-    };
-
-    /**
-     * Xử lý sự kiện
-     */
-    handleAddNew = () => {
-        this.currentRecord = undefined;
-        this.showModal();
-    };
-
-    handleSelectAll = () => {
-        const { primaryKey } = this.props;
-        const { data } = this.state;
-        this.setState({
-            selectedRowKeys: data.map((item) => item[primaryKey]),
-        });
-    };
-
-    handleClearSelected = () => {
-        this.setState({
-            selectedRowKeys: [],
-        });
-    };
-
-    handleSelectRow = (selectedRowKeys) => this.setState({ selectedRowKeys });
-
-    handleEdit = (record) => {
-        this.currentRecord = record;
-        this.showModal();
     };
 
     /**
@@ -407,6 +393,7 @@ class ListForm extends PureComponent {
             modalVisible,
             formSubmiting,
             selectedRowKeys,
+            currentRecord,
         } = this.state;
         const {
             selectable,
@@ -417,7 +404,7 @@ class ListForm extends PureComponent {
             formInitialValues,
             tableSize,
         } = this.props;
-        
+
         return (
             <div>
                 <ToolsButton
@@ -445,7 +432,7 @@ class ListForm extends PureComponent {
                     handleOk={this.handleOk}
                     handleCancel={this.handleCancel}
                     formSubmiting={formSubmiting}
-                    formRef={this.formRef}
+                    currentRecord={currentRecord}
                     formInitialValues={formInitialValues}
                     formTemplate={formTemplate}
                 />
@@ -456,6 +443,9 @@ class ListForm extends PureComponent {
 
 export default ListForm;
 
+/**
+ * Dùng React.memo để lưu lại Component, ko bị load lại trừ trường hợp cần thiết
+ */
 const ToolsButton = React.memo((props) => {
     return (
         <div className="tools-button">
@@ -521,11 +511,22 @@ const DataTable = React.memo((props) => {
 });
 
 const ModalConfirm = React.memo((props) => {
+    const [form] = Form.useForm();
+    const handleOk = () => {
+        form.validateFields()
+            .then((value) => {
+                form.resetFields();
+                props.handleOk(value);
+            })
+            .catch((info) => {
+                console.log("Validate Failed: ", info);
+            });
+    };
     return (
         <Modal
             visible={props.modalVisible}
             title="Chi tiết"
-            onOk={props.handleOk}
+            onOk={handleOk}
             onCancel={props.handleCancel}
             footer={[
                 <Button key="back" onClick={props.handleCancel}>
@@ -535,20 +536,37 @@ const ModalConfirm = React.memo((props) => {
                     key="submit"
                     type="primary"
                     loading={props.formSubmiting}
-                    onClick={props.handleOk}
+                    onClick={handleOk}
                 >
                     Đồng ý
                 </Button>,
             ]}
         >
-            <Form
-                ref={props.formRef}
-                initialValues={props.formInitialValues}
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 18 }}
-            >
-                {props.formTemplate}
-            </Form>
+            <FormEdit
+                form={form}
+                formInitialValues={props.formInitialValues}
+                currentRecord={props.currentRecord}
+                formTemplate={props.formTemplate}
+            />
         </Modal>
+    );
+});
+
+const FormEdit = React.memo((props) => {
+    useLayoutEffect(() => {
+        props.form.resetFields();
+        if (props.currentRecord !== undefined)
+            props.form.setFieldsValue(props.currentRecord);
+    });
+
+    return (
+        <Form
+            form={props.form}
+            initialValues={props.formInitialValues}
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 18 }}
+        >
+            {props.formTemplate}
+        </Form>
     );
 });

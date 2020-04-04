@@ -44,3 +44,11 @@
     align-content: center;
     transform: translateY(-50%);
 }
+
+.tools-button {
+    padding-left: 5px;
+}
+
+.tools-button button {
+    margin: 10px 5px;
+}

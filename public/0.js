@@ -312,6 +312,29 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       _this.showModal();
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleSelectAll", function () {
+      var primaryKey = _this.props.primaryKey;
+      var data = _this.state.data;
+
+      _this.setState({
+        selectedRowKeys: data.map(function (item) {
+          return item[primaryKey];
+        })
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleClearSelected", function () {
+      _this.setState({
+        selectedRowKeys: []
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleSelectRow", function (selectedRowKeys) {
+      return _this.setState({
+        selectedRowKeys: selectedRowKeys
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleEdit", function (record) {
       _this.currentRecord = record;
 
@@ -424,6 +447,7 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       formSubmiting: false,
       selectedRowKeys: []
     };
+    _this.columns = [];
     _this.isComponentMounted = false;
     _this.formRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
     _this.currentRecord = undefined;
@@ -436,12 +460,43 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       var _this2 = this;
 
       this.isComponentMounted = true;
-      var url = this.props.url;
+      var _this$props4 = this.props,
+          url = _this$props4.url,
+          columns = _this$props4.columns,
+          editable = _this$props4.editable,
+          deleteable = _this$props4.deleteable,
+          primaryKey = _this$props4.primaryKey;
+      var data = this.state.data;
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/" + url).then(function (response) {
         if (_this2.isComponentMounted && response.data.success) _this2.setState({
           data: response.data.data,
           isLoading: false
         });
+      });
+      this.columns = columns.map(function (column) {
+        return _this2.getColumn(column, data);
+      });
+      if (editable || deleteable) this.columns.push({
+        title: "",
+        key: "action",
+        fixed: "right",
+        align: "center",
+        render: function render(text, record) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+            type: "link",
+            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["EditOutlined"], null),
+            onClick: function onClick() {
+              return _this2.handleEdit(record);
+            }
+          }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+            onClick: function onClick() {
+              return _this2.onDelete(record[primaryKey]);
+            },
+            danger: true,
+            type: "link",
+            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["DeleteOutlined"], null)
+          }) : "");
+        }
       });
     }
   }, {
@@ -460,140 +515,47 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
      * Hàm render
      */
     value: function render() {
-      var _this3 = this;
-
       var _this$state2 = this.state,
           data = _this$state2.data,
           isLoading = _this$state2.isLoading,
           modalVisible = _this$state2.modalVisible,
           formSubmiting = _this$state2.formSubmiting,
           selectedRowKeys = _this$state2.selectedRowKeys;
-      var _this$props4 = this.props,
-          selectable = _this$props4.selectable,
-          insertable = _this$props4.insertable,
-          editable = _this$props4.editable,
-          deleteable = _this$props4.deleteable,
-          columns = _this$props4.columns,
-          primaryKey = _this$props4.primaryKey,
-          formTemplate = _this$props4.formTemplate,
-          formInitialValues = _this$props4.formInitialValues;
-      var scroll = this.props.tableSize;
-      if (!scroll) scroll = {
-        x: 500
-      };
-      var rowSelection = {
+      var _this$props5 = this.props,
+          selectable = _this$props5.selectable,
+          insertable = _this$props5.insertable,
+          deleteable = _this$props5.deleteable,
+          primaryKey = _this$props5.primaryKey,
+          formTemplate = _this$props5.formTemplate,
+          formInitialValues = _this$props5.formInitialValues,
+          tableSize = _this$props5.tableSize;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ToolsButton, {
+        insertable: insertable,
+        selectable: selectable,
+        deleteable: deleteable,
+        handleAddNew: this.handleAddNew,
+        onMultiDelete: this.onMultiDelete,
         selectedRowKeys: selectedRowKeys,
-        onChange: function onChange(selectedRowKeys) {
-          return _this3.setState({
-            selectedRowKeys: selectedRowKeys
-          });
-        }
-      };
-      var col = columns.map(function (column) {
-        return _this3.getColumn(column, data);
-      });
-      if (editable || deleteable) col.push({
-        title: "",
-        key: "action",
-        fixed: "right",
-        align: "center",
-        render: function render(text, record) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-            type: "link",
-            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["EditOutlined"], null),
-            onClick: function onClick() {
-              return _this3.handleEdit(record);
-            }
-          }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-            onClick: function onClick() {
-              return _this3.onDelete(record[primaryKey]);
-            },
-            danger: true,
-            type: "link",
-            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_4__["DeleteOutlined"], null)
-          }) : "");
-        }
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, insertable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        type: "primary",
-        onClick: this.handleAddNew,
-        style: {
-          margin: 10
-        }
-      }, "Th\xEAm m\u1EDBi") : "", selectable && deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        style: {
-          display: "inline"
-        }
-      }, selectedRowKeys.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        type: "danger",
-        onClick: this.onMultiDelete,
-        style: {
-          margin: 10,
-          marginLeft: 0
-        }
-      }, "X\xF3a ", selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn") : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        type: "link",
-        onClick: function onClick() {
-          _this3.setState({
-            selectedRowKeys: data.map(function (item) {
-              return item[primaryKey];
-            })
-          });
-        },
-        style: {
-          margin: 10,
-          marginLeft: 0
-        }
-      }, "Ch\u1ECDn t\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        type: "link",
-        danger: true,
-        onClick: function onClick() {
-          _this3.setState({
-            selectedRowKeys: []
-          });
-        },
-        style: {
-          margin: 10,
-          marginLeft: 0
-        }
-      }, "B\u1ECF ch\u1ECDn t\u1EA5t c\u1EA3")) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Table"], {
-        dataSource: data,
-        columns: col,
-        loading: isLoading,
-        rowKey: function rowKey(row) {
-          return row[primaryKey];
-        },
-        rowSelection: selectable ? rowSelection : null,
-        locale: {
-          filterConfirm: "Lọc",
-          filterReset: "Hủy",
-          emptyText: "Không có dữ liệu"
-        },
-        scroll: scroll
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
-        visible: modalVisible,
-        title: "Chi ti\u1EBFt",
-        onOk: this.handleOk,
-        onCancel: this.handleCancel,
-        footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-          key: "back",
-          onClick: this.handleCancel
-        }, "H\u1EE7y"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-          key: "submit",
-          type: "primary",
-          loading: formSubmiting,
-          onClick: this.handleOk
-        }, "\u0110\u1ED3ng \xFD")]
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
-        ref: this.formRef,
-        initialValues: formInitialValues,
-        labelCol: {
-          span: 6
-        },
-        wrapperCol: {
-          span: 18
-        }
-      }, formTemplate)));
+        handleSelectAll: this.handleSelectAll,
+        handleClearSelected: this.handleClearSelected
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DataTable, {
+        data: data,
+        columns: this.columns,
+        isLoading: isLoading,
+        primaryKey: primaryKey,
+        selectable: selectable,
+        selectedRowKeys: selectedRowKeys,
+        onChangeSelect: this.handleSelectRow,
+        scroll: tableSize
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalConfirm, {
+        modalVisible: modalVisible,
+        handleOk: this.handleOk,
+        handleCancel: this.handleCancel,
+        formSubmiting: formSubmiting,
+        formRef: this.formRef,
+        formInitialValues: formInitialValues,
+        formTemplate: formTemplate
+      }));
     }
   }]);
 
@@ -601,6 +563,80 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (ListForm);
+var ToolsButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "tools-button"
+  }, props.insertable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    type: "primary",
+    onClick: props.handleAddNew
+  }, "Th\xEAm m\u1EDBi") : "", props.selectable && props.deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    style: {
+      display: "inline"
+    }
+  }, props.selectedRowKeys.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    type: "danger",
+    onClick: props.onMultiDelete
+  }, "X\xF3a ", props.selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn") : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    type: "link",
+    onClick: props.handleSelectAll
+  }, "Ch\u1ECDn t\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    type: "link",
+    danger: true,
+    onClick: props.handleClearSelected
+  }, "B\u1ECF ch\u1ECDn t\u1EA5t c\u1EA3")) : "");
+});
+var DataTable = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  var selectedRowKeys = props.selectedRowKeys;
+  var scroll = props.tableSize;
+  if (!scroll) scroll = {
+    x: 500
+  };
+  var rowSelection = {
+    selectedRowKeys: selectedRowKeys,
+    onChange: props.onChangeSelect
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Table"], {
+    dataSource: props.data,
+    columns: props.columns,
+    loading: props.isLoading,
+    rowKey: function rowKey(row) {
+      return row[props.primaryKey];
+    },
+    rowSelection: props.selectable ? rowSelection : null,
+    locale: {
+      filterConfirm: "Lọc",
+      filterReset: "Hủy",
+      emptyText: "Không có dữ liệu"
+    },
+    scroll: props.scroll
+  });
+});
+var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
+    visible: props.modalVisible,
+    title: "Chi ti\u1EBFt",
+    onOk: props.handleOk,
+    onCancel: props.handleCancel,
+    footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      key: "back",
+      onClick: props.handleCancel
+    }, "H\u1EE7y"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      key: "submit",
+      type: "primary",
+      loading: props.formSubmiting,
+      onClick: props.handleOk
+    }, "\u0110\u1ED3ng \xFD")]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
+    ref: props.formRef,
+    initialValues: props.formInitialValues,
+    labelCol: {
+      span: 6
+    },
+    wrapperCol: {
+      span: 18
+    }
+  }, props.formTemplate));
+});
 
 /***/ })
 

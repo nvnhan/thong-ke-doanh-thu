@@ -12,20 +12,22 @@ import MyHeader from './includes/MyHeader';
 import SideBar from './SideBar';
 import Content from './includes/Content';
 import MyFooter from './includes/MyFooter';
+import Login from '../pages/Login';
 
 export default class App extends PureComponent {
     
     render() {
         return (
             <BrowserRouter>
-                <Layout>
+            <Login />
+                {/* <Layout>
                     <SideBar />
                     <Layout>
                         <MyHeader />
                         <Content />
                         <MyFooter />
                     </Layout>
-                </Layout>
+                </Layout> */}
             </BrowserRouter>
         );
     }

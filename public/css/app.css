@@ -31,24 +31,73 @@
 }
 
 .nav-user .ant-menu-submenu-title {
-  padding-right: 0;
+    padding-right: 0;
 }
 
-.loading-screen {
-    transform: translateY(50vh);
+/* Loading screen ban đâu */
+.loading-wrapper {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
-.loading-screen .ant-spin {
+.loading-wrapper .loading-content {
+    max-width: 400px;
+    min-width: 300px;
     display: flex;
     justify-content: center;
     align-content: center;
-    transform: translateY(-50%);
+    flex-direction: column;
+    padding: 20px;
 }
 
+.loading-wrapper .loading-content img {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.loading-wrapper .loading-text {
+    text-align: center;
+    font-size: .9rem;
+    font-style: italic;
+}
+
+/* Button trong form danh mục */
 .tools-button {
     padding-left: 5px;
 }
 
 .tools-button button {
     margin: 10px 5px;
+}
+
+
+/* Đăng nhập */
+.card-login {
+    max-width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.card-login .ant-card-head img {
+    width: 100%;
+    display: block;
+    padding: 0 20px;
+}
+
+.login-form {
+    min-width: 250px;
+}
+.login-form-forgot {
+    float: right;
+}
+.ant-col-rtl .login-form-forgot {
+    float: left;
+}
+.login-form-button {
+    width: 100%;
 }

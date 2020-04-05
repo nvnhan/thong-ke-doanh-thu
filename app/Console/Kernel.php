@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('passport:purge')->hourly();         // Bỏ những access token hết hạn hoặc đã thu hồi hàng giờ
     }
 
     /**

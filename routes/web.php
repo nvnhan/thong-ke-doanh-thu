@@ -14,3 +14,4 @@
 
 // Tất cả route đều vào SPA VIew
 Route::get('{path?}', 'RenderSpaView');//->where('path', '[a-zA-Z0-9-/]+');
+Route::get('/login', 'RenderSpaView')->name('login');

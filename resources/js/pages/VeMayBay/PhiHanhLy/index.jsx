@@ -8,7 +8,7 @@ import FormItem from "./FormItem";
 class List extends PureComponent {
     componentDidMount() {
         this.props.onChangeMenu(menus.VMB_HANH_LY);
-        this.props.onChangeTitle("Hành lý");
+        this.props.onChangeTitle("Phí hành lý");
     }
 
     /**

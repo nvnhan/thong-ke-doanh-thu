@@ -14,21 +14,21 @@ class List extends PureComponent {
         };
     }
 
-    // componentDidMount() {
-    //     this.props.onChangeMenu(menus.TT_KHACH_HANG);
-    //     this.props.onChangeTitle("Khách hàng");
+    componentDidMount() {
+        this.props.onChangeMenu(menus.TT_KHACH_HANG);
+        this.props.onChangeTitle("Khách hàng");
 
-    //     axios
-    //         .get("/api/khach-hang/phan-loai")
-    //         .then((response) => {
-    //             if (response.data.success) {
-    //                 this.setState({
-    //                     phanLoai: response.data.data
-    //                 });
-    //             }
-    //         })
-    //         .catch((error) => console.log(error));
-    // }
+        // axios
+        //     .get("/api/khach-hang/phan-loai")
+        //     .then((response) => {
+        //         if (response.data.success) {
+        //             this.setState({
+        //                 phanLoai: response.data.data
+        //             });
+        //         }
+        //     })
+        //     .catch((error) => console.log(error));
+    }
 
     onChangeData = (data) => {
         const phanLoai = [...new Set(data.map((x) => x.phan_loai))];
@@ -48,7 +48,6 @@ class List extends PureComponent {
                 dataIndex: "ma_khach_hang",
                 width: 120,
                 optFind: true,
-                fixed: "left",
             },
             {
                 title: "Họ tên",

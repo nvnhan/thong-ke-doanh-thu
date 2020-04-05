@@ -5,7 +5,7 @@ const DataTable = React.memo((props) => {
     const { selectedRowKeys } = props;
 
     let scroll = props.tableSize;
-    if (!scroll) scroll = { x: 500 };
+    if (scroll === undefined) scroll = { x: 500 };
 
     const rowSelection = {
         selectedRowKeys,
@@ -23,7 +23,7 @@ const DataTable = React.memo((props) => {
                 filterReset: "Hủy",
                 emptyText: "Không có dữ liệu",
             }}
-            scroll={props.scroll}
+            scroll={scroll}
         />
     );
 });

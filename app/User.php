@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'ho_ten', 'username', 'password',
+        'ho_ten', 'username', 'password', 'sdt', 'dia_chi', 'admin',
     ];
 
     /**
@@ -35,6 +35,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        //'email_verified_at' => 'datetime',
+        'admin' => 'boolean'
     ];
+    
+    /**
+     * Find the user instance for the given username.
+     *
+     * @param  string  $username
+     * @return \App\User
+     */
+    public function findForPassport($username)
+    {
+        return $this->where('username', $username)->first();
+    }
 }

@@ -1,36 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
 
-/***/ "./resources/js/actions/index.js":
-/*!***************************************!*\
-  !*** ./resources/js/actions/index.js ***!
-  \***************************************/
-/*! exports provided: changeMenu, changeTitle */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeMenu", function() { return changeMenu; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTitle", function() { return changeTitle; });
-/* harmony import */ var _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/ActionTypes */ "./resources/js/constants/ActionTypes.js");
-/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
-
-
-var changeMenu = function changeMenu() {
-  var menu = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _constants_SideMenus__WEBPACK_IMPORTED_MODULE_1__["HOME"];
-  return {
-    type: _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__["CHANGE_MENU_ACTIVE"],
-    menu: menu
-  };
-};
-var changeTitle = function changeTitle(title) {
-  return {
-    type: _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__["CHANGE_PAGE_TITLE"],
-    title: title
-  };
-};
-
-/***/ }),
-
 /***/ "./resources/js/components/ListForm/DataTable.js":
 /*!*******************************************************!*\
   !*** ./resources/js/components/ListForm/DataTable.js ***!
@@ -48,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 var DataTable = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   var selectedRowKeys = props.selectedRowKeys;
   var scroll = props.tableSize;
-  if (!scroll) scroll = {
+  if (scroll === undefined) scroll = {
     x: 500
   };
   var rowSelection = {
@@ -68,7 +37,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (prop
       filterReset: "Hủy",
       emptyText: "Không có dữ liệu"
     },
-    scroll: props.scroll
+    scroll: scroll
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (DataTable);

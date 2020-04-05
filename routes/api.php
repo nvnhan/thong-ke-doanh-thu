@@ -12,8 +12,13 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// public routes
+Route::post('/login', 'AuthController@login')->name('login.api');
+Route::post('/register', 'AuthController@register')->name('register.api');
 
-
+// private routes
+Route::middleware('auth:api')->group(function () {
+    Route::get('/logout', 'AuthController@logout')->name('logout');
 
     Route::delete('phi-hanh-ly/deletes', 'PhiHanhLyController@deletes');
     Route::resource('phi-hanh-ly', 'PhiHanhLyController')->only(['index', 'store', 'update', 'destroy']);
@@ -26,8 +31,7 @@ use Illuminate\Http\Request;
 
     Route::delete('khach-hang/deletes', 'KhachHangController@deletes');
     Route::resource('khach-hang', 'KhachHangController')->only(['index', 'store', 'update', 'destroy']);
-    
-// Route::middleware('auth:api')->group(function () {
+
     Route::resource('user', 'UserController');
     Route::resource('ban-ra', 'BanRaController');
     Route::resource('mua-vao', 'MuaVaoController');
@@ -39,4 +43,4 @@ use Illuminate\Http\Request;
     Route::resource('tour', 'TourController');
     Route::resource('tour-chi-tiet', 'TourChiTietController');
     Route::resource('visa', 'VisaController');
-// });
+});

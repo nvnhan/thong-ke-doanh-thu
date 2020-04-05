@@ -1,10 +1,13 @@
 import React from "react";
-import { Form, Select, Input, InputNumber, Row, Col, DatePicker } from "antd";
+import { Form, Select, Input, InputNumber, Row, Col, AutoComplete } from "antd";
 const { Option } = Select;
-import MyDatePicker from "../../../components/Includes/MyDatePicker";
+import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import locale from "antd/es/date-picker/locale/vi_VN";
 
-function form() {
+const form = React.memo((props) => {
+    const { phanLoai } = props;
+    if (!phanLoai) phanLoai = [];
+    const options = phanLoai.map((pl) => ({ value: pl }));
     return (
         <div>
             <Row gutter={[5, 5]}>
@@ -47,7 +50,14 @@ function form() {
                             },
                         ]}
                     >
-                        <Input />
+                        <AutoComplete
+                            options={options}
+                            filterOption={(inputValue, option) =>
+                                option.value
+                                    .toUpperCase()
+                                    .indexOf(inputValue.toUpperCase()) !== -1
+                            }
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={24} md={8} sm={12}>
@@ -174,6 +184,6 @@ function form() {
             </Row>
         </div>
     );
-}
+});
 
 export default form;

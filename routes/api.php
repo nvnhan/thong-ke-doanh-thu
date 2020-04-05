@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
     
     Route::delete('tai-khoan/deletes', 'TaiKhoanController@deletes');
     Route::resource('tai-khoan', 'TaiKhoanController')->only(['index', 'store', 'update', 'destroy']);
+
     Route::delete('khach-hang/deletes', 'KhachHangController@deletes');
     Route::resource('khach-hang', 'KhachHangController')->only(['index', 'store', 'update', 'destroy']);
     

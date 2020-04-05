@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Loader from "./Loader";
 
 const TrangChu = lazy(() => import("../../pages/TrangChu"));
-const NotFound = lazy(() => import("./NotFound"));
+const NotFound = lazy(() => import("../../pages/NotFound"));
 
 const DatVe = lazy(() => import("../../pages/VeMayBay/DatVe"));
 const SanBay = lazy(() => import("../../pages/VeMayBay/SanBay"));

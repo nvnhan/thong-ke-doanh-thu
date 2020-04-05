@@ -2,19 +2,46 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import * as menus from "../../../constants/SideMenus";
-import ListForm from "../../../components/Includes/ListForm";
+import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
 class List extends PureComponent {
-    componentDidMount() {
-        this.props.onChangeMenu(menus.TT_KHACH_HANG);
-        this.props.onChangeTitle("Khách hàng");
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            phanLoai: [],
+        };
     }
+
+    // componentDidMount() {
+    //     this.props.onChangeMenu(menus.TT_KHACH_HANG);
+    //     this.props.onChangeTitle("Khách hàng");
+
+    //     axios
+    //         .get("/api/khach-hang/phan-loai")
+    //         .then((response) => {
+    //             if (response.data.success) {
+    //                 this.setState({
+    //                     phanLoai: response.data.data
+    //                 });
+    //             }
+    //         })
+    //         .catch((error) => console.log(error));
+    // }
+
+    onChangeData = (data) => {
+        const phanLoai = [...new Set(data.map((x) => x.phan_loai))];
+        this.setState({
+            phanLoai,
+        });
+    };
 
     /**
      * Hàm render
      */
     render() {
+        const { phanLoai } = this.state;
         const columns = [
             {
                 title: "Mã khách hàng",
@@ -151,7 +178,8 @@ class List extends PureComponent {
                 deleteable={true}
                 primaryKey="id"
                 tableSize={{ x: 1000 }}
-                formTemplate={<FormItem />}
+                formTemplate={<FormItem phanLoai={phanLoai} />}
+                onChangeData={this.onChangeData}
             />
         );
     }
@@ -161,7 +189,7 @@ class List extends PureComponent {
  * Store trả state về thông qua connect
  * Connect dùng hàm này để map các state => props cho component
  */
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
     return {};
 };
 /**
@@ -170,12 +198,12 @@ const mapStatetoProps = state => {
  */
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onChangeMenu: menu => {
+        onChangeMenu: (menu) => {
             dispatch(actions.changeMenu(menu));
         },
-        onChangeTitle: title => {
+        onChangeTitle: (title) => {
             dispatch(actions.changeTitle(title));
-        }
+        },
     };
 };
 

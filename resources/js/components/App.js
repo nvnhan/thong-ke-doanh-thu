@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { Layout } from "antd";
 
 import MyHeader from './includes/MyHeader';
-import SideBar from './includes/SideBar';
+import SideBar from './SideBar';
 import Content from './includes/Content';
 import MyFooter from './includes/MyFooter';
 

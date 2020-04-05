@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import * as menus from "../../../constants/SideMenus";
-import ListForm from "../../../components/Includes/ListForm";
+import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
 class List extends PureComponent {

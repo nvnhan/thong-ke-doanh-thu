@@ -1,5 +1,4 @@
 import * as types from "../constants/ActionTypes";
-import * as menus from "../constants/SideMenus";
 
 var initialState = "Thống kê doanh thu";
 

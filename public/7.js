@@ -1,84 +1,18 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
-/***/ "./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js":
-/*!***********************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js ***!
-  \***********************************************************/
+/***/ "./resources/js/pages/NotFound/index.jsx":
+/*!***********************************************!*\
+  !*** ./resources/js/pages/NotFound/index.jsx ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-
-
-var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
-
-function form() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "hanh_ly",
-    label: "H\xE0nh l\xFD",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "muc_phi",
-    label: "M\u1EE9c ph\xED",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 1000,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "hang_bay",
-    label: "H\xE3ng bay"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
-    allowClear: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "VN"
-  }, "VN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "VJ"
-  }, "VJ"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "Jets"
-  }, "Jets"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "BB"
-  }, "BB"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "ghi_chu",
-    label: "Ghi ch\xFA"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)));
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (form);
-
-/***/ }),
-
-/***/ "./resources/js/pages/VeMayBay/PhiHanhLy/index.jsx":
-/*!*********************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/PhiHanhLy/index.jsx ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.jsx");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/PhiHanhLy/FormItem.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -105,69 +39,37 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var List = /*#__PURE__*/function (_PureComponent) {
-  _inherits(List, _PureComponent);
+var NotFound = /*#__PURE__*/function (_PureComponent) {
+  _inherits(NotFound, _PureComponent);
 
-  var _super = _createSuper(List);
+  var _super = _createSuper(NotFound);
 
-  function List() {
-    _classCallCheck(this, List);
+  function NotFound() {
+    _classCallCheck(this, NotFound);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(List, [{
+  _createClass(NotFound, [{
     key: "render",
-
-    /**
-     * Hàm render
-     */
     value: function render() {
-      var columns = [{
-        title: "Loại hành lý",
-        dataIndex: "hanh_ly",
-        optFind: true
-      }, {
-        title: "Mức phí",
-        dataIndex: "muc_phi",
-        render: function render(number) {
-          return new Intl.NumberFormat("vi-VN", {
-            style: "currency",
-            currency: "VND"
-          }).format(number);
-        }
-      }, {
-        title: "Hãng bay",
-        dataIndex: "hang_bay",
-        optFind: true
-      }, {
-        title: "Ghi chú",
-        dataIndex: "ghi_chu",
-        ellipsis: true
-      }];
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        url: "phi-hanh-ly",
-        columns: columns,
-        selectable: true,
-        insertable: true,
-        editable: true,
-        deleteable: true,
-        primaryKey: "id",
-        tableSize: {
-          x: 600
-        },
-        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], null),
-        formInitialValues: {
-          phi: 100000
-        }
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Result"], {
+        status: "404",
+        title: "404 - Not found!",
+        subTitle: "R\u1EA5t ti\u1EBFc, trang kh\xF4ng t\u1ED3n t\u1EA1i",
+        extra: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+          type: "primary"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/"
+        }, "Trang ch\u1EE7"))
       });
     }
   }]);
 
-  return List;
-}(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
+  return NotFound;
+}(react__WEBPACK_IMPORTED_MODULE_1__["PureComponent"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (List);
+/* harmony default export */ __webpack_exports__["default"] = (NotFound);
 
 /***/ })
 

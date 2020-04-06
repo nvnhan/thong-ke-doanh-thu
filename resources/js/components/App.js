@@ -1,29 +1,16 @@
-import { Layout } from "antd";
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
+import React, { PureComponent } from "react";
+import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter } from 'react-router-dom';
 import { createStore } from "redux";
 import { myReducer } from "../reducers";
-import Content from './includes/Content';
-import MyFooter from './includes/MyFooter';
-import MyHeader from './includes/MyHeader';
-import SideBar from './SideBar';
+import MainContainer from "./MainContainer";
+import { BrowserRouter } from "react-router-dom";
 
 export default class App extends PureComponent {
-    
     render() {
         return (
             <BrowserRouter>
-            {/* <Login /> */}
-                <Layout>
-                    <SideBar />
-                    <Layout>
-                        <MyHeader />
-                        <Content />
-                        <MyFooter />
-                    </Layout>
-                </Layout>
+                <MainContainer />
             </BrowserRouter>
         );
     }

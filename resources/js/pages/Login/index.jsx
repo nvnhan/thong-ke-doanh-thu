@@ -1,14 +1,49 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 import * as actions from "../../actions";
-import { Form, Input, Button, Checkbox, Card } from "antd";
+import { Form, Input, Button, Checkbox, Card, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./login.scss";
 
 class Login extends PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            formSubmiting: false,
+        };
+        this.formRef = React.createRef();
+    }
+
     componentDidMount() {
         this.props.onChangeTitle("Đăng nhập");
     }
+
+    onFinish = () => {
+        this.setState({ formSubmiting: true });
+        const values = this.formRef.current.getFieldsValue();
+        axios
+            .post(`/api/login`, values)
+            .then((response) => {
+                if (response.data.success) {
+                    const { data } = response.data;
+                    this.props.onSetAuth({
+                        username: data.username,
+                        ho_ten: data.ho_ten,
+                        token: data.token,
+                    });
+                    localStorage.setItem('token', data.token);
+                    message.info(response.data.message);
+                } else {
+                    message.warn(response.data.message);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        this.setState({ formSubmiting: false });
+    };
 
     /**
      * Hàm render
@@ -17,10 +52,11 @@ class Login extends PureComponent {
         return (
             <Card className="card-login" title={<img src="/img/intro.png" />}>
                 <Form
+                    ref={this.formRef}
                     name="normal_login"
                     className="login-form"
                     initialValues={{ remember: true }}
-                    // onFinish={onFinish}
+                    onFinish={this.onFinish}
                 >
                     <Form.Item
                         name="username"
@@ -74,6 +110,7 @@ class Login extends PureComponent {
                             type="primary"
                             htmlType="submit"
                             className="login-form-button"
+                            loading={this.state.formSubmiting}
                         >
                             Đăng nhập
                         </Button>
@@ -100,6 +137,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onChangeTitle: (title) => {
             dispatch(actions.changeTitle(title));
+        },
+        onSetAuth: (auth) => {
+            dispatch(actions.setAuth(auth));
         },
     };
 };

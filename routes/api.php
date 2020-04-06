@@ -19,6 +19,7 @@ Route::post('/register', 'AuthController@register')->name('register.api');
 // private routes
 Route::middleware('auth:api')->group(function () {
     Route::get('/logout', 'AuthController@logout')->name('logout');
+    Route::get('/get-user', 'AuthController@user')->name('getuser');
 
     Route::delete('phi-hanh-ly/deletes', 'PhiHanhLyController@deletes');
     Route::resource('phi-hanh-ly', 'PhiHanhLyController')->only(['index', 'store', 'update', 'destroy']);

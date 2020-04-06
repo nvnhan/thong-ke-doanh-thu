@@ -362,11 +362,8 @@ var form = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
-/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.jsx");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/KhachHang/FormItem.js");
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.jsx");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/KhachHang/FormItem.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -407,9 +404,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
-
-
 var List = /*#__PURE__*/function (_PureComponent) {
   _inherits(List, _PureComponent);
 
@@ -439,21 +433,6 @@ var List = /*#__PURE__*/function (_PureComponent) {
   }
 
   _createClass(List, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["TT_KHACH_HANG"]);
-      this.props.onChangeTitle("Khách hàng"); // axios
-      //     .get("/api/khach-hang/phan-loai")
-      //     .then((response) => {
-      //         if (response.data.success) {
-      //             this.setState({
-      //                 phanLoai: response.data.data
-      //             });
-      //         }
-      //     })
-      //     .catch((error) => console.log(error));
-    }
-  }, {
     key: "render",
 
     /**
@@ -572,7 +551,7 @@ var List = /*#__PURE__*/function (_PureComponent) {
         width: 150,
         ellipsis: true
       }];
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
         url: "khach-hang",
         columns: columns,
         modalWidth: "1100px",
@@ -584,7 +563,7 @@ var List = /*#__PURE__*/function (_PureComponent) {
         tableSize: {
           x: 1000
         },
-        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
           phanLoai: phanLoai
         }),
         onChangeData: this.onChangeData
@@ -594,37 +573,8 @@ var List = /*#__PURE__*/function (_PureComponent) {
 
   return List;
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
-/**
- * Store trả state về thông qua connect
- * Connect dùng hàm này để map các state => props cho component
- */
 
-
-var mapStatetoProps = function mapStatetoProps(state) {
-  return {};
-};
-/**
- * Map dispatch ==> Props
- * Gọi hàm ở  props + biến => dispatch 1 action nào đó
- */
-
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
-  return {
-    onChangeMenu: function onChangeMenu(menu) {
-      dispatch(_actions__WEBPACK_IMPORTED_MODULE_2__["changeMenu"](menu));
-    },
-    onChangeTitle: function onChangeTitle(title) {
-      dispatch(_actions__WEBPACK_IMPORTED_MODULE_2__["changeTitle"](title));
-    }
-  };
-};
-/**
- * Connect của react-redux sẽ giao tiếp giữa store và component
- */
-
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStatetoProps, mapDispatchToProps)(List));
+/* harmony default export */ __webpack_exports__["default"] = (List);
 
 /***/ })
 

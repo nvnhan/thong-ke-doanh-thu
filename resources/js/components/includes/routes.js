@@ -1,4 +1,6 @@
-import React, { lazy } from 'react'
+import React, { lazy } from "react";
+import * as menus from "../../constants/SideMenus";
+
 const TrangChu = lazy(() => import("../../pages/TrangChu"));
 const NotFound = lazy(() => import("../../pages/NotFound"));
 
@@ -14,41 +16,57 @@ const routes = [
     {
         path: "/",
         exact: true,
+        title: "Thống kê doanh thu",
+        menu: menus.HOME,
         component: <TrangChu />,
     },
     {
         path: "/dat-ve",
         exact: false,
+        title: "Đặt vé",
+        menu: menus.VMB_DAT_VE,
         component: <DatVe />,
     },
     {
         path: "/san-bay",
         exact: false,
+        title: "Sân bay",
+        menu: menus.VMB_SAN_BAY,
         component: <SanBay />,
     },
     {
         path: "/thue-phi",
         exact: false,
+        title: "Thuế phí",
+        menu: menus.VMB_THUE_PHI,
         component: <ThuePhi />,
     },
     {
         path: "/phi-hanh-ly",
         exact: false,
+        title: "Phí hành lý",
+        menu: menus.VMB_HANH_LY,
         component: <PhiHanhLy />,
     },
     {
         path: "/tai-khoan",
         exact: false,
+        title: "Tài khoản",
+        menu: menus.TT_TAI_KHOAN,
         component: <TaiKhoan />,
     },
     {
         path: "/khach-hang",
         exact: false,
+        title: "Khách hàng",
+        menu: menus.TT_KHACH_HANG,
         component: <KhachHang />,
     },
     {
         path: "/",
         exact: false,
+        title: "Lỗi 404!",
+        menu: '',
         component: <NotFound />,
     },
 ];

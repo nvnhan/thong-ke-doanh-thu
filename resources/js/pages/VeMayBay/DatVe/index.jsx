@@ -1,28 +1,14 @@
+import { Button, List } from "antd";
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { Button, List } from "antd";
-import axios from "axios";
-import * as actions from '../../../actions'
-import * as menus from '../../../constants/SideMenus'
 
-class ListPosts extends PureComponent {
+class ListPost extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
             data: []
         };
-    }
-
-    componentDidMount() {
-        // axios.get("/api/posts").then(response => {
-        //     this.setState({
-        //         data: response.data
-        //     });
-        // });
-        this.props.onChangeMenu(menus.VMB_DAT_VE);
-        this.props.onChangeTitle("Đặt vé");
     }
 
     deletePost = id => {
@@ -68,31 +54,4 @@ class ListPosts extends PureComponent {
     }
 }
 
-/**
- * Store trả state về thông qua connect
- * Connect dùng hàm này để map các state => props cho component
- */
-const mapStatetoProps = state => {
-	return {
-		
-	};
-};
-/**
- * Map dispatch ==> Props
- * Gọi hàm ở  props + biến => dispatch 1 action nào đó
- */
-const mapDispatchToProps = (dispatch, props) => {
-	return {
-		onChangeMenu: menu => {
-			dispatch(actions.changeMenu(menu));
-        },
-        onChangeTitle: title => {
-            dispatch(actions.changeTitle(title));
-        }
-	};
-};
-
-/**
- * Connect của react-redux sẽ giao tiếp giữa store và component
- */
-export default connect(mapStatetoProps, mapDispatchToProps)(ListPosts);
+export default ListPost;

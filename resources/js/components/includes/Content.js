@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import Loader from "./Loader";
 import routes from "./routes";
+import Container from "./Container";
 
 export default function Content() {
     const getRoute = (routes) => {
@@ -11,7 +12,13 @@ export default function Content() {
                     key={index}
                     exact={route.exact}
                     path={route.path}
-                    component={() => route.component}
+                    component={() => (
+                        <Container
+                            component={route.component}
+                            title={route.title}
+                            menu={route.menu}
+                        />
+                    )}
                 />
             );
         });

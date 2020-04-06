@@ -1,17 +1,9 @@
-import React, { PureComponent } from "react";
-import { connect } from "react-redux";
-import * as actions from "../../../actions";
-import * as menus from "../../../constants/SideMenus";
-import ListForm from "../../../components/ListForm";
 import { Checkbox } from "antd";
+import React, { PureComponent } from "react";
+import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
 class List extends PureComponent {
-    componentDidMount() {
-        this.props.onChangeMenu(menus.VMB_SAN_BAY);
-        this.props.onChangeTitle("Sân bay");
-    }
-
     /**
      * Hàm render
      */
@@ -54,29 +46,4 @@ class List extends PureComponent {
     }
 }
 
-/**
- * Store trả state về thông qua connect
- * Connect dùng hàm này để map các state => props cho component
- */
-const mapStatetoProps = state => {
-    return {};
-};
-/**
- * Map dispatch ==> Props
- * Gọi hàm ở  props + biến => dispatch 1 action nào đó
- */
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        onChangeMenu: menu => {
-            dispatch(actions.changeMenu(menu));
-        },
-        onChangeTitle: title => {
-            dispatch(actions.changeTitle(title));
-        }
-    };
-};
-
-/**
- * Connect của react-redux sẽ giao tiếp giữa store và component
- */
-export default connect(mapStatetoProps, mapDispatchToProps)(List);
+export default List;

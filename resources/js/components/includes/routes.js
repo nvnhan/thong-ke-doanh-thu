@@ -12,6 +12,9 @@ const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
 const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
 const KhachHang = lazy(() => import("../../pages/ThongTin/KhachHang"));
 
+const Profile = lazy(() => import("../../pages/Account/Profile"));
+const Password = lazy(() => import("../../pages/Account/Password"));
+
 const routes = [
     {
         path: "/",
@@ -63,10 +66,24 @@ const routes = [
         component: <KhachHang />,
     },
     {
+        path: "/thong-tin-ca-nhan",
+        exact: false,
+        title: "Thông tin cá nhân",
+        menu: "",
+        component: <Profile />,
+    },
+    {
+        path: "/doi-mat-khau",
+        exact: false,
+        title: "Đổi mật khẩu",
+        menu: "",
+        component: <Password />,
+    },
+    {
         path: "/",
         exact: false,
         title: "Lỗi 404!",
-        menu: '',
+        menu: "",
         component: <NotFound />,
     },
 ];

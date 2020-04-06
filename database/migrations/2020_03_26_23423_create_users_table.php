@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('sdt', 20)->nullable();
             $table->string('dia_chi', 500)->nullable();
             $table->boolean('admin')->default(false);
-            $table->rememberToken();
             $table->timestamps();
         });
     }

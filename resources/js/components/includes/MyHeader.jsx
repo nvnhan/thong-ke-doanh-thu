@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { UserOutlined } from "@ant-design/icons";
 const { SubMenu } = Menu;
 import * as actions from "../../actions";
+import { Link } from "react-router-dom";
 
 class MyHeader extends PureComponent {
     onLogout = () => {
@@ -22,7 +23,7 @@ class MyHeader extends PureComponent {
                     onBack={() => window.history.back()}
                     title={this.props.title}
                     extra={
-                        <Menu key="user" mode="horizontal">
+                        <Menu key="user" mode="horizontal" selectable={false}>
                             <SubMenu
                                 className="nav-user"
                                 title={
@@ -49,6 +50,15 @@ class MyHeader extends PureComponent {
                                     </div>
                                 }
                             >
+                                <Menu.Item key="profile">
+                                    <Link to="/thong-tin-ca-nhan">
+                                        Thông tin cá nhân
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item key="password">
+                                    <Link to="/doi-mat-khau">Đổi mật khẩu</Link>
+                                </Menu.Item>
+                                <Menu.Divider />
                                 <Menu.Item
                                     key="SignOut"
                                     onClick={this.onLogout}

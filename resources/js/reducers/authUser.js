@@ -3,7 +3,8 @@ import * as types from "../constants/ActionTypes";
 
 var initialState = {
     username: "",
-    ho_ten: "",
+    hoTen: "",
+    isAdmin: false,
     token: "",
 };
 
@@ -13,11 +14,7 @@ const myReducer = (state = initialState, action) => {
         let token = localStorage.token;
         if (token !== undefined) {
             axios
-                .get(`/api/logout`, {
-                    headers: {
-                        Authorization: "Bearer " + token,
-                    },
-                })
+                .get(`/api/logout`)
                 .then((response) => {
                     if (response.data.success) {
                         message.info(response.data.message);

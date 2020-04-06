@@ -1,73 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
 
-/***/ "./resources/js/pages/VeMayBay/SanBay/FormItem.js":
-/*!********************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/SanBay/FormItem.js ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-
-
-var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
-
-function form() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "ma_san_bay",
-    label: "M\xE3 s\xE2n bay",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "ten_san_bay",
-    label: "T\xEAn s\xE2n bay",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "phan_loai",
-    label: "Khu v\u1EF1c"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
-    allowClear: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "Ch\xE2u \xC2u"
-  }, "Ch\xE2u \xC2u"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "Ch\xE2u \xDAc"
-  }, "Ch\xE2u \xDAc"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "\u0110\xF4ng B\u1EAFc \xC1"
-  }, "\u0110\xF4ng B\u1EAFc \xC1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "\u0110\xF4ng D\u01B0\u01A1ng"
-  }, "\u0110\xF4ng D\u01B0\u01A1ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "\u0110\xF4ng Nam \xC1"
-  }, "\u0110\xF4ng Nam \xC1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "Hoa K\u1EF3"
-  }, "Hoa K\u1EF3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-    value: "Vi\u1EC7t Nam"
-  }, "Vi\u1EC7t Nam"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    wrapperCol: {
-      offset: 6,
-      span: 18
-    },
-    name: "loai_a",
-    valuePropName: "checked"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], null, "S\xE2n bay lo\u1EA1i A")));
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (form);
-
-/***/ }),
-
-/***/ "./resources/js/pages/VeMayBay/SanBay/index.jsx":
-/*!******************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/SanBay/index.jsx ***!
-  \******************************************************/
+/***/ "./resources/js/pages/TrangChu/index.jsx":
+/*!***********************************************!*\
+  !*** ./resources/js/pages/TrangChu/index.jsx ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -76,11 +12,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
-/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.jsx");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/SanBay/FormItem.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -108,83 +41,36 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+var TrangChu = /*#__PURE__*/function (_PureComponent) {
+  _inherits(TrangChu, _PureComponent);
 
+  var _super = _createSuper(TrangChu);
 
-
-var List = /*#__PURE__*/function (_PureComponent) {
-  _inherits(List, _PureComponent);
-
-  var _super = _createSuper(List);
-
-  function List() {
-    _classCallCheck(this, List);
+  function TrangChu() {
+    _classCallCheck(this, TrangChu);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(List, [{
+  _createClass(TrangChu, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_SAN_BAY"]);
-      this.props.onChangeTitle("Sân bay");
+      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["HOME"]);
+      this.props.onChangeTitle("Thống kê doanh thu");
     }
-    /**
-     * Hàm render
-     */
-
   }, {
     key: "render",
     value: function render() {
-      var columns = [{
-        title: "Mã sân bay",
-        dataIndex: "ma_san_bay",
-        optFind: true
-      }, {
-        title: "Tên sân bay",
-        dataIndex: "ten_san_bay",
-        optFind: true
-      }, {
-        title: "Khu vực",
-        dataIndex: "phan_loai",
-        optFilter: true
-      }, {
-        title: "Sân bay loại A",
-        dataIndex: "loai_a",
-        render: function render(bol) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Checkbox"], {
-            checked: bol
-          });
-        }
-      }];
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        url: "san-bay",
-        columns: columns,
-        selectable: true,
-        insertable: true,
-        editable: true,
-        deleteable: true,
-        primaryKey: "id",
-        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_6__["default"], null)
-      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "TRANG CH\u1EE6");
     }
   }]);
 
-  return List;
+  return TrangChu;
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
-/**
- * Store trả state về thông qua connect
- * Connect dùng hàm này để map các state => props cho component
- */
 
-
-var mapStatetoProps = function mapStatetoProps(state) {
+var mapStateToProps = function mapStateToProps(state) {
   return {};
 };
-/**
- * Map dispatch ==> Props
- * Gọi hàm ở  props + biến => dispatch 1 action nào đó
- */
-
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
@@ -196,12 +82,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
     }
   };
 };
-/**
- * Connect của react-redux sẽ giao tiếp giữa store và component
- */
 
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStatetoProps, mapDispatchToProps)(List));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(TrangChu));
 
 /***/ })
 

@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./resources/js/pages/VeMayBay/DatVe/index.jsx":
-/*!*****************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/DatVe/index.jsx ***!
-  \*****************************************************/
+/***/ "./resources/js/pages/VeMayBay/SanBay/FormItem.js":
+/*!********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/SanBay/FormItem.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,13 +11,76 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
-/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+
+
+var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
+
+function form() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ma_san_bay",
+    label: "M\xE3 s\xE2n bay",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ten_san_bay",
+    label: "T\xEAn s\xE2n bay",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phan_loai",
+    label: "Khu v\u1EF1c"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
+    allowClear: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Ch\xE2u \xC2u"
+  }, "Ch\xE2u \xC2u"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Ch\xE2u \xDAc"
+  }, "Ch\xE2u \xDAc"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "\u0110\xF4ng B\u1EAFc \xC1"
+  }, "\u0110\xF4ng B\u1EAFc \xC1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "\u0110\xF4ng D\u01B0\u01A1ng"
+  }, "\u0110\xF4ng D\u01B0\u01A1ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "\u0110\xF4ng Nam \xC1"
+  }, "\u0110\xF4ng Nam \xC1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Hoa K\u1EF3"
+  }, "Hoa K\u1EF3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Vi\u1EC7t Nam"
+  }, "Vi\u1EC7t Nam"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    wrapperCol: {
+      offset: 6,
+      span: 18
+    },
+    name: "loai_a",
+    valuePropName: "checked"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], null, "S\xE2n bay lo\u1EA1i A")));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/SanBay/index.jsx":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/SanBay/index.jsx ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var _constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/SideMenus */ "./resources/js/constants/SideMenus.js");
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.jsx");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/SanBay/FormItem.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40,7 +103,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -49,78 +111,65 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+var List = /*#__PURE__*/function (_PureComponent) {
+  _inherits(List, _PureComponent);
 
-var ListPosts = /*#__PURE__*/function (_PureComponent) {
-  _inherits(ListPosts, _PureComponent);
+  var _super = _createSuper(List);
 
-  var _super = _createSuper(ListPosts);
+  function List() {
+    _classCallCheck(this, List);
 
-  function ListPosts(props) {
-    var _this;
-
-    _classCallCheck(this, ListPosts);
-
-    _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "deletePost", function (id) {// axios
-      //     .post(`/api/posts/delete/${id}`)
-      //     .then(response => {
-      //         alert("Xoa thanh cong");
-      //         this.setState({
-      //             data: response.data
-      //         });
-      //     })
-      //     .catch(error => {
-      //         console.log(error);
-      //     });
-    });
-
-    _this.state = {
-      data: []
-    };
-    return _this;
+    return _super.apply(this, arguments);
   }
 
-  _createClass(ListPosts, [{
+  _createClass(List, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // axios.get("/api/posts").then(response => {
-      //     this.setState({
-      //         data: response.data
-      //     });
-      // });
-      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_6__["VMB_DAT_VE"]);
-      this.props.onChangeTitle("Đặt vé");
+      this.props.onChangeMenu(_constants_SideMenus__WEBPACK_IMPORTED_MODULE_3__["VMB_SAN_BAY"]);
+      this.props.onChangeTitle("Sân bay");
     }
+    /**
+     * Hàm render
+     */
+
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      var data = this.state.data;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"], {
-        itemLayout: "horizontal",
-        dataSource: data,
-        renderItem: function renderItem(item) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"].Item.Meta, {
-            title: item.title,
-            description: item.content
-          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-            to: "edit/".concat(item.id)
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-            type: "primary"
-          }, "Ch\u1EC9nh s\u1EEDa")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-            type: "danger",
-            onClick: function onClick() {
-              return _this2.deletePost(item.id);
-            }
-          }, "X\xF3a"));
+      var columns = [{
+        title: "Mã sân bay",
+        dataIndex: "ma_san_bay",
+        optFind: true
+      }, {
+        title: "Tên sân bay",
+        dataIndex: "ten_san_bay",
+        optFind: true
+      }, {
+        title: "Khu vực",
+        dataIndex: "phan_loai",
+        optFilter: true
+      }, {
+        title: "Sân bay loại A",
+        dataIndex: "loai_a",
+        render: function render(bol) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Checkbox"], {
+            checked: bol
+          });
         }
+      }];
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        url: "san-bay",
+        columns: columns,
+        selectable: true,
+        insertable: true,
+        editable: true,
+        deleteable: true,
+        primaryKey: "id",
+        formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_6__["default"], null)
       });
     }
   }]);
 
-  return ListPosts;
+  return List;
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
 /**
  * Store trả state về thông qua connect
@@ -140,10 +189,10 @@ var mapStatetoProps = function mapStatetoProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     onChangeMenu: function onChangeMenu(menu) {
-      dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__["changeMenu"](menu));
+      dispatch(_actions__WEBPACK_IMPORTED_MODULE_2__["changeMenu"](menu));
     },
     onChangeTitle: function onChangeTitle(title) {
-      dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__["changeTitle"](title));
+      dispatch(_actions__WEBPACK_IMPORTED_MODULE_2__["changeTitle"](title));
     }
   };
 };
@@ -152,7 +201,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
  */
 
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStatetoProps, mapDispatchToProps)(ListPosts));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStatetoProps, mapDispatchToProps)(List));
 
 /***/ })
 

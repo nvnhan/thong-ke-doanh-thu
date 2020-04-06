@@ -4,8 +4,7 @@ import { Table } from "antd";
 const DataTable = React.memo((props) => {
     const { selectedRowKeys } = props;
 
-    let scroll = props.tableSize;
-    if (scroll === undefined) scroll = { x: 500 };
+    let scroll = props.tableSize || { x: 500 };
 
     const rowSelection = {
         selectedRowKeys,

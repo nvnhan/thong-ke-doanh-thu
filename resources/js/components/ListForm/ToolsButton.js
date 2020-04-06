@@ -1,5 +1,6 @@
-import React from 'react'
-import {Button} from 'antd'
+import React from "react";
+import { Button } from "antd";
+import "./ToolsButton.scss";
 /**
  * Dùng React.memo để lưu lại Component, ko bị load lại trừ trường hợp cần thiết
  */
@@ -40,4 +41,4 @@ const ToolsButton = React.memo((props) => {
     );
 });
 
-export default ToolsButton
+export default ToolsButton;

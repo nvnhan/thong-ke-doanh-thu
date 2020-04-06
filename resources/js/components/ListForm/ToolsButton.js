@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Button } from "antd";
 import "./ToolsButton.scss";
 /**
@@ -15,7 +15,7 @@ const ToolsButton = React.memo((props) => {
                 ""
             )}
             {props.selectable && props.deleteable ? (
-                <div style={{ display: "inline" }}>
+                <Fragment>
                     {props.selectedRowKeys.length > 0 ? (
                         <Button type="danger" onClick={props.onMultiDelete}>
                             Xóa {props.selectedRowKeys.length} mục đã chọn
@@ -33,7 +33,7 @@ const ToolsButton = React.memo((props) => {
                     >
                         Bỏ chọn tất cả
                     </Button>
-                </div>
+                </Fragment>
             ) : (
                 ""
             )}

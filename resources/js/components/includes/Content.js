@@ -1,35 +1,26 @@
-import React, { Suspense, lazy } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Route, Switch } from "react-router-dom";
 import Loader from "./Loader";
-
-const TrangChu = lazy(() => import("../../pages/TrangChu"));
-const NotFound = lazy(() => import("../../pages/NotFound"));
-
-const DatVe = lazy(() => import("../../pages/VeMayBay/DatVe"));
-const SanBay = lazy(() => import("../../pages/VeMayBay/SanBay"));
-const ThuePhi = lazy(() => import("../../pages/VeMayBay/ThuePhi"));
-const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
-
-const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
-const KhachHang = lazy(() => import("../../pages/ThongTin/KhachHang"));
+import routes from "./routes";
 
 export default function Content() {
+    const getRoute = (routes) => {
+        return routes.map((route, index) => {
+            return (
+                <Route
+                    key={index}
+                    exact={route.exact}
+                    path={route.path}
+                    component={() => route.component}
+                />
+            );
+        });
+    };
+
     return (
         <div className="content">
             <Suspense fallback={<Loader />}>
-                <Switch>
-                    <Route exact path="/" component={TrangChu} />
-
-                    <Route path="/dat-ve" component={DatVe} />
-                    <Route path="/san-bay" component={SanBay} />
-                    <Route path="/thue-phi" component={ThuePhi} />
-                    <Route path="/phi-hanh-ly" component={PhiHanhLy} />
-
-                    <Route path="/tai-khoan" component={TaiKhoan} />
-                    <Route path="/khach-hang" component={KhachHang} />
-
-                    <Route component={NotFound} />
-                </Switch>
+                <Switch>{getRoute(routes)}</Switch>
             </Suspense>
         </div>
     );

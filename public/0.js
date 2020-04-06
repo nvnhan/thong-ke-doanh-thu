@@ -79,7 +79,8 @@ __webpack_require__.r(__webpack_exports__);
 var FormEdit = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"])(function () {
     if (props.currentRecord !== undefined) props.form.setFieldsValue(props.currentRecord);else props.form.resetFields();
-  });
+  }); // Alway run while each render
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
     form: props.form,
     initialValues: props.formInitialValues,
@@ -257,6 +258,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ToolsButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ToolsButton */ "./resources/js/components/ListForm/ToolsButton.js");
 /* harmony import */ var _DataTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DataTable */ "./resources/js/components/ListForm/DataTable.js");
 /* harmony import */ var _ModalConfirm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ModalConfirm */ "./resources/js/components/ListForm/ModalConfirm.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_9__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -311,6 +314,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var confirm = antd__WEBPACK_IMPORTED_MODULE_2__["Modal"].confirm;
+
 
 
 
@@ -799,6 +803,34 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
   return ListForm;
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
 
+ListForm.propTypes = {
+  url: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.string.isRequired,
+  columns: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.object).isRequired,
+  formTemplate: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.node.isRequired,
+  onChangeData: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.func,
+  selectable: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.bool,
+  insertable: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.bool,
+  editable: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.bool,
+  deleteable: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.bool,
+  primaryKey: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.string,
+  tableSize: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.shape({
+    x: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.number,
+    y: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.number
+  }),
+  modalWidth: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.number]),
+  formInitialValues: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.object
+}; // Specifies the default values for props:
+
+ListForm.defaultProps = {
+  selectable: true,
+  insertable: true,
+  editable: true,
+  deleteable: true,
+  primaryKey: "id",
+  tableSize: {
+    x: 500
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = (ListForm);
 
 /***/ })

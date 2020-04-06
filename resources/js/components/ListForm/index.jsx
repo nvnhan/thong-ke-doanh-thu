@@ -1,18 +1,19 @@
 import React, { PureComponent } from "react";
 import axios from "axios";
-import { Input, Button, Modal, message } from "antd";
+import { Input, Button, Modal, message, List } from "antd";
 import Highlighter from "react-highlight-words";
 import {
     SearchOutlined,
     DeleteOutlined,
     EditOutlined,
-    ExclamationCircleOutlined,
+    ExclamationCircleOutlined
 } from "@ant-design/icons";
 const { confirm } = Modal;
 import moment from "moment";
 import ToolsButton from "./ToolsButton";
 import DataTable from "./DataTable";
 import ModalConfirm from "./ModalConfirm";
+import PropTypes from "prop-types";
 
 class ListForm extends PureComponent {
     constructor(props) {
@@ -26,7 +27,7 @@ class ListForm extends PureComponent {
             modalVisible: false,
             formSubmiting: false,
             selectedRowKeys: [],
-            currentRecord: undefined,
+            currentRecord: undefined
         };
         this.columns = [];
         this.isComponentMounted = false;
@@ -38,25 +39,25 @@ class ListForm extends PureComponent {
 
         axios
             .get("/api/" + url)
-            .then((response) => {
+            .then(response => {
                 if (this.isComponentMounted && response.data.success) {
                     /**
                      * Tính các cột cần thiết
                      * Chạy 1 lần duy nhất
                      */
-                    this.columns = columns.map((column) =>
+                    this.columns = columns.map(column =>
                         this.getColumn(column, response.data.data)
                     );
                     this.columns.push(this.addColumn());
                     this.setState({
                         data: response.data.data,
-                        isLoading: false,
+                        isLoading: false
                     });
                     if (this.props.onChangeData)
                         this.props.onChangeData(response.data.data);
                 }
             })
-            .catch((error) => console.log(error));
+            .catch(error => console.log(error));
     }
 
     componentWillUnmount() {
@@ -96,7 +97,7 @@ class ListForm extends PureComponent {
                             ""
                         )}
                     </span>
-                ),
+                )
             };
         return {};
     };
@@ -120,21 +121,21 @@ class ListForm extends PureComponent {
     /**
      * Thao tác tìm kiếm trên cột
      */
-    getColumnSearchProps = (dataIndex) => ({
+    getColumnSearchProps = dataIndex => ({
         filterDropdown: ({
             setSelectedKeys,
             selectedKeys,
             confirm,
-            clearFilters,
+            clearFilters
         }) => (
             <div style={{ padding: 8 }}>
                 <Input
-                    ref={(node) => {
+                    ref={node => {
                         this.searchInput = node;
                     }}
                     placeholder="Tìm kiếm..."
                     value={selectedKeys[0]}
-                    onChange={(e) =>
+                    onChange={e =>
                         setSelectedKeys(e.target.value ? [e.target.value] : [])
                     }
                     onPressEnter={() =>
@@ -162,7 +163,7 @@ class ListForm extends PureComponent {
                 </Button>
             </div>
         ),
-        filterIcon: (filtered) => (
+        filterIcon: filtered => (
             <SearchOutlined
                 style={{ color: filtered ? "#1890ff" : undefined }}
             />
@@ -172,12 +173,12 @@ class ListForm extends PureComponent {
                 .toString()
                 .toLowerCase()
                 .includes(value.toLowerCase()),
-        onFilterDropdownVisibleChange: (visible) => {
+        onFilterDropdownVisibleChange: visible => {
             if (visible) {
                 setTimeout(() => this.searchInput.select());
             }
         },
-        render: (text) =>
+        render: text =>
             this.state.searchedColumn === dataIndex ? (
                 <Highlighter
                     highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
@@ -187,18 +188,18 @@ class ListForm extends PureComponent {
                 />
             ) : (
                 text
-            ),
+            )
     });
 
     handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
         this.setState({
             searchText: selectedKeys[0],
-            searchedColumn: dataIndex,
+            searchedColumn: dataIndex
         });
     };
 
-    handleReset = (clearFilters) => {
+    handleReset = clearFilters => {
         clearFilters();
         this.setState({ searchText: "", selectedRowKeys: [] });
     };
@@ -206,7 +207,7 @@ class ListForm extends PureComponent {
     /**
      * Show modal Thêm mới, Sửa
      */
-    handleOk = (values) => {
+    handleOk = values => {
         const { currentRecord } = this.state;
         this.setState({ formSubmiting: true });
         // Parse các ô ngày tháng
@@ -232,7 +233,7 @@ class ListForm extends PureComponent {
         // Tắt loading & modal
         this.setState({
             formSubmiting: false,
-            modalVisible: false,
+            modalVisible: false
         });
     };
 
@@ -246,14 +247,14 @@ class ListForm extends PureComponent {
     handleAddNew = () => {
         this.setState({
             currentRecord: undefined,
-            modalVisible: true,
+            modalVisible: true
         });
     };
 
-    handleEdit = (record) => {
+    handleEdit = record => {
         this.setState({
             modalVisible: true,
-            currentRecord: record,
+            currentRecord: record
         });
     };
 
@@ -261,61 +262,61 @@ class ListForm extends PureComponent {
         const { primaryKey } = this.props;
         const { data } = this.state;
         this.setState({
-            selectedRowKeys: data.map((item) => item[primaryKey]),
+            selectedRowKeys: data.map(item => item[primaryKey])
         });
     };
 
     handleClearSelected = () => {
         this.setState({
-            selectedRowKeys: [],
+            selectedRowKeys: []
         });
     };
 
-    handleSelectRow = (selectedRowKeys) => this.setState({ selectedRowKeys });
+    handleSelectRow = selectedRowKeys => this.setState({ selectedRowKeys });
 
-    onAdd = (value) => {
+    onAdd = value => {
         const { url } = this.props;
         axios
             .post(`/api/${url}`, value)
-            .then((response) => {
+            .then(response => {
                 if (response.data.success) {
                     this.setState({
-                        data: [...this.state.data, response.data.data], // Thêm object vào list lấy từ state
+                        data: [...this.state.data, response.data.data] // Thêm object vào list lấy từ state
                     });
                     message.info(response.data.message);
                     if (this.props.onChangeData)
                         this.props.onChangeData(this.state.data);
                 }
             })
-            .catch((error) => {
+            .catch(error => {
                 console.log(error);
             });
     };
 
-    onUpdate = (value) => {
+    onUpdate = value => {
         const { url, primaryKey } = this.props;
         const { data, currentRecord } = this.state;
         axios
             .put(`/api/${url}/${currentRecord[primaryKey]}`, value)
-            .then((response) => {
+            .then(response => {
                 if (response.data.success) {
                     let newData = [];
                     Object.assign(
                         newData,
-                        data.map((el) =>
+                        data.map(el =>
                             el[primaryKey] === currentRecord[primaryKey]
                                 ? response.data.data
                                 : el
                         )
                     );
                     this.setState({
-                        data: newData,
+                        data: newData
                     });
                     if (this.props.onChangeData) this.props.onChangeData(data);
                     message.info(response.data.message);
                 }
             })
-            .catch((error) => {
+            .catch(error => {
                 console.log(error);
             });
     };
@@ -323,7 +324,7 @@ class ListForm extends PureComponent {
     /**
      * Handle sự kiện xóa
      */
-    onDelete = (id) => {
+    onDelete = id => {
         const { url, primaryKey } = this.props;
         const { data } = this.state;
         confirm({
@@ -336,22 +337,22 @@ class ListForm extends PureComponent {
             onOk: () => {
                 axios
                     .delete(`/api/${url}/${id}`)
-                    .then((response) => {
+                    .then(response => {
                         if (response.data.success) {
                             this.setState({
                                 data: data.filter(
-                                    (item) => item[primaryKey] !== id
-                                ),
+                                    item => item[primaryKey] !== id
+                                )
                             });
                             message.info(response.data.message);
                             if (this.props.onChangeData)
                                 this.props.onChangeData(this.state.data);
                         }
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         console.log(error);
                     });
-            },
+            }
         });
     };
 
@@ -368,28 +369,28 @@ class ListForm extends PureComponent {
             onOk: () => {
                 axios
                     .delete(`/api/${url}/deletes`, {
-                        params: { objects: selectedRowKeys.join("|") },
+                        params: { objects: selectedRowKeys.join("|") }
                     })
-                    .then((response) => {
+                    .then(response => {
                         if (response.data.success) {
                             this.setState({
                                 data: data.filter(
-                                    (item) =>
+                                    item =>
                                         selectedRowKeys.indexOf(
                                             item[primaryKey]
                                         ) === -1
                                 ),
-                                selectedRowKeys: [],
+                                selectedRowKeys: []
                             });
                             if (this.props.onChangeData)
                                 this.props.onChangeData(this.state.data);
                             message.info(response.data.message);
                         }
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         console.log(error);
                     });
-            },
+            }
         });
     };
 
@@ -399,11 +400,11 @@ class ListForm extends PureComponent {
     getColumn = (column, data) => {
         if (column.optFilter) {
             // Lọc dữ liệu và mô tả các cột dữ liệu
-            const objs = [...new Set(data.map((x) => x[column.dataIndex]))];
-            let filters = objs.map((el) => {
+            const objs = [...new Set(data.map(x => x[column.dataIndex]))];
+            let filters = objs.map(el => {
                 return {
                     text: el,
-                    value: el,
+                    value: el
                 };
             });
             Object.assign(column, {
@@ -411,12 +412,12 @@ class ListForm extends PureComponent {
                 // specify the condition of filtering result
                 // here is that finding the name started with `value`
                 onFilter: (value, record) =>
-                    record[dataIndex].indexOf(value) === 0,
+                    record[dataIndex].indexOf(value) === 0
             });
         }
         if (column.optFind) {
             Object.assign(column, {
-                ...this.getColumnSearchProps(column.dataIndex),
+                ...this.getColumnSearchProps(column.dataIndex)
             });
         }
         return column;
@@ -432,7 +433,7 @@ class ListForm extends PureComponent {
             modalVisible,
             formSubmiting,
             selectedRowKeys,
-            currentRecord,
+            currentRecord
         } = this.state;
         const {
             selectable,
@@ -442,7 +443,7 @@ class ListForm extends PureComponent {
             formTemplate,
             formInitialValues,
             tableSize,
-            modalWidth,
+            modalWidth
         } = this.props;
 
         return (
@@ -481,5 +482,34 @@ class ListForm extends PureComponent {
         );
     }
 }
+
+ListForm.propTypes = {
+    url: PropTypes.string.isRequired,
+    columns: PropTypes.arrayOf(PropTypes.object).isRequired,
+    formTemplate: PropTypes.node.isRequired,
+    onChangeData: PropTypes.func,
+    selectable: PropTypes.bool,
+    insertable: PropTypes.bool,
+    editable: PropTypes.bool,
+    deleteable: PropTypes.bool,
+    primaryKey: PropTypes.string,
+    tableSize: PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number
+    }),
+    modalWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    formInitialValues: PropTypes.object
+};
+// Specifies the default values for props:
+ListForm.defaultProps = {
+    selectable: true,
+    insertable: true,
+    editable: true,
+    deleteable: true,
+    primaryKey: "id",
+    tableSize: {
+        x: 500
+    }
+};
 
 export default ListForm;

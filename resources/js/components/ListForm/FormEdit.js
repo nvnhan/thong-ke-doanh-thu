@@ -6,7 +6,7 @@ const FormEdit = React.memo((props) => {
         if (props.currentRecord !== undefined)
             props.form.setFieldsValue(props.currentRecord);
         else props.form.resetFields();
-    });
+    });         // Alway run while each render
 
     return (
         <Form

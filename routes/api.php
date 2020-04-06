@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ Route::post('/register', 'AuthController@register')->name('register.api');
 Route::middleware('auth:api')->group(function () {
     Route::get('/logout', 'AuthController@logout')->name('logout');
     Route::get('/get-user', 'AuthController@user')->name('getuser');
+    Route::put('/profile', 'AuthController@update')->name('profile');
+    Route::put('/password', 'AuthController@password')->name('password');
 
     Route::delete('phi-hanh-ly/deletes', 'PhiHanhLyController@deletes');
     Route::resource('phi-hanh-ly', 'PhiHanhLyController')->only(['index', 'store', 'update', 'destroy']);

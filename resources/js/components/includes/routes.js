@@ -19,7 +19,7 @@ const routes = [
     {
         path: "/",
         exact: true,
-        title: "Thống kê doanh thu",
+        title: "Trang chủ",
         menu: menus.HOME,
         component: <TrangChu />,
     },

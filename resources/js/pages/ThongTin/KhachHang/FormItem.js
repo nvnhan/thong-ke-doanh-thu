@@ -1,13 +1,12 @@
-import React from "react";
-import { Form, Select, Input, InputNumber, Row, Col, AutoComplete } from "antd";
-const { Option } = Select;
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+import { AutoComplete, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import locale from "antd/es/date-picker/locale/vi_VN";
+import React from "react";
+import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+const { Option } = Select;
 
-const form = React.memo((props) => {
-    const { phanLoai } = props;
-    if (!phanLoai) phanLoai = [];
-    const options = phanLoai.map((pl) => ({ value: pl }));
+const form = React.memo(props => {
+    const phanLoai = props.phanLoai || [];
+    const options = phanLoai.map(pl => ({ value: pl }));
     return (
         <div>
             <Row gutter={[5, 5]}>
@@ -18,8 +17,8 @@ const form = React.memo((props) => {
                         rules={[
                             {
                                 required: true,
-                                message: "Nhập đầy đủ thông tin!",
-                            },
+                                message: "Nhập đầy đủ thông tin!"
+                            }
                         ]}
                     >
                         <Input />
@@ -32,8 +31,8 @@ const form = React.memo((props) => {
                         rules={[
                             {
                                 required: true,
-                                message: "Nhập đầy đủ thông tin!",
-                            },
+                                message: "Nhập đầy đủ thông tin!"
+                            }
                         ]}
                     >
                         <Input />
@@ -46,8 +45,8 @@ const form = React.memo((props) => {
                         rules={[
                             {
                                 required: true,
-                                message: "Nhập đầy đủ thông tin!",
-                            },
+                                message: "Nhập đầy đủ thông tin!"
+                            }
                         ]}
                     >
                         <AutoComplete
@@ -91,13 +90,13 @@ const form = React.memo((props) => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={(value) =>
+                            formatter={value =>
                                 `${value}₫`.replace(
                                     /(?=(\d{3})+(?!\d))\B/g,
                                     ","
                                 )
                             }
-                            parser={(value) => value.replace(/\₫\s?|(,*)/g, "")}
+                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
                         />
                     </Form.Item>
                 </Col>
@@ -107,13 +106,13 @@ const form = React.memo((props) => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={(value) =>
+                            formatter={value =>
                                 `${value}₫`.replace(
                                     /(?=(\d{3})+(?!\d))\B/g,
                                     ","
                                 )
                             }
-                            parser={(value) => value.replace(/\₫\s?|(,*)/g, "")}
+                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
                         />
                     </Form.Item>
                 </Col>
@@ -123,13 +122,13 @@ const form = React.memo((props) => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={(value) =>
+                            formatter={value =>
                                 `${value}₫`.replace(
                                     /(?=(\d{3})+(?!\d))\B/g,
                                     ","
                                 )
                             }
-                            parser={(value) => value.replace(/\₫\s?|(,*)/g, "")}
+                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
                         />
                     </Form.Item>
                 </Col>
@@ -139,13 +138,13 @@ const form = React.memo((props) => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={(value) =>
+                            formatter={value =>
                                 `${value}₫`.replace(
                                     /(?=(\d{3})+(?!\d))\B/g,
                                     ","
                                 )
                             }
-                            parser={(value) => value.replace(/\₫\s?|(,*)/g, "")}
+                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
                         />
                     </Form.Item>
                 </Col>
@@ -155,13 +154,13 @@ const form = React.memo((props) => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={(value) =>
+                            formatter={value =>
                                 `${value}₫`.replace(
                                     /(?=(\d{3})+(?!\d))\B/g,
                                     ","
                                 )
                             }
-                            parser={(value) => value.replace(/\₫\s?|(,*)/g, "")}
+                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
                         />
                     </Form.Item>
                 </Col>

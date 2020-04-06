@@ -37,7 +37,7 @@ class MyHeader extends PureComponent {
                                             Chào
                                         </span>
                                         <span>
-                                            {this.props.authUser.ho_ten}
+                                            {this.props.authUser.hoTen}
                                         </span>
                                         <Avatar
                                             style={{

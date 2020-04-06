@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import Login from "../pages/Login";
+import Login from "../pages/Account/Login";
 import Content from "./includes/Content";
 import Loader from "./includes/Loader";
 import MyFooter from "./includes/MyFooter";
@@ -33,10 +33,11 @@ class MainContainer extends PureComponent {
                         const { data } = response.data;
                         this.props.onSetAuth({
                             username: data.username,
-                            ho_ten: data.ho_ten,
-                            token: token,
+                            hoTen: data.ho_ten,
+                            isAdmin: data.admin,
                         });
                     } else {
+                        localStorage.removeItem('token');
                         message.warn(response.data.message);
                     }
                 })

@@ -5,7 +5,6 @@ var initialState = {
     username: "",
     hoTen: "",
     isAdmin: false,
-    token: "",
 };
 
 const myReducer = (state = initialState, action) => {
@@ -21,7 +20,7 @@ const myReducer = (state = initialState, action) => {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log('Error Logout ', error);
                 });
             // Remove token from localStorage
             localStorage.removeItem("token");

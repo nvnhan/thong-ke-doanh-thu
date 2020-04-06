@@ -1,8 +1,8 @@
+import { Form, Input, InputNumber, Select } from "antd";
 import React from "react";
-import { Form, Select, Input, InputNumber } from "antd";
 const { Option } = Select;
 
-function form() {
+const form = React.memo(() => {
     return (
         <div>
             <Form.Item
@@ -45,6 +45,6 @@ function form() {
             </Form.Item>
         </div>
     );
-}
+});
 
 export default form;

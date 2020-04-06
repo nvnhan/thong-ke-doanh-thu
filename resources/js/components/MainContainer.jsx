@@ -23,13 +23,11 @@ class MainContainer extends PureComponent {
         // Get token from localStorage
         let token = localStorage.token;
         if (token !== undefined) {
+            // Setup default config for axios
+            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
             // Check it in server
             axios
-                .get(`/api/get-user`, {
-                    headers: {
-                        Authorization: "Bearer " + token,
-                    },
-                })
+                .get(`/api/get-user`)
                 .then((response) => {
                     if (response.data.success) {
                         const { data } = response.data;
@@ -41,13 +39,14 @@ class MainContainer extends PureComponent {
                     } else {
                         message.warn(response.data.message);
                     }
-                    this.setState({ isLoading: false });
                 })
                 .catch((error) => {
                     console.log(error);
+                })
+                .then(() => {
                     this.setState({ isLoading: false });
                 });
-        } else this.setState({ isLoading: false });
+        } else this.setState({ isLoading: false });         // Chuyển tới Login page
     }
 
     isAuthenticate = () => {

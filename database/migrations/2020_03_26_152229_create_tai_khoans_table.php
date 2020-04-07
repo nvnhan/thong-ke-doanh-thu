@@ -18,7 +18,7 @@ class CreateTaiKhoansTable extends Migration
             $table->string('ky_hieu', 50);
             $table->string('mo_ta', 500)->nullable();
             $table->integer('loai')->default(0);
-            $table->string('phan_loai', 50)->nullable();
+            $table->string('phan_loai', 50)->default('');
             
             $table->decimal('phi_vn', 11, 2)->default(0);
             $table->decimal('phi_vj', 11, 2)->default(0);

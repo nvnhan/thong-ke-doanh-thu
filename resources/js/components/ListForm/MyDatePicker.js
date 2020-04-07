@@ -4,7 +4,7 @@ import moment from "moment";
 
 const MyDatePicker = (props) => {
     if (props.value && typeof props.value == "string") {
-        let objMoment = moment(props.value, "HH:mm DD/MM/YYYY");
+        let objMoment = moment(props.value, props.format);
         return <DatePicker {...props} value={objMoment} />;
     } else return <DatePicker {...props} />;
 };

@@ -66,7 +66,7 @@ const items = [
                 title: "Tài khoản"
             },
             {
-                key: "3",
+                key: SideMenus.TT_NHA_CUNG_CAP,
                 href: "/nha-cung-cap",
                 icon: <CaretRightOutlined />,
                 title: "Nhà cung cấp"
@@ -78,7 +78,7 @@ const items = [
                 title: "Khách hàng"
             },
             {
-                key: "5",
+                key: SideMenus.TT_HANG_HOA,
                 href: "/hang-hoa",
                 icon: <CaretRightOutlined />,
                 title: "Hàng hóa"

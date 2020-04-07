@@ -23,8 +23,8 @@ class HangHoa extends Model
 
         });
         self::deleting(function($model) {
-            // $model->mua_vaos()->delete();
-            // $model->ban_ras()->delete();
+            $model->mua_vaos()->delete();
+            $model->ban_ras()->delete();
         });
     }
 

@@ -21,11 +21,13 @@ class CreateKhachHangsTable extends Migration
             $table->string('dia_chi', 500)->nullable();
             $table->string('email', 50)->nullable();
             $table->string('mst', 50)->nullable();
+            
             $table->string('ma_dai_ly', 500)->nullable();
             $table->string('phan_loai', 50)->default('');
             $table->decimal('so_du_ky_truoc', 11, 2)->default(0);
             $table->date('ngay_tao')->useCurrent()->nullable();
             $table->date('ngay_nhac')->nullable();
+
             $table->decimal('phi_vn', 11, 2)->default(0);
             $table->decimal('phi_vj', 11, 2)->default(0);
             $table->decimal('phi_jets', 11, 2)->default(0);

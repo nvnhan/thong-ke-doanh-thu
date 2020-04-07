@@ -10,6 +10,7 @@ const ThuePhi = lazy(() => import("../../pages/VeMayBay/ThuePhi"));
 const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
 
 const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
+const NhaCungCap = lazy(() => import("../../pages/ThongTin/NhaCungCap"));
 const KhachHang = lazy(() => import("../../pages/ThongTin/KhachHang"));
 
 const Profile = lazy(() => import("../../pages/Account/Profile"));
@@ -21,71 +22,78 @@ const routes = [
         exact: true,
         title: "Trang chủ",
         menu: menus.HOME,
-        component: <TrangChu />,
+        component: <TrangChu />
     },
     {
         path: "/dat-ve",
         exact: false,
         title: "Đặt vé",
         menu: menus.VMB_DAT_VE,
-        component: <DatVe />,
+        component: <DatVe />
     },
     {
         path: "/san-bay",
         exact: false,
         title: "Sân bay",
         menu: menus.VMB_SAN_BAY,
-        component: <SanBay />,
+        component: <SanBay />
     },
     {
         path: "/thue-phi",
         exact: false,
         title: "Thuế phí",
         menu: menus.VMB_THUE_PHI,
-        component: <ThuePhi />,
+        component: <ThuePhi />
     },
     {
         path: "/phi-hanh-ly",
         exact: false,
         title: "Phí hành lý",
         menu: menus.VMB_HANH_LY,
-        component: <PhiHanhLy />,
+        component: <PhiHanhLy />
     },
     {
         path: "/tai-khoan",
         exact: false,
         title: "Tài khoản",
         menu: menus.TT_TAI_KHOAN,
-        component: <TaiKhoan />,
+        component: <TaiKhoan />
+    },
+    {
+        path: "/nha-cung-cap",
+        exact: false,
+        title: "Nhà cung cấp",
+        menu: menus.TT_NHA_CUNG_CAP,
+        component: <NhaCungCap />
     },
     {
         path: "/khach-hang",
         exact: false,
         title: "Khách hàng",
         menu: menus.TT_KHACH_HANG,
-        component: <KhachHang />,
+        component: <KhachHang />
     },
     {
         path: "/thong-tin-ca-nhan",
         exact: false,
         title: "Thông tin cá nhân",
         menu: "",
-        component: <Profile />,
+        component: <Profile />
     },
     {
         path: "/doi-mat-khau",
         exact: false,
         title: "Đổi mật khẩu",
         menu: "",
-        component: <Password />,
+        component: <Password />
     },
     {
         path: "/",
         exact: false,
         title: "Lỗi 404!",
         menu: "",
-        component: <NotFound />,
-    },
+        component: <NotFound />
+    }
 ];
 
 export default routes;

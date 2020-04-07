@@ -28,7 +28,8 @@ class TaiKhoan extends Model
 
         });
         self::deleting(function($model) {
-
+            //TODO: Check Delete MuaVao, BanRa from HangHoas
+            $model->hang_hoas()->delete();
         });
     }
 

@@ -8,7 +8,7 @@ const form = React.memo(props => {
     const phanLoai = props.phanLoai || [];
     const options = phanLoai.map(pl => ({ value: pl }));
     return (
-        <div>
+        <React.Fragment>
             <Row gutter={[5, 5]}>
                 <Col span={24} md={8} sm={12}>
                     <Form.Item
@@ -181,7 +181,7 @@ const form = React.memo(props => {
                     </Form.Item>
                 </Col>
             </Row>
-        </div>
+        </React.Fragment>
     );
 });
 

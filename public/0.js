@@ -119,14 +119,26 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
           icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null),
           onClick: function onClick() {
             return handleEdit(record);
-          }
+          },
+          title: "Ch\u1EC9nh s\u1EEDa"
         }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
           onClick: function onClick() {
             return onDelete(record[primaryKey]);
           },
           danger: true,
           type: "link",
-          icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null)
+          icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null),
+          title: "X\xF3a"
+        }) : "", !_.isEmpty(otherActions) ? otherActions.map(function (act) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+            onClick: function onClick() {
+              return act.onClick(record);
+            },
+            type: "link",
+            icon: act.icon,
+            title: act.title,
+            color: act.color
+          });
         }) : "");
       }
     };
@@ -458,10 +470,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./resources/js/components/ListForm/index.jsx":
-/*!****************************************************!*\
-  !*** ./resources/js/components/ListForm/index.jsx ***!
-  \****************************************************/
+/***/ "./resources/js/components/ListForm/index.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/ListForm/index.js ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -500,28 +512,6 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -532,327 +522,297 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var confirm = antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].confirm;
 
-var ListForm = /*#__PURE__*/function (_PureComponent) {
-  _inherits(ListForm, _PureComponent);
+function useMergeState(initialState) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(initialState),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
 
-  var _super = _createSuper(ListForm);
+  var setMergedState = function setMergedState(newState) {
+    return setState(function (prevState) {
+      return Object.assign({}, prevState, newState);
+    });
+  };
 
-  function ListForm(props) {
-    var _this;
+  return [state, setMergedState];
+}
 
-    _classCallCheck(this, ListForm);
+var ListForm = function ListForm(props) {
+  var _useMergeState = useMergeState({
+    data: [],
+    isLoading: true,
+    modalVisible: false,
+    formSubmiting: false,
+    selectedRowKeys: [],
+    currentRecord: undefined
+  }),
+      _useMergeState2 = _slicedToArray(_useMergeState, 2),
+      state = _useMergeState2[0],
+      setState = _useMergeState2[1];
 
-    _this = _super.call(this, props);
+  var url = props.url,
+      onChangeData = props.onChangeData,
+      columns = props.columns,
+      selectable = props.selectable,
+      insertable = props.insertable,
+      editable = props.editable,
+      deleteable = props.deleteable,
+      primaryKey = props.primaryKey,
+      formTemplate = props.formTemplate,
+      formInitialValues = props.formInitialValues,
+      tableSize = props.tableSize,
+      modalWidth = props.modalWidth;
+  var data = state.data,
+      isLoading = state.isLoading,
+      modalVisible = state.modalVisible,
+      formSubmiting = state.formSubmiting,
+      selectedRowKeys = state.selectedRowKeys,
+      currentRecord = state.currentRecord;
+  var isComponentMounted = false;
+  Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
+    isComponentMounted = true;
+    axios.get("/api/" + url).then(function (response) {
+      if (isComponentMounted && response.data.success) {
+        setState({
+          data: response.data.data,
+          isLoading: false
+        }); //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
 
-    _defineProperty(_assertThisInitialized(_this), "isChangeData", function (record, data) {
-      var key1 = Object.keys(record);
-      var key2 = Object.keys(data);
-      var isChanged = false;
-
-      for (var _i = 0, _key = key1; _i < _key.length; _i++) {
-        var k = _key[_i];
-
-        if (key2.indexOf(k) >= 0 && record[k] !== data[k]) {
-          isChanged = true;
-          break;
-        }
+        if (onChangeData) onChangeData(response.data.data);
       }
-
-      return isChanged;
+    })["catch"](function (error) {
+      return console.log(error);
     });
-
-    _defineProperty(_assertThisInitialized(_this), "handleOk", function (values) {
-      var currentRecord = _this.state.currentRecord;
-
-      _this.setState({
-        formSubmiting: true
-      }); // Parse các ô ngày tháng
-
-
-      for (var _i2 = 0, _Object$entries = Object.entries(values); _i2 < _Object$entries.length; _i2++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
-            key = _Object$entries$_i[0],
-            value = _Object$entries$_i[1];
-
-        if (value !== null && value !== undefined) if (_typeof(value) === "object") values[key] = value.format("YYYY-MM-DD HH:mm:ss");else if (typeof value === "string" && value.match(/(.*?):(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_2___default()(value, "HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss");
-      } // Thêm mới
-
-
-      if (currentRecord === undefined) {
-        _this.onAdd(values);
-      } else if (_this.isChangeData(currentRecord, values)) {
-        // Chỉnh sửa
-        _this.onUpdate(values);
-      } // Tắt loading & modal
-
-
-      _this.setState({
-        formSubmiting: false,
-        modalVisible: false
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleCancel", function () {
-      _this.setState({
-        modalVisible: false
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleAddNew", function () {
-      _this.setState({
-        currentRecord: undefined,
-        modalVisible: true
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleEdit", function (record) {
-      _this.setState({
-        modalVisible: true,
-        currentRecord: record
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleSelectAll", function () {
-      var primaryKey = _this.props.primaryKey;
-      var data = _this.state.data;
-
-      _this.setState({
-        selectedRowKeys: data.map(function (item) {
-          return item[primaryKey];
-        })
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleClearSelected", function () {
-      _this.setState({
-        selectedRowKeys: []
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onChangeSelect", function (selectedRowKeys) {
-      return _this.setState({
-        selectedRowKeys: selectedRowKeys
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onAdd", function (value) {
-      var url = _this.props.url;
-      axios.post("/api/".concat(url), value).then(function (response) {
-        if (response.data.success) {
-          _this.setState({
-            data: [].concat(_toConsumableArray(_this.state.data), [response.data.data]) // Thêm object vào list lấy từ state
-
-          });
-
-          antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-          if (_this.props.onChangeData) _this.props.onChangeData(_this.state.data);
-        }
-      })["catch"](function (error) {
-        return console.log(error);
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onUpdate", function (value) {
-      var _this$props = _this.props,
-          url = _this$props.url,
-          primaryKey = _this$props.primaryKey;
-      var _this$state = _this.state,
-          data = _this$state.data,
-          currentRecord = _this$state.currentRecord;
-      axios.put("/api/".concat(url, "/").concat(currentRecord[primaryKey]), value).then(function (response) {
-        if (response.data.success) {
-          var newData = [];
-          Object.assign(newData, data.map(function (el) {
-            return el[primaryKey] === currentRecord[primaryKey] ? response.data.data : el;
-          }));
-
-          _this.setState({
-            data: newData
-          });
-
-          if (_this.props.onChangeData) _this.props.onChangeData(data);
-          antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-        }
-      })["catch"](function (error) {
-        return console.log(error);
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onDelete", function (id) {
-      var _this$props2 = _this.props,
-          url = _this$props2.url,
-          primaryKey = _this$props2.primaryKey;
-      var data = _this.state.data;
-      confirm({
-        title: "Bạn muốn xóa mục này?",
-        icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
-        content: "Thao tác không thể khôi phục",
-        okText: "Đồng ý",
-        okType: "danger",
-        cancelText: "Không",
-        onOk: function onOk() {
-          axios["delete"]("/api/".concat(url, "/").concat(id)).then(function (response) {
-            if (response.data.success) {
-              _this.setState({
-                data: data.filter(function (item) {
-                  return item[primaryKey] !== id;
-                })
-              });
-
-              antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-              if (_this.props.onChangeData) _this.props.onChangeData(_this.state.data);
-            }
-          })["catch"](function (error) {
-            return console.log(error);
-          });
-        }
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onMultiDelete", function () {
-      var _this$state2 = _this.state,
-          selectedRowKeys = _this$state2.selectedRowKeys,
-          data = _this$state2.data;
-      var _this$props3 = _this.props,
-          url = _this$props3.url,
-          primaryKey = _this$props3.primaryKey;
-      confirm({
-        title: "Bạn muốn xóa những mục này?",
-        icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
-        content: "Tất cả " + selectedRowKeys.length + " mục",
-        okText: "Đồng ý",
-        okType: "danger",
-        cancelText: "Không",
-        onOk: function onOk() {
-          axios["delete"]("/api/".concat(url, "/deletes"), {
-            params: {
-              objects: selectedRowKeys.join("|")
-            }
-          }).then(function (response) {
-            if (response.data.success) {
-              _this.setState({
-                data: data.filter(function (item) {
-                  return selectedRowKeys.indexOf(item[primaryKey]) === -1;
-                }),
-                selectedRowKeys: []
-              });
-
-              if (_this.props.onChangeData) _this.props.onChangeData(_this.state.data);
-              antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-            }
-          })["catch"](function (error) {
-            return console.log(error);
-          });
-        }
-      });
-    });
-
-    _this.state = {
-      data: [],
-      isLoading: true,
-      searchText: "",
-      searchedColumn: "",
-      modalVisible: false,
-      formSubmiting: false,
-      selectedRowKeys: [],
-      currentRecord: undefined
+    return function () {
+      isComponentMounted = false;
     };
-    _this.columns = [];
-    _this.isComponentMounted = false;
-    return _this;
-  }
+  }, []); // Chỉ chạy 1 lần khi mount component
 
-  _createClass(ListForm, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
+  /**
+   * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
+   */
 
-      this.isComponentMounted = true;
-      var url = this.props.url;
-      axios.get("/api/" + url).then(function (response) {
-        if (_this2.isComponentMounted && response.data.success) {
-          _this2.setState({
-            data: response.data.data,
-            isLoading: false
-          });
+  var isChangeData = function isChangeData(record, data) {
+    var key1 = Object.keys(record);
+    var key2 = Object.keys(data);
+    var isChanged = false;
 
-          if (_this2.props.onChangeData) //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
-            _this2.props.onChangeData(response.data.data);
-        }
-      })["catch"](function (error) {
-        return console.log(error);
-      });
+    for (var _i2 = 0, _key = key1; _i2 < _key.length; _i2++) {
+      var k = _key[_i2];
+
+      if (key2.indexOf(k) >= 0 && record[k] !== data[k]) {
+        isChanged = true;
+        break;
+      }
     }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.isComponentMounted = false;
-    }
-    /**
-     * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
-     */
 
-  }, {
-    key: "render",
+    return isChanged;
+  };
+  /**
+   * Show modal Thêm mới, Sửa
+   */
 
-    /**
-     * Hàm render
-     */
-    value: function render() {
-      var _this$state3 = this.state,
-          data = _this$state3.data,
-          isLoading = _this$state3.isLoading,
-          modalVisible = _this$state3.modalVisible,
-          formSubmiting = _this$state3.formSubmiting,
-          selectedRowKeys = _this$state3.selectedRowKeys,
-          currentRecord = _this$state3.currentRecord;
-      var _this$props4 = this.props,
-          columns = _this$props4.columns,
-          selectable = _this$props4.selectable,
-          insertable = _this$props4.insertable,
-          editable = _this$props4.editable,
-          deleteable = _this$props4.deleteable,
-          primaryKey = _this$props4.primaryKey,
-          formTemplate = _this$props4.formTemplate,
-          formInitialValues = _this$props4.formInitialValues,
-          tableSize = _this$props4.tableSize,
-          modalWidth = _this$props4.modalWidth;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ToolsButton__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        insertable: insertable,
-        selectable: selectable,
-        deleteable: deleteable,
-        handleAddNew: this.handleAddNew,
-        onMultiDelete: this.onMultiDelete,
-        selectedRowKeys: selectedRowKeys,
-        handleSelectAll: this.handleSelectAll,
-        handleClearSelected: this.handleClearSelected
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_DataTable__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        data: data,
-        columns: columns,
-        isLoading: isLoading,
-        primaryKey: primaryKey,
-        selectable: selectable,
-        editable: editable,
-        selectedRowKeys: selectedRowKeys,
-        onChangeSelect: this.onChangeSelect,
-        scroll: tableSize,
-        handleEdit: this.handleEdit,
-        onDelete: this.onDelete
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        modalVisible: modalVisible,
-        modalWidth: modalWidth,
-        handleOk: this.handleOk,
-        handleCancel: this.handleCancel,
-        formSubmiting: formSubmiting,
-        currentRecord: currentRecord,
-        formInitialValues: formInitialValues,
-        formTemplate: formTemplate
-      }));
-    }
-  }]);
 
-  return ListForm;
-}(react__WEBPACK_IMPORTED_MODULE_4__["PureComponent"]);
+  var handleOk = function handleOk(values) {
+    setState({
+      formSubmiting: true
+    }); // Parse các ô ngày tháng
+
+    for (var _i3 = 0, _Object$entries = Object.entries(values); _i3 < _Object$entries.length; _i3++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i3], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      if (value !== null && value !== undefined) if (_typeof(value) === "object") // Convert từ moment (from DatePicker) về dạng string để backend xử lý
+        values[key] = value.format("YYYY-MM-DD HH:mm:ss");else if (typeof value === "string" && value.match(/(.*?):(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_2___default()(value, "HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss"); //TODO: Trường hợp chỉ có ngày
+    } // Thêm mới
+
+
+    if (currentRecord === undefined) {
+      onAdd(values);
+    } else if (isChangeData(currentRecord, values)) {
+      // Chỉnh sửa
+      onUpdate(values);
+    } // Tắt loading & modal
+
+
+    setState({
+      formSubmiting: false,
+      modalVisible: false
+    });
+  };
+
+  var handleCancel = function handleCancel() {
+    setState({
+      modalVisible: false
+    });
+  };
+  /**
+   * Xử lý sự kiện người dùng
+   */
+
+
+  var handleAddNew = function handleAddNew() {
+    setState({
+      currentRecord: undefined,
+      modalVisible: true
+    });
+  };
+
+  var handleEdit = function handleEdit(record) {
+    setState({
+      modalVisible: true,
+      currentRecord: record
+    });
+  };
+
+  var handleSelectAll = function handleSelectAll() {
+    setState({
+      selectedRowKeys: data.map(function (item) {
+        return item[primaryKey];
+      })
+    });
+  };
+
+  var handleClearSelected = function handleClearSelected() {
+    setState({
+      selectedRowKeys: []
+    });
+  };
+  /**
+   * Thực thi các sự kiện
+   */
+
+
+  var onChangeSelect = function onChangeSelect(selectedRowKeys) {
+    return setState({
+      selectedRowKeys: selectedRowKeys
+    });
+  };
+
+  var onAdd = function onAdd(value) {
+    axios.post("/api/".concat(url), value).then(function (response) {
+      if (response.data.success) {
+        setState({
+          data: [].concat(_toConsumableArray(data), [response.data.data]) // Thêm object vào list lấy từ state
+
+        });
+        antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
+        if (onChangeData) onChangeData(data);
+      }
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  };
+
+  var onUpdate = function onUpdate(value) {
+    axios.put("/api/".concat(url, "/").concat(currentRecord[primaryKey]), value).then(function (response) {
+      if (response.data.success) {
+        var newData = [];
+        Object.assign(newData, data.map(function (el) {
+          return el[primaryKey] === currentRecord[primaryKey] ? response.data.data : el;
+        }));
+        setState({
+          data: newData
+        });
+        if (onChangeData) onChangeData(data);
+        antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
+      }
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  };
+
+  var onDelete = function onDelete(id) {
+    confirm({
+      title: "Bạn muốn xóa mục này?",
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
+      content: "Thao tác không thể khôi phục",
+      okText: "Đồng ý",
+      okType: "danger",
+      cancelText: "Không",
+      onOk: function onOk() {
+        axios["delete"]("/api/".concat(url, "/").concat(id)).then(function (response) {
+          if (response.data.success) {
+            setState({
+              data: data.filter(function (item) {
+                return item[primaryKey] !== id;
+              })
+            });
+            antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
+            if (onChangeData) onChangeData(data);
+          }
+        })["catch"](function (error) {
+          return console.log(error);
+        });
+      }
+    });
+  };
+
+  var onMultiDelete = function onMultiDelete() {
+    confirm({
+      title: "Bạn muốn xóa những mục này?",
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
+      content: "Tất cả " + selectedRowKeys.length + " mục",
+      okText: "Đồng ý",
+      okType: "danger",
+      cancelText: "Không",
+      onOk: function onOk() {
+        axios["delete"]("/api/".concat(url, "/deletes"), {
+          params: {
+            objects: selectedRowKeys.join("|")
+          }
+        }).then(function (response) {
+          if (response.data.success) {
+            setState({
+              data: data.filter(function (item) {
+                return selectedRowKeys.indexOf(item[primaryKey]) === -1;
+              }),
+              selectedRowKeys: []
+            });
+            if (onChangeData) onChangeData(data);
+            antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
+          }
+        })["catch"](function (error) {
+          return console.log(error);
+        });
+      }
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ToolsButton__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    insertable: insertable,
+    selectable: selectable,
+    deleteable: deleteable,
+    handleAddNew: handleAddNew,
+    onMultiDelete: onMultiDelete,
+    selectedRowKeys: selectedRowKeys,
+    handleSelectAll: handleSelectAll,
+    handleClearSelected: handleClearSelected
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_DataTable__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    data: data,
+    columns: columns,
+    isLoading: isLoading,
+    primaryKey: primaryKey,
+    selectable: selectable,
+    editable: editable,
+    deleteable: deleteable,
+    selectedRowKeys: selectedRowKeys,
+    onChangeSelect: onChangeSelect,
+    tableSize: tableSize,
+    handleEdit: handleEdit,
+    onDelete: onDelete
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    modalVisible: modalVisible,
+    modalWidth: modalWidth,
+    handleOk: handleOk,
+    handleCancel: handleCancel,
+    formSubmiting: formSubmiting,
+    currentRecord: currentRecord,
+    formInitialValues: formInitialValues,
+    formTemplate: formTemplate
+  }));
+};
 
 ListForm.propTypes = {
   url: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string.isRequired,

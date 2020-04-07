@@ -141,6 +141,13 @@ const List = React.memo(() => {
             modalWidth="1100px"
             tableSize={{ x: 1000 }}
             formTemplate={<FormItem phanLoai={phanLoai} />}
+            formInitialValues={{
+                so_du_ky_truoc: 0,
+                phi_vn: 0,
+                phi_vj: 0,
+                phi_jets: 0,
+                phi_bb: 0
+            }}
             onChangeData={onChangeData}
         />
     );

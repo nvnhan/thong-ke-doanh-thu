@@ -55,6 +55,7 @@ const DataTable = React.memo(props => {
                         type="link"
                         icon={<EditOutlined />}
                         onClick={() => handleEdit(record)}
+                        title="Chỉnh sửa"
                     ></Button>
                 ) : (
                     ""
@@ -65,10 +66,22 @@ const DataTable = React.memo(props => {
                         danger
                         type="link"
                         icon={<DeleteOutlined />}
+                        title="Xóa"
                     ></Button>
                 ) : (
                     ""
                 )}
+                {!_.isEmpty(otherActions)
+                    ? otherActions.map(act => (
+                          <Button
+                              onClick={() => act.onClick(record)}
+                              type="link"
+                              icon={act.icon}
+                              title={act.title}
+                              color={act.color}
+                          ></Button>
+                      ))
+                    : ""}
             </React.Fragment>
         )
     });

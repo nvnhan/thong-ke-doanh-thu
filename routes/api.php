@@ -32,6 +32,8 @@ Route::middleware('auth:api')->group(function () {
     
     Route::delete('tai-khoan/deletes', 'TaiKhoanController@deletes');
     Route::resource('tai-khoan', 'TaiKhoanController')->only(['index', 'store', 'update', 'destroy']);
+    Route::delete('nha-cung-cap/deletes', 'NhaCungCapController@deletes');
+    Route::resource('nha-cung-cap', 'NhaCungCapController')->only(['index', 'store', 'update', 'destroy']);
 
     Route::delete('khach-hang/deletes', 'KhachHangController@deletes');
     Route::resource('khach-hang', 'KhachHangController')->only(['index', 'store', 'update', 'destroy']);

@@ -1,9 +1,10 @@
 import {
     DeleteOutlined,
     EditOutlined,
+    MenuOutlined,
     SearchOutlined
 } from "@ant-design/icons";
-import { Button, Input, Table } from "antd";
+import { Button, Dropdown, Input, Menu, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import Highlighter from "react-highlight-words";
 
@@ -20,7 +21,8 @@ const DataTable = React.memo(props => {
         tableSize,
         onDelete,
         handleEdit,
-        onChangeSelect
+        onChangeSelect,
+        otherActions
     } = props;
     const [myColumns, setMyColumns] = useState([]);
     let searchText = "";
@@ -36,53 +38,63 @@ const DataTable = React.memo(props => {
      */
     const calColumns = () => {
         let cols = columns.map(column => getColumn(column, data));
-        if (editable || deleteable) cols.push(addActionColumn());
+        if (editable || deleteable || !_.isEmpty(otherActions))
+            cols.push(addActionColumn());
         return cols;
     };
+    const layAction = record => (
+        <Menu>
+            {!_.isEmpty(otherActions)
+                ? otherActions.map(act => (
+                      <Menu.Item
+                          key={act.key}
+                          onClick={() => act.onClick(record)}
+                          style={{ color: act.color }}
+                      >
+                          {act.icon} {act.title}
+                      </Menu.Item>
+                  ))
+                : ""}
+            {editable ? (
+                <Menu.Item
+                    key="edit"
+                    onClick={() => handleEdit(record)}
+                    style={{ color: "#1890ff" }}
+                >
+                    <EditOutlined /> Chỉnh sửa
+                </Menu.Item>
+            ) : (
+                ""
+            )}
+            {deleteable ? (
+                <Menu.Item
+                    key="delete"
+                    onClick={() => onDelete(record[primaryKey])}
+                    style={{ color: "#ff4d4f" }}
+                >
+                    <DeleteOutlined /> Xóa
+                </Menu.Item>
+            ) : (
+                ""
+            )}
+        </Menu>
+    );
+
     /**
      * Thêm cột chức năng cho table
      */
-    const addActionColumn = otherActions => ({
+    const addActionColumn = () => ({
         title: "",
         key: "action",
         fixed: "right",
         align: "center",
-        width: 100,
+        width: 80,
         render: (text, record) => (
-            <React.Fragment>
-                {editable ? (
-                    <Button
-                        type="link"
-                        icon={<EditOutlined />}
-                        onClick={() => handleEdit(record)}
-                        title="Chỉnh sửa"
-                    ></Button>
-                ) : (
-                    ""
-                )}
-                {deleteable ? (
-                    <Button
-                        onClick={() => onDelete(record[primaryKey])}
-                        danger
-                        type="link"
-                        icon={<DeleteOutlined />}
-                        title="Xóa"
-                    ></Button>
-                ) : (
-                    ""
-                )}
-                {!_.isEmpty(otherActions)
-                    ? otherActions.map(act => (
-                          <Button
-                              onClick={() => act.onClick(record)}
-                              type="link"
-                              icon={act.icon}
-                              title={act.title}
-                              color={act.color}
-                          ></Button>
-                      ))
-                    : ""}
-            </React.Fragment>
+            <Dropdown overlay={layAction(record)}>
+                <Button>
+                    <MenuOutlined />
+                </Button>
+            </Dropdown>
         )
     });
 

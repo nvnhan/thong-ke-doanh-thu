@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
+import {AppstoreAddOutlined
+} from "@ant-design/icons";
 
 const List = React.memo(() => {
     const [phanLoai, setPhanLoai] = useState([]);
@@ -12,6 +14,10 @@ const List = React.memo(() => {
         let phanLoai = [...new Set(data.map(x => x.phan_loai))];
         setPhanLoai(phanLoai);
     };
+
+    const onClickRow = record => {
+        console.log("record", record)        
+    }
 
     const columns = [
         {
@@ -116,6 +122,16 @@ const List = React.memo(() => {
         }
     ];
 
+    const hangHoaAction = [
+        {
+            key: "dsHangHoa",
+            onClick: onClickRow,
+            title: "Danh sách hàng hóa",
+            icon: <AppstoreAddOutlined />,
+            color: "#52c41a" // Success color
+        }
+    ];
+
     return (
         <ListForm
             url="nha-cung-cap"
@@ -129,7 +145,8 @@ const List = React.memo(() => {
                 phi_vj: 0,
                 phi_jets: 0,
                 phi_bb: 0
-            }}
+            }} 
+            otherActions={hangHoaAction}
             onChangeData={onChangeData}
         />
     );

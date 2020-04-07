@@ -37,7 +37,8 @@ const ListForm = props => {
         formTemplate,
         formInitialValues,
         tableSize,
-        modalWidth
+        modalWidth,
+        otherActions
     } = props;
     const {
         data,
@@ -69,7 +70,7 @@ const ListForm = props => {
         return () => {
             isComponentMounted = false;
         };
-    }, []);         // Chỉ chạy 1 lần khi mount component
+    }, []); // Chỉ chạy 1 lần khi mount component
 
     /**
      * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
@@ -285,6 +286,7 @@ const ListForm = props => {
                 tableSize={tableSize}
                 handleEdit={handleEdit}
                 onDelete={onDelete}
+                otherActions={otherActions}
             />
             <ModalConfirm
                 modalVisible={modalVisible}
@@ -316,8 +318,24 @@ ListForm.propTypes = {
     }),
     modalWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     formInitialValues: PropTypes.object,
-    otherActions: PropTypes.object,
-    otherButtons: PropTypes.object
+    otherActions: PropTypes.arrayOf(
+        PropTypes.shape({
+            key: PropTypes.string.isRequired,
+            onClick: PropTypes.func.isRequired,
+            icon: PropTypes.node,
+            title: PropTypes.string,
+            color: PropTypes.string
+        })
+    ),
+    otherButtons: PropTypes.arrayOf(
+        PropTypes.shape({
+            key: PropTypes.string.isRequired,
+            onClick: PropTypes.func.isRequired,
+            icon: PropTypes.node,
+            title: PropTypes.string,
+            color: PropTypes.string
+        })
+    )
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {

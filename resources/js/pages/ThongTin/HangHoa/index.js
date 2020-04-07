@@ -7,6 +7,7 @@ const List = React.memo((props) => {
     const [nhaCungCap, setNhaCungCap] = useState([]);
 
     useEffect(() => {
+        console.log(window.location)
         axios
             .get("/api/nha-cung-cap")
             .then(response => {

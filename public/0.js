@@ -1,338 +1,95 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./resources/js/components/ListForm/ToolsButton.scss":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./resources/js/components/ListForm/ToolsButton.scss ***!
-  \**********************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "@charset \"UTF-8\";\n/* Button trong form danh mục */\n.tools-button {\n  padding-left: 5px;\n}\n.tools-button button {\n  margin: 10px 5px;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./resources/js/components/ListForm/DataTable.js":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/ListForm/DataTable.js ***!
-  \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-highlight-words */ "./node_modules/react-highlight-words/dist/main.js");
-/* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_highlight_words__WEBPACK_IMPORTED_MODULE_3__);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
-  var selectedRowKeys = props.selectedRowKeys,
-      data = props.data,
-      isLoading = props.isLoading,
-      columns = props.columns,
-      selectable = props.selectable,
-      editable = props.editable,
-      deleteable = props.deleteable,
-      primaryKey = props.primaryKey,
-      tableSize = props.tableSize,
-      onDelete = props.onDelete,
-      handleEdit = props.handleEdit,
-      onChangeSelect = props.onChangeSelect;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      myColumns = _useState2[0],
-      setMyColumns = _useState2[1];
-
-  var searchText = "";
-  var searchedColumn = "";
-  var searchInput;
-  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    if (!_.isEmpty(data)) setMyColumns(calColumns());
-  }, [isLoading]); // Chỉ chạy khi data thay đổi
-
-  /**
-   * Tính các cột cần thiết
-   */
-
-  var calColumns = function calColumns() {
-    var cols = columns.map(function (column) {
-      return getColumn(column, data);
-    });
-    if (editable || deleteable) cols.push(addActionColumn());
-    return cols;
-  };
-  /**
-   * Thêm cột chức năng cho table
-   */
-
-
-  var addActionColumn = function addActionColumn(otherActions) {
-    return {
-      title: "",
-      key: "action",
-      fixed: "right",
-      align: "center",
-      width: 100,
-      render: function render(text, record) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-          type: "link",
-          icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null),
-          onClick: function onClick() {
-            return handleEdit(record);
-          },
-          title: "Ch\u1EC9nh s\u1EEDa"
-        }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-          onClick: function onClick() {
-            return onDelete(record[primaryKey]);
-          },
-          danger: true,
-          type: "link",
-          icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null),
-          title: "X\xF3a"
-        }) : "", !_.isEmpty(otherActions) ? otherActions.map(function (act) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-            onClick: function onClick() {
-              return act.onClick(record);
-            },
-            type: "link",
-            icon: act.icon,
-            title: act.title,
-            color: act.color
-          });
-        }) : "");
-      }
-    };
-  };
-  /**
-   * Create column for ant's table
-   */
-
-
-  var getColumn = function getColumn(column, data) {
-    if (column.optFilter) {
-      // Lọc dữ liệu và mô tả các cột dữ liệu
-      var objs = _toConsumableArray(new Set(data.map(function (x) {
-        return x[column.dataIndex];
-      })));
-
-      var filters = objs.map(function (el) {
-        return {
-          text: el,
-          value: el
-        };
-      });
-      Object.assign(column, {
-        filters: filters,
-        // specify the condition of filtering result
-        // here is that finding the name started with `value`
-        onFilter: function onFilter(value, record) {
-          return record[column.dataIndex].indexOf(value) === 0;
-        }
-      });
-    } else if (column.optFind) {
-      Object.assign(column, _objectSpread({}, getColumnSearchProps(column.dataIndex)));
-    }
-
-    return column;
-  };
-  /**
-   * Thao tác tìm kiếm trên cột
-   */
-
-
-  var getColumnSearchProps = function getColumnSearchProps(dataIndex) {
-    return {
-      filterDropdown: function filterDropdown(_ref) {
-        var setSelectedKeys = _ref.setSelectedKeys,
-            selectedKeys = _ref.selectedKeys,
-            confirm = _ref.confirm,
-            clearFilters = _ref.clearFilters;
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-          style: {
-            padding: 8
-          }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-          ref: function ref(node) {
-            searchInput = node;
-          },
-          placeholder: "T\xECm ki\u1EBFm...",
-          value: selectedKeys[0],
-          onChange: function onChange(e) {
-            return setSelectedKeys(e.target.value ? [e.target.value] : []);
-          },
-          onPressEnter: function onPressEnter() {
-            return handleSearch(selectedKeys, confirm, dataIndex);
-          },
-          style: {
-            width: 188,
-            marginBottom: 8,
-            display: "block"
-          }
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-          type: "primary",
-          onClick: function onClick() {
-            return handleSearch(selectedKeys, confirm, dataIndex);
-          },
-          icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["SearchOutlined"], null),
-          size: "small",
-          style: {
-            width: 90,
-            marginRight: 8
-          }
-        }, "T\xECm"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-          onClick: function onClick() {
-            return handleReset(clearFilters);
-          },
-          size: "small",
-          style: {
-            width: 90
-          }
-        }, "H\u1EE7y"));
-      },
-      filterIcon: function filterIcon(filtered) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["SearchOutlined"], {
-          style: {
-            color: filtered ? "#1890ff" : undefined
-          }
-        });
-      },
-      onFilter: function onFilter(value, record) {
-        return record[dataIndex].toString().toLowerCase().includes(value.toLowerCase());
-      },
-      onFilterDropdownVisibleChange: function onFilterDropdownVisibleChange(visible) {
-        if (visible) {
-          setTimeout(function () {
-            return searchInput.select();
-          });
-        }
-      },
-      render: function render(text) {
-        return searchedColumn === dataIndex ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_highlight_words__WEBPACK_IMPORTED_MODULE_3___default.a, {
-          highlightStyle: {
-            backgroundColor: "#ffc069",
-            padding: 0
-          },
-          searchWords: [searchText],
-          autoEscape: true,
-          textToHighlight: text.toString()
-        }) : text;
-      }
-    };
-  };
-
-  var handleSearch = function handleSearch(selectedKeys, confirm, dataIndex) {
-    confirm();
-    searchedColumn = dataIndex;
-    searchText = selectedKeys[0];
-  };
-
-  var handleReset = function handleReset(clearFilters) {
-    clearFilters();
-    searchedColumn = "";
-    searchText = "";
-  };
-
-  var rowSelection = {
-    selectedRowKeys: selectedRowKeys,
-    onChange: onChangeSelect
-  };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Table"], {
-    dataSource: data,
-    columns: myColumns,
-    loading: isLoading,
-    rowKey: function rowKey(row) {
-      return row[props.primaryKey];
-    },
-    rowSelection: selectable ? rowSelection : null,
-    locale: {
-      filterConfirm: "Lọc",
-      filterReset: "Hủy",
-      emptyText: "Không có dữ liệu"
-    },
-    scroll: tableSize
-  });
-});
-/* harmony default export */ __webpack_exports__["default"] = (DataTable);
-
-/***/ }),
-
-/***/ "./resources/js/components/ListForm/FormEdit.js":
-/*!******************************************************!*\
-  !*** ./resources/js/components/ListForm/FormEdit.js ***!
-  \******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-
-
-var FormEdit = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"])(function () {
-    if (props.currentRecord !== undefined) props.form.setFieldsValue(props.currentRecord);else props.form.resetFields();
-  }); // Alway run while each render
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
-    form: props.form,
-    initialValues: props.formInitialValues,
-    labelCol: {
-      span: 6
-    },
-    wrapperCol: {
-      span: 18
-    }
-  }, props.formTemplate);
-});
-/* harmony default export */ __webpack_exports__["default"] = (FormEdit);
-
-/***/ }),
-
-/***/ "./resources/js/components/ListForm/ModalConfirm.js":
+/***/ "./node_modules/antd/es/date-picker/locale/vi_VN.js":
 /*!**********************************************************!*\
-  !*** ./resources/js/components/ListForm/ModalConfirm.js ***!
+  !*** ./node_modules/antd/es/date-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rc-picker/es/locale/vi_VN */ "./node_modules/rc-picker/es/locale/vi_VN.js");
+/* harmony import */ var _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../time-picker/locale/vi_VN */ "./node_modules/antd/es/time-picker/locale/vi_VN.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+ // Merge into a locale object
+
+var locale = {
+  lang: _extends({
+    placeholder: 'Chọn thời điểm',
+    rangePlaceholder: ['Ngày bắt đầu', 'Ngày kết thúc']
+  }, rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"]),
+  timePickerLocale: _extends({}, _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"])
+}; // All settings at:
+// https://github.com/ant-design/ant-design/blob/master/components/date-picker/locale/example.json
+
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/antd/es/time-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/time-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  placeholder: 'Chọn thời gian'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/rc-picker/es/locale/vi_VN.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rc-picker/es/locale/vi_VN.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  locale: 'vi_VN',
+  today: 'Hôm nay',
+  now: 'Bây giờ',
+  backToToday: 'Trở về hôm nay',
+  ok: 'Ok',
+  clear: 'Xóa',
+  month: 'Tháng',
+  year: 'Năm',
+  timeSelect: 'Chọn thời gian',
+  dateSelect: 'Chọn ngày',
+  weekSelect: 'Chọn tuần',
+  monthSelect: 'Chọn tháng',
+  yearSelect: 'Chọn năm',
+  decadeSelect: 'Chọn thập kỷ',
+  yearFormat: 'YYYY',
+  dateFormat: 'D/M/YYYY',
+  dayFormat: 'D',
+  dateTimeFormat: 'D/M/YYYY HH:mm:ss',
+  monthBeforeYear: true,
+  previousMonth: 'Tháng trước (PageUp)',
+  nextMonth: 'Tháng sau (PageDown)',
+  previousYear: 'Năm trước (Control + left)',
+  nextYear: 'Năm sau (Control + right)',
+  previousDecade: 'Thập kỷ trước',
+  nextDecade: 'Thập kỷ sau',
+  previousCentury: 'Thế kỷ trước',
+  nextCentury: 'Thế kỷ sau'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./resources/js/components/ListForm/MyDatePicker.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/ListForm/MyDatePicker.js ***!
   \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -342,65 +99,259 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var _FormEdit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormEdit */ "./resources/js/components/ListForm/FormEdit.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 
 
-var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm(),
-      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
-      form = _Form$useForm2[0];
 
-  var handleOk = function handleOk() {
-    form.validateFields().then(function (value) {
-      props.handleOk(value);
-    })["catch"](function (info) {
-      console.log("Validate Failed: ", info);
-    });
-  };
+var MyDatePicker = function MyDatePicker(props) {
+  if (props.value && typeof props.value == "string") {
+    var objMoment = moment__WEBPACK_IMPORTED_MODULE_2___default()(props.value, props.format);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], _extends({}, props, {
+      value: objMoment
+    }));
+  } else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], props);
+};
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
-    width: props.modalWidth,
-    visible: props.modalVisible,
-    title: "Chi ti\u1EBFt",
-    onOk: handleOk,
-    onCancel: props.handleCancel,
-    footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-      key: "back",
-      onClick: props.handleCancel
-    }, "H\u1EE7y"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-      key: "submit",
-      type: "primary",
-      loading: props.formSubmiting,
-      onClick: handleOk
-    }, "\u0110\u1ED3ng \xFD")]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormEdit__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    form: form,
-    formInitialValues: props.formInitialValues,
-    currentRecord: props.currentRecord,
-    formTemplate: props.formTemplate
-  }));
-});
-/* harmony default export */ __webpack_exports__["default"] = (ModalConfirm);
+/* harmony default export */ __webpack_exports__["default"] = (MyDatePicker);
 
 /***/ }),
 
-/***/ "./resources/js/components/ListForm/ToolsButton.js":
-/*!*********************************************************!*\
-  !*** ./resources/js/components/ListForm/ToolsButton.js ***!
-  \*********************************************************/
+/***/ "./resources/js/pages/ThongTin/KhachHang/FormItem.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/pages/ThongTin/KhachHang/FormItem.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
+
+
+
+
+var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
+var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
+  var phanLoai = props.phanLoai || [];
+  var options = phanLoai.map(function (pl) {
+    return {
+      value: pl
+    };
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [5, 5]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ma_khach_hang",
+    label: "M\xE3 KH",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ho_ten",
+    label: "H\u1ECD t\xEAn",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "phan_loai",
+    label: "Ph\xE2n lo\u1EA1i",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["AutoComplete"], {
+    options: options,
+    filterOption: function filterOption(inputValue, option) {
+      return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "mst",
+    label: "M\xE3 s\u1ED1 thu\u1EBF"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "sdt",
+    label: "S\u0110T"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "email",
+    label: "Email"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    type: "email"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "dia_chi",
+    label: "\u0110\u1ECBa ch\u1EC9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ma_dai_ly",
+    label: "M\xE3 \u0111\u1EA1i l\xFD"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    placeholder: "C\xE1c m\xE3 c\xE1ch nhau b\u1EB1ng d\u1EA5u ,"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "so_du_ky_truoc",
+    label: "S\u1ED1 d\u01B0 \u0111\u1EA7u"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "phi_vn",
+    label: "Ph\xED VN"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "phi_vj",
+    label: "Ph\xED VJ"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "phi_jets",
+    label: "Ph\xED Jets"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "phi_bb",
+    label: "Ph\xED BB"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ngay_nhac",
+    label: "Ng\xE0y nh\u1EAFc"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    style: {
+      width: "100%"
+    },
+    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
+    format: "HH:mm DD/MM/YYYY",
+    showTime: true,
+    showSecond: false
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ghi_chu",
+    label: "Ghi ch\xFA"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)))));
+});
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./resources/js/pages/ThongTin/KhachHang/index.js":
+/*!********************************************************!*\
+  !*** ./resources/js/pages/ThongTin/KhachHang/index.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -408,88 +359,8 @@ var ModalConfirm = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (p
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var _ToolsButton_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ToolsButton.scss */ "./resources/js/components/ListForm/ToolsButton.scss");
-/* harmony import */ var _ToolsButton_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ToolsButton_scss__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-/**
- * Dùng React.memo để lưu lại Component, ko bị load lại trừ trường hợp cần thiết
- */
-
-var ToolsButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "tools-button"
-  }, props.insertable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    type: "primary",
-    onClick: props.handleAddNew
-  }, "Th\xEAm m\u1EDBi") : "", props.selectable && props.deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, props.selectedRowKeys.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    type: "danger",
-    onClick: props.onMultiDelete
-  }, "X\xF3a ", props.selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn") : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    type: "link",
-    onClick: props.handleSelectAll
-  }, "Ch\u1ECDn t\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    type: "link",
-    danger: true,
-    onClick: props.handleClearSelected
-  }, "B\u1ECF ch\u1ECDn t\u1EA5t c\u1EA3")) : "");
-});
-/* harmony default export */ __webpack_exports__["default"] = (ToolsButton);
-
-/***/ }),
-
-/***/ "./resources/js/components/ListForm/ToolsButton.scss":
-/*!***********************************************************!*\
-  !*** ./resources/js/components/ListForm/ToolsButton.scss ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--6-3!./ToolsButton.scss */ "./node_modules/css-loader/index.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./resources/js/components/ListForm/ToolsButton.scss");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./resources/js/components/ListForm/index.js":
-/*!***************************************************!*\
-  !*** ./resources/js/components/ListForm/index.js ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _DataTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DataTable */ "./resources/js/components/ListForm/DataTable.js");
-/* harmony import */ var _ModalConfirm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ModalConfirm */ "./resources/js/components/ListForm/ModalConfirm.js");
-/* harmony import */ var _ToolsButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ToolsButton */ "./resources/js/components/ListForm/ToolsButton.js");
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/KhachHang/FormItem.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -498,8 +369,6 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.it
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -515,336 +384,152 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
-
-
-
-var confirm = antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].confirm;
-
-function useMergeState(initialState) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(initialState),
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
+      phanLoai = _useState2[0],
+      setPhanLoai = _useState2[1];
 
-  var setMergedState = function setMergedState(newState) {
-    return setState(function (prevState) {
-      return Object.assign({}, prevState, newState);
-    });
+  var onChangeData = function onChangeData(data) {
+    var phanLoai = _toConsumableArray(new Set(data.map(function (x) {
+      return x.phan_loai;
+    })));
+
+    setPhanLoai(phanLoai);
   };
 
-  return [state, setMergedState];
-}
-
-var ListForm = function ListForm(props) {
-  var _useMergeState = useMergeState({
-    data: [],
-    isLoading: true,
-    modalVisible: false,
-    formSubmiting: false,
-    selectedRowKeys: [],
-    currentRecord: undefined
-  }),
-      _useMergeState2 = _slicedToArray(_useMergeState, 2),
-      state = _useMergeState2[0],
-      setState = _useMergeState2[1];
-
-  var url = props.url,
-      onChangeData = props.onChangeData,
-      columns = props.columns,
-      selectable = props.selectable,
-      insertable = props.insertable,
-      editable = props.editable,
-      deleteable = props.deleteable,
-      primaryKey = props.primaryKey,
-      formTemplate = props.formTemplate,
-      formInitialValues = props.formInitialValues,
-      tableSize = props.tableSize,
-      modalWidth = props.modalWidth;
-  var data = state.data,
-      isLoading = state.isLoading,
-      modalVisible = state.modalVisible,
-      formSubmiting = state.formSubmiting,
-      selectedRowKeys = state.selectedRowKeys,
-      currentRecord = state.currentRecord;
-  var isComponentMounted = false;
-  Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
-    isComponentMounted = true;
-    axios.get("/api/" + url).then(function (response) {
-      if (isComponentMounted && response.data.success) {
-        setState({
-          data: response.data.data,
-          isLoading: false
-        }); //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
-
-        if (onChangeData) onChangeData(response.data.data);
-      }
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-    return function () {
-      isComponentMounted = false;
-    };
-  }, []); // Chỉ chạy 1 lần khi mount component
-
-  /**
-   * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
-   */
-
-  var isChangeData = function isChangeData(record, data) {
-    var key1 = Object.keys(record);
-    var key2 = Object.keys(data);
-    var isChanged = false;
-
-    for (var _i2 = 0, _key = key1; _i2 < _key.length; _i2++) {
-      var k = _key[_i2];
-
-      if (key2.indexOf(k) >= 0 && record[k] !== data[k]) {
-        isChanged = true;
-        break;
-      }
-    }
-
-    return isChanged;
-  };
-  /**
-   * Show modal Thêm mới, Sửa
-   */
-
-
-  var handleOk = function handleOk(values) {
-    setState({
-      formSubmiting: true
-    }); // Parse các ô ngày tháng
-
-    for (var _i3 = 0, _Object$entries = Object.entries(values); _i3 < _Object$entries.length; _i3++) {
-      var _Object$entries$_i = _slicedToArray(_Object$entries[_i3], 2),
-          key = _Object$entries$_i[0],
-          value = _Object$entries$_i[1];
-
-      if (value !== null && value !== undefined) if (_typeof(value) === "object") // Convert từ moment (from DatePicker) về dạng string để backend xử lý
-        values[key] = value.format("YYYY-MM-DD HH:mm:ss");else if (typeof value === "string" && value.match(/(.*?):(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_2___default()(value, "HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss"); //TODO: Trường hợp chỉ có ngày
-    } // Thêm mới
-
-
-    if (currentRecord === undefined) {
-      onAdd(values);
-    } else if (isChangeData(currentRecord, values)) {
-      // Chỉnh sửa
-      onUpdate(values);
-    } // Tắt loading & modal
-
-
-    setState({
-      formSubmiting: false,
-      modalVisible: false
-    });
-  };
-
-  var handleCancel = function handleCancel() {
-    setState({
-      modalVisible: false
-    });
-  };
-  /**
-   * Xử lý sự kiện người dùng
-   */
-
-
-  var handleAddNew = function handleAddNew() {
-    setState({
-      currentRecord: undefined,
-      modalVisible: true
-    });
-  };
-
-  var handleEdit = function handleEdit(record) {
-    setState({
-      modalVisible: true,
-      currentRecord: record
-    });
-  };
-
-  var handleSelectAll = function handleSelectAll() {
-    setState({
-      selectedRowKeys: data.map(function (item) {
-        return item[primaryKey];
-      })
-    });
-  };
-
-  var handleClearSelected = function handleClearSelected() {
-    setState({
-      selectedRowKeys: []
-    });
-  };
-  /**
-   * Thực thi các sự kiện
-   */
-
-
-  var onChangeSelect = function onChangeSelect(selectedRowKeys) {
-    return setState({
-      selectedRowKeys: selectedRowKeys
-    });
-  };
-
-  var onAdd = function onAdd(value) {
-    axios.post("/api/".concat(url), value).then(function (response) {
-      if (response.data.success) {
-        setState({
-          data: [].concat(_toConsumableArray(data), [response.data.data]) // Thêm object vào list lấy từ state
-
-        });
-        antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-        if (onChangeData) onChangeData(data);
-      }
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  };
-
-  var onUpdate = function onUpdate(value) {
-    axios.put("/api/".concat(url, "/").concat(currentRecord[primaryKey]), value).then(function (response) {
-      if (response.data.success) {
-        var newData = [];
-        Object.assign(newData, data.map(function (el) {
-          return el[primaryKey] === currentRecord[primaryKey] ? response.data.data : el;
-        }));
-        setState({
-          data: newData
-        });
-        if (onChangeData) onChangeData(data);
-        antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-      }
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  };
-
-  var onDelete = function onDelete(id) {
-    confirm({
-      title: "Bạn muốn xóa mục này?",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
-      content: "Thao tác không thể khôi phục",
-      okText: "Đồng ý",
-      okType: "danger",
-      cancelText: "Không",
-      onOk: function onOk() {
-        axios["delete"]("/api/".concat(url, "/").concat(id)).then(function (response) {
-          if (response.data.success) {
-            setState({
-              data: data.filter(function (item) {
-                return item[primaryKey] !== id;
-              })
-            });
-            antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-            if (onChangeData) onChangeData(data);
-          }
-        })["catch"](function (error) {
-          return console.log(error);
-        });
-      }
-    });
-  };
-
-  var onMultiDelete = function onMultiDelete() {
-    confirm({
-      title: "Bạn muốn xóa những mục này?",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
-      content: "Tất cả " + selectedRowKeys.length + " mục",
-      okText: "Đồng ý",
-      okType: "danger",
-      cancelText: "Không",
-      onOk: function onOk() {
-        axios["delete"]("/api/".concat(url, "/deletes"), {
-          params: {
-            objects: selectedRowKeys.join("|")
-          }
-        }).then(function (response) {
-          if (response.data.success) {
-            setState({
-              data: data.filter(function (item) {
-                return selectedRowKeys.indexOf(item[primaryKey]) === -1;
-              }),
-              selectedRowKeys: []
-            });
-            if (onChangeData) onChangeData(data);
-            antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-          }
-        })["catch"](function (error) {
-          return console.log(error);
-        });
-      }
-    });
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ToolsButton__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    insertable: insertable,
-    selectable: selectable,
-    deleteable: deleteable,
-    handleAddNew: handleAddNew,
-    onMultiDelete: onMultiDelete,
-    selectedRowKeys: selectedRowKeys,
-    handleSelectAll: handleSelectAll,
-    handleClearSelected: handleClearSelected
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_DataTable__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    data: data,
+  var columns = [{
+    title: "Mã khách hàng",
+    dataIndex: "ma_khach_hang",
+    width: 120,
+    optFind: true
+  }, {
+    title: "Họ tên",
+    dataIndex: "ho_ten",
+    width: 120,
+    optFind: true
+  }, {
+    title: "Phân loại",
+    dataIndex: "phan_loai",
+    width: 120,
+    optFilter: true
+  }, {
+    title: "MST",
+    dataIndex: "mst",
+    width: 120
+  }, {
+    title: "SĐT",
+    dataIndex: "sdt",
+    width: 120
+  }, {
+    title: "Email",
+    dataIndex: "email",
+    width: 120
+  }, {
+    title: "Địa chỉ",
+    dataIndex: "dia_chi",
+    ellipsis: true,
+    width: 120
+  }, {
+    title: "Mã đại lý",
+    dataIndex: "ma_dai_ly",
+    ellipsis: true,
+    width: 120
+  }, {
+    title: "Số dư ban đầu",
+    dataIndex: "so_du_ky_truoc",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
+    },
+    width: 120
+  }, {
+    title: "Số tiền thu dư",
+    dataIndex: "so_tien_thu_du",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
+    },
+    width: 120
+  }, {
+    title: "Phí VN",
+    dataIndex: "phi_vn",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
+    },
+    width: 120
+  }, {
+    title: "Phí VJ",
+    dataIndex: "phi_vj",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
+    },
+    width: 120
+  }, {
+    title: "Phí Jets",
+    dataIndex: "phi_jets",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
+    },
+    width: 120
+  }, {
+    title: "Phí BB",
+    dataIndex: "phi_bb",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
+    },
+    width: 120
+  }, {
+    title: "Ngày nhắc",
+    dataIndex: "ngay_nhac",
+    width: 120
+  }, {
+    title: "Ngày tạo",
+    dataIndex: "ngay_tao",
+    width: 120
+  }, {
+    title: "Ghi chú",
+    dataIndex: "ghi_chu",
+    width: 150,
+    ellipsis: true
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    url: "khach-hang",
     columns: columns,
-    isLoading: isLoading,
-    primaryKey: primaryKey,
-    selectable: selectable,
-    editable: editable,
-    deleteable: deleteable,
-    selectedRowKeys: selectedRowKeys,
-    onChangeSelect: onChangeSelect,
-    tableSize: tableSize,
-    handleEdit: handleEdit,
-    onDelete: onDelete
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    modalVisible: modalVisible,
-    modalWidth: modalWidth,
-    handleOk: handleOk,
-    handleCancel: handleCancel,
-    formSubmiting: formSubmiting,
-    currentRecord: currentRecord,
-    formInitialValues: formInitialValues,
-    formTemplate: formTemplate
-  }));
-};
-
-ListForm.propTypes = {
-  url: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string.isRequired,
-  columns: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object).isRequired,
-  formTemplate: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node.isRequired,
-  onChangeData: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
-  selectable: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-  insertable: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-  editable: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-  deleteable: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-  primaryKey: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
-  tableSize: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.shape({
-    x: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number,
-    y: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number
-  }),
-  modalWidth: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number]),
-  formInitialValues: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
-  otherActions: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
-  otherButtons: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
-}; // Specifies the default values for props:
-
-ListForm.defaultProps = {
-  selectable: true,
-  insertable: true,
-  editable: true,
-  deleteable: true,
-  primaryKey: "id",
-  tableSize: {
-    x: 500
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (ListForm);
+    modalWidth: "1100px",
+    tableSize: {
+      x: 1000
+    },
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      phanLoai: phanLoai
+    }),
+    formInitialValues: {
+      so_du_ky_truoc: 0,
+      phi_vn: 0,
+      phi_vj: 0,
+      phi_jets: 0,
+      phi_bb: 0
+    },
+    onChangeData: onChangeData
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
 
 /***/ })
 

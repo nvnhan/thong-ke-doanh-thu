@@ -320,6 +320,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
       setNhaCungCap = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    console.log(window.location);
     axios.get("/api/nha-cung-cap").then(function (response) {
       if (response.data.success) setNhaCungCap(response.data.data);
     })["catch"](function (error) {

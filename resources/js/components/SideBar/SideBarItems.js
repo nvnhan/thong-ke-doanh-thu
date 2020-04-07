@@ -1,7 +1,8 @@
 import React from "react";
 import {
     BarsOutlined,
-    AccountBookOutlined,BookOutlined,
+    WalletOutlined,
+    BookOutlined,
     PieChartOutlined,
     DashboardOutlined,
     CaretRightOutlined,
@@ -20,7 +21,7 @@ const items = [
     {
         key: SideMenus.THU_CHI,
         href: "/thu-chi",
-        icon: <AccountBookOutlined />,
+        icon: <WalletOutlined />,
         title: "Thu chi"
     },
     {

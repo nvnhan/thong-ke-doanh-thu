@@ -212,6 +212,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
 /* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/NhaCungCap/FormItem.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -235,6 +236,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -251,6 +253,10 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
     })));
 
     setPhanLoai(phanLoai);
+  };
+
+  var onClickRow = function onClickRow(record) {
+    console.log("record", record);
   };
 
   var columns = [{
@@ -345,6 +351,14 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
     ellipsis: true,
     width: 150
   }];
+  var hangHoaAction = [{
+    key: "dsHangHoa",
+    onClick: onClickRow,
+    title: "Danh sách hàng hóa",
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_3__["AppstoreAddOutlined"], null),
+    color: "#52c41a" // Success color
+
+  }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     url: "nha-cung-cap",
     columns: columns,
@@ -362,6 +376,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
       phi_jets: 0,
       phi_bb: 0
     },
+    otherActions: hangHoaAction,
     onChangeData: onChangeData
   });
 });

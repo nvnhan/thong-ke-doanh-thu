@@ -103,7 +103,10 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
     tableSize: {
       x: 600
     },
-    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], null)
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], null),
+    formInitialValues: {
+      so_du_ky_truoc: 0
+    }
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);

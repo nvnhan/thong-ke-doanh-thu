@@ -12,6 +12,7 @@ const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
 const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
 const NhaCungCap = lazy(() => import("../../pages/ThongTin/NhaCungCap"));
 const KhachHang = lazy(() => import("../../pages/ThongTin/KhachHang"));
+const HangHoa = lazy(() => import("../../pages/ThongTin/HangHoa"));
 
 const Profile = lazy(() => import("../../pages/Account/Profile"));
 const Password = lazy(() => import("../../pages/Account/Password"));
@@ -72,6 +73,13 @@ const routes = [
         title: "Khách hàng",
         menu: menus.TT_KHACH_HANG,
         component: <KhachHang />
+    },
+    {
+        path: "/hang-hoa",
+        exact: false,
+        title: "Hàng hóa",
+        menu: menus.TT_HANG_HOA,
+        component: <HangHoa />
     },
     {
         path: "/thong-tin-ca-nhan",

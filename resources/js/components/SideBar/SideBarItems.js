@@ -1,7 +1,7 @@
 import React from "react";
 import {
     BarsOutlined,
-    AccountBookOutlined,
+    AccountBookOutlined,BookOutlined,
     PieChartOutlined,
     DashboardOutlined,
     CaretRightOutlined,
@@ -25,7 +25,7 @@ const items = [
     },
     {
         key: "SUB_VMB",
-        icon: <BarsOutlined />,
+        icon: <BookOutlined />,
         title: "Vé máy bay",
         childs: [
             {

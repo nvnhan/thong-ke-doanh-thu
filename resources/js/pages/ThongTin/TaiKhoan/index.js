@@ -40,6 +40,7 @@ const List = React.memo(() => {
             columns={columns}
             tableSize={{ x: 600 }}
             formTemplate={<FormItem />}
+            formInitialValues={{ so_du_ky_truoc: 0 }}
         />
     );
 });

@@ -14,17 +14,8 @@ class HangHoaController extends BaseController
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $objs = HangHoa::get();
+        return $this->sendResponse($objs, "HangHoa retrieved successfully");
     }
 
     /**
@@ -35,51 +26,56 @@ class HangHoaController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\HangHoa  $hangHoa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(HangHoa $hangHoa)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\HangHoa  $hangHoa
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(HangHoa $hangHoa)
-    {
-        //
+        $data = $request->all();
+        $obj = HangHoa::create($data);
+        $obj->username = $request->user()->username;
+        $obj->save();
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\HangHoa  $hangHoa
+     * @param  \App\HangHoa  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HangHoa $hangHoa)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $model = HangHoa::find($id);
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\HangHoa  $hangHoa
+     * @param  \App\HangHoa  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HangHoa $hangHoa)
+    public function destroy($id)
     {
-        //
+        HangHoa::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công khách hàng");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs)) {
+            $cnt = count($objs);
+            HangHoa::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+
+        return $this->sendError('Không xóa được', []);
     }
 }

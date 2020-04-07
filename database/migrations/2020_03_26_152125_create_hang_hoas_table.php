@@ -18,13 +18,14 @@ class CreateHangHoasTable extends Migration
             $table->integer('id_tai_khoan')->unsigned();
             $table->string('ma_hang', 50);
             $table->string('ten_hang', 200);
-            $table->string('phan_loai', 50)->nullable();
+            $table->string('phan_loai', 50)->default('');
             $table->string('don_vi', 50)->nullable();
 
             $table->decimal('don_gia', 11, 2)->default(0);
             
             $table->string('ghi_chu', 500)->nullable();
             $table->string('username', 50)->nullable();
+            $table->timestamps();
         });
     }
 

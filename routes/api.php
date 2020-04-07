@@ -38,11 +38,13 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('khach-hang/deletes', 'KhachHangController@deletes');
     Route::resource('khach-hang', 'KhachHangController')->only(['index', 'store', 'update', 'destroy']);
 
+    Route::delete('hang-hoa/deletes', 'HangHoaController@deletes');
+    Route::resource('hang-hoa', 'HangHoaController')->only(['index', 'store', 'update', 'destroy']);
+
     Route::resource('user', 'UserController');
     Route::resource('ban-ra', 'BanRaController');
     Route::resource('mua-vao', 'MuaVaoController');
     Route::resource('dat-ve', 'DatVeController');
-    Route::resource('hang-hoa', 'HangHoaController');
     Route::resource('thu-chi', 'ThuChiController');
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');
 

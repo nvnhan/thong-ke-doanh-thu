@@ -1,24 +1,19 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { Form, message, Button, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
+import React from "react";
 
-const Password = React.memo((props) => {
+const Password = React.memo(props => {
     const [form] = Form.useForm();
 
     const onFinish = () => {
         let values = form.getFieldValue();
         axios
             .put(`/api/password`, values)
-            .then((response) => {
-                if (response.data.success) {
+            .then(response => {
+                if (response.data.success)
                     message.success(response.data.message);
-                } else {
-                    message.warn(response.data.message);
-                }
+                else message.warn(response.data.message);
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch(error => console.log(error));
     };
 
     return (
@@ -35,8 +30,8 @@ const Password = React.memo((props) => {
                     rules={[
                         {
                             required: true,
-                            message: "Nhập đầy đủ thông tin!",
-                        },
+                            message: "Nhập đầy đủ thông tin!"
+                        }
                     ]}
                 >
                     <Input.Password />
@@ -47,8 +42,8 @@ const Password = React.memo((props) => {
                     rules={[
                         {
                             required: true,
-                            message: "Nhập đầy đủ thông tin!",
-                        },
+                            message: "Nhập đầy đủ thông tin!"
+                        }
                     ]}
                 >
                     <Input.Password />
@@ -59,8 +54,8 @@ const Password = React.memo((props) => {
                     rules={[
                         {
                             required: true,
-                            message: "Nhập đầy đủ thông tin!",
-                        },
+                            message: "Nhập đầy đủ thông tin!"
+                        }
                     ]}
                 >
                     <Input.Password />
@@ -73,6 +68,6 @@ const Password = React.memo((props) => {
             </Form>
         </div>
     );
-})
+});
 
 export default Password;

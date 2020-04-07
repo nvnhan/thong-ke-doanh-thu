@@ -1,19 +1,18 @@
-import React, { PureComponent } from "react";
-import axios from "axios";
-import { Input, Button, Modal, message, List } from "antd";
-import Highlighter from "react-highlight-words";
 import {
-    SearchOutlined,
     DeleteOutlined,
     EditOutlined,
-    ExclamationCircleOutlined
+    ExclamationCircleOutlined,
+    SearchOutlined
 } from "@ant-design/icons";
-const { confirm } = Modal;
+import { Button, Input, message, Modal } from "antd";
 import moment from "moment";
-import ToolsButton from "./ToolsButton";
+import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+import Highlighter from "react-highlight-words";
 import DataTable from "./DataTable";
 import ModalConfirm from "./ModalConfirm";
-import PropTypes from "prop-types";
+import ToolsButton from "./ToolsButton";
+const { confirm } = Modal;
 
 class ListForm extends PureComponent {
     constructor(props) {
@@ -288,9 +287,7 @@ class ListForm extends PureComponent {
                         this.props.onChangeData(this.state.data);
                 }
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch(error => console.log(error));
     };
 
     onUpdate = value => {
@@ -316,9 +313,7 @@ class ListForm extends PureComponent {
                     message.info(response.data.message);
                 }
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch(error => console.log(error));
     };
 
     /**
@@ -349,9 +344,7 @@ class ListForm extends PureComponent {
                                 this.props.onChangeData(this.state.data);
                         }
                     })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                    .catch(error => console.log(error));
             }
         });
     };
@@ -387,9 +380,7 @@ class ListForm extends PureComponent {
                             message.info(response.data.message);
                         }
                     })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                    .catch(error => console.log(error));
             }
         });
     };

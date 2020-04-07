@@ -1,5 +1,4 @@
 import { Layout, message } from "antd";
-import axios from "axios";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -15,7 +14,7 @@ class MainContainer extends PureComponent {
         super(props);
 
         this.state = {
-            isLoading: true,
+            isLoading: true
         };
     }
 
@@ -28,26 +27,31 @@ class MainContainer extends PureComponent {
             // Check it in server
             axios
                 .get(`/api/get-user`)
-                .then((response) => {
+                .then(response => {
                     if (response.data.success) {
                         const { data } = response.data;
                         this.props.onSetAuth({
                             username: data.username,
                             hoTen: data.ho_ten,
-                            isAdmin: data.admin,
+                            isAdmin: data.admin
                         });
                     } else {
-                        localStorage.removeItem('token');
+                        localStorage.removeItem("token");
                         message.warn(response.data.message);
                     }
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch(error => {
+                    if (error.response.status === "401") {
+                        message.warn(
+                            "Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại"
+                        );
+                        this.props.onLogout();
+                    } else console.log(error);
                 })
                 .then(() => {
                     this.setState({ isLoading: false });
                 });
-        } else this.setState({ isLoading: false });         // Chuyển tới Login page
+        } else this.setState({ isLoading: false }); // Chuyển tới Login page
     }
 
     isAuthenticate = () => {
@@ -76,9 +80,9 @@ class MainContainer extends PureComponent {
  * Store trả state về thông qua connect
  * Connect dùng hàm này để map các state => props cho component
  */
-const mapStatetoProps = (state) => {
+const mapStatetoProps = state => {
     return {
-        authUser: state.authUser,
+        authUser: state.authUser
     };
 };
 /**
@@ -87,9 +91,12 @@ const mapStatetoProps = (state) => {
  */
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onSetAuth: (auth) => {
+        onSetAuth: auth => {
             dispatch(actions.setAuth(auth));
         },
+        onLogout: () => {
+            dispatch(actions.logout());
+        }
     };
 };
 /**

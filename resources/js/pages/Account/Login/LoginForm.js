@@ -1,10 +1,8 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
-import axios from "axios";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./login.scss";
 
 function LoginForm(props) {
     const [form] = Form.useForm();
@@ -18,23 +16,21 @@ function LoginForm(props) {
             .then(response => {
                 if (response.data.success) {
                     const { data } = response.data;
+                    // Setup default config for axios
+                    axios.defaults.headers.common["Authorization"] =
+                        "Bearer " + data.token;
+                    localStorage.setItem("token", data.token);
+                    message.success(response.data.message);
                     props.onSetAuth({
                         username: data.username,
                         hoTen: data.ho_ten,
                         isAdmin: data.admin
                     });
-                    localStorage.setItem("token", data.token);
-                    // Setup default config for axios
-                    axios.defaults.headers.common["Authorization"] =
-                        "Bearer " + data.token;
-                    message.success(response.data.message);
                 } else {
                     message.warn(response.data.message);
                 }
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch(error => console.log(error));
         setSubmiting(false);
     };
 

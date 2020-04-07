@@ -4,7 +4,7 @@ import * as types from "../constants/ActionTypes";
 var initialState = {
     username: "",
     hoTen: "",
-    isAdmin: false,
+    isAdmin: false
 };
 
 const myReducer = (state = initialState, action) => {
@@ -14,21 +14,17 @@ const myReducer = (state = initialState, action) => {
         if (token !== undefined) {
             axios
                 .get(`/api/logout`)
-                .then((response) => {
-                    if (response.data.success) {
+                .then(response => {
+                    if (response.data.success)
                         message.info(response.data.message);
-                    }
                 })
-                .catch((error) => {
-                    console.log('Error Logout ', error);
-                });
+                .catch(error => console.log("Error Logout ", error));
             // Remove token from localStorage
             localStorage.removeItem("token");
             state = initialState;
         }
-    } else if (action.type === types.SET_AUTH) {
-        state = action.auth;
-    }
+    } else if (action.type === types.SET_AUTH) state = action.auth;
+
     return state;
 };
 

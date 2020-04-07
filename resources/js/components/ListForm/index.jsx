@@ -1,14 +1,8 @@
-import {
-    DeleteOutlined,
-    EditOutlined,
-    ExclamationCircleOutlined,
-    SearchOutlined
-} from "@ant-design/icons";
-import { Button, Input, message, Modal } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { message, Modal } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { PureComponent } from "react";
-import Highlighter from "react-highlight-words";
 import DataTable from "./DataTable";
 import ModalConfirm from "./ModalConfirm";
 import ToolsButton from "./ToolsButton";
@@ -34,25 +28,18 @@ class ListForm extends PureComponent {
 
     componentDidMount() {
         this.isComponentMounted = true;
-        const { url, columns } = this.props;
+        const { url } = this.props;
 
         axios
             .get("/api/" + url)
             .then(response => {
                 if (this.isComponentMounted && response.data.success) {
-                    /**
-                     * Tính các cột cần thiết
-                     * Chạy 1 lần duy nhất
-                     */
-                    this.columns = columns.map(column =>
-                        this.getColumn(column, response.data.data)
-                    );
-                    this.columns.push(this.addColumn());
                     this.setState({
                         data: response.data.data,
                         isLoading: false
                     });
                     if (this.props.onChangeData)
+                        //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
                         this.props.onChangeData(response.data.data);
                 }
             })
@@ -62,44 +49,6 @@ class ListForm extends PureComponent {
     componentWillUnmount() {
         this.isComponentMounted = false;
     }
-
-    addColumn = () => {
-        const { editable, deleteable, primaryKey } = this.props;
-        if (editable || deleteable)
-            return {
-                title: "",
-                key: "action",
-                fixed: "right",
-                align: "center",
-                width: 100,
-                render: (text, record) => (
-                    <span>
-                        {editable ? (
-                            <Button
-                                type="link"
-                                icon={<EditOutlined />}
-                                onClick={() => this.handleEdit(record)}
-                            ></Button>
-                        ) : (
-                            ""
-                        )}
-                        {deleteable ? (
-                            <Button
-                                onClick={() =>
-                                    this.onDelete(record[primaryKey])
-                                }
-                                danger
-                                type="link"
-                                icon={<DeleteOutlined />}
-                            ></Button>
-                        ) : (
-                            ""
-                        )}
-                    </span>
-                )
-            };
-        return {};
-    };
 
     /**
      * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
@@ -115,92 +64,6 @@ class ListForm extends PureComponent {
             }
         }
         return isChanged;
-    };
-
-    /**
-     * Thao tác tìm kiếm trên cột
-     */
-    getColumnSearchProps = dataIndex => ({
-        filterDropdown: ({
-            setSelectedKeys,
-            selectedKeys,
-            confirm,
-            clearFilters
-        }) => (
-            <div style={{ padding: 8 }}>
-                <Input
-                    ref={node => {
-                        this.searchInput = node;
-                    }}
-                    placeholder="Tìm kiếm..."
-                    value={selectedKeys[0]}
-                    onChange={e =>
-                        setSelectedKeys(e.target.value ? [e.target.value] : [])
-                    }
-                    onPressEnter={() =>
-                        this.handleSearch(selectedKeys, confirm, dataIndex)
-                    }
-                    style={{ width: 188, marginBottom: 8, display: "block" }}
-                />
-                <Button
-                    type="primary"
-                    onClick={() =>
-                        this.handleSearch(selectedKeys, confirm, dataIndex)
-                    }
-                    icon={<SearchOutlined />}
-                    size="small"
-                    style={{ width: 90, marginRight: 8 }}
-                >
-                    Tìm
-                </Button>
-                <Button
-                    onClick={() => this.handleReset(clearFilters)}
-                    size="small"
-                    style={{ width: 90 }}
-                >
-                    Hủy
-                </Button>
-            </div>
-        ),
-        filterIcon: filtered => (
-            <SearchOutlined
-                style={{ color: filtered ? "#1890ff" : undefined }}
-            />
-        ),
-        onFilter: (value, record) =>
-            record[dataIndex]
-                .toString()
-                .toLowerCase()
-                .includes(value.toLowerCase()),
-        onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-                setTimeout(() => this.searchInput.select());
-            }
-        },
-        render: text =>
-            this.state.searchedColumn === dataIndex ? (
-                <Highlighter
-                    highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-                    searchWords={[this.state.searchText]}
-                    autoEscape
-                    textToHighlight={text.toString()}
-                />
-            ) : (
-                text
-            )
-    });
-
-    handleSearch = (selectedKeys, confirm, dataIndex) => {
-        confirm();
-        this.setState({
-            searchText: selectedKeys[0],
-            searchedColumn: dataIndex
-        });
-    };
-
-    handleReset = clearFilters => {
-        clearFilters();
-        this.setState({ searchText: "", selectedRowKeys: [] });
     };
 
     /**
@@ -241,7 +104,7 @@ class ListForm extends PureComponent {
     };
 
     /**
-     * Xử lý sự kiện
+     * Xử lý sự kiện người dùng
      */
     handleAddNew = () => {
         this.setState({
@@ -271,7 +134,10 @@ class ListForm extends PureComponent {
         });
     };
 
-    handleSelectRow = selectedRowKeys => this.setState({ selectedRowKeys });
+    /**
+     * Thực thi các sự kiện
+     */
+    onChangeSelect = selectedRowKeys => this.setState({ selectedRowKeys });
 
     onAdd = value => {
         const { url } = this.props;
@@ -316,9 +182,6 @@ class ListForm extends PureComponent {
             .catch(error => console.log(error));
     };
 
-    /**
-     * Handle sự kiện xóa
-     */
     onDelete = id => {
         const { url, primaryKey } = this.props;
         const { data } = this.state;
@@ -386,35 +249,6 @@ class ListForm extends PureComponent {
     };
 
     /**
-     * Create column for ant's table
-     */
-    getColumn = (column, data) => {
-        if (column.optFilter) {
-            // Lọc dữ liệu và mô tả các cột dữ liệu
-            const objs = [...new Set(data.map(x => x[column.dataIndex]))];
-            let filters = objs.map(el => {
-                return {
-                    text: el,
-                    value: el
-                };
-            });
-            Object.assign(column, {
-                filters,
-                // specify the condition of filtering result
-                // here is that finding the name started with `value`
-                onFilter: (value, record) =>
-                    record[dataIndex].indexOf(value) === 0
-            });
-        }
-        if (column.optFind) {
-            Object.assign(column, {
-                ...this.getColumnSearchProps(column.dataIndex)
-            });
-        }
-        return column;
-    };
-
-    /**
      * Hàm render
      */
     render() {
@@ -427,8 +261,10 @@ class ListForm extends PureComponent {
             currentRecord
         } = this.state;
         const {
+            columns,
             selectable,
             insertable,
+            editable,
             deleteable,
             primaryKey,
             formTemplate,
@@ -451,13 +287,16 @@ class ListForm extends PureComponent {
                 />
                 <DataTable
                     data={data}
-                    columns={this.columns}
+                    columns={columns}
                     isLoading={isLoading}
                     primaryKey={primaryKey}
                     selectable={selectable}
+                    editable={editable}
                     selectedRowKeys={selectedRowKeys}
-                    onChangeSelect={this.handleSelectRow}
+                    onChangeSelect={this.onChangeSelect}
                     scroll={tableSize}
+                    handleEdit={this.handleEdit}
+                    onDelete={this.onDelete}
                 />
                 <ModalConfirm
                     modalVisible={modalVisible}
@@ -489,7 +328,9 @@ ListForm.propTypes = {
         y: PropTypes.number
     }),
     modalWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    formInitialValues: PropTypes.object
+    formInitialValues: PropTypes.object,
+    otherActions: PropTypes.object,
+    otherButtons: PropTypes.object
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {

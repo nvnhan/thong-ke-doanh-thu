@@ -28,34 +28,256 @@ exports.push([module.i, "@charset \"UTF-8\";\n/* Button trong form danh mục */
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-highlight-words */ "./node_modules/react-highlight-words/dist/main.js");
+/* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_highlight_words__WEBPACK_IMPORTED_MODULE_3__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-var DataTable = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
-  var selectedRowKeys = props.selectedRowKeys;
-  var scroll = props.tableSize || {
-    x: 500
+
+
+
+var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
+  var selectedRowKeys = props.selectedRowKeys,
+      data = props.data,
+      isLoading = props.isLoading,
+      columns = props.columns,
+      selectable = props.selectable,
+      editable = props.editable,
+      deleteable = props.deleteable,
+      primaryKey = props.primaryKey,
+      tableSize = props.tableSize,
+      onDelete = props.onDelete,
+      handleEdit = props.handleEdit,
+      onChangeSelect = props.onChangeSelect;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      myColumns = _useState2[0],
+      setMyColumns = _useState2[1];
+
+  var searchText = "";
+  var searchedColumn = "";
+  var searchInput;
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    if (!_.isEmpty(data)) setMyColumns(calColumns());
+  }, [isLoading]); // Chỉ chạy khi data thay đổi
+
+  /**
+   * Tính các cột cần thiết
+   */
+
+  var calColumns = function calColumns() {
+    var cols = columns.map(function (column) {
+      return getColumn(column, data);
+    });
+    if (editable || deleteable) cols.push(addActionColumn());
+    return cols;
   };
+  /**
+   * Thêm cột chức năng cho table
+   */
+
+
+  var addActionColumn = function addActionColumn(otherActions) {
+    return {
+      title: "",
+      key: "action",
+      fixed: "right",
+      align: "center",
+      width: 100,
+      render: function render(text, record) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+          type: "link",
+          icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null),
+          onClick: function onClick() {
+            return handleEdit(record);
+          }
+        }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+          onClick: function onClick() {
+            return onDelete(record[primaryKey]);
+          },
+          danger: true,
+          type: "link",
+          icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null)
+        }) : "");
+      }
+    };
+  };
+  /**
+   * Create column for ant's table
+   */
+
+
+  var getColumn = function getColumn(column, data) {
+    if (column.optFilter) {
+      // Lọc dữ liệu và mô tả các cột dữ liệu
+      var objs = _toConsumableArray(new Set(data.map(function (x) {
+        return x[column.dataIndex];
+      })));
+
+      var filters = objs.map(function (el) {
+        return {
+          text: el,
+          value: el
+        };
+      });
+      Object.assign(column, {
+        filters: filters,
+        // specify the condition of filtering result
+        // here is that finding the name started with `value`
+        onFilter: function onFilter(value, record) {
+          return record[column.dataIndex].indexOf(value) === 0;
+        }
+      });
+    } else if (column.optFind) {
+      Object.assign(column, _objectSpread({}, getColumnSearchProps(column.dataIndex)));
+    }
+
+    return column;
+  };
+  /**
+   * Thao tác tìm kiếm trên cột
+   */
+
+
+  var getColumnSearchProps = function getColumnSearchProps(dataIndex) {
+    return {
+      filterDropdown: function filterDropdown(_ref) {
+        var setSelectedKeys = _ref.setSelectedKeys,
+            selectedKeys = _ref.selectedKeys,
+            confirm = _ref.confirm,
+            clearFilters = _ref.clearFilters;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+          style: {
+            padding: 8
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+          ref: function ref(node) {
+            searchInput = node;
+          },
+          placeholder: "T\xECm ki\u1EBFm...",
+          value: selectedKeys[0],
+          onChange: function onChange(e) {
+            return setSelectedKeys(e.target.value ? [e.target.value] : []);
+          },
+          onPressEnter: function onPressEnter() {
+            return handleSearch(selectedKeys, confirm, dataIndex);
+          },
+          style: {
+            width: 188,
+            marginBottom: 8,
+            display: "block"
+          }
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+          type: "primary",
+          onClick: function onClick() {
+            return handleSearch(selectedKeys, confirm, dataIndex);
+          },
+          icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["SearchOutlined"], null),
+          size: "small",
+          style: {
+            width: 90,
+            marginRight: 8
+          }
+        }, "T\xECm"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+          onClick: function onClick() {
+            return handleReset(clearFilters);
+          },
+          size: "small",
+          style: {
+            width: 90
+          }
+        }, "H\u1EE7y"));
+      },
+      filterIcon: function filterIcon(filtered) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["SearchOutlined"], {
+          style: {
+            color: filtered ? "#1890ff" : undefined
+          }
+        });
+      },
+      onFilter: function onFilter(value, record) {
+        return record[dataIndex].toString().toLowerCase().includes(value.toLowerCase());
+      },
+      onFilterDropdownVisibleChange: function onFilterDropdownVisibleChange(visible) {
+        if (visible) {
+          setTimeout(function () {
+            return searchInput.select();
+          });
+        }
+      },
+      render: function render(text) {
+        return searchedColumn === dataIndex ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_highlight_words__WEBPACK_IMPORTED_MODULE_3___default.a, {
+          highlightStyle: {
+            backgroundColor: "#ffc069",
+            padding: 0
+          },
+          searchWords: [searchText],
+          autoEscape: true,
+          textToHighlight: text.toString()
+        }) : text;
+      }
+    };
+  };
+
+  var handleSearch = function handleSearch(selectedKeys, confirm, dataIndex) {
+    confirm();
+    searchedColumn = dataIndex;
+    searchText = selectedKeys[0];
+  };
+
+  var handleReset = function handleReset(clearFilters) {
+    clearFilters();
+    searchedColumn = "";
+    searchText = "";
+  };
+
   var rowSelection = {
     selectedRowKeys: selectedRowKeys,
-    onChange: props.onChangeSelect
+    onChange: onChangeSelect
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Table"], {
-    dataSource: props.data,
-    columns: props.columns,
-    loading: props.isLoading,
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Table"], {
+    dataSource: data,
+    columns: myColumns,
+    loading: isLoading,
     rowKey: function rowKey(row) {
       return row[props.primaryKey];
     },
-    rowSelection: props.selectable ? rowSelection : null,
+    rowSelection: selectable ? rowSelection : null,
     locale: {
       filterConfirm: "Lọc",
       filterReset: "Hủy",
       emptyText: "Không có dữ liệu"
     },
-    scroll: scroll
+    scroll: tableSize
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (DataTable);
@@ -253,15 +475,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-highlight-words */ "./node_modules/react-highlight-words/dist/main.js");
-/* harmony import */ var react_highlight_words__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_highlight_words__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _DataTable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DataTable */ "./resources/js/components/ListForm/DataTable.js");
-/* harmony import */ var _ModalConfirm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ModalConfirm */ "./resources/js/components/ListForm/ModalConfirm.js");
-/* harmony import */ var _ToolsButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ToolsButton */ "./resources/js/components/ListForm/ToolsButton.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
+/* harmony import */ var _DataTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DataTable */ "./resources/js/components/ListForm/DataTable.js");
+/* harmony import */ var _ModalConfirm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ModalConfirm */ "./resources/js/components/ListForm/ModalConfirm.js");
+/* harmony import */ var _ToolsButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ToolsButton */ "./resources/js/components/ListForm/ToolsButton.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -314,7 +530,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 var confirm = antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].confirm;
 
 var ListForm = /*#__PURE__*/function (_PureComponent) {
@@ -328,37 +543,6 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     _classCallCheck(this, ListForm);
 
     _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "addColumn", function () {
-      var _this$props = _this.props,
-          editable = _this$props.editable,
-          deleteable = _this$props.deleteable,
-          primaryKey = _this$props.primaryKey;
-      if (editable || deleteable) return {
-        title: "",
-        key: "action",
-        fixed: "right",
-        align: "center",
-        width: 100,
-        render: function render(text, record) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("span", null, editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-            type: "link",
-            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null),
-            onClick: function onClick() {
-              return _this.handleEdit(record);
-            }
-          }) : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-            onClick: function onClick() {
-              return _this.onDelete(record[primaryKey]);
-            },
-            danger: true,
-            type: "link",
-            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null)
-          }) : "");
-        }
-      };
-      return {};
-    });
 
     _defineProperty(_assertThisInitialized(_this), "isChangeData", function (record, data) {
       var key1 = Object.keys(record);
@@ -375,104 +559,6 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       }
 
       return isChanged;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "getColumnSearchProps", function (dataIndex) {
-      return {
-        filterDropdown: function filterDropdown(_ref) {
-          var setSelectedKeys = _ref.setSelectedKeys,
-              selectedKeys = _ref.selectedKeys,
-              confirm = _ref.confirm,
-              clearFilters = _ref.clearFilters;
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
-            style: {
-              padding: 8
-            }
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-            ref: function ref(node) {
-              _this.searchInput = node;
-            },
-            placeholder: "T\xECm ki\u1EBFm...",
-            value: selectedKeys[0],
-            onChange: function onChange(e) {
-              return setSelectedKeys(e.target.value ? [e.target.value] : []);
-            },
-            onPressEnter: function onPressEnter() {
-              return _this.handleSearch(selectedKeys, confirm, dataIndex);
-            },
-            style: {
-              width: 188,
-              marginBottom: 8,
-              display: "block"
-            }
-          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-            type: "primary",
-            onClick: function onClick() {
-              return _this.handleSearch(selectedKeys, confirm, dataIndex);
-            },
-            icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["SearchOutlined"], null),
-            size: "small",
-            style: {
-              width: 90,
-              marginRight: 8
-            }
-          }, "T\xECm"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-            onClick: function onClick() {
-              return _this.handleReset(clearFilters);
-            },
-            size: "small",
-            style: {
-              width: 90
-            }
-          }, "H\u1EE7y"));
-        },
-        filterIcon: function filterIcon(filtered) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["SearchOutlined"], {
-            style: {
-              color: filtered ? "#1890ff" : undefined
-            }
-          });
-        },
-        onFilter: function onFilter(value, record) {
-          return record[dataIndex].toString().toLowerCase().includes(value.toLowerCase());
-        },
-        onFilterDropdownVisibleChange: function onFilterDropdownVisibleChange(visible) {
-          if (visible) {
-            setTimeout(function () {
-              return _this.searchInput.select();
-            });
-          }
-        },
-        render: function render(text) {
-          return _this.state.searchedColumn === dataIndex ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react_highlight_words__WEBPACK_IMPORTED_MODULE_5___default.a, {
-            highlightStyle: {
-              backgroundColor: "#ffc069",
-              padding: 0
-            },
-            searchWords: [_this.state.searchText],
-            autoEscape: true,
-            textToHighlight: text.toString()
-          }) : text;
-        }
-      };
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleSearch", function (selectedKeys, confirm, dataIndex) {
-      confirm();
-
-      _this.setState({
-        searchText: selectedKeys[0],
-        searchedColumn: dataIndex
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleReset", function (clearFilters) {
-      clearFilters();
-
-      _this.setState({
-        searchText: "",
-        selectedRowKeys: []
-      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleOk", function (values) {
@@ -543,7 +629,7 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleSelectRow", function (selectedRowKeys) {
+    _defineProperty(_assertThisInitialized(_this), "onChangeSelect", function (selectedRowKeys) {
       return _this.setState({
         selectedRowKeys: selectedRowKeys
       });
@@ -567,9 +653,9 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onUpdate", function (value) {
-      var _this$props2 = _this.props,
-          url = _this$props2.url,
-          primaryKey = _this$props2.primaryKey;
+      var _this$props = _this.props,
+          url = _this$props.url,
+          primaryKey = _this$props.primaryKey;
       var _this$state = _this.state,
           data = _this$state.data,
           currentRecord = _this$state.currentRecord;
@@ -593,9 +679,9 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDelete", function (id) {
-      var _this$props3 = _this.props,
-          url = _this$props3.url,
-          primaryKey = _this$props3.primaryKey;
+      var _this$props2 = _this.props,
+          url = _this$props2.url,
+          primaryKey = _this$props2.primaryKey;
       var data = _this.state.data;
       confirm({
         title: "Bạn muốn xóa mục này?",
@@ -627,9 +713,9 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       var _this$state2 = _this.state,
           selectedRowKeys = _this$state2.selectedRowKeys,
           data = _this$state2.data;
-      var _this$props4 = _this.props,
-          url = _this$props4.url,
-          primaryKey = _this$props4.primaryKey;
+      var _this$props3 = _this.props,
+          url = _this$props3.url,
+          primaryKey = _this$props3.primaryKey;
       confirm({
         title: "Bạn muốn xóa những mục này?",
         icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
@@ -661,36 +747,6 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getColumn", function (column, data) {
-      if (column.optFilter) {
-        // Lọc dữ liệu và mô tả các cột dữ liệu
-        var objs = _toConsumableArray(new Set(data.map(function (x) {
-          return x[column.dataIndex];
-        })));
-
-        var filters = objs.map(function (el) {
-          return {
-            text: el,
-            value: el
-          };
-        });
-        Object.assign(column, {
-          filters: filters,
-          // specify the condition of filtering result
-          // here is that finding the name started with `value`
-          onFilter: function onFilter(value, record) {
-            return record[dataIndex].indexOf(value) === 0;
-          }
-        });
-      }
-
-      if (column.optFind) {
-        Object.assign(column, _objectSpread({}, _this.getColumnSearchProps(column.dataIndex)));
-      }
-
-      return column;
-    });
-
     _this.state = {
       data: [],
       isLoading: true,
@@ -712,27 +768,16 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
       var _this2 = this;
 
       this.isComponentMounted = true;
-      var _this$props5 = this.props,
-          url = _this$props5.url,
-          columns = _this$props5.columns;
+      var url = this.props.url;
       axios.get("/api/" + url).then(function (response) {
         if (_this2.isComponentMounted && response.data.success) {
-          /**
-           * Tính các cột cần thiết
-           * Chạy 1 lần duy nhất
-           */
-          _this2.columns = columns.map(function (column) {
-            return _this2.getColumn(column, response.data.data);
-          });
-
-          _this2.columns.push(_this2.addColumn());
-
           _this2.setState({
             data: response.data.data,
             isLoading: false
           });
 
-          if (_this2.props.onChangeData) _this2.props.onChangeData(response.data.data);
+          if (_this2.props.onChangeData) //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
+            _this2.props.onChangeData(response.data.data);
         }
       })["catch"](function (error) {
         return console.log(error);
@@ -743,6 +788,10 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
     value: function componentWillUnmount() {
       this.isComponentMounted = false;
     }
+    /**
+     * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
+     */
+
   }, {
     key: "render",
 
@@ -757,16 +806,18 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
           formSubmiting = _this$state3.formSubmiting,
           selectedRowKeys = _this$state3.selectedRowKeys,
           currentRecord = _this$state3.currentRecord;
-      var _this$props6 = this.props,
-          selectable = _this$props6.selectable,
-          insertable = _this$props6.insertable,
-          deleteable = _this$props6.deleteable,
-          primaryKey = _this$props6.primaryKey,
-          formTemplate = _this$props6.formTemplate,
-          formInitialValues = _this$props6.formInitialValues,
-          tableSize = _this$props6.tableSize,
-          modalWidth = _this$props6.modalWidth;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ToolsButton__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      var _this$props4 = this.props,
+          columns = _this$props4.columns,
+          selectable = _this$props4.selectable,
+          insertable = _this$props4.insertable,
+          editable = _this$props4.editable,
+          deleteable = _this$props4.deleteable,
+          primaryKey = _this$props4.primaryKey,
+          formTemplate = _this$props4.formTemplate,
+          formInitialValues = _this$props4.formInitialValues,
+          tableSize = _this$props4.tableSize,
+          modalWidth = _this$props4.modalWidth;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ToolsButton__WEBPACK_IMPORTED_MODULE_7__["default"], {
         insertable: insertable,
         selectable: selectable,
         deleteable: deleteable,
@@ -775,16 +826,19 @@ var ListForm = /*#__PURE__*/function (_PureComponent) {
         selectedRowKeys: selectedRowKeys,
         handleSelectAll: this.handleSelectAll,
         handleClearSelected: this.handleClearSelected
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_DataTable__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_DataTable__WEBPACK_IMPORTED_MODULE_5__["default"], {
         data: data,
-        columns: this.columns,
+        columns: columns,
         isLoading: isLoading,
         primaryKey: primaryKey,
         selectable: selectable,
+        editable: editable,
         selectedRowKeys: selectedRowKeys,
-        onChangeSelect: this.handleSelectRow,
-        scroll: tableSize
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        onChangeSelect: this.onChangeSelect,
+        scroll: tableSize,
+        handleEdit: this.handleEdit,
+        onDelete: this.onDelete
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_6__["default"], {
         modalVisible: modalVisible,
         modalWidth: modalWidth,
         handleOk: this.handleOk,
@@ -815,7 +869,9 @@ ListForm.propTypes = {
     y: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number
   }),
   modalWidth: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number]),
-  formInitialValues: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
+  formInitialValues: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+  otherActions: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+  otherButtons: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
 }; // Specifies the default values for props:
 
 ListForm.defaultProps = {

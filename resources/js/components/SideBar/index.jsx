@@ -8,6 +8,7 @@ const { SubMenu } = Menu;
 
 class SideBar extends PureComponent {
     genLinkMenuItem = item => {
+        if (item.admin && !this.props.authUser.isAdmin) return "";
         return (
             <Menu.Item key={item.key}>
                 <Link to={item.href}>
@@ -20,7 +21,9 @@ class SideBar extends PureComponent {
 
     genSiderMenu = items => {
         return items.map(item => {
+            if (item.admin && !this.props.authUser.isAdmin) return "";
             if (item.childs) {
+                // Has childs
                 return (
                     <SubMenu
                         key={item.key}
@@ -75,7 +78,8 @@ class SideBar extends PureComponent {
  * Connect dùng hàm này để map các state => props cho component
  */
 const mapStatetoProps = state => ({
-    menuActive: state.menuActive
+    menuActive: state.menuActive,
+    authUser: state.authUser
 });
 
 /**

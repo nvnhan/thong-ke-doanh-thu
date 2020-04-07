@@ -1,10 +1,11 @@
 import React from "react";
 import {
     BarsOutlined,
-    DesktopOutlined,
+    AccountBookOutlined,
     PieChartOutlined,
     DashboardOutlined,
-    CaretRightOutlined
+    CaretRightOutlined,
+    SettingOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -19,7 +20,7 @@ const items = [
     {
         key: SideMenus.THU_CHI,
         href: "/thu-chi",
-        icon: <DashboardOutlined />,
+        icon: <AccountBookOutlined />,
         title: "Thu chi"
     },
     {
@@ -83,6 +84,13 @@ const items = [
                 title: "Hàng hóa"
             }
         ]
+    },
+    {
+        key: "",
+        href: "/cai-dat",
+        admin: true,
+        icon: <SettingOutlined />,
+        title: "Cài đặt"
     }
 ];
 

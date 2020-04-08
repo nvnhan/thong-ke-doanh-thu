@@ -14,10 +14,10 @@ class NhaCungCapController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = TaiKhoan::whereLoai(1)->get();
+        $objs = TaiKhoan::whereLoai(1);
         if (!empty($request->ncc) && $request->ncc != -1)
             $objs = $objs->where('id', $request->ncc);
-        return $this->sendResponse($objs, "NhaCungCap retrieved successfully");
+        return $this->sendResponse($objs->get(), "NhaCungCap retrieved successfully");
     }
 
     /**

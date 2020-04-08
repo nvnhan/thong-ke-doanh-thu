@@ -14,10 +14,10 @@ class HangHoaController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = HangHoa::get();
+        $objs = HangHoa::query();
         if (!empty($request->ncc) && $request->ncc != -1)
             $objs = $objs->where('id_tai_khoan', $request->ncc);
-        return $this->sendResponse($objs, "HangHoa retrieved successfully");
+        return $this->sendResponse($objs->get(), "HangHoa retrieved successfully");
     }
 
     /**

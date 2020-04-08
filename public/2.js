@@ -332,6 +332,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
       state = _useState6[0],
       setState = _useState6[1];
 
+  var nhaCungCap = state.nhaCungCap,
+      filter = state.filter;
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
     var ncc = -1;
@@ -411,12 +413,12 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, state.ncc !== -1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "filter-box"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nh\xE0 cung c\u1EA5p: "), state.nhaCungCap[0].ky_hieu, " - ", state.nhaCungCap[0].mo_ta, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Button"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nh\xE0 cung c\u1EA5p: "), nhaCungCap[0].ky_hieu, " - ", nhaCungCap[0].mo_ta, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Button"], {
     type: "link",
     onClick: onClickAll
   }, "(T\u1EA5t c\u1EA3 h\xE0ng h\xF3a)")) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
     url: "hang-hoa",
-    filter: state.filter,
+    filter: filter,
     columns: columns,
     tableSize: {
       x: 800
@@ -425,7 +427,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     onChangeData: onChangeData,
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
       phanLoai: phanLoai,
-      nhaCungCap: state.nhaCungCap
+      nhaCungCap: nhaCungCap
     }),
     formInitialValues: {
       don_gia: 0

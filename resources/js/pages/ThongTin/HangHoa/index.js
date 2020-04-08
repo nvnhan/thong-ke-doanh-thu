@@ -6,12 +6,13 @@ import { Button } from "antd";
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
-    const [location, setLocation] = useState(props.location.state)
+    const [location, setLocation] = useState(props.location.state);
     const [state, setState] = useState({
         nhaCungCap: [],
         filter: {},
         ncc: -1
     });
+    const { nhaCungCap, filter } = state;
 
     useEffect(() => {
         // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
@@ -32,8 +33,7 @@ const List = React.memo(props => {
 
     const onClickAll = () => {
         setLocation(undefined);
-    }
-    
+    };
 
     /**
      * Callback from ListForm to get PhanLoai from data
@@ -101,24 +101,23 @@ const List = React.memo(props => {
             {state.ncc !== -1 ? (
                 <div className="filter-box">
                     <b>Nhà cung cấp: </b>
-                    {state.nhaCungCap[0].ky_hieu} - {state.nhaCungCap[0].mo_ta}
-                    <Button type='link' onClick={onClickAll}>(Tất cả hàng hóa)</Button>
+                    {nhaCungCap[0].ky_hieu} - {nhaCungCap[0].mo_ta}
+                    <Button type="link" onClick={onClickAll}>
+                        (Tất cả hàng hóa)
+                    </Button>
                 </div>
             ) : (
                 ""
             )}
             <ListForm
                 url="hang-hoa"
-                filter={state.filter}
+                filter={filter}
                 columns={columns}
                 tableSize={{ x: 800 }}
                 modalWidth="800px"
                 onChangeData={onChangeData}
                 formTemplate={
-                    <FormItem
-                        phanLoai={phanLoai}
-                        nhaCungCap={state.nhaCungCap}
-                    />
+                    <FormItem phanLoai={phanLoai} nhaCungCap={nhaCungCap} />
                 }
                 formInitialValues={{ don_gia: 0 }}
             />

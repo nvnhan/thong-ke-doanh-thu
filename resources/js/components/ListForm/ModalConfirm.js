@@ -1,17 +1,15 @@
 import React from "react";
 import { Modal, Form, Button } from "antd";
 import FormEdit from "./FormEdit";
+import { parseValues } from "../../utils";
 
-const ModalConfirm = React.memo((props) => {
+const ModalConfirm = React.memo(props => {
     const [form] = Form.useForm();
+
     const handleOk = () => {
         form.validateFields()
-            .then((value) => {
-                props.handleOk(value);
-            })
-            .catch((info) => {
-                console.log("Validate Failed: ", info);
-            });
+            .then(value => props.handleOk(parseValues(value)))
+            .catch(info => console.log("Validate Failed: ", info));
     };
     return (
         <Modal
@@ -31,7 +29,7 @@ const ModalConfirm = React.memo((props) => {
                     onClick={handleOk}
                 >
                     Đồng ý
-                </Button>,
+                </Button>
             ]}
         >
             <FormEdit

@@ -1,30 +1,16 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { message, Modal } from "antd";
-import moment from "moment";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { queryString, useMergeState } from "../../utils";
 import DataTable from "./DataTable";
+import FilterBox from "./FilterBox";
 import ModalConfirm from "./ModalConfirm";
 import ToolsButton from "./ToolsButton";
 const { confirm } = Modal;
 
-function useMergeState(initialState) {
-    const [state, setState] = useState(initialState);
-    const setMergedState = newState =>
-        setState(prevState => Object.assign({}, prevState, newState));
-    return [state, setMergedState];
-}
-
-function queryString(obj) {
-    var str = [];
-    for (var p in obj)
-        if (obj.hasOwnProperty(p)) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        }
-    return str.join("&");
-}
-
 const ListForm = props => {
+    const { url, onChangeData, primaryKey, filter, filterBox } = props;
     const [state, setState] = useMergeState({
         data: [],
         isLoading: true,
@@ -33,24 +19,6 @@ const ListForm = props => {
         selectedRowKeys: [],
         currentRecord: undefined
     });
-
-    const {
-        url,
-        onChangeData,
-        columns,
-        selectable,
-        insertable,
-        editable,
-        deleteable,
-        primaryKey,
-        formTemplate,
-        formInitialValues,
-        tableSize,
-        modalWidth,
-        otherActions,
-        expandedRowRender,
-        filter
-    } = props;
     const {
         data,
         isLoading,
@@ -59,17 +27,21 @@ const ListForm = props => {
         selectedRowKeys,
         currentRecord
     } = state;
-
+    const [ownFilter, setOwnFilter] = useState(filter);
     let isComponentMounted = false;
 
     useEffect(() => {
         isComponentMounted = true;
+        let finalFilter = filter;
+        // Nếu component cha ko truyền filter vào thì lấy filter của FilterBox
+        if (finalFilter === undefined) finalFilter = ownFilter;
         // Không Có filter hoặc có filter và đã load xong
-        if (filter === undefined || !_.isEmpty(filter)) {
+        if (finalFilter === undefined || !_.isEmpty(finalFilter)) {
             // Set lại data và loading cho các Component con
             setState({ data: [], isLoading: true });
+
             axios
-                .get("/api/" + url + "?" + queryString(filter))
+                .get("/api/" + url + "?" + queryString(finalFilter))
                 .then(response => {
                     if (isComponentMounted && response.data.success) {
                         setState({
@@ -85,7 +57,7 @@ const ListForm = props => {
         return () => {
             isComponentMounted = false;
         };
-    }, [filter]); // Chỉ chạy 1 lần khi mount component
+    }, [filter, ownFilter]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFIlter thay đổi
 
     /**
      * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
@@ -104,33 +76,10 @@ const ListForm = props => {
     };
 
     /**
-     * Xử lý dữ liệu (ngày tháng) từ form nhập vào
-     */
-    const parseValues = values => {
-        for (let [key, value] of Object.entries(values)) {
-            if (value !== null && value !== undefined)
-                if (typeof value === "object")
-                    // Convert từ moment (from DatePicker) về dạng string để backend xử lý
-                    values[key] = value.format("YYYY-MM-DD HH:mm:ss");
-                else if (typeof value === "string")
-                    if (value.match(/(.*?):(.*?)\/(.*?)\//g))
-                        values[key] = moment(value, "HH:mm DD/MM/YYYY").format(
-                            "YYYY-MM-DD HH:mm:ss"
-                        );
-                    else if (value.match(/(.*?)\/(.*?)\//g))
-                        values[key] = moment(value, "DD/MM/YYYY").format(
-                            "YYYY-MM-DD HH:mm:ss"
-                        );
-        }
-        return values;
-    };
-
-    /**
      * Show modal Thêm mới, Sửa
      */
     const handleOk = values => {
         setState({ formSubmiting: true });
-        values = parseValues(values);
         // Thêm mới
         if (currentRecord === undefined) {
             onAdd(values);
@@ -176,6 +125,13 @@ const ListForm = props => {
         setState({
             selectedRowKeys: []
         });
+    };
+
+    /**
+     * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
+     */
+    const handleFilterBox = ownFilter => {
+        setOwnFilter(ownFilter);
     };
 
     /**
@@ -286,41 +242,35 @@ const ListForm = props => {
 
     return (
         <React.Fragment>
+            {filterBox ? (
+                <FilterBox {...props} onFilter={handleFilterBox} />
+            ) : (
+                ""
+            )}
             <ToolsButton
-                insertable={insertable}
-                selectable={selectable}
-                deleteable={deleteable}
+                {...props}
+                selectedRowKeys={selectedRowKeys}
                 handleAddNew={handleAddNew}
                 onMultiDelete={onMultiDelete}
-                selectedRowKeys={selectedRowKeys}
                 handleSelectAll={handleSelectAll}
                 handleClearSelected={handleClearSelected}
             />
             <DataTable
+                {...props}
                 data={data}
-                columns={columns}
                 isLoading={isLoading}
-                primaryKey={primaryKey}
-                selectable={selectable}
-                editable={editable}
-                deleteable={deleteable}
                 selectedRowKeys={selectedRowKeys}
                 onChangeSelect={onChangeSelect}
-                tableSize={tableSize}
                 handleEdit={handleEdit}
                 onDelete={onDelete}
-                otherActions={otherActions}
-                expandedRowRender={expandedRowRender}
             />
             <ModalConfirm
+                {...props}
                 modalVisible={modalVisible}
-                modalWidth={modalWidth}
-                handleOk={handleOk}
-                handleCancel={handleCancel}
                 formSubmiting={formSubmiting}
                 currentRecord={currentRecord}
-                formInitialValues={formInitialValues}
-                formTemplate={formTemplate}
+                handleOk={handleOk}
+                handleCancel={handleCancel}
             />
         </React.Fragment>
     );
@@ -361,7 +311,16 @@ ListForm.propTypes = {
         })
     ),
     expandedRowRender: PropTypes.func,
-    filter: PropTypes.object
+    filter: PropTypes.object,
+    filterBox: PropTypes.bool,
+    tuNgayDenNgay: PropTypes.bool,
+    otherFilter: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            label: PropTypes.string.isRequired,
+            render: PropTypes.node.isRequired
+        })
+    )
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {
@@ -372,7 +331,9 @@ ListForm.defaultProps = {
     primaryKey: "id",
     tableSize: {
         x: 500
-    }
+    },
+    filterBox: false,
+    tuNgayDenNgay: true
 };
 
 export default ListForm;

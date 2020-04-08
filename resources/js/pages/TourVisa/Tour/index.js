@@ -1,12 +1,17 @@
 import { AppstoreAddOutlined } from "@ant-design/icons";
+import { Select } from "antd";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
+const { Option } = Select;
+
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
     const [khachHang, setKhachHang] = useState([]);
+
     const formater = new Intl.NumberFormat("vi-VN", {
         style: "currency",
         currency: "VND"
@@ -37,7 +42,7 @@ const List = React.memo(props => {
     };
 
     /**
-     * Redirect to Hang Hoa with addition params
+     * Redirect to Tour Chi Tiet with addition params
      */
     const onClickRow = record => {
         const pathname = `/tour-chi-tiet`;
@@ -67,24 +72,14 @@ const List = React.memo(props => {
         </ul>
     );
 
-    const getTodayFormated = () => {
-        let today = new Date();
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1;
-        let yyyy = today.getFullYear();
-        return dd + "/" + mm + "/" + yyyy;
-    };
-
-    const getInitialValues = () => ({
-        so_luong: 1,
-        ngay_thang: getTodayFormated()
-    });
-
     const columns = [
         {
             title: "Ngày tháng",
             dataIndex: "ngay_thang",
-            width: 120
+            width: 120,
+            sorter: (a, b) =>
+                moment(a.ngay_thang, "DD/MM/YYYY").unix() -
+                moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
         {
             title: "Mã tour",
@@ -112,7 +107,7 @@ const List = React.memo(props => {
                     style: "currency",
                     currency: "VND"
                 }).format(number),
-            sorter: (a, b) => a > b,
+            sorter: (a, b) => a.gia_tour - b.gia_tour,
             width: 120
         },
         {
@@ -123,7 +118,7 @@ const List = React.memo(props => {
                     style: "currency",
                     currency: "VND"
                 }).format(number),
-            sorter: (a, b) => a > b,
+            sorter: (a, b) => a.gia_ban - b.gia_ban,
             width: 120
         },
         {
@@ -134,7 +129,7 @@ const List = React.memo(props => {
                     style: "currency",
                     currency: "VND"
                 }).format(number),
-            sorter: (a, b) => a > b,
+            sorter: (a, b) => a.lai - b.lai,
             width: 120
         },
         {
@@ -166,20 +161,44 @@ const List = React.memo(props => {
         }
     ];
 
-    return (
-        <ListForm
-            url="tour"
-            columns={columns}
-            tableSize={{ x: 1200 }}
-            modalWidth="1100px"
-            formTemplate={
-                <FormItem phanLoai={phanLoai} khachHang={khachHang} />
+    const getOtherFilter = () => {
+        return [
+            {
+                name: "tinh_trang",
+                label: "Tình trạng",
+                render: (
+                    <Select>
+                        <Option value="" selected>Tất cả</Option>
+                        <Option value="1">Đã hoàn thành</Option>
+                        <Option value="2">Đã thanh toán</Option>
+                        <Option value="3">Chưa đi</Option>
+                        <Option value="4">Đang đi</Option>
+                        <Option value="5">Đã đi</Option>
+                    </Select>
+                )
             }
-            formInitialValues={getInitialValues()}
-            otherActions={tourAction}
-            onChangeData={onChangeData}
-            expandedRowRender={expandedRowRender}
-        />
+        ];
+    }
+    
+    return (
+            <ListForm
+                url="tour"
+                filterBox
+                otherFilter={getOtherFilter()}
+                columns={columns}
+                tableSize={{ x: 1200 }}
+                modalWidth="1100px"
+                formTemplate={
+                    <FormItem phanLoai={phanLoai} khachHang={khachHang} />
+                }
+                formInitialValues={{
+                    so_luong: 1,
+                    ngay_thang: moment().format("DD/MM/YYYY")
+                }}
+                otherActions={tourAction}
+                onChangeData={onChangeData}
+                expandedRowRender={expandedRowRender}
+            />
     );
 });
 

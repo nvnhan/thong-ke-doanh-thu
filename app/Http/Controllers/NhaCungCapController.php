@@ -12,9 +12,11 @@ class NhaCungCapController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $objs = TaiKhoan::whereLoai(1)->get();
+        if (!empty($request->ncc) && $request->ncc != -1)
+            $objs = $objs->where('id', $request->ncc);
         return $this->sendResponse($objs, "NhaCungCap retrieved successfully");
     }
 

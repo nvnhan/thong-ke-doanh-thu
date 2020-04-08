@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 import { AppstoreAddOutlined } from "@ant-design/icons";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
-const List = React.memo(() => {
+const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
     const formater = new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -18,10 +18,12 @@ const List = React.memo(() => {
         setPhanLoai(phanLoai);
     };
 
+    /**
+     * Redirect to Hang Hoa with addition params
+     */
     const onClickRow = record => {
-        const target = `/hang-hoa?ncc=${record.id}`;
-        console.log("target", target);
-        return <Redirect to={target} />;
+        const pathname = `/hang-hoa`;
+        props.history.push({ pathname, state: { ncc: record.id } });
     };
 
     const expandedRowRender = record => (
@@ -169,4 +171,4 @@ const List = React.memo(() => {
     );
 });
 
-export default List;
+export default withRouter(List);

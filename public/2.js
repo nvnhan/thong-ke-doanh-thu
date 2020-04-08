@@ -283,8 +283,10 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/HangHoa/FormItem.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/HangHoa/FormItem.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -308,28 +310,52 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       phanLoai = _useState2[0],
       setPhanLoai = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.location.state),
       _useState4 = _slicedToArray(_useState3, 2),
-      nhaCungCap = _useState4[0],
-      setNhaCungCap = _useState4[1];
+      location = _useState4[0],
+      setLocation = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    nhaCungCap: [],
+    filter: {},
+    ncc: -1
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      state = _useState6[0],
+      setState = _useState6[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    console.log(window.location);
-    axios.get("/api/nha-cung-cap").then(function (response) {
-      if (response.data.success) setNhaCungCap(response.data.data);
+    // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
+    var ncc = -1;
+    if (location !== undefined) ncc = location.ncc;
+    axios.get("/api/nha-cung-cap?ncc=".concat(ncc)).then(function (response) {
+      if (response.data.success) setState({
+        nhaCungCap: response.data.data,
+        filter: {
+          ncc: ncc
+        },
+        ncc: ncc
+      });
     })["catch"](function (error) {
       return console.log(error);
     });
-  }, []);
+  }, [location]);
+
+  var onClickAll = function onClickAll() {
+    setLocation(undefined);
+  };
   /**
    * Callback from ListForm to get PhanLoai from data
    */
+
 
   var onChangeData = function onChangeData(data) {
     var phanLoai = _toConsumableArray(new Set(data.map(function (x) {
@@ -383,24 +409,30 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     dataIndex: "username",
     width: 120
   }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, state.ncc !== -1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "filter-box"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nh\xE0 cung c\u1EA5p: "), state.nhaCungCap[0].ky_hieu, " - ", state.nhaCungCap[0].mo_ta, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Button"], {
+    type: "link",
+    onClick: onClickAll
+  }, "(T\u1EA5t c\u1EA3 h\xE0ng h\xF3a)")) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
     url: "hang-hoa",
+    filter: state.filter,
     columns: columns,
     tableSize: {
       x: 800
     },
     modalWidth: "800px",
     onChangeData: onChangeData,
-    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
       phanLoai: phanLoai,
-      nhaCungCap: nhaCungCap
+      nhaCungCap: state.nhaCungCap
     }),
     formInitialValues: {
       don_gia: 0
     }
-  });
+  }));
 });
-/* harmony default export */ __webpack_exports__["default"] = (List);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(List));
 
 /***/ })
 

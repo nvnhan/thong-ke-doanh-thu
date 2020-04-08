@@ -286,7 +286,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
     onChange: onChangeSelect
   };
 
-  var getExpaned = function getExpaned() {
+  var getExpanded = function getExpanded() {
     if (_expandedRowRender) return {
       expandedRowRender: function expandedRowRender(record) {
         return _expandedRowRender(record);
@@ -309,7 +309,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
       emptyText: "Không có dữ liệu"
     },
     scroll: tableSize,
-    expandable: getExpaned()
+    expandable: getExpanded()
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (DataTable);
@@ -557,6 +557,18 @@ function useMergeState(initialState) {
   return [state, setMergedState];
 }
 
+function queryString(obj) {
+  var str = [];
+
+  for (var p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  }
+
+  return str.join("&");
+}
+
 var ListForm = function ListForm(props) {
   var _useMergeState = useMergeState({
     data: [],
@@ -583,7 +595,8 @@ var ListForm = function ListForm(props) {
       tableSize = props.tableSize,
       modalWidth = props.modalWidth,
       otherActions = props.otherActions,
-      expandedRowRender = props.expandedRowRender;
+      expandedRowRender = props.expandedRowRender,
+      filter = props.filter;
   var data = state.data,
       isLoading = state.isLoading,
       modalVisible = state.modalVisible,
@@ -592,23 +605,32 @@ var ListForm = function ListForm(props) {
       currentRecord = state.currentRecord;
   var isComponentMounted = false;
   Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
-    isComponentMounted = true;
-    axios.get("/api/" + url).then(function (response) {
-      if (isComponentMounted && response.data.success) {
-        setState({
-          data: response.data.data,
-          isLoading: false
-        }); //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
+    isComponentMounted = true; // Không Có filter hoặc có filter và đã load xong
 
-        if (onChangeData) onChangeData(response.data.data);
-      }
-    })["catch"](function (error) {
-      return console.log(error);
-    });
+    if (filter === undefined || !_.isEmpty(filter)) {
+      // Set lại data và loading cho các Component con
+      setState({
+        data: [],
+        isLoading: true
+      });
+      axios.get("/api/" + url + "?" + queryString(filter)).then(function (response) {
+        if (isComponentMounted && response.data.success) {
+          setState({
+            data: response.data.data,
+            isLoading: false
+          }); //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
+
+          if (onChangeData) onChangeData(response.data.data);
+        }
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+
     return function () {
       isComponentMounted = false;
     };
-  }, []); // Chỉ chạy 1 lần khi mount component
+  }, [filter]); // Chỉ chạy 1 lần khi mount component
 
   /**
    * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
@@ -868,7 +890,8 @@ ListForm.propTypes = {
     title: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
     color: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
   })),
-  expandedRowRender: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func
+  expandedRowRender: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+  filter: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
 }; // Specifies the default values for props:
 
 ListForm.defaultProps = {

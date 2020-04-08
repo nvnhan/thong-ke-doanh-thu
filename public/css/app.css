@@ -36,7 +36,7 @@
 
 /* Loading screen ban đâu */
 .loading-wrapper {
-    position: absolute; 
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
@@ -60,13 +60,17 @@
 
 .loading-wrapper .loading-text {
     text-align: center;
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-style: italic;
 }
-
 
 .sm-container {
     padding: 16px;
     max-width: 700px;
     margin: auto;
+}
+
+.filter-box {
+    padding: 5px 10px 10px;
+    border-bottom: 1px solid rgba(232, 232, 232, 0.72);
 }

@@ -12,9 +12,11 @@ class HangHoaController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $objs = HangHoa::get();
+        if (!empty($request->ncc) && $request->ncc != -1)
+            $objs = $objs->where('id_tai_khoan', $request->ncc);
         return $this->sendResponse($objs, "HangHoa retrieved successfully");
     }
 

@@ -239,7 +239,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       phanLoai = _useState2[0],
@@ -260,12 +260,18 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
 
     setPhanLoai(phanLoai);
   };
+  /**
+   * Redirect to Hang Hoa with addition params
+   */
+
 
   var onClickRow = function onClickRow(record) {
-    var target = "/hang-hoa?ncc=".concat(record.id);
-    console.log("target", target);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Redirect"], {
-      to: target
+    var pathname = "/hang-hoa";
+    props.history.push({
+      pathname: pathname,
+      state: {
+        ncc: record.id
+      }
     });
   };
 
@@ -400,7 +406,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
     expandedRowRender: expandedRowRender
   });
 });
-/* harmony default export */ __webpack_exports__["default"] = (List);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(List));
 
 /***/ })
 

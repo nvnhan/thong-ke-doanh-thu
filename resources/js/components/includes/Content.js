@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import Container from "./Container";
 import Loader from "./Loader";
 import routes from "./routes";
-import Container from "./Container";
 
-export default function Content() {
-    const getRoute = (routes) => {
+function Content() {
+    const getRoute = routes => {
         return routes.map((route, index) => {
             return (
                 <Route
@@ -32,3 +32,5 @@ export default function Content() {
         </div>
     );
 }
+
+export default Content;

@@ -15,6 +15,15 @@ function useMergeState(initialState) {
     return [state, setMergedState];
 }
 
+function queryString(obj) {
+    var str = [];
+    for (var p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return str.join("&");
+}
+
 const ListForm = props => {
     const [state, setState] = useMergeState({
         data: [],
@@ -39,7 +48,8 @@ const ListForm = props => {
         tableSize,
         modalWidth,
         otherActions,
-        expandedRowRender
+        expandedRowRender,
+        filter
     } = props;
     const {
         data,
@@ -54,24 +64,28 @@ const ListForm = props => {
 
     useEffect(() => {
         isComponentMounted = true;
-
-        axios
-            .get("/api/" + url)
-            .then(response => {
-                if (isComponentMounted && response.data.success) {
-                    setState({
-                        data: response.data.data,
-                        isLoading: false
-                    });
-                    //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
-                    if (onChangeData) onChangeData(response.data.data);
-                }
-            })
-            .catch(error => console.log(error));
+        // Không Có filter hoặc có filter và đã load xong
+        if (filter === undefined || !_.isEmpty(filter)) {
+            // Set lại data và loading cho các Component con
+            setState({ data: [], isLoading: true });
+            axios
+                .get("/api/" + url + "?" + queryString(filter))
+                .then(response => {
+                    if (isComponentMounted && response.data.success) {
+                        setState({
+                            data: response.data.data,
+                            isLoading: false
+                        });
+                        //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
+                        if (onChangeData) onChangeData(response.data.data);
+                    }
+                })
+                .catch(error => console.log(error));
+        }
         return () => {
             isComponentMounted = false;
         };
-    }, []); // Chỉ chạy 1 lần khi mount component
+    }, [filter]); // Chỉ chạy 1 lần khi mount component
 
     /**
      * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
@@ -338,7 +352,8 @@ ListForm.propTypes = {
             color: PropTypes.string
         })
     ),
-    expandedRowRender: PropTypes.func
+    expandedRowRender: PropTypes.func,
+    filter: PropTypes.object
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {

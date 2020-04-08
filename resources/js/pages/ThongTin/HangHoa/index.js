@@ -1,20 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
+import { Button } from "antd";
 
-const List = React.memo((props) => {
+const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
-    const [nhaCungCap, setNhaCungCap] = useState([]);
+    const [location, setLocation] = useState(props.location.state)
+    const [state, setState] = useState({
+        nhaCungCap: [],
+        filter: {},
+        ncc: -1
+    });
 
     useEffect(() => {
-        console.log(window.location)
+        // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
+        let ncc = -1;
+        if (location !== undefined) ncc = location.ncc;
         axios
-            .get("/api/nha-cung-cap")
+            .get(`/api/nha-cung-cap?ncc=${ncc}`)
             .then(response => {
-                if (response.data.success) setNhaCungCap(response.data.data);
+                if (response.data.success)
+                    setState({
+                        nhaCungCap: response.data.data,
+                        filter: { ncc: ncc },
+                        ncc
+                    });
             })
             .catch(error => console.log(error));
-    }, []);
+    }, [location]);
+
+    const onClickAll = () => {
+        setLocation(undefined);
+    }
+    
 
     /**
      * Callback from ListForm to get PhanLoai from data
@@ -78,18 +97,33 @@ const List = React.memo((props) => {
     ];
 
     return (
-        <ListForm
-            url="hang-hoa"
-            columns={columns}
-            tableSize={{ x: 800 }}
-            modalWidth="800px"
-            onChangeData={onChangeData}
-            formTemplate={
-                <FormItem phanLoai={phanLoai} nhaCungCap={nhaCungCap} />
-            }
-            formInitialValues={{ don_gia: 0 }}
-        />
+        <React.Fragment>
+            {state.ncc !== -1 ? (
+                <div className="filter-box">
+                    <b>Nhà cung cấp: </b>
+                    {state.nhaCungCap[0].ky_hieu} - {state.nhaCungCap[0].mo_ta}
+                    <Button type='link' onClick={onClickAll}>(Tất cả hàng hóa)</Button>
+                </div>
+            ) : (
+                ""
+            )}
+            <ListForm
+                url="hang-hoa"
+                filter={state.filter}
+                columns={columns}
+                tableSize={{ x: 800 }}
+                modalWidth="800px"
+                onChangeData={onChangeData}
+                formTemplate={
+                    <FormItem
+                        phanLoai={phanLoai}
+                        nhaCungCap={state.nhaCungCap}
+                    />
+                }
+                formInitialValues={{ don_gia: 0 }}
+            />
+        </React.Fragment>
     );
 });
 
-export default List;
+export default withRouter(List);

@@ -229,7 +229,7 @@ const DataTable = React.memo(props => {
         onChange: onChangeSelect
     };
 
-    const getExpaned = () => {
+    const getExpanded = () => {
         if (expandedRowRender)
             return { expandedRowRender: record => expandedRowRender(record) };
         return null;
@@ -248,7 +248,7 @@ const DataTable = React.memo(props => {
                 emptyText: "Không có dữ liệu"
             }}
             scroll={tableSize}
-            expandable={getExpaned()}
+            expandable={getExpanded()}
         />
     );
 });

@@ -22,7 +22,8 @@ const DataTable = React.memo(props => {
         onDelete,
         handleEdit,
         onChangeSelect,
-        otherActions
+        otherActions,
+        expandedRowRender
     } = props;
     const [myColumns, setMyColumns] = useState([]);
     let searchText = "";
@@ -228,6 +229,12 @@ const DataTable = React.memo(props => {
         onChange: onChangeSelect
     };
 
+    const getExpaned = () => {
+        if (expandedRowRender)
+            return { expandedRowRender: record => expandedRowRender(record) };
+        return null;
+    };
+
     return (
         <Table
             dataSource={data}
@@ -241,6 +248,7 @@ const DataTable = React.memo(props => {
                 emptyText: "Không có dữ liệu"
             }}
             scroll={tableSize}
+            expandable={getExpaned()}
         />
     );
 });

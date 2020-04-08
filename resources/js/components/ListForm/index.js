@@ -38,7 +38,8 @@ const ListForm = props => {
         formInitialValues,
         tableSize,
         modalWidth,
-        otherActions
+        otherActions,
+        expandedRowRender
     } = props;
     const {
         data,
@@ -287,6 +288,7 @@ const ListForm = props => {
                 handleEdit={handleEdit}
                 onDelete={onDelete}
                 otherActions={otherActions}
+                expandedRowRender={expandedRowRender}
             />
             <ModalConfirm
                 modalVisible={modalVisible}
@@ -335,7 +337,8 @@ ListForm.propTypes = {
             title: PropTypes.string,
             color: PropTypes.string
         })
-    )
+    ),
+    expandedRowRender: PropTypes.func
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {

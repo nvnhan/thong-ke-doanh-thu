@@ -4,11 +4,26 @@ import FormItem from "./FormItem";
 
 const List = React.memo(() => {
     const [phanLoai, setPhanLoai] = useState([]);
+    const formater = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+    });
 
     const onChangeData = data => {
         let phanLoai = [...new Set(data.map(x => x.phan_loai))];
         setPhanLoai(phanLoai);
     };
+
+    const expandedRowRender = record => (
+        <ul style={{ margin: 0 }}>
+            <li>Phí thu VN: {formater.format(record.phi_vn)}</li>
+            <li>Phí thu VJ: {formater.format(record.phi_vj)}</li>
+            <li>Phí thu Jets: {formater.format(record.phi_jets)}</li>
+            <li>Phí thu BB: {formater.format(record.phi_bb)}</li>
+            <li>Ngày tạo: {record.ngay_tao}</li>
+            <li>Ghi chú: {record.ghi_chu}</li>
+        </ul>
+    );
 
     const columns = [
         {
@@ -20,7 +35,7 @@ const List = React.memo(() => {
         {
             title: "Họ tên",
             dataIndex: "ho_ten",
-            width: 120,
+            width: 150,
             optFind: true
         },
         {
@@ -42,19 +57,19 @@ const List = React.memo(() => {
         {
             title: "Email",
             dataIndex: "email",
-            width: 120
+            width: 150
         },
         {
             title: "Địa chỉ",
             dataIndex: "dia_chi",
             ellipsis: true,
-            width: 120
+            width: 170
         },
         {
             title: "Mã đại lý",
             dataIndex: "ma_dai_ly",
             ellipsis: true,
-            width: 120
+            width: 150
         },
         {
             title: "Số dư ban đầu",
@@ -76,60 +91,60 @@ const List = React.memo(() => {
                 }).format(number),
             width: 120
         },
-        {
-            title: "Phí VN",
-            dataIndex: "phi_vn",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
-            width: 120
-        },
-        {
-            title: "Phí VJ",
-            dataIndex: "phi_vj",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
-            width: 120
-        },
-        {
-            title: "Phí Jets",
-            dataIndex: "phi_jets",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
-            width: 120
-        },
-        {
-            title: "Phí BB",
-            dataIndex: "phi_bb",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
-            width: 120
-        },
+        // {
+        //     title: "Phí VN",
+        //     dataIndex: "phi_vn",
+        //     render: number =>
+        //         new Intl.NumberFormat("vi-VN", {
+        //             style: "currency",
+        //             currency: "VND"
+        //         }).format(number),
+        //     width: 120
+        // },
+        // {
+        //     title: "Phí VJ",
+        //     dataIndex: "phi_vj",
+        //     render: number =>
+        //         new Intl.NumberFormat("vi-VN", {
+        //             style: "currency",
+        //             currency: "VND"
+        //         }).format(number),
+        //     width: 120
+        // },
+        // {
+        //     title: "Phí Jets",
+        //     dataIndex: "phi_jets",
+        //     render: number =>
+        //         new Intl.NumberFormat("vi-VN", {
+        //             style: "currency",
+        //             currency: "VND"
+        //         }).format(number),
+        //     width: 120
+        // },
+        // {
+        //     title: "Phí BB",
+        //     dataIndex: "phi_bb",
+        //     render: number =>
+        //         new Intl.NumberFormat("vi-VN", {
+        //             style: "currency",
+        //             currency: "VND"
+        //         }).format(number),
+        //     width: 120
+        // },
         {
             title: "Ngày nhắc",
             dataIndex: "ngay_nhac",
             width: 120
         },
-        {
-            title: "Ngày tạo",
-            dataIndex: "ngay_tao",
-            width: 120
-        },
+        // {
+        //     title: "Ngày tạo",
+        //     dataIndex: "ngay_tao",
+        //     width: 120
+        // },
         {
             title: "Ghi chú",
             dataIndex: "ghi_chu",
-            width: 150,
+            width: 170,
             ellipsis: true
         }
     ];
@@ -149,6 +164,7 @@ const List = React.memo(() => {
                 phi_bb: 0
             }}
             onChangeData={onChangeData}
+            expandedRowRender={expandedRowRender}
         />
     );
 });

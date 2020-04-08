@@ -29,7 +29,7 @@ class KhachHang extends Model
 
         });
         self::deleting(function($model) {
-
+            //TODO: KhachHang onDelete
         });
     }
 

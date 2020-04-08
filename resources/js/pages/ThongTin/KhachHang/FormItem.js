@@ -1,8 +1,7 @@
-import { AutoComplete, Col, Form, Input, InputNumber, Row, Select } from "antd";
+import { AutoComplete, Col, Form, Input, InputNumber, Row } from "antd";
 import locale from "antd/es/date-picker/locale/vi_VN";
 import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
-const { Option } = Select;
 
 const form = React.memo(props => {
     const phanLoai = props.phanLoai || [];

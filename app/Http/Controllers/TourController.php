@@ -12,19 +12,10 @@ class TourController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $objs = Tour::get();
+        return $this->sendResponse($objs, "Tour retrieved successfully");
     }
 
     /**
@@ -35,51 +26,56 @@ class TourController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tour  $tour
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tour $tour)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tour  $tour
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tour $tour)
-    {
-        //
+        $data = $request->all();
+        $obj = Tour::create($data);
+        $obj->username = $request->user()->username;
+        $obj->save();
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tour  $tour
+     * @param  \App\Tour  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $model = Tour::find($id);
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tour  $tour
+     * @param  \App\Tour  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tour $tour)
+    public function destroy($id)
     {
-        //
+        Tour::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công khách hàng");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs)) {
+            $cnt = count($objs);
+            Tour::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+
+        return $this->sendError('Không xóa được', []);
     }
 }

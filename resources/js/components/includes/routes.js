@@ -9,6 +9,10 @@ const SanBay = lazy(() => import("../../pages/VeMayBay/SanBay"));
 const ThuePhi = lazy(() => import("../../pages/VeMayBay/ThuePhi"));
 const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
 
+const Tour = lazy(() => import("../../pages/TourVisa/Tour"));
+const TourChiTiet = lazy(() => import("../../pages/TourVisa/TourChiTiet"));
+const Visa = lazy(() => import("../../pages/TourVisa/Visa"));
+
 const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
 const NhaCungCap = lazy(() => import("../../pages/ThongTin/NhaCungCap"));
 const KhachHang = lazy(() => import("../../pages/ThongTin/KhachHang"));
@@ -52,6 +56,27 @@ const routes = [
         title: "Phí hành lý",
         menu: menus.VMB_HANH_LY,
         component: <PhiHanhLy />
+    },
+    {
+        path: "/tour",
+        exact: false,
+        title: "Quản lý Tour",
+        menu: menus.TV_TOUR,
+        component: <Tour />
+    },
+    {
+        path: "/tour-chi-tiet",
+        exact: false,
+        title: "Tour chi tiết",
+        menu: menus.TV_TOUR_CHI_TIET,
+        component: <TourChiTiet />
+    },
+    {
+        path: "/visa",
+        exact: false,
+        title: "Visa",
+        menu: menus.TV_VISA,
+        component: <Visa />
     },
     {
         path: "/tai-khoan",

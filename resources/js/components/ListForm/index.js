@@ -104,25 +104,33 @@ const ListForm = props => {
     };
 
     /**
-     * Show modal Thêm mới, Sửa
+     * Xử lý dữ liệu (ngày tháng) từ form nhập vào
      */
-    const handleOk = values => {
-        setState({ formSubmiting: true });
-        // Parse các ô ngày tháng
+    const parseValues = values => {
         for (let [key, value] of Object.entries(values)) {
             if (value !== null && value !== undefined)
                 if (typeof value === "object")
                     // Convert từ moment (from DatePicker) về dạng string để backend xử lý
                     values[key] = value.format("YYYY-MM-DD HH:mm:ss");
-                else if (
-                    typeof value === "string" &&
-                    value.match(/(.*?):(.*?)\/(.*?)\//g)
-                )
-                    values[key] = moment(value, "HH:mm DD/MM/YYYY").format(
-                        "YYYY-MM-DD HH:mm:ss"
-                    );
-            //TODO: Trường hợp chỉ có ngày
+                else if (typeof value === "string")
+                    if (value.match(/(.*?):(.*?)\/(.*?)\//g))
+                        values[key] = moment(value, "HH:mm DD/MM/YYYY").format(
+                            "YYYY-MM-DD HH:mm:ss"
+                        );
+                    else if (value.match(/(.*?)\/(.*?)\//g))
+                        values[key] = moment(value, "DD/MM/YYYY").format(
+                            "YYYY-MM-DD HH:mm:ss"
+                        );
         }
+        return values;
+    };
+
+    /**
+     * Show modal Thêm mới, Sửa
+     */
+    const handleOk = values => {
+        setState({ formSubmiting: true });
+        values = parseValues(values);
         // Thêm mới
         if (currentRecord === undefined) {
             onAdd(values);

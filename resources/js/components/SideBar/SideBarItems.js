@@ -6,7 +6,10 @@ import {
     PieChartOutlined,
     DashboardOutlined,
     CaretRightOutlined,
-    SettingOutlined
+    SettingOutlined,
+    AppstoreOutlined,
+    CarOutlined,
+    GlobalOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -52,6 +55,25 @@ const items = [
                 href: "/phi-hanh-ly",
                 icon: <CaretRightOutlined />,
                 title: "Phí hành lý"
+            }
+        ]
+    },
+    {
+        key: "SUB_TV",
+        icon: <AppstoreOutlined />,
+        title: "Tour - Visa",
+        childs: [
+            {
+                key: SideMenus.TV_TOUR,
+                href: "/tour",
+                icon: <CarOutlined />,
+                title: "Quản lý Tour"
+            },
+            {
+                key: SideMenus.TV_VISA,
+                href: "/visa",
+                icon: <GlobalOutlined />,
+                title: "Visa"
             }
         ]
     },

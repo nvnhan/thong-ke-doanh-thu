@@ -39,6 +39,7 @@ const List = React.memo(props => {
      * Callback from ListForm to get PhanLoai from data
      */
     const onChangeData = data => {
+        //TODO: With filtered HangHoa => Phan Loai Has less than normal
         let phanLoai = [...new Set(data.map(x => x.phan_loai))];
         setPhanLoai(phanLoai);
     };

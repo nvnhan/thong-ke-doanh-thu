@@ -41,6 +41,11 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('hang-hoa/deletes', 'HangHoaController@deletes');
     Route::resource('hang-hoa', 'HangHoaController')->only(['index', 'store', 'update', 'destroy']);
 
+    Route::delete('tour/deletes', 'TourController@deletes');
+    Route::resource('tour', 'TourController')->only(['index', 'store', 'update', 'destroy']);
+    Route::delete('tour-chi-tiet/deletes', 'TourChiTietController@deletes');
+    Route::resource('tour-chi-tiet', 'TourChiTietController')->only(['index', 'store', 'update', 'destroy']);
+
     Route::resource('user', 'UserController');
     Route::resource('ban-ra', 'BanRaController');
     Route::resource('mua-vao', 'MuaVaoController');
@@ -48,7 +53,5 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('thu-chi', 'ThuChiController');
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');
 
-    Route::resource('tour', 'TourController');
-    Route::resource('tour-chi-tiet', 'TourChiTietController');
     Route::resource('visa', 'VisaController');
 });

@@ -653,6 +653,23 @@ var ListForm = function ListForm(props) {
     return isChanged;
   };
   /**
+   * Xử lý dữ liệu (ngày tháng) từ form nhập vào
+   */
+
+
+  var parseValues = function parseValues(values) {
+    for (var _i3 = 0, _Object$entries = Object.entries(values); _i3 < _Object$entries.length; _i3++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i3], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      if (value !== null && value !== undefined) if (_typeof(value) === "object") // Convert từ moment (from DatePicker) về dạng string để backend xử lý
+        values[key] = value.format("YYYY-MM-DD HH:mm:ss");else if (typeof value === "string") if (value.match(/(.*?):(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_2___default()(value, "HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss");else if (value.match(/(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_2___default()(value, "DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss");
+    }
+
+    return values;
+  };
+  /**
    * Show modal Thêm mới, Sửa
    */
 
@@ -660,17 +677,8 @@ var ListForm = function ListForm(props) {
   var handleOk = function handleOk(values) {
     setState({
       formSubmiting: true
-    }); // Parse các ô ngày tháng
-
-    for (var _i3 = 0, _Object$entries = Object.entries(values); _i3 < _Object$entries.length; _i3++) {
-      var _Object$entries$_i = _slicedToArray(_Object$entries[_i3], 2),
-          key = _Object$entries$_i[0],
-          value = _Object$entries$_i[1];
-
-      if (value !== null && value !== undefined) if (_typeof(value) === "object") // Convert từ moment (from DatePicker) về dạng string để backend xử lý
-        values[key] = value.format("YYYY-MM-DD HH:mm:ss");else if (typeof value === "string" && value.match(/(.*?):(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_2___default()(value, "HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss"); //TODO: Trường hợp chỉ có ngày
-    } // Thêm mới
-
+    });
+    values = parseValues(values); // Thêm mới
 
     if (currentRecord === undefined) {
       onAdd(values);

@@ -19,8 +19,8 @@ function form() {
                 rules={[
                     {
                         required: true,
-                        message: "Nhập đầy đủ thông tin!",
-                    },
+                        message: "Nhập đầy đủ thông tin!"
+                    }
                 ]}
             >
                 <Input />
@@ -37,7 +37,7 @@ function form() {
                 </Select>
             </Form.Item>
             <Form.Item
-                wrapperCol={{ offset: 6, span: 18 }}
+                wrapperCol={{ sm: { offset: 6, span: 18 } }}
                 name="loai_a"
                 valuePropName="checked"
             >

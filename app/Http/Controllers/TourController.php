@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tour;
+use App\HangHoa;
 use Illuminate\Http\Request;
 
 class TourController extends BaseController
@@ -14,7 +15,13 @@ class TourController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = Tour::get();
+        if (!empty($request->bat_dau) && !empty($request->ket_thuc))
+            $objs = Tour::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
+        else
+            $objs = Tour::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
+        // if (!empty($request->tinh_trang))
+        //     $objs = array_values($objs->where('tinh_trang', $request->tinh_trang)->toArray());
+            
         return $this->sendResponse($objs, "Tour retrieved successfully");
     }
 

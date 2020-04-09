@@ -2,7 +2,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { message, Modal } from "antd";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import { queryString, useMergeState } from "../../utils";
+import { queryString, useMergeState, isChangeData } from "../../utils";
 import DataTable from "./DataTable";
 import FilterBox from "./FilterBox";
 import ModalConfirm from "./ModalConfirm";
@@ -57,23 +57,7 @@ const ListForm = props => {
         return () => {
             isComponentMounted = false;
         };
-    }, [filter, ownFilter]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFIlter thay đổi
-
-    /**
-     * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
-     */
-    const isChangeData = (record, data) => {
-        let key1 = Object.keys(record);
-        let key2 = Object.keys(data);
-        let isChanged = false;
-        for (const k of key1) {
-            if (key2.indexOf(k) >= 0 && record[k] !== data[k]) {
-                isChanged = true;
-                break;
-            }
-        }
-        return isChanged;
-    };
+    }, [filter, ownFilter]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFilter thay đổi
 
     /**
      * Show modal Thêm mới, Sửa
@@ -130,8 +114,8 @@ const ListForm = props => {
     /**
      * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
      */
-    const handleFilterBox = ownFilter => {
-        setOwnFilter(ownFilter);
+    const handleFilterBox = newFilter => {
+        if (isChangeData(ownFilter, newFilter)) setOwnFilter(newFilter);
     };
 
     /**
@@ -320,7 +304,8 @@ ListForm.propTypes = {
             label: PropTypes.string.isRequired,
             render: PropTypes.node.isRequired
         })
-    )
+    ),
+    filterInitialValue: PropTypes.object,
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {

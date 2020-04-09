@@ -353,6 +353,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils */ "./resources/js/utils/index.js");
 /* harmony import */ var _FilterBox_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FilterBox.scss */ "./resources/js/components/ListForm/FilterBox.scss");
 /* harmony import */ var _FilterBox_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_FilterBox_scss__WEBPACK_IMPORTED_MODULE_5__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -375,16 +381,17 @@ var RangePicker = antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"].RangePicker;
 var FilterBox = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   var onFilter = props.onFilter,
       tuNgayDenNgay = props.tuNgayDenNgay,
-      otherFilter = props.otherFilter;
+      otherFilter = props.otherFilter,
+      filterInitialValue = props.filterInitialValue;
 
   var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
   Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    form.setFieldsValue({
+    form.setFieldsValue(_objectSpread({}, filterInitialValue, {
       thoiGian: [moment__WEBPACK_IMPORTED_MODULE_2___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_2___default()().endOf("month")]
-    });
+    }));
   }, []);
 
   var onFinish = function onFinish() {
@@ -427,7 +434,7 @@ var FilterBox = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (prop
     format: "DD/MM/YYYY" // bordered={false}
     ,
     placeholder: ["Từ ngày", "đến ngày"]
-  }))) : "", otherFilter.map(function (filter) {
+  }))) : "", !_.isEmpty(otherFilter) ? otherFilter.map(function (filter) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
       span: 12,
       md: 8,
@@ -437,7 +444,7 @@ var FilterBox = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (prop
       name: filter.name,
       label: filter.label
     }, filter.render));
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+  }) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     span: 12,
     md: 8,
     lg: 6
@@ -769,32 +776,11 @@ var ListForm = function ListForm(props) {
     return function () {
       isComponentMounted = false;
     };
-  }, [filter, ownFilter]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFIlter thay đổi
+  }, [filter, ownFilter]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFilter thay đổi
 
-  /**
-   * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
-   */
-
-  var isChangeData = function isChangeData(record, data) {
-    var key1 = Object.keys(record);
-    var key2 = Object.keys(data);
-    var isChanged = false;
-
-    for (var _i2 = 0, _key = key1; _i2 < _key.length; _i2++) {
-      var k = _key[_i2];
-
-      if (key2.indexOf(k) >= 0 && record[k] !== data[k]) {
-        isChanged = true;
-        break;
-      }
-    }
-
-    return isChanged;
-  };
   /**
    * Show modal Thêm mới, Sửa
    */
-
 
   var handleOk = function handleOk(values) {
     setState({
@@ -803,7 +789,7 @@ var ListForm = function ListForm(props) {
 
     if (currentRecord === undefined) {
       onAdd(values);
-    } else if (isChangeData(currentRecord, values)) {
+    } else if (Object(_utils__WEBPACK_IMPORTED_MODULE_4__["isChangeData"])(currentRecord, values)) {
       // Chỉnh sửa
       onUpdate(values);
     } // Tắt loading & modal
@@ -857,8 +843,8 @@ var ListForm = function ListForm(props) {
    */
 
 
-  var handleFilterBox = function handleFilterBox(ownFilter) {
-    setOwnFilter(ownFilter);
+  var handleFilterBox = function handleFilterBox(newFilter) {
+    if (Object(_utils__WEBPACK_IMPORTED_MODULE_4__["isChangeData"])(ownFilter, newFilter)) setOwnFilter(newFilter);
   };
   /**
    * Thực thi các sự kiện
@@ -1023,7 +1009,8 @@ ListForm.propTypes = {
     name: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
     label: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
     render: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.node.isRequired
-  }))
+  })),
+  filterInitialValue: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
 }; // Specifies the default values for props:
 
 ListForm.defaultProps = {
@@ -1046,7 +1033,7 @@ ListForm.defaultProps = {
 /*!*************************************!*\
   !*** ./resources/js/utils/index.js ***!
   \*************************************/
-/*! exports provided: useMergeState, queryString, parseValues */
+/*! exports provided: useMergeState, queryString, parseValues, isChangeData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1054,6 +1041,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useMergeState", function() { return useMergeState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "queryString", function() { return queryString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseValues", function() { return parseValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isChangeData", function() { return isChangeData; });
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -1101,6 +1089,7 @@ var queryString = function queryString(obj) {
 
   for (var p in obj) {
     if (obj.hasOwnProperty(p)) {
+      if (obj[p] === undefined) obj[p] = "";
       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
     }
   }
@@ -1122,6 +1111,23 @@ var parseValues = function parseValues(values) {
   }
 
   return values;
+};
+/**
+ * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
+ */
+
+var isChangeData = function isChangeData(record, data) {
+  if (record === undefined || data === undefined) return true;
+  var isChanged = false;
+
+  for (var k in record) {
+    if (record.hasOwnProperty(k) && data.hasOwnProperty(k) && record[k] !== data[k]) {
+      isChanged = true;
+      break;
+    }
+  }
+
+  return isChanged;
 };
 
 /***/ })

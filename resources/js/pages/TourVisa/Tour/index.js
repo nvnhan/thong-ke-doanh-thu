@@ -139,9 +139,10 @@ const List = React.memo(props => {
             optFilter: true
         },
         {
-            title: "Thanh toán",
-            dataIndex: "ngay_thanh_toan",
-            width: 120
+            title: "Tình trạng",
+            dataIndex: "tinh_trang",
+            width: 120,
+            optFilter: true
         },
         {
             title: "Ghi chú",
@@ -168,37 +169,38 @@ const List = React.memo(props => {
                 label: "Tình trạng",
                 render: (
                     <Select>
-                        <Option value="" selected>Tất cả</Option>
-                        <Option value="1">Đã hoàn thành</Option>
-                        <Option value="2">Đã thanh toán</Option>
-                        <Option value="3">Chưa đi</Option>
-                        <Option value="4">Đang đi</Option>
-                        <Option value="5">Đã đi</Option>
+                        <Option value="">Tất cả</Option>
+                        <Option value="Đã hoàn thành">Đã hoàn thành</Option>
+                        <Option value="Đã thanh toán">Đã thanh toán</Option>
+                        <Option value="Chưa đi">Chưa đi</Option>
+                        <Option value="Đang đi">Đang đi</Option>
+                        <Option value="Đã đi">Đã đi</Option>
                     </Select>
                 )
             }
         ];
-    }
-    
+    };
+
     return (
-            <ListForm
-                url="tour"
-                filterBox
-                otherFilter={getOtherFilter()}
-                columns={columns}
-                tableSize={{ x: 1200 }}
-                modalWidth="1100px"
-                formTemplate={
-                    <FormItem phanLoai={phanLoai} khachHang={khachHang} />
-                }
-                formInitialValues={{
-                    so_luong: 1,
-                    ngay_thang: moment().format("DD/MM/YYYY")
-                }}
-                otherActions={tourAction}
-                onChangeData={onChangeData}
-                expandedRowRender={expandedRowRender}
-            />
+        <ListForm
+            url="tour"
+            filterBox
+            // otherFilter={getOtherFilter()}
+            // filterInitialValue={{ tinh_trang: "" }}
+            columns={columns}
+            tableSize={{ x: 1200 }}
+            modalWidth="1100px"
+            formTemplate={
+                <FormItem phanLoai={phanLoai} khachHang={khachHang} />
+            }
+            formInitialValues={{
+                so_luong: 1,
+                ngay_thang: moment().format("DD/MM/YYYY")
+            }}
+            otherActions={tourAction}
+            onChangeData={onChangeData}
+            expandedRowRender={expandedRowRender}
+        />
     );
 });
 

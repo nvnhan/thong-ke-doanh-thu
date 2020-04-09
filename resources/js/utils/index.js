@@ -18,6 +18,7 @@ export const queryString = obj => {
     var str = [];
     for (var p in obj)
         if (obj.hasOwnProperty(p)) {
+            if (obj[p] === undefined) obj[p] = "";
             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         }
     return str.join("&");
@@ -43,4 +44,23 @@ export const parseValues = values => {
                     );
     }
     return values;
+};
+
+/**
+ * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
+ */
+export const isChangeData = (record, data) => {
+    if (record === undefined || data === undefined) return true;
+    let isChanged = false;
+    for (var k in record) {
+        if (
+            record.hasOwnProperty(k) &&
+            data.hasOwnProperty(k) &&
+            record[k] !== data[k]
+        ) {
+            isChanged = true;
+            break;
+        }
+    }
+    return isChanged;
 };

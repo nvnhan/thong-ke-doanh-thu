@@ -7,11 +7,12 @@ import "./FilterBox.scss";
 const { RangePicker } = DatePicker;
 
 const FilterBox = React.memo(props => {
-    const { onFilter, tuNgayDenNgay, otherFilter } = props;
+    const { onFilter, tuNgayDenNgay, otherFilter, filterInitialValue } = props;
     const [form] = Form.useForm();
 
     useEffect(() => {
         form.setFieldsValue({
+            ...filterInitialValue,
             thoiGian: [moment().startOf("month"), moment().endOf("month")]
         });
     }, []);
@@ -19,7 +20,10 @@ const FilterBox = React.memo(props => {
     const onFinish = () => {
         let values = form.getFieldsValue();
         if (values.hasOwnProperty("thoiGian")) {
-            values = Object.assign(values, { bat_dau: values.thoiGian[0], ket_thuc: values.thoiGian[1]});
+            values = Object.assign(values, {
+                bat_dau: values.thoiGian[0],
+                ket_thuc: values.thoiGian[1]
+            });
             delete values.thoiGian;
         }
         onFilter(parseValues(values));
@@ -54,13 +58,18 @@ const FilterBox = React.memo(props => {
                     ) : (
                         ""
                     )}
-                    {otherFilter.map(filter => (
-                        <Col span={12} md={8} lg={6} key={filter.name}>
-                            <Form.Item name={filter.name} label={filter.label}>
-                                {filter.render}
-                            </Form.Item>
-                        </Col>
-                    ))}
+                    {!_.isEmpty(otherFilter)
+                        ? otherFilter.map(filter => (
+                              <Col span={12} md={8} lg={6} key={filter.name}>
+                                  <Form.Item
+                                      name={filter.name}
+                                      label={filter.label}
+                                  >
+                                      {filter.render}
+                                  </Form.Item>
+                              </Col>
+                          ))
+                        : ""}
                     <Col span={12} md={8} lg={6}>
                         <Button htmlType="submit">
                             <FilterOutlined />

@@ -5,23 +5,26 @@ import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 const { Option, OptGroup } = Select;
 
 const form = React.memo(props => {
-    const phanLoai = props.phanLoai || [];
-    const options = phanLoai.map(pl => ({ value: pl }));
+    const formater = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+    });
 
-    const nhaCungCap = props.nhaCungCap || [];
+    const hangHoa = props.hangHoa || [];
     /**
      * [
      *      ['xxx', [{}, {}, {}],
      *      ['yyyyy', [{}, {}, {}, {}, {}]]
      * ]
      */
-    const groupNhaCungCap = Object.entries(_.groupBy(nhaCungCap, "phan_loai"));
-    const getNhaCungCapDetail = () =>
-        groupNhaCungCap.map(clist => (
+    const groupHangHoa = Object.entries(_.groupBy(hangHoa, "nha_cung_cap"));
+    const getHangHoaDetail = () =>
+        groupHangHoa.map(clist => (
             <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
+                {clist[1].map(hh => (
+                    <Option value={hh.id} key={hh.id}>
+                        {hh.phan_loai} - {hh.ma_hang} (
+                        {formater.format(hh.don_gia)})
                     </Option>
                 ))}
             </OptGroup>
@@ -32,8 +35,8 @@ const form = React.memo(props => {
             <Row gutter={[5, 5]}>
                 <Col span={24} md={12}>
                     <Form.Item
-                        name="ma_hang"
-                        label="Mã hàng"
+                        name="ngay_thang"
+                        label="Ngày tháng"
                         rules={[
                             {
                                 required: true,
@@ -41,27 +44,17 @@ const form = React.memo(props => {
                             }
                         ]}
                     >
-                        <Input />
+                        <MyDatePicker
+                            style={{ width: "100%" }}
+                            locale={locale}
+                            format="DD/MM/YYYY"
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={24} md={12}>
                     <Form.Item
-                        name="ten_hang"
-                        label="Tên hàng"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Nhập đầy đủ thông tin!"
-                            }
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-                </Col>
-                <Col span={24} md={12}>
-                    <Form.Item
-                        name="id_tai_khoan"
-                        label="Nhà CC"
+                        name="id_hang_hoa"
+                        label="Hạng mục"
                         rules={[
                             {
                                 required: true,
@@ -71,7 +64,7 @@ const form = React.memo(props => {
                     >
                         <Select
                             showSearch
-                            placeholder="Chọn nhà cung cấp"
+                            placeholder="Chọn hàng hóa"
                             filterOption={(input, option) => {
                                 if (!option.children) return false;
                                 return (
@@ -81,34 +74,8 @@ const form = React.memo(props => {
                                 );
                             }}
                         >
-                            {getNhaCungCapDetail()}
+                            {getHangHoaDetail()}
                         </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={24} md={12}>
-                    <Form.Item
-                        name="phan_loai"
-                        label="Phân loại"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Nhập đầy đủ thông tin!"
-                            }
-                        ]}
-                    >
-                        <AutoComplete
-                            options={options}
-                            filterOption={(inputValue, option) =>
-                                option.value
-                                    .toUpperCase()
-                                    .indexOf(inputValue.toUpperCase()) !== -1
-                            }
-                        />
-                    </Form.Item>
-                </Col>
-                <Col span={24} md={12}>
-                    <Form.Item name="don_vi" label="Đơn vị">
-                        <Input />
                     </Form.Item>
                 </Col>
                 <Col span={24} md={12}>
@@ -133,6 +100,43 @@ const form = React.memo(props => {
                                 )
                             }
                             parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={12}>
+                    <Form.Item
+                        name="so_luong"
+                        label="Số lượng"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <InputNumber
+                            style={{ width: "100%" }}
+                            min={1}
+                            step={1}
+                            parser={value => value.replace(/\₫\s?|\.(,*)/g, "")}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={12}>
+                    <Form.Item name="bat_dau" label="Bắt đầu">
+                        <MyDatePicker
+                            style={{ width: "100%" }}
+                            locale={locale}
+                            format="DD/MM/YYYY"
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={12}>
+                    <Form.Item name="ket_thuc" label="Kết thúc">
+                        <MyDatePicker
+                            style={{ width: "100%" }}
+                            locale={locale}
+                            format="DD/MM/YYYY"
                         />
                     </Form.Item>
                 </Col>

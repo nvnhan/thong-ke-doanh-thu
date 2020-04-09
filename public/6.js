@@ -194,15 +194,14 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
       phanLoai = _useState2[0],
       setPhanLoai = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.location.state),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.location.ncc),
       _useState4 = _slicedToArray(_useState3, 2),
-      location = _useState4[0],
-      setLocation = _useState4[1];
+      ncc = _useState4[0],
+      setNcc = _useState4[1];
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     nhaCungCap: [],
-    filter: {},
-    ncc: -1
+    filter: undefined
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       state = _useState6[0],
@@ -212,23 +211,23 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
       filter = state.filter;
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
-    var ncc = -1;
-    if (location !== undefined) ncc = location.ncc;
-    axios.get("/api/nha-cung-cap?ncc=".concat(ncc)).then(function (response) {
+    if (ncc !== undefined) setState({
+      nhaCungCap: [ncc],
+      filter: {
+        ncc: ncc.id
+      }
+    });else axios.get("/api/nha-cung-cap").then(function (response) {
       if (response.data.success) setState({
         nhaCungCap: response.data.data,
-        filter: {
-          ncc: ncc
-        },
-        ncc: ncc
+        filter: undefined
       });
     })["catch"](function (error) {
       return console.log(error);
     });
-  }, [location]);
+  }, [ncc]);
 
   var onClickAll = function onClickAll() {
-    setLocation(undefined);
+    setNcc(undefined);
   };
   /**
    * Callback from ListForm to get PhanLoai from data
@@ -288,9 +287,9 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     dataIndex: "username",
     width: 120
   }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, state.ncc !== -1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, ncc !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "filter-box"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Nh\xE0 cung c\u1EA5p: "), nhaCungCap[0].ky_hieu, " - ", nhaCungCap[0].mo_ta, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Button"], {
+  }, "Nh\xE0 cung c\u1EA5p:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, ncc.ky_hieu, " (", ncc.mo_ta, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Button"], {
     type: "link",
     onClick: onClickAll
   }, "(T\u1EA5t c\u1EA3 h\xE0ng h\xF3a)")) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {

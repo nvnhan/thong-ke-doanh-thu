@@ -1,67 +1,60 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
-import { Button } from "antd";
 
 const List = React.memo(props => {
-    const [phanLoai, setPhanLoai] = useState([]);
-    const [location, setLocation] = useState(props.location.state);
-    const [state, setState] = useState({
-        nhaCungCap: [],
-        filter: {},
-        ncc: -1
+    const tour = props.location.tour;
+    const [hangHoa, setHangHoa] = useState([]);
+
+    if (tour === undefined) return <Redirect to="/" />;
+
+    const formater = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
     });
-    const { nhaCungCap, filter } = state;
 
     useEffect(() => {
-        // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
-        let ncc = -1;
-        if (location !== undefined) ncc = location.ncc;
-        axios
-            .get(`/api/nha-cung-cap?ncc=${ncc}`)
-            .then(response => {
-                if (response.data.success)
-                    setState({
-                        nhaCungCap: response.data.data,
-                        filter: { ncc: ncc },
-                        ncc
-                    });
-            })
-            .catch(error => console.log(error));
-    }, [location]);
+        // Chuyển từ Component khác tới. Cụ thể ở đây là từ Tour
+        if (tour !== undefined)
+            axios
+                .get("/api/hang-hoa")
+                .then(response => {
+                    if (response.data.success) setHangHoa(response.data.data);
+                })
+                .catch(error => console.log(error));
+    }, []);
 
-    const onClickAll = () => {
-        setLocation(undefined);
-    };
-
-    /**
-     * Callback from ListForm to get PhanLoai from data
-     */
-    const onChangeData = data => {
-        //TODO: With filtered HangHoa => Phan Loai Has less than normal
-        let phanLoai = [...new Set(data.map(x => x.phan_loai))];
-        setPhanLoai(phanLoai);
-    };
+    const expandedRowRender = record => (
+        <ul style={{ margin: 0 }}>
+            <li>
+                Bắt đầu: {record.bat_dau}. Kết thúc: {record.ket_thuc}
+            </li>
+            <li>
+                Mã hàng: {record.ma_hang}. Tên hàng: {record.ten_hang}.
+            </li>
+            <li>
+                Đơn giá: {formater.format(record.don_gia)}. Số lượng:{" "}
+                {record.so_luong}
+            </li>
+            <li>
+                Đã thanh toán: {formater.format(record.da_thanh_toan)}. Ngày
+                thanh toán: {record.ngay_thanh_toan}
+            </li>
+            <li>Ghi chú: {record.ghi_chu}</li>
+            <li>Người tạo: {record.username}</li>
+        </ul>
+    );
 
     const columns = [
         {
-            title: "Mã hàng",
-            dataIndex: "ma_hang",
-            optFind: true,
-            width: 120
-        },
-        {
-            title: "Tên hàng",
-            dataIndex: "ten_hang",
-            optFind: true,
-            width: 150
-        },
-        {
-            title: "Nhà cung cấp",
-            dataIndex: "nha_cung_cap",
-            optFilter: true,
-            width: 150
+            title: "Ngày tháng",
+            dataIndex: "ngay_thang",
+            width: 120,
+            sorter: (a, b) =>
+                moment(a.ngay_thang, "DD/MM/YYYY").unix() -
+                moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
         {
             title: "Phân loại",
@@ -70,18 +63,31 @@ const List = React.memo(props => {
             width: 120
         },
         {
-            title: "Đơn vị",
-            dataIndex: "don_vi",
+            title: "Mã hàng",
+            dataIndex: "ma_hang",
+            optFind: true,
             width: 120
         },
         {
-            title: "Đơn giá",
-            dataIndex: "don_gia",
+            title: "Nhà cung cấp",
+            dataIndex: "nha_cung_cap",
+            optFilter: true,
+            width: 150
+        },
+        {
+            title: "Thành tiền",
+            dataIndex: "thanh_tien",
             render: number =>
                 new Intl.NumberFormat("vi-VN", {
                     style: "currency",
                     currency: "VND"
                 }).format(number),
+            width: 120,
+            sorter: (a, b) => a - b
+        },
+        {
+            title: "Thanh toán",
+            dataIndex: "ngay_thanh_toan",
             width: 120
         },
         {
@@ -89,38 +95,46 @@ const List = React.memo(props => {
             dataIndex: "ghi_chu",
             ellipsis: true,
             width: 150
-        },
-        {
-            title: "Người tạo",
-            dataIndex: "username",
-            width: 120
         }
     ];
 
+    const renderFooter = data => {
+        if (!_.isEmpty(data)) {
+            const sum = data.reduce((previousValue, currentValue) => {
+                return {
+                    thanh_tien:
+                        previousValue.thanh_tien + currentValue.thanh_tien
+                };
+            });
+            return "Tổng tiền: " + formater.format(sum.thanh_tien);
+        }
+    };
+
     return (
         <React.Fragment>
-            {state.ncc !== -1 ? (
-                <div className="filter-box">
-                    <b>Nhà cung cấp: </b>
-                    {nhaCungCap[0].ky_hieu} - {nhaCungCap[0].mo_ta}
-                    <Button type="link" onClick={onClickAll}>
-                        (Tất cả hàng hóa)
-                    </Button>
-                </div>
-            ) : (
-                ""
-            )}
+            <div className="filter-box">
+                Tour:{" "}
+                <b>
+                    {tour.ma_tour} ({tour.ten_tour})
+                </b>
+                . Ngày bắt đầu: {tour.bat_dau}, kết thúc: {tour.ket_thuc}
+            </div>
             <ListForm
-                url="hang-hoa"
-                filter={filter}
+                url="tour-chi-tiet"
+                filter={{ tour: tour.id }}
+                otherParams={{ id_tour: tour.id }}
                 columns={columns}
-                tableSize={{ x: 800 }}
+                // tableSize={{ x: 800 }}
                 modalWidth="800px"
-                onChangeData={onChangeData}
-                formTemplate={
-                    <FormItem phanLoai={phanLoai} nhaCungCap={nhaCungCap} />
-                }
-                formInitialValues={{ don_gia: 0 }}
+                formTemplate={<FormItem hangHoa={hangHoa} />}
+                formInitialValues={{
+                    so_luong: 1,
+                    ngay_thang: moment().format("DD/MM/YYYY"),
+                    bat_dau: tour.bat_dau,
+                    ket_thuc: tour.ket_thuc
+                }}
+                expandedRowRender={expandedRowRender}
+                renderFooter={renderFooter}
             />
         </React.Fragment>
     );

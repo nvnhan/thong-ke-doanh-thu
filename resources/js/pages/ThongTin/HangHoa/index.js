@@ -6,33 +6,35 @@ import { Button } from "antd";
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
-    const [location, setLocation] = useState(props.location.state);
+    const [ncc, setNcc] = useState(props.location.ncc);
     const [state, setState] = useState({
         nhaCungCap: [],
-        filter: {},
-        ncc: -1
+        filter: undefined
     });
     const { nhaCungCap, filter } = state;
 
     useEffect(() => {
         // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
-        let ncc = -1;
-        if (location !== undefined) ncc = location.ncc;
-        axios
-            .get(`/api/nha-cung-cap?ncc=${ncc}`)
-            .then(response => {
-                if (response.data.success)
-                    setState({
-                        nhaCungCap: response.data.data,
-                        filter: { ncc: ncc },
-                        ncc
-                    });
-            })
-            .catch(error => console.log(error));
-    }, [location]);
+        if (ncc !== undefined)
+            setState({
+                nhaCungCap: [ncc],
+                filter: { ncc: ncc.id }
+            });
+        else
+            axios
+                .get(`/api/nha-cung-cap`)
+                .then(response => {
+                    if (response.data.success)
+                        setState({
+                            nhaCungCap: response.data.data,
+                            filter: undefined
+                        });
+                })
+                .catch(error => console.log(error));
+    }, [ncc]);
 
     const onClickAll = () => {
-        setLocation(undefined);
+        setNcc(undefined);
     };
 
     /**
@@ -99,10 +101,12 @@ const List = React.memo(props => {
 
     return (
         <React.Fragment>
-            {state.ncc !== -1 ? (
+            {ncc !== undefined ? (
                 <div className="filter-box">
-                    <b>Nhà cung cấp: </b>
-                    {nhaCungCap[0].ky_hieu} - {nhaCungCap[0].mo_ta}
+                    Nhà cung cấp:{" "}
+                    <b>
+                        {ncc.ky_hieu} ({ncc.mo_ta})
+                    </b>
                     <Button type="link" onClick={onClickAll}>
                         (Tất cả hàng hóa)
                     </Button>

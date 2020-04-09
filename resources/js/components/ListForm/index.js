@@ -10,7 +10,14 @@ import ToolsButton from "./ToolsButton";
 const { confirm } = Modal;
 
 const ListForm = props => {
-    const { url, onChangeData, primaryKey, filter, filterBox } = props;
+    const {
+        url,
+        onChangeData,
+        primaryKey,
+        filter,
+        filterBox,
+        otherParams
+    } = props;
     const [state, setState] = useMergeState({
         data: [],
         isLoading: true,
@@ -124,8 +131,10 @@ const ListForm = props => {
     const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
     const onAdd = value => {
+        if (otherParams !== undefined)
+            value = Object.assign(value, otherParams);
         axios
-            .post(`/api/${url}`, value)
+            .post(`/api/${url}`, { ...value, otherParams })
             .then(response => {
                 if (response.data.success) {
                     setState({
@@ -306,6 +315,8 @@ ListForm.propTypes = {
         })
     ),
     filterInitialValue: PropTypes.object,
+    otherParams: PropTypes.object,
+    renderFooter: PropTypes.func,
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {

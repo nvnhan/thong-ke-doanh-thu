@@ -46,7 +46,7 @@ const List = React.memo(props => {
      */
     const onClickRow = record => {
         const pathname = `/tour-chi-tiet`;
-        props.history.push({ pathname, state: { tour: record.id } });
+        props.history.push({ pathname, tour: record });
     };
 
     const expandedRowRender = record => (

@@ -1,8 +1,8 @@
+import { AppstoreAddOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
-import { AppstoreAddOutlined } from "@ant-design/icons";
-import { Redirect, withRouter } from "react-router-dom";
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
@@ -23,7 +23,7 @@ const List = React.memo(props => {
      */
     const onClickRow = record => {
         const pathname = `/hang-hoa`;
-        props.history.push({ pathname, state: { ncc: record.id } });
+        props.history.push({ pathname, ncc: record });
     };
 
     const expandedRowRender = record => (

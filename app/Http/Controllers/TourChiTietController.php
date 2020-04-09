@@ -12,19 +12,12 @@ class TourChiTietController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $objs = TourChiTiet::query();
+        if (!empty($request->tour))
+            $objs = $objs->where('id_tour', $request->tour);
+        return $this->sendResponse($objs->get(), "TourChiTiet retrieved successfully");
     }
 
     /**
@@ -35,51 +28,56 @@ class TourChiTietController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\TourChiTiet  $tourChiTiet
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TourChiTiet $tourChiTiet)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\TourChiTiet  $tourChiTiet
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TourChiTiet $tourChiTiet)
-    {
-        //
+        $data = $request->all();
+        $obj = TourChiTiet::create($data);
+        $obj->username = $request->user()->username;
+        $obj->save();
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TourChiTiet  $tourChiTiet
+     * @param  \App\TourChiTiet  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TourChiTiet $tourChiTiet)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $model = TourChiTiet::find($id);
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TourChiTiet  $tourChiTiet
+     * @param  \App\TourChiTiet  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TourChiTiet $tourChiTiet)
+    public function destroy($id)
     {
-        //
+        TourChiTiet::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công khách hàng");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs)) {
+            $cnt = count($objs);
+            TourChiTiet::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+
+        return $this->sendError('Không xóa được', []);
     }
 }

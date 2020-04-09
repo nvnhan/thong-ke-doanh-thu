@@ -23,7 +23,8 @@ const DataTable = React.memo(props => {
         handleEdit,
         onChangeSelect,
         otherActions,
-        expandedRowRender
+        expandedRowRender,
+        renderFooter
     } = props;
     const [myColumns, setMyColumns] = useState([]);
     let searchText = "";
@@ -249,6 +250,7 @@ const DataTable = React.memo(props => {
             }}
             scroll={tableSize}
             expandable={getExpanded()}
+            footer={renderFooter ? () => renderFooter(data) : undefined}
         />
     );
 });

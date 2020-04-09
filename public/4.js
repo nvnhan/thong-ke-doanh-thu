@@ -430,9 +430,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     var pathname = "/tour-chi-tiet";
     props.history.push({
       pathname: pathname,
-      state: {
-        tour: record.id
-      }
+      tour: record
     });
   };
 

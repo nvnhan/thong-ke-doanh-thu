@@ -32,12 +32,7 @@ const ModalConfirm = React.memo(props => {
                 </Button>
             ]}
         >
-            <FormEdit
-                form={form}
-                formInitialValues={props.formInitialValues}
-                currentRecord={props.currentRecord}
-                formTemplate={props.formTemplate}
-            />
+            <FormEdit {...props} form={form} />
         </Modal>
     );
 });

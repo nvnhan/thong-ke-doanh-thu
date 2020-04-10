@@ -246,7 +246,10 @@ const DataTable = React.memo(props => {
             locale={{
                 filterConfirm: "Lọc",
                 filterReset: "Hủy",
-                emptyText: "Không có dữ liệu"
+                emptyText: "Không có dữ liệu",
+                cancelSort: "CLick để Bỏ sắp xếp",
+                triggerAsc: "Click để Sắp xếp tăng dần",
+                triggerDesc: "Click để Sắp xếp giảm dần"
             }}
             scroll={tableSize}
             expandable={getExpanded()}

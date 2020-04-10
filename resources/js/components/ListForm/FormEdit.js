@@ -1,21 +1,29 @@
 import React, { useLayoutEffect } from "react";
 import { Form } from "antd";
 
-const FormEdit = React.memo((props) => {
+const FormEdit = React.memo(props => {
+    const {
+        form,
+        formInitialValues,
+        currentRecord,
+        setFormValues,
+        formTemplate
+    } = props;
+    
     useLayoutEffect(() => {
-        if (props.currentRecord !== undefined)
-            props.form.setFieldsValue(props.currentRecord);
-        else props.form.resetFields();
-    });         // Alway run while each render
+        if (currentRecord !== undefined) form.setFieldsValue(currentRecord);
+        else form.resetFields();
+        if (setFormValues !== undefined) form.setFieldsValue(setFormValues);
+    }); // Alway run while each render
 
     return (
         <Form
-            form={props.form}
-            initialValues={props.formInitialValues}
+            form={form}
+            initialValues={formInitialValues}
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 18 }}
         >
-            {props.formTemplate}
+            {formTemplate}
         </Form>
     );
 });

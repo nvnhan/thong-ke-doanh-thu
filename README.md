@@ -4,6 +4,7 @@
 # 📕 Project
 - Web App
 - Convert từ phần mềm THỐNG KÊ DOANH THU viết cho DANH THANH
+- Bắt đầu từ 24/03/2020
 
 # 🛠 Install
 ```

@@ -514,9 +514,11 @@ var FormEdit = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props
       setFormValues = props.setFormValues,
       formTemplate = props.formTemplate;
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"])(function () {
-    if (currentRecord !== undefined) form.setFieldsValue(currentRecord);else form.resetFields();
-    if (setFormValues !== undefined) form.setFieldsValue(setFormValues);
-  }); // Alway run while each render
+    // Khi chọn select từ FormItem
+    if (setFormValues !== undefined) form.setFieldsValue(setFormValues); // Khi mở modal render record khác
+    else if (currentRecord !== undefined) form.setFieldsValue(currentRecord); // Khi thêm mới
+      else form.resetFields();
+  }); // Always run while render
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
     form: form,
@@ -765,15 +767,15 @@ var ListForm = function ListForm(props) {
       ownFilter = _useState2[0],
       setOwnFilter = _useState2[1];
 
-  var isComponentMounted = false;
-  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    isComponentMounted = true;
-    var finalFilter = filter; // Nếu component cha ko truyền filter vào thì lấy filter của FilterBox
+  var isComponentMounted = false; // Final filter: Filter <= props, OwnFilter <= FilterBox
 
-    if (finalFilter === undefined) finalFilter = ownFilter; // Không Có filter hoặc có filter và đã load xong
+  var finalFilter = filter !== undefined ? filter : ownFilter;
+  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+    isComponentMounted = true; // Không Có filter hoặc có filter và đã load xong
 
     if (finalFilter === undefined || !_.isEmpty(finalFilter)) {
-      // Set lại data và loading cho các Component con
+      console.log("Load data from server in ListForm"); // Set lại data và loading cho các Component con
+
       setState({
         data: [],
         isLoading: true
@@ -793,9 +795,10 @@ var ListForm = function ListForm(props) {
     }
 
     return function () {
+      // When Unmount component
       isComponentMounted = false;
     };
-  }, [filter, ownFilter]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFilter thay đổi
+  }, [JSON.stringify(finalFilter)]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFilter thay đổi
 
   /**
    * Show modal Thêm mới, Sửa
@@ -1034,7 +1037,8 @@ ListForm.propTypes = {
   })),
   filterInitialValue: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
   otherParams: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
-  renderFooter: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func
+  renderFooter: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
+  setFormValues: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
 }; // Specifies the default values for props:
 
 ListForm.defaultProps = {

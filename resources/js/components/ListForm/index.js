@@ -36,14 +36,14 @@ const ListForm = props => {
     } = state;
     const [ownFilter, setOwnFilter] = useState(filter);
     let isComponentMounted = false;
+    // Final filter: Filter <= props, OwnFilter <= FilterBox
+    const finalFilter = filter !== undefined ? filter : ownFilter;
 
     useEffect(() => {
         isComponentMounted = true;
-        let finalFilter = filter;
-        // Nếu component cha ko truyền filter vào thì lấy filter của FilterBox
-        if (finalFilter === undefined) finalFilter = ownFilter;
         // Không Có filter hoặc có filter và đã load xong
         if (finalFilter === undefined || !_.isEmpty(finalFilter)) {
+            console.log("Load data from server in ListForm");
             // Set lại data và loading cho các Component con
             setState({ data: [], isLoading: true });
 
@@ -62,9 +62,10 @@ const ListForm = props => {
                 .catch(error => console.log(error));
         }
         return () => {
+            // When Unmount component
             isComponentMounted = false;
         };
-    }, [filter, ownFilter]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFilter thay đổi
+    }, [JSON.stringify(finalFilter)]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFilter thay đổi
 
     /**
      * Show modal Thêm mới, Sửa
@@ -317,6 +318,7 @@ ListForm.propTypes = {
     filterInitialValue: PropTypes.object,
     otherParams: PropTypes.object,
     renderFooter: PropTypes.func,
+    setFormValues: PropTypes.object
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {

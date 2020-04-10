@@ -9,7 +9,10 @@ import {
     SettingOutlined,
     AppstoreOutlined,
     CarOutlined,
-    GlobalOutlined
+    GlobalOutlined,
+    ShoppingCartOutlined,
+    ExportOutlined,
+    ImportOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -74,6 +77,25 @@ const items = [
                 href: "/visa",
                 icon: <GlobalOutlined />,
                 title: "Visa"
+            }
+        ]
+    },
+    {
+        key: "SUB_BH",
+        icon: <ShoppingCartOutlined />,
+        title: "Bán hàng",
+        childs: [
+            {
+                key: SideMenus.BH_MUA_VAO,
+                href: "/mua-vao",
+                icon: <ImportOutlined />,
+                title: "Mua vào"
+            },
+            {
+                key: SideMenus.BH_BAN_RA,
+                href: "/ban-ra",
+                icon: <ExportOutlined />,
+                title: "Bán ra"
             }
         ]
     },

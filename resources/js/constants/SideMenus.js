@@ -14,3 +14,6 @@ export const TT_TAI_KHOAN = "TT_TAI_KHOAN";
 export const TT_NHA_CUNG_CAP = "TT_NHA_CUNG_CAP";
 export const TT_KHACH_HANG = "TT_KHACH_HANG";
 export const TT_HANG_HOA = "TT_HANG_HOA";
+
+export const BH_MUA_VAO = "BH_MUA_VAO";
+export const BH_BAN_RA = "BH_BAN_RA";

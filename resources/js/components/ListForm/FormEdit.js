@@ -9,12 +9,16 @@ const FormEdit = React.memo(props => {
         setFormValues,
         formTemplate
     } = props;
-    
+
     useLayoutEffect(() => {
-        if (currentRecord !== undefined) form.setFieldsValue(currentRecord);
-        else form.resetFields();
+        // Khi chọn select từ FormItem
         if (setFormValues !== undefined) form.setFieldsValue(setFormValues);
-    }); // Alway run while each render
+        // Khi mở modal render record khác
+        else if (currentRecord !== undefined)
+            form.setFieldsValue(currentRecord);
+        // Khi thêm mới
+        else form.resetFields();
+    }); // Always run while render
 
     return (
         <Form

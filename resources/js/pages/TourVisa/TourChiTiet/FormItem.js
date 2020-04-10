@@ -26,6 +26,14 @@ const form = React.memo(props => {
             </OptGroup>
         ));
 
+    /**
+     * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
+     */
+    const onChange = idHH => {
+        const hh = hangHoa.filter(item => item.id === idHH)[0];
+        if (hh) props.onChangeValue(hh.don_gia);
+    };
+
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>
@@ -69,6 +77,7 @@ const form = React.memo(props => {
                                         .indexOf(input.toLowerCase()) >= 0
                                 );
                             }}
+                            onChange={onChange}
                         >
                             {getHangHoaDetail()}
                         </Select>

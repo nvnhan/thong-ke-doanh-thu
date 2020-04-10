@@ -8,6 +8,7 @@ import { vndFormater } from "../../../utils";
 const List = React.memo(props => {
     const tour = props.location.tour;
     const [hangHoa, setHangHoa] = useState([]);
+    const [formValue, setFormValue] = useState(undefined);
 
     if (tour === undefined) return <Redirect to="/" />;
 
@@ -102,6 +103,16 @@ const List = React.memo(props => {
         }
     };
 
+    /**
+     * Callback from FOrmItem, trigger when select Hang Hoa
+     * => Change setFormValues to ListForm => FormEdit
+     */
+    const handleFormValue = don_gia => {
+        setFormValue({
+            don_gia
+        });
+    };
+
     return (
         <React.Fragment>
             <div className="filter-box">
@@ -118,7 +129,12 @@ const List = React.memo(props => {
                 columns={columns}
                 // tableSize={{ x: 800 }}
                 modalWidth="800px"
-                formTemplate={<FormItem hangHoa={hangHoa} />}
+                formTemplate={
+                    <FormItem
+                        hangHoa={hangHoa}
+                        onChangeValue={handleFormValue}
+                    />
+                }
                 formInitialValues={{
                     so_luong: 1,
                     ngay_thang: moment().format("DD/MM/YYYY"),
@@ -127,6 +143,7 @@ const List = React.memo(props => {
                 }}
                 expandedRowRender={expandedRowRender}
                 renderFooter={renderFooter}
+                setFormValues={formValue}
             />
         </React.Fragment>
     );

@@ -134,6 +134,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+
 
 
 
@@ -141,10 +143,6 @@ __webpack_require__.r(__webpack_exports__);
 var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option,
     OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup;
 var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
-  var formater = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND"
-  });
   var hangHoa = props.hangHoa || [];
   /**
    * [
@@ -164,7 +162,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
           value: hh.id,
           key: hh.id
-        }, hh.phan_loai, " - ", hh.ma_hang, " (", formater.format(hh.don_gia), ")");
+        }, hh.phan_loai, " - ", hh.ma_hang, " (", _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(hh.don_gia), ")");
       }));
     });
   };
@@ -304,6 +302,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
 /* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/TourVisa/TourChiTiet/FormItem.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -321,6 +320,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   var tour = props.location.tour;
 
@@ -331,10 +331,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
 
   if (tour === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
     to: "/"
-  });
-  var formater = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND"
   });
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     // Chuyển từ Component khác tới. Cụ thể ở đây là từ Tour
@@ -350,7 +346,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       style: {
         margin: 0
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "B\u1EAFt \u0111\u1EA7u: ", record.bat_dau, ". K\u1EBFt th\xFAc: ", record.ket_thuc), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "M\xE3 h\xE0ng: ", record.ma_hang, ". T\xEAn h\xE0ng: ", record.ten_hang, "."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1: ", formater.format(record.don_gia), ". S\u1ED1 l\u01B0\u1EE3ng:", " ", record.so_luong), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", formater.format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n: ", record.ngay_thanh_toan), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "B\u1EAFt \u0111\u1EA7u: ", record.bat_dau, ". K\u1EBFt th\xFAc: ", record.ket_thuc), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "M\xE3 h\xE0ng: ", record.ma_hang, ". T\xEAn h\xE0ng: ", record.ten_hang, "."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.don_gia), ". S\u1ED1 l\u01B0\u1EE3ng:", " ", record.so_luong), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n: ", record.ngay_thanh_toan), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
   };
 
   var columns = [{
@@ -379,10 +375,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     title: "Thành tiền",
     dataIndex: "thanh_tien",
     render: function render(number) {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-      }).format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
     },
     width: 120,
     sorter: function sorter(a, b) {
@@ -406,7 +399,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
           thanh_tien: previousValue.thanh_tien + currentValue.thanh_tien
         };
       });
-      return "Tổng tiền: " + formater.format(sum.thanh_tien);
+      return "Tổng tiền: " + _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sum.thanh_tien);
     }
   };
 

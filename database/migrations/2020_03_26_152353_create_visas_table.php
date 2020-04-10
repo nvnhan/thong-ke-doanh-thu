@@ -21,9 +21,9 @@ class CreateVisasTable extends Migration
             $table->string('quoc_gia', 50)->nullable();
 
             $table->date('ngay_mua')->nullable();
-            $table->decimal('gia_mua', 11, 2);
+            $table->decimal('gia_mua', 11, 2)->default(0);
             $table->date('ngay_tra_khach')->nullable();
-            $table->decimal('gia_ban', 11, 2);
+            $table->decimal('gia_ban', 11, 2)->default(0);
             
             $table->integer('id_nha_cung_cap')->unsigned()->nullable();
             $table->integer('id_khach_hang')->unsigned()->nullable();

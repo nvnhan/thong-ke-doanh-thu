@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
+import { vndFormater } from "../../../utils";
 
 const List = React.memo(() => {
     const [phanLoai, setPhanLoai] = useState([]);
-    const formater = new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-    });
 
     const onChangeData = data => {
         let phanLoai = [...new Set(data.map(x => x.phan_loai))];
@@ -16,10 +13,10 @@ const List = React.memo(() => {
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
-            <li>Phí thu VN: {formater.format(record.phi_vn)}</li>
-            <li>Phí thu VJ: {formater.format(record.phi_vj)}</li>
-            <li>Phí thu Jets: {formater.format(record.phi_jets)}</li>
-            <li>Phí thu BB: {formater.format(record.phi_bb)}</li>
+            <li>Phí thu VN: {vndFormater.format(record.phi_vn)}</li>
+            <li>Phí thu VJ: {vndFormater.format(record.phi_vj)}</li>
+            <li>Phí thu Jets: {vndFormater.format(record.phi_jets)}</li>
+            <li>Phí thu BB: {vndFormater.format(record.phi_bb)}</li>
             <li>Ngày tạo: {record.ngay_tao}</li>
             <li>Ghi chú: {record.ghi_chu}</li>
         </ul>
@@ -74,21 +71,13 @@ const List = React.memo(() => {
         {
             title: "Số dư ban đầu",
             dataIndex: "so_du_ky_truoc",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
+            render: number => vndFormater.format(number),
             width: 120
         },
         {
             title: "Số tiền thu dư",
             dataIndex: "so_tien_thu_du",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
+            render: number => vndFormater.format(number),
             width: 120
         },
         // {

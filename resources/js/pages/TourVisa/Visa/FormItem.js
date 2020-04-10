@@ -27,13 +27,44 @@ const form = React.memo(props => {
             </OptGroup>
         ));
 
+    const khachHang = props.khachHang || [];
+    const groupKhachHang = Object.entries(_.groupBy(khachHang, "phan_loai"));
+    const getKhachHangDetail = () =>
+        groupKhachHang.map(clist => (
+            <OptGroup label={clist[0]} key={clist[0]}>
+                {clist[1].map(ncc => (
+                    <Option value={ncc.id} key={ncc.id}>
+                        {ncc.ma_khach_hang} - {ncc.ho_ten}
+                    </Option>
+                ))}
+            </OptGroup>
+        ));
+
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>
-                <Col span={24} md={12}>
+                <Col span={24} md={8} sm={12}>
                     <Form.Item
-                        name="ma_hang"
-                        label="Mã hàng"
+                        name="ngay_thang"
+                        label="Ngày tháng"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <MyDatePicker
+                            style={{ width: "100%" }}
+                            locale={locale}
+                            format="DD/MM/YYYY"
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={8} sm={12}>
+                    <Form.Item
+                        name="ma_visa"
+                        label="Mã Visa"
                         rules={[
                             {
                                 required: true,
@@ -44,48 +75,7 @@ const form = React.memo(props => {
                         <Input />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={12}>
-                    <Form.Item
-                        name="ten_hang"
-                        label="Tên hàng"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Nhập đầy đủ thông tin!"
-                            }
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-                </Col>
-                <Col span={24} md={12}>
-                    <Form.Item
-                        name="id_tai_khoan"
-                        label="Nhà CC"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Nhập đầy đủ thông tin!"
-                            }
-                        ]}
-                    >
-                        <Select
-                            showSearch
-                            placeholder="Chọn nhà cung cấp"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getNhaCungCapDetail()}
-                        </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={24} md={12}>
+                <Col span={24} md={8} sm={12}>
                     <Form.Item
                         name="phan_loai"
                         label="Phân loại"
@@ -106,15 +96,71 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={12}>
-                    <Form.Item name="don_vi" label="Đơn vị">
+                <Col span={24} md={8} sm={12}>
+                    <Form.Item name="quoc_gia" label="Quốc gia">
                         <Input />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={12}>
+                <Col span={24} md={8} sm={12}>
+                    <Form.Item name="id_nha_cung_cap" label="Nhà CC">
+                        <Select
+                            showSearch
+                            allowClear
+                            placeholder="Chọn nhà cung cấp"
+                            filterOption={(input, option) => {
+                                if (!option.children) return false;
+                                return (
+                                    option.children
+                                        .toLowerCase()
+                                        .indexOf(input.toLowerCase()) >= 0
+                                );
+                            }}
+                        >
+                            {getNhaCungCapDetail()}
+                        </Select>
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={8} sm={12}>
+                    <Form.Item name="ngay_mua" label="Ngày mua">
+                        <MyDatePicker
+                            style={{ width: "100%" }}
+                            locale={locale}
+                            format="DD/MM/YYYY"
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={8} sm={12}>
+                    <Form.Item name="id_khach_hang" label="Khách hàng">
+                        <Select
+                            showSearch
+                            allowClear
+                            placeholder="Chọn khách hàng"
+                            filterOption={(input, option) => {
+                                if (!option.children) return false;
+                                return (
+                                    option.children
+                                        .toLowerCase()
+                                        .indexOf(input.toLowerCase()) >= 0
+                                );
+                            }}
+                        >
+                            {getKhachHangDetail()}
+                        </Select>
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={8} sm={12}>
+                    <Form.Item name="ngay_tra_khach" label="Ngày trả">
+                        <MyDatePicker
+                            style={{ width: "100%" }}
+                            locale={locale}
+                            format="DD/MM/YYYY"
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={8} sm={12}>
                     <Form.Item
-                        name="don_gia"
-                        label="Đơn giá"
+                        name="gia_mua"
+                        label="Giá mua"
                         rules={[
                             {
                                 required: true,
@@ -136,10 +182,35 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24}>
+                <Col span={24} md={8} sm={12}>
                     <Form.Item
-                        labelCol={{ md: 3, span: 6 }}
-                        wrapperCol={{ md: 21, span: 18 }}
+                        name="gia_ban"
+                        label="Giá bán"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <InputNumber
+                            style={{ width: "100%" }}
+                            min={0}
+                            step={1000}
+                            formatter={value =>
+                                `${value}₫`.replace(
+                                    /(?=(\d{3})+(?!\d))\B/g,
+                                    ","
+                                )
+                            }
+                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={16}>
+                    <Form.Item
+                        labelCol={{ span: 3 }}
+                        wrapperCol={{ span: 21 }}
                         name="ghi_chu"
                         label="Ghi chú"
                     >

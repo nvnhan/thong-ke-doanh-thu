@@ -64,3 +64,8 @@ export const isChangeData = (record, data) => {
     }
     return isChanged;
 };
+
+export const vndFormater = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND"
+});

@@ -360,6 +360,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
 /* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/KhachHang/FormItem.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -383,16 +384,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       phanLoai = _useState2[0],
       setPhanLoai = _useState2[1];
-
-  var formater = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND"
-  });
 
   var onChangeData = function onChangeData(data) {
     var phanLoai = _toConsumableArray(new Set(data.map(function (x) {
@@ -407,7 +404,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
       style: {
         margin: 0
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ph\xED thu VN: ", formater.format(record.phi_vn)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ph\xED thu VJ: ", formater.format(record.phi_vj)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ph\xED thu Jets: ", formater.format(record.phi_jets)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ph\xED thu BB: ", formater.format(record.phi_bb)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ng\xE0y t\u1EA1o: ", record.ngay_tao), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ph\xED thu VN: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.phi_vn)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ph\xED thu VJ: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.phi_vj)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ph\xED thu Jets: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.phi_jets)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ph\xED thu BB: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.phi_bb)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ng\xE0y t\u1EA1o: ", record.ngay_tao), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu));
   };
 
   var columns = [{
@@ -451,20 +448,14 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
     title: "Số dư ban đầu",
     dataIndex: "so_du_ky_truoc",
     render: function render(number) {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-      }).format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
     },
     width: 120
   }, {
     title: "Số tiền thu dư",
     dataIndex: "so_tien_thu_du",
     render: function render(number) {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-      }).format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
     },
     width: 120
   }, // {

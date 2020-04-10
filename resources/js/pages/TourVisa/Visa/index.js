@@ -1,39 +1,31 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
+import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
-import { Button } from "antd";
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
-    const [location, setLocation] = useState(props.location.state);
     const [state, setState] = useState({
         nhaCungCap: [],
-        filter: {},
-        ncc: -1
+        khachHang: []
     });
-    const { nhaCungCap, filter } = state;
+    const { nhaCungCap, khachHang } = state;
 
     useEffect(() => {
         // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
-        let ncc = -1;
-        if (location !== undefined) ncc = location.ncc;
-        axios
-            .get(`/api/nha-cung-cap?ncc=${ncc}`)
-            .then(response => {
-                if (response.data.success)
-                    setState({
-                        nhaCungCap: response.data.data,
-                        filter: { ncc: ncc },
-                        ncc
-                    });
-            })
-            .catch(error => console.log(error));
-    }, [location]);
+        const promise1 = axios.get("/api/nha-cung-cap");
+        const promise2 = axios.get("/api/khach-hang");
 
-    const onClickAll = () => {
-        setLocation(undefined);
-    };
+        Promise.all([promise1, promise2]).then(response => {
+            if (response[0].data.success && response[1].data.success)
+                setState({
+                    nhaCungCap: response[0].data.data,
+                    khachHang: response[1].data.data
+                });
+        });
+    }, []);
 
     /**
      * Callback from ListForm to get PhanLoai from data
@@ -44,23 +36,39 @@ const List = React.memo(props => {
         setPhanLoai(phanLoai);
     };
 
+    const expandedRowRender = record => (
+        <ul style={{ margin: 0 }}>
+            <li>
+                Giá mua: {vndFormater.format(record.gia_mua)}. Ngày lấy nơi mua:{" "}
+                {record.ngay_mua}
+            </li>
+            <li>
+                Giá bán: {vndFormater.format(record.gia_ban)}. Ngày trả khách:{" "}
+                {record.ngay_tra_khach}
+            </li>
+            <li>
+                Đã thanh toán: {vndFormater.format(record.da_thanh_toan)}. Ngày
+                thanh toán: {record.ngay_thanh_toan}
+            </li>
+            <li>Tình trạng: {record.tinh_trang}</li>
+            <li>Ghi chú: {record.ghi_chu}</li>
+            <li>Người tạo: {record.username}</li>
+        </ul>
+    );
+
     const columns = [
         {
-            title: "Mã hàng",
-            dataIndex: "ma_hang",
-            optFind: true,
-            width: 120
+            title: "Ngày tháng",
+            dataIndex: "ngay_thang",
+            width: 120,
+            sorter: (a, b) =>
+                moment(a.ngay_thang, "DD/MM/YYYY").unix() -
+                moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
         {
-            title: "Tên hàng",
-            dataIndex: "ten_hang",
+            title: "Mã Visa",
+            dataIndex: "ma_visa",
             optFind: true,
-            width: 150
-        },
-        {
-            title: "Nhà cung cấp",
-            dataIndex: "nha_cung_cap",
-            optFilter: true,
             width: 150
         },
         {
@@ -70,59 +78,66 @@ const List = React.memo(props => {
             width: 120
         },
         {
-            title: "Đơn vị",
-            dataIndex: "don_vi",
+            title: "Quốc gia",
+            dataIndex: "quoc_gia",
+            optFind: true,
             width: 120
         },
         {
-            title: "Đơn giá",
-            dataIndex: "don_gia",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
-            width: 120
+            title: "Nhà cung cấp",
+            dataIndex: "nha_cung_cap",
+            optFilter: true,
+            width: 150
+        },
+        {
+            title: "Khách hàng",
+            dataIndex: "ten_khach_hang",
+            optFilter: true,
+            width: 150
+        },
+        {
+            title: "Lãi",
+            dataIndex: "lai",
+            render: number => vndFormater.format(number),
+            width: 120,
+            sorter: (a, b) => a.lai - b.lai
+        },
+        {
+            title: "Tình trạng",
+            dataIndex: "tinh_trang",
+            width: 120,
+            optFilter: true
         },
         {
             title: "Ghi chú",
             dataIndex: "ghi_chu",
             ellipsis: true,
             width: 150
-        },
-        {
-            title: "Người tạo",
-            dataIndex: "username",
-            width: 120
         }
     ];
 
     return (
-        <React.Fragment>
-            {state.ncc !== -1 ? (
-                <div className="filter-box">
-                    <b>Nhà cung cấp: </b>
-                    {nhaCungCap[0].ky_hieu} - {nhaCungCap[0].mo_ta}
-                    <Button type="link" onClick={onClickAll}>
-                        (Tất cả hàng hóa)
-                    </Button>
-                </div>
-            ) : (
-                ""
-            )}
-            <ListForm
-                url="hang-hoa"
-                filter={filter}
-                columns={columns}
-                tableSize={{ x: 800 }}
-                modalWidth="800px"
-                onChangeData={onChangeData}
-                formTemplate={
-                    <FormItem phanLoai={phanLoai} nhaCungCap={nhaCungCap} />
-                }
-                formInitialValues={{ don_gia: 0 }}
-            />
-        </React.Fragment>
+        <ListForm
+            url="visa"
+            filterBox
+            columns={columns}
+            tableSize={{ x: 800 }}
+            modalWidth="1100px"
+            formTemplate={
+                <FormItem
+                    phanLoai={phanLoai}
+                    nhaCungCap={nhaCungCap}
+                    khachHang={khachHang}
+                />
+            }
+            formInitialValues={{
+                gia_mua: 0,
+                gia_ban: 0,
+                ngay_thang: moment().format("DD/MM/YYYY")
+            }}
+            onChangeData={onChangeData}
+            expandedRowRender={expandedRowRender}
+        />
     );
 });
 

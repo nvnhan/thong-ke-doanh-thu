@@ -1057,7 +1057,7 @@ ListForm.defaultProps = {
 /*!*************************************!*\
   !*** ./resources/js/utils/index.js ***!
   \*************************************/
-/*! exports provided: useMergeState, queryString, parseValues, isChangeData */
+/*! exports provided: useMergeState, queryString, parseValues, isChangeData, vndFormater */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1066,6 +1066,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "queryString", function() { return queryString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseValues", function() { return parseValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isChangeData", function() { return isChangeData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "vndFormater", function() { return vndFormater; });
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -1153,6 +1154,10 @@ var isChangeData = function isChangeData(record, data) {
 
   return isChanged;
 };
+var vndFormater = new Intl.NumberFormat("vi-VN", {
+  style: "currency",
+  currency: "VND"
+});
 
 /***/ })
 

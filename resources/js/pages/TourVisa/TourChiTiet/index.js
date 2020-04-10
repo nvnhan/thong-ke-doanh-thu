@@ -3,17 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
+import { vndFormater } from "../../../utils";
 
 const List = React.memo(props => {
     const tour = props.location.tour;
     const [hangHoa, setHangHoa] = useState([]);
 
     if (tour === undefined) return <Redirect to="/" />;
-
-    const formater = new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-    });
 
     useEffect(() => {
         // Chuyển từ Component khác tới. Cụ thể ở đây là từ Tour
@@ -35,11 +31,11 @@ const List = React.memo(props => {
                 Mã hàng: {record.ma_hang}. Tên hàng: {record.ten_hang}.
             </li>
             <li>
-                Đơn giá: {formater.format(record.don_gia)}. Số lượng:{" "}
+                Đơn giá: {vndFormater.format(record.don_gia)}. Số lượng:{" "}
                 {record.so_luong}
             </li>
             <li>
-                Đã thanh toán: {formater.format(record.da_thanh_toan)}. Ngày
+                Đã thanh toán: {vndFormater.format(record.da_thanh_toan)}. Ngày
                 thanh toán: {record.ngay_thanh_toan}
             </li>
             <li>Ghi chú: {record.ghi_chu}</li>
@@ -77,11 +73,7 @@ const List = React.memo(props => {
         {
             title: "Thành tiền",
             dataIndex: "thanh_tien",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
+            render: number => vndFormater.format(number),
             width: 120,
             sorter: (a, b) => a - b
         },
@@ -106,7 +98,7 @@ const List = React.memo(props => {
                         previousValue.thanh_tien + currentValue.thanh_tien
                 };
             });
-            return "Tổng tiền: " + formater.format(sum.thanh_tien);
+            return "Tổng tiền: " + vndFormater.format(sum.thanh_tien);
         }
     };
 

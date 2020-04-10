@@ -2,14 +2,10 @@ import { Col, Form, Input, InputNumber, Row, Select } from "antd";
 import locale from "antd/es/date-picker/locale/vi_VN";
 import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+import { vndFormater } from "../../../utils";
 const { Option, OptGroup } = Select;
 
 const form = React.memo(props => {
-    const formater = new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-    });
-
     const hangHoa = props.hangHoa || [];
     /**
      * [
@@ -24,7 +20,7 @@ const form = React.memo(props => {
                 {clist[1].map(hh => (
                     <Option value={hh.id} key={hh.id}>
                         {hh.phan_loai} - {hh.ma_hang} (
-                        {formater.format(hh.don_gia)})
+                        {vndFormater.format(hh.don_gia)})
                     </Option>
                 ))}
             </OptGroup>

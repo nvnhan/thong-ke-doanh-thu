@@ -12,19 +12,16 @@ class VisaController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        if (!empty($request->bat_dau) && !empty($request->ket_thuc))
+            $objs = Visa::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
+        else
+            $objs = Visa::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
+        // if (!empty($request->tinh_trang))
+        //     $objs = array_values($objs->where('tinh_trang', $request->tinh_trang)->toArray());
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->sendResponse($objs, "Visa retrieved successfully");
     }
 
     /**
@@ -35,51 +32,56 @@ class VisaController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Visa  $visa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Visa $visa)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Visa  $visa
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Visa $visa)
-    {
-        //
+        $data = $request->all();
+        $obj = Visa::create($data);
+        $obj->username = $request->user()->username;
+        $obj->save();
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Visa  $visa
+     * @param  \App\Visa  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Visa $visa)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $model = Visa::find($id);
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Visa  $visa
+     * @param  \App\Visa  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Visa $visa)
+    public function destroy($id)
     {
-        //
+        Visa::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công khách hàng");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs)) {
+            $cnt = count($objs);
+            Visa::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+
+        return $this->sendError('Không xóa được', []);
     }
 }

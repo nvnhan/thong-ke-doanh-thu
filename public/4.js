@@ -358,7 +358,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/TourVisa/Tour/FormItem.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/TourVisa/Tour/FormItem.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -386,6 +387,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
 var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
@@ -398,10 +400,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       khachHang = _useState4[0],
       setKhachHang = _useState4[1];
 
-  var formater = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND"
-  });
   Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
     axios.get("/api/khach-hang").then(function (response) {
       if (response.data.success) setKhachHang(response.data.data);
@@ -439,7 +437,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       style: {
         margin: 0
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "B\u1EAFt \u0111\u1EA7u: ", record.bat_dau, ". K\u1EBFt th\xFAc: ", record.ket_thuc), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Gi\xE1 tour: ", formater.format(record.gia_tour), ". S\u1ED1 l\u01B0\u1EE3ng:", " ", record.so_luong), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Gi\xE1 b\xE1n: ", formater.format(record.gia_ban), ". T\u1ED5ng ti\u1EC1n b\xE1n:", " ", formater.format(record.tong_tien_ban)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", formater.format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n: ", record.ngay_thanh_toan), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "T\xECnh tr\u1EA1ng: ", record.tinh_trang), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "B\u1EAFt \u0111\u1EA7u: ", record.bat_dau, ". K\u1EBFt th\xFAc: ", record.ket_thuc), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Gi\xE1 tour: ", _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(record.gia_tour), ". S\u1ED1 l\u01B0\u1EE3ng:", " ", record.so_luong), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Gi\xE1 b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(record.gia_ban), ". T\u1ED5ng ti\u1EC1n b\xE1n:", " ", _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(record.tong_tien_ban)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n: ", record.ngay_thanh_toan), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "T\xECnh tr\u1EA1ng: ", record.tinh_trang), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
   };
 
   var columns = [{
@@ -468,10 +466,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     title: "Giá tour",
     dataIndex: "gia_tour",
     render: function render(number) {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-      }).format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(number);
     },
     sorter: function sorter(a, b) {
       return a.gia_tour - b.gia_tour;
@@ -481,10 +476,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     title: "Giá bán",
     dataIndex: "gia_ban",
     render: function render(number) {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-      }).format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(number);
     },
     sorter: function sorter(a, b) {
       return a.gia_ban - b.gia_ban;
@@ -494,10 +486,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     title: "Lãi",
     dataIndex: "lai",
     render: function render(number) {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-      }).format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(number);
     },
     sorter: function sorter(a, b) {
       return a.lai - b.lai;
@@ -558,7 +547,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       x: 1200
     },
     modalWidth: "1100px",
-    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_7__["default"], {
       phanLoai: phanLoai,
       khachHang: khachHang
     }),

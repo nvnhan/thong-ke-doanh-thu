@@ -4,6 +4,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
+import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
 
 const { Option } = Select;
@@ -11,11 +12,6 @@ const { Option } = Select;
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
     const [khachHang, setKhachHang] = useState([]);
-
-    const formater = new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-    });
 
     useEffect(() => {
         axios
@@ -55,15 +51,15 @@ const List = React.memo(props => {
                 Bắt đầu: {record.bat_dau}. Kết thúc: {record.ket_thuc}
             </li>
             <li>
-                Giá tour: {formater.format(record.gia_tour)}. Số lượng:{" "}
+                Giá tour: {vndFormater.format(record.gia_tour)}. Số lượng:{" "}
                 {record.so_luong}
             </li>
             <li>
-                Giá bán: {formater.format(record.gia_ban)}. Tổng tiền bán:{" "}
-                {formater.format(record.tong_tien_ban)}
+                Giá bán: {vndFormater.format(record.gia_ban)}. Tổng tiền bán:{" "}
+                {vndFormater.format(record.tong_tien_ban)}
             </li>
             <li>
-                Đã thanh toán: {formater.format(record.da_thanh_toan)}. Ngày
+                Đã thanh toán: {vndFormater.format(record.da_thanh_toan)}. Ngày
                 thanh toán: {record.ngay_thanh_toan}
             </li>
             <li>Tình trạng: {record.tinh_trang}</li>
@@ -102,33 +98,21 @@ const List = React.memo(props => {
         {
             title: "Giá tour",
             dataIndex: "gia_tour",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
+            render: number => vndFormater.format(number),
             sorter: (a, b) => a.gia_tour - b.gia_tour,
             width: 120
         },
         {
             title: "Giá bán",
             dataIndex: "gia_ban",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
+            render: number => vndFormater.format(number),
             sorter: (a, b) => a.gia_ban - b.gia_ban,
             width: 120
         },
         {
             title: "Lãi",
             dataIndex: "lai",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
+            render: number => vndFormater.format(number),
             sorter: (a, b) => a.lai - b.lai,
             width: 120
         },

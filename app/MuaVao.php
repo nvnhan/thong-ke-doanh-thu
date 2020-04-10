@@ -13,18 +13,16 @@ class MuaVao extends Model
     protected $casts = [
         'ngay_thang' => 'date:d/m/Y',
         'ngay_thanh_toan' => 'date:d/m/Y',
-        'ngay_hoan_doi' => 'date:d/m/Y',
-        'ngay_thanh_toan_hoan_doi' => 'date:d/m/Y',
-        'ngay_hoan_doi_xong' => 'date:d/m/Y'
     ];
+
+    protected $fillable = ['ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia', 'ghi_chu'];
+
+    protected $appends = ['thanh_tien', 'da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap'];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function($model) {
-            $model->ngay_thang = now(); //date("Y-m-d");
-            $model->so_luong = 1;
-            // $model->username = xxx;
         });
         self::updating(function($model) {
 
@@ -40,6 +38,25 @@ class MuaVao extends Model
 
     public function thu_chi_chi_tiets() {
         return $this->hasMany('App\ThuChiChiTiet', 'id_mua_vao');
+    }
+
+    ////////
+    public function getMaHangAttribute() {
+        return $this->hang_hoa()->first()->ma_hang;
+    }
+
+    public function getTenHangAttribute()
+    {
+        return $this->hang_hoa()->first()->ten_hang;
+    }
+    public function getPhanLoaiAttribute()
+    {
+        return $this->hang_hoa()->first()->phan_loai;
+    }
+
+    public function getNhaCungCapAttribute()
+    {
+        return $this->hang_hoa()->first()->nha_cung_cap;
     }
 
     public function getThanhTienAttribute() {

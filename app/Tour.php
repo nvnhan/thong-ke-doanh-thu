@@ -41,12 +41,12 @@ class Tour extends Model
 
     public function khach_hang()
     {
-        return $this->belongsTo('App\KhachHang', 'id_khach_hang')->withDefault();
+        return $this->belongsTo('App\KhachHang', 'id_khach_hang');
     }
 
     public function getTenKhachHangAttribute()
     {
-        return $this->khach_hang()->first()->ma_khach_hang;
+        return optional($this->khach_hang()->first())->ma_khach_hang;
     }
 
     public function thu_chi_chi_tiets()

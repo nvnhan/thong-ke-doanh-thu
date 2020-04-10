@@ -34,22 +34,22 @@ class Visa extends Model
 
     public function khach_hang()
     {
-        return $this->belongsTo('App\KhachHang', 'id_khach_hang')->withDefault();
+        return $this->belongsTo('App\KhachHang', 'id_khach_hang');
     }
 
     public function getTenKhachHangAttribute()
     {
-        return $this->khach_hang()->first()->ma_khach_hang;
+        return optional($this->khach_hang()->first())->ma_khach_hang;
     }
 
     public function nha_cung_cap()
     {
-        return $this->belongsTo('App\TaiKhoan', 'id_nha_cung_cap')->withDefault();
+        return $this->belongsTo('App\TaiKhoan', 'id_nha_cung_cap');
     }
 
     public function getNhaCungCapAttribute()
     {
-        return $this->nha_cung_cap()->first()->ky_hieu;
+        return optional($this->nha_cung_cap()->first())->ky_hieu;
     }
 
     public function thu_chi_chi_tiets()

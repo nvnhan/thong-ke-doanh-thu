@@ -31,9 +31,14 @@ const DataTable = React.memo(props => {
     let searchedColumn = "";
     let searchInput;
 
+    // Chỉ chạy khi load lại data từ List Form:
+    // + mở form (cho dù có dữ liệu hay ko)
+    // + set filter
+    // Ko áp dụng khi thêm mới hoặc chỉnh sửa data => Phần Lọc dữ liệu cột KHÔNG ĐƯỢC TÍNH LẠI
     useEffect(() => {
-        if (!_.isEmpty(data)) setMyColumns(calColumns());
-    }, [isLoading]); // Chỉ chạy khi data thay đổi
+        // if (!_.isEmpty(data))
+        setMyColumns(calColumns());
+    }, [isLoading]);
 
     /**
      * Tính các cột cần thiết
@@ -44,61 +49,6 @@ const DataTable = React.memo(props => {
             cols.push(addActionColumn());
         return cols;
     };
-    const layAction = record => (
-        <Menu>
-            {!_.isEmpty(otherActions)
-                ? otherActions.map(act => (
-                      <Menu.Item
-                          key={act.key}
-                          onClick={() => act.onClick(record)}
-                          style={{ color: act.color }}
-                      >
-                          {act.icon} {act.title}
-                      </Menu.Item>
-                  ))
-                : ""}
-            {editable ? (
-                <Menu.Item
-                    key="edit"
-                    onClick={() => handleEdit(record)}
-                    style={{ color: "#1890ff" }}
-                >
-                    <EditOutlined /> Chỉnh sửa
-                </Menu.Item>
-            ) : (
-                ""
-            )}
-            {deleteable ? (
-                <Menu.Item
-                    key="delete"
-                    onClick={() => onDelete(record[primaryKey])}
-                    style={{ color: "#ff4d4f" }}
-                >
-                    <DeleteOutlined /> Xóa
-                </Menu.Item>
-            ) : (
-                ""
-            )}
-        </Menu>
-    );
-
-    /**
-     * Thêm cột chức năng cho table
-     */
-    const addActionColumn = () => ({
-        title: "",
-        key: "action",
-        fixed: "right",
-        align: "center",
-        width: 80,
-        render: (text, record) => (
-            <Dropdown overlay={layAction(record)}>
-                <Button>
-                    <MenuOutlined />
-                </Button>
-            </Dropdown>
-        )
-    });
 
     /**
      * Create column for ant's table
@@ -127,6 +77,68 @@ const DataTable = React.memo(props => {
         }
         return column;
     };
+
+    /**
+     * Thêm cột chức năng cho table
+     */
+    const addActionColumn = () => ({
+        title: "",
+        key: "action",
+        fixed: "right",
+        align: "center",
+        width: 80,
+        render: (text, record) => (
+            <Dropdown overlay={layAction(record)}>
+                <Button>
+                    <MenuOutlined />
+                </Button>
+            </Dropdown>
+        )
+    });
+    
+    const layAction = record => (
+        <Menu>
+            {!_.isEmpty(otherActions)
+                ? otherActions.map(act => (
+                      <Menu.Item
+                          key={act.key}
+                          onClick={() => act.onClick(record)}
+                          style={{
+                              color: act.color
+                          }}
+                      >
+                          {act.icon} {act.title}
+                      </Menu.Item>
+                  ))
+                : ""}
+            {editable ? (
+                <Menu.Item
+                    key="edit"
+                    onClick={() => handleEdit(record)}
+                    style={{
+                        color: "#1890ff"
+                    }}
+                >
+                    <EditOutlined /> Chỉnh sửa
+                </Menu.Item>
+            ) : (
+                ""
+            )}
+            {deleteable ? (
+                <Menu.Item
+                    key="delete"
+                    onClick={() => onDelete(record[primaryKey])}
+                    style={{
+                        color: "#ff4d4f"
+                    }}
+                >
+                    <DeleteOutlined /> Xóa
+                </Menu.Item>
+            ) : (
+                ""
+            )}
+        </Menu>
+    );
 
     /**
      * Thao tác tìm kiếm trên cột
@@ -232,7 +244,9 @@ const DataTable = React.memo(props => {
 
     const getExpanded = () => {
         if (expandedRowRender)
-            return { expandedRowRender: record => expandedRowRender(record) };
+            return {
+                expandedRowRender: record => expandedRowRender(record)
+            };
         return null;
     };
 

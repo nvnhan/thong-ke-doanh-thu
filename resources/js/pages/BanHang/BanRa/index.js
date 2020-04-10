@@ -1,5 +1,3 @@
-import { AppstoreAddOutlined } from "@ant-design/icons";
-import { Select } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
@@ -7,62 +5,45 @@ import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
 
-const { Option } = Select;
-
 const List = React.memo(props => {
-    const [phanLoai, setPhanLoai] = useState([]);
-    const [khachHang, setKhachHang] = useState([]);
+    const [state, setState] = useState({
+        hangHoa: [],
+        khachHang: []
+    });
+    const { hangHoa, khachHang } = state;
+    const [formValue, setFormValue] = useState(undefined);
 
     useEffect(() => {
-        axios
-            .get("/api/khach-hang")
-            .then(response => {
-                if (response.data.success) setKhachHang(response.data.data);
-            })
-            .catch(error => console.log(error));
+        const promise1 = axios.get("/api/hang-hoa");
+        const promise2 = axios.get("/api/khach-hang");
+
+        Promise.all([promise1, promise2]).then(response => {
+            if (response[0].data.success && response[1].data.success)
+                setState({
+                    hangHoa: response[0].data.data,
+                    khachHang: response[1].data.data
+                });
+        });
     }, []);
-
-    /**
-     * Callback from ListForm to get PhanLoai from data
-     */
-    const onChangeData = data => {
-        // Set là tập hợp, mỗi phần tử là duy nhất, input là Array
-        let phanLoai = [
-            ...new Set([
-                ...data.map(x => x.phan_loai),
-                "Tour quốc nội",
-                "Vé máy bay"
-            ])
-        ];
-        setPhanLoai(phanLoai);
-    };
-
-    /**
-     * Redirect to Tour Chi Tiet with addition params
-     */
-    const onClickRow = record => {
-        const pathname = `/tour-chi-tiet`;
-        props.history.push({ pathname, tour: record });
-    };
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
             <li>
-                Bắt đầu: {record.bat_dau}. Kết thúc: {record.ket_thuc}
+                Mã hàng: {record.ma_hang}. Tên hàng: {record.ten_hang}. Phân
+                loại: {record.phan_loai}. Nhà cung cấp: {record.nha_cung_cap}
             </li>
             <li>
-                Giá tour: {vndFormater.format(record.gia_tour)}. Số lượng:{" "}
-                {record.so_luong}
+                Đơn giá mua: {vndFormater.format(record.don_gia_mua)}. Thành
+                tiền mua: {vndFormater.format(record.thanh_tien_mua)}
             </li>
             <li>
-                Giá bán: {vndFormater.format(record.gia_ban)}. Tổng tiền bán:{" "}
-                {vndFormater.format(record.tong_tien_ban)}
+                Đơn giá bán: {vndFormater.format(record.don_gia_ban)}. Thành
+                tiền bán: {vndFormater.format(record.thanh_tien_ban)}
             </li>
             <li>
                 Đã thanh toán: {vndFormater.format(record.da_thanh_toan)}. Ngày
                 thanh toán: {record.ngay_thanh_toan}
             </li>
-            <li>Tình trạng: {record.tinh_trang}</li>
             <li>Ghi chú: {record.ghi_chu}</li>
             <li>Người tạo: {record.username}</li>
         </ul>
@@ -78,35 +59,27 @@ const List = React.memo(props => {
                 moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
         {
-            title: "Mã tour",
-            dataIndex: "ma_tour",
+            title: "Mã hàng",
+            dataIndex: "ma_hang",
             optFind: true,
             width: 140
         },
         {
-            title: "Tên tour",
-            dataIndex: "ten_tour",
-            width: 170,
-            optFind: true
+            title: "Tên hàng",
+            dataIndex: "ten_hang",
+            optFind: true,
+            width: 170
         },
         {
-            title: "Phân loại",
-            dataIndex: "phan_loai",
-            width: 140,
-            optFilter: true
-        },
-        {
-            title: "Giá tour",
-            dataIndex: "gia_tour",
-            render: number => vndFormater.format(number),
-            sorter: (a, b) => a.gia_tour - b.gia_tour,
+            title: "Số lượng",
+            dataIndex: "so_luong",
             width: 120
         },
         {
-            title: "Giá bán",
-            dataIndex: "gia_ban",
+            title: "TT bán",
+            dataIndex: "thanh_tien_ban",
             render: number => vndFormater.format(number),
-            sorter: (a, b) => a.gia_ban - b.gia_ban,
+            sorter: (a, b) => a.thanh_tien_ban - b.thanh_tien_ban,
             width: 120
         },
         {
@@ -118,15 +91,19 @@ const List = React.memo(props => {
         },
         {
             title: "Khách hàng",
-            dataIndex: "ten_khach_hang",
-            width: 120,
-            optFilter: true
+            dataIndex: "ma_khach_hang",
+            optFilter: true,
+            width: 120
         },
         {
-            title: "Tình trạng",
-            dataIndex: "tinh_trang",
-            width: 120,
-            optFilter: true
+            title: "Thanh toán",
+            dataIndex: "ngay_thanh_toan",
+            width: 120
+        },
+        {
+            title: "Hoàn đổi",
+            dataIndex: "ngay_hoan_doi",
+            width: 120
         },
         {
             title: "Ghi chú",
@@ -136,54 +113,65 @@ const List = React.memo(props => {
         }
     ];
 
-    const tourAction = [
-        {
-            key: "dsTourChiTiet",
-            onClick: onClickRow,
-            title: "Tour chi tiết",
-            icon: <AppstoreAddOutlined />,
-            color: "#52c41a" // Success color
-        }
-    ];
-
-    const getOtherFilter = () => {
-        return [
-            {
-                name: "tinh_trang",
-                label: "Tình trạng",
-                render: (
-                    <Select>
-                        <Option value="">Tất cả</Option>
-                        <Option value="Đã hoàn thành">Đã hoàn thành</Option>
-                        <Option value="Đã thanh toán">Đã thanh toán</Option>
-                        <Option value="Chưa đi">Chưa đi</Option>
-                        <Option value="Đang đi">Đang đi</Option>
-                        <Option value="Đã đi">Đã đi</Option>
-                    </Select>
+    const renderFooter = data => {
+        if (!_.isEmpty(data)) {
+            const sumObj = data.reduce((previousValue, currentValue) => {
+                return {
+                    thanh_tien_mua:
+                        previousValue.thanh_tien_mua +
+                        currentValue.thanh_tien_mua,
+                    thanh_tien_ban:
+                        previousValue.thanh_tien_ban +
+                        currentValue.thanh_tien_ban
+                };
+            });
+            return (
+                "Tổng tiền mua: " +
+                vndFormater.format(sumObj.thanh_tien_mua) +
+                ". Tổng tiền bán: " +
+                vndFormater.format(sumObj.thanh_tien_ban) +
+                ". Tổng lãi: " +
+                vndFormater.format(
+                    sumObj.thanh_tien_ban - sumObj.thanh_tien_mua
                 )
-            }
-        ];
+            );
+        }
+    };
+
+    /**
+     * Callback from FOrmItem, trigger when select Hang Hoa
+     * => Change setFormValues to ListForm => FormEdit
+     */
+    const handleFormValue = don_gia => {
+        setFormValue({
+            don_gia_mua: don_gia,
+            don_gia_ban: don_gia
+        });
     };
 
     return (
         <ListForm
-            url="tour"
+            url="ban-ra"
             filterBox
-            // otherFilter={getOtherFilter()}
-            // filterInitialValue={{ tinh_trang: "" }}
             columns={columns}
             tableSize={{ x: 1200 }}
-            modalWidth="1100px"
+            modalWidth="800px"
             formTemplate={
-                <FormItem phanLoai={phanLoai} khachHang={khachHang} />
+                <FormItem
+                    hangHoa={hangHoa}
+                    khachHang={khachHang}
+                    onChangeValue={handleFormValue}
+                />
             }
             formInitialValues={{
                 so_luong: 1,
+                don_gia_mua: 0,
+                don_gia_ban: 0,
                 ngay_thang: moment().format("DD/MM/YYYY")
             }}
-            otherActions={tourAction}
-            onChangeData={onChangeData}
             expandedRowRender={expandedRowRender}
+            setFormValues={formValue}
+            renderFooter={renderFooter}
         />
     );
 });

@@ -107,11 +107,15 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
 
   var searchText = "";
   var searchedColumn = "";
-  var searchInput;
-  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    if (!_.isEmpty(data)) setMyColumns(calColumns());
-  }, [isLoading]); // Chỉ chạy khi data thay đổi
+  var searchInput; // Chỉ chạy khi load lại data từ List Form:
+  // + mở form (cho dù có dữ liệu hay ko)
+  // + set filter
+  // Ko áp dụng khi thêm mới hoặc chỉnh sửa data => Phần Lọc dữ liệu cột KHÔNG ĐƯỢC TÍNH LẠI
 
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    // if (!_.isEmpty(data))
+    setMyColumns(calColumns());
+  }, [isLoading]);
   /**
    * Tính các cột cần thiết
    */
@@ -122,55 +126,6 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
     });
     if (editable || deleteable || !_.isEmpty(otherActions)) cols.push(addActionColumn());
     return cols;
-  };
-
-  var layAction = function layAction(record) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"], null, !_.isEmpty(otherActions) ? otherActions.map(function (act) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
-        key: act.key,
-        onClick: function onClick() {
-          return act.onClick(record);
-        },
-        style: {
-          color: act.color
-        }
-      }, act.icon, " ", act.title);
-    }) : "", editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
-      key: "edit",
-      onClick: function onClick() {
-        return handleEdit(record);
-      },
-      style: {
-        color: "#1890ff"
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null), " Ch\u1EC9nh s\u1EEDa") : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
-      key: "delete",
-      onClick: function onClick() {
-        return onDelete(record[primaryKey]);
-      },
-      style: {
-        color: "#ff4d4f"
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null), " X\xF3a") : "");
-  };
-  /**
-   * Thêm cột chức năng cho table
-   */
-
-
-  var addActionColumn = function addActionColumn() {
-    return {
-      title: "",
-      key: "action",
-      fixed: "right",
-      align: "center",
-      width: 80,
-      render: function render(text, record) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Dropdown"], {
-          overlay: layAction(record)
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["MenuOutlined"], null)));
-      }
-    };
   };
   /**
    * Create column for ant's table
@@ -203,6 +158,55 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
     }
 
     return column;
+  };
+  /**
+   * Thêm cột chức năng cho table
+   */
+
+
+  var addActionColumn = function addActionColumn() {
+    return {
+      title: "",
+      key: "action",
+      fixed: "right",
+      align: "center",
+      width: 80,
+      render: function render(text, record) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Dropdown"], {
+          overlay: layAction(record)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["MenuOutlined"], null)));
+      }
+    };
+  };
+
+  var layAction = function layAction(record) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"], null, !_.isEmpty(otherActions) ? otherActions.map(function (act) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
+        key: act.key,
+        onClick: function onClick() {
+          return act.onClick(record);
+        },
+        style: {
+          color: act.color
+        }
+      }, act.icon, " ", act.title);
+    }) : "", editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
+      key: "edit",
+      onClick: function onClick() {
+        return handleEdit(record);
+      },
+      style: {
+        color: "#1890ff"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null), " Ch\u1EC9nh s\u1EEDa") : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
+      key: "delete",
+      onClick: function onClick() {
+        return onDelete(record[primaryKey]);
+      },
+      style: {
+        color: "#ff4d4f"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null), " X\xF3a") : "");
   };
   /**
    * Thao tác tìm kiếm trên cột

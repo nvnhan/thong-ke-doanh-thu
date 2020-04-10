@@ -12,19 +12,14 @@ class BanRaController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        if (!empty($request->bat_dau) && !empty($request->ket_thuc))
+            $objs = BanRa::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
+        else
+            $objs = BanRa::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->sendResponse($objs, "BanRa retrieved successfully");
     }
 
     /**
@@ -35,51 +30,56 @@ class BanRaController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\BanRa  $banRa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BanRa $banRa)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\BanRa  $banRa
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BanRa $banRa)
-    {
-        //
+        $data = $request->all();
+        $obj = BanRa::create($data);
+        $obj->username = $request->user()->username;
+        $obj->save();
+        return $this->sendResponse($obj, "Thêm mới thành công");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BanRa  $banRa
+     * @param  \App\BanRa  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BanRa $banRa)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $model = BanRa::find($id);
+        $model->fill($data);
+        $model->save();
+        return $this->sendResponse($model, "Cập nhật thành công");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BanRa  $banRa
+     * @param  \App\BanRa  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BanRa $banRa)
+    public function destroy($id)
     {
-        //
+        BanRa::find($id)->delete();
+        return $this->sendResponse('', "Xóa thành công khách hàng");
+    }
+
+    /**
+     * Remove multiple resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletes(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs)) {
+            $cnt = count($objs);
+            BanRa::destroy($objs);
+            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        }
+
+        return $this->sendError('Không xóa được', []);
     }
 }

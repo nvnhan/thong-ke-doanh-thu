@@ -991,19 +991,19 @@ var ListForm = function ListForm(props) {
     onChangeSelect: onChangeSelect,
     handleEdit: handleEdit,
     onDelete: onDelete
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, props, {
+  })), props.formTemplate !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, props, {
     modalVisible: modalVisible,
     formSubmiting: formSubmiting,
     currentRecord: currentRecord,
     handleOk: handleOk,
     handleCancel: handleCancel
-  })));
+  })) : "");
 };
 
 ListForm.propTypes = {
   url: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
   columns: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object).isRequired,
-  formTemplate: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.node.isRequired,
+  formTemplate: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.node,
   onChangeData: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
   selectable: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
   insertable: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,

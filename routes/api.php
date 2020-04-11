@@ -59,6 +59,8 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('mua-vao/deletes', 'MuaVaoController@deletes');
     Route::resource('mua-vao', 'MuaVaoController')->only(['index', 'store', 'update', 'destroy']);
 
+    Route::get('ton-kho', 'HangHoaController@tonkho');
+
 
     //
     Route::resource('user', 'UserController');

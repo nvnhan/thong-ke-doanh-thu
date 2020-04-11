@@ -258,14 +258,18 @@ const ListForm = props => {
                 handleEdit={handleEdit}
                 onDelete={onDelete}
             />
-            <ModalConfirm
-                {...props}
-                modalVisible={modalVisible}
-                formSubmiting={formSubmiting}
-                currentRecord={currentRecord}
-                handleOk={handleOk}
-                handleCancel={handleCancel}
-            />
+            {props.formTemplate !== undefined ? (
+                <ModalConfirm
+                    {...props}
+                    modalVisible={modalVisible}
+                    formSubmiting={formSubmiting}
+                    currentRecord={currentRecord}
+                    handleOk={handleOk}
+                    handleCancel={handleCancel}
+                />
+            ) : (
+                ""
+            )}
         </React.Fragment>
     );
 };
@@ -273,7 +277,7 @@ const ListForm = props => {
 ListForm.propTypes = {
     url: PropTypes.string.isRequired,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-    formTemplate: PropTypes.node.isRequired,
+    formTemplate: PropTypes.node,
     onChangeData: PropTypes.func,
     selectable: PropTypes.bool,
     insertable: PropTypes.bool,

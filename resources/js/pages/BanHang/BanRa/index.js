@@ -1,6 +1,5 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
@@ -176,4 +175,4 @@ const List = React.memo(props => {
     );
 });
 
-export default withRouter(List);
+export default List;

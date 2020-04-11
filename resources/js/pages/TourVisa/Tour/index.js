@@ -146,25 +146,6 @@ const List = React.memo(props => {
         }
     ];
 
-    const getOtherFilter = () => {
-        return [
-            {
-                name: "tinh_trang",
-                label: "Tình trạng",
-                render: (
-                    <Select>
-                        <Option value="">Tất cả</Option>
-                        <Option value="Đã hoàn thành">Đã hoàn thành</Option>
-                        <Option value="Đã thanh toán">Đã thanh toán</Option>
-                        <Option value="Chưa đi">Chưa đi</Option>
-                        <Option value="Đang đi">Đang đi</Option>
-                        <Option value="Đã đi">Đã đi</Option>
-                    </Select>
-                )
-            }
-        ];
-    };
-
     return (
         <ListForm
             url="tour"

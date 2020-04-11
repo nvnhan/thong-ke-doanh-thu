@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\HangHoa;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent;
 
 class HangHoaController extends BaseController
 {
@@ -79,5 +80,24 @@ class HangHoaController extends BaseController
         }
 
         return $this->sendError('Không xóa được', []);
+    }
+
+    public function tonkho (Request $request) 
+    {
+        $date = date('Y-m-d');
+        if (!empty($request->den_ngay))
+            $date = $request->den_ngay;
+
+        $hang_hoa = HangHoa::whereHas('mua_vaos', function ($query) use ($date) {
+            $query->where('ngay_thang', "<=", $date);
+        })->get();
+        foreach ($hang_hoa as $value) {
+            $mv = $value->mua_vaos()->where('ngay_thang', "<=", $date)->sum('so_luong');
+            $br = $value->ban_ras()->where('ngay_thang', "<=", $date)->sum('so_luong');
+            $hd = $value->ban_ras()->where('ngay_hoan_doi_xong', "<=", $date)->sum('so_luong');
+            $value->so_luong = $mv - $br + $hd;
+        }
+        
+        return $this->sendResponse($hang_hoa, "HangHoa retrieved successfully");
     }
 }

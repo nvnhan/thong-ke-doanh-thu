@@ -516,27 +516,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     color: "#52c41a" // Success color
 
   }];
-
-  var getOtherFilter = function getOtherFilter() {
-    return [{
-      name: "tinh_trang",
-      label: "Tình trạng",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: ""
-      }, "T\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "\u0110\xE3 ho\xE0n th\xE0nh"
-      }, "\u0110\xE3 ho\xE0n th\xE0nh"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "\u0110\xE3 thanh to\xE1n"
-      }, "\u0110\xE3 thanh to\xE1n"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "Ch\u01B0a \u0111i"
-      }, "Ch\u01B0a \u0111i"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "\u0110ang \u0111i"
-      }, "\u0110ang \u0111i"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "\u0110\xE3 \u0111i"
-      }, "\u0110\xE3 \u0111i"))
-    }];
-  };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
     url: "tour",
     filterBox: true // otherFilter={getOtherFilter()}

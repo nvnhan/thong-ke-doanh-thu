@@ -13,7 +13,8 @@ import {
     ShoppingCartOutlined,
     ExportOutlined,
     ImportOutlined,
-    RollbackOutlined
+    RollbackOutlined,
+    DatabaseOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -103,6 +104,12 @@ const items = [
                 href: "/hoan-doi",
                 icon: <RollbackOutlined />,
                 title: "Hoàn đổi"
+            },
+            {
+                key: SideMenus.BH_TON_KHO,
+                href: "/ton-kho",
+                icon: <DatabaseOutlined />,
+                title: "Tồn kho"
             }
         ]
     },

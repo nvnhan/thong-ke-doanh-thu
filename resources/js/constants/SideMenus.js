@@ -17,3 +17,5 @@ export const TT_HANG_HOA = "TT_HANG_HOA";
 
 export const BH_MUA_VAO = "BH_MUA_VAO";
 export const BH_BAN_RA = "BH_BAN_RA";
+export const BH_TON_KHO = "BH_TON_KHO";
+export const BH_HOAN_DOI = "BH_HOAN_DOI";

@@ -12,7 +12,8 @@ import {
     GlobalOutlined,
     ShoppingCartOutlined,
     ExportOutlined,
-    ImportOutlined
+    ImportOutlined,
+    RollbackOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -96,6 +97,12 @@ const items = [
                 href: "/ban-ra",
                 icon: <ExportOutlined />,
                 title: "Bán ra"
+            },
+            {
+                key: SideMenus.BH_HOAN_DOI,
+                href: "/hoan-doi",
+                icon: <RollbackOutlined />,
+                title: "Hoàn đổi"
             }
         ]
     },

@@ -51,10 +51,17 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('visa/deletes', 'VisaController@deletes');
     Route::resource('visa', 'VisaController')->only(['index', 'store', 'update', 'destroy']);
 
+    // Ban Hang
+    Route::delete('ban-ra/deletes', 'BanRaController@deletes');
+    Route::resource('ban-ra', 'BanRaController')->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('hoan-doi', 'HoanDoiController')->only(['index', 'update']);
+
+    Route::delete('mua-vao/deletes', 'MuaVaoController@deletes');
+    Route::resource('mua-vao', 'MuaVaoController')->only(['index', 'store', 'update', 'destroy']);
+
+
     //
     Route::resource('user', 'UserController');
-    Route::resource('ban-ra', 'BanRaController');
-    Route::resource('mua-vao', 'MuaVaoController');
     Route::resource('dat-ve', 'DatVeController');
     Route::resource('thu-chi', 'ThuChiController');
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');

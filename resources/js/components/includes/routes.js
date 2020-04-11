@@ -15,6 +15,7 @@ const Visa = lazy(() => import("../../pages/TourVisa/Visa"));
 
 const MuaVao = lazy(() => import("../../pages/BanHang/MuaVao"));
 const BanRa = lazy(() => import("../../pages/BanHang/BanRa"));
+const HoanDoi = lazy(() => import("../../pages/BanHang/HoanDoi"));
 
 const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
 const NhaCungCap = lazy(() => import("../../pages/ThongTin/NhaCungCap"));
@@ -94,6 +95,13 @@ const routes = [
         title: "Bán ra",
         menu: menus.BH_BAN_RA,
         component: <BanRa />
+    },
+    {
+        path: "/hoan-doi",
+        exact: false,
+        title: "Hoàn đổi",
+        menu: menus.BH_HOAN_DOI,
+        component: <HoanDoi />
     },
     {
         path: "/tai-khoan",

@@ -10,32 +10,21 @@ import FormItem from "./FormItem";
 const { Option } = Select;
 
 const List = React.memo(props => {
-    const [phanLoai, setPhanLoai] = useState([]);
-    const [khachHang, setKhachHang] = useState([]);
+    // const [phanLoai, setPhanLoai] = useState([]);
+    // const [khachHang, setKhachHang] = useState([]);
 
     useEffect(() => {
-        axios
-            .get("/api/khach-hang")
-            .then(response => {
-                if (response.data.success) setKhachHang(response.data.data);
-            })
-            .catch(error => console.log(error));
-    }, []);
+        // const promise1 = axios.get("/api/nha-cung-cap");
+        // const promise2 = axios.get("/api/khach-hang");
 
-    /**
-     * Callback from ListForm to get PhanLoai from data
-     */
-    const onChangeData = data => {
-        // Set là tập hợp, mỗi phần tử là duy nhất, input là Array
-        let phanLoai = [
-            ...new Set([
-                ...data.map(x => x.phan_loai),
-                "Tour quốc nội",
-                "Vé máy bay"
-            ])
-        ];
-        setPhanLoai(phanLoai);
-    };
+        // Promise.all([promise1, promise2]).then(response => {
+        //     if (response[0].data.success && response[1].data.success)
+        //         setState({
+        //             nhaCungCap: response[0].data.data,
+        //             khachHang: response[1].data.data
+        //         });
+        // });
+    }, []);
 
     /**
      * Redirect to Tour Chi Tiet with addition params
@@ -45,9 +34,19 @@ const List = React.memo(props => {
         props.history.push({ pathname, tour: record });
     };
 
+    const dvAction = [
+        {
+            key: "dsTourChiTiet",
+            onClick: onClickRow,
+            title: "Thêm hành khách",
+            icon: <AppstoreAddOutlined />,
+            color: "#52c41a" // Success color
+        }
+    ];
+
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
-            <li>
+            {/* <li>
                 Bắt đầu: {record.bat_dau}. Kết thúc: {record.ket_thuc}
             </li>
             <li>
@@ -62,7 +61,7 @@ const List = React.memo(props => {
                 Đã thanh toán: {vndFormater.format(record.da_thanh_toan)}. Ngày
                 thanh toán: {record.ngay_thanh_toan}
             </li>
-            <li>Tình trạng: {record.tinh_trang}</li>
+            <li>Tình trạng: {record.tinh_trang}</li> */}
             <li>Ghi chú: {record.ghi_chu}</li>
             <li>Người tạo: {record.username}</li>
         </ul>
@@ -136,34 +135,63 @@ const List = React.memo(props => {
         }
     ];
 
-    const tourAction = [
-        {
-            key: "dsTourChiTiet",
-            onClick: onClickRow,
-            title: "Tour chi tiết",
-            icon: <AppstoreAddOutlined />,
-            color: "#52c41a" // Success color
-        }
-    ];
+    const getOtherFilter = () => {
+        return [
+            {
+                name: "san_bay",
+                label: "Sân bay",
+                render: (
+                    <Select>
+                        <Option value="">Tất cả</Option>
+                        <Option value="quoc_noi">Quốc nội</Option>
+                        <Option value="quoc_te">Quốc tế</Option>
+                    </Select>
+                )
+            },
+            {
+                name: "hang_bay",
+                label: "Hãng bay",
+                render: (
+                    <Select>
+                        <Option value="">Tất cả</Option>
+                        <Option value="vn">VietNam Airline</Option>
+                        <Option value="vj">VietJet</Option>
+                        <Option value="jets">Jetstar</Option>
+                        <Option value="bb">Bamboo</Option>
+                        <Option value="khac">Khác</Option>
+                        {/* Render tên các hãng khác....... */}
+                    </Select>
+                )
+            },
+            {
+                name: "user",
+                label: "Người nhập",
+                render: (
+                    <Select>
+                        <Option value="">Tất cả</Option>
+                        
+                        {/* Render danh sách user....... */}
+                    </Select>
+                )
+            }
+        ];
+    };
 
     return (
         <ListForm
-            url="tour"
+            url="dat-ve"
             filterBox
-            // otherFilter={getOtherFilter()}
-            // filterInitialValue={{ tinh_trang: "" }}
+            otherFilter={getOtherFilter()}
+            filterInitialValue={{ san_bay: "", hang_bay: "", user: "" }}
             columns={columns}
             tableSize={{ x: 1200 }}
             modalWidth="1100px"
-            formTemplate={
-                <FormItem phanLoai={phanLoai} khachHang={khachHang} />
-            }
+            formTemplate={<FormItem />}
             formInitialValues={{
                 so_luong: 1,
                 ngay_thang: moment().format("DD/MM/YYYY")
             }}
-            otherActions={tourAction}
-            onChangeData={onChangeData}
+            otherActions={dvAction}
             expandedRowRender={expandedRowRender}
         />
     );

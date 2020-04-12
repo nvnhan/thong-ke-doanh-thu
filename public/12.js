@@ -1,1 +1,406 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[12],{380:function(e,t,n){"use strict";var a=n(0),r=n.n(a),o=n(578),i=n(378),l=n.n(i);function h(){return(h=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(e[a]=n[a])}return e}).apply(this,arguments)}t.a=function(e){if(e.value&&"string"==typeof e.value){var t=l()(e.value,e.format);return r.a.createElement(o.a,h({},e,{value:t}))}return r.a.createElement(o.a,e)}},382:function(e,t,n){"use strict";var a={placeholder:"Chọn thời gian"};function r(){return(r=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(e[a]=n[a])}return e}).apply(this,arguments)}var o={lang:r({placeholder:"Chọn thời điểm",rangePlaceholder:["Ngày bắt đầu","Ngày kết thúc"]},{locale:"vi_VN",today:"Hôm nay",now:"Bây giờ",backToToday:"Trở về hôm nay",ok:"Ok",clear:"Xóa",month:"Tháng",year:"Năm",timeSelect:"Chọn thời gian",dateSelect:"Chọn ngày",weekSelect:"Chọn tuần",monthSelect:"Chọn tháng",yearSelect:"Chọn năm",decadeSelect:"Chọn thập kỷ",yearFormat:"YYYY",dateFormat:"D/M/YYYY",dayFormat:"D",dateTimeFormat:"D/M/YYYY HH:mm:ss",monthBeforeYear:!0,previousMonth:"Tháng trước (PageUp)",nextMonth:"Tháng sau (PageDown)",previousYear:"Năm trước (Control + left)",nextYear:"Năm sau (Control + right)",previousDecade:"Thập kỷ trước",nextDecade:"Thập kỷ sau",previousCentury:"Thế kỷ trước",nextCentury:"Thế kỷ sau"}),timePickerLocale:r({},a)};t.a=o},590:function(e,t,n){"use strict";n.r(t);var a=n(378),r=n.n(a),o=n(0),i=n.n(o),l=n(381),h=n(379),u=n(383),c=n(375),g=n(581),m=n(376),s=n(382),d=n(380),f=u.a.Option,p=u.a.OptGroup,y=i.a.memo((function(e){var t=e.hangHoa||[],n=Object.entries(_.groupBy(t,"nha_cung_cap"));return i.a.createElement(i.a.Fragment,null,i.a.createElement(c.a.Item,{name:"ngay_thang",label:"Ngày tháng",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(d.a,{style:{width:"100%"},locale:s.a,format:"DD/MM/YYYY"})),i.a.createElement(c.a.Item,{name:"id_hang_hoa",label:"Hàng hóa",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(u.a,{showSearch:!0,placeholder:"Chọn hàng hóa",filterOption:function(e,t){return!!t.children&&t.children.toLowerCase().indexOf(e.toLowerCase())>=0},onChange:function(n){var a=t.filter((function(e){return e.id===n}))[0];a&&e.onChangeValue(a.don_gia)}},n.map((function(e){return i.a.createElement(p,{label:e[0],key:e[0]},e[1].map((function(e){return i.a.createElement(f,{value:e.id,key:e.id},e.phan_loai," - ",e.ma_hang," (",h.e.format(e.don_gia),")")})))})))),i.a.createElement(c.a.Item,{name:"don_gia",label:"Đơn giá",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(g.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}})),i.a.createElement(c.a.Item,{name:"so_luong",label:"Số lượng",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(g.a,{style:{width:"100%"},min:1,step:1,parser:function(e){return e.replace(/\₫\s?|\.(,*)/g,"")}})),i.a.createElement(c.a.Item,{name:"ghi_chu",label:"Ghi chú"},i.a.createElement(m.a,null)))}));function v(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],a=!0,r=!1,o=void 0;try{for(var i,l=e[Symbol.iterator]();!(a=(i=l.next()).done)&&(n.push(i.value),!t||n.length!==t);a=!0);}catch(e){r=!0,o=e}finally{try{a||null==l.return||l.return()}finally{if(r)throw o}}return n}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return Y(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return Y(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function Y(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,a=new Array(t);n<t;n++)a[n]=e[n];return a}var b=i.a.memo((function(e){var t=v(Object(o.useState)([]),2),n=t[0],a=t[1],u=v(Object(o.useState)(void 0),2),c=u[0],g=u[1];Object(o.useEffect)((function(){axios.get("/api/hang-hoa").then((function(e){e.data.success&&a(e.data.data)})).catch((function(e){return console.log(e)}))}),[]);var m=[{title:"Ngày tháng",dataIndex:"ngay_thang",width:120,sorter:function(e,t){return r()(e.ngay_thang,"DD/MM/YYYY").unix()-r()(t.ngay_thang,"DD/MM/YYYY").unix()}},{title:"Mã hàng",dataIndex:"ma_hang",optFind:!0,width:140},{title:"Nhà cung cấp",dataIndex:"nha_cung_cap",width:140,optFilter:!0},{title:"Giá mua",dataIndex:"don_gia",render:function(e){return h.e.format(e)},sorter:function(e,t){return e.don_gia-t.don_gia},width:120},{title:"Số lượng",dataIndex:"so_luong",width:120},{title:"Thành tiền",dataIndex:"thanh_tien",render:function(e){return h.e.format(e)},sorter:function(e,t){return e.thanh_tien-t.thanh_tien},width:120},{title:"Thanh toán",dataIndex:"ngay_thanh_toan",width:120},{title:"Ghi chú",dataIndex:"ghi_chu",ellipsis:!0,width:170}];return i.a.createElement(l.a,{url:"mua-vao",filterBox:!0,columns:m,tableSize:{x:1e3},formTemplate:i.a.createElement(y,{hangHoa:n,onChangeValue:function(e){g({don_gia:e})}}),formInitialValues:{so_luong:1,ngay_thang:r()().format("DD/MM/YYYY")},expandedRowRender:function(e){return i.a.createElement("ul",{style:{margin:0}},i.a.createElement("li",null,"Mã hàng: ",e.ma_hang,". Tên hàng: ",e.ten_hang,". Phân loại: ",e.phan_loai,". Nhà cung cấp: ",e.nha_cung_cap),i.a.createElement("li",null,"Đã thanh toán: ",h.e.format(e.da_thanh_toan),". Ngày thanh toán: ",e.ngay_thanh_toan),i.a.createElement("li",null,"Ghi chú: ",e.ghi_chu),i.a.createElement("li",null,"Người tạo: ",e.username))},setFormValues:c,renderFooter:function(e){if(!_.isEmpty(e)){var t=e.reduce((function(e,t){return{thanh_tien:e.thanh_tien+t.thanh_tien}}));return"Tổng tiền: "+h.e.format(t.thanh_tien)}}})}));t.default=b}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
+
+/***/ "./resources/js/pages/ThongTin/NhaCungCap/FormItem.js":
+/*!************************************************************!*\
+  !*** ./resources/js/pages/ThongTin/NhaCungCap/FormItem.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+
+
+var form = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  var phanLoai = props.phanLoai || [];
+  var options = phanLoai.map(function (pl) {
+    return {
+      value: pl
+    };
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+    gutter: [5, 5]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ky_hieu",
+    label: "K\xFD hi\u1EC7u",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "mo_ta",
+    label: "T\xEAn NCC",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phan_loai",
+    label: "Ph\xE2n lo\u1EA1i",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["AutoComplete"], {
+    options: options,
+    filterOption: function filterOption(inputValue, option) {
+      return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "sdt",
+    label: "S\u0110T"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "email",
+    label: "Email"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    type: "email"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "dia_chi",
+    label: "\u0110\u1ECBa ch\u1EC9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "mst",
+    label: "M\xE3 s\u1ED1 thu\u1EBF"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "so_du_ky_truoc",
+    label: "S\u1ED1 d\u01B0 \u0111\u1EA7u"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_vn",
+    label: "Ph\xED VN"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_vj",
+    label: "Ph\xED VJ"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_jets",
+    label: "Ph\xED Jets"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_bb",
+    label: "Ph\xED BB"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ghi_chu",
+    label: "Ghi ch\xFA"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)))));
+});
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./resources/js/pages/ThongTin/NhaCungCap/index.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/pages/ThongTin/NhaCungCap/index.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/NhaCungCap/FormItem.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      phanLoai = _useState2[0],
+      setPhanLoai = _useState2[1];
+  /**
+   * Callback from ListForm to get PhanLoai from data
+   */
+
+
+  var onChangeData = function onChangeData(data) {
+    var phanLoai = _toConsumableArray(new Set(data.map(function (x) {
+      return x.phan_loai;
+    })));
+
+    setPhanLoai(phanLoai);
+  };
+  /**
+   * Redirect to Hang Hoa with addition params
+   */
+
+
+  var onClickRow = function onClickRow(record) {
+    var pathname = "/hang-hoa";
+    props.history.push({
+      pathname: pathname,
+      ncc: record
+    });
+  };
+
+  var expandedRowRender = function expandedRowRender(record) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
+      style: {
+        margin: 0
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED thu VN: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_vn)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED thu VJ: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_vj)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED thu Jets: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_jets)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED thu BB: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_bb)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\xE0y t\u1EA1o: ", record.ngay_tao), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu));
+  };
+
+  var columns = [{
+    title: "Ký hiệu",
+    dataIndex: "ky_hieu",
+    optFind: true,
+    width: 140
+  }, {
+    title: "Nhà cung cấp",
+    dataIndex: "mo_ta",
+    optFind: true,
+    width: 170
+  }, {
+    title: "Phân loại",
+    dataIndex: "phan_loai",
+    width: 120,
+    optFilter: true
+  }, {
+    title: "SĐT",
+    dataIndex: "sdt",
+    width: 120
+  }, {
+    title: "Email",
+    dataIndex: "email",
+    width: 150
+  }, {
+    title: "Địa chỉ",
+    dataIndex: "dia_chi",
+    ellipsis: true,
+    width: 170
+  }, {
+    title: "MST",
+    dataIndex: "mst",
+    width: 120
+  }, {
+    title: "Số dư ban đầu",
+    dataIndex: "so_du_ky_truoc",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
+    },
+    width: 120
+  }, // {
+  //     title: "Phí VN",
+  //     dataIndex: "phi_vn",
+  //     render: number =>
+  //         new Intl.NumberFormat("vi-VN", {
+  //             style: "currency",
+  //             currency: "VND"
+  //         }).format(number),
+  //     width: 120
+  // },
+  // {
+  //     title: "Phí VJ",
+  //     dataIndex: "phi_vj",
+  //     render: number =>
+  //         new Intl.NumberFormat("vi-VN", {
+  //             style: "currency",
+  //             currency: "VND"
+  //         }).format(number),
+  //     width: 120
+  // },
+  // {
+  //     title: "Phí Jets",
+  //     dataIndex: "phi_jets",
+  //     render: number =>
+  //         new Intl.NumberFormat("vi-VN", {
+  //             style: "currency",
+  //             currency: "VND"
+  //         }).format(number),
+  //     width: 120
+  // },
+  // {
+  //     title: "Phí BB",
+  //     dataIndex: "phi_bb",
+  //     render: number =>
+  //         new Intl.NumberFormat("vi-VN", {
+  //             style: "currency",
+  //             currency: "VND"
+  //         }).format(number),
+  //     width: 120
+  // },
+  // {
+  //     title: "Ngày tạo",
+  //     dataIndex: "ngay_tao",
+  //     width: 120
+  // },
+  {
+    title: "Ghi chú",
+    dataIndex: "ghi_chu",
+    ellipsis: true,
+    width: 170
+  }];
+  var hangHoaAction = [{
+    key: "dsHangHoa",
+    onClick: onClickRow,
+    title: "Danh sách hàng hóa",
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["AppstoreAddOutlined"], null),
+    color: "#52c41a" // Success color
+
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    url: "nha-cung-cap",
+    columns: columns,
+    tableSize: {
+      x: 1200
+    },
+    modalWidth: "1100px",
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      phanLoai: phanLoai
+    }),
+    formInitialValues: {
+      so_du_ky_truoc: 0,
+      phi_vn: 0,
+      phi_vj: 0,
+      phi_jets: 0,
+      phi_bb: 0
+    },
+    otherActions: hangHoaAction,
+    onChangeData: onChangeData,
+    expandedRowRender: expandedRowRender
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(List));
+
+/***/ })
+
+}]);

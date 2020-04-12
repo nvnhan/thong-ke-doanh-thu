@@ -1,1 +1,517 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{379:function(e,t,n){"use strict";n.d(t,"d",(function(){return s})),n.d(t,"c",(function(){return u})),n.d(t,"b",(function(){return f})),n.d(t,"a",(function(){return m})),n.d(t,"e",(function(){return d}));var r=n(378),a=n.n(r),o=n(0);function i(e){return(i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function c(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return l(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return l(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function l(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var s=function(e){var t=c(Object(o.useState)(e),2),n=t[0],r=t[1];return[n,function(e){return r((function(t){return Object.assign({},t,e)}))}]},u=function(e){var t=[];for(var n in e)e.hasOwnProperty(n)&&(void 0===e[n]&&(e[n]=""),t.push(encodeURIComponent(n)+"="+encodeURIComponent(e[n])));return t.join("&")},f=function(e){for(var t=0,n=Object.entries(e);t<n.length;t++){var r=c(n[t],2),o=r[0],l=r[1];null!=l&&("object"===i(l)?e[o]=l.format("YYYY-MM-DD HH:mm:ss"):"string"==typeof l&&(l.match(/(.*?):(.*?)\/(.*?)\//g)?e[o]=a()(l,"HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss"):l.match(/(.*?)\/(.*?)\//g)&&(e[o]=a()(l,"DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss"))))}return e},m=function(e,t){if(void 0===e||void 0===t)return!0;var n=!1;for(var r in e)if(e.hasOwnProperty(r)&&t.hasOwnProperty(r)&&e[r]!==t[r]){n=!0;break}return n},d=new Intl.NumberFormat("vi-VN",{style:"currency",currency:"VND"})},381:function(e,t,n){"use strict";var r=n(602),a=n(580),o=n(377),i=n(2),c=n.n(i),l=n(0),s=n.n(l),u=n(379),f=n(597),m=n(598),d=n(599),y=n(600),b=n(518),p=n(97),j=n(119),h=n(376),g=n(579),v=n(533),O=n.n(v);function w(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function k(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function S(e){return function(e){if(Array.isArray(e))return C(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||x(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function E(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||x(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function x(e,t){if(e){if("string"==typeof e)return C(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return"Object"===n&&e.constructor&&(n=e.constructor.name),"Map"===n||"Set"===n?Array.from(n):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?C(e,t):void 0}}function C(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var A=s.a.memo((function(e){var t,n=e.selectedRowKeys,r=e.data,a=e.isLoading,o=e.columns,i=e.selectable,c=e.editable,u=e.deleteable,v=e.primaryKey,x=e.tableSize,C=e.onDelete,A=e.handleEdit,D=e.onChangeSelect,P=e.otherActions,R=e.expandedRowRender,I=e.renderFooter,T=E(Object(l.useState)([]),2),F=T[0],z=T[1],Y="",K="";Object(l.useEffect)((function(){z(V())}),[a]);var V=function(){var e=o.map((function(e){return M(e,r)}));return(c||u||!_.isEmpty(P))&&e.push(N()),e},M=function(e,t){if(e.optFilter){var n=S(new Set(t.map((function(t){return t[e.dataIndex]})))).map((function(e){return{text:e,value:e}}));Object.assign(e,{filters:n,onFilter:function(t,n){return 0===n[e.dataIndex].indexOf(t)}})}else e.optFind&&Object.assign(e,function(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?w(Object(n),!0).forEach((function(t){k(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):w(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}({},H(e.dataIndex)));return e},N=function(){return{title:"",key:"action",fixed:"right",align:"center",width:80,render:function(e,t){return s.a.createElement(b.a,{overlay:L(t)},s.a.createElement(p.a,null,s.a.createElement(f.a,null)))}}},L=function(e){return s.a.createElement(j.a,null,_.isEmpty(P)?"":P.map((function(t){return s.a.createElement(j.a.Item,{key:t.key,onClick:function(){return t.onClick(e)},style:{color:t.color}},t.icon," ",t.title)})),c?s.a.createElement(j.a.Item,{key:"edit",onClick:function(){return A(e)},style:{color:"#1890ff"}},s.a.createElement(m.a,null)," Chỉnh sửa"):"",u?s.a.createElement(j.a.Item,{key:"delete",onClick:function(){return C(e[v])},style:{color:"#ff4d4f"}},s.a.createElement(d.a,null)," Xóa"):"")},H=function(e){return{filterDropdown:function(n){var r=n.setSelectedKeys,a=n.selectedKeys,o=n.confirm,i=n.clearFilters;return s.a.createElement("div",{style:{padding:8}},s.a.createElement(h.a,{ref:function(e){t=e},placeholder:"Tìm kiếm...",value:a[0],onChange:function(e){return r(e.target.value?[e.target.value]:[])},onPressEnter:function(){return q(a,o,e)},style:{width:188,marginBottom:8,display:"block"}}),s.a.createElement(p.a,{type:"primary",onClick:function(){return q(a,o,e)},icon:s.a.createElement(y.a,null),size:"small",style:{width:90,marginRight:8}},"Tìm"),s.a.createElement(p.a,{onClick:function(){return B(i)},size:"small",style:{width:90}},"Hủy"))},filterIcon:function(e){return s.a.createElement(y.a,{style:{color:e?"#1890ff":void 0}})},onFilter:function(t,n){return n[e].toString().toLowerCase().includes(t.toLowerCase())},onFilterDropdownVisibleChange:function(e){e&&setTimeout((function(){return t.select()}))},render:function(t){return K===e?s.a.createElement(O.a,{highlightStyle:{backgroundColor:"#ffc069",padding:0},searchWords:[Y],autoEscape:!0,textToHighlight:t.toString()}):t}}},q=function(e,t,n){t(),K=n,Y=e[0]},B=function(e){e(),K="",Y=""},U={selectedRowKeys:n,onChange:D};return s.a.createElement(g.a,{dataSource:r,columns:F,loading:a,rowKey:function(t){return t[e.primaryKey]},rowSelection:i?U:null,locale:{filterConfirm:"Lọc",filterReset:"Hủy",emptyText:"Không có dữ liệu",cancelSort:"CLick để Bỏ sắp xếp",triggerAsc:"Click để Sắp xếp tăng dần",triggerDesc:"Click để Sắp xếp giảm dần"},scroll:x,expandable:R?{expandedRowRender:function(e){return R(e)}}:null,footer:I?function(){return I(r)}:void 0})})),D=n(601),P=n(578),R=n(375),I=n(64),T=n(23),F=n(378),z=n.n(F);n(546);function Y(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function K(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function V(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return M(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return M(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function M(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var N=P.a.RangePicker,L=s.a.memo((function(e){var t=e.onFilter,n=e.tuNgayDenNgay,r=e.otherFilter,a=e.filterInitialValue,o=V(R.a.useForm(),1)[0];Object(l.useEffect)((function(){o.setFieldsValue(function(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?Y(Object(n),!0).forEach((function(t){K(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):Y(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}({},a,{thoiGian:[z()().startOf("month"),z()().endOf("month")]}))}),[]);return s.a.createElement("div",{className:"filter-box"},s.a.createElement(R.a,{form:o,onFinish:function(){var e=o.getFieldsValue();e.hasOwnProperty("thoiGian")&&delete(e=Object.assign(e,{bat_dau:e.thoiGian[0],ket_thuc:e.thoiGian[1]})).thoiGian,t(Object(u.b)(e))}},s.a.createElement(I.a,{gutter:[5,5]},n?s.a.createElement(T.a,{span:24,md:16,lg:8},s.a.createElement(R.a.Item,{name:"thoiGian",label:"Thời gian"},s.a.createElement(N,{style:{width:"100%"},ranges:{"Hôm nay":[z()(),z()()],"Tuần này":[z()().startOf("week"),z()().endOf("week")],"Tháng này":[z()().startOf("month"),z()().endOf("month")]},format:"DD/MM/YYYY",placeholder:["Từ ngày","đến ngày"]}))):"",_.isEmpty(r)?"":r.map((function(e){return s.a.createElement(T.a,{span:12,md:8,lg:6,key:e.name},s.a.createElement(R.a.Item,{name:e.name,label:e.label},e.render))})),s.a.createElement(T.a,{span:12,md:8,lg:6},s.a.createElement(p.a,{htmlType:"submit"},s.a.createElement(D.a,null),"Lọc")))))})),H=s.a.memo((function(e){var t=e.form,n=e.formInitialValues,r=e.currentRecord,a=e.setFormValues,o=e.formTemplate;return Object(l.useLayoutEffect)((function(){void 0!==a?t.setFieldsValue(a):void 0!==r?t.setFieldsValue(r):t.resetFields()})),s.a.createElement(R.a,{form:t,initialValues:n,labelCol:{span:6},wrapperCol:{span:18}},o)}));function q(){return(q=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function B(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return U(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return U(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function U(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var G=s.a.memo((function(e){var t=B(R.a.useForm(),1)[0],n=function(){t.validateFields().then((function(t){return e.handleOk(Object(u.b)(t))})).catch((function(e){return console.log("Validate Failed: ",e)}))};return s.a.createElement(a.a,{width:e.modalWidth,visible:e.modalVisible,title:"Chi tiết",onOk:n,onCancel:e.handleCancel,footer:[s.a.createElement(p.a,{key:"back",onClick:e.handleCancel},"Hủy"),s.a.createElement(p.a,{key:"submit",type:"primary",loading:e.formSubmiting,onClick:n},"Đồng ý")]},s.a.createElement(H,q({},e,{form:t})))})),$=(n(566),s.a.memo((function(e){return s.a.createElement("div",{className:"tools-button"},e.insertable?s.a.createElement(p.a,{type:"primary",onClick:e.handleAddNew},"Thêm mới"):"",e.selectable&&e.deleteable?s.a.createElement(l.Fragment,null,e.selectedRowKeys.length>0?s.a.createElement(p.a,{type:"danger",onClick:e.onMultiDelete},"Xóa ",e.selectedRowKeys.length," mục đã chọn"):"",s.a.createElement(p.a,{type:"link",onClick:e.handleSelectAll},"Chọn tất cả"),s.a.createElement(p.a,{type:"link",danger:!0,onClick:e.handleClearSelected},"Bỏ chọn tất cả")):"")})));function J(){return(J=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function W(e){return function(e){if(Array.isArray(e))return te(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||ee(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function X(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function Q(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function Z(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||ee(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function ee(e,t){if(e){if("string"==typeof e)return te(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return"Object"===n&&e.constructor&&(n=e.constructor.name),"Map"===n||"Set"===n?Array.from(n):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?te(e,t):void 0}}function te(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var ne=a.a.confirm,re=function(e){var t=e.url,n=e.onChangeData,a=e.primaryKey,i=e.filter,c=e.filterBox,f=e.otherParams,m=Z(Object(u.d)({data:[],isLoading:!0,modalVisible:!1,formSubmiting:!1,selectedRowKeys:[],currentRecord:void 0}),2),d=m[0],y=m[1],b=d.data,p=d.isLoading,j=d.modalVisible,h=d.formSubmiting,g=d.selectedRowKeys,v=d.currentRecord,O=Z(Object(l.useState)(i),2),w=O[0],k=O[1],S=!1,E=void 0!==i?i:w;Object(l.useEffect)((function(){return S=!0,void 0!==E&&_.isEmpty(E)||(console.log("Load data from server in ListForm"),y({data:[],isLoading:!0}),axios.get("/api/"+t+"?"+Object(u.c)(E)).then((function(e){S&&e.data.success&&(y({data:e.data.data,isLoading:!1}),n&&n(e.data.data))})).catch((function(e){return console.log(e)}))),function(){S=!1}}),[JSON.stringify(E)]);var x=function(e){void 0!==f&&(e=Object.assign(e,f)),axios.post("/api/".concat(t),function(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?X(Object(n),!0).forEach((function(t){Q(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):X(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}({},e,{otherParams:f})).then((function(e){e.data.success&&(y({data:[].concat(W(b),[e.data.data])}),o.a.info(e.data.message),n&&n(b))})).catch((function(e){return console.log(e)}))},C=function(e){axios.put("/api/".concat(t,"/").concat(v[a]),e).then((function(e){if(e.data.success){var t=[];Object.assign(t,b.map((function(t){return t[a]===v[a]?e.data.data:t}))),y({data:t}),n&&n(b),o.a.info(e.data.message)}})).catch((function(e){return console.log(e)}))};return s.a.createElement(s.a.Fragment,null,c?s.a.createElement(L,J({},e,{onFilter:function(e){Object(u.a)(w,e)&&k(e)}})):"",s.a.createElement($,J({},e,{selectedRowKeys:g,handleAddNew:function(){y({currentRecord:void 0,modalVisible:!0})},onMultiDelete:function(){ne({title:"Bạn muốn xóa những mục này?",icon:s.a.createElement(r.a,null),content:"Tất cả "+g.length+" mục",okText:"Đồng ý",okType:"danger",cancelText:"Không",onOk:function(){axios.delete("/api/".concat(t,"/deletes"),{params:{objects:g.join("|")}}).then((function(e){e.data.success&&(y({data:b.filter((function(e){return-1===g.indexOf(e[a])})),selectedRowKeys:[]}),n&&n(b),o.a.info(e.data.message))})).catch((function(e){return console.log(e)}))}})},handleSelectAll:function(){y({selectedRowKeys:b.map((function(e){return e[a]}))})},handleClearSelected:function(){y({selectedRowKeys:[]})}})),s.a.createElement(A,J({},e,{data:b,isLoading:p,selectedRowKeys:g,onChangeSelect:function(e){return y({selectedRowKeys:e})},handleEdit:function(e){y({modalVisible:!0,currentRecord:e})},onDelete:function(e){ne({title:"Bạn muốn xóa mục này?",icon:s.a.createElement(r.a,null),content:"Thao tác không thể khôi phục",okText:"Đồng ý",okType:"danger",cancelText:"Không",onOk:function(){axios.delete("/api/".concat(t,"/").concat(e)).then((function(t){t.data.success&&(y({data:b.filter((function(t){return t[a]!==e}))}),o.a.info(t.data.message),n&&n(b))})).catch((function(e){return console.log(e)}))}})}})),void 0!==e.formTemplate?s.a.createElement(G,J({},e,{modalVisible:j,formSubmiting:h,currentRecord:v,handleOk:function(e){y({formSubmiting:!0}),void 0===v?x(e):Object(u.a)(v,e)&&C(e),y({formSubmiting:!1,modalVisible:!1})},handleCancel:function(){y({modalVisible:!1})}})):"")};re.propTypes={url:c.a.string.isRequired,columns:c.a.arrayOf(c.a.object).isRequired,formTemplate:c.a.node,onChangeData:c.a.func,selectable:c.a.bool,insertable:c.a.bool,editable:c.a.bool,deleteable:c.a.bool,primaryKey:c.a.string,tableSize:c.a.shape({x:c.a.number,y:c.a.number}),modalWidth:c.a.oneOfType([c.a.string,c.a.number]),formInitialValues:c.a.object,otherActions:c.a.arrayOf(c.a.shape({key:c.a.string.isRequired,onClick:c.a.func.isRequired,icon:c.a.node,title:c.a.string,color:c.a.string})),otherButtons:c.a.arrayOf(c.a.shape({key:c.a.string.isRequired,onClick:c.a.func.isRequired,icon:c.a.node,title:c.a.string,color:c.a.string})),expandedRowRender:c.a.func,filter:c.a.object,filterBox:c.a.bool,tuNgayDenNgay:c.a.bool,otherFilter:c.a.arrayOf(c.a.shape({name:c.a.string.isRequired,label:c.a.string.isRequired,render:c.a.node.isRequired})),filterInitialValue:c.a.object,otherParams:c.a.object,renderFooter:c.a.func,setFormValues:c.a.object},re.defaultProps={selectable:!0,insertable:!0,editable:!0,deleteable:!0,primaryKey:"id",tableSize:{x:500},filterBox:!1,tuNgayDenNgay:!0};t.a=re},532:function(e,t,n){var r={"./af":389,"./af.js":389,"./ar":390,"./ar-dz":391,"./ar-dz.js":391,"./ar-kw":392,"./ar-kw.js":392,"./ar-ly":393,"./ar-ly.js":393,"./ar-ma":394,"./ar-ma.js":394,"./ar-sa":395,"./ar-sa.js":395,"./ar-tn":396,"./ar-tn.js":396,"./ar.js":390,"./az":397,"./az.js":397,"./be":398,"./be.js":398,"./bg":399,"./bg.js":399,"./bm":400,"./bm.js":400,"./bn":401,"./bn.js":401,"./bo":402,"./bo.js":402,"./br":403,"./br.js":403,"./bs":404,"./bs.js":404,"./ca":405,"./ca.js":405,"./cs":406,"./cs.js":406,"./cv":407,"./cv.js":407,"./cy":408,"./cy.js":408,"./da":409,"./da.js":409,"./de":410,"./de-at":411,"./de-at.js":411,"./de-ch":412,"./de-ch.js":412,"./de.js":410,"./dv":413,"./dv.js":413,"./el":414,"./el.js":414,"./en-SG":415,"./en-SG.js":415,"./en-au":416,"./en-au.js":416,"./en-ca":417,"./en-ca.js":417,"./en-gb":418,"./en-gb.js":418,"./en-ie":419,"./en-ie.js":419,"./en-il":420,"./en-il.js":420,"./en-nz":421,"./en-nz.js":421,"./eo":422,"./eo.js":422,"./es":423,"./es-do":424,"./es-do.js":424,"./es-us":425,"./es-us.js":425,"./es.js":423,"./et":426,"./et.js":426,"./eu":427,"./eu.js":427,"./fa":428,"./fa.js":428,"./fi":429,"./fi.js":429,"./fo":430,"./fo.js":430,"./fr":431,"./fr-ca":432,"./fr-ca.js":432,"./fr-ch":433,"./fr-ch.js":433,"./fr.js":431,"./fy":434,"./fy.js":434,"./ga":435,"./ga.js":435,"./gd":436,"./gd.js":436,"./gl":437,"./gl.js":437,"./gom-latn":438,"./gom-latn.js":438,"./gu":439,"./gu.js":439,"./he":440,"./he.js":440,"./hi":441,"./hi.js":441,"./hr":442,"./hr.js":442,"./hu":443,"./hu.js":443,"./hy-am":444,"./hy-am.js":444,"./id":445,"./id.js":445,"./is":446,"./is.js":446,"./it":447,"./it-ch":448,"./it-ch.js":448,"./it.js":447,"./ja":449,"./ja.js":449,"./jv":450,"./jv.js":450,"./ka":451,"./ka.js":451,"./kk":452,"./kk.js":452,"./km":453,"./km.js":453,"./kn":454,"./kn.js":454,"./ko":455,"./ko.js":455,"./ku":456,"./ku.js":456,"./ky":457,"./ky.js":457,"./lb":458,"./lb.js":458,"./lo":459,"./lo.js":459,"./lt":460,"./lt.js":460,"./lv":461,"./lv.js":461,"./me":462,"./me.js":462,"./mi":463,"./mi.js":463,"./mk":464,"./mk.js":464,"./ml":465,"./ml.js":465,"./mn":466,"./mn.js":466,"./mr":467,"./mr.js":467,"./ms":468,"./ms-my":469,"./ms-my.js":469,"./ms.js":468,"./mt":470,"./mt.js":470,"./my":471,"./my.js":471,"./nb":472,"./nb.js":472,"./ne":473,"./ne.js":473,"./nl":474,"./nl-be":475,"./nl-be.js":475,"./nl.js":474,"./nn":476,"./nn.js":476,"./pa-in":477,"./pa-in.js":477,"./pl":478,"./pl.js":478,"./pt":479,"./pt-br":480,"./pt-br.js":480,"./pt.js":479,"./ro":481,"./ro.js":481,"./ru":482,"./ru.js":482,"./sd":483,"./sd.js":483,"./se":484,"./se.js":484,"./si":485,"./si.js":485,"./sk":486,"./sk.js":486,"./sl":487,"./sl.js":487,"./sq":488,"./sq.js":488,"./sr":489,"./sr-cyrl":490,"./sr-cyrl.js":490,"./sr.js":489,"./ss":491,"./ss.js":491,"./sv":492,"./sv.js":492,"./sw":493,"./sw.js":493,"./ta":494,"./ta.js":494,"./te":495,"./te.js":495,"./tet":496,"./tet.js":496,"./tg":497,"./tg.js":497,"./th":498,"./th.js":498,"./tl-ph":499,"./tl-ph.js":499,"./tlh":500,"./tlh.js":500,"./tr":501,"./tr.js":501,"./tzl":502,"./tzl.js":502,"./tzm":503,"./tzm-latn":504,"./tzm-latn.js":504,"./tzm.js":503,"./ug-cn":505,"./ug-cn.js":505,"./uk":506,"./uk.js":506,"./ur":507,"./ur.js":507,"./uz":508,"./uz-latn":509,"./uz-latn.js":509,"./uz.js":508,"./vi":510,"./vi.js":510,"./x-pseudo":511,"./x-pseudo.js":511,"./yo":512,"./yo.js":512,"./zh-cn":513,"./zh-cn.js":513,"./zh-hk":514,"./zh-hk.js":514,"./zh-tw":515,"./zh-tw.js":515};function a(e){var t=o(e);return n(t)}function o(e){if(!n.o(r,e)){var t=new Error("Cannot find module '"+e+"'");throw t.code="MODULE_NOT_FOUND",t}return r[e]}a.keys=function(){return Object.keys(r)},a.resolve=o,e.exports=a,a.id=532},546:function(e,t,n){var r=n(547);"string"==typeof r&&(r=[[e.i,r,""]]);var a={hmr:!0,transform:void 0,insertInto:void 0};n(187)(r,a);r.locals&&(e.exports=r.locals)},547:function(e,t,n){(e.exports=n(186)(!1)).push([e.i,".filter-box .ant-form-item {\n  margin: 0;\n}",""])},566:function(e,t,n){var r=n(567);"string"==typeof r&&(r=[[e.i,r,""]]);var a={hmr:!0,transform:void 0,insertInto:void 0};n(187)(r,a);r.locals&&(e.exports=r.locals)},567:function(e,t,n){(e.exports=n(186)(!1)).push([e.i,'@charset "UTF-8";\n/* Button trong form danh mục */\n.tools-button {\n  padding-left: 5px;\n}\n.tools-button button {\n  margin: 10px 5px;\n}',""])}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[2],{
+
+/***/ "./node_modules/antd/es/date-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/date-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rc-picker/es/locale/vi_VN */ "./node_modules/rc-picker/es/locale/vi_VN.js");
+/* harmony import */ var _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../time-picker/locale/vi_VN */ "./node_modules/antd/es/time-picker/locale/vi_VN.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+ // Merge into a locale object
+
+var locale = {
+  lang: _extends({
+    placeholder: 'Chọn thời điểm',
+    rangePlaceholder: ['Ngày bắt đầu', 'Ngày kết thúc']
+  }, rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"]),
+  timePickerLocale: _extends({}, _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"])
+}; // All settings at:
+// https://github.com/ant-design/ant-design/blob/master/components/date-picker/locale/example.json
+
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/antd/es/time-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/time-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  placeholder: 'Chọn thời gian'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/rc-picker/es/locale/vi_VN.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rc-picker/es/locale/vi_VN.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  locale: 'vi_VN',
+  today: 'Hôm nay',
+  now: 'Bây giờ',
+  backToToday: 'Trở về hôm nay',
+  ok: 'Ok',
+  clear: 'Xóa',
+  month: 'Tháng',
+  year: 'Năm',
+  timeSelect: 'Chọn thời gian',
+  dateSelect: 'Chọn ngày',
+  weekSelect: 'Chọn tuần',
+  monthSelect: 'Chọn tháng',
+  yearSelect: 'Chọn năm',
+  decadeSelect: 'Chọn thập kỷ',
+  yearFormat: 'YYYY',
+  dateFormat: 'D/M/YYYY',
+  dayFormat: 'D',
+  dateTimeFormat: 'D/M/YYYY HH:mm:ss',
+  monthBeforeYear: true,
+  previousMonth: 'Tháng trước (PageUp)',
+  nextMonth: 'Tháng sau (PageDown)',
+  previousYear: 'Năm trước (Control + left)',
+  nextYear: 'Năm sau (Control + right)',
+  previousDecade: 'Thập kỷ trước',
+  nextDecade: 'Thập kỷ sau',
+  previousCentury: 'Thế kỷ trước',
+  nextCentury: 'Thế kỷ sau'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./resources/js/components/ListForm/MyDatePicker.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/ListForm/MyDatePicker.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+
+
+var MyDatePicker = function MyDatePicker(props) {
+  if (props.value && typeof props.value == "string") {
+    var objMoment = moment__WEBPACK_IMPORTED_MODULE_2___default()(props.value, props.format);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], _extends({}, props, {
+      value: objMoment
+    }));
+  } else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], props);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MyDatePicker);
+
+/***/ }),
+
+/***/ "./resources/js/pages/BanHang/BanRa/FormItem.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/BanHang/BanRa/FormItem.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+
+
+
+
+
+var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option,
+    OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup;
+var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
+  var khachHang = props.khachHang || [];
+  /**
+   * [
+   *      ['xxx', [{}, {}, {}],
+   *      ['yyyyy', [{}, {}, {}, {}, {}]]
+   * ]
+   */
+
+  var groupKhachHang = Object.entries(_.groupBy(khachHang, "phan_loai"));
+
+  var getKhachHangDetail = function getKhachHangDetail() {
+    return groupKhachHang.map(function (clist) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(OptGroup, {
+        label: clist[0],
+        key: clist[0]
+      }, clist[1].map(function (ncc) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
+          value: ncc.id,
+          key: ncc.id
+        }, ncc.ma_khach_hang);
+      }));
+    });
+  };
+
+  var hangHoa = props.hangHoa || [];
+  var groupHangHoa = Object.entries(_.groupBy(hangHoa, "nha_cung_cap"));
+
+  var getHangHoaDetail = function getHangHoaDetail() {
+    return groupHangHoa.map(function (clist) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(OptGroup, {
+        label: clist[0],
+        key: clist[0]
+      }, clist[1].map(function (hh) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
+          value: hh.id,
+          key: hh.id
+        }, hh.phan_loai, " - ", hh.ma_hang, " (", _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(hh.don_gia), ")");
+      }));
+    });
+  };
+  /**
+   * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
+   */
+
+
+  var onChange = function onChange(idHH) {
+    var hh = hangHoa.filter(function (item) {
+      return item.id === idHH;
+    })[0];
+    if (hh) props.onChangeValue(hh.don_gia);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [5, 5]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ngay_thang",
+    label: "Ng\xE0y th\xE1ng",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    style: {
+      width: "100%"
+    },
+    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
+    format: "DD/MM/YYYY"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "id_hang_hoa",
+    label: "H\xE0ng h\xF3a",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
+    showSearch: true,
+    placeholder: "Ch\u1ECDn h\xE0ng h\xF3a",
+    filterOption: function filterOption(input, option) {
+      if (!option.children) return false;
+      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    },
+    onChange: onChange
+  }, getHangHoaDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "don_gia_mua",
+    label: "Gi\xE1 mua",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "so_luong",
+    label: "S\u1ED1 l\u01B0\u1EE3ng",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 1,
+    step: 1,
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|\.(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "don_gia_ban",
+    label: "Gi\xE1 b\xE1n",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "id_khach_hang",
+    label: "Kh\xE1ch h\xE0ng"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
+    showSearch: true,
+    placeholder: "Ch\u1ECDn kh\xE1ch h\xE0ng",
+    filterOption: function filterOption(input, option) {
+      if (!option.children) return false;
+      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    }
+  }, getKhachHangDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ngay_hoan_doi",
+    label: "Ho\xE0n \u0111\u1ED5i"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    style: {
+      width: "100%"
+    },
+    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
+    format: "DD/MM/YYYY",
+    placeholder: "(kh\xF4ng ho\xE0n \u0111\u1ED5i)"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ghi_chu",
+    label: "Ghi ch\xFA"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)))));
+});
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./resources/js/pages/BanHang/BanRa/index.js":
+/*!***************************************************!*\
+  !*** ./resources/js/pages/BanHang/BanRa/index.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/BanHang/BanRa/FormItem.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
+    hangHoa: [],
+    khachHang: []
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var hangHoa = state.hangHoa,
+      khachHang = state.khachHang;
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(undefined),
+      _useState4 = _slicedToArray(_useState3, 2),
+      formValue = _useState4[0],
+      setFormValue = _useState4[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    var promise1 = axios.get("/api/hang-hoa");
+    var promise2 = axios.get("/api/khach-hang");
+    Promise.all([promise1, promise2]).then(function (response) {
+      if (response[0].data.success && response[1].data.success) setState({
+        hangHoa: response[0].data.data,
+        khachHang: response[1].data.data
+      });
+    });
+  }, []);
+
+  var expandedRowRender = function expandedRowRender(record) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
+      style: {
+        margin: 0
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "M\xE3 h\xE0ng: ", record.ma_hang, ". T\xEAn h\xE0ng: ", record.ten_hang, ". Ph\xE2n lo\u1EA1i: ", record.phan_loai, ". Nh\xE0 cung c\u1EA5p: ", record.nha_cung_cap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1 mua: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.don_gia_mua), ". Th\xE0nh ti\u1EC1n mua: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.thanh_tien_mua)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1 b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.don_gia_ban), ". Th\xE0nh ti\u1EC1n b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.thanh_tien_ban)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n: ", record.ngay_thanh_toan), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
+  };
+
+  var columns = [{
+    title: "Ngày tháng",
+    dataIndex: "ngay_thang",
+    width: 120,
+    sorter: function sorter(a, b) {
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_thang, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_thang, "DD/MM/YYYY").unix();
+    }
+  }, {
+    title: "Mã hàng",
+    dataIndex: "ma_hang",
+    optFind: true,
+    width: 140
+  }, {
+    title: "Tên hàng",
+    dataIndex: "ten_hang",
+    optFind: true,
+    width: 170
+  }, {
+    title: "Số lượng",
+    dataIndex: "so_luong",
+    width: 120
+  }, {
+    title: "TT bán",
+    dataIndex: "thanh_tien_ban",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_ban - b.thanh_tien_ban;
+    },
+    width: 120
+  }, {
+    title: "Lãi",
+    dataIndex: "lai",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.lai - b.lai;
+    },
+    width: 120
+  }, {
+    title: "Khách hàng",
+    dataIndex: "ma_khach_hang",
+    optFilter: true,
+    width: 120
+  }, {
+    title: "Thanh toán",
+    dataIndex: "ngay_thanh_toan",
+    width: 120
+  }, {
+    title: "Hoàn đổi",
+    dataIndex: "ngay_hoan_doi",
+    width: 120
+  }, {
+    title: "Ghi chú",
+    dataIndex: "ghi_chu",
+    ellipsis: true,
+    width: 170
+  }];
+
+  var renderFooter = function renderFooter(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          thanh_tien_mua: previousValue.thanh_tien_mua + currentValue.thanh_tien_mua,
+          thanh_tien_ban: previousValue.thanh_tien_ban + currentValue.thanh_tien_ban
+        };
+      });
+      return "Tổng tiền mua: " + _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.thanh_tien_mua) + ". Tổng tiền bán: " + _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.thanh_tien_ban) + ". Tổng lãi: " + _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.thanh_tien_ban - sumObj.thanh_tien_mua);
+    }
+  };
+  /**
+   * Callback from FOrmItem, trigger when select Hang Hoa
+   * => Change setFormValues to ListForm => FormEdit
+   */
+
+
+  var handleFormValue = function handleFormValue(don_gia) {
+    setFormValue({
+      don_gia_mua: don_gia,
+      don_gia_ban: don_gia
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    url: "ban-ra",
+    filterBox: true,
+    columns: columns,
+    tableSize: {
+      x: 1200
+    },
+    modalWidth: "800px",
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      hangHoa: hangHoa,
+      khachHang: khachHang,
+      onChangeValue: handleFormValue
+    }),
+    formInitialValues: {
+      so_luong: 1,
+      don_gia_mua: 0,
+      don_gia_ban: 0,
+      ngay_thang: moment__WEBPACK_IMPORTED_MODULE_0___default()().format("DD/MM/YYYY")
+    },
+    expandedRowRender: expandedRowRender,
+    setFormValues: formValue,
+    renderFooter: renderFooter
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ })
+
+}]);

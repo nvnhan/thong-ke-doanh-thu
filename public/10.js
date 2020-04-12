@@ -1,1 +1,239 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{380:function(e,a,n){"use strict";var t=n(0),r=n.n(t),i=n(578),o=n(378),h=n.n(o);function l(){return(l=Object.assign||function(e){for(var a=1;a<arguments.length;a++){var n=arguments[a];for(var t in n)Object.prototype.hasOwnProperty.call(n,t)&&(e[t]=n[t])}return e}).apply(this,arguments)}a.a=function(e){if(e.value&&"string"==typeof e.value){var a=h()(e.value,e.format);return r.a.createElement(i.a,l({},e,{value:a}))}return r.a.createElement(i.a,e)}},382:function(e,a,n){"use strict";var t={placeholder:"Chọn thời gian"};function r(){return(r=Object.assign||function(e){for(var a=1;a<arguments.length;a++){var n=arguments[a];for(var t in n)Object.prototype.hasOwnProperty.call(n,t)&&(e[t]=n[t])}return e}).apply(this,arguments)}var i={lang:r({placeholder:"Chọn thời điểm",rangePlaceholder:["Ngày bắt đầu","Ngày kết thúc"]},{locale:"vi_VN",today:"Hôm nay",now:"Bây giờ",backToToday:"Trở về hôm nay",ok:"Ok",clear:"Xóa",month:"Tháng",year:"Năm",timeSelect:"Chọn thời gian",dateSelect:"Chọn ngày",weekSelect:"Chọn tuần",monthSelect:"Chọn tháng",yearSelect:"Chọn năm",decadeSelect:"Chọn thập kỷ",yearFormat:"YYYY",dateFormat:"D/M/YYYY",dayFormat:"D",dateTimeFormat:"D/M/YYYY HH:mm:ss",monthBeforeYear:!0,previousMonth:"Tháng trước (PageUp)",nextMonth:"Tháng sau (PageDown)",previousYear:"Năm trước (Control + left)",nextYear:"Năm sau (Control + right)",previousDecade:"Thập kỷ trước",nextDecade:"Thập kỷ sau",previousCentury:"Thế kỷ trước",nextCentury:"Thế kỷ sau"}),timePickerLocale:r({},t)};a.a=i},591:function(e,a,n){"use strict";n.r(a);var t=n(378),r=n.n(t),i=n(0),o=n.n(i),h=n(381),l=n(379),c=n(383),u=n(64),m=n(23),g=n(375),s=n(581),d=n(376),f=n(382),p=n(380),y=c.a.Option,b=c.a.OptGroup,E=o.a.memo((function(e){var a=e.khachHang||[],n=Object.entries(_.groupBy(a,"phan_loai")),t=e.hangHoa||[],r=Object.entries(_.groupBy(t,"nha_cung_cap"));return o.a.createElement(o.a.Fragment,null,o.a.createElement(u.a,{gutter:[5,5]},o.a.createElement(m.a,{span:24,sm:12},o.a.createElement(g.a.Item,{name:"ngay_thang",label:"Ngày tháng",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},o.a.createElement(p.a,{style:{width:"100%"},locale:f.a,format:"DD/MM/YYYY"}))),o.a.createElement(m.a,{span:24,sm:12},o.a.createElement(g.a.Item,{name:"id_hang_hoa",label:"Hàng hóa",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},o.a.createElement(c.a,{showSearch:!0,placeholder:"Chọn hàng hóa",filterOption:function(e,a){return!!a.children&&a.children.toLowerCase().indexOf(e.toLowerCase())>=0},onChange:function(a){var n=t.filter((function(e){return e.id===a}))[0];n&&e.onChangeValue(n.don_gia)}},r.map((function(e){return o.a.createElement(b,{label:e[0],key:e[0]},e[1].map((function(e){return o.a.createElement(y,{value:e.id,key:e.id},e.phan_loai," - ",e.ma_hang," (",l.e.format(e.don_gia),")")})))}))))),o.a.createElement(m.a,{span:24,sm:12},o.a.createElement(g.a.Item,{name:"don_gia_mua",label:"Giá mua",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},o.a.createElement(s.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),o.a.createElement(m.a,{span:24,sm:12},o.a.createElement(g.a.Item,{name:"so_luong",label:"Số lượng",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},o.a.createElement(s.a,{style:{width:"100%"},min:1,step:1,parser:function(e){return e.replace(/\₫\s?|\.(,*)/g,"")}}))),o.a.createElement(m.a,{span:24,sm:12},o.a.createElement(g.a.Item,{name:"don_gia_ban",label:"Giá bán",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},o.a.createElement(s.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),o.a.createElement(m.a,{span:24,sm:12},o.a.createElement(g.a.Item,{name:"id_khach_hang",label:"Khách hàng"},o.a.createElement(c.a,{showSearch:!0,placeholder:"Chọn khách hàng",filterOption:function(e,a){return!!a.children&&a.children.toLowerCase().indexOf(e.toLowerCase())>=0}},n.map((function(e){return o.a.createElement(b,{label:e[0],key:e[0]},e[1].map((function(e){return o.a.createElement(y,{value:e.id,key:e.id},e.ma_khach_hang)})))}))))),o.a.createElement(m.a,{span:24,sm:12},o.a.createElement(g.a.Item,{name:"ngay_hoan_doi",label:"Hoàn đổi"},o.a.createElement(p.a,{style:{width:"100%"},locale:f.a,format:"DD/MM/YYYY",placeholder:"(không hoàn đổi)"}))),o.a.createElement(m.a,{span:24,sm:12},o.a.createElement(g.a.Item,{name:"ghi_chu",label:"Ghi chú"},o.a.createElement(d.a,null)))))}));function v(e,a){return function(e){if(Array.isArray(e))return e}(e)||function(e,a){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],t=!0,r=!1,i=void 0;try{for(var o,h=e[Symbol.iterator]();!(t=(o=h.next()).done)&&(n.push(o.value),!a||n.length!==a);t=!0);}catch(e){r=!0,i=e}finally{try{t||null==h.return||h.return()}finally{if(r)throw i}}return n}(e,a)||function(e,a){if(!e)return;if("string"==typeof e)return w(e,a);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return w(e,a)}(e,a)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function w(e,a){(null==a||a>e.length)&&(a=e.length);for(var n=0,t=new Array(a);n<a;n++)t[n]=e[n];return t}var Y=o.a.memo((function(e){var a=v(Object(i.useState)({hangHoa:[],khachHang:[]}),2),n=a[0],t=a[1],c=n.hangHoa,u=n.khachHang,m=v(Object(i.useState)(void 0),2),g=m[0],s=m[1];Object(i.useEffect)((function(){var e=axios.get("/api/hang-hoa"),a=axios.get("/api/khach-hang");Promise.all([e,a]).then((function(e){e[0].data.success&&e[1].data.success&&t({hangHoa:e[0].data.data,khachHang:e[1].data.data})}))}),[]);var d=[{title:"Ngày tháng",dataIndex:"ngay_thang",width:120,sorter:function(e,a){return r()(e.ngay_thang,"DD/MM/YYYY").unix()-r()(a.ngay_thang,"DD/MM/YYYY").unix()}},{title:"Mã hàng",dataIndex:"ma_hang",optFind:!0,width:140},{title:"Tên hàng",dataIndex:"ten_hang",optFind:!0,width:170},{title:"Số lượng",dataIndex:"so_luong",width:120},{title:"TT bán",dataIndex:"thanh_tien_ban",render:function(e){return l.e.format(e)},sorter:function(e,a){return e.thanh_tien_ban-a.thanh_tien_ban},width:120},{title:"Lãi",dataIndex:"lai",render:function(e){return l.e.format(e)},sorter:function(e,a){return e.lai-a.lai},width:120},{title:"Khách hàng",dataIndex:"ma_khach_hang",optFilter:!0,width:120},{title:"Thanh toán",dataIndex:"ngay_thanh_toan",width:120},{title:"Hoàn đổi",dataIndex:"ngay_hoan_doi",width:120},{title:"Ghi chú",dataIndex:"ghi_chu",ellipsis:!0,width:170}];return o.a.createElement(h.a,{url:"ban-ra",filterBox:!0,columns:d,tableSize:{x:1200},modalWidth:"800px",formTemplate:o.a.createElement(E,{hangHoa:c,khachHang:u,onChangeValue:function(e){s({don_gia_mua:e,don_gia_ban:e})}}),formInitialValues:{so_luong:1,don_gia_mua:0,don_gia_ban:0,ngay_thang:r()().format("DD/MM/YYYY")},expandedRowRender:function(e){return o.a.createElement("ul",{style:{margin:0}},o.a.createElement("li",null,"Mã hàng: ",e.ma_hang,". Tên hàng: ",e.ten_hang,". Phân loại: ",e.phan_loai,". Nhà cung cấp: ",e.nha_cung_cap),o.a.createElement("li",null,"Đơn giá mua: ",l.e.format(e.don_gia_mua),". Thành tiền mua: ",l.e.format(e.thanh_tien_mua)),o.a.createElement("li",null,"Đơn giá bán: ",l.e.format(e.don_gia_ban),". Thành tiền bán: ",l.e.format(e.thanh_tien_ban)),o.a.createElement("li",null,"Đã thanh toán: ",l.e.format(e.da_thanh_toan),". Ngày thanh toán: ",e.ngay_thanh_toan),o.a.createElement("li",null,"Ghi chú: ",e.ghi_chu),o.a.createElement("li",null,"Người tạo: ",e.username))},setFormValues:g,renderFooter:function(e){if(!_.isEmpty(e)){var a=e.reduce((function(e,a){return{thanh_tien_mua:e.thanh_tien_mua+a.thanh_tien_mua,thanh_tien_ban:e.thanh_tien_ban+a.thanh_tien_ban}}));return"Tổng tiền mua: "+l.e.format(a.thanh_tien_mua)+". Tổng tiền bán: "+l.e.format(a.thanh_tien_ban)+". Tổng lãi: "+l.e.format(a.thanh_tien_ban-a.thanh_tien_mua)}}})}));a.default=Y}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
+
+/***/ "./node_modules/antd/es/date-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/date-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rc-picker/es/locale/vi_VN */ "./node_modules/rc-picker/es/locale/vi_VN.js");
+/* harmony import */ var _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../time-picker/locale/vi_VN */ "./node_modules/antd/es/time-picker/locale/vi_VN.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+ // Merge into a locale object
+
+var locale = {
+  lang: _extends({
+    placeholder: 'Chọn thời điểm',
+    rangePlaceholder: ['Ngày bắt đầu', 'Ngày kết thúc']
+  }, rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"]),
+  timePickerLocale: _extends({}, _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"])
+}; // All settings at:
+// https://github.com/ant-design/ant-design/blob/master/components/date-picker/locale/example.json
+
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/antd/es/time-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/time-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  placeholder: 'Chọn thời gian'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/rc-picker/es/locale/vi_VN.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rc-picker/es/locale/vi_VN.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  locale: 'vi_VN',
+  today: 'Hôm nay',
+  now: 'Bây giờ',
+  backToToday: 'Trở về hôm nay',
+  ok: 'Ok',
+  clear: 'Xóa',
+  month: 'Tháng',
+  year: 'Năm',
+  timeSelect: 'Chọn thời gian',
+  dateSelect: 'Chọn ngày',
+  weekSelect: 'Chọn tuần',
+  monthSelect: 'Chọn tháng',
+  yearSelect: 'Chọn năm',
+  decadeSelect: 'Chọn thập kỷ',
+  yearFormat: 'YYYY',
+  dateFormat: 'D/M/YYYY',
+  dayFormat: 'D',
+  dateTimeFormat: 'D/M/YYYY HH:mm:ss',
+  monthBeforeYear: true,
+  previousMonth: 'Tháng trước (PageUp)',
+  nextMonth: 'Tháng sau (PageDown)',
+  previousYear: 'Năm trước (Control + left)',
+  nextYear: 'Năm sau (Control + right)',
+  previousDecade: 'Thập kỷ trước',
+  nextDecade: 'Thập kỷ sau',
+  previousCentury: 'Thế kỷ trước',
+  nextCentury: 'Thế kỷ sau'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./resources/js/components/ListForm/MyDatePicker.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/ListForm/MyDatePicker.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+
+
+var MyDatePicker = function MyDatePicker(props) {
+  if (props.value && typeof props.value == "string") {
+    var objMoment = moment__WEBPACK_IMPORTED_MODULE_2___default()(props.value, props.format);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], _extends({}, props, {
+      value: objMoment
+    }));
+  } else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], props);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MyDatePicker);
+
+/***/ }),
+
+/***/ "./resources/js/pages/BanHang/TonKho/index.js":
+/*!****************************************************!*\
+  !*** ./resources/js/pages/BanHang/TonKho/index.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+
+
+
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
+  var columns = [{
+    title: "Mã hàng",
+    dataIndex: "ma_hang",
+    optFind: true,
+    width: 120
+  }, {
+    title: "Tên hàng",
+    dataIndex: "ten_hang",
+    optFind: true,
+    width: 140
+  }, {
+    title: "Phân loại",
+    dataIndex: "phan_loai",
+    optFilter: true,
+    width: 140
+  }, {
+    title: "Nhà cung cấp",
+    dataIndex: "nha_cung_cap",
+    width: 140,
+    optFilter: true
+  }, {
+    title: "Đơn giá hiện tại",
+    dataIndex: "don_gia",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
+    },
+    // sorter: (a, b) => a.don_gia - b.don_gia,
+    width: 120
+  }, {
+    title: "Số lượng",
+    dataIndex: "so_luong_ton_kho",
+    width: 120
+  }, {
+    title: "Thành tiền",
+    dataIndex: "thanh_tien_ton_kho",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_ton_kho - b.thanh_tien_ton_kho;
+    },
+    width: 120
+  }];
+
+  var renderFooter = function renderFooter(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          thanh_tien_ton_kho: previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
+        };
+      });
+      return "Tổng tiền tồn kho: " + _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.thanh_tien_ton_kho);
+    }
+  };
+
+  var getOtherFilter = function getOtherFilter() {
+    return [{
+      name: "den_ngay",
+      label: "Tính đến ngày",
+      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        style: {
+          width: "100%"
+        },
+        locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
+        format: "DD/MM/YYYY"
+      })
+    }];
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    url: "ton-kho",
+    filterBox: true,
+    tuNgayDenNgay: false,
+    otherFilter: getOtherFilter(),
+    filterInitialValue: {
+      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("DD/MM/YYYY")
+    },
+    columns: columns,
+    insertable: false,
+    selectable: false,
+    editable: false,
+    deleteable: false,
+    tableSize: {
+      x: 800
+    },
+    renderFooter: renderFooter
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ })
+
+}]);

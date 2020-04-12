@@ -50,14 +50,7 @@ class SideBar extends PureComponent {
         const selectedSubMenu = "SUB_" + menuActive.split("_")[0];
 
         return (
-            <Sider
-                style={{
-                    minHeight: "100vh"
-                }}
-                breakpoint="md"
-                collapsedWidth="0"
-                collapsible
-            >
+            <Sider breakpoint="lg" collapsedWidth="0" collapsible>
                 <div className="logo">
                     <img src="/img/logo.png" /> TKDT
                 </div>

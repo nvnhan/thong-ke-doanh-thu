@@ -1,1 +1,116 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[13],{380:function(t,e,n){"use strict";var a=n(0),r=n.n(a),o=n(578),i=n(378),h=n.n(i);function l(){return(l=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(t[a]=n[a])}return t}).apply(this,arguments)}e.a=function(t){if(t.value&&"string"==typeof t.value){var e=h()(t.value,t.format);return r.a.createElement(o.a,l({},t,{value:e}))}return r.a.createElement(o.a,t)}},382:function(t,e,n){"use strict";var a={placeholder:"Chọn thời gian"};function r(){return(r=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(t[a]=n[a])}return t}).apply(this,arguments)}var o={lang:r({placeholder:"Chọn thời điểm",rangePlaceholder:["Ngày bắt đầu","Ngày kết thúc"]},{locale:"vi_VN",today:"Hôm nay",now:"Bây giờ",backToToday:"Trở về hôm nay",ok:"Ok",clear:"Xóa",month:"Tháng",year:"Năm",timeSelect:"Chọn thời gian",dateSelect:"Chọn ngày",weekSelect:"Chọn tuần",monthSelect:"Chọn tháng",yearSelect:"Chọn năm",decadeSelect:"Chọn thập kỷ",yearFormat:"YYYY",dateFormat:"D/M/YYYY",dayFormat:"D",dateTimeFormat:"D/M/YYYY HH:mm:ss",monthBeforeYear:!0,previousMonth:"Tháng trước (PageUp)",nextMonth:"Tháng sau (PageDown)",previousYear:"Năm trước (Control + left)",nextYear:"Năm sau (Control + right)",previousDecade:"Thập kỷ trước",nextDecade:"Thập kỷ sau",previousCentury:"Thế kỷ trước",nextCentury:"Thế kỷ sau"}),timePickerLocale:r({},a)};e.a=o},574:function(t,e,n){"use strict";n.r(e);var a=n(382),r=n(378),o=n.n(r),i=n(0),h=n.n(i),l=n(381),c=n(380),u=n(379),d=h.a.memo((function(t){var e=[{title:"Mã hàng",dataIndex:"ma_hang",optFind:!0,width:120},{title:"Tên hàng",dataIndex:"ten_hang",optFind:!0,width:140},{title:"Phân loại",dataIndex:"phan_loai",optFilter:!0,width:140},{title:"Nhà cung cấp",dataIndex:"nha_cung_cap",width:140,optFilter:!0},{title:"Đơn giá hiện tại",dataIndex:"don_gia",render:function(t){return u.e.format(t)},width:120},{title:"Số lượng",dataIndex:"so_luong_ton_kho",width:120},{title:"Thành tiền",dataIndex:"thanh_tien_ton_kho",render:function(t){return u.e.format(t)},sorter:function(t,e){return t.thanh_tien_ton_kho-e.thanh_tien_ton_kho},width:120}];return h.a.createElement(l.a,{url:"ton-kho",filterBox:!0,tuNgayDenNgay:!1,otherFilter:[{name:"den_ngay",label:"Tính đến ngày",render:h.a.createElement(c.a,{style:{width:"100%"},locale:a.a,format:"DD/MM/YYYY"})}],filterInitialValue:{den_ngay:o()().format("DD/MM/YYYY")},columns:e,insertable:!1,selectable:!1,editable:!1,deleteable:!1,tableSize:{x:800},renderFooter:function(t){if(!_.isEmpty(t)){var e=t.reduce((function(t,e){return{thanh_tien_ton_kho:t.thanh_tien_ton_kho+e.thanh_tien_ton_kho}}));return"Tổng tiền tồn kho: "+u.e.format(e.thanh_tien_ton_kho)}}})}));e.default=d}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
+
+/***/ "./resources/js/pages/ThongTin/TaiKhoan/FormItem.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/pages/ThongTin/TaiKhoan/FormItem.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+
+
+
+function form() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ky_hieu",
+    label: "K\xFD hi\u1EC7u",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "mo_ta",
+    label: "T\xEAn t\xE0i kho\u1EA3n",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "so_du_ky_truoc",
+    label: "S\u1ED1 d\u01B0 ban \u0111\u1EA7u"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ghi_chu",
+    label: "Ghi ch\xFA"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./resources/js/pages/ThongTin/TaiKhoan/index.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/pages/ThongTin/TaiKhoan/index.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/TaiKhoan/FormItem.js");
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
+  var columns = [{
+    title: "Ký hiệu",
+    dataIndex: "ky_hieu",
+    optFind: true
+  }, {
+    title: "Tên tài khoản",
+    dataIndex: "mo_ta",
+    optFind: true
+  }, {
+    title: "Số dư ban đầu",
+    dataIndex: "so_du_ky_truoc",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
+    }
+  }, {
+    title: "Ngày tạo",
+    dataIndex: "ngay_tao"
+  }, {
+    title: "Ghi chú",
+    dataIndex: "ghi_chu",
+    ellipsis: true
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    url: "tai-khoan",
+    columns: columns,
+    tableSize: {
+      x: 600
+    },
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], null),
+    formInitialValues: {
+      so_du_ky_truoc: 0
+    }
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ })
+
+}]);

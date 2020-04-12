@@ -1,1 +1,160 @@
-//
+/* Mixin */
+/* Set các giá trị với màn hình tương ứng */
+// Max width
+$xs: 576px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+
+@mixin xs {
+    @media (max-width: #{$xs - 1px}) {
+        @content;
+    }
+}
+
+@mixin sm {
+    @media (max-width: #{$sm - 1px}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (max-width: #{$md - 1px}) {
+        @content;
+    }
+}
+
+.color-danger {
+    color: #ff4d4f;
+}
+
+.color-primary {
+    color: #1890ff;
+}
+
+.logo {
+    /* background: rgba(174, 174, 179, 0.342); */
+    margin: 0;
+    padding: 16px;
+    line-height: 32px;
+    text-align: center;
+    color: white;
+    // Nested property
+    font : {
+        size: 16px;
+        weight: bold;
+    }
+    .ant-layout-sider-light & {
+        background-color: #616161;
+    }
+    img {
+        height: 28px;
+        margin: 0 10px;
+    }
+}
+
+.content {
+    margin: 24px 16px 0;
+    padding: 16px 0;
+    background: #fff;
+    /* text-align: center; */
+}
+
+.ant-layout-sider {
+    min-height: 100vh;
+}
+
+.ant-layout-sider-light {
+    .ant-layout-sider-zero-width-trigger {
+        color: rgb(255, 255, 255) !important;
+        background: #616161 !important;
+    }
+}
+
+/* My Header & Drawer */
+.my-header {
+    background: white;
+    padding-bottom: 0;
+    padding-right: 16px;
+    min-width: 320px;
+
+    .btn-drawer {
+        display: none;
+    }
+    .nav-user {
+        .ant-menu-submenu-title {
+            padding-right: 0;
+        }
+    }
+    @include sm {
+        padding-bottom: 16px;
+        .menu-account {
+            display: none;
+        }
+        .btn-drawer {
+            display: block;
+            color: rgba(0, 0, 0, 0.85);
+        }
+        .ant-page-header-heading-extra {
+            padding-top: 0;
+            float: right;
+            clear: none;
+            width: auto;
+        }
+    }
+}
+
+.drawer-account {
+    .ant-drawer-body {
+        padding: 8px 0;
+        ul {
+            border: none;
+        }
+    }
+}
+
+/* Loading screen ban đâu */
+.loading-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    .loading-content {
+        max-width: 400px;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        padding: 20px;
+
+        img {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .loading-text {
+            text-align: center;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+    }
+}
+
+/* Profile & password change */
+.sm-container {
+    padding: 16px;
+    max-width: 700px;
+    margin: auto;
+}
+
+.filter-box {
+    padding: 5px 10px 10px;
+    border-bottom: 1px solid rgba(232, 232, 232, 0.72);
+
+    @include xs {
+        button {
+            margin-top: 40px;
+        }
+    }
+}

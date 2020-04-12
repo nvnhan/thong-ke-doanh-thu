@@ -95,7 +95,7 @@ const DataTable = React.memo(props => {
             </Dropdown>
         )
     });
-    
+
     const layAction = record => (
         <Menu>
             {!_.isEmpty(otherActions)
@@ -115,9 +115,7 @@ const DataTable = React.memo(props => {
                 <Menu.Item
                     key="edit"
                     onClick={() => handleEdit(record)}
-                    style={{
-                        color: "#1890ff"
-                    }}
+                    className="color-primary"
                 >
                     <EditOutlined /> Chỉnh sửa
                 </Menu.Item>
@@ -128,9 +126,7 @@ const DataTable = React.memo(props => {
                 <Menu.Item
                     key="delete"
                     onClick={() => onDelete(record[primaryKey])}
-                    style={{
-                        color: "#ff4d4f"
-                    }}
+                    className="color-danger"
                 >
                     <DeleteOutlined /> Xóa
                 </Menu.Item>

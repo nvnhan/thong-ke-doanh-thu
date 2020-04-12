@@ -1,1 +1,104 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{577:function(e,t,r){"use strict";r.r(t);var a=r(375),n=r(377),o=r(376),l=r(97),s=r(0),i=r.n(s);function u(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var r=[],a=!0,n=!1,o=void 0;try{for(var l,s=e[Symbol.iterator]();!(a=(l=s.next()).done)&&(r.push(l.value),!t||r.length!==t);a=!0);}catch(e){n=!0,o=e}finally{try{a||null==s.return||s.return()}finally{if(n)throw o}}return r}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return c(e,t);var r=Object.prototype.toString.call(e).slice(8,-1);"Object"===r&&e.constructor&&(r=e.constructor.name);if("Map"===r||"Set"===r)return Array.from(r);if("Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r))return c(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function c(e,t){(null==t||t>e.length)&&(t=e.length);for(var r=0,a=new Array(t);r<t;r++)a[r]=e[r];return a}var m=i.a.memo((function(e){var t=u(a.a.useForm(),1)[0];return i.a.createElement("div",{className:"sm-container"},i.a.createElement(a.a,{form:t,onFinish:function(){var e=t.getFieldValue();axios.put("/api/password",e).then((function(e){e.data.success?n.a.success(e.data.message):n.a.warn(e.data.message)})).catch((function(e){return console.log(e)}))},labelCol:{span:8},wrapperCol:{span:16}},i.a.createElement(a.a.Item,{name:"old_pass",label:"Mật khẩu hiện tại",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(o.a.Password,null)),i.a.createElement(a.a.Item,{name:"password",label:"Mật khẩu mới",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(o.a.Password,null)),i.a.createElement(a.a.Item,{name:"password_confirmation",label:"Nhập lại mật khẩu mới",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(o.a.Password,null)),i.a.createElement(a.a.Item,{wrapperCol:{span:16,offset:8}},i.a.createElement(l.a,{type:"primary",htmlType:"submit"},"Cập nhật"))))}));t.default=m}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
+
+/***/ "./resources/js/pages/VeMayBay/ThuePhi/FormItem.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ThuePhi/FormItem.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return form; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+
+
+var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
+function form() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "loai_phi",
+    label: "Lo\u1EA1i ph\xED",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    disabled: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "muc_phi",
+    label: "M\u1EE9c ph\xED",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 1000,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ghi_chu",
+    label: "Ghi ch\xFA"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)));
+}
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/ThuePhi/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ThuePhi/index.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/ThuePhi/FormItem.js");
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
+  var columns = [{
+    title: "Loại phí",
+    dataIndex: "loai_phi",
+    optFind: true
+  }, {
+    title: "Mức phí",
+    dataIndex: "muc_phi",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
+    }
+  }, {
+    title: "Ghi chú",
+    dataIndex: "ghi_chu",
+    ellipsis: true
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    url: "thue-phi",
+    columns: columns,
+    selectable: false,
+    insertable: false,
+    deleteable: false,
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], null)
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ })
+
+}]);

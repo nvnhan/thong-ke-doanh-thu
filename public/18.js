@@ -1,1 +1,102 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[18],{575:function(t,n,a){"use strict";a.r(n);var e=a(0),h=a.n(e),o=a(381),i=a(379),r=h.a.memo((function(t){var n=[{title:"Mã hàng",dataIndex:"ma_hang",optFind:!0,width:120},{title:"Tên hàng",dataIndex:"ten_hang",optFind:!0,width:140},{title:"Phân loại",dataIndex:"phan_loai",optFilter:!0,width:140},{title:"Nhà cung cấp",dataIndex:"nha_cung_cap",width:140,optFilter:!0},{title:"SL mua vào",dataIndex:"so_luong_mua_vao",width:120},{title:"TT mua vào",dataIndex:"thanh_tien_mua_vao",render:function(t){return i.e.format(t)},sorter:function(t,n){return t.thanh_tien_mua_vao-n.thanh_tien_mua_vao},width:120},{title:"SL bán ra",dataIndex:"so_luong_ban_ra",width:120},{title:"TT bán ra",dataIndex:"thanh_tien_ban_ra",render:function(t){return i.e.format(t)},sorter:function(t,n){return t.thanh_tien_ban_ra-n.thanh_tien_ban_ra},width:120},{title:"SL hoàn đổi",dataIndex:"so_luong_hoan_doi",width:120},{title:"TT hoàn đổi",dataIndex:"thanh_tien_hoan_doi",render:function(t){return i.e.format(t)},sorter:function(t,n){return t.thanh_tien_hoan_doi-n.thanh_tien_hoan_doi},width:120},{title:"SL tồn kho",dataIndex:"so_luong_ton_kho",width:120},{title:"TT tồn kho",dataIndex:"thanh_tien_ton_kho",render:function(t){return i.e.format(t)},sorter:function(t,n){return t.thanh_tien_ton_kho-n.thanh_tien_ton_kho},width:120}];return h.a.createElement(o.a,{url:"tong-hop-hang",filterBox:!0,columns:n,insertable:!1,selectable:!1,editable:!1,deleteable:!1,tableSize:{x:800},renderFooter:function(t){if(!_.isEmpty(t)){var n=t.reduce((function(t,n){return{thanh_tien_mua_vao:t.thanh_tien_mua_vao+n.thanh_tien_mua_vao,thanh_tien_ban_ra:t.thanh_tien_ban_ra+n.thanh_tien_ban_ra,thanh_tien_hoan_doi:t.thanh_tien_hoan_doi+n.thanh_tien_hoan_doi,thanh_tien_ton_kho:t.thanh_tien_ton_kho+n.thanh_tien_ton_kho}}));return"Tổng tiền mua vào: "+i.e.format(n.thanh_tien_mua_vao)+". Bán ra: "+i.e.format(n.thanh_tien_ban_ra)+". Hoàn đổi: "+i.e.format(n.thanh_tien_hoan_doi)+". Tồn kho: "+i.e.format(n.thanh_tien_ton_kho)}}})}));n.default=r}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[18],{
+
+/***/ "./resources/js/pages/Account/Profile/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/pages/Account/Profile/index.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
+      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
+      form = _Form$useForm2[0];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    // Check it in server
+    axios.get("/api/get-user").then(function (response) {
+      if (response.data.success) {
+        var data = response.data.data;
+        form.setFieldsValue(data);
+      } else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  }, []);
+
+  var onFinish = function onFinish() {
+    var values = form.getFieldValue();
+    axios.put("/api/profile", values).then(function (response) {
+      if (response.data.success) antd__WEBPACK_IMPORTED_MODULE_0__["message"].success(response.data.message);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "sm-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
+    form: form,
+    onFinish: onFinish,
+    labelCol: {
+      span: 8
+    },
+    wrapperCol: {
+      span: 16
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "username",
+    label: "T\xEAn \u0111\u0103ng nh\u1EADp",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    disabled: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ho_ten",
+    label: "H\u1ECD t\xEAn",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "sdt",
+    label: "S\u1ED1 \u0111i\u1EC7n tho\u1EA1i"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "dia_chi",
+    label: "\u0110\u1ECBa ch\u1EC9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    wrapperCol: {
+      span: 16,
+      offset: 8
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+    type: "primary",
+    htmlType: "submit"
+  }, "C\u1EADp nh\u1EADt"))));
+});
+/* harmony default export */ __webpack_exports__["default"] = (Profile);
+
+/***/ })
+
+}]);

@@ -68,7 +68,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
 
 
-    //
+    // Add middleware checkadmin
     Route::resource('user', 'UserController');
     Route::resource('thu-chi', 'ThuChiController');
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');

@@ -33,8 +33,8 @@ const FilterBox = React.memo(props => {
         <div className="filter-box">
             <Form form={form} onFinish={onFinish}>
                 <Row gutter={[5, 5]}>
-                    {tuNgayDenNgay ? (
-                        <Col span={24} md={16} lg={8}>
+                    {tuNgayDenNgay && (
+                        <Col span={24} md={16} lg={8} xl={7}>
                             <Form.Item name="thoiGian" label="Thời gian">
                                 <RangePicker
                                     style={{ width: "100%" }}
@@ -55,22 +55,25 @@ const FilterBox = React.memo(props => {
                                 />
                             </Form.Item>
                         </Col>
-                    ) : (
-                        ""
                     )}
-                    {!_.isEmpty(otherFilter)
-                        ? otherFilter.map(filter => (
-                              <Col span={12} md={8} lg={6} key={filter.name}>
-                                  <Form.Item
-                                      name={filter.name}
-                                      label={filter.label}
-                                  >
-                                      {filter.render}
-                                  </Form.Item>
-                              </Col>
-                          ))
-                        : ""}
-                    <Col span={12} md={8} lg={6}>
+                    {!_.isEmpty(otherFilter) &&
+                        otherFilter.map(filter => (
+                            <Col
+                                span={12}
+                                md={8}
+                                lg={6}
+                                xl={5}
+                                key={filter.name}
+                            >
+                                <Form.Item
+                                    name={filter.name}
+                                    label={filter.label}
+                                >
+                                    {filter.render}
+                                </Form.Item>
+                            </Col>
+                        ))}
+                    <Col span={12} md={8} lg={6} xl={5}>
                         <Button htmlType="submit">
                             <FilterOutlined />
                             Lọc

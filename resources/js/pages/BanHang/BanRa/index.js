@@ -112,27 +112,29 @@ const List = React.memo(props => {
         }
     ];
 
-    const renderFooter = data => {
+    const renderSummary = data => {
         if (!_.isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
-                    thanh_tien_mua:
-                        previousValue.thanh_tien_mua +
-                        currentValue.thanh_tien_mua,
+                    lai: previousValue.lai + currentValue.lai,
                     thanh_tien_ban:
                         previousValue.thanh_tien_ban +
                         currentValue.thanh_tien_ban
                 };
             });
             return (
-                "Tổng tiền mua: " +
-                vndFormater.format(sumObj.thanh_tien_mua) +
-                ". Tổng tiền bán: " +
-                vndFormater.format(sumObj.thanh_tien_ban) +
-                ". Tổng lãi: " +
-                vndFormater.format(
-                    sumObj.thanh_tien_ban - sumObj.thanh_tien_mua
-                )
+                <>
+                    <tr>
+                        <th colSpan={6}>Tổng cộng</th>
+                        <td>{vndFormater.format(sumObj.thanh_tien_ban)}</td>
+                        <td>{vndFormater.format(sumObj.lai)}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </>
             );
         }
     };
@@ -170,7 +172,7 @@ const List = React.memo(props => {
             }}
             expandedRowRender={expandedRowRender}
             setFormValues={formValue}
-            renderFooter={renderFooter}
+            renderSummary={renderSummary}
         />
     );
 });

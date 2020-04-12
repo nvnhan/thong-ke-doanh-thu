@@ -163,3 +163,17 @@
   }
 }
 
+.ant-table tfoot > tr {
+  background-color: #fafafa;
+}
+
+.ant-table tfoot > tr th {
+  text-align: center;
+}
+
+.ant-table tfoot > tr th,
+.ant-table tfoot > tr td {
+  border: none;
+  font-weight: 500;
+}
+

@@ -52,15 +52,25 @@ const List = React.memo(props => {
         }
     ];
 
-    const renderFooter = data => {
+    const renderSummary = data => {
         if (!_.isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     thanh_tien_ton_kho:
-                        previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
+                        previousValue.thanh_tien_ton_kho +
+                        currentValue.thanh_tien_ton_kho
                 };
             });
-            return "Tổng tiền tồn kho: " + vndFormater.format(sumObj.thanh_tien_ton_kho);
+            return (
+                <>
+                    <tr>
+                        <th colSpan={6}>
+                            Tổng cộng
+                        </th>
+                        <td>{vndFormater.format(sumObj.thanh_tien_ton_kho)}</td>
+                    </tr>
+                </>
+            );
         }
     };
 
@@ -93,7 +103,7 @@ const List = React.memo(props => {
             editable={false}
             deleteable={false}
             tableSize={{ x: 800 }}
-            renderFooter={renderFooter}
+            renderSummary={renderSummary}
         />
     );
 });

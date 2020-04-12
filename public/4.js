@@ -362,14 +362,16 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     width: 170
   }];
 
-  var renderFooter = function renderFooter(data) {
+  var renderSummary = function renderSummary(data) {
     if (!_.isEmpty(data)) {
       var sumObj = data.reduce(function (previousValue, currentValue) {
         return {
           thanh_tien: previousValue.thanh_tien + currentValue.thanh_tien
         };
       });
-      return "Tổng tiền: " + _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.thanh_tien);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        colSpan: 7
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.thanh_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null)));
     }
   };
   /**
@@ -401,7 +403,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     },
     expandedRowRender: expandedRowRender,
     setFormValues: formValue,
-    renderFooter: renderFooter
+    renderSummary: renderSummary
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);

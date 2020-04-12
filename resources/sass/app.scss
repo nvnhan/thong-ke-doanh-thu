@@ -25,13 +25,16 @@ $lg: 1200px;
 }
 
 // Ant table & pagination
-.ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+.ant-table-tbody > tr > td,
+.ant-table-thead > tr > th,
+.ant-table tfoot > tr > td,
+.ant-table tfoot > tr > th {
     padding: 12px;
 }
 
 .ant-pagination-next {
     margin-right: 8px;
-} 
+}
 .ant-pagination-options {
     margin-left: 8px;
 }
@@ -178,5 +181,17 @@ $lg: 1200px;
         button {
             margin-top: 40px;
         }
+    }
+}
+
+.ant-table tfoot > tr {
+    background-color: #fafafa;
+    th {
+        text-align: center;
+    }
+    th,
+    td {
+        border: none;
+        font-weight: 500;
     }
 }

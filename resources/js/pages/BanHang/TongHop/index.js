@@ -8,13 +8,13 @@ const List = React.memo(props => {
             title: "Mã hàng",
             dataIndex: "ma_hang",
             optFind: true,
-            width: 110
+            width: 120
         },
         {
             title: "Tên hàng",
             dataIndex: "ten_hang",
             optFind: true,
-            width: 140
+            width: 150
         },
         {
             title: "Phân loại",
@@ -45,7 +45,7 @@ const List = React.memo(props => {
             dataIndex: "thanh_tien_mua_vao",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.thanh_tien_mua_vao - b.thanh_tien_mua_vao,
-            width: 110
+            width: 120
         },
         {
             title: "SL bán ra",
@@ -57,7 +57,7 @@ const List = React.memo(props => {
             dataIndex: "thanh_tien_ban_ra",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.thanh_tien_ban_ra - b.thanh_tien_ban_ra,
-            width: 110
+            width: 120
         },
         {
             title: "SL hoàn đổi",
@@ -69,7 +69,7 @@ const List = React.memo(props => {
             dataIndex: "thanh_tien_hoan_doi",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.thanh_tien_hoan_doi - b.thanh_tien_hoan_doi,
-            width: 110
+            width: 120
         },
         {
             title: "SL tồn kho",
@@ -81,11 +81,11 @@ const List = React.memo(props => {
             dataIndex: "thanh_tien_ton_kho",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.thanh_tien_ton_kho - b.thanh_tien_ton_kho,
-            width: 110
+            width: 120
         }
     ];
 
-    const renderFooter = data => {
+    const renderSummary = data => {
         if (!_.isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
@@ -104,14 +104,23 @@ const List = React.memo(props => {
                 };
             });
             return (
-                "Tổng tiền mua vào: " +
-                vndFormater.format(sumObj.thanh_tien_mua_vao) +
-                ". Bán ra: " +
-                vndFormater.format(sumObj.thanh_tien_ban_ra) +
-                ". Hoàn đổi: " +
-                vndFormater.format(sumObj.thanh_tien_hoan_doi) +
-                ". Tồn kho: " +
-                vndFormater.format(sumObj.thanh_tien_ton_kho)
+                <>
+                    <tr>
+                        <th colSpan={5}>Tổng cộng</th>
+                        <td colSpan={2}>
+                            {vndFormater.format(sumObj.thanh_tien_mua_vao)}
+                        </td>
+                        <td colSpan={2}>
+                            {vndFormater.format(sumObj.thanh_tien_ban_ra)}
+                        </td>
+                        <td colSpan={2}>
+                            {vndFormater.format(sumObj.thanh_tien_hoan_doi)}
+                        </td>
+                        <td colSpan={2}>
+                            {vndFormater.format(sumObj.thanh_tien_ton_kho)}
+                        </td>
+                    </tr>
+                </>
             );
         }
     };
@@ -125,8 +134,8 @@ const List = React.memo(props => {
             selectable={false}
             editable={false}
             deleteable={false}
-            tableSize={{ x: 1200 }}
-            renderFooter={renderFooter}
+            tableSize={{ x: 1300 }}
+            renderSummary={renderSummary}
         />
     );
 });

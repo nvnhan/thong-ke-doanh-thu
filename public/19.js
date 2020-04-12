@@ -21,12 +21,12 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     title: "Mã hàng",
     dataIndex: "ma_hang",
     optFind: true,
-    width: 110
+    width: 120
   }, {
     title: "Tên hàng",
     dataIndex: "ten_hang",
     optFind: true,
-    width: 140
+    width: 150
   }, {
     title: "Phân loại",
     dataIndex: "phan_loai",
@@ -57,7 +57,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.thanh_tien_mua_vao - b.thanh_tien_mua_vao;
     },
-    width: 110
+    width: 120
   }, {
     title: "SL bán ra",
     dataIndex: "so_luong_ban_ra",
@@ -71,7 +71,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.thanh_tien_ban_ra - b.thanh_tien_ban_ra;
     },
-    width: 110
+    width: 120
   }, {
     title: "SL hoàn đổi",
     dataIndex: "so_luong_hoan_doi",
@@ -85,7 +85,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.thanh_tien_hoan_doi - b.thanh_tien_hoan_doi;
     },
-    width: 110
+    width: 120
   }, {
     title: "SL tồn kho",
     dataIndex: "so_luong_ton_kho",
@@ -99,10 +99,10 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.thanh_tien_ton_kho - b.thanh_tien_ton_kho;
     },
-    width: 110
+    width: 120
   }];
 
-  var renderFooter = function renderFooter(data) {
+  var renderSummary = function renderSummary(data) {
     if (!_.isEmpty(data)) {
       var sumObj = data.reduce(function (previousValue, currentValue) {
         return {
@@ -112,7 +112,17 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
           thanh_tien_ton_kho: previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
         };
       });
-      return "Tổng tiền mua vào: " + _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_mua_vao) + ". Bán ra: " + _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ban_ra) + ". Hoàn đổi: " + _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_hoan_doi) + ". Tồn kho: " + _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ton_kho);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        colSpan: 5
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_mua_vao)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ban_ra)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_hoan_doi)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ton_kho))));
     }
   };
 
@@ -125,9 +135,9 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     editable: false,
     deleteable: false,
     tableSize: {
-      x: 1200
+      x: 1300
     },
-    renderFooter: renderFooter
+    renderSummary: renderSummary
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);

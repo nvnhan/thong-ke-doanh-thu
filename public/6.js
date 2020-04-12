@@ -396,7 +396,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     },
     width: 120,
     sorter: function sorter(a, b) {
-      return a - b;
+      return a.thanh_tien - b.thanh_tien;
     }
   }, {
     title: "Thanh toán",
@@ -409,14 +409,16 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     width: 150
   }];
 
-  var renderFooter = function renderFooter(data) {
+  var renderSummary = function renderSummary(data) {
     if (!_.isEmpty(data)) {
-      var sum = data.reduce(function (previousValue, currentValue) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
         return {
           thanh_tien: previousValue.thanh_tien + currentValue.thanh_tien
         };
       });
-      return "Tổng tiền: " + _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sum.thanh_tien);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        colSpan: 6
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.thanh_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null)));
     }
   };
   /**
@@ -441,8 +443,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     otherParams: {
       id_tour: tour.id
     },
-    columns: columns // tableSize={{ x: 800 }}
-    ,
+    columns: columns,
     modalWidth: "800px",
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
       hangHoa: hangHoa,
@@ -455,7 +456,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       ket_thuc: tour.ket_thuc
     },
     expandedRowRender: expandedRowRender,
-    renderFooter: renderFooter,
+    renderSummary: renderSummary,
     setFormValues: formValue
   }));
 });

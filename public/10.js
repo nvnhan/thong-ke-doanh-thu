@@ -188,14 +188,16 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     width: 120
   }];
 
-  var renderFooter = function renderFooter(data) {
+  var renderSummary = function renderSummary(data) {
     if (!_.isEmpty(data)) {
       var sumObj = data.reduce(function (previousValue, currentValue) {
         return {
           thanh_tien_ton_kho: previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
         };
       });
-      return "Tổng tiền tồn kho: " + _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.thanh_tien_ton_kho);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
+        colSpan: 6
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.thanh_tien_ton_kho))));
     }
   };
 
@@ -229,7 +231,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     tableSize: {
       x: 800
     },
-    renderFooter: renderFooter
+    renderSummary: renderSummary
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);

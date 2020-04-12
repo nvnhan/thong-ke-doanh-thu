@@ -302,6 +302,7 @@ ListForm.propTypes = {
     filterInitialValue: PropTypes.object,
     otherParams: PropTypes.object,
     renderFooter: PropTypes.func,
+    renderSummary: PropTypes.func,
     setFormValues: PropTypes.object
 };
 // Specifies the default values for props:

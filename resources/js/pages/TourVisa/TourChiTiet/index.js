@@ -76,7 +76,7 @@ const List = React.memo(props => {
             dataIndex: "thanh_tien",
             render: number => vndFormater.format(number),
             width: 120,
-            sorter: (a, b) => a - b
+            sorter: (a, b) => a.thanh_tien - b.thanh_tien
         },
         {
             title: "Thanh toán",
@@ -91,15 +91,25 @@ const List = React.memo(props => {
         }
     ];
 
-    const renderFooter = data => {
+    const renderSummary = data => {
         if (!_.isEmpty(data)) {
-            const sum = data.reduce((previousValue, currentValue) => {
+            const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     thanh_tien:
                         previousValue.thanh_tien + currentValue.thanh_tien
                 };
             });
-            return "Tổng tiền: " + vndFormater.format(sum.thanh_tien);
+            return (
+                <>
+                    <tr>
+                        <th colSpan={6}>Tổng cộng</th>
+                        <td>{vndFormater.format(sumObj.thanh_tien)}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </>
+            );
         }
     };
 
@@ -127,7 +137,6 @@ const List = React.memo(props => {
                 filter={{ tour: tour.id }}
                 otherParams={{ id_tour: tour.id }}
                 columns={columns}
-                // tableSize={{ x: 800 }}
                 modalWidth="800px"
                 formTemplate={
                     <FormItem
@@ -142,7 +151,7 @@ const List = React.memo(props => {
                     ket_thuc: tour.ket_thuc
                 }}
                 expandedRowRender={expandedRowRender}
-                renderFooter={renderFooter}
+                renderSummary={renderSummary}
                 setFormValues={formValue}
             />
         </React.Fragment>

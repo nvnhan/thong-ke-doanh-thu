@@ -262,16 +262,16 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     title: "Mã hàng",
     dataIndex: "ma_hang",
     optFind: true,
-    width: 140
+    width: 130
   }, {
     title: "Tên hàng",
     dataIndex: "ten_hang",
     optFind: true,
-    width: 170
+    width: 160
   }, {
     title: "Số lượng",
     dataIndex: "so_luong",
-    width: 120
+    width: 90
   }, {
     title: "Tổng tiền bán",
     dataIndex: "thanh_tien_ban",
@@ -304,7 +304,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     title: "Ghi chú",
     dataIndex: "ghi_chu",
     ellipsis: true,
-    width: 170
+    width: 150
   }]; // const renderFooter = data => {
   //     if (!_.isEmpty(data)) {
   //         const sumObj = data.reduce((previousValue, currentValue) => {

@@ -14,7 +14,8 @@ class TourChiTiet extends Model
         'ngay_thang' => 'date:d/m/Y',
         'ngay_thanh_toan' => 'date:d/m/Y',
         'bat_dau' => 'date:d/m/Y',
-        'ket_thuc' => 'date:d/m/Y'
+        'ket_thuc' => 'date:d/m/Y',
+        'thanh_tien' => 'float'
     ];
 
     protected $fillable = ['ngay_thang', 'id_tour', 'id_hang_hoa', 'bat_dau', 'ket_thuc', 'so_luong', 'don_gia', 'ghi_chu'];
@@ -25,9 +26,6 @@ class TourChiTiet extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->ngay_thang = now(); //date("Y-m-d");
-            $model->so_luong = 1;
-            // $model->username = xxx;
         });
         self::updating(function ($model) {
         });

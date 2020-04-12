@@ -88,15 +88,18 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function () {
   var columns = [{
     title: "Mã sân bay",
     dataIndex: "ma_san_bay",
-    optFind: true
+    optFind: true,
+    width: 100
   }, {
     title: "Tên sân bay",
     dataIndex: "ten_san_bay",
-    optFind: true
+    optFind: true,
+    width: 140
   }, {
     title: "Khu vực",
     dataIndex: "phan_loai",
-    optFilter: true
+    optFilter: true,
+    width: 110
   }, {
     title: "Sân bay loại A",
     dataIndex: "loai_a",
@@ -104,7 +107,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function () {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], {
         checked: bol
       });
-    }
+    },
+    width: 90
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
     url: "san-bay",

@@ -85,7 +85,7 @@ const List = React.memo(props => {
         }
     ];
 
-    const renderFooter = data => {
+    const renderSummary = data => {
         if (!_.isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
@@ -93,7 +93,19 @@ const List = React.memo(props => {
                         previousValue.thanh_tien + currentValue.thanh_tien
                 };
             });
-            return "Tổng tiền: " + vndFormater.format(sumObj.thanh_tien);
+            return (
+                <>
+                    <tr>
+                        <th colSpan={7}>Tổng cộng</th>
+                        <td>{vndFormater.format(sumObj.thanh_tien)}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </>
+            );
         }
     };
 
@@ -122,7 +134,7 @@ const List = React.memo(props => {
             }}
             expandedRowRender={expandedRowRender}
             setFormValues={formValue}
-            renderFooter={renderFooter}
+            renderSummary={renderSummary}
         />
     );
 });

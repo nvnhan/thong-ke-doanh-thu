@@ -18,35 +18,65 @@ class DatVe extends Model
         'ngay_nhac_lich' => 'datetime:H:i d/m/Y'
     ];
 
+    protected $fillable = [
+        'ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia_mua', 'don_gia_ban', 'id_khach_hang', 'ngay_hoan_doi',
+        'ngay_thanh_toan_hoan_doi', 'id_tai_khoan_tra_hoan_doi', 'ngay_hoan_doi_xong', 'ghi_chu'
+    ];
+
+    protected $appends = [
+        'chang_di', 'chang_ve',
+        'ten_khach_hang', 'noi_mua'
+    ];
+
     public static function boot()
     {
         parent::boot();
-        self::creating(function($model) {
-            $model->ngay_thang = now(); //date("Y-m-d");
-            $model->nhac_lich_bay = true;
-            // $model->username = xxx;
+        self::creating(function ($model) {
         });
-        self::updating(function($model) {
-
+        self::updating(function ($model) {
         });
-        self::deleting(function($model) {
-
+        self::deleting(function ($model) {
         });
     }
 
-    public function khach_hang() {
-        return $this->belongsTo('App\KhachHang', 'id_khach_hang')->withDefault();
+    public function khach_hang()
+    {
+        return $this->belongsTo('App\KhachHang', 'id_khach_hang');
     }
 
-    public function tai_khoan_mua() {
-        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_mua')->withDefault();
+    public function tai_khoan_mua()
+    {
+        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_mua');
     }
 
-    public function thu_chi_chi_tiets() {
+    public function thu_chi_chi_tiets()
+    {
         return $this->hasMany('App\ThuChiChiTiet', 'id_dat_ve');
     }
 
-    public function getDaThanhToanAttribute() {
+    ///////////////////////
+    public function getChangDiAttribute()
+    {
+        return $this->sb_di . '->' . $this->sb_di1;
+    }
+
+    public function getChangVeAttribute()
+    {
+        return $this->sb_ve . '->' . $this->sb_ve1;
+    }
+
+    public function getTenKhachHangAttribute()
+    {
+        return optional($this->khach_hang()->first())->ho_ten;
+    }
+
+    public function getNoiMuaAttribute()
+    {
+        return optional($this->tai_khoan_mua()->first())->ky_hieu;
+    }
+
+    public function getDaThanhToanAttribute()
+    {
         return $this->thu_chi_chi_tiets()->sum('so_tien');
     }
 }

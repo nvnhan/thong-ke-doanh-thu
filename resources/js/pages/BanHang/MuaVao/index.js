@@ -112,7 +112,7 @@ const List = React.memo(props => {
             url="mua-vao"
             filterBox
             columns={columns}
-            tableSize={{ x: 1000 }}
+            tableSize={{ x: 800 }}
             formTemplate={
                 <FormItem hangHoa={hangHoa} onChangeValue={handleFormValue} />
             }

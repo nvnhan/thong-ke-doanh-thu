@@ -107,18 +107,6 @@ const ListForm = props => {
         });
     };
 
-    const handleSelectAll = () => {
-        setState({
-            selectedRowKeys: data.map(item => item[primaryKey])
-        });
-    };
-
-    const handleClearSelected = () => {
-        setState({
-            selectedRowKeys: []
-        });
-    };
-
     /**
      * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
      */
@@ -236,18 +224,12 @@ const ListForm = props => {
 
     return (
         <React.Fragment>
-            {filterBox ? (
-                <FilterBox {...props} onFilter={handleFilterBox} />
-            ) : (
-                ""
-            )}
+            {filterBox && <FilterBox {...props} onFilter={handleFilterBox} />}
             <ToolsButton
                 {...props}
                 selectedRowKeys={selectedRowKeys}
                 handleAddNew={handleAddNew}
                 onMultiDelete={onMultiDelete}
-                handleSelectAll={handleSelectAll}
-                handleClearSelected={handleClearSelected}
             />
             <DataTable
                 {...props}
@@ -258,7 +240,7 @@ const ListForm = props => {
                 handleEdit={handleEdit}
                 onDelete={onDelete}
             />
-            {props.formTemplate !== undefined ? (
+            {props.formTemplate !== undefined && (
                 <ModalConfirm
                     {...props}
                     modalVisible={modalVisible}
@@ -267,8 +249,6 @@ const ListForm = props => {
                     handleOk={handleOk}
                     handleCancel={handleCancel}
                 />
-            ) : (
-                ""
             )}
         </React.Fragment>
     );

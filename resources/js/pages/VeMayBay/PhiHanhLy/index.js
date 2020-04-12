@@ -7,7 +7,14 @@ const List = React.memo(() => {
         {
             title: "Loại hành lý",
             dataIndex: "hanh_ly",
-            optFind: true
+            optFind: true,
+            width: 100
+        },
+        {
+            title: "Hãng bay",
+            dataIndex: "hang_bay",
+            optFilter: true,
+            width: 80
         },
         {
             title: "Mức phí",
@@ -16,17 +23,14 @@ const List = React.memo(() => {
                 new Intl.NumberFormat("vi-VN", {
                     style: "currency",
                     currency: "VND"
-                }).format(number)
-        },
-        {
-            title: "Hãng bay",
-            dataIndex: "hang_bay",
-            optFind: true
+                }).format(number),
+            width: 80
         },
         {
             title: "Ghi chú",
             dataIndex: "ghi_chu",
-            ellipsis: true
+            ellipsis: true,
+            width: 100
         }
     ];
 

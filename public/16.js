@@ -73,7 +73,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
   var columns = [{
     title: "Loại phí",
     dataIndex: "loai_phi",
-    optFind: true
+    optFind: true,
+    width: 150
   }, {
     title: "Mức phí",
     dataIndex: "muc_phi",
@@ -82,11 +83,13 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
         style: "currency",
         currency: "VND"
       }).format(number);
-    }
+    },
+    width: 80
   }, {
     title: "Ghi chú",
     dataIndex: "ghi_chu",
-    ellipsis: true
+    ellipsis: true,
+    width: 100
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     url: "thue-phi",

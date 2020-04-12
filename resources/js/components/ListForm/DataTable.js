@@ -86,7 +86,7 @@ const DataTable = React.memo(props => {
         key: "action",
         fixed: "right",
         align: "center",
-        width: 80,
+        width: 72,
         render: (text, record) => (
             <Dropdown overlay={layAction(record)}>
                 <Button>
@@ -98,20 +98,19 @@ const DataTable = React.memo(props => {
 
     const layAction = record => (
         <Menu>
-            {!_.isEmpty(otherActions)
-                ? otherActions.map(act => (
-                      <Menu.Item
-                          key={act.key}
-                          onClick={() => act.onClick(record)}
-                          style={{
-                              color: act.color
-                          }}
-                      >
-                          {act.icon} {act.title}
-                      </Menu.Item>
-                  ))
-                : ""}
-            {editable ? (
+            {!_.isEmpty(otherActions) &&
+                otherActions.map(act => (
+                    <Menu.Item
+                        key={act.key}
+                        onClick={() => act.onClick(record)}
+                        style={{
+                            color: act.color
+                        }}
+                    >
+                        {act.icon} {act.title}
+                    </Menu.Item>
+                ))}
+            {editable && (
                 <Menu.Item
                     key="edit"
                     onClick={() => handleEdit(record)}
@@ -119,10 +118,8 @@ const DataTable = React.memo(props => {
                 >
                     <EditOutlined /> Chỉnh sửa
                 </Menu.Item>
-            ) : (
-                ""
             )}
-            {deleteable ? (
+            {deleteable && (
                 <Menu.Item
                     key="delete"
                     onClick={() => onDelete(record[primaryKey])}
@@ -130,8 +127,6 @@ const DataTable = React.memo(props => {
                 >
                     <DeleteOutlined /> Xóa
                 </Menu.Item>
-            ) : (
-                ""
             )}
         </Menu>
     );
@@ -235,7 +230,18 @@ const DataTable = React.memo(props => {
 
     const rowSelection = {
         selectedRowKeys,
-        onChange: onChangeSelect
+        onChange: onChangeSelect,
+        hideDefaultSelections: true,
+        columnWidth: 50,
+        selections: [
+            Table.SELECTION_ALL,
+            Table.SELECTION_INVERT,
+            {
+                key: "invert_all",
+                text: "Bỏ chọn tất cả",
+                onSelect: () => onChangeSelect([])
+            }
+        ]
     };
 
     const getExpanded = () => {
@@ -259,7 +265,9 @@ const DataTable = React.memo(props => {
                 emptyText: "Không có dữ liệu",
                 cancelSort: "CLick để Bỏ sắp xếp",
                 triggerAsc: "Click để Sắp xếp tăng dần",
-                triggerDesc: "Click để Sắp xếp giảm dần"
+                triggerDesc: "Click để Sắp xếp giảm dần",
+                selectionAll: "Chọn tất cả dữ liệu",
+                selectInvert: "Đảo chọn trang hiện tại"
             }}
             scroll={tableSize}
             expandable={getExpanded()}

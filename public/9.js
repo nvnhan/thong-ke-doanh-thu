@@ -372,7 +372,8 @@ var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
 var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   // const [phanLoai, setPhanLoai] = useState([]);
   // const [khachHang, setKhachHang] = useState([]);
-  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {// const promise1 = axios.get("/api/nha-cung-cap");
+  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {//TODO: Get all Hãng bay & username đổ vào filterbox
+    // const promise1 = axios.get("/api/nha-cung-cap");
     // const promise2 = axios.get("/api/khach-hang");
     // Promise.all([promise1, promise2]).then(response => {
     //     if (response[0].data.success && response[1].data.success)
@@ -414,45 +415,72 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   var columns = [{
     title: "Ngày tháng",
     dataIndex: "ngay_thang",
-    width: 120,
+    width: 110,
     sorter: function sorter(a, b) {
       return moment__WEBPACK_IMPORTED_MODULE_2___default()(a.ngay_thang, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_2___default()(b.ngay_thang, "DD/MM/YYYY").unix();
     }
   }, {
-    title: "Mã tour",
-    dataIndex: "ma_tour",
+    title: "Mã giữ chỗ",
+    dataIndex: "ma_giu_cho",
     optFind: true,
-    width: 140
+    width: 90
   }, {
-    title: "Tên tour",
-    dataIndex: "ten_tour",
-    width: 170,
+    title: "Số vé",
+    dataIndex: "so_ve",
+    width: 140,
     optFind: true
   }, {
-    title: "Phân loại",
-    dataIndex: "phan_loai",
-    width: 140,
+    title: "Hãng bay",
+    dataIndex: "hang_bay",
+    width: 75,
     optFilter: true
   }, {
-    title: "Giá tour",
-    dataIndex: "gia_tour",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.gia_tour - b.gia_tour;
-    },
-    width: 120
+    title: "Tên khách",
+    dataIndex: "ten_khach",
+    width: 140,
+    optFind: true
   }, {
-    title: "Giá bán",
-    dataIndex: "gia_ban",
+    title: "TG đi",
+    dataIndex: "ngay_gio_di",
+    width: 110,
+    sorter: function sorter(a, b) {
+      return moment__WEBPACK_IMPORTED_MODULE_2___default()(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_2___default()(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix();
+    }
+  }, {
+    title: "Chặng đi",
+    dataIndex: "chang_di",
+    width: 100
+  }, {
+    title: "TG về",
+    dataIndex: "ngay_gio_ve",
+    width: 110,
+    sorter: function sorter(a, b) {
+      return moment__WEBPACK_IMPORTED_MODULE_2___default()(a.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_2___default()(b.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix();
+    }
+  }, {
+    title: "Chặng về",
+    dataIndex: "chang_ve",
+    width: 100
+  }, {
+    title: "Tổng tiền",
+    dataIndex: "tong_tien",
     render: function render(number) {
       return _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(number);
     },
     sorter: function sorter(a, b) {
-      return a.gia_ban - b.gia_ban;
+      return a.tong_tien - b.tong_tien;
     },
-    width: 120
+    width: 110
+  }, {
+    title: "Thu khách",
+    dataIndex: "tong_tien_thu_khach",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_6__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.tong_tien_thu_khach - b.tong_tien_thu_khach;
+    },
+    width: 110
   }, {
     title: "Lãi",
     dataIndex: "lai",
@@ -462,27 +490,31 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.lai - b.lai;
     },
-    width: 120
+    width: 110
+  }, {
+    title: "Nơi mua",
+    dataIndex: "noi_mua",
+    width: 110,
+    optFilter: true
   }, {
     title: "Khách hàng",
     dataIndex: "ten_khach_hang",
-    width: 120,
+    width: 110,
     optFilter: true
   }, {
-    title: "Tình trạng",
-    dataIndex: "tinh_trang",
-    width: 120,
-    optFilter: true
+    title: "Thanh toán",
+    dataIndex: "ngay_thanh_toan",
+    width: 110
   }, {
-    title: "Ghi chú",
-    dataIndex: "ghi_chu",
-    ellipsis: true,
-    width: 170
+    title: "Người nhập",
+    dataIndex: "username",
+    width: 100,
+    optFilter: true
   }];
 
   var getOtherFilter = function getOtherFilter() {
     return [{
-      name: "san_bay",
+      name: "sb",
       label: "Sân bay",
       render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
         value: ""
@@ -491,29 +523,32 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       }, "Qu\u1ED1c n\u1ED9i"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
         value: "quoc_te"
       }, "Qu\u1ED1c t\u1EBF"))
-    }, {
-      name: "hang_bay",
-      label: "Hãng bay",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: ""
-      }, "T\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "vn"
-      }, "VietNam Airline"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "vj"
-      }, "VietJet"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "jets"
-      }, "Jetstar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "bb"
-      }, "Bamboo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "khac"
-      }, "Kh\xE1c"))
-    }, {
-      name: "user",
-      label: "Người nhập",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: ""
-      }, "T\u1EA5t c\u1EA3"))
-    }];
+    } // {
+    //     name: "hb",
+    //     label: "Hãng bay",
+    //     render: (
+    //         <Select>
+    //             <Option value="">Tất cả</Option>
+    //             <Option value="VN">VietNam Airline</Option>
+    //             <Option value="VJ">VietJet</Option>
+    //             <Option value="Jets">Jetstar</Option>
+    //             <Option value="BB">Bamboo</Option>
+    //             <Option value="khac">Khác</Option>
+    //             {/* Render tên các hãng khác....... */}
+    //         </Select>
+    //     )
+    // },
+    // {
+    //     name: "user",
+    //     label: "Người nhập",
+    //     render: (
+    //         <Select>
+    //             <Option value="">Tất cả</Option>
+    //             {/* Render danh sách user....... */}
+    //         </Select>
+    //     )
+    // }
+    ];
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -527,7 +562,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     },
     columns: columns,
     tableSize: {
-      x: 1200
+      x: 1100
     },
     modalWidth: "1100px",
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_7__["default"], null),

@@ -24,6 +24,19 @@ $lg: 1200px;
     }
 }
 
+// Ant table & pagination
+.ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+    padding: 12px;
+}
+
+.ant-pagination-next {
+    margin-right: 8px;
+} 
+.ant-pagination-options {
+    margin-left: 8px;
+}
+
+// Color
 .color-danger {
     color: #ff4d4f;
 }
@@ -32,6 +45,7 @@ $lg: 1200px;
     color: #1890ff;
 }
 
+// Logo
 .logo {
     /* background: rgba(174, 174, 179, 0.342); */
     margin: 0;
@@ -53,6 +67,7 @@ $lg: 1200px;
     }
 }
 
+// Main content
 .content {
     margin: 24px 16px 0;
     padding: 16px 0;
@@ -60,6 +75,7 @@ $lg: 1200px;
     /* text-align: center; */
 }
 
+// Sider
 .ant-layout-sider {
     min-height: 100vh;
 }

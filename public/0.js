@@ -170,7 +170,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
       key: "action",
       fixed: "right",
       align: "center",
-      width: 80,
+      width: 72,
       render: function render(text, record) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Dropdown"], {
           overlay: layAction(record)
@@ -180,7 +180,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
   };
 
   var layAction = function layAction(record) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"], null, !_.isEmpty(otherActions) ? otherActions.map(function (act) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"], null, !_.isEmpty(otherActions) && otherActions.map(function (act) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
         key: act.key,
         onClick: function onClick() {
@@ -190,19 +190,19 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
           color: act.color
         }
       }, act.icon, " ", act.title);
-    }) : "", editable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
+    }), editable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
       key: "edit",
       onClick: function onClick() {
         return handleEdit(record);
       },
       className: "color-primary"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null), " Ch\u1EC9nh s\u1EEDa") : "", deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null), " Ch\u1EC9nh s\u1EEDa"), deleteable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
       key: "delete",
       onClick: function onClick() {
         return onDelete(record[primaryKey]);
       },
       className: "color-danger"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null), " X\xF3a") : "");
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null), " X\xF3a"));
   };
   /**
    * Thao tác tìm kiếm trên cột
@@ -303,7 +303,16 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
 
   var rowSelection = {
     selectedRowKeys: selectedRowKeys,
-    onChange: onChangeSelect
+    onChange: onChangeSelect,
+    hideDefaultSelections: true,
+    columnWidth: 50,
+    selections: [antd__WEBPACK_IMPORTED_MODULE_1__["Table"].SELECTION_ALL, antd__WEBPACK_IMPORTED_MODULE_1__["Table"].SELECTION_INVERT, {
+      key: "invert_all",
+      text: "Bỏ chọn tất cả",
+      onSelect: function onSelect() {
+        return onChangeSelect([]);
+      }
+    }]
   };
 
   var getExpanded = function getExpanded() {
@@ -329,7 +338,9 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
       emptyText: "Không có dữ liệu",
       cancelSort: "CLick để Bỏ sắp xếp",
       triggerAsc: "Click để Sắp xếp tăng dần",
-      triggerDesc: "Click để Sắp xếp giảm dần"
+      triggerDesc: "Click để Sắp xếp giảm dần",
+      selectionAll: "Chọn tất cả dữ liệu",
+      selectInvert: "Đảo chọn trang hiện tại"
     },
     scroll: tableSize,
     expandable: getExpanded(),
@@ -630,20 +641,13 @@ __webpack_require__.r(__webpack_exports__);
 var ToolsButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "tools-button"
-  }, props.insertable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, props.insertable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "primary",
     onClick: props.handleAddNew
-  }, "Th\xEAm m\u1EDBi") : "", props.selectable && props.deleteable ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, props.selectedRowKeys.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, "Th\xEAm m\u1EDBi"), props.selectable && props.deleteable && props.selectedRowKeys.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "danger",
     onClick: props.onMultiDelete
-  }, "X\xF3a ", props.selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn") : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    type: "link",
-    onClick: props.handleSelectAll
-  }, "Ch\u1ECDn t\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    type: "link",
-    danger: true,
-    onClick: props.handleClearSelected
-  }, "B\u1ECF ch\u1ECDn t\u1EA5t c\u1EA3")) : "");
+  }, "X\xF3a ", props.selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn"));
 });
 /* harmony default export */ __webpack_exports__["default"] = (ToolsButton);
 
@@ -849,20 +853,6 @@ var ListForm = function ListForm(props) {
       currentRecord: record
     });
   };
-
-  var handleSelectAll = function handleSelectAll() {
-    setState({
-      selectedRowKeys: data.map(function (item) {
-        return item[primaryKey];
-      })
-    });
-  };
-
-  var handleClearSelected = function handleClearSelected() {
-    setState({
-      selectedRowKeys: []
-    });
-  };
   /**
    * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
    */
@@ -975,14 +965,12 @@ var ListForm = function ListForm(props) {
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, filterBox ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_FilterBox__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, props, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, filterBox && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_FilterBox__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, props, {
     onFilter: handleFilterBox
-  })) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ToolsButton__WEBPACK_IMPORTED_MODULE_8__["default"], _extends({}, props, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ToolsButton__WEBPACK_IMPORTED_MODULE_8__["default"], _extends({}, props, {
     selectedRowKeys: selectedRowKeys,
     handleAddNew: handleAddNew,
-    onMultiDelete: onMultiDelete,
-    handleSelectAll: handleSelectAll,
-    handleClearSelected: handleClearSelected
+    onMultiDelete: onMultiDelete
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_DataTable__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, props, {
     data: data,
     isLoading: isLoading,
@@ -990,13 +978,13 @@ var ListForm = function ListForm(props) {
     onChangeSelect: onChangeSelect,
     handleEdit: handleEdit,
     onDelete: onDelete
-  })), props.formTemplate !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, props, {
+  })), props.formTemplate !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, props, {
     modalVisible: modalVisible,
     formSubmiting: formSubmiting,
     currentRecord: currentRecord,
     handleOk: handleOk,
     handleCancel: handleCancel
-  })) : "");
+  })));
 };
 
 ListForm.propTypes = {

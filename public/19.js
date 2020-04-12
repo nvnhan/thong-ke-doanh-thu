@@ -21,7 +21,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     title: "Mã hàng",
     dataIndex: "ma_hang",
     optFind: true,
-    width: 120
+    width: 110
   }, {
     title: "Tên hàng",
     dataIndex: "ten_hang",
@@ -42,12 +42,12 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   //     dataIndex: "don_gia",
   //     render: number => vndFormater.format(number),
   //     // sorter: (a, b) => a.don_gia - b.don_gia,
-  //     width: 120
+  //     width: 110
   // },
   {
     title: "SL mua vào",
     dataIndex: "so_luong_mua_vao",
-    width: 120
+    width: 110
   }, {
     title: "TT mua vào",
     dataIndex: "thanh_tien_mua_vao",
@@ -57,11 +57,11 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.thanh_tien_mua_vao - b.thanh_tien_mua_vao;
     },
-    width: 120
+    width: 110
   }, {
     title: "SL bán ra",
     dataIndex: "so_luong_ban_ra",
-    width: 120
+    width: 110
   }, {
     title: "TT bán ra",
     dataIndex: "thanh_tien_ban_ra",
@@ -71,11 +71,11 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.thanh_tien_ban_ra - b.thanh_tien_ban_ra;
     },
-    width: 120
+    width: 110
   }, {
     title: "SL hoàn đổi",
     dataIndex: "so_luong_hoan_doi",
-    width: 120
+    width: 110
   }, {
     title: "TT hoàn đổi",
     dataIndex: "thanh_tien_hoan_doi",
@@ -85,11 +85,11 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.thanh_tien_hoan_doi - b.thanh_tien_hoan_doi;
     },
-    width: 120
+    width: 110
   }, {
     title: "SL tồn kho",
     dataIndex: "so_luong_ton_kho",
-    width: 120
+    width: 110
   }, {
     title: "TT tồn kho",
     dataIndex: "thanh_tien_ton_kho",
@@ -99,7 +99,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.thanh_tien_ton_kho - b.thanh_tien_ton_kho;
     },
-    width: 120
+    width: 110
   }];
 
   var renderFooter = function renderFooter(data) {
@@ -125,7 +125,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     editable: false,
     deleteable: false,
     tableSize: {
-      x: 800
+      x: 1200
     },
     renderFooter: renderFooter
   });

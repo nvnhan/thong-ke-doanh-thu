@@ -7,7 +7,8 @@ const List = React.memo(() => {
         {
             title: "Loại phí",
             dataIndex: "loai_phi",
-            optFind: true
+            optFind: true,
+            width: 150
         },
         {
             title: "Mức phí",
@@ -16,12 +17,14 @@ const List = React.memo(() => {
                 new Intl.NumberFormat("vi-VN", {
                     style: "currency",
                     currency: "VND"
-                }).format(number)
+                }).format(number),
+            width: 80
         },
         {
             title: "Ghi chú",
             dataIndex: "ghi_chu",
-            ellipsis: true
+            ellipsis: true,
+            width: 100
         }
     ];
 

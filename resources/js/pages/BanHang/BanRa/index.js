@@ -153,7 +153,7 @@ const List = React.memo(props => {
             url="ban-ra"
             filterBox
             columns={columns}
-            tableSize={{ x: 1200 }}
+            tableSize={{ x: 1000 }}
             modalWidth="800px"
             formTemplate={
                 <FormItem

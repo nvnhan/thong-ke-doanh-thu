@@ -4,6 +4,21 @@
 
 /* Set các giá trị với màn hình tương ứng */
 
+.ant-table-tbody > tr > td,
+.ant-table-thead > tr > th,
+.ant-table tfoot > tr > td,
+.ant-table tfoot > tr > th {
+  padding: 12px;
+}
+
+.ant-pagination-next {
+  margin-right: 8px;
+}
+
+.ant-pagination-options {
+  margin-left: 8px;
+}
+
 .color-danger {
   color: #ff4d4f;
 }

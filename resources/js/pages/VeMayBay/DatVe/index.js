@@ -14,9 +14,9 @@ const List = React.memo(props => {
     // const [khachHang, setKhachHang] = useState([]);
 
     useEffect(() => {
+        //TODO: Get all Hãng bay & username đổ vào filterbox
         // const promise1 = axios.get("/api/nha-cung-cap");
         // const promise2 = axios.get("/api/khach-hang");
-
         // Promise.all([promise1, promise2]).then(response => {
         //     if (response[0].data.success && response[1].data.success)
         //         setState({
@@ -71,74 +71,111 @@ const List = React.memo(props => {
         {
             title: "Ngày tháng",
             dataIndex: "ngay_thang",
-            width: 120,
+            width: 110,
             sorter: (a, b) =>
                 moment(a.ngay_thang, "DD/MM/YYYY").unix() -
                 moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
         {
-            title: "Mã tour",
-            dataIndex: "ma_tour",
+            title: "Mã giữ chỗ",
+            dataIndex: "ma_giu_cho",
             optFind: true,
-            width: 140
+            width: 90
         },
         {
-            title: "Tên tour",
-            dataIndex: "ten_tour",
-            width: 170,
+            title: "Số vé",
+            dataIndex: "so_ve",
+            width: 140,
             optFind: true
         },
         {
-            title: "Phân loại",
-            dataIndex: "phan_loai",
-            width: 140,
+            title: "Hãng bay",
+            dataIndex: "hang_bay",
+            width: 75,
             optFilter: true
         },
         {
-            title: "Giá tour",
-            dataIndex: "gia_tour",
-            render: number => vndFormater.format(number),
-            sorter: (a, b) => a.gia_tour - b.gia_tour,
-            width: 120
+            title: "Tên khách",
+            dataIndex: "ten_khach",
+            width: 140,
+            optFind: true
         },
         {
-            title: "Giá bán",
-            dataIndex: "gia_ban",
+            title: "TG đi",
+            dataIndex: "ngay_gio_di",
+            width: 110,
+            sorter: (a, b) =>
+                moment(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() -
+                moment(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix()
+        },
+        {
+            title: "Chặng đi",
+            dataIndex: "chang_di",
+            width: 100
+        },
+        {
+            title: "TG về",
+            dataIndex: "ngay_gio_ve",
+            width: 110,
+            sorter: (a, b) =>
+                moment(a.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix() -
+                moment(b.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix()
+        },
+        {
+            title: "Chặng về",
+            dataIndex: "chang_ve",
+            width: 100
+        },
+        {
+            title: "Tổng tiền",
+            dataIndex: "tong_tien",
             render: number => vndFormater.format(number),
-            sorter: (a, b) => a.gia_ban - b.gia_ban,
-            width: 120
+            sorter: (a, b) => a.tong_tien - b.tong_tien,
+            width: 110
+        },
+        {
+            title: "Thu khách",
+            dataIndex: "tong_tien_thu_khach",
+            render: number => vndFormater.format(number),
+            sorter: (a, b) => a.tong_tien_thu_khach - b.tong_tien_thu_khach,
+            width: 110
         },
         {
             title: "Lãi",
             dataIndex: "lai",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.lai - b.lai,
-            width: 120
+            width: 110
+        },
+        {
+            title: "Nơi mua",
+            dataIndex: "noi_mua",
+            width: 110,
+            optFilter: true
         },
         {
             title: "Khách hàng",
             dataIndex: "ten_khach_hang",
-            width: 120,
+            width: 110,
             optFilter: true
         },
         {
-            title: "Tình trạng",
-            dataIndex: "tinh_trang",
-            width: 120,
-            optFilter: true
+            title: "Thanh toán",
+            dataIndex: "ngay_thanh_toan",
+            width: 110
         },
         {
-            title: "Ghi chú",
-            dataIndex: "ghi_chu",
-            ellipsis: true,
-            width: 170
-        }
+            title: "Người nhập",
+            dataIndex: "username",
+            width: 100,
+            optFilter: true
+        },
     ];
 
     const getOtherFilter = () => {
         return [
             {
-                name: "san_bay",
+                name: "sb",
                 label: "Sân bay",
                 render: (
                     <Select>
@@ -148,32 +185,32 @@ const List = React.memo(props => {
                     </Select>
                 )
             },
-            {
-                name: "hang_bay",
-                label: "Hãng bay",
-                render: (
-                    <Select>
-                        <Option value="">Tất cả</Option>
-                        <Option value="vn">VietNam Airline</Option>
-                        <Option value="vj">VietJet</Option>
-                        <Option value="jets">Jetstar</Option>
-                        <Option value="bb">Bamboo</Option>
-                        <Option value="khac">Khác</Option>
-                        {/* Render tên các hãng khác....... */}
-                    </Select>
-                )
-            },
-            {
-                name: "user",
-                label: "Người nhập",
-                render: (
-                    <Select>
-                        <Option value="">Tất cả</Option>
-                        
-                        {/* Render danh sách user....... */}
-                    </Select>
-                )
-            }
+            // {
+            //     name: "hb",
+            //     label: "Hãng bay",
+            //     render: (
+            //         <Select>
+            //             <Option value="">Tất cả</Option>
+            //             <Option value="VN">VietNam Airline</Option>
+            //             <Option value="VJ">VietJet</Option>
+            //             <Option value="Jets">Jetstar</Option>
+            //             <Option value="BB">Bamboo</Option>
+            //             <Option value="khac">Khác</Option>
+            //             {/* Render tên các hãng khác....... */}
+            //         </Select>
+            //     )
+            // },
+            // {
+            //     name: "user",
+            //     label: "Người nhập",
+            //     render: (
+            //         <Select>
+            //             <Option value="">Tất cả</Option>
+
+            //             {/* Render danh sách user....... */}
+            //         </Select>
+            //     )
+            // }
         ];
     };
 
@@ -184,7 +221,7 @@ const List = React.memo(props => {
             otherFilter={getOtherFilter()}
             filterInitialValue={{ san_bay: "", hang_bay: "", user: "" }}
             columns={columns}
-            tableSize={{ x: 1200 }}
+            tableSize={{ x: 1100 }}
             modalWidth="1100px"
             formTemplate={<FormItem />}
             formInitialValues={{

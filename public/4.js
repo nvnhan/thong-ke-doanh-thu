@@ -389,7 +389,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     filterBox: true,
     columns: columns,
     tableSize: {
-      x: 1000
+      x: 800
     },
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
       hangHoa: hangHoa,

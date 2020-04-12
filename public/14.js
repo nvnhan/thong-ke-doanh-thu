@@ -84,7 +84,13 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
   var columns = [{
     title: "Loại hành lý",
     dataIndex: "hanh_ly",
-    optFind: true
+    optFind: true,
+    width: 100
+  }, {
+    title: "Hãng bay",
+    dataIndex: "hang_bay",
+    optFilter: true,
+    width: 80
   }, {
     title: "Mức phí",
     dataIndex: "muc_phi",
@@ -93,15 +99,13 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
         style: "currency",
         currency: "VND"
       }).format(number);
-    }
-  }, {
-    title: "Hãng bay",
-    dataIndex: "hang_bay",
-    optFind: true
+    },
+    width: 80
   }, {
     title: "Ghi chú",
     dataIndex: "ghi_chu",
-    ellipsis: true
+    ellipsis: true,
+    width: 100
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     url: "phi-hanh-ly",

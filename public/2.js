@@ -491,7 +491,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     filterBox: true,
     columns: columns,
     tableSize: {
-      x: 1200
+      x: 1000
     },
     modalWidth: "800px",
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {

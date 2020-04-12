@@ -8,22 +8,26 @@ const List = React.memo(() => {
         {
             title: "Mã sân bay",
             dataIndex: "ma_san_bay",
-            optFind: true
+            optFind: true,
+            width: 100
         },
         {
             title: "Tên sân bay",
             dataIndex: "ten_san_bay",
-            optFind: true
+            optFind: true,
+            width: 140
         },
         {
             title: "Khu vực",
             dataIndex: "phan_loai",
-            optFilter: true
+            optFilter: true,
+            width: 110
         },
         {
             title: "Sân bay loại A",
             dataIndex: "loai_a",
-            render: bol => <Checkbox checked={bol} />
+            render: bol => <Checkbox checked={bol} />,
+            width: 90
         }
     ];
 

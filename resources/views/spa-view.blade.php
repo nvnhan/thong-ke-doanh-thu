@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Thống kê doanh thu</title>
     <!-- Styles -->
-    <link href="{{ asset('css/antd.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/antd.mod.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 

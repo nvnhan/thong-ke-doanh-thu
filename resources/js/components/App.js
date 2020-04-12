@@ -5,6 +5,7 @@ import { createStore } from "redux";
 import { myReducer } from "../reducers";
 import MainContainer from "./MainContainer";
 import { BrowserRouter } from "react-router-dom";
+// import 'antd/dist/antd.css';
 
 export default class App extends PureComponent {
     render() {

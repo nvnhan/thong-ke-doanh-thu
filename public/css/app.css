@@ -24,6 +24,10 @@
 }
 
 .color-primary {
+  color: #6dc3a6;
+}
+
+.color-link {
   color: #1890ff;
 }
 
@@ -91,7 +95,6 @@
 
   .my-header .btn-drawer {
     display: block;
-    color: rgba(0, 0, 0, 0.85);
   }
 
   .my-header .ant-page-header-heading-extra {

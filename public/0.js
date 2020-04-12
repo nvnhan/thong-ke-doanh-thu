@@ -195,7 +195,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
       onClick: function onClick() {
         return handleEdit(record);
       },
-      className: "color-primary"
+      className: "color-link"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null), " Ch\u1EC9nh s\u1EEDa"), deleteable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
       key: "delete",
       onClick: function onClick() {

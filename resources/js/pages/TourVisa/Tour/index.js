@@ -142,7 +142,7 @@ const List = React.memo(props => {
             onClick: onClickRow,
             title: "Tour chi tiết",
             icon: <AppstoreAddOutlined />,
-            color: "#52c41a" // Success color
+            color: "#4bab92" // Primary color
         }
     ];
 

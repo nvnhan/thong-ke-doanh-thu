@@ -17,6 +17,8 @@
         "axios": "^0.19",
         "cross-env": "^5.1",
         "laravel-mix": "^5.0.4",
+        "less": "^3.11.1",
+        "less-loader": "^5.0.0",
         "lodash": "^4.17.13",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",

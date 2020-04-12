@@ -513,7 +513,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     onClick: onClickRow,
     title: "Tour chi tiết",
     icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["AppstoreAddOutlined"], null),
-    color: "#52c41a" // Success color
+    color: "#4bab92" // Primary color
 
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_5__["default"], {

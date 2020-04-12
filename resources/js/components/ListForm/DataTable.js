@@ -114,7 +114,7 @@ const DataTable = React.memo(props => {
                 <Menu.Item
                     key="edit"
                     onClick={() => handleEdit(record)}
-                    className="color-primary"
+                    className="color-link"
                 >
                     <EditOutlined /> Chỉnh sửa
                 </Menu.Item>

@@ -36,12 +36,16 @@ $lg: 1200px;
     margin-left: 8px;
 }
 
-// Color
+//
 .color-danger {
     color: #ff4d4f;
 }
 
 .color-primary {
+    color: #6dc3a6;
+}
+
+.color-link {
     color: #1890ff;
 }
 
@@ -72,6 +76,7 @@ $lg: 1200px;
     margin: 24px 16px 0;
     padding: 16px 0;
     background: #fff;
+    // background: #1f1f1f;        // For Dark mode
     /* text-align: center; */
 }
 
@@ -90,6 +95,7 @@ $lg: 1200px;
 /* My Header & Drawer */
 .my-header {
     background: white;
+    // background: rgb(20,20,20);      // For dark mode
     padding-bottom: 0;
     padding-right: 16px;
     min-width: 320px;
@@ -109,7 +115,7 @@ $lg: 1200px;
         }
         .btn-drawer {
             display: block;
-            color: rgba(0, 0, 0, 0.85);
+            // color: rgba(0, 0, 0, 0.85);
         }
         .ant-page-header-heading-extra {
             padding-top: 0;

@@ -53,6 +53,7 @@ class CreateDatVesTable extends Migration
             $table->boolean('nhac_lich_bay')->default(false);
             $table->dateTime('ngay_nhac_lich')->nullable();
 
+            $table->string('dinh_danh', 100)->nullable();
             $table->string('ghi_chu', 500)->nullable();
             $table->string('username', 50)->nullable();
         });

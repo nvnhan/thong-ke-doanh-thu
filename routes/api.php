@@ -62,10 +62,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('ton-kho', 'HangHoaController@tonkho');
     Route::get('tong-hop-hang', 'HangHoaController@tonghop');
 
+    // Dat Ve
+    Route::delete('dat-ve/deletes', 'DatVeController@deletes');
+    Route::put('dat-ve/updates', 'DatVeController@updates');
+    Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
+
 
     //
     Route::resource('user', 'UserController');
-    Route::resource('dat-ve', 'DatVeController');
     Route::resource('thu-chi', 'ThuChiController');
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');
 });

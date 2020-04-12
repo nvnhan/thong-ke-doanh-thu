@@ -82,7 +82,7 @@ class HangHoaController extends BaseController
         return $this->sendError('Không xóa được', []);
     }
 
-    public function tonkho (Request $request) 
+    public function tonkho(Request $request)
     {
         $date = date('Y-m-d');
         if (!empty($request->den_ngay))
@@ -95,9 +95,61 @@ class HangHoaController extends BaseController
             $mv = $value->mua_vaos()->where('ngay_thang', "<=", $date)->sum('so_luong');
             $br = $value->ban_ras()->where('ngay_thang', "<=", $date)->sum('so_luong');
             $hd = $value->ban_ras()->where('ngay_hoan_doi_xong', "<=", $date)->sum('so_luong');
-            $value->so_luong = $mv - $br + $hd;
+            $value->so_luong_ton_kho = $mv - $br + $hd;
+            $value->setAppends(['so_luong_ton_kho', 'thanh_tien_ton_kho', 'nha_cung_cap']);
         }
-        
+
+        return $this->sendResponse($hang_hoa, "HangHoa retrieved successfully");
+    }
+
+    public function tonghop(Request $request)
+    {
+        $bat_dau = date('Y-m-1');
+        $ket_thuc = date('Y-m-t');
+        if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
+            $bat_dau = $request->bat_dau;
+            $ket_thuc = $request->ket_thuc;
+        }
+
+        $hang_hoa = HangHoa::whereHas('mua_vaos', function ($query) use ($bat_dau, $ket_thuc) {
+            $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+        })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
+            $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+        })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
+            $query->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
+        })->get();
+
+        foreach ($hang_hoa as $value) {
+            // Mua vào trong khoảng
+            $mv = $value->mua_vaos()->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+            $value->so_luong_mua_vao = $mv->sum('so_luong');
+            $value->thanh_tien_mua_vao = $mv->sum('thanh_tien');
+
+            // bán ra trong khoảng
+            $br = $value->ban_ras()->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+            $value->so_luong_ban_ra = $br->sum('so_luong');
+            $value->thanh_tien_ban_ra = $br->sum('thanh_tien_ban');
+
+            // Hoàn đổi trong khoảng
+            $br = $value->ban_ras()->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
+            $value->so_luong_hoan_doi = $br->sum('so_luong');
+            $value->thanh_tien_hoan_doi = $br->sum('thanh_tien_ban');
+
+            // Tồn kho đến cuối kỳ
+            $mv = $value->mua_vaos()->where('ngay_thang', "<=", $ket_thuc)->sum('so_luong');
+            $br = $value->ban_ras()->where('ngay_thang', "<=", $ket_thuc)->sum('so_luong');
+            $hd = $value->ban_ras()->where('ngay_hoan_doi_xong', "<=", $ket_thuc)->sum('so_luong');
+            $value->so_luong_ton_kho = $mv - $br + $hd;
+
+            $value->setAppends([
+                'so_luong_mua_vao', 'thanh_tien_mua_vao',
+                'so_luong_ban_ra', 'thanh_tien_ban_ra',
+                'so_luong_hoan_doi', 'thanh_tien_hoan_doi',
+                'so_luong_ton_kho', 'thanh_tien_ton_kho',
+                'nha_cung_cap'
+            ]);
+        }
+
         return $this->sendResponse($hang_hoa, "HangHoa retrieved successfully");
     }
 }

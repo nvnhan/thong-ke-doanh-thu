@@ -13,11 +13,12 @@ class MuaVao extends Model
     protected $casts = [
         'ngay_thang' => 'date:d/m/Y',
         'ngay_thanh_toan' => 'date:d/m/Y',
+        'thanh_tien' => 'double'
     ];
 
     protected $fillable = ['ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia', 'ghi_chu'];
 
-    protected $appends = ['thanh_tien', 'da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap'];
+    protected $appends = ['da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap'];
 
     public static function boot()
     {
@@ -57,10 +58,6 @@ class MuaVao extends Model
     public function getNhaCungCapAttribute()
     {
         return $this->hang_hoa()->first()->nha_cung_cap;
-    }
-
-    public function getThanhTienAttribute() {
-        return $this->don_gia * $this->so_luong;
     }
 
     public function getDaThanhToanAttribute() {

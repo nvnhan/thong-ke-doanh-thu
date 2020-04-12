@@ -15,14 +15,20 @@ class BanRa extends Model
         'ngay_thanh_toan' => 'date:d/m/Y',
         'ngay_hoan_doi' => 'date:d/m/Y',
         'ngay_thanh_toan_hoan_doi' => 'date:d/m/Y',
-        'ngay_hoan_doi_xong' => 'date:d/m/Y'
+        'ngay_hoan_doi_xong' => 'date:d/m/Y',
+        'thanh_tien_mua' => 'double',
+        'thanh_tien_ban' => 'double',
     ];
 
-    protected $fillable = ['ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia_mua', 'don_gia_ban', 'id_khach_hang', 'ngay_hoan_doi', 
-        'ngay_thanh_toan_hoan_doi', 'id_tai_khoan_tra_hoan_doi', 'ngay_hoan_doi_xong', 'ghi_chu'];
+    protected $fillable = [
+        'ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia_mua', 'don_gia_ban', 'id_khach_hang', 'ngay_hoan_doi',
+        'ngay_thanh_toan_hoan_doi', 'id_tai_khoan_tra_hoan_doi', 'ngay_hoan_doi_xong', 'ghi_chu'
+    ];
 
-    protected $appends = ['thanh_tien_mua', 'thanh_tien_ban', 'lai', 'da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap', 
-        'tai_khoan_tra_hoan_doi', 'ma_khach_hang'];
+    protected $appends = [
+        'lai', 'da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap',
+        'tai_khoan_tra_hoan_doi', 'ma_khach_hang'
+    ];
 
     public static function boot()
     {
@@ -56,12 +62,19 @@ class BanRa extends Model
     }
 
     ////////
+
+    public function getLaiAttribute()
+    {
+        return $this->thanh_tien_ban - $this->thanh_tien_mua;
+    }
+
     public function getTaiKhoanTraHoanDoiAttribute()
     {
         return optional($this->tai_khoan_doi_tra()->first())->ky_hieu;
     }
 
-    public function getMaKhachHangAttribute() {
+    public function getMaKhachHangAttribute()
+    {
         return optional($this->khach_hang()->first())->ma_khach_hang;
     }
 
@@ -82,21 +95,6 @@ class BanRa extends Model
     public function getNhaCungCapAttribute()
     {
         return $this->hang_hoa()->first()->nha_cung_cap;
-    }
-
-    public function getThanhTienMuaAttribute()
-    {
-        return $this->don_gia_mua * $this->so_luong;
-    }
-
-    public function getThanhTienBanAttribute()
-    {
-        return $this->don_gia_ban * $this->so_luong;
-    }
-
-    public function getLaiAttribute()
-    {
-        return $this->thanh_tien_ban - $this->thanh_tien_mua;
     }
 
     public function getDaThanhToanAttribute()

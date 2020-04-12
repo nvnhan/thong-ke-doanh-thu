@@ -19,7 +19,7 @@ class TourChiTiet extends Model
 
     protected $fillable = ['ngay_thang', 'id_tour', 'id_hang_hoa', 'bat_dau', 'ket_thuc', 'so_luong', 'don_gia', 'ghi_chu'];
 
-    protected $appends = ['ten_hang', 'ma_hang', 'phan_loai', 'nha_cung_cap', 'da_thanh_toan', 'thanh_tien'];
+    protected $appends = ['ten_hang', 'ma_hang', 'phan_loai', 'nha_cung_cap', 'da_thanh_toan'];
 
     public static function boot()
     {
@@ -48,11 +48,6 @@ class TourChiTiet extends Model
     public function thu_chi_chi_tiets()
     {
         return $this->hasMany('App\ThuChiChiTiet', 'id_ban_ra');
-    }
-
-    public function getThanhTienAttribute()
-    {
-        return $this->don_gia * $this->so_luong;
     }
 
     public function getDaThanhToanAttribute()

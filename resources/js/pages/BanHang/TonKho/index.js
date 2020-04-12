@@ -40,14 +40,14 @@ const List = React.memo(props => {
         },
         {
             title: "Số lượng",
-            dataIndex: "so_luong",
+            dataIndex: "so_luong_ton_kho",
             width: 120
         },
         {
             title: "Thành tiền",
-            dataIndex: "thanh_tien",
+            dataIndex: "thanh_tien_ton_kho",
             render: number => vndFormater.format(number),
-            sorter: (a, b) => a.thanh_tien - b.thanh_tien,
+            sorter: (a, b) => a.thanh_tien_ton_kho - b.thanh_tien_ton_kho,
             width: 120
         }
     ];
@@ -56,11 +56,11 @@ const List = React.memo(props => {
         if (!_.isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
-                    thanh_tien:
-                        previousValue.thanh_tien + currentValue.thanh_tien
+                    thanh_tien_ton_kho:
+                        previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
                 };
             });
-            return "Tổng tiền: " + vndFormater.format(sumObj.thanh_tien);
+            return "Tổng tiền tồn kho: " + vndFormater.format(sumObj.thanh_tien_ton_kho);
         }
     };
 
@@ -93,7 +93,7 @@ const List = React.memo(props => {
             editable={false}
             deleteable={false}
             tableSize={{ x: 800 }}
-            // renderFooter={renderFooter}
+            renderFooter={renderFooter}
         />
     );
 });

@@ -19,3 +19,4 @@ export const BH_MUA_VAO = "BH_MUA_VAO";
 export const BH_BAN_RA = "BH_BAN_RA";
 export const BH_TON_KHO = "BH_TON_KHO";
 export const BH_HOAN_DOI = "BH_HOAN_DOI";
+export const BH_TONG_HOP = "BH_TONG_HOP";

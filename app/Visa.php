@@ -19,7 +19,7 @@ class Visa extends Model
 
     protected $fillable = ['ngay_thang', 'phan_loai', 'ma_visa', 'quoc_gia', 'ngay_mua', 'ngay_tra_khach', 'gia_mua', 'gia_ban', 'id_khach_hang', 'id_nha_cung_cap', 'ghi_chu'];
 
-    protected $appends = ['ten_khach_hang', 'nha_cung_cap', 'lai', 'da_thanh_toan', 'tinh_trang'];
+    protected $appends = ['ten_khach_hang', 'nha_cung_cap', 'da_thanh_toan', 'tinh_trang'];
 
     public static function boot()
     {
@@ -55,11 +55,6 @@ class Visa extends Model
     public function thu_chi_chi_tiets()
     {
         return $this->hasMany('App\ThuChiChiTiet', 'id_visa');
-    }
-
-    public function getLaiAttribute()
-    {
-        return $this->gia_ban - $this->gia_mua;
     }
 
     public function getDaThanhToanAttribute()

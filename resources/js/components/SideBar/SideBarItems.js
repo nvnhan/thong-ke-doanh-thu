@@ -14,7 +14,8 @@ import {
     ExportOutlined,
     ImportOutlined,
     RollbackOutlined,
-    DatabaseOutlined
+    DatabaseOutlined,
+    CalculatorOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -46,18 +47,21 @@ const items = [
             {
                 key: SideMenus.VMB_SAN_BAY,
                 href: "/san-bay",
+                admin: true,
                 icon: <CaretRightOutlined />,
                 title: "Sân bay"
             },
             {
                 key: SideMenus.VMB_THUE_PHI,
                 href: "/thue-phi",
+                admin: true,
                 icon: <CaretRightOutlined />,
                 title: "Thuế phí"
             },
             {
                 key: SideMenus.VMB_HANH_LY,
                 href: "/phi-hanh-ly",
+                admin: true,
                 icon: <CaretRightOutlined />,
                 title: "Phí hành lý"
             }
@@ -110,6 +114,12 @@ const items = [
                 href: "/ton-kho",
                 icon: <DatabaseOutlined />,
                 title: "Tồn kho"
+            },
+            {
+                key: SideMenus.BH_TONG_HOP,
+                href: "/tong-hop-hang",
+                icon: <CalculatorOutlined />,
+                title: "Tổng hợp hàng"
             }
         ]
     },

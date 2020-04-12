@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ "./resources/js/pages/Account/Profile/index.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/pages/Account/Profile/index.js ***!
-  \*****************************************************/
+/***/ "./resources/js/pages/Account/Password/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/Account/Password/index.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -26,26 +26,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
+var Password = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    // Check it in server
-    axios.get("/api/get-user").then(function (response) {
-      if (response.data.success) {
-        var data = response.data.data;
-        form.setFieldsValue(data);
-      } else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  }, []);
-
   var onFinish = function onFinish() {
     var values = form.getFieldValue();
-    axios.put("/api/profile", values).then(function (response) {
+    axios.put("/api/password", values).then(function (response) {
       if (response.data.success) antd__WEBPACK_IMPORTED_MODULE_0__["message"].success(response.data.message);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
     })["catch"](function (error) {
       return console.log(error);
@@ -64,28 +52,27 @@ var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props)
       span: 16
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "username",
-    label: "T\xEAn \u0111\u0103ng nh\u1EADp",
+    name: "old_pass",
+    label: "M\u1EADt kh\u1EA9u hi\u1EC7n t\u1EA1i",
     rules: [{
       required: true,
       message: "Nhập đầy đủ thông tin!"
     }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
-    disabled: true
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ho_ten",
-    label: "H\u1ECD t\xEAn",
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Password, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "password",
+    label: "M\u1EADt kh\u1EA9u m\u1EDBi",
     rules: [{
       required: true,
       message: "Nhập đầy đủ thông tin!"
     }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "sdt",
-    label: "S\u1ED1 \u0111i\u1EC7n tho\u1EA1i"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "dia_chi",
-    label: "\u0110\u1ECBa ch\u1EC9"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Password, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "password_confirmation",
+    label: "Nh\u1EADp l\u1EA1i m\u1EADt kh\u1EA9u m\u1EDBi",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Password, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     wrapperCol: {
       span: 16,
       offset: 8
@@ -95,7 +82,7 @@ var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props)
     htmlType: "submit"
   }, "C\u1EADp nh\u1EADt"))));
 });
-/* harmony default export */ __webpack_exports__["default"] = (Profile);
+/* harmony default export */ __webpack_exports__["default"] = (Password);
 
 /***/ })
 

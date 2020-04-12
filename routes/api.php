@@ -60,6 +60,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('mua-vao', 'MuaVaoController')->only(['index', 'store', 'update', 'destroy']);
 
     Route::get('ton-kho', 'HangHoaController@tonkho');
+    Route::get('tong-hop-hang', 'HangHoaController@tonghop');
 
 
     //

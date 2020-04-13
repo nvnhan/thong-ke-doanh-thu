@@ -397,7 +397,10 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   var handleFormValue = function handleFormValue(don_gia) {
     setFormValue({
       don_gia_mua: don_gia,
-      don_gia_ban: don_gia
+      don_gia_ban: don_gia,
+      resetFields: function resetFields() {
+        return setFormValue(undefined);
+      }
     });
   };
 

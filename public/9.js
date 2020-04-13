@@ -692,7 +692,10 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     // Thêm hành khách từ record
     childRef.current.triggerAddNew();
     var newRecord = Object.assign(_objectSpread({}, record), {
-      ten_khach: ""
+      ten_khach: "",
+      resetFields: function resetFields() {
+        return setFormValue(undefined);
+      }
     });
     setFormValue(newRecord);
   };

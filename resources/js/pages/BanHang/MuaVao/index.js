@@ -115,7 +115,8 @@ const List = React.memo(props => {
      */
     const handleFormValue = don_gia => {
         setFormValue({
-            don_gia
+            don_gia,
+            resetFields: () => setFormValue(undefined)
         });
     };
 

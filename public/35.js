@@ -523,25 +523,31 @@ if(false) {}
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 
 
-var FormEdit = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+var FormEdit = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   var form = props.form,
       formInitialValues = props.formInitialValues,
       currentRecord = props.currentRecord,
       setFormValues = props.setFormValues,
-      formTemplate = props.formTemplate;
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"])(function () {
-    // Khi chọn select từ FormItem
-    if (setFormValues !== undefined) form.setFieldsValue(setFormValues); // Khi mở modal render record khác
-    else if (currentRecord !== undefined) form.setFieldsValue(currentRecord); // Khi thêm mới
-      else form.resetFields();
+      formTemplate = props.formTemplate,
+      modalVisible = props.modalVisible;
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useLayoutEffect"])(function () {
+    if (modalVisible) {
+      // Khi chọn select từ FormItem
+      if (setFormValues !== undefined) {
+        form.setFieldsValue(setFormValues);
+        if (setFormValues.resetFields !== undefined) setFormValues.resetFields();
+      } // Khi mở modal render record khác
+      else if (currentRecord !== undefined) form.setFieldsValue(currentRecord);
+    } // tắt mdoal đi thì reset lại
+    else form.resetFields();
   }); // Always run while render
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
     form: form,
     initialValues: formInitialValues,
     labelCol: {

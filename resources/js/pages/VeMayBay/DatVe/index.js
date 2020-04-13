@@ -99,7 +99,13 @@ const List = React.memo(props => {
     const onClickRow = record => {
         // Thêm hành khách từ record
         childRef.current.triggerAddNew();
-        const newRecord = Object.assign({ ...record }, { ten_khach: "" });
+        const newRecord = Object.assign(
+            { ...record },
+            {
+                ten_khach: "",
+                resetFields: () => setFormValue(undefined)
+            }
+        );
         setFormValue(newRecord);
     };
 

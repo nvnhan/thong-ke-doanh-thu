@@ -37,7 +37,7 @@ const form = React.memo(props => {
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>
-                <Col span={24} md={12}>
+                <Col span={12}>
                     <Form.Item
                         name="ngay_thang"
                         label="Ngày tháng"
@@ -55,7 +55,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={12}>
+                <Col span={12}>
                     <Form.Item
                         name="id_hang_hoa"
                         label="Hạng mục"
@@ -83,7 +83,7 @@ const form = React.memo(props => {
                         </Select>
                     </Form.Item>
                 </Col>
-                <Col span={24} md={12}>
+                <Col span={12}>
                     <Form.Item
                         name="don_gia"
                         label="Đơn giá"
@@ -108,7 +108,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={12}>
+                <Col span={12}>
                     <Form.Item
                         name="so_luong"
                         label="Số lượng"
@@ -127,7 +127,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={12}>
+                <Col span={12}>
                     <Form.Item name="bat_dau" label="Bắt đầu">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -136,7 +136,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={12}>
+                <Col span={12}>
                     <Form.Item name="ket_thuc" label="Kết thúc">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -147,8 +147,8 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={24}>
                     <Form.Item
-                        labelCol={{ md: 3, span: 6 }}
-                        wrapperCol={{ md: 21, span: 18 }}
+                        labelCol={{ md: 4, span: 8 }}
+                        wrapperCol={{ md: 20, span: 16 }}
                         name="ghi_chu"
                         label="Ghi chú"
                     >

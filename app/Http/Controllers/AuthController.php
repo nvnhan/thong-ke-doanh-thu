@@ -33,7 +33,7 @@ class AuthController extends BaseController
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 if ($user->actived) {
-                    if (now() < $user->ngay_het_han) {
+                    if (empty($user->ngay_het_han) || now() < $user->ngay_het_han) {
                         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                         $response = ['username' => $user->username, 'ho_ten' => $user->ho_ten, 'admin' => $user->admin, 'token' => $token];
                         return $this->sendResponse($response, 'Đăng nhập thành công');

@@ -33,6 +33,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('thue-phi', 'ThuePhiController')->only(['index', 'update']);
     
     // Thong Tin Chung
+    Route::get('tai-khoan/all', 'TaiKhoanController@all');
     Route::delete('tai-khoan/deletes', 'TaiKhoanController@deletes');
     Route::resource('tai-khoan', 'TaiKhoanController')->only(['index', 'store', 'update', 'destroy']);
     Route::delete('nha-cung-cap/deletes', 'NhaCungCapController@deletes');
@@ -65,6 +66,7 @@ Route::middleware('auth:api')->group(function () {
     // Dat Ve
     Route::delete('dat-ve/deletes', 'DatVeController@deletes');
     Route::put('dat-ve/updates', 'DatVeController@updates');
+    Route::get('dat-ve/hang-bay', 'DatVeController@hangbay');
     Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
 
 

@@ -39,7 +39,7 @@ const form = React.memo(props => {
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item
                         name="ngay_thang"
                         label="Ngày tháng"
@@ -57,7 +57,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item
                         name="ma_tour"
                         label="Mã Tour"
@@ -106,7 +106,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="bat_dau" label="Bắt đầu">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -115,7 +115,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="ket_thuc" label="Kết thúc">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -124,7 +124,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item
                         name="so_luong"
                         label="Số lượng"
@@ -143,7 +143,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="gia_ban" label="Giá bán">
                         <InputNumber
                             style={{ width: "100%" }}
@@ -179,8 +179,8 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={24} md={16} sm={12}>
                     <Form.Item
-                        labelCol={{ md: 3, span: 6 }}
-                        wrapperCol={{ md: 21, span: 18 }}
+                        labelCol={{ md: 4, span: 8 }}
+                        wrapperCol={{ md: 20, span: 16 }}
                         name="ghi_chu"
                         label="Ghi chú"
                     >
@@ -189,7 +189,7 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={24} md={8} sm={12}>
                     <Form.Item
-                        wrapperCol={{ sm: { offset: 6, span: 18 } }}
+                        wrapperCol={{ sm: { offset: 8, span: 16 } }}
                         name="hoan_thanh"
                         valuePropName="checked"
                     >

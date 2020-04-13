@@ -115,7 +115,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
     },
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], null),
     formInitialValues: {
-      phi: 100000
+      muc_phi: 100000
     }
   });
 });

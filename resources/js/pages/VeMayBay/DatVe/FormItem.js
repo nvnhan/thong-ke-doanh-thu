@@ -14,23 +14,23 @@ import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 const { Option, OptGroup } = Select;
 
 const form = React.memo(props => {
-    const phanLoai = props.phanLoai || [];
-    const options = phanLoai.map(pl => ({ value: pl }));
+    const {
+        sanBay,
+        thuePhi,
+        phiHanhLy,
+        taiKhoan,
+        khachHang,
+        hangBay
+    } = props.danhMuc;
+    const hbOptions = hangBay.map(pl => ({ value: pl }));
 
-    const khachHang = props.khachHang || [];
-    /**
-     * [
-     *      ['xxx', [{}, {}, {}],
-     *      ['yyyyy', [{}, {}, {}, {}, {}]]
-     * ]
-     */
     const groupKhachHang = Object.entries(_.groupBy(khachHang, "phan_loai"));
     const getKhachHangDetail = () =>
         groupKhachHang.map(clist => (
             <OptGroup label={clist[0]} key={clist[0]}>
                 {clist[1].map(ncc => (
                     <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
+                        {ncc.ma_khach_hang} - {ncc.ho_ten}
                     </Option>
                 ))}
             </OptGroup>
@@ -39,10 +39,10 @@ const form = React.memo(props => {
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>
-                <Col span={24} md={8} sm={12}>
+                <Col span={24} md={6} sm={12}>
                     <Form.Item
                         name="ngay_thang"
-                        label="Ngày tháng"
+                        label="Ngày mua"
                         rules={[
                             {
                                 required: true,
@@ -57,10 +57,15 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={24} md={6} sm={12}>
+                    <Form.Item name="ma_giu_cho" label="Mã giữ chỗ">
+                        <Input />
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={6} sm={12}>
                     <Form.Item
-                        name="ma_tour"
-                        label="Mã Tour"
+                        name="so_ve"
+                        label="Số vé"
                         rules={[
                             {
                                 required: true,
@@ -71,24 +76,10 @@ const form = React.memo(props => {
                         <Input />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={24} md={6} sm={12}>
                     <Form.Item
-                        name="ten_tour"
-                        label="Tên Tour"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Nhập đầy đủ thông tin!"
-                            }
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-                </Col>
-                <Col span={24} md={8} sm={12}>
-                    <Form.Item
-                        name="phan_loai"
-                        label="Phân loại"
+                        name="hang_bay"
+                        label="Hãng bay"
                         rules={[
                             {
                                 required: true,
@@ -97,7 +88,7 @@ const form = React.memo(props => {
                         ]}
                     >
                         <AutoComplete
-                            options={options}
+                            options={hbOptions}
                             filterOption={(inputValue, option) =>
                                 option.value
                                     .toUpperCase()
@@ -106,7 +97,8 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+
+                <Col span={24} md={6} sm={12}>
                     <Form.Item name="bat_dau" label="Bắt đầu">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -115,7 +107,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={24} md={6} sm={12}>
                     <Form.Item name="ket_thuc" label="Kết thúc">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -124,7 +116,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={24} md={6} sm={12}>
                     <Form.Item
                         name="so_luong"
                         label="Số lượng"
@@ -143,7 +135,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={24} md={6} sm={12}>
                     <Form.Item name="gia_ban" label="Giá bán">
                         <InputNumber
                             style={{ width: "100%" }}
@@ -159,7 +151,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={24} md={6} sm={12}>
                     <Form.Item name="id_khach_hang" label="Khách hàng">
                         <Select
                             showSearch
@@ -187,7 +179,7 @@ const form = React.memo(props => {
                         <Input />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={24} md={6} sm={12}>
                     <Form.Item
                         wrapperCol={{ sm: { offset: 6, span: 18 } }}
                         name="hoan_thanh"

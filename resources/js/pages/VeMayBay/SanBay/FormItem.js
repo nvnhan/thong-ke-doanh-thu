@@ -37,7 +37,7 @@ function form() {
                 </Select>
             </Form.Item>
             <Form.Item
-                wrapperCol={{ sm: { offset: 6, span: 18 } }}
+                wrapperCol={{ sm: { offset: 8, span: 16 } }}
                 name="loai_a"
                 valuePropName="checked"
             >

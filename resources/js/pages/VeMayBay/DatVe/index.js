@@ -1,67 +1,123 @@
-import { AppstoreAddOutlined } from "@ant-design/icons";
+import { UserAddOutlined } from "@ant-design/icons";
 import { Select } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
-import { vndFormater } from "../../../utils";
+import { useMergeState, vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
-
 const { Option } = Select;
 
 const List = React.memo(props => {
-    // const [phanLoai, setPhanLoai] = useState([]);
-    // const [khachHang, setKhachHang] = useState([]);
+    const [formValue, setFormValue] = useState(undefined);
+    const [state, setState] = useMergeState({
+        sanBay: [],
+        thuePhi: [],
+        phiHanhLy: [],
+        taiKhoan: [],
+        khachHang: [],
+        hangBay: []
+    });
 
     useEffect(() => {
-        //TODO: Get all Hãng bay & username đổ vào filterbox
-        // const promise1 = axios.get("/api/nha-cung-cap");
-        // const promise2 = axios.get("/api/khach-hang");
-        // Promise.all([promise1, promise2]).then(response => {
-        //     if (response[0].data.success && response[1].data.success)
-        //         setState({
-        //             nhaCungCap: response[0].data.data,
-        //             khachHang: response[1].data.data
-        //         });
-        // });
+        const promise1 = axios.get("/api/san-bay");
+        const promise2 = axios.get("/api/thue-phi");
+        const promise3 = axios.get("/api/phi-hanh-ly");
+        const promise4 = axios.get("/api/tai-khoan/all");
+        const promise5 = axios.get("/api/khach-hang");
+        const promise6 = axios.get("/api/dat-ve/hang-bay");
+
+        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6])
+            .then(response => {
+                if (
+                    response[0].data.success &&
+                    response[1].data.success &&
+                    response[2].data.success &&
+                    response[3].data.success &&
+                    response[4].data.success &&
+                    response[5].data.success
+                )
+                    setState({
+                        sanBay: response[0].data.data,
+                        thuePhi: response[1].data.data,
+                        phiHanhLy: response[2].data.data,
+                        taiKhoan: response[3].data.data,
+                        khachHang: response[4].data.data,
+                        hangBay: [
+                            ...new Set([
+                                ...response[5].data.data,
+                                "VN",
+                                "VJ",
+                                "Jets",
+                                "BB"
+                            ])
+                        ]
+                    });
+            })
+            .catch(error => console.log(error));
     }, []);
 
     /**
-     * Redirect to Tour Chi Tiet with addition params
+     * Callback from FormItem, trigger when select Hang Hoa
+     * => Change setFormValues to ListForm => FormEdit
+     */
+    const handleFormValue = don_gia => {
+        // Tinh Phu Phi & Tinh Gia, Tinh Phi
+        // setFormValue({
+        //     don_gia
+        // });
+    };
+
+    /**
+     * Trigger "Add new" action with addition params
      */
     const onClickRow = record => {
-        const pathname = `/tour-chi-tiet`;
-        props.history.push({ pathname, tour: record });
+        // Thêm hành khách từ record
+        // const pathname = `/tour-chi-tiet`;
+        // props.history.push({ pathname, tour: record });
     };
 
     const dvAction = [
         {
-            key: "dsTourChiTiet",
+            key: "them-hanh-khach",
             onClick: onClickRow,
             title: "Thêm hành khách",
-            icon: <AppstoreAddOutlined />,
+            icon: <UserAddOutlined />,
             color: "#4bab92" // Primary color
         }
     ];
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
-            {/* <li>
-                Bắt đầu: {record.bat_dau}. Kết thúc: {record.ket_thuc}
+            <li>
+                Chuyến bay đi: {record.cb_di}. Chuyến bay về: {record.cb_ve}
+            </li>
+            <li>Loại tuổi: {record.loai_tuoi}</li>
+            <li>
+                Giá net: {vndFormater.format(record.gia_net)}. Phí soi chiếu, an
+                ninh: {vndFormater.format(record.phi_san_bay)}. Phí quản trị:{" "}
+                {vndFormater.format(record.phu_phi_san_bay)}
             </li>
             <li>
-                Giá tour: {vndFormater.format(record.gia_tour)}. Số lượng:{" "}
-                {record.so_luong}
+                VAT: {vndFormater.format(record.vat)}. Phụ phí:{" "}
+                {vndFormater.format(record.phu_phi)}
             </li>
             <li>
-                Giá bán: {vndFormater.format(record.gia_ban)}. Tổng tiền bán:{" "}
-                {vndFormater.format(record.tong_tien_ban)}
+                Hành lý: {vndFormater.format(record.hanh_ly)}. Loại hành lý:{" "}
+                {record.loai_hanh_ly}
             </li>
             <li>
                 Đã thanh toán: {vndFormater.format(record.da_thanh_toan)}. Ngày
                 thanh toán: {record.ngay_thanh_toan}
             </li>
-            <li>Tình trạng: {record.tinh_trang}</li> */}
+            {record.chua_xuat_ve ? (
+                <li>"Cảnh báo xuất vé: " {record.canh_bao_xuat_ve}</li>
+            ) : (
+                <li>✔ Đã xuất vé</li>
+            )}
+            {!_.isEmpty(record.ngay_nhac_lich) && (
+                <li>Nhắc lịch bay: {record.ngay_nhac_lich}</li>
+            )}
             <li>Ghi chú: {record.ghi_chu}</li>
             <li>Người tạo: {record.username}</li>
         </ul>
@@ -91,13 +147,13 @@ const List = React.memo(props => {
         {
             title: "Hãng bay",
             dataIndex: "hang_bay",
-            width: 75,
+            width: 80,
             optFilter: true
         },
         {
             title: "Tên khách",
             dataIndex: "ten_khach",
-            width: 140,
+            width: 130,
             optFind: true
         },
         {
@@ -167,9 +223,9 @@ const List = React.memo(props => {
         {
             title: "Người nhập",
             dataIndex: "username",
-            width: 100,
+            width: 90,
             optFilter: true
-        },
+        }
     ];
 
     const getOtherFilter = () => {
@@ -180,38 +236,46 @@ const List = React.memo(props => {
                 render: (
                     <Select>
                         <Option value="">Tất cả</Option>
-                        <Option value="quoc_noi">Quốc nội</Option>
-                        <Option value="quoc_te">Quốc tế</Option>
+                        <Option value="qn">Quốc nội</Option>
+                        <Option value="qt">Quốc tế</Option>
                     </Select>
                 )
-            },
-            // {
-            //     name: "hb",
-            //     label: "Hãng bay",
-            //     render: (
-            //         <Select>
-            //             <Option value="">Tất cả</Option>
-            //             <Option value="VN">VietNam Airline</Option>
-            //             <Option value="VJ">VietJet</Option>
-            //             <Option value="Jets">Jetstar</Option>
-            //             <Option value="BB">Bamboo</Option>
-            //             <Option value="khac">Khác</Option>
-            //             {/* Render tên các hãng khác....... */}
-            //         </Select>
-            //     )
-            // },
-            // {
-            //     name: "user",
-            //     label: "Người nhập",
-            //     render: (
-            //         <Select>
-            //             <Option value="">Tất cả</Option>
-
-            //             {/* Render danh sách user....... */}
-            //         </Select>
-            //     )
-            // }
+            }
         ];
+    };
+
+    const renderSummary = data => {
+        if (!_.isEmpty(data)) {
+            const sumObj = data.reduce((previousValue, currentValue) => {
+                return {
+                    tong_tien: previousValue.tong_tien + currentValue.tong_tien,
+                    tong_tien_thu_khach:
+                        previousValue.tong_tien_thu_khach +
+                        currentValue.tong_tien_thu_khach
+                };
+            });
+            return (
+                <>
+                    <tr>
+                        <th colSpan={11}>Tổng cộng</th>
+                        <td>{vndFormater.format(sumObj.tong_tien)}</td>
+                        <td>
+                            {vndFormater.format(sumObj.tong_tien_thu_khach)}
+                        </td>
+                        <td>
+                            {vndFormater.format(
+                                sumObj.tong_tien_thu_khach - sumObj.tong_tien
+                            )}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </>
+            );
+        }
     };
 
     return (
@@ -219,17 +283,20 @@ const List = React.memo(props => {
             url="dat-ve"
             filterBox
             otherFilter={getOtherFilter()}
-            filterInitialValue={{ san_bay: "", hang_bay: "", user: "" }}
+            filterInitialValue={{ sb: "" }}
             columns={columns}
-            tableSize={{ x: 1100 }}
-            modalWidth="1100px"
-            formTemplate={<FormItem />}
+            tableSize={{ x: 1400 }}
+            modalWidth="1200px"
+            formTemplate={
+                <FormItem danhMuc={state} onChangeValue={handleFormValue} />
+            }
             formInitialValues={{
-                so_luong: 1,
                 ngay_thang: moment().format("DD/MM/YYYY")
             }}
             otherActions={dvAction}
             expandedRowRender={expandedRowRender}
+            renderSummary={renderSummary}
+            setFormValues={formValue}
         />
     );
 });

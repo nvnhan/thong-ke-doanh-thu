@@ -53,8 +53,8 @@ function form() {
   }, "Vi\u1EC7t Nam"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     wrapperCol: {
       sm: {
-        offset: 6,
-        span: 18
+        offset: 8,
+        span: 16
       }
     },
     name: "loai_a",

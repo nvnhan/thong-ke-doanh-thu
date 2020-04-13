@@ -76,7 +76,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} sm={12}>
+                <Col span={12} sm={12}>
                     <Form.Item
                         name="id_hang_hoa"
                         label="Hàng hóa"
@@ -104,7 +104,7 @@ const form = React.memo(props => {
                         </Select>
                     </Form.Item>
                 </Col>
-                <Col span={24} sm={12}>
+                <Col span={12} sm={12}>
                     <Form.Item
                         name="don_gia_mua"
                         label="Giá mua"
@@ -129,7 +129,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} sm={12}>
+                <Col span={12} sm={12}>
                     <Form.Item
                         name="so_luong"
                         label="Số lượng"
@@ -148,7 +148,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} sm={12}>
+                <Col span={12} sm={12}>
                     <Form.Item
                         name="don_gia_ban"
                         label="Giá bán"
@@ -173,7 +173,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} sm={12}>
+                <Col span={12} sm={12}>
                     <Form.Item name="id_khach_hang" label="Khách hàng">
                         <Select
                             showSearch
@@ -191,7 +191,7 @@ const form = React.memo(props => {
                         </Select>
                     </Form.Item>
                 </Col>
-                <Col span={24} sm={12}>
+                <Col span={12} sm={12}>
                     <Form.Item name="ngay_hoan_doi" label="Hoàn đổi">
                         <MyDatePicker
                             style={{ width: "100%" }}

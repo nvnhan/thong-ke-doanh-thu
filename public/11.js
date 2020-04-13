@@ -133,12 +133,12 @@ var form = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     span: 24
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     labelCol: {
-      md: 3,
-      span: 6
+      md: 4,
+      span: 8
     },
     wrapperCol: {
-      md: 21,
-      span: 18
+      md: 20,
+      span: 16
     },
     name: "ghi_chu",
     label: "Ghi ch\xFA"

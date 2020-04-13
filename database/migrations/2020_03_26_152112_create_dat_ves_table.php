@@ -36,12 +36,11 @@ class CreateDatVesTable extends Migration
             $table->decimal('phu_phi_san_bay', 11, 2)->nullable();
             $table->decimal('hanh_ly', 11, 2)->nullable();
             $table->integer('id_phi_hanh_ly')->unsigned()->nullable();
-            $table->decimal('vat', 11, 2)->nullable();
+            // $table->decimal('vat', 11, 2)->nullable();
             $table->decimal('phu_phi', 11, 2)->nullable();
             $table->decimal('hoa_hong', 11, 2)->nullable();
             $table->decimal('tong_tien', 11, 2)->default(0);
-            $table->decimal('phi_dich_vu', 11, 2)->nullable();
-            $table->decimal('phi_cong_tac_vien', 11, 2)->nullable();
+            // $table->decimal('phi_cong_tac_vien', 11, 2)->nullable();
             $table->decimal('tong_tien_thu_khach', 11, 2)->default(0);
 
             $table->date('ngay_thanh_toan')->nullable();
@@ -50,7 +49,6 @@ class CreateDatVesTable extends Migration
             
             $table->dateTime('canh_bao_xuat_ve')->nullable();
             $table->boolean('chua_xuat_ve')->default(false);
-            $table->boolean('nhac_lich_bay')->default(false);
             $table->dateTime('ngay_nhac_lich')->nullable();
 
             $table->string('dinh_danh', 100)->nullable();

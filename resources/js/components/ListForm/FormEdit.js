@@ -24,8 +24,8 @@ const FormEdit = React.memo(props => {
         <Form
             form={form}
             initialValues={formInitialValues}
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 18 }}
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
         >
             {formTemplate}
         </Form>

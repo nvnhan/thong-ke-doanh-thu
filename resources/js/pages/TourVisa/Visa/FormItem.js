@@ -75,7 +75,7 @@ const form = React.memo(props => {
                         <Input />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item
                         name="phan_loai"
                         label="Phân loại"
@@ -96,12 +96,12 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="quoc_gia" label="Quốc gia">
                         <Input />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="id_nha_cung_cap" label="Nhà CC">
                         <Select
                             showSearch
@@ -120,7 +120,7 @@ const form = React.memo(props => {
                         </Select>
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="ngay_mua" label="Ngày mua">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -129,7 +129,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="id_khach_hang" label="Khách hàng">
                         <Select
                             showSearch
@@ -148,7 +148,7 @@ const form = React.memo(props => {
                         </Select>
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="ngay_tra_khach" label="Ngày trả">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -157,7 +157,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item
                         name="gia_mua"
                         label="Giá mua"
@@ -182,7 +182,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} md={8} sm={12}>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item
                         name="gia_ban"
                         label="Giá bán"
@@ -209,8 +209,8 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={24} md={16}>
                     <Form.Item
-                        labelCol={{ span: 3 }}
-                        wrapperCol={{ span: 21 }}
+                        labelCol={{ span: 4 }}
+                        wrapperCol={{ span: 20 }}
                         name="ghi_chu"
                         label="Ghi chú"
                     >

@@ -15,6 +15,7 @@ class AddVirtualColumnsDatVe extends Migration
     {
         Schema::table('dat_ve', function (Blueprint $table) {
             $table->decimal('lai', 11, 2)->virtualAs('tong_tien_thu_khach - tong_tien');
+            $table->decimal('vat', 11, 2)->virtualAs('gia_net / 10');
         });
     }
 

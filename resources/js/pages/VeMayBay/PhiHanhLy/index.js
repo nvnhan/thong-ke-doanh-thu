@@ -40,7 +40,7 @@ const List = React.memo(() => {
             columns={columns}
             tableSize={{ x: 600 }}
             formTemplate={<FormItem />}
-            formInitialValues={{ phi: 100000 }}
+            formInitialValues={{ muc_phi: 100000 }}
         />
     );
 });

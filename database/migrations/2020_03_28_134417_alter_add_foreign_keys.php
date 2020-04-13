@@ -21,6 +21,7 @@ class AlterAddForeignKeys extends Migration
         Schema::table('dat_ve', function (Blueprint $table) {
             $table->foreign('id_khach_hang')->references('id')->on('khach_hang');
             $table->foreign('id_tai_khoan_mua')->references('id')->on('tai_khoan');
+            $table->foreign('id_phi_hanh_ly')->references('id')->on('phi_hanh_ly');
         });
         Schema::table('hang_hoa', function (Blueprint $table) {
             $table->foreign('id_tai_khoan')->references('id')->on('tai_khoan')->onDelete('cascade');

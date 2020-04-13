@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DatVe;
+use App\SanBay;
 use Illuminate\Http\Request;
 
 class DatVeController extends BaseController
@@ -15,23 +16,37 @@ class DatVeController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = DatVe::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
+            $objs = DatVe::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else
-            $objs = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
+            $objs = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
 
-        //TODO: Lọc theosân bay
+        if (!$request->user()->admin)
+            $objs = $objs->where('username', $request->user()->username);
 
-        // if (!empty($request->hb)) {
-        //     if ($request->hb != 'khac')
-        //         $objs = array_values($objs->where('hang_bay', $request->hb)->toArray());
-        //     else
-        //         $objs = array_values($objs->whereNotIn('hang_bay', ['VN', 'VJ', 'Jets', 'BB'])->toArray());
-        // }
+        // Lọc theosân bay
+        if (!empty($request->sb)) {
+            $sbqt = SanBay::where('phan_loai', '!=', 'Việt Nam')->pluck('ma_san_bay');
+            if ($request->sb == 'qt')
+                $objs = $objs
+                    ->whereIn('sb_di', $sbqt)
+                    ->orWhereIn('sb_di1', $sbqt)
+                    ->orWhereIn('sb_ve', $sbqt)
+                    ->orWhereIn('sb_ve1', $sbqt);
+            else if ($request->sb == 'qn')
+                $objs = $objs->whereNotIn('sb_di', $sbqt)
+                    ->whereNotIn('sb_di1', $sbqt)
+                    ->whereNotIn('sb_ve', $sbqt)
+                    ->whereNotIn('sb_ve1', $sbqt);
+        }
 
-        // if (!empty($request->user))
-        //     $objs = array_values($objs->where('username', $request->user)->toArray());
+        return $this->sendResponse($objs->get(), "DatVe retrieved successfully");
+    }
 
-        return $this->sendResponse($objs, "DatVe retrieved successfully");
+    public function hangbay(Request $request)
+    {
+        $objs = DatVe::all()->pluck('hang_bay');
+
+        return $this->sendResponse($objs, "HangBay retrieved successfully");
     }
 
     /**

@@ -18,6 +18,12 @@ class TaiKhoanController extends BaseController
         return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
     }
 
+    public function all()
+    {
+        $objs = TaiKhoan::all();
+        return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
+    }
+
     /**
      * Store a newly created resource in storage.
      *

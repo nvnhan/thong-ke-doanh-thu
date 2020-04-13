@@ -136,8 +136,8 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={24}>
                     <Form.Item
-                        labelCol={{ md: 3, span: 6 }}
-                        wrapperCol={{ md: 21, span: 18 }}
+                        labelCol={{ md: 4, span: 8 }}
+                        wrapperCol={{ md: 20, span: 16 }}
                         name="ghi_chu"
                         label="Ghi chú"
                     >

@@ -60,11 +60,33 @@
 
 .ant-layout-sider {
   min-height: 100vh;
+  background: #020d07;
+}
+
+.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub {
+  color: #c1cac4b3;
+  background: #020d07;
+}
+
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: #000703;
+}
+
+.ant-menu-dark .ant-menu-item,
+.ant-menu-dark .ant-menu-item-group-title,
+.ant-menu-dark .ant-menu-item > a {
+  color: #c1cac4b3;
 }
 
 .ant-layout-sider-light .ant-layout-sider-zero-width-trigger {
   color: white !important;
   background: #616161 !important;
+}
+
+.ant-layout-sider-zero-width-trigger {
+  background: #020d07;
+  box-shadow: 1px 2px 6px rgba(0, 30, 0, 0.25);
 }
 
 /* My Header & Drawer */
@@ -159,7 +181,7 @@
 
 @media (max-width: 575px) {
   .filter-box button {
-    margin-top: 40px;
+    margin-top: 32px;
   }
 }
 
@@ -175,5 +197,23 @@
 .ant-table tfoot > tr td {
   border: none;
   font-weight: 500;
+}
+
+.ant-form-item {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 575px) {
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
+
+  .ant-form-item .ant-form-item-label {
+    padding: 0;
+  }
+}
+
+.ant-modal-body {
+  padding: 16px 16px 5px;
 }
 

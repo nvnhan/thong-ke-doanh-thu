@@ -18,6 +18,12 @@ class PhiHanhLyController extends BaseController
         return $this->sendResponse($objs, "PhiHanhLy retrieved successfully");
     }
 
+    public function all()
+    {
+        $objs = PhiHanhLy::get(['id', 'hanh_ly', 'muc_phi']);
+        return $this->sendResponse($objs, "PhiHanhLy retrieved successfully");
+    }
+
     /**
      * Store a newly created resource in storage.
      *

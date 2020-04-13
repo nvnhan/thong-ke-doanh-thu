@@ -15,7 +15,7 @@ const List = React.memo(props => {
 
     useEffect(() => {
         axios
-            .get("/api/khach-hang")
+            .get("/api/khach-hang/all")
             .then(response => {
                 if (response.data.success) setKhachHang(response.data.data);
             })
@@ -160,7 +160,8 @@ const List = React.memo(props => {
             }
             formInitialValues={{
                 so_luong: 1,
-                ngay_thang: moment().format("DD/MM/YYYY")
+                ngay_thang: moment().format("DD/MM/YYYY"),
+                gia_ban: 0
             }}
             otherActions={tourAction}
             onChangeData={onChangeData}

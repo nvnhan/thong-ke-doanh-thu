@@ -21,6 +21,15 @@ class HangHoaController extends BaseController
         return $this->sendResponse($objs->get(), "HangHoa retrieved successfully");
     }
 
+    public function all()
+    {
+        $objs = HangHoa::all();
+        foreach ($objs as $value)
+            $value->setHidden(['id_tai_khoan', 'ten_hang', 'don_vi', 'ghi_chu', 'username', 'created_at', 'updated_at']);
+
+        return $this->sendResponse($objs, "HangHoa retrieved successfully");
+    }
+
     /**
      * Store a newly created resource in storage.
      *

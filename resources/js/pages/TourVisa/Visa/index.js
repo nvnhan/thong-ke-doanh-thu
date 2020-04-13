@@ -15,8 +15,8 @@ const List = React.memo(props => {
 
     useEffect(() => {
         // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
-        const promise1 = axios.get("/api/nha-cung-cap");
-        const promise2 = axios.get("/api/khach-hang");
+        const promise1 = axios.get("/api/nha-cung-cap/all");
+        const promise2 = axios.get("/api/khach-hang/all");
 
         Promise.all([promise1, promise2]).then(response => {
             if (response[0].data.success && response[1].data.success)

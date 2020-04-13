@@ -40,8 +40,12 @@ const form = React.memo(props => {
             <OptGroup label={clist[0]} key={clist[0]}>
                 {clist[1].map(hh => (
                     <Option value={hh.id} key={hh.id}>
-                        {hh.phan_loai} - {hh.ma_hang} (
-                        {vndFormater.format(hh.don_gia)})
+                        {hh.phan_loai +
+                            " - " +
+                            hh.ma_hang +
+                            " (" +
+                            vndFormater.format(hh.don_gia) +
+                            ")"}
                     </Option>
                 ))}
             </OptGroup>

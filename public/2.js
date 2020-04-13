@@ -92,7 +92,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
           value: hh.id,
           key: hh.id
-        }, hh.phan_loai, " - ", hh.ma_hang, " (", _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(hh.don_gia), ")");
+        }, hh.phan_loai + " - " + hh.ma_hang + " (" + _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(hh.don_gia) + ")");
       }));
     });
   };
@@ -296,8 +296,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       setFormValue = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    var promise1 = axios.get("/api/hang-hoa");
-    var promise2 = axios.get("/api/khach-hang");
+    var promise1 = axios.get("/api/hang-hoa/all");
+    var promise2 = axios.get("/api/khach-hang/all");
     Promise.all([promise1, promise2]).then(function (response) {
       if (response[0].data.success && response[1].data.success) setState({
         hangHoa: response[0].data.data,

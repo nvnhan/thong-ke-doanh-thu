@@ -216,7 +216,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
       filter: {
         ncc: ncc.id
       }
-    });else axios.get("/api/nha-cung-cap").then(function (response) {
+    });else axios.get("/api/nha-cung-cap/all").then(function (response) {
       if (response.data.success) setState({
         nhaCungCap: response.data.data,
         filter: undefined

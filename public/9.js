@@ -91,7 +91,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
           value: ncc.id,
           key: ncc.id
-        }, ncc.ky_hieu + " (" + ncc.mo_ta + ")");
+        }, ncc.ky_hieu);
       }));
     });
   };
@@ -115,7 +115,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
         value: ncc.id,
         key: ncc.id
-      }, ncc.hanh_ly + " " + _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(ncc.muc_phi));
+      }, ncc.hanh_ly + " - " + _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(ncc.muc_phi));
     });
   };
 
@@ -649,10 +649,10 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
 
   var retrieveData = function retrieveData() {
     var promise1 = axios.get("/api/san-bay");
-    var promise2 = axios.get("/api/thue-phi");
-    var promise3 = axios.get("/api/phi-hanh-ly");
+    var promise2 = axios.get("/api/thue-phi/all");
+    var promise3 = axios.get("/api/phi-hanh-ly/all");
     var promise4 = axios.get("/api/tai-khoan/all");
-    var promise5 = axios.get("/api/khach-hang");
+    var promise5 = axios.get("/api/khach-hang/all");
     var promise6 = axios.get("/api/dat-ve/hang-bay");
     console.log("Retrieving Danh Muc");
     Promise.all([promise1, promise2, promise3, promise4, promise5, promise6]).then(function (response) {

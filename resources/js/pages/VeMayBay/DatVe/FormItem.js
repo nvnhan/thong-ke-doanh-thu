@@ -34,7 +34,7 @@ const form = React.memo(props => {
             <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
                 {clist[1].map(ncc => (
                     <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu + " (" + ncc.mo_ta + ")"}
+                        {ncc.ky_hieu}
                     </Option>
                 ))}
             </OptGroup>
@@ -54,7 +54,7 @@ const form = React.memo(props => {
     const getPhiHanhLyDetail = () =>
         phiHanhLy.map(ncc => (
             <Option value={ncc.id} key={ncc.id}>
-                {ncc.hanh_ly + " " + vndFormater.format(ncc.muc_phi)}
+                {ncc.hanh_ly + " - " + vndFormater.format(ncc.muc_phi)}
             </Option>
         ));
 

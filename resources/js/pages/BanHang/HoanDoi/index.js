@@ -9,7 +9,7 @@ const List = React.memo(props => {
 
     useEffect(() => {
         axios
-            .get("/api/tai-khoan")
+            .get("/api/tai-khoan/all")
             .then(response => {
                 if (response.data.success) setTaiKhoan(response.data.data);
             })

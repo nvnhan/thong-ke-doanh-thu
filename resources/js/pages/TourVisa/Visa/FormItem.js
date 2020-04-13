@@ -34,7 +34,7 @@ const form = React.memo(props => {
             <OptGroup label={clist[0]} key={clist[0]}>
                 {clist[1].map(ncc => (
                     <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang} - {ncc.ho_ten}
+                        {ncc.ma_khach_hang}
                     </Option>
                 ))}
             </OptGroup>

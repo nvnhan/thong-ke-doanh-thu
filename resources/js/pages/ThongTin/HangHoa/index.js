@@ -22,7 +22,7 @@ const List = React.memo(props => {
             });
         else
             axios
-                .get(`/api/nha-cung-cap`)
+                .get(`/api/nha-cung-cap/all`)
                 .then(response => {
                     if (response.data.success)
                         setState({

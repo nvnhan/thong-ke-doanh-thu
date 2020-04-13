@@ -34,10 +34,10 @@ const List = React.memo(props => {
      */
     const retrieveData = () => {
         const promise1 = axios.get("/api/san-bay");
-        const promise2 = axios.get("/api/thue-phi");
-        const promise3 = axios.get("/api/phi-hanh-ly");
+        const promise2 = axios.get("/api/thue-phi/all");
+        const promise3 = axios.get("/api/phi-hanh-ly/all");
         const promise4 = axios.get("/api/tai-khoan/all");
-        const promise5 = axios.get("/api/khach-hang");
+        const promise5 = axios.get("/api/khach-hang/all");
         const promise6 = axios.get("/api/dat-ve/hang-bay");
         console.log("Retrieving Danh Muc");
         Promise.all([

@@ -41,6 +41,8 @@ class DatVe extends Model
         'ten_loai_tuoi'
     ];
 
+    protected $hidden = ['dinh_danh'];
+
     public static function boot()
     {
         parent::boot();

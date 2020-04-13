@@ -10,7 +10,7 @@ const List = React.memo(props => {
 
     useEffect(() => {
         axios
-            .get("/api/hang-hoa")
+            .get("/api/hang-hoa/all")
             .then(response => {
                 if (response.data.success) setHangHoa(response.data.data);
             })

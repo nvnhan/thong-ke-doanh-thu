@@ -26,20 +26,26 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/password', 'AuthController@password')->name('password');
 
     // Ve May Bay
+    Route::get('phi-hanh-ly/all', 'PhiHanhLyController@all');
     Route::delete('phi-hanh-ly/deletes', 'PhiHanhLyController@deletes');
     Route::resource('phi-hanh-ly', 'PhiHanhLyController')->only(['index', 'store', 'update', 'destroy']);
     Route::delete('san-bay/deletes', 'SanBayController@deletes');
     Route::resource('san-bay', 'SanBayController')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('thue-phi/all', 'ThuePhiController@all');
     Route::resource('thue-phi', 'ThuePhiController')->only(['index', 'update']);
     
     // Thong Tin Chung
     Route::get('tai-khoan/all', 'TaiKhoanController@all');
     Route::delete('tai-khoan/deletes', 'TaiKhoanController@deletes');
     Route::resource('tai-khoan', 'TaiKhoanController')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('nha-cung-cap/all', 'NhaCungCapController@all');
     Route::delete('nha-cung-cap/deletes', 'NhaCungCapController@deletes');
     Route::resource('nha-cung-cap', 'NhaCungCapController')->only(['index', 'store', 'update', 'destroy']);
     Route::delete('khach-hang/deletes', 'KhachHangController@deletes');
+
+    Route::get('khach-hang/all', 'KhachHangController@all');
     Route::resource('khach-hang', 'KhachHangController')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('hang-hoa/all', 'HangHoaController@all');
     Route::delete('hang-hoa/deletes', 'HangHoaController@deletes');
     Route::resource('hang-hoa', 'HangHoaController')->only(['index', 'store', 'update', 'destroy']);
 

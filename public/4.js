@@ -208,7 +208,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       setFormValue = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    axios.get("/api/hang-hoa").then(function (response) {
+    axios.get("/api/hang-hoa/all").then(function (response) {
       if (response.data.success) setHangHoa(response.data.data);
     })["catch"](function (error) {
       return console.log(error);

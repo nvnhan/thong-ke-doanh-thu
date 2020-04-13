@@ -16,7 +16,7 @@ const List = React.memo(props => {
         // Chuyển từ Component khác tới. Cụ thể ở đây là từ Tour
         if (tour !== undefined)
             axios
-                .get("/api/hang-hoa")
+                .get("/api/hang-hoa/all")
                 .then(response => {
                     if (response.data.success) setHangHoa(response.data.data);
                 })

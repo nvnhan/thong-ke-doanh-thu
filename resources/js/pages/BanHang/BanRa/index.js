@@ -13,8 +13,8 @@ const List = React.memo(props => {
     const [formValue, setFormValue] = useState(undefined);
 
     useEffect(() => {
-        const promise1 = axios.get("/api/hang-hoa");
-        const promise2 = axios.get("/api/khach-hang");
+        const promise1 = axios.get("/api/hang-hoa/all");
+        const promise2 = axios.get("/api/khach-hang/all");
 
         Promise.all([promise1, promise2]).then(response => {
             if (response[0].data.success && response[1].data.success)

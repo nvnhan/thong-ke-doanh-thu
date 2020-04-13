@@ -18,6 +18,12 @@ class KhachHangController extends BaseController
         return $this->sendResponse($objs, "KhachHang retrieved successfully");
     }
 
+    public function all()
+    {
+        $objs = KhachHang::get(['id', 'ma_khach_hang', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
+        return $this->sendResponse($objs, "KhachHang retrieved successfully");
+    }
+
     /**
      * Store a newly created resource in storage.
      *

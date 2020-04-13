@@ -314,7 +314,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       setKhachHang = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    axios.get("/api/khach-hang").then(function (response) {
+    axios.get("/api/khach-hang/all").then(function (response) {
       if (response.data.success) setKhachHang(response.data.data);
     })["catch"](function (error) {
       return console.log(error);
@@ -445,7 +445,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     }),
     formInitialValues: {
       so_luong: 1,
-      ngay_thang: moment__WEBPACK_IMPORTED_MODULE_2___default()().format("DD/MM/YYYY")
+      ngay_thang: moment__WEBPACK_IMPORTED_MODULE_2___default()().format("DD/MM/YYYY"),
+      gia_ban: 0
     },
     otherActions: tourAction,
     onChangeData: onChangeData,

@@ -149,7 +149,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       setTaiKhoan = _useState2[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    axios.get("/api/tai-khoan").then(function (response) {
+    axios.get("/api/tai-khoan/all").then(function (response) {
       if (response.data.success) setTaiKhoan(response.data.data);
     })["catch"](function (error) {
       return console.log(error);

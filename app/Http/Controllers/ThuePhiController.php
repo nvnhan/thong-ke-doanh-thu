@@ -18,6 +18,12 @@ class ThuePhiController extends BaseController
         return $this->sendResponse($objs, "ThuePhi retrieved successfully");
     }
 
+    public function all()
+    {
+        $objs = ThuePhi::get(['id', 'muc_phi']);
+        return $this->sendResponse($objs, "ThuePhi retrieved successfully");
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -28,7 +34,7 @@ class ThuePhiController extends BaseController
     public function update(Request $request, $id)
     {
         $model = ThuePhi::find($id);
-        $data =$request->all();
+        $data = $request->all();
         $model->fill($data);
         $model->save();
         return $this->sendResponse($model, "Cập nhật thành công");

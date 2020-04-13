@@ -1,7 +1,7 @@
 import { UserAddOutlined } from "@ant-design/icons";
 import { Select } from "antd";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { useMergeState, vndFormater } from "../../../utils";
@@ -18,16 +18,36 @@ const List = React.memo(props => {
         khachHang: [],
         hangBay: []
     });
+    const childRef = useRef();
+    const time = null;
 
     useEffect(() => {
+        retrieveData();
+        return () => {
+            if (time) clearTimeout(time);
+        };
+    }, []);
+
+    /**
+     * Retriving data from server
+     * If has error, auto recall after 1 second
+     */
+    const retrieveData = () => {
         const promise1 = axios.get("/api/san-bay");
         const promise2 = axios.get("/api/thue-phi");
         const promise3 = axios.get("/api/phi-hanh-ly");
         const promise4 = axios.get("/api/tai-khoan/all");
         const promise5 = axios.get("/api/khach-hang");
         const promise6 = axios.get("/api/dat-ve/hang-bay");
-
-        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6])
+        console.log("Retrieving Danh Muc");
+        Promise.all([
+            promise1,
+            promise2,
+            promise3,
+            promise4,
+            promise5,
+            promise6
+        ])
             .then(response => {
                 if (
                     response[0].data.success &&
@@ -36,7 +56,7 @@ const List = React.memo(props => {
                     response[3].data.success &&
                     response[4].data.success &&
                     response[5].data.success
-                )
+                ) {
                     setState({
                         sanBay: response[0].data.data,
                         thuePhi: response[1].data.data,
@@ -53,9 +73,14 @@ const List = React.memo(props => {
                             ])
                         ]
                     });
+                    console.log("Retrieved Danh Muc Succcessfully");
+                } else setTimeout(retrieveData, 2000);
             })
-            .catch(error => console.log(error));
-    }, []);
+            .catch(error => {
+                console.log(error);
+                time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
+            });
+    };
 
     /**
      * Callback from FormItem, trigger when select Hang Hoa
@@ -73,8 +98,9 @@ const List = React.memo(props => {
      */
     const onClickRow = record => {
         // Thêm hành khách từ record
-        // const pathname = `/tour-chi-tiet`;
-        // props.history.push({ pathname, tour: record });
+        childRef.current.triggerAddNew();
+        const newRecord = Object.assign({ ...record }, { ten_khach: "" });
+        setFormValue(newRecord);
     };
 
     const dvAction = [
@@ -92,7 +118,7 @@ const List = React.memo(props => {
             <li>
                 Chuyến bay đi: {record.cb_di}. Chuyến bay về: {record.cb_ve}
             </li>
-            <li>Loại tuổi: {record.loai_tuoi}</li>
+            <li>Loại tuổi: {record.ten_loai_tuoi}</li>
             <li>
                 Giá net: {vndFormater.format(record.gia_net)}. Phí soi chiếu, an
                 ninh: {vndFormater.format(record.phi_san_bay)}. Phí quản trị:{" "}
@@ -111,7 +137,7 @@ const List = React.memo(props => {
                 thanh toán: {record.ngay_thanh_toan}
             </li>
             {record.chua_xuat_ve ? (
-                <li>"Cảnh báo xuất vé: " {record.canh_bao_xuat_ve}</li>
+                <li>Cảnh báo xuất vé: {record.canh_bao_xuat_ve}</li>
             ) : (
                 <li>✔ Đã xuất vé</li>
             )}
@@ -280,6 +306,7 @@ const List = React.memo(props => {
 
     return (
         <ListForm
+            ree={childRef}
             url="dat-ve"
             filterBox
             otherFilter={getOtherFilter()}
@@ -291,7 +318,16 @@ const List = React.memo(props => {
                 <FormItem danhMuc={state} onChangeValue={handleFormValue} />
             }
             formInitialValues={{
-                ngay_thang: moment().format("DD/MM/YYYY")
+                ngay_thang: moment().format("DD/MM/YYYY"),
+                loai_tuoi: 0,
+                gia_net: 0,
+                tong_tien: 0,
+                tong_tien_thu_khach: 0,
+                hoa_hong: 0,
+                phi_san_bay: 0,
+                phu_phi_san_bay: 0,
+                hanh_ly: 0,
+                phu_phi: 0
             }}
             otherActions={dvAction}
             expandedRowRender={expandedRowRender}

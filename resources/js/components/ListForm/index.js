@@ -1,8 +1,8 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { message, Modal } from "antd";
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
-import { queryString, useMergeState, isChangeData } from "../../utils";
+import React, { useEffect, useImperativeHandle, useState } from "react";
+import { isChangeData, queryString, useMergeState } from "../../utils";
 import DataTable from "./DataTable";
 import FilterBox from "./FilterBox";
 import ModalConfirm from "./ModalConfirm";
@@ -66,6 +66,15 @@ const ListForm = props => {
             isComponentMounted = false;
         };
     }, [JSON.stringify(finalFilter)]); // Chỉ chạy 1 lần khi mount đến khi filter hoặc ownFilter thay đổi
+
+    /**
+     * Create trigger for calling functions from other component
+     */
+    useImperativeHandle(props.ree, () => ({
+        triggerAddNew() {
+            handleAddNew();
+        }
+    }));
 
     /**
      * Show modal Thêm mới, Sửa
@@ -319,4 +328,4 @@ ListForm.defaultProps = {
     tuNgayDenNgay: true
 };
 
-export default ListForm;
+export default  React.memo(ListForm);

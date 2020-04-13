@@ -1,27 +1,34 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[36],{
 
-/***/ "./resources/js/pages/BanHang/TongHop/index.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/pages/BanHang/TongHop/index.js ***!
-  \*****************************************************/
+/***/ "./resources/js/pages/BanHang/TonKho/index.js":
+/*!****************************************************!*\
+  !*** ./resources/js/pages/BanHang/TonKho/index.js ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
 
 
 
-var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
   var columns = [{
     title: "Mã hàng",
     dataIndex: "ma_hang",
     optFind: true,
-    width: 110
+    width: 120
   }, {
     title: "Tên hàng",
     dataIndex: "ten_hang",
@@ -37,97 +44,74 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     dataIndex: "nha_cung_cap",
     width: 140,
     optFilter: true
-  }, // {
-  //     title: "Đơn giá hiện tại",
-  //     dataIndex: "don_gia",
-  //     render: number => vndFormater.format(number),
-  //     // sorter: (a, b) => a.don_gia - b.don_gia,
-  //     width: 110
-  // },
-  {
-    title: "SL mua vào",
-    dataIndex: "so_luong_mua_vao",
-    width: 110
   }, {
-    title: "TT mua vào",
-    dataIndex: "thanh_tien_mua_vao",
+    title: "Đơn giá hiện tại",
+    dataIndex: "don_gia",
     render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
     },
-    sorter: function sorter(a, b) {
-      return a.thanh_tien_mua_vao - b.thanh_tien_mua_vao;
-    },
-    width: 110
+    // sorter: (a, b) => a.don_gia - b.don_gia,
+    width: 120
   }, {
-    title: "SL bán ra",
-    dataIndex: "so_luong_ban_ra",
-    width: 110
-  }, {
-    title: "TT bán ra",
-    dataIndex: "thanh_tien_ban_ra",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.thanh_tien_ban_ra - b.thanh_tien_ban_ra;
-    },
-    width: 110
-  }, {
-    title: "SL hoàn đổi",
-    dataIndex: "so_luong_hoan_doi",
-    width: 110
-  }, {
-    title: "TT hoàn đổi",
-    dataIndex: "thanh_tien_hoan_doi",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.thanh_tien_hoan_doi - b.thanh_tien_hoan_doi;
-    },
-    width: 110
-  }, {
-    title: "SL tồn kho",
+    title: "Số lượng",
     dataIndex: "so_luong_ton_kho",
-    width: 110
+    width: 120
   }, {
-    title: "TT tồn kho",
+    title: "Thành tiền",
     dataIndex: "thanh_tien_ton_kho",
     render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
     },
     sorter: function sorter(a, b) {
       return a.thanh_tien_ton_kho - b.thanh_tien_ton_kho;
     },
-    width: 110
+    width: 120
   }];
 
-  var renderFooter = function renderFooter(data) {
+  var renderSummary = function renderSummary(data) {
     if (!_.isEmpty(data)) {
       var sumObj = data.reduce(function (previousValue, currentValue) {
         return {
-          thanh_tien_mua_vao: previousValue.thanh_tien_mua_vao + currentValue.thanh_tien_mua_vao,
-          thanh_tien_ban_ra: previousValue.thanh_tien_ban_ra + currentValue.thanh_tien_ban_ra,
-          thanh_tien_hoan_doi: previousValue.thanh_tien_hoan_doi + currentValue.thanh_tien_hoan_doi,
           thanh_tien_ton_kho: previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
         };
       });
-      return "Tổng tiền mua vào: " + _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_mua_vao) + ". Bán ra: " + _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ban_ra) + ". Hoàn đổi: " + _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_hoan_doi) + ". Tồn kho: " + _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ton_kho);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
+        colSpan: 6
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.thanh_tien_ton_kho))));
     }
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    url: "tong-hop-hang",
+  var getOtherFilter = function getOtherFilter() {
+    return [{
+      name: "den_ngay",
+      label: "Tính đến ngày",
+      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        style: {
+          width: "100%"
+        },
+        locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
+        format: "DD/MM/YYYY"
+      })
+    }];
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    url: "ton-kho",
     filterBox: true,
+    tuNgayDenNgay: false,
+    otherFilter: getOtherFilter(),
+    filterInitialValue: {
+      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("DD/MM/YYYY")
+    },
     columns: columns,
     insertable: false,
     selectable: false,
     editable: false,
     deleteable: false,
     tableSize: {
-      x: 1200
+      x: 800
     },
-    renderFooter: renderFooter
+    renderSummary: renderSummary
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);

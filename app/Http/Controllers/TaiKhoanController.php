@@ -20,7 +20,7 @@ class TaiKhoanController extends BaseController
 
     public function all()
     {
-        $objs = TaiKhoan::all();
+        $objs = TaiKhoan::where('loai', "!=", '-1')->get();
         return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
     }
 
@@ -46,7 +46,7 @@ class TaiKhoanController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $data =$request->all();
+        $data = $request->all();
         $model = TaiKhoan::find($id);
         $model->fill($data);
         $model->save();
@@ -74,13 +74,12 @@ class TaiKhoanController extends BaseController
     public function deletes(Request $request)
     {
         $objs = explode('|', $request['objects']);
-        if (\is_array($objs))
-        {
+        if (\is_array($objs)) {
             $cnt = count($objs);
             TaiKhoan::destroy($objs);
             return $this->sendResponse('', "Xóa thành công $cnt mục");
         }
-        
+
         return $this->sendError('Không xóa được', []);
     }
 }

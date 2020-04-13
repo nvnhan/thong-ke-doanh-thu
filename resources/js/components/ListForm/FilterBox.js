@@ -1,5 +1,6 @@
 import { FilterOutlined } from "@ant-design/icons";
 import { Button, Col, DatePicker, Form, Row } from "antd";
+import locale from "antd/es/date-picker/locale/vi_VN";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { parseValues } from "../../utils";
@@ -37,6 +38,7 @@ const FilterBox = React.memo(props => {
                         <Col span={24} md={16} lg={8} xl={7}>
                             <Form.Item name="thoiGian" label="Thời gian">
                                 <RangePicker
+                                    locale={locale}
                                     style={{ width: "100%" }}
                                     ranges={{
                                         "Hôm nay": [moment(), moment()],

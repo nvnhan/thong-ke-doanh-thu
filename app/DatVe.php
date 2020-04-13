@@ -18,16 +18,27 @@ class DatVe extends Model
         'canh_bao_xuat_ve' => 'datetime:H:i d/m/Y',
         'ngay_nhac_lich' => 'datetime:H:i d/m/Y',
         'chua_xuat_ve' => 'boolean',
+        'tong_tien' => 'float',
+        'tong_tien_thu_khach' => 'float',
+        'lai' => 'float'
     ];
 
     protected $fillable = [
-        'ngay_thang',
+        'ngay_thang', 'ma_giu_cho', 'so_ve', 'hang_bay',
+        'ten_khach', 'loai_tuoi', 'id_tai_khoan_mua', 'id_khach_hang',
+        'ngay_nhac_lich', 'canh_bao_xuat_ve', 'chua_xuat_ve',
+        'ngay_gio_di', 'cb_di', 'sb_di', 'sb_di1',
+        'ngay_gio_ve', 'cb_ve', 'sb_ve', 'sb_ve1',
+        'gia_net', 'phu_phi', 'phi_san_bay', 'phu_phi_san_bay',
+        'id_phi_hanh_ly', 'hanh_ly', 'hoa_hong',
+        'tong_tien', 'tong_tien_thu_khach', 'ghi_chu'
     ];
 
     protected $appends = [
         'chang_di', 'chang_ve',
         'ten_khach_hang', 'noi_mua',
-        'da_thanh_toan', 'loai_hanh_ly'
+        'da_thanh_toan', 'loai_hanh_ly', 
+        'ten_loai_tuoi'
     ];
 
     public static function boot()
@@ -69,7 +80,9 @@ class DatVe extends Model
 
     public function getChangVeAttribute()
     {
-        return $this->sb_ve . '->' . $this->sb_ve1;
+        if (!empty($this->sb_ve) && !empty($this->sb_ve1))
+            return $this->sb_ve . '->' . $this->sb_ve1;
+        return '';
     }
 
     public function getTenKhachHangAttribute()
@@ -92,7 +105,7 @@ class DatVe extends Model
         return $this->thu_chi_chi_tiets()->sum('so_tien');
     }
 
-    public function getLoaiTuoiAttribute()
+    public function getTenLoaiTuoiAttribute()
     {
         switch ($this->attribute['loai_tuoi']) {
             case 1:

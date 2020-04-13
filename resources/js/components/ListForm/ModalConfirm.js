@@ -11,11 +11,12 @@ const ModalConfirm = React.memo(props => {
             .then(value => props.handleOk(parseValues(value)))
             .catch(info => console.log("Validate Failed: ", info));
     };
+
     return (
         <Modal
             width={props.modalWidth}
             visible={props.modalVisible}
-            title="Chi tiết"
+            title={props.currentRecord !== undefined ? "Chỉnh sửa" : "Thêm mới"}
             onOk={handleOk}
             onCancel={props.handleCancel}
             footer={[

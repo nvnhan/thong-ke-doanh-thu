@@ -20,7 +20,14 @@ class DatVe extends Model
         'chua_xuat_ve' => 'boolean',
         'tong_tien' => 'float',
         'tong_tien_thu_khach' => 'float',
-        'lai' => 'float'
+        'lai' => 'float',
+        'gia_net' => 'float',
+        'phi_san_bay' => 'float',
+        'phu_phi_san_bay' => 'float',
+        'hanh_ly' => 'float',
+        'phu_phi' => 'float',
+        'hoa_hong' => 'float',
+        'vat' => 'float',
     ];
 
     protected $fillable = [
@@ -37,7 +44,7 @@ class DatVe extends Model
     protected $appends = [
         'chang_di', 'chang_ve',
         'ten_khach_hang', 'noi_mua',
-        'da_thanh_toan', 'loai_hanh_ly', 
+        'da_thanh_toan', 'loai_hanh_ly',
         'ten_loai_tuoi'
     ];
 

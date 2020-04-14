@@ -20,7 +20,7 @@ class ThuePhiController extends BaseController
 
     public function all()
     {
-        $objs = ThuePhi::get(['id', 'muc_phi']);
+        $objs = ThuePhi::get(['id','loai_phi', 'muc_phi']);
         return $this->sendResponse($objs, "ThuePhi retrieved successfully");
     }
 

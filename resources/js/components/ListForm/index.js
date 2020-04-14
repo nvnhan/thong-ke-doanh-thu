@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { message, Modal } from "antd";
+import { Form, message, Modal } from "antd";
 import PropTypes from "prop-types";
 import React, { useEffect, useImperativeHandle, useState } from "react";
 import { isChangeData, queryString, useMergeState } from "../../utils";
@@ -10,6 +10,7 @@ import ToolsButton from "./ToolsButton";
 const { confirm } = Modal;
 
 const ListForm = props => {
+    const [form] = Form.useForm();
     const {
         url,
         onChangeData,
@@ -71,8 +72,11 @@ const ListForm = props => {
      * Create trigger for calling functions from other component
      */
     useImperativeHandle(props.ree, () => ({
-        triggerAddNew() {
+        triggerAddNew: () => {
             handleAddNew();
+        },
+        getFormInstance: () => {
+            return form;
         }
     }));
 
@@ -236,6 +240,7 @@ const ListForm = props => {
             {filterBox && <FilterBox {...props} onFilter={handleFilterBox} />}
             <ToolsButton
                 {...props}
+                data={data}
                 selectedRowKeys={selectedRowKeys}
                 handleAddNew={handleAddNew}
                 onMultiDelete={onMultiDelete}
@@ -252,6 +257,7 @@ const ListForm = props => {
             {props.formTemplate !== undefined && (
                 <ModalConfirm
                     {...props}
+                    form={form}
                     modalVisible={modalVisible}
                     formSubmiting={formSubmiting}
                     currentRecord={currentRecord}
@@ -294,7 +300,8 @@ ListForm.propTypes = {
             onClick: PropTypes.func.isRequired,
             icon: PropTypes.node,
             title: PropTypes.string,
-            color: PropTypes.string
+            isGroup: PropTypes.bool.isRequired,
+            color: PropTypes.string,
         })
     ),
     expandedRowRender: PropTypes.func,
@@ -312,7 +319,7 @@ ListForm.propTypes = {
     otherParams: PropTypes.object,
     renderFooter: PropTypes.func,
     renderSummary: PropTypes.func,
-    setFormValues: PropTypes.object,
+    setFormValues: PropTypes.object
 };
 // Specifies the default values for props:
 ListForm.defaultProps = {
@@ -328,4 +335,4 @@ ListForm.defaultProps = {
     tuNgayDenNgay: true
 };
 
-export default  React.memo(ListForm);
+export default React.memo(ListForm);

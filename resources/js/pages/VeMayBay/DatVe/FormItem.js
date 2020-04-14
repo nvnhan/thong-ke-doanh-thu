@@ -9,13 +9,21 @@ import {
     Select
 } from "antd";
 import locale from "antd/es/date-picker/locale/vi_VN";
-import React from "react";
+import React, { useEffect } from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { vndFormater } from "../../../utils";
 const { Option, OptGroup } = Select;
 
 const form = React.memo(props => {
     const { sanBay, phiHanhLy, taiKhoan, khachHang, hangBay } = props.danhMuc;
+    let time = null;
+
+    useEffect(() => {
+        return () => {
+            if (time) clearTimeout(time);
+        };
+    }, []);
+
     const hbOptions = hangBay.map(pl => ({ value: pl }));
 
     const getKhachHangDetail = () =>
@@ -57,6 +65,16 @@ const form = React.memo(props => {
                 {ncc.hanh_ly + " - " + vndFormater.format(ncc.muc_phi)}
             </Option>
         ));
+
+    const onChange = (value, type = "") => {
+        console.log("FormItem onChange -> value, type", value, type);
+        props.onChangeValue(value, type);
+    };
+
+    const onChangeDebounce = (value, type = "") => {
+        if (time !== null) clearTimeout(time);
+        time = setTimeout(() => onChange(value, type), 500);
+    };
 
     return (
         <React.Fragment>
@@ -122,6 +140,7 @@ const form = React.memo(props => {
                                     .toUpperCase()
                                     .indexOf(inputValue.toUpperCase()) !== -1
                             }
+                            onBlur={value => onChange(value, "hb")}
                         />
                     </Form.Item>
                 </Col>
@@ -150,7 +169,7 @@ const form = React.memo(props => {
                             }
                         ]}
                     >
-                        <Select>
+                        <Select onChange={value => onChange(value, "lt")}>
                             <Option value={0}>Người lớn</Option>
                             <Option value={1}>Trẻ em</Option>
                             <Option value={2}>Em bé</Option>
@@ -170,6 +189,7 @@ const form = React.memo(props => {
                                         .indexOf(input.toLowerCase()) >= 0
                                 );
                             }}
+                            onChange={value => onChange(value, "tk")}
                         >
                             {getTaiKhoanDetail()}
                         </Select>
@@ -272,6 +292,7 @@ const form = React.memo(props => {
                                         .indexOf(input.toLowerCase()) >= 0
                                 );
                             }}
+                            onChange={value => onChange(value, "sb")}
                         >
                             {getSanBayDetail()}
                         </Select>
@@ -289,6 +310,7 @@ const form = React.memo(props => {
                                         .indexOf(input.toLowerCase()) >= 0
                                 );
                             }}
+                            onChange={value => onChange(value, "sb")}
                         >
                             {getSanBayDetail()}
                         </Select>
@@ -323,6 +345,7 @@ const form = React.memo(props => {
                                         .indexOf(input.toLowerCase()) >= 0
                                 );
                             }}
+                            onChange={value => onChange(value, "sb")}
                         >
                             {getSanBayDetail()}
                         </Select>
@@ -340,6 +363,7 @@ const form = React.memo(props => {
                                         .indexOf(input.toLowerCase()) >= 0
                                 );
                             }}
+                            onChange={value => onChange(value, "sb")}
                         >
                             {getSanBayDetail()}
                         </Select>
@@ -367,22 +391,21 @@ const form = React.memo(props => {
                                 )
                             }
                             parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            onChange={onChangeDebounce}
                         />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
-                    <Form.Item name="phu_phi" label="Nơi mua thu">
+                    <Form.Item name="vat" label="VAT">
                         <InputNumber
                             style={{ width: "100%" }}
-                            min={0}
-                            step={1000}
                             formatter={value =>
                                 `${value}₫`.replace(
                                     /(?=(\d{3})+(?!\d))\B/g,
                                     ","
                                 )
                             }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            disabled
                         />
                     </Form.Item>
                 </Col>
@@ -399,6 +422,7 @@ const form = React.memo(props => {
                                 )
                             }
                             parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            onChange={onChangeDebounce}
                         />
                     </Form.Item>
                 </Col>
@@ -415,6 +439,41 @@ const form = React.memo(props => {
                                 )
                             }
                             parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            onChange={onChangeDebounce}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={12} md={6}>
+                    <Form.Item name="phu_phi" label="Nơi mua thu">
+                        <InputNumber
+                            style={{ width: "100%" }}
+                            min={0}
+                            step={1000}
+                            formatter={value =>
+                                `${value}₫`.replace(
+                                    /(?=(\d{3})+(?!\d))\B/g,
+                                    ","
+                                )
+                            }
+                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            onChange={onChangeDebounce}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={12} md={6}>
+                    <Form.Item name="hoa_hong" label="Hoa hồng">
+                        <InputNumber
+                            style={{ width: "100%" }}
+                            min={0}
+                            step={1000}
+                            formatter={value =>
+                                `${value}₫`.replace(
+                                    /(?=(\d{3})+(?!\d))\B/g,
+                                    ","
+                                )
+                            }
+                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            onChange={onChangeDebounce}
                         />
                     </Form.Item>
                 </Col>
@@ -430,6 +489,7 @@ const form = React.memo(props => {
                                         .indexOf(input.toLowerCase()) >= 0
                                 );
                             }}
+                            onChange={value => onChange(value, "hl")}
                         >
                             {getPhiHanhLyDetail()}
                         </Select>
@@ -448,22 +508,7 @@ const form = React.memo(props => {
                                 )
                             }
                             parser={value => value.replace(/\₫\s?|(,*)/g, "")}
-                        />
-                    </Form.Item>
-                </Col>
-                <Col span={12} md={6}>
-                    <Form.Item name="hoa_hong" label="Hoa hồng">
-                        <InputNumber
-                            style={{ width: "100%" }}
-                            min={0}
-                            step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            onChange={onChangeDebounce}
                         />
                     </Form.Item>
                 </Col>

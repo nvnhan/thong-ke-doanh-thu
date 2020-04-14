@@ -225,7 +225,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   });
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     // Chuyển từ Component khác tới. Cụ thể ở đây là từ Tour
-    if (tour !== undefined) axios.get("/api/hang-hoa").then(function (response) {
+    if (tour !== undefined) axios.get("/api/hang-hoa/all").then(function (response) {
       if (response.data.success) setHangHoa(response.data.data);
     })["catch"](function (error) {
       return console.log(error);
@@ -303,7 +303,10 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
 
   var handleFormValue = function handleFormValue(don_gia) {
     setFormValue({
-      don_gia: don_gia
+      don_gia: don_gia,
+      resetFields: function resetFields() {
+        return setFormValue(undefined);
+      }
     });
   };
 

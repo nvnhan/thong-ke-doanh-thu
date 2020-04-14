@@ -63,7 +63,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
           value: ncc.id,
           key: ncc.id
-        }, ncc.ma_khach_hang, " - ", ncc.ho_ten);
+        }, ncc.ma_khach_hang);
       }));
     });
   };
@@ -302,8 +302,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       khachHang = state.khachHang;
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
-    var promise1 = axios.get("/api/nha-cung-cap");
-    var promise2 = axios.get("/api/khach-hang");
+    var promise1 = axios.get("/api/nha-cung-cap/all");
+    var promise2 = axios.get("/api/khach-hang/all");
     Promise.all([promise1, promise2]).then(function (response) {
       if (response[0].data.success && response[1].data.success) setState({
         nhaCungCap: response[0].data.data,

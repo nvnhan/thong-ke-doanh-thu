@@ -14,17 +14,20 @@ const FormEdit = React.memo(props => {
     useLayoutEffect(() => {
         if (modalVisible) {
             // Khi chọn select từ FormItem
-            if (setFormValues !== undefined) {
-                form.setFieldsValue(setFormValues);
-                if (setFormValues.resetFields !== undefined)
-                    setFormValues.resetFields();
-            }
+            if (setFormValues !== undefined) form.setFieldsValue(setFormValues);
             // Khi mở modal render record khác
             else if (currentRecord !== undefined)
                 form.setFieldsValue(currentRecord);
         }
         // tắt mdoal đi thì reset lại
-        else form.resetFields();
+        else {
+            form.resetFields();
+            if (
+                setFormValues !== undefined &&
+                setFormValues.resetFields !== undefined
+            )
+                setFormValues.resetFields();
+        }
     }); // Always run while render
 
     return (

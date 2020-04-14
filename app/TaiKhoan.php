@@ -11,7 +11,11 @@ class TaiKhoan extends Model
     public $timestamps = false;
     // protected $dateFormat = 'd/m/Y';
     protected $casts = [
-        'ngay_tao' => 'date:d/m/Y'
+        'ngay_tao' => 'date:d/m/Y',
+        'phi_vn' => 'float',
+        'phi_vj' => 'float',
+        'phi_jets' => 'float',
+        'phi_bb' => 'float',
     ];
 
     protected $fillable = ['ky_hieu', 'mo_ta', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb', 'mst', 'dia_chi', 'email', 'sdt', 'so_du_ky_truoc', 'ghi_chu'];
@@ -19,15 +23,14 @@ class TaiKhoan extends Model
     public static function boot()
     {
         parent::boot();
-        self::creating(function($model) {
+        self::creating(function ($model) {
             $model->ngay_tao = now(); //date("Y-m-d");
             $model->loai = 0;
             // $model->username = xxx;
         });
-        self::updating(function($model) {
-
+        self::updating(function ($model) {
         });
-        self::deleting(function($model) {
+        self::deleting(function ($model) {
             //TODO: Check Delete MuaVao, BanRa from HangHoas
             $model->hang_hoas()->delete();
         });
@@ -37,5 +40,4 @@ class TaiKhoan extends Model
     {
         return $this->hasMany('App\HangHoa', 'id_tai_khoan');
     }
-
 }

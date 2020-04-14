@@ -1,11 +1,11 @@
+import { Button, Modal } from "antd";
 import React from "react";
-import { Modal, Form, Button } from "antd";
-import FormEdit from "./FormEdit";
 import { parseValues } from "../../utils";
+import FormEdit from "./FormEdit";
 
 const ModalConfirm = React.memo(props => {
-    const [form] = Form.useForm();
-
+    const { form } = props;
+    
     const handleOk = () => {
         form.validateFields()
             .then(value => props.handleOk(parseValues(value)))

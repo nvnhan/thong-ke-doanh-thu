@@ -1370,7 +1370,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     tableSize: {
       x: 1400
     },
-    modalWidth: "1200px",
+    modalWidth: "1800px",
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_7__["default"], {
       danhMuc: state,
       onChangeValue: handleFormValue

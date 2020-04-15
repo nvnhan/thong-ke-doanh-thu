@@ -5,6 +5,8 @@ const TrangChu = lazy(() => import("../../pages/TrangChu"));
 const NotFound = lazy(() => import("../../pages/NotFound"));
 
 const DatVe = lazy(() => import("../../pages/VeMayBay/DatVe"));
+const NoVe = lazy(() => import("../../pages/VeMayBay/NoVe"));
+const ChuaBay = lazy(() => import("../../pages/VeMayBay/ChuaBay"));
 const SanBay = lazy(() => import("../../pages/VeMayBay/SanBay"));
 const ThuePhi = lazy(() => import("../../pages/VeMayBay/ThuePhi"));
 const PhiHanhLy = lazy(() => import("../../pages/VeMayBay/PhiHanhLy"));
@@ -41,6 +43,20 @@ const routes = [
         title: "Đặt vé",
         menu: menus.VMB_DAT_VE,
         component: <DatVe />
+    },
+    {
+        path: "/no-ve",
+        exact: false,
+        title: "Nợ vé",
+        menu: menus.VMB_NO_VE,
+        component: <NoVe />
+    },
+    {
+        path: "/chua-bay",
+        exact: false,
+        title: "Chưa bay",
+        menu: menus.VMB_CHUA_BAY,
+        component: <ChuaBay />
     },
     {
         path: "/san-bay",

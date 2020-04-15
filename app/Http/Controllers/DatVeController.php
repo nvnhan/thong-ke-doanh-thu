@@ -48,6 +48,34 @@ class DatVeController extends BaseController
         return $this->sendResponse($objs->get(), "DatVe retrieved successfully");
     }
 
+    public function nove(Request $request)
+    {
+        $den_ngay = date('Y-m-d');
+        if (!empty($request->den_ngay))
+            $den_ngay = $request->den_ngay;
+        $objs = DatVe::whereNull('ngay_thanh_toan')
+            ->orWhere('ngay_thanh_toan', '>', $den_ngay);
+
+        if (!$request->user()->admin)
+            $objs = $objs->where('username', $request->user()->username);
+
+        return $this->sendResponse($objs->get(), "NoVe retrieved successfully");
+    }
+
+    public function chuabay(Request $request)
+    {
+        $den_ngay = date('Y-m-d H:i:s');
+        if (!empty($request->den_ngay))
+            $den_ngay = $request->den_ngay;
+        $objs = DatVe::where('ngay_gio_di', ">", $den_ngay)
+            ->orWhere('ngay_gio_di', '>', $den_ngay);
+
+        if (!$request->user()->admin)
+            $objs = $objs->where('username', $request->user()->username);
+
+        return $this->sendResponse($objs->get(), "ChuaBay retrieved successfully");
+    }
+
     public function hangbay(Request $request)
     {
         $objs = DatVe::all()->pluck('hang_bay');

@@ -45,6 +45,18 @@ const items = [
                 title: "Đặt vé"
             },
             {
+                key: SideMenus.VMB_NO_VE,
+                href: "/no-ve",
+                icon: <PieChartOutlined />,
+                title: "Nợ vé"
+            },
+            {
+                key: SideMenus.VMB_CHUA_BAY,
+                href: "/chua-bay",
+                icon: <PieChartOutlined />,
+                title: "Chưa bay"
+            },
+            {
                 key: SideMenus.VMB_SAN_BAY,
                 href: "/san-bay",
                 admin: true,

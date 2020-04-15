@@ -1,19 +1,27 @@
 import {
-    UserAddOutlined,
     FileExcelOutlined,
-    FileTextOutlined
+    FileTextOutlined,
+    UserAddOutlined
 } from "@ant-design/icons";
-import { Select } from "antd";
+import { Button, Form, Select, message, Modal, Input } from "antd";
 import moment from "moment";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { useMergeState, vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
+import UpdateLayout from "./UpdateLayout";
 const { Option } = Select;
 
 const List = React.memo(props => {
     const [formValue, setFormValue] = useState(undefined);
+    const [update, setUpdate] = useMergeState({
+        selectedKeys: [],
+        modalVisible: false
+    });
+    const { selectedKeys, modalVisible } = update;
+    const [updateForm] = Form.useForm();
+
     const [state, setState] = useMergeState({
         sanBay: [],
         thuePhi: [],
@@ -177,6 +185,7 @@ const List = React.memo(props => {
      * Tính phí soi chiếu, an ninh
      */
     const tinhPhiSB = (san_bay, hang_bay, loai_tuoi) => {
+        if (hang_bay === undefined || hang_bay === "") return 0;
         const sb = sanBay.filter(item => item.ma_san_bay === san_bay)[0];
         let thue = [...thuePhi];
         hang_bay = hang_bay.toLowerCase();
@@ -206,6 +215,7 @@ const List = React.memo(props => {
      */
     const tinhPhuPhiSB = (san_bay, san_bay1, hang_bay) => {
         if (san_bay === null || san_bay === "") return 0;
+        if (hang_bay === undefined || hang_bay === "") return 0;
         let thue = [...thuePhi];
         thue = thue.filter(item => item.loai_phi.indexOf("quản trị") > 0);
         hang_bay = hang_bay.toLowerCase();
@@ -433,149 +443,194 @@ const List = React.memo(props => {
             );
         }
     };
-
+    ///////////////////////////////////////////////////////////////////
+    /**
+     * Show modal cập nhật
+     */
     const showUpdates = (data, selectedRowKeys) => {
-        console.log(
-            "showUpdates -> data, selectedRowKeys",
-            data,
-            selectedRowKeys
-        );
+        setUpdate({ selectedKeys: selectedRowKeys, modalVisible: true });
     };
 
+    /**
+     * Thực hiện Cập nhật
+     */
+    const handleOk = () => {
+        if (_.isEmpty(selectedKeys)) return;
+        updateForm
+            .validateFields()
+            .then(values => {
+                // Update
+                Object.assign(values, { objects: selectedKeys.join("|") });
+                axios
+                    .put(`/api/dat-ve/updates`, values)
+                    .then(response => {
+                        if (response.data.success) {
+                            // Set lại data cho ListForm ????
+                            // Ko thì thôi
+                            message.info(response.data.message);
+                            // Tắt loading & modal
+                            handleCancel();
+                            updateForm.resetFields();
+                        }
+                    })
+                    .catch(error => console.log(error));
+            })
+            .catch(info => console.log("Validate Failed: ", info));
+    };
+
+    const handleCancel = () => {
+        setUpdate({ selectedKeys: [], modalVisible: false });
+    };
+
+    /**
+     * Tạo code vé
+     */
     const codeVe = (data, selectedRowKeys) => {
-        console.log(
-            "showUpdates -> data, selectedRowKeys",
-            data,
-            selectedRowKeys
-        );
+        axios
+            .get(`/api/dat-ve/code-ve`, {
+                params: {
+                    objects: selectedRowKeys.join("|")
+                }
+            })
+            .then(response => {
+                if (response.data.success) {
+                    Modal.info({
+                        title: "Code vé",
+                        content: (
+                            <Input.TextArea
+                                rows={12}
+                                value={response.data.data}
+                            />
+                        ),
+                        width: "800px",
+                        onOk() {}
+                    });
+                }
+            })
+            .catch(error => console.log(error));
     };
 
-    const veDienTu = (data, selectedRowKeys) => {
-        console.log(
-            "showUpdates -> data, selectedRowKeys",
-            data,
-            selectedRowKeys
-        );
-    };
+    const veDienTu = (data, selectedRowKeys) => {};
 
-    const exportDS = (data, selectedRowKeys) => {
-        console.log(
-            "showUpdates -> data, selectedRowKeys",
-            data,
-            selectedRowKeys
-        );
-    };
+    const exportDS = (data, selectedRowKeys) => {};
 
-    const layHoaDon = (data, selectedRowKeys) => {
-        console.log(
-            "showUpdates -> data, selectedRowKeys",
-            data,
-            selectedRowKeys
-        );
-    };
+    const layHoaDon = (data, selectedRowKeys) => {};
 
-    const banKeHoaDon = (data, selectedRowKeys) => {
-        console.log(
-            "showUpdates -> data, selectedRowKeys",
-            data,
-            selectedRowKeys
-        );
-    };
+    const banKeHoaDon = (data, selectedRowKeys) => {};
 
-    const congNo = (data, selectedRowKeys) => {
-        console.log(
-            "showUpdates -> data, selectedRowKeys",
-            data,
-            selectedRowKeys
-        );
-    };
+    const congNo = (data, selectedRowKeys) => {};
 
     const otherButtons = [
         {
             key: "updates",
             onClick: showUpdates,
-            title: "Cập nhật thông tin",
-            isGroup: false
+            title: "Cập nhật thông tin"
         },
         {
-            key: "codeve",
-            onClick: codeVe,
-            title: "Tạo mâu code vé",
-            isGroup: true,
-            icon: <FileTextOutlined />
-        },
-        {
-            key: "vedientu",
-            onClick: veDienTu,
-            title: "Tạo mặt vé điện tử",
-            isGroup: true,
-            icon: <FileTextOutlined />
-        },
-        {
-            key: "export",
-            onClick: exportDS,
-            title: "Xuất danh sách ra Excel",
-            isGroup: true,
-            icon: <FileExcelOutlined />,
-            color: "#4bab92"
-        },
-        {
-            key: "layhoadon",
-            onClick: layHoaDon,
-            title: "Thông tin lấy hóa đơn",
-            isGroup: true,
-            icon: <FileExcelOutlined />,
-            color: "#4bab92"
-        },
-        {
-            key: "bangkehoadon",
-            onClick: banKeHoaDon,
-            title: "Bảng kê hóa đơn",
-            isGroup: true,
-            icon: <FileExcelOutlined />,
-            color: "#4bab92"
-        },
-        {
-            key: "xuatcongno",
-            onClick: congNo,
-            title: "Mẫu xuất công nợ",
-            isGroup: true,
-            icon: <FileExcelOutlined />,
-            color: "#4bab92"
+            key: "trichxuat",
+            title: "Trích xuất",
+            childs: [
+                {
+                    key: "codeve",
+                    onClick: codeVe,
+                    title: "Tạo mẫu code vé",
+                    icon: <FileTextOutlined />
+                },
+                {
+                    key: "vedientu",
+                    onClick: veDienTu,
+                    title: "Tạo mặt vé điện tử",
+                    icon: <FileTextOutlined />
+                },
+                {
+                    key: "export",
+                    onClick: exportDS,
+                    title: "Xuất danh sách ra Excel",
+                    icon: <FileExcelOutlined />,
+                    color: "#4bab92"
+                },
+                {
+                    key: "layhoadon",
+                    onClick: layHoaDon,
+                    title: "Thông tin lấy hóa đơn",
+                    icon: <FileExcelOutlined />,
+                    color: "#4bab92"
+                },
+                {
+                    key: "bangkehoadon",
+                    onClick: banKeHoaDon,
+                    title: "Bảng kê hóa đơn",
+                    icon: <FileExcelOutlined />,
+                    color: "#4bab92"
+                },
+                {
+                    key: "xuatcongno",
+                    onClick: congNo,
+                    title: "Mẫu xuất công nợ",
+                    icon: <FileExcelOutlined />,
+                    color: "#4bab92"
+                }
+            ]
         }
     ];
 
     return (
-        <ListForm
-            ree={childRef}
-            url="dat-ve"
-            filterBox
-            otherFilter={getOtherFilter()}
-            filterInitialValue={{ sb: "" }}
-            columns={columns}
-            tableSize={{ x: 1400 }}
-            modalWidth="1200px"
-            formTemplate={
-                <FormItem danhMuc={state} onChangeValue={handleFormValue} />
-            }
-            formInitialValues={{
-                ngay_thang: moment().format("DD/MM/YYYY"),
-                loai_tuoi: 0,
-                gia_net: 0,
-                tong_tien: 0,
-                tong_tien_thu_khach: 0,
-                hoa_hong: 0,
-                phi_san_bay: 0,
-                phu_phi_san_bay: 0,
-                hanh_ly: 0,
-                phu_phi: 0
-            }}
-            otherActions={dvAction}
-            otherButtons={otherButtons}
-            expandedRowRender={expandedRowRender}
-            renderSummary={renderSummary}
-            setFormValues={formValue}
-        />
+        <React.Fragment>
+            <ListForm
+                ree={childRef}
+                url="dat-ve"
+                filterBox
+                otherFilter={getOtherFilter()}
+                filterInitialValue={{ sb: "" }}
+                columns={columns}
+                tableSize={{ x: 1400 }}
+                modalWidth="1200px"
+                formTemplate={
+                    <FormItem danhMuc={state} onChangeValue={handleFormValue} />
+                }
+                formInitialValues={{
+                    ngay_thang: moment().format("DD/MM/YYYY"),
+                    loai_tuoi: 0,
+                    gia_net: 0,
+                    tong_tien: 0,
+                    tong_tien_thu_khach: 0,
+                    hoa_hong: 0,
+                    phi_san_bay: 0,
+                    phu_phi_san_bay: 0,
+                    hanh_ly: 0,
+                    phu_phi: 0
+                }}
+                otherActions={dvAction}
+                otherButtons={otherButtons}
+                expandedRowRender={expandedRowRender}
+                renderSummary={renderSummary}
+                setFormValues={formValue}
+            />
+            <Modal
+                width="800px"
+                title="Cập nhật thông tin"
+                onCancel={handleCancel}
+                onOk={handleOk}
+                visible={modalVisible}
+                footer={[
+                    <Button key="back" onClick={handleCancel}>
+                        Hủy
+                    </Button>,
+                    <Button key="submit" type="primary" onClick={handleOk}>
+                        Đồng ý
+                    </Button>
+                ]}
+            >
+                <Form
+                    form={updateForm}
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    initialValues={{ tong_tien: 0, tong_tien_thu_khach: 0 }}
+                >
+                    <UpdateLayout danhMuc={state} />
+                </Form>
+            </Modal>
+        </React.Fragment>
     );
 });
 

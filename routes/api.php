@@ -71,6 +71,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Dat Ve
     Route::delete('dat-ve/deletes', 'DatVeController@deletes');
+    Route::get('dat-ve/code-ve', 'DatVeController@codeve');
     Route::put('dat-ve/updates', 'DatVeController@updates');
     Route::get('dat-ve/hang-bay', 'DatVeController@hangbay');
     Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);

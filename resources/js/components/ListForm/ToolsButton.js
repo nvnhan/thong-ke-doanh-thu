@@ -18,25 +18,34 @@ const ToolsButton = React.memo(props => {
         deleteable
     } = props;
 
-    const renderUngroupButtons = () => {
-        const ungroupButtons = otherButtons.filter(btn => !btn.isGroup);
-        return ungroupButtons.map(btn => (
-            <Button
-                type="default"
-                key={btn.key}
-                icon={btn.icon}
-                onClick={() => btn.onClick(data, selectedRowKeys)}
-            >
-                {btn.title}
-            </Button>
-        ));
+    const renderButtons = () => {
+        return otherButtons.map(btn => {
+            if (btn.childs === undefined)
+                return (
+                    <Button
+                        type="default"
+                        key={btn.key}
+                        icon={btn.icon}
+                        onClick={() => btn.onClick(data, selectedRowKeys)}
+                    >
+                        {btn.title}
+                    </Button>
+                );
+            else
+                return (
+                    <Dropdown key={btn.key} overlay={layButtons(btn.childs)}>
+                        <Button>
+                            {btn.title} <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                );
+        });
     };
 
-    const layButtons = () => {
-        const groupButtons = otherButtons.filter(btn => btn.isGroup);
+    const layButtons = childs => {
         return (
             <Menu>
-                {groupButtons.map(btn => (
+                {childs.map(btn => (
                     <Menu.Item
                         key={btn.key}
                         onClick={() => btn.onClick(data, selectedRowKeys)}
@@ -65,16 +74,8 @@ const ToolsButton = React.memo(props => {
             )}
             {selectable &&
                 selectedRowKeys.length > 0 &&
-                otherButtons !== undefined && (
-                    <React.Fragment>
-                        {renderUngroupButtons()}
-                        <Dropdown overlay={layButtons()}>
-                            <Button>
-                                Thêm chức năng <DownOutlined />
-                            </Button>
-                        </Dropdown>
-                    </React.Fragment>
-                )}
+                otherButtons !== undefined &&
+                renderButtons()}
         </div>
     );
 });

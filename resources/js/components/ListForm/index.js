@@ -297,11 +297,11 @@ ListForm.propTypes = {
     otherButtons: PropTypes.arrayOf(
         PropTypes.shape({
             key: PropTypes.string.isRequired,
-            onClick: PropTypes.func.isRequired,
+            onClick: PropTypes.func,
             icon: PropTypes.node,
             title: PropTypes.string,
-            isGroup: PropTypes.bool.isRequired,
             color: PropTypes.string,
+            childs: PropTypes.array,
         })
     ),
     expandedRowRender: PropTypes.func,

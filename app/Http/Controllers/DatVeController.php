@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DatVe;
 use App\SanBay;
+use DateTime;
 use Illuminate\Http\Request;
 
 class DatVeController extends BaseController
@@ -89,19 +90,107 @@ class DatVeController extends BaseController
      */
     public function updates(Request $request)
     {
-        $data = $request->all();
         $objs = explode('|', $request['objects']);
         if (\is_array($objs)) {
             $cnt = count($objs);
             foreach ($objs as $id) {
                 $model = DatVe::find($id);
-                $model->fill($data);
+                if (!empty($request['hang_bay'])) $model->hang_bay = $request['hang_bay'];
+                if (!empty($request['id_tai_khoan_mua'])) $model->id_tai_khoan_mua = $request['id_tai_khoan_mua'];
+                if (!empty($request['id_khach_hang'])) $model->id_khach_hang = $request['id_khach_hang'];
+
+                if ($request['xuat_ve'] == 1) $model->chua_xuat_ve = false;
+                else if ($request['xuat_ve'] == -1) $model->chua_xuat_ve = true;
+
+                if (!empty($request['tong_tien']) && $request['tong_tien'] > 0)
+                    $model->tong_tien = $request['tong_tien'];
+                if (!empty($request['tong_tien_thu_khach']) && $request['tong_tien_thu_khach'] > 0)
+                    $model->tong_tien_thu_khach = $request['tong_tien_thu_khach'];
+
                 $model->save();
             }
 
-            return $this->sendResponse('', "Cập nhật thành công $cnt mục");
+            return $this->sendResponse('', "Cập nhật thành công $cnt mục. Tải lại trang để thấy thay đổi");
         }
         return $this->sendError('Không sửa được', []);
+    }
+
+    public function codeve(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (\is_array($objs)) {
+            $code = "";
+            $vnbb = DatVe::whereIn('id', $objs)->whereIn('hang_bay', ['VN', 'BB'])->get()->groupBy('ma_giu_cho');
+            $khac = DatVe::whereIn('id', $objs)->whereNotIn('hang_bay', ['VN', 'BB'])->get()->groupBy('so_ve');
+
+            foreach ($khac as $sove => $values) {
+                $tmp = "";
+                $ve = $values[0];
+                if ($ve->hang_bay == "VJ")
+                    $tmp = "Bay Viejetair  code $sove, ";
+                else if ($ve->hang_bay == "Jets")
+                    $tmp = "Bay Jetstar  code $sove, ";
+                else $tmp = "Bay $ve->hang_bay  code $sove, ";
+                $tien = 0;
+                foreach ($values as $ve1) {
+                    $tmp .= $ve1->ten_khach . ", ";
+                    $tien += $ve1->tong_tien_thu_khach;
+                }
+                $sb = SanBay::where('ma_san_bay', $ve->sb_di)->first();
+                $sb1 = SanBay::where('ma_san_bay', $ve->sb_di1)->first();
+                if ($sb != null && $sb1 != null) {
+                    $di = new DateTime($ve->ngay_gio_di);
+                    $tmp .= "$sb->ten_san_bay - $sb1->ten_san_bay, ngay " . $di->format("d-m") . ", chuyen $ve->cb_di, luc " . $di->format("H\hi") . ". ";
+                }
+                if ($ve->ngay_gio_ve != null) {
+                    $sb = SanBay::where('ma_san_bay', $ve->sb_ve)->first();
+                    $sb1 = SanBay::where('ma_san_bay', $ve->sb_ve1)->first();
+                    if ($sb != null && $sb1 != null) {
+                        $di = new DateTime($ve->ngay_gio_ve);
+                        $tmp .= "$sb->ten_san_bay - $sb1->ten_san_bay, ngay " . $di->format("d-m") . ", chuyen $ve->cb_ve, luc " . $di->format("H\hi") . ". ";
+                    }
+                }
+                $tmp .= "Gia " . number_format($tien, 0, '', '.') . "đ. Quy khach co mat o san bay truoc 90 phut so voi gio bay de lam thu tuc.\r\n\r\n";
+                $code .= $tmp;
+            }
+
+            foreach ($vnbb as $mgc => $values) {
+                $tmp = "";
+                $ve = $values[0];
+                if ($ve->hang_bay == "VN")
+                    $tmp = "Bay Vietnamairline  code $mgc, ";
+                else if ($ve->hang_bay == "BB")
+                    $tmp = "Bay Bamboo  code $mgc, ";
+
+                $tien = 0;
+                $sove = '';
+                foreach ($values as $ve1) {
+                    $tmp .= $ve1->ten_khach . ", ";
+                    $sove .= $ve1->so_ve . ', ';
+                    $tien += $ve1->tong_tien_thu_khach;
+                }
+                $sb = SanBay::where('ma_san_bay', $ve->sb_di)->first();
+                $sb1 = SanBay::where('ma_san_bay', $ve->sb_di1)->first();
+                if ($sb != null && $sb1 != null) {
+                    $di = new DateTime($ve->ngay_gio_di);
+                    $tmp .= "$sb->ten_san_bay - $sb1->ten_san_bay, ngay " . $di->format("d-m") . ", chuyen $ve->cb_di, luc " . $di->format("H\hi") . ". ";
+                }
+                if ($ve->ngay_gio_ve != null) {
+                    $sb = SanBay::where('ma_san_bay', $ve->sb_ve)->first();
+                    $sb1 = SanBay::where('ma_san_bay', $ve->sb_ve1)->first();
+                    if ($sb != null && $sb1 != null) {
+                        $di = new DateTime($ve->ngay_gio_ve);
+                        $tmp .= "$sb->ten_san_bay - $sb1->ten_san_bay, ngay " . $di->format("d-m") . ", chuyen $ve->cb_ve, luc " . $di->format("H\hi") . ". ";
+                    }
+                }
+                $tmp .= "So ve " . $sove;
+                $tmp .= "Gia " . number_format($tien, 0, '', '.') . "đ. Quy khach co mat o san bay truoc 90 phut so voi gio bay de lam thu tuc.\r\n\r\n";
+                $code .= $tmp;
+            }
+            return $this->sendResponse($code, 'CodeVe generated successfully');
+        }
+
+        return $this->sendError('Lỗi', []);
     }
 
     /**

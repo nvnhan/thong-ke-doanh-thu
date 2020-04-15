@@ -214,8 +214,10 @@ const List = React.memo(props => {
      * Tính phí quản trị
      */
     const tinhPhuPhiSB = (san_bay, san_bay1, hang_bay) => {
-        if (san_bay === null || san_bay === "") return 0;
-        if (hang_bay === undefined || hang_bay === "") return 0;
+        if (san_bay === undefined || san_bay === null || san_bay === "")
+            return 0;
+        if (hang_bay === undefined || hang_bay === null || hang_bay === "")
+            return 0;
         let thue = [...thuePhi];
         thue = thue.filter(item => item.loai_phi.indexOf("quản trị") > 0);
         hang_bay = hang_bay.toLowerCase();

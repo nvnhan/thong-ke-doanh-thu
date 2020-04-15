@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    ToolOutlined,
     BarsOutlined,
     WalletOutlined,
     BookOutlined,
@@ -15,7 +16,8 @@ import {
     ImportOutlined,
     RollbackOutlined,
     DatabaseOutlined,
-    CalculatorOutlined
+    CalculatorOutlined,
+    TeamOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -167,11 +169,24 @@ const items = [
         ]
     },
     {
-        key: "",
-        href: "/cai-dat",
+        key: "SUB_QT",
+        icon: <ToolOutlined />,
+        title: "Quản trị",
         admin: true,
-        icon: <SettingOutlined />,
-        title: "Cài đặt"
+        childs: [
+            {
+                key: SideMenus.QT_USER,
+                href: "/nhan-vien",
+                icon: <TeamOutlined />,
+                title: "Nhân viên"
+            },
+            {
+                key: SideMenus.QT_CAI_DAT,
+                href: "/cai-dat",
+                icon: <SettingOutlined />,
+                title: "Cài đặt"
+            }
+        ]
     }
 ];
 

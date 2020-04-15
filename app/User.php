@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'ho_ten', 'username', 'password', 'sdt', 'dia_chi', 'admin',
+        'ho_ten', 'username', 'password', 'sdt', 'dia_chi', 'admin', 'ngay_het_han', 'actived'
     ];
 
     /**
@@ -35,9 +35,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'admin' => 'boolean'
+        'admin' => 'boolean',
+        'actived' => "boolean",
+        'ngay_het_han' => 'datetime:d/m/Y',
+        'created_at' => 'datetime:H:i d/m/Y',
+        'updated_at' => 'datetime:H:i d/m/Y',
     ];
-    
+
     /**
      * Find the user instance for the given username.
      *

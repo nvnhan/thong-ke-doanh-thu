@@ -29,6 +29,8 @@ const HangHoa = lazy(() => import("../../pages/ThongTin/HangHoa"));
 const Profile = lazy(() => import("../../pages/Account/Profile"));
 const Password = lazy(() => import("../../pages/Account/Password"));
 
+const NhanVien = lazy(() => import("../../pages/QuanTri/NhanVien"));
+
 const routes = [
     {
         path: "/",
@@ -162,6 +164,13 @@ const routes = [
         title: "Hàng hóa",
         menu: menus.TT_HANG_HOA,
         component: <HangHoa />
+    },
+    {
+        path: "/nhan-vien",
+        exact: false,
+        title: "Nhân viên",
+        menu: menus.QT_USER,
+        component: <NhanVien />
     },
     {
         path: "/thong-tin-ca-nhan",

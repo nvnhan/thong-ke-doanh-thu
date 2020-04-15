@@ -22,3 +22,6 @@ export const BH_BAN_RA = "BH_BAN_RA";
 export const BH_TON_KHO = "BH_TON_KHO";
 export const BH_HOAN_DOI = "BH_HOAN_DOI";
 export const BH_TONG_HOP = "BH_TONG_HOP";
+
+export const QT_USER = "QT_USER";
+export const QT_CAI_DAT = "QT_CAI_DAT";

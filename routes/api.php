@@ -80,7 +80,10 @@ Route::middleware('auth:api')->group(function () {
 
 
     // Add middleware checkadmin
-    Route::resource('user', 'UserController');
+    Route::delete('nhan-vien/deletes', 'UserController@deletes');
+    Route::resource('nhan-vien', 'UserController')->only(['index', 'update', 'destroy']);
+
+
     Route::resource('thu-chi', 'ThuChiController');
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');
 });

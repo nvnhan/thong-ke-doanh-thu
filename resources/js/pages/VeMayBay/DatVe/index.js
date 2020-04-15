@@ -3,7 +3,7 @@ import {
     FileTextOutlined,
     UserAddOutlined
 } from "@ant-design/icons";
-import { Button, Form, Select, message, Modal, Input } from "antd";
+import { Button, Form, Select, message, Modal, Input, Switch } from "antd";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { withRouter } from "react-router-dom";
@@ -406,6 +406,17 @@ const List = React.memo(props => {
                         <Option value="qt">Quốc tế</Option>
                     </Select>
                 )
+            },
+            {
+                name: "xv",
+                label: "Xuất vé",
+                render: (
+                    <Select>
+                        <Option value="">Tất cả</Option>
+                        <Option value="1">Đã xuất vé</Option>
+                        <Option value="-1">Chưa xuất vé</Option>
+                    </Select>
+                )
             }
         ];
     };
@@ -581,7 +592,7 @@ const List = React.memo(props => {
                 url="dat-ve"
                 filterBox
                 otherFilter={getOtherFilter()}
-                filterInitialValue={{ sb: "" }}
+                filterInitialValue={{ sb: "", xv: "" }}
                 columns={columns}
                 tableSize={{ x: 1400 }}
                 modalWidth="1200px"

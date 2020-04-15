@@ -32,11 +32,21 @@ const FilterBox = React.memo(props => {
 
     return (
         <div className="filter-box">
-            <Form form={form} onFinish={onFinish}>
+            <Form
+                form={form}
+                onFinish={onFinish}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+            >
                 <Row gutter={[5, 5]}>
                     {tuNgayDenNgay && (
-                        <Col span={24} md={16} lg={8} xl={7}>
-                            <Form.Item name="thoiGian" label="Thời gian">
+                        <Col span={24} md={16} lg={12} xl={7}>
+                            <Form.Item
+                                name="thoiGian"
+                                label="Thời gian"
+                                labelCol={{ span: 4, xl: 6 }}
+                                wrapperCol={{ span: 20, xl: 18 }}
+                            >
                                 <RangePicker
                                     locale={locale}
                                     style={{ width: "100%" }}

@@ -10,3 +10,31 @@ Chi phí 11 triệu (Bao gồm chi phí convert + thêm chức năng)
 Ngày 24/03/2020 Bắt đầu lại
 
 Ngày 04/04/2020 Xong phần danh mục thêm sửa xóa
+
+
+Chức năng, tính năng còn:
+- Thu Chi
+- Đặt vé: Còn thống kê
+- Nợ vé, chưa bay
+////////////- Mua vào, bán ra, 
+////////////- Tồn kho, hoàn đổi trả, 
+////////////- TH hàng
+- Thống kê
+- Tổng quan
+- Nhập xuất excel
+- Đọc email
+- Auto run cron job
+- Cài đặt
+
+- Đặt vé: tính phí giảm VN, sân bay chặng dài
+- Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select
+/////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)
+
+
++++++++ CHỈNH SỬA DB ++++++
+- Bỏ tài khoản ở các bảng liên quan tới thu chi
+- Đặt vé
+	+ Bỏ check Nhắc lịch bay
+	+ Bỏ Phí dịch vụ (thay bằng Lãi = Thu khách - Tổng tiền)
+	+ Phí cộng tác viên: KO dùng tới
+	+ VAT = Giá net / 10

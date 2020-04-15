@@ -40,6 +40,11 @@ class DatVeController extends BaseController
                     ->whereNotIn('sb_ve1', $sbqt);
         }
 
+        if (!empty($request->xv)) {
+            if ($request->xv == 1) $objs = $objs->where('chua_xuat_ve', false);
+            else if ($request->xv == -1) $objs = $objs->where('chua_xuat_ve', true);
+        }
+
         return $this->sendResponse($objs->get(), "DatVe retrieved successfully");
     }
 

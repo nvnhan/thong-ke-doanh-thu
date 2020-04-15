@@ -4,6 +4,9 @@ import * as menus from "../../constants/SideMenus";
 const TrangChu = lazy(() => import("../../pages/TrangChu"));
 const NotFound = lazy(() => import("../../pages/NotFound"));
 
+const ThuChi = lazy(() => import("../../pages/ThuChi/ThuChi"));
+const ThuChiChiTiet = lazy(() => import("../../pages/ThuChi/ThuChiChiTiet"));
+
 const DatVe = lazy(() => import("../../pages/VeMayBay/DatVe"));
 const NoVe = lazy(() => import("../../pages/VeMayBay/NoVe"));
 const ChuaBay = lazy(() => import("../../pages/VeMayBay/ChuaBay"));
@@ -38,6 +41,20 @@ const routes = [
         title: "Trang chủ",
         menu: menus.HOME,
         component: <TrangChu />
+    },
+    {
+        path: "/thu-chi",
+        exact: false,
+        title: "Thu chi",
+        menu: menus.THU_CHI,
+        component: <ThuChi />
+    },
+    {
+        path: "/thu-chi-chi-tiet",
+        exact: false,
+        title: "Thu chi chi tiết",
+        menu: "",
+        component: <ThuChiChiTiet />
     },
     {
         path: "/dat-ve",
@@ -92,7 +109,7 @@ const routes = [
         path: "/tour-chi-tiet",
         exact: false,
         title: "Tour chi tiết",
-        menu: menus.TV_TOUR_CHI_TIET,
+        menu: "",
         component: <TourChiTiet />
     },
     {

@@ -84,6 +84,8 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('nhan-vien', 'UserController')->only(['index', 'update', 'destroy']);
 
 
-    Route::resource('thu-chi', 'ThuChiController');
-    Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController');
+    Route::delete('thu-chi/deletes', 'ThuChiController@deletes');
+    Route::resource('thu-chi', 'ThuChiController')->only(['index', 'store', 'update', 'destroy']);
+    Route::delete('thu-chi-chi-tiet/deletes', 'ThuChiChiTietController@deletes');
+    Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController')->only(['index', 'store', 'update', 'destroy']);
 });

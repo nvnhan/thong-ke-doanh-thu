@@ -594,8 +594,8 @@ const List = React.memo(props => {
                 otherFilter={getOtherFilter()}
                 filterInitialValue={{ sb: "", xv: "" }}
                 columns={columns}
-                tableSize={{ x: 1400 }}
-                modalWidth="1800px"
+                tableSize={{ x: 1800 }}
+                modalWidth="1200px"
                 formTemplate={
                     <FormItem danhMuc={state} onChangeValue={handleFormValue} />
                 }

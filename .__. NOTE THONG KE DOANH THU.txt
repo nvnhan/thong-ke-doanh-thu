@@ -15,12 +15,12 @@ Ngày 04/04/2020 Xong phần danh mục thêm sửa xóa
 Chức năng, tính năng còn:
 - Thu Chi
 - Đặt vé: Còn thống kê
-- Nợ vé, chưa bay
+////////////- Nợ vé, chưa bay
 ////////////- Mua vào, bán ra, 
 ////////////- Tồn kho, hoàn đổi trả, 
 ////////////- TH hàng
 - Thống kê
-- Tổng quan
+- Tổng quan: Số vé trong tháng (tổng số, thanh toán theo ngày), trong năm (hàng tháng), tổng hợp công nợ
 - Nhập xuất excel
 - Đọc email
 - Auto run cron job

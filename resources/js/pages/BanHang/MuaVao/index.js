@@ -101,8 +101,6 @@ const List = React.memo(props => {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 </>
             );

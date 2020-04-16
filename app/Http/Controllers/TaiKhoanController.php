@@ -20,7 +20,7 @@ class TaiKhoanController extends BaseController
 
     public function all()
     {
-        $objs = TaiKhoan::where('loai', "!=", '-1')->get(['id', 'ky_hieu', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
+        $objs = TaiKhoan::where('loai', "!=", '-1')->get(['id', 'ky_hieu', 'loai', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
         return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
     }
 

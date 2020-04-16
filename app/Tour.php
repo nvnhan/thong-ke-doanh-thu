@@ -20,7 +20,7 @@ class Tour extends Model
 
     protected $fillable = ['ngay_thang', 'ma_tour', 'ten_tour', 'phan_loai', 'bat_dau', 'ket_thuc', 'so_luong', 'gia_ban', 'id_khach_hang', 'hoan_thanh', 'ghi_chu'];
 
-    protected $appends = ['ten_khach_hang', 'gia_tour', 'lai', 'da_thanh_toan', 'tinh_trang'];
+    protected $appends = ['ten_khach_hang', 'gia_tour', 'lai', 'da_thanh_toan', 'tinh_trang', 'chua_thanh_toan'];
 
     public static function boot()
     {
@@ -68,6 +68,11 @@ class Tour extends Model
     public function getDaThanhToanAttribute()
     {
         return $this->thu_chi_chi_tiets()->sum('so_tien');
+    }
+
+    public function getChuaThanhToanAttribute()
+    {
+        return $this->tong_tien_ban - $this->da_thanh_toan;
     }
 
     public function getTinhTrangAttribute()

@@ -44,42 +44,72 @@ var TrangChu = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props
   var monthChartData = {
     labels: data.ngay_thangs,
     datasets: [{
-      label: "Lượng đặt vé",
-      order: 2,
-      backgroundColor: ["#fe938c", "#e6b89c", "#ead2ac", "#9cafb7", "#4281a4"],
-      data: data.dat_ves
-    }, {
       label: "Lượng thanh toán",
-      order: 1,
       fill: false,
       borderColor: "#4bab92",
       backgroundColor: "#4bab92",
       type: "line",
       data: data.thanh_toans
+    }, {
+      label: "Lượng đặt vé",
+      backgroundColor: "#AB4B64",
+      // [
+      //     "#fe938c",
+      //     "#e6b89c",
+      //     "#ead2ac",
+      //     "#9cafb7",
+      //     "#4281a4"
+      // ],
+      barPercentage: 0.5,
+      minBarLength: 2,
+      data: data.dat_ves
     }]
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Row"], {
-    gutter: [10, 10]
+    gutter: [16, 16]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
     span: 24,
     md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "chart-card"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
+    width: 400,
+    height: 250,
     data: monthChartData,
     options: {
-      aspectRatio: 1,
       legend: {
-        display: false
+        position: "bottom"
       },
       title: {
         display: true,
-        text: "Số lượng đặt vé / thanh toán theo ngày trong tháng"
+        text: "Số lượng đặt vé / thanh toán theo ngày trong tháng",
+        fontSize: 14
       },
       tooltips: {
         mode: "index",
         intersect: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          },
+          ticks: {
+            stepSize: 1
+          }
+        }]
       }
     }
-  }))));
+  })))));
 });
 /* harmony default export */ __webpack_exports__["default"] = (TrangChu);
 

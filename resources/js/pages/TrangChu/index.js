@@ -18,49 +18,77 @@ const TrangChu = React.memo(props => {
         labels: data.ngay_thangs,
         datasets: [
             {
-                label: "Lượng đặt vé",
-                order: 2,
-                backgroundColor: [
-                    "#fe938c",
-                    "#e6b89c",
-                    "#ead2ac",
-                    "#9cafb7",
-                    "#4281a4"
-                ],
-                data: data.dat_ves
-            },
-            {
                 label: "Lượng thanh toán",
-                order: 1,
                 fill: false,
                 borderColor: "#4bab92",
                 backgroundColor: "#4bab92",
                 type: "line",
                 data: data.thanh_toans
+            },
+            {
+                label: "Lượng đặt vé",
+                backgroundColor: "#AB4B64",
+                // [
+                //     "#fe938c",
+                //     "#e6b89c",
+                //     "#ead2ac",
+                //     "#9cafb7",
+                //     "#4281a4"
+                // ],
+                barPercentage: 0.5,
+                minBarLength: 2,
+                data: data.dat_ves
             }
         ]
     };
 
     return (
         <React.Fragment>
-            <Row gutter={[10, 10]}>
+            <Row gutter={[16, 16]}>
                 <Col span={24} md={12}>
-                    <Bar
-                        data={monthChartData}
-                        options={{
-                            aspectRatio: 1,
-                            legend: { display: false },
-                            title: {
-                                display: true,
-                                text:
-                                    "Số lượng đặt vé / thanh toán theo ngày trong tháng"
-                            },
-                            tooltips: {
-                                mode: "index",
-                                intersect: false
-                            }
-                        }}
-                    />
+                    <div className="chart-card">
+                        <Bar
+                            width={400}
+                            height={250}
+                            data={monthChartData}
+                            options={{
+                                legend: { position: "bottom" },
+                                title: {
+                                    display: true,
+                                    text:
+                                        "Số lượng đặt vé / thanh toán theo ngày trong tháng",
+                                    fontSize: 14
+                                },
+                                tooltips: {
+                                    mode: "index",
+                                    intersect: false
+                                },
+                                scales: {
+                                    xAxes: [
+                                        {
+                                            gridLines: {
+                                                display: true,
+                                                drawBorder: true,
+                                                drawOnChartArea: false
+                                            }
+                                        }
+                                    ],
+                                    yAxes: [
+                                        {
+                                            gridLines: {
+                                                display: true,
+                                                drawBorder: true,
+                                                drawOnChartArea: false
+                                            },
+                                            ticks: {
+                                                stepSize: 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            }}
+                        />
+                    </div>
                 </Col>
             </Row>
         </React.Fragment>

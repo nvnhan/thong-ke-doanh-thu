@@ -1,25 +1,65 @@
-import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
-import FormItem from "./FormItem";
 import { vndFormater } from "../../../utils";
+import FormItem from "./FormItem";
 
 const List = React.memo(props => {
-    const tc = props.location.tc;
+    const [state, setState] = useState({
+        thuChi: props.location.tc,
+        doiTuong: []
+    });
+    const { thuChi, doiTuong } = state;
+    const [formValue, setFormValue] = useState(undefined);
+    const tongCong = useRef(0);
 
-    if (tc === undefined) return <Redirect to="/" />;
+    if (thuChi === undefined) return <Redirect to="/" />;
+    const toiDa =
+        thuChi.id_khach_hang !== null
+            ? thuChi.so_du_khach_hang
+            : thuChi.so_tien - tongCong.current;
+    let time = null;
 
     useEffect(() => {
-        // Chuyển từ Component khác tới. Cụ thể ở đây là từ Thu Chi
-        // if (tc !== undefined)
-        //     axios
-        //         .get("/api/hang-hoa/all")
-        //         .then(response => {
-        //             if (response.data.success) setHangHoa(response.data.data);
-        //         })
-        //         .catch(error => console.log(error));
+        // retrieveData();
+        return () => {
+            if (time) clearTimeout(time);
+        };
     }, []);
+
+    /**
+     * Retriving data from server
+     * If has error, auto recall after 1 second
+     */
+    const retrieveData = () => {
+        const promise1 = axios.get("/api/thu-chi/" + thuChi.id);
+        const promise2 = axios.get(
+            "/api/thu-chi-chi-tiet/doi-tuong?tc=" + thuChi.id
+        );
+        console.log("Retrieving Danh Muc");
+        Promise.all([promise1, promise2])
+            .then(response => {
+                if (response[0].data.success && response[1].data.success) {
+                    setState({
+                        thuChi: response[0].data.data,
+                        doiTuong: response[1].data.data
+                    });
+                    console.log("Retrieved Danh Muc Succcessfully");
+                } else time = setTimeout(retrieveData, 2000);
+            })
+            .catch(error => {
+                console.log(error);
+                time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
+            });
+    };
+
+    /**
+     * Callback from ListForm to reload Thu Chi from server
+     */
+    const onChangeData = data => {
+        tongCong.current = 0; // Để tính lại tong cong, trừ trường hợp ko còn record nào
+        retrieveData();
+    };
 
     const expandedRowRender = record => (
         <p style={{ margin: 0 }}>{record.chi_tiet}</p>
@@ -53,11 +93,24 @@ const List = React.memo(props => {
                     so_tien: previousValue.so_tien + currentValue.so_tien
                 };
             });
+            tongCong.current = sumObj.so_tien;
             return (
                 <>
                     <tr>
-                        <th colSpan={2}>Tổng cộng</th>
-                        <td>{vndFormater.format(sumObj.so_tien)}</td>
+                        <th colSpan={3}>Tổng cộng</th>
+                        <td>
+                            <span
+                                style={
+                                    tongCong.current >= toiDa
+                                        ? {
+                                              color: "red"
+                                          }
+                                        : {}
+                                }
+                            >
+                                {vndFormater.format(tongCong.current)}
+                            </span>
+                        </td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -66,25 +119,62 @@ const List = React.memo(props => {
         }
     };
 
+    /**
+     * Callback from FOrmItem, trigger when select Hang Hoa
+     * => Change setFormValues to ListForm => FormEdit
+     */
+    const handleFormValue = so_tien => {
+        if (so_tien > toiDa) so_tien = toiDa;
+        setFormValue({
+            so_tien,
+            resetFields: () => setFormValue(undefined)
+        });
+    };
+
     return (
         <React.Fragment>
             <div className="filter-box">
-                Thu chi: <i>{tc.hang_muc}</i>. Ngày tháng: {tc.ngay_thang}, số
-                tiền <b>{vndFormater.format(tc.so_tien)}</b>.<br />
-                Lọc theo tài khoản chi: <b>{tc.tai_khoan_di}</b>, nơi nhận:{" "}
-                <b>{tc.tai_khoan_den}</b>, khách hàng:{" "}
-                <b>{tc.ten_khach_hang}</b>
+                Thu chi: <i>{thuChi.hang_muc}</i>. Ngày tháng:{" "}
+                {thuChi.ngay_thang}, số tiền{" "}
+                <b>{vndFormater.format(thuChi.so_tien)}</b>
+                .<br />
+                Lọc các đối tượng theo:{" "}
+                <b>
+                    {thuChi.id_khach_hang !== null
+                        ? "Khách hàng: " +
+                          thuChi.ten_khach_hang +
+                          ", số dư: " +
+                          vndFormater.format(thuChi.so_du_khach_hang)
+                        : "Tài khoản chi: " + thuChi.tai_khoan_di}
+                </b>
+                , nơi nhận: <b>{thuChi.tai_khoan_den}</b>
+                <br />
+                Giới hạn chi: <b color="red">{vndFormater.format(toiDa)}</b>
             </div>
             <ListForm
                 url="thu-chi-chi-tiet"
-                filter={{ tc: tc.id }}
-                otherParams={{ id_thu_chi: tc.id }}
+                filter={{ tc: thuChi.id }}
+                otherParams={{
+                    id_thu_chi: thuChi.id
+                }}
+                insertable={toiDa > 0}
                 editable={false}
                 columns={columns}
                 modalWidth="800px"
-                formTemplate={<FormItem />}
+                formTemplate={
+                    <FormItem
+                        onChangeValue={handleFormValue}
+                        doiTuong={doiTuong}
+                        toiDa={toiDa}
+                    />
+                }
+                formInitialValues={{
+                    so_tien: 0
+                }}
                 expandedRowRender={expandedRowRender}
                 renderSummary={renderSummary}
+                setFormValues={formValue}
+                onChangeData={onChangeData}
             />
         </React.Fragment>
     );

@@ -236,7 +236,7 @@ const ListForm = props => {
     };
 
     return (
-        <React.Fragment>
+        <div className="list-form">
             {filterBox && <FilterBox {...props} onFilter={handleFilterBox} />}
             <ToolsButton
                 {...props}
@@ -265,7 +265,7 @@ const ListForm = props => {
                     handleCancel={handleCancel}
                 />
             )}
-        </React.Fragment>
+        </div>
     );
 };
 

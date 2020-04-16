@@ -40,4 +40,16 @@ class TaiKhoan extends Model
     {
         return $this->hasMany('App\HangHoa', 'id_tai_khoan');
     }
+
+    public function mua_vaos()
+    {
+        // https://laravel.com/docs/7.x/eloquent-relationships#has-many-through
+        return $this->hasManyThrough('App\MuaVao', 'App\HangHoa', 'id_tai_khoan', 'id_hang_hoa', 'id', 'id');
+    }
+
+    public function tour_chi_tiets()
+    {
+        // https://laravel.com/docs/7.x/eloquent-relationships#has-many-through
+        return $this->hasManyThrough('App\TourChiTiet', 'App\HangHoa', 'id_tai_khoan', 'id_hang_hoa', 'id', 'id');
+    }
 }

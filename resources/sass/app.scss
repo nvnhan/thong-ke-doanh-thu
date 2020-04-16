@@ -77,10 +77,19 @@ $lg: 1200px;
 // Main content
 .content {
     margin: 24px 16px 0;
-    padding: 16px 0;
-    background: #fff;
-    // background: #1f1f1f;        // For Dark mode
-    /* text-align: center; */
+    .list-form {
+        padding: 16px 0;
+        background: #fff;
+        // background: #1f1f1f;        // For Dark mode
+    }
+}
+
+// Home Chart Card
+.chart-card {
+    background: white;
+    padding: 16px 12px;
+    border-radius: 10px;
+    box-shadow: 1px 2px 8px rgba(40, 40, 40, 0.1);
 }
 
 // Sider

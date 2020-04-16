@@ -45,6 +45,12 @@ const List = React.memo(props => {
             title: "Mã hàng",
             dataIndex: "ma_hang",
             optFind: true,
+            width: 120
+        },
+        {
+            title: "Tên hàng",
+            dataIndex: "ten_hang",
+            optFind: true,
             width: 140
         },
         {
@@ -96,7 +102,7 @@ const List = React.memo(props => {
             return (
                 <>
                     <tr>
-                        <th colSpan={7}>Tổng cộng</th>
+                        <th colSpan={8}>Tổng cộng</th>
                         <td>{vndFormater.format(sumObj.thanh_tien)}</td>
                         <td></td>
                         <td></td>

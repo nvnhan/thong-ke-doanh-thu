@@ -38,6 +38,19 @@ class ThuChiController extends BaseController
     }
 
     /**
+     * Show the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\ThuChi  $model
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $model = ThuChi::find($id);
+        return $this->sendResponse($model, "ThuChi retrieved successfully");
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

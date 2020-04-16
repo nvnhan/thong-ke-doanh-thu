@@ -45,7 +45,7 @@ class DatVe extends Model
         'chang_di', 'chang_ve',
         'ten_khach_hang', 'noi_mua',
         'da_thanh_toan', 'loai_hanh_ly',
-        'ten_loai_tuoi'
+        'ten_loai_tuoi', 'chua_thanh_toan'
     ];
 
     protected $hidden = ['dinh_danh'];
@@ -112,6 +112,11 @@ class DatVe extends Model
     public function getDaThanhToanAttribute()
     {
         return $this->thu_chi_chi_tiets()->sum('so_tien');
+    }
+
+    public function getChuaThanhToanAttribute()
+    {
+        return $this->tong_tien_thu_khach - $this->da_thanh_toan;
     }
 
     public function getTenLoaiTuoiAttribute()

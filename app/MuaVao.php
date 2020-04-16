@@ -18,7 +18,7 @@ class MuaVao extends Model
 
     protected $fillable = ['ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia', 'ghi_chu'];
 
-    protected $appends = ['da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap'];
+    protected $appends = ['da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap', 'chua_thanh_toan'];
 
     public static function boot()
     {
@@ -62,5 +62,10 @@ class MuaVao extends Model
 
     public function getDaThanhToanAttribute() {
         return $this->thu_chi_chi_tiets()->sum('so_tien');
+    }
+
+    public function getChuaThanhToanAttribute()
+    {
+        return $this->thanh_tien - $this->da_thanh_toan;
     }
 }

@@ -27,7 +27,7 @@ class BanRa extends Model
 
     protected $appends = [
         'lai', 'da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap',
-        'tai_khoan_tra_hoan_doi', 'ma_khach_hang'
+        'tai_khoan_tra_hoan_doi', 'ma_khach_hang', 'chua_thanh_toan'
     ];
 
     public static function boot()
@@ -100,5 +100,10 @@ class BanRa extends Model
     public function getDaThanhToanAttribute()
     {
         return $this->thu_chi_chi_tiets()->sum('so_tien');
+    }
+
+    public function getChuaThanhToanAttribute()
+    {
+        return $this->thanh_tien_ban - $this->da_thanh_toan;
     }
 }

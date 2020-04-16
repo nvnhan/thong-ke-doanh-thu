@@ -22,7 +22,7 @@ class ThuChi extends Model
     ];
 
     protected $appends = [
-        'con_du', 'ten_khach_hang',
+        'con_du', 'ten_khach_hang', 'so_du_khach_hang',
         'tai_khoan_di', 'tai_khoan_den'
     ];
 
@@ -39,17 +39,17 @@ class ThuChi extends Model
 
     public function khach_hang()
     {
-        return $this->belongsTo('App\KhachHang', 'id_khach_hang')->withDefault();
+        return $this->belongsTo('App\KhachHang', 'id_khach_hang');
     }
 
     public function tai_khoan_den()
     {
-        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_den')->withDefault();
+        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_den');
     }
 
     public function tai_khoan_di()
     {
-        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_di')->withDefault();
+        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_di');
     }
 
     public function thu_chi_chi_tiets()
@@ -66,6 +66,11 @@ class ThuChi extends Model
     public function getTaiKhoanDenAttribute()
     {
         return optional($this->tai_khoan_den()->first())->ky_hieu;
+    }
+
+    public function getSoDuKhachHangAttribute()
+    {
+        return optional($this->khach_hang()->first())->so_tien_thu_du;
     }
 
     public function getTenKhachHangAttribute()

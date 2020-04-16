@@ -53,9 +53,18 @@
 
 .content {
   margin: 24px 16px 0;
+}
+
+.content .list-form {
   padding: 16px 0;
   background: #fff;
-  /* text-align: center; */
+}
+
+.chart-card {
+  background: white;
+  padding: 16px 12px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 8px rgba(40, 40, 40, 0.1);
 }
 
 .ant-layout-sider {

@@ -29,6 +29,8 @@ Chức năng, tính năng còn:
 - Đặt vé: tính phí giảm VN, sân bay chặng dài
 - Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select
 /////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)
+- Đặt ngày thanh toán sau khi thêm tcct
+- Thu chi đã có chi tiết có thể sửa ko?  // KO nên cho sửa
 
 
 +++++++ CHỈNH SỬA DB ++++++

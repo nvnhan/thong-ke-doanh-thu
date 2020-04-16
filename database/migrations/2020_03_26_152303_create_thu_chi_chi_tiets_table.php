@@ -16,7 +16,7 @@ class CreateThuChiChiTietsTable extends Migration
         Schema::create('thu_chi_chi_tiet', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_thu_chi')->unsigned();
-            $table->string('loai_doi_tuong', 50);
+            $table->string('loai_doi_tuong', 50)->default('');
             $table->decimal('so_tien', 11, 2)->default(0);
             $table->decimal('so_tien_goc', 11, 2)->nullable();
             $table->integer('id_dat_ve')->unsigned()->nullable();

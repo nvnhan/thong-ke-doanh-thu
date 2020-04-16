@@ -85,9 +85,10 @@ Route::middleware('auth:api')->group(function () {
 
 
     Route::delete('thu-chi/deletes', 'ThuChiController@deletes');
-    Route::resource('thu-chi', 'ThuChiController')->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('thu-chi', 'ThuChiController')->only(['index', 'show', 'store', 'update', 'destroy']);
     Route::delete('thu-chi-chi-tiet/deletes', 'ThuChiChiTietController@deletes');
-    Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('thu-chi-chi-tiet/doi-tuong', 'ThuChiChiTietController@doituong');
+    Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController')->only(['index', 'store', 'destroy']);
 
     Route::get('trang-chu', 'HomeController@index');
 });

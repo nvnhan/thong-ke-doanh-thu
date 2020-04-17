@@ -139,11 +139,12 @@ const ListForm = props => {
             .post(`/api/${url}`, { ...value, otherParams })
             .then(response => {
                 if (response.data.success) {
+                    const newData = [...data, response.data.data] // Thêm object vào list lấy từ state
                     setState({
-                        data: [...data, response.data.data] // Thêm object vào list lấy từ state
+                        data: newData
                     });
                     message.info(response.data.message);
-                    if (onChangeData) onChangeData(data);
+                    if (onChangeData) onChangeData(newData);
                 }
             })
             .catch(error => console.log(error));
@@ -166,7 +167,7 @@ const ListForm = props => {
                     setState({
                         data: newData
                     });
-                    if (onChangeData) onChangeData(data);
+                    if (onChangeData) onChangeData(newData);
                     message.info(response.data.message);
                 }
             })
@@ -186,13 +187,14 @@ const ListForm = props => {
                     .delete(`/api/${url}/${id}`)
                     .then(response => {
                         if (response.data.success) {
+                            const newData = data.filter(
+                                item => item[primaryKey] !== id
+                            )
                             setState({
-                                data: data.filter(
-                                    item => item[primaryKey] !== id
-                                )
+                                data: newData
                             });
                             message.info(response.data.message);
-                            if (onChangeData) onChangeData(data);
+                            if (onChangeData) onChangeData(newData);
                         }
                     })
                     .catch(error => console.log(error));
@@ -217,16 +219,17 @@ const ListForm = props => {
                     })
                     .then(response => {
                         if (response.data.success) {
+                            const newData = data.filter(
+                                item =>
+                                    selectedRowKeys.indexOf(
+                                        item[primaryKey]
+                                    ) === -1
+                            )
                             setState({
-                                data: data.filter(
-                                    item =>
-                                        selectedRowKeys.indexOf(
-                                            item[primaryKey]
-                                        ) === -1
-                                ),
+                                data: newData,
                                 selectedRowKeys: []
                             });
-                            if (onChangeData) onChangeData(data);
+                            if (onChangeData) onChangeData(newData);
                             message.info(response.data.message);
                         }
                     })

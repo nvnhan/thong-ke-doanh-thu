@@ -105,8 +105,10 @@ class ThuChiChiTietController extends BaseController
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $obj = ThuChiChiTiet::create($data);
+        $obj = new ThuChiChiTiet;
+        $obj->id_thu_chi = $request->id_thu_chi;
+        $obj->so_tien = $request->so_tien;
+        
         $dt = explode("_", $request->doi_tuong);
         switch ($dt[0]) {
             case 'br':

@@ -17,7 +17,7 @@ import {
     RollbackOutlined,
     DatabaseOutlined,
     CalculatorOutlined,
-    TeamOutlined
+    TeamOutlined, FundOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -139,6 +139,25 @@ const items = [
                 icon: <CalculatorOutlined />,
                 title: "Tổng hợp hàng"
             }
+        ]
+    },
+    {
+        key: "SUB_BC",
+        icon: <FundOutlined />,
+        title: "Báo cáo",
+        childs: [
+            {
+                key: SideMenus.BC_TONG_HOP_TAI_KHOAN,
+                href: "/tong-hop-tai-khoan",
+                icon: <CaretRightOutlined />,
+                title: "TH tài khoản"
+            },
+            {
+                key: SideMenus.BC_TONG_HOP_CONG_NO,
+                href: "/tong-hop-cong-no",
+                icon: <CaretRightOutlined />,
+                title: "TH công nợ"
+            },
         ]
     },
     {

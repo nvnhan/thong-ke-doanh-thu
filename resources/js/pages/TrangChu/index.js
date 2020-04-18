@@ -18,7 +18,7 @@ const TrangChu = React.memo(props => {
         labels: data.ngay_thangs,
         datasets: [
             {
-                label: "Lượng thanh toán",
+                label: "Thanh toán",
                 fill: false,
                 borderColor: "#4bab92",
                 backgroundColor: "#4bab92",
@@ -26,7 +26,7 @@ const TrangChu = React.memo(props => {
                 data: data.thanh_toans
             },
             {
-                label: "Lượng đặt vé",
+                label: "Đặt vé",
                 backgroundColor: "#AB4B64",
                 // [
                 //     "#fe938c",
@@ -56,7 +56,7 @@ const TrangChu = React.memo(props => {
                                 title: {
                                     display: true,
                                     text:
-                                        "Số lượng đặt vé / thanh toán theo ngày trong tháng",
+                                        "Số lượng vé đặt / vé thanh toán trong tháng",
                                     fontSize: 14
                                 },
                                 tooltips: {

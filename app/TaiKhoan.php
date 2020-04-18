@@ -31,7 +31,6 @@ class TaiKhoan extends Model
         self::updating(function ($model) {
         });
         self::deleting(function ($model) {
-            //TODO: Check Delete MuaVao, BanRa from HangHoas
             $model->hang_hoas()->delete();
         });
     }
@@ -51,5 +50,30 @@ class TaiKhoan extends Model
     {
         // https://laravel.com/docs/7.x/eloquent-relationships#has-many-through
         return $this->hasManyThrough('App\TourChiTiet', 'App\HangHoa', 'id_tai_khoan', 'id_hang_hoa', 'id', 'id');
+    }
+
+    public function dat_ves()
+    {
+        return $this->hasMany('App\DatVe', 'id_tai_khoan_mua');
+    }
+
+    public function ban_ra_hoa_dois()
+    {
+        return $this->hasMany('App\BanRa', 'id_tai_khoan_tra_hoan_doi');
+    }
+
+    public function visas()
+    {
+        return $this->hasMany('App\Visa', 'id_nha_cung_cap');
+    }
+
+    public function thu_chi_dis()
+    {
+        return $this->hasMany('App\ThuChi', 'id_tai_khoan_di');
+    }
+
+    public function thu_chi_dens()
+    {
+        return $this->hasMany('App\ThuChi', 'id_tai_khoan_den');
     }
 }

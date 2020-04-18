@@ -18,6 +18,16 @@ class UserController extends BaseController
         return $this->sendResponse($objs, "User retrieved successfully");
     }
 
+    public function all(Request $request)
+    {
+        if ($request->user()->admin)
+            $objs = User::query();
+        else
+            $objs = User::where('username', $request->user()->username);
+        $objs = $objs->get(['username', 'ho_ten']);
+        return $this->sendResponse($objs, "User retrieved successfully");
+    }
+
     /**
      * Update the specified resource in storage.
      *

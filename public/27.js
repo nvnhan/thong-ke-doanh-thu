@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[27],{
 
-/***/ "./resources/js/pages/TrangChu/index.js":
-/*!**********************************************!*\
-  !*** ./resources/js/pages/TrangChu/index.js ***!
-  \**********************************************/
+/***/ "./resources/js/pages/BanHang/TongHop/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/pages/BanHang/TongHop/index.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,107 +11,136 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
 
 
 
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  var columns = [{
+    title: "Mã hàng",
+    dataIndex: "ma_hang",
+    optFind: true,
+    width: 120
+  }, {
+    title: "Tên hàng",
+    dataIndex: "ten_hang",
+    optFind: true,
+    width: 150
+  }, {
+    title: "Phân loại",
+    dataIndex: "phan_loai",
+    optFilter: true,
+    width: 140
+  }, {
+    title: "Nhà cung cấp",
+    dataIndex: "nha_cung_cap",
+    width: 140,
+    optFilter: true
+  }, // {
+  //     title: "Đơn giá hiện tại",
+  //     dataIndex: "don_gia",
+  //     render: number => vndFormater.format(number),
+  //     // sorter: (a, b) => a.don_gia - b.don_gia,
+  //     width: 110
+  // },
+  {
+    title: "SL mua vào",
+    dataIndex: "so_luong_mua_vao",
+    width: 110
+  }, {
+    title: "TT mua vào",
+    dataIndex: "thanh_tien_mua_vao",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_mua_vao - b.thanh_tien_mua_vao;
+    },
+    width: 120
+  }, {
+    title: "SL bán ra",
+    dataIndex: "so_luong_ban_ra",
+    width: 110
+  }, {
+    title: "TT bán ra",
+    dataIndex: "thanh_tien_ban_ra",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_ban_ra - b.thanh_tien_ban_ra;
+    },
+    width: 120
+  }, {
+    title: "SL hoàn đổi",
+    dataIndex: "so_luong_hoan_doi",
+    width: 110
+  }, {
+    title: "TT hoàn đổi",
+    dataIndex: "thanh_tien_hoan_doi",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_hoan_doi - b.thanh_tien_hoan_doi;
+    },
+    width: 120
+  }, {
+    title: "SL tồn kho",
+    dataIndex: "so_luong_ton_kho",
+    width: 110
+  }, {
+    title: "TT tồn kho",
+    dataIndex: "thanh_tien_ton_kho",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_ton_kho - b.thanh_tien_ton_kho;
+    },
+    width: 120
+  }];
 
-var TrangChu = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      data = _useState2[0],
-      setData = _useState2[1];
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    axios.get("/api/trang-chu").then(function (response) {
-      if (response.data.success) setData(response.data.data);
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  }, []);
-  var monthChartData = {
-    labels: data.ngay_thangs,
-    datasets: [{
-      label: "Lượng thanh toán",
-      fill: false,
-      borderColor: "#4bab92",
-      backgroundColor: "#4bab92",
-      type: "line",
-      data: data.thanh_toans
-    }, {
-      label: "Lượng đặt vé",
-      backgroundColor: "#AB4B64",
-      // [
-      //     "#fe938c",
-      //     "#e6b89c",
-      //     "#ead2ac",
-      //     "#9cafb7",
-      //     "#4281a4"
-      // ],
-      barPercentage: 0.8,
-      minBarLength: 3,
-      data: data.dat_ves
-    }]
-  };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Row"], {
-    gutter: [16, 16]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "chart-card"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
-    width: 400,
-    height: 250,
-    data: monthChartData,
-    options: {
-      legend: {
-        position: "bottom"
-      },
-      title: {
-        display: true,
-        text: "Số lượng đặt vé / thanh toán theo ngày trong tháng",
-        fontSize: 14
-      },
-      tooltips: {
-        mode: "index",
-        intersect: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines: {
-            display: true,
-            drawBorder: true,
-            drawOnChartArea: false
-          }
-        }],
-        yAxes: [{
-          gridLines: {
-            display: true,
-            drawBorder: true,
-            drawOnChartArea: false
-          },
-          ticks: {
-            stepSize: 1
-          }
-        }]
-      }
+  var renderSummary = function renderSummary(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          thanh_tien_mua_vao: previousValue.thanh_tien_mua_vao + currentValue.thanh_tien_mua_vao,
+          thanh_tien_ban_ra: previousValue.thanh_tien_ban_ra + currentValue.thanh_tien_ban_ra,
+          thanh_tien_hoan_doi: previousValue.thanh_tien_hoan_doi + currentValue.thanh_tien_hoan_doi,
+          thanh_tien_ton_kho: previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
+        };
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        colSpan: 5
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_mua_vao)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ban_ra)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_hoan_doi)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ton_kho))));
     }
-  })))));
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    url: "tong-hop-hang",
+    filterBox: true,
+    columns: columns,
+    insertable: false,
+    selectable: false,
+    editable: false,
+    deleteable: false,
+    tableSize: {
+      x: 1300
+    },
+    renderSummary: renderSummary
+  });
 });
-/* harmony default export */ __webpack_exports__["default"] = (TrangChu);
+/* harmony default export */ __webpack_exports__["default"] = (List);
 
 /***/ })
 

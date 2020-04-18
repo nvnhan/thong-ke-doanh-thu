@@ -17,10 +17,11 @@ const ToolsButton = React.memo(props => {
         selectable,
         deleteable
     } = props;
+    const isSelected = selectedRowKeys.length > 0;
 
     const renderButtons = () => {
         return otherButtons.map(btn => {
-            if (btn.childs === undefined)
+            if (btn.childs === undefined && (btn.selectRequired === false || isSelected))
                 return (
                     <Button
                         type="default"
@@ -31,7 +32,7 @@ const ToolsButton = React.memo(props => {
                         {btn.title}
                     </Button>
                 );
-            else
+            else if (btn.selectRequired === false || isSelected)
                 return (
                     <Dropdown key={btn.key} overlay={layButtons(btn.childs)}>
                         <Button>
@@ -39,23 +40,28 @@ const ToolsButton = React.memo(props => {
                         </Button>
                     </Dropdown>
                 );
+            return "";
         });
     };
 
     const layButtons = childs => {
         return (
             <Menu>
-                {childs.map(btn => (
-                    <Menu.Item
-                        key={btn.key}
-                        onClick={() => btn.onClick(data, selectedRowKeys)}
-                        style={{
-                            color: btn.color
-                        }}
-                    >
-                        {btn.icon} {btn.title}
-                    </Menu.Item>
-                ))}
+                {childs.map(btn => {
+                    if (btn.selectRequired === false || isSelected)
+                        return (
+                            <Menu.Item
+                                key={btn.key}
+                                onClick={() => btn.onClick(data, selectedRowKeys)}
+                                style={{
+                                    color: btn.color
+                                }}
+                            >
+                                {btn.icon} {btn.title}
+                            </Menu.Item>
+                        )
+                    return "";
+                })}
             </Menu>
         );
     };
@@ -67,15 +73,12 @@ const ToolsButton = React.memo(props => {
                     Thêm mới
                 </Button>
             )}
-            {selectable && deleteable && selectedRowKeys.length > 0 && (
+            {selectable && deleteable && isSelected && (
                 <Button type="danger" onClick={onMultiDelete}>
                     Xóa {selectedRowKeys.length} mục đã chọn
                 </Button>
             )}
-            {selectable &&
-                selectedRowKeys.length > 0 &&
-                otherButtons !== undefined &&
-                renderButtons()}
+            {otherButtons !== undefined && renderButtons()}
         </div>
     );
 });

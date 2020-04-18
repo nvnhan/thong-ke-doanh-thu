@@ -471,8 +471,7 @@ var FilterBox = react__WEBPACK_IMPORTED_MODULE_4___default.a.memo(function (prop
       "Tuần này": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("week"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("week")],
       "Tháng này": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("month")]
     },
-    format: "DD/MM/YYYY" // bordered={false}
-    ,
+    format: "DD/MM/YYYY",
     placeholder: ["Từ ngày", "đến ngày"]
   }))), !_.isEmpty(otherFilter) && otherFilter.map(function (filter) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
@@ -662,26 +661,28 @@ var ToolsButton = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (pr
       onMultiDelete = props.onMultiDelete,
       selectable = props.selectable,
       deleteable = props.deleteable;
+  var isSelected = selectedRowKeys.length > 0;
 
   var renderButtons = function renderButtons() {
     return otherButtons.map(function (btn) {
-      if (btn.childs === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      if (btn.childs === undefined && (btn.selectRequired === false || isSelected)) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
         type: "default",
         key: btn.key,
         icon: btn.icon,
         onClick: function onClick() {
           return btn.onClick(data, selectedRowKeys);
         }
-      }, btn.title);else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Dropdown"], {
+      }, btn.title);else if (btn.selectRequired === false || isSelected) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Dropdown"], {
         key: btn.key,
         overlay: layButtons(btn.childs)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, btn.title, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DownOutlined"], null)));
+      return "";
     });
   };
 
   var layButtons = function layButtons(childs) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"], null, childs.map(function (btn) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
+      if (btn.selectRequired === false || isSelected) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
         key: btn.key,
         onClick: function onClick() {
           return btn.onClick(data, selectedRowKeys);
@@ -690,6 +691,7 @@ var ToolsButton = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (pr
           color: btn.color
         }
       }, btn.icon, " ", btn.title);
+      return "";
     }));
   };
 
@@ -698,10 +700,10 @@ var ToolsButton = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (pr
   }, insertable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "primary",
     onClick: handleAddNew
-  }, "Th\xEAm m\u1EDBi"), selectable && deleteable && selectedRowKeys.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, "Th\xEAm m\u1EDBi"), selectable && deleteable && isSelected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "danger",
     onClick: onMultiDelete
-  }, "X\xF3a ", selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn"), selectable && selectedRowKeys.length > 0 && otherButtons !== undefined && renderButtons());
+  }, "X\xF3a ", selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn"), otherButtons !== undefined && renderButtons());
 });
 /* harmony default export */ __webpack_exports__["default"] = (ToolsButton);
 
@@ -839,7 +841,7 @@ var ListForm = function ListForm(props) {
     isComponentMounted = true; // Không Có filter hoặc có filter và đã load xong
 
     if (finalFilter === undefined || !_.isEmpty(finalFilter)) {
-      console.log("Load data from server in ListForm"); // Set lại data và loading cho các Component con
+      console.log("Load data from server in ListForm", finalFilter); // Set lại data và loading cho các Component con
 
       setState({
         data: [],
@@ -847,12 +849,12 @@ var ListForm = function ListForm(props) {
       });
       axios.get("/api/" + url + "?" + Object(_utils__WEBPACK_IMPORTED_MODULE_4__["queryString"])(finalFilter)).then(function (response) {
         if (isComponentMounted && response.data.success) {
+          //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
+          if (onChangeData) onChangeData(response.data.data);
           setState({
             data: response.data.data,
             isLoading: false
-          }); //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
-
-          if (onChangeData) onChangeData(response.data.data);
+          });
         }
       })["catch"](function (error) {
         return console.log(error);
@@ -1095,7 +1097,8 @@ ListForm.propTypes = {
     icon: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.node,
     title: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
     color: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
-    childs: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.array
+    childs: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.array,
+    selectRequired: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool
   })),
   expandedRowRender: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
   filter: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,

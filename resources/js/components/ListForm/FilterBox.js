@@ -62,7 +62,6 @@ const FilterBox = React.memo(props => {
                                         ]
                                     }}
                                     format="DD/MM/YYYY"
-                                    // bordered={false}
                                     placeholder={["Từ ngày", "đến ngày"]}
                                 />
                             </Form.Item>

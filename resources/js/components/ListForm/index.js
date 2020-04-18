@@ -44,7 +44,7 @@ const ListForm = props => {
         isComponentMounted = true;
         // Không Có filter hoặc có filter và đã load xong
         if (finalFilter === undefined || !_.isEmpty(finalFilter)) {
-            console.log("Load data from server in ListForm");
+            console.log("Load data from server in ListForm", finalFilter);
             // Set lại data và loading cho các Component con
             setState({ data: [], isLoading: true });
 
@@ -52,12 +52,12 @@ const ListForm = props => {
                 .get("/api/" + url + "?" + queryString(finalFilter))
                 .then(response => {
                     if (isComponentMounted && response.data.success) {
+                        //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
+                        if (onChangeData) onChangeData(response.data.data);
                         setState({
                             data: response.data.data,
                             isLoading: false
                         });
-                        //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
-                        if (onChangeData) onChangeData(response.data.data);
                     }
                 })
                 .catch(error => console.log(error));
@@ -305,6 +305,7 @@ ListForm.propTypes = {
             title: PropTypes.string,
             color: PropTypes.string,
             childs: PropTypes.array,
+            selectRequired: PropTypes.bool,
         })
     ),
     expandedRowRender: PropTypes.func,

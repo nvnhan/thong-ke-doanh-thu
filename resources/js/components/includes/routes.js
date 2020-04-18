@@ -24,6 +24,9 @@ const HoanDoi = lazy(() => import("../../pages/BanHang/HoanDoi"));
 const TonKho = lazy(() => import("../../pages/BanHang/TonKho"));
 const TongHop = lazy(() => import("../../pages/BanHang/TongHop"));
 
+const TongHopTaiKhoan = lazy(() => import("../../pages/BaoCao/TongHopTaiKhoan"));
+const TongHopCongNo = lazy(() => import("../../pages/BaoCao/TongHopCongNo"));
+
 const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
 const NhaCungCap = lazy(() => import("../../pages/ThongTin/NhaCungCap"));
 const KhachHang = lazy(() => import("../../pages/ThongTin/KhachHang"));
@@ -153,6 +156,20 @@ const routes = [
         title: "Tổng hợp hàng",
         menu: menus.BH_TONG_HOP,
         component: <TongHop />
+    },
+    {
+        path: "/tong-hop-tai-khoan",
+        exact: false,
+        title: "Tổng hợp tài khoản",
+        menu: menus.BC_TONG_HOP_TAI_KHOAN,
+        component: <TongHopTaiKhoan />
+    },
+    {
+        path: "/tong-hop-cong-no",
+        exact: false,
+        title: "Tổng hợp công nợ",
+        menu: menus.BC_TONG_HOP_CONG_NO,
+        component: <TongHopCongNo />
     },
     {
         path: "/tai-khoan",

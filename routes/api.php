@@ -81,6 +81,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Add middleware checkadmin
     Route::delete('nhan-vien/deletes', 'UserController@deletes');
+    Route::get('nhan-vien/all', 'UserController@all');
     Route::resource('nhan-vien', 'UserController')->only(['index', 'update', 'destroy']);
 
 
@@ -91,4 +92,6 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController')->only(['index', 'store', 'destroy']);
 
     Route::get('trang-chu', 'HomeController@index');
+
+    Route::get('tong-hop-tai-khoan', 'BaoCaoController@taikhoan');
 });

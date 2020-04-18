@@ -43,7 +43,7 @@ class DatVe extends Model
 
     protected $appends = [
         'chang_di', 'chang_ve',
-        'ten_khach_hang', 'noi_mua',
+        'ma_khach_hang', 'noi_mua',
         'da_thanh_toan', 'loai_hanh_ly',
         'ten_loai_tuoi', 'chua_thanh_toan'
     ];
@@ -94,9 +94,9 @@ class DatVe extends Model
         return '';
     }
 
-    public function getTenKhachHangAttribute()
+    public function getMaKhachHangAttribute()
     {
-        return optional($this->khach_hang()->first())->ho_ten;
+        return optional($this->khach_hang()->first())->ma_khach_hang;
     }
 
     public function getNoiMuaAttribute()

@@ -23,25 +23,23 @@ class HomeController extends BaseController
             ->select(DB::raw('ngay_thanh_toan as ngay_thang'), DB::raw('count(*) as thanh_toan'))->groupBy('ngay_thanh_toan')->get();
 
         $data = [];
+        $m = date('m');
+        for ($i = 1; $i <= (date('t')); $i++) {
+            $val = new stdClass;
+            $val->dat_ve = 0;
+            $val->thanh_toan = 0;
+            $tmp = sprintf("%02d", $i) . '/' . $m;
+            $data[$tmp] = $val;
+        }
         foreach ($dv as $item) {
             $ngay = new DateTime($item->ngay_thang);
             $nt = trim($ngay->format('d/m'));
-            $val = new stdClass;
-            $val->dat_ve = $item->dat_ve;
-            $val->thanh_toan = 0;
-            $data[$nt] = $val;
+            $data[$nt]->dat_ve = $item->dat_ve;
         }
         foreach ($tt as $item) {
             $ngay = new DateTime($item->ngay_thang);
             $nt = trim($ngay->format('d/m'));
-            if (array_key_exists($nt, $data)) {
-                $data[$nt]->thanh_toan = $item->thanh_toan;
-            } else {
-                $val = new stdClass;
-                $val->dat_ve = 0;
-                $val->thanh_toan = $item->thanh_toan;
-                $data[$nt] = $val;
-            }
+            $data[$nt]->thanh_toan = $item->thanh_toan;
         }
         $result = new stdClass;
         $result->ngay_thangs = [];

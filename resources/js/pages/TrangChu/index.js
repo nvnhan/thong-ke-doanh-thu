@@ -35,8 +35,8 @@ const TrangChu = React.memo(props => {
                 //     "#9cafb7",
                 //     "#4281a4"
                 // ],
-                barPercentage: 0.5,
-                minBarLength: 2,
+                barPercentage: 0.8,
+                minBarLength: 3,
                 data: data.dat_ves
             }
         ]

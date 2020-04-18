@@ -151,7 +151,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     optFilter: true
   }, {
     title: "Khách hàng",
-    dataIndex: "ten_khach_hang",
+    dataIndex: "ma_khach_hang",
     width: 110,
     optFilter: true
   }, {

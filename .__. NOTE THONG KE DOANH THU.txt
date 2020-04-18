@@ -27,6 +27,7 @@ Chức năng, tính năng còn:
 - Auto run cron job
 - Cài đặt
 
+- Account: expire time, login 1 máy
 - Đặt vé: tính phí giảm VN, sân bay chặng dài
 - Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select
 /////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)

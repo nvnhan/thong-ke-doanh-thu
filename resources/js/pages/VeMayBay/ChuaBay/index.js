@@ -130,7 +130,7 @@ const List = React.memo(props => {
         },
         {
             title: "Khách hàng",
-            dataIndex: "ten_khach_hang",
+            dataIndex: "ma_khach_hang",
             width: 110,
             optFilter: true
         },

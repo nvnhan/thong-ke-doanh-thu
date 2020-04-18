@@ -59,6 +59,10 @@ const items = [
                 title: "Chưa bay"
             },
             {
+                key: 'divider',
+                admin: true,
+            },
+            {
                 key: SideMenus.VMB_SAN_BAY,
                 href: "/san-bay",
                 admin: true,
@@ -136,6 +140,9 @@ const items = [
                 title: "Tổng hợp hàng"
             }
         ]
+    },
+    {
+        key: 'divider'
     },
     {
         key: "SUB_TT",

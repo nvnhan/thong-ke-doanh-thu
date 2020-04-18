@@ -53,6 +53,7 @@
 
 .content {
   margin: 24px 16px 0;
+  min-width: 270px;
 }
 
 .content .list-form {
@@ -70,6 +71,10 @@
 .ant-layout-sider {
   min-height: 100vh;
   background: #020d07;
+}
+
+.ant-menu-dark .ant-menu-item-divider {
+  background-color: rgba(68, 68, 68, 0.45);
 }
 
 .ant-menu-dark,

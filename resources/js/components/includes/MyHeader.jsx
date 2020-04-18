@@ -43,104 +43,102 @@ class MyHeader extends PureComponent {
 
     render() {
         return (
-            <div>
-                <PageHeader
-                    className="my-header"
-                    onBack={() => window.history.back()}
-                    title={this.props.title}
-                    extra={
-                        <React.Fragment>
-                            <Menu
-                                className="menu-account"
-                                mode="horizontal"
-                                selectable={false}
-                            >
-                                <SubMenu
-                                    className="nav-user"
-                                    title={
-                                        <React.Fragment>
-                                            <span
-                                                style={{
-                                                    color: "#999",
-                                                    marginRight: 4
-                                                }}
-                                            >
-                                                Chào
+            <PageHeader
+                className="my-header"
+                onBack={() => window.history.back()}
+                title={this.props.title}
+                extra={
+                    <React.Fragment>
+                        <Menu
+                            className="menu-account"
+                            mode="horizontal"
+                            selectable={false}
+                        >
+                            <SubMenu
+                                className="nav-user"
+                                title={
+                                    <React.Fragment>
+                                        <span
+                                            style={{
+                                                color: "#999",
+                                                marginRight: 4
+                                            }}
+                                        >
+                                            Chào
                                             </span>
-                                            {this.props.authUser.hoTen}
-                                            <Avatar
-                                                style={{
-                                                    marginLeft: 8,
-                                                    background: "chocolate",
-                                                    float: "none"
-                                                }}
-                                                icon={<UserOutlined />}
-                                            />
-                                        </React.Fragment>
-                                    }
-                                >
-                                    <Menu.Item key="profile">
-                                        <Link to="/thong-tin-ca-nhan">
-                                            Thông tin cá nhân
-                                        </Link>
-                                    </Menu.Item>
-                                    <Menu.Item key="password">
-                                        <Link to="/doi-mat-khau">
-                                            Đổi mật khẩu
-                                        </Link>
-                                    </Menu.Item>
-                                    <Menu.Divider />
-                                    <Menu.Item
-                                        key="SignOut"
-                                        className="color-danger"
-                                        onClick={this.onLogout}
-                                    >
-                                        Đăng xuất
-                                    </Menu.Item>
-                                </SubMenu>
-                            </Menu>
-                            <Button
-                                className="btn-drawer"
-                                type="link"
-                                icon={<MenuOutlined />}
-                                onClick={this.showDrawer}
-                            ></Button>
-                            <Drawer
-                                className="drawer-account"
-                                title={this.getDrawerTitle()}
-                                placement="right"
-                                onClose={this.onClose}
-                                visible={this.state.drawerVisible}
+                                        {this.props.authUser.hoTen}
+                                        <Avatar
+                                            style={{
+                                                marginLeft: 8,
+                                                background: "chocolate",
+                                                float: "none"
+                                            }}
+                                            icon={<UserOutlined />}
+                                        />
+                                    </React.Fragment>
+                                }
                             >
-                                <Menu
-                                    mode="inline"
-                                    selectable={false}
-                                    onClick={this.onClose}
+                                <Menu.Item key="profile">
+                                    <Link to="/thong-tin-ca-nhan">
+                                        Thông tin cá nhân
+                                        </Link>
+                                </Menu.Item>
+                                <Menu.Item key="password">
+                                    <Link to="/doi-mat-khau">
+                                        Đổi mật khẩu
+                                        </Link>
+                                </Menu.Item>
+                                <Menu.Divider />
+                                <Menu.Item
+                                    key="SignOut"
+                                    className="color-danger"
+                                    onClick={this.onLogout}
                                 >
-                                    <Menu.Item key="profile">
-                                        <Link to="/thong-tin-ca-nhan">
-                                            Thông tin cá nhân
+                                    Đăng xuất
+                                    </Menu.Item>
+                            </SubMenu>
+                        </Menu>
+                        <Button
+                            className="btn-drawer"
+                            type="link"
+                            icon={<MenuOutlined />}
+                            onClick={this.showDrawer}
+                        ></Button>
+                        <Drawer
+                            className="drawer-account"
+                            title={this.getDrawerTitle()}
+                            placement="right"
+                            onClose={this.onClose}
+                            visible={this.state.drawerVisible}
+                        >
+                            <Menu
+                                mode="inline"
+                                selectable={false}
+                                onClick={this.onClose}
+                            >
+                                <Menu.Item key="profile">
+                                    <Link to="/thong-tin-ca-nhan">
+                                        Thông tin cá nhân
                                         </Link>
-                                    </Menu.Item>
-                                    <Menu.Item key="password">
-                                        <Link to="/doi-mat-khau">
-                                            Đổi mật khẩu
+                                </Menu.Item>
+                                <Menu.Item key="password">
+                                    <Link to="/doi-mat-khau">
+                                        Đổi mật khẩu
                                         </Link>
+                                </Menu.Item>
+                                <Menu.Divider />
+                                <Menu.Item
+                                    key="SignOut"
+                                    className="color-danger"
+                                    onClick={this.onLogout}
+                                >
+                                    Đăng xuất
                                     </Menu.Item>
-                                    <Menu.Divider />
-                                    <Menu.Item
-                                        key="SignOut"
-                                        className="color-danger"
-                                        onClick={this.onLogout}
-                                    >
-                                        Đăng xuất
-                                    </Menu.Item>
-                                </Menu>
-                            </Drawer>
-                        </React.Fragment>
-                    }
-                />
-            </div>
+                            </Menu>
+                        </Drawer>
+                    </React.Fragment>
+                }
+            />
         );
     }
 }

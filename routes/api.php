@@ -94,4 +94,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('trang-chu', 'HomeController@index');
 
     Route::get('tong-hop-tai-khoan', 'BaoCaoController@taikhoan');
+    Route::get('tong-hop-cong-no', 'BaoCaoController@congno');
 });

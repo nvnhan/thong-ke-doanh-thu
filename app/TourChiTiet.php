@@ -45,7 +45,7 @@ class TourChiTiet extends Model
 
     public function thu_chi_chi_tiets()
     {
-        return $this->hasMany('App\ThuChiChiTiet', 'id_ban_ra');
+        return $this->hasMany('App\ThuChiChiTiet', 'id_tour_chi_tiet');
     }
 
     public function getDaThanhToanAttribute()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BanRa;
 use App\DatVe;
 use App\HangHoa;
+use App\KhachHang;
 use App\TaiKhoan;
 use App\ThuChi;
 use App\Tour;
@@ -30,7 +31,7 @@ class BaoCaoController extends BaseController
         }
         $taiKhoan = TaiKhoan::where('loai', '!=', '-1')->where(function ($q) use ($denNgay) {
             return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $denNgay);
-        })->orderBy('loai')->orderBy('ky_hieu')->get();
+        })->orderBy('loai')->get();
 
         $ngayTruoc = date('Y-m-d', strtotime($tuNgay . ' - 1 days'));
         $sum = 0;
@@ -40,17 +41,21 @@ class BaoCaoController extends BaseController
             $tmp->id = $tk->id;
             $tmp->tai_khoan = $tk->ky_hieu;
 
-            $duCuoiKy = self::TongThu($tk, $user, $denNgay) - self::TongChi($tk, $user, $denNgay);
+            $duCuoiKy = self::TongThuTK($tk, $user, $denNgay) - self::TongChiTK($tk, $user, $denNgay);
             $sum += $duCuoiKy;
-            $tmp->dau_ky = self::VNDFormater(self::TongThu($tk, $user, $ngayTruoc) - self::TongChi($tk, $user, $ngayTruoc)) . ' | '       // Đầu kỳ
+            $tmp->dau_ky = self::VNDFormater(self::TongThuTK($tk, $user, $ngayTruoc) - self::TongChiTK($tk, $user, $ngayTruoc)) . ' | '       // Đầu kỳ
                 . self::VNDFormater($duCuoiKy);
             $tmp->thu_chi = "THU | CHI";
+            $coDuLieu = false;
             // Thêm các cột tương ứng với giá trị thu theo từng ngày
             for ($i = $tuNgay; $i <= $denNgay; $i++) {
                 $t = (new DateTime($i))->format('d/m/y');
-                $tmp->$t = self::VNDFormater(self::TongThu($tk, $user, $i, $i)) . ' | ' . self::VNDFormater(self::TongChi($tk, $user, $i, $i));
+                $tmp->$t = self::VNDFormater(self::TongThuTK($tk, $user, $i, $i)) . ' | ' . self::VNDFormater(self::TongChiTK($tk, $user, $i, $i));
+                if ($tmp->$t != '0 | 0')
+                    $coDuLieu = true;
             }
-            $result[] = $tmp;
+            if ($tmp->dau_ky != '0 | 0' || $coDuLieu)
+                $result[] = $tmp;
         }
         //TODO: Thêm Dư - Nợ
         $duNo = 0;
@@ -85,6 +90,83 @@ class BaoCaoController extends BaseController
         return $this->sendResponse($result, "THTK retrieved successfully");
     }
 
+    public function congno(Request $request)
+    {
+        $tuNgay =  date('Y-m-01');
+        $denNgay = date('Y-m-t');
+        $muavao = [];
+        $banra = [];
+        if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
+            $tuNgay = substr($request->bat_dau, 0, 10);
+            $denNgay = substr($request->ket_thuc, 0, 10);
+        }
+        $ngayTruoc = date('Y-m-d', strtotime($tuNgay . ' - 1 days'));
+
+        $khachHang = KhachHang::whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $denNgay)->get();
+        foreach ($khachHang as $kh) {
+            $tmp = new stdClass;
+            $tmp->id = $kh->id;
+            $tmp->phan_loai = $kh->phan_loai;
+            $tmp->khach_hang = $kh->ma_khach_hang . ' - ' . $kh->ho_ten;
+
+            $tmp->dau_ky = $kh->so_du_ky_truoc + self::TinhTongThanhToanBanRa($kh, $ngayTruoc) - self::TinhTongGiaoDichBanRa($kh, $ngayTruoc);
+            $tmp->thanh_toan = self::TinhTongThanhToanBanRa($kh, $denNgay, $tuNgay);
+            $tmp->giao_dich = self::TinhTongGiaoDichBanRa($kh, $denNgay, $tuNgay);
+            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
+
+            $banra[] = $tmp;
+        }
+
+        $nhaCungCap = TaiKhoan::whereLoai(1)->get();
+        foreach ($nhaCungCap as $ncc) {
+            $tmp = new stdClass;
+            $tmp->id = $ncc->id;
+            $tmp->tai_khoan = $ncc->ky_hieu . ' - ' . $ncc->mo_ta;
+
+            $tmp->dau_ky = self::TongThuTK($ncc, '', $ngayTruoc) - self::TongChiTK($ncc, '', $ngayTruoc);
+            $tmp->thanh_toan = self::TongThuTK($ncc, '', $denNgay, $tuNgay);
+            $tmp->giao_dich = self::TongChiTK($ncc, '', $denNgay, $tuNgay);
+            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
+
+            $muavao[] = $tmp;
+            //TODO: Tính NƠI KHÁC..............
+        }
+
+        $result = ['banra' => $banra, 'muavao' => $muavao];
+        return $this->sendResponse((object) $result, "THCN retrieved successfully");
+    }
+
+    /// Là số tiền KHÁCH HÀNG ĐÃ THANH TOÁN === MÌNH THU CỦA KH
+    public function TinhTongThanhToanBanRa($khachHang, $date2, $date1 = '')
+    {
+        if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
+            $date1 = $khachHang->ngay_tao;
+        if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
+            return 0;
+
+        $sum = $khachHang->thu_chis()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2)->sum('so_tien');
+        return (float) $sum;
+    }
+
+    /// Là số tiền Khách hàng phát sinh từ các đối tượng, cần phải thanh toán cho mình
+    public function TinhTongGiaoDichBanRa($khachHang, $date2, $date1 = '')
+    {
+        if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
+            $date1 = $khachHang->ngay_tao;
+        if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
+            return 0;
+
+        $sum = $khachHang->dat_ves()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2)->sum('tong_tien_thu_khach');
+
+        $sum += $khachHang->ban_ras()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2)->sum('thanh_tien_ban');
+
+        $sum += $khachHang->visas()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2)->sum('gia_ban');
+
+        $sum += $khachHang->tours()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2)->sum('tong_tien_ban');
+
+        return (float) $sum;
+    }
+
     public function VNDFormater($number)
     {
         if ($number == 0)
@@ -92,6 +174,7 @@ class BaoCaoController extends BaseController
         return number_format($number, 0, '', '.') . '₫';
     }
 
+    // Tổng lãi cho tổng hợp tài khoản
     public function TinhLai($user, $date1, $date2)
     {
         $lai = 0;
@@ -115,9 +198,10 @@ class BaoCaoController extends BaseController
             $q = $q->where('username', $user);
         $lai += $q->sum('lai');
 
-        return $lai;
+        return (float) $lai;
     }
 
+    // Tổng tồn kho cho Tổng hợp tài khoản
     public function TinhTonKho($user, $date2)
     {
         $tonKho = 0;
@@ -138,11 +222,11 @@ class BaoCaoController extends BaseController
             if ($sl > 0)
                 $tonKho += $sl * $h->don_gia;
         }
-        return $tonKho;
+        return (float) $tonKho;
     }
 
     // Tổng thu của tài khoản từ ngày đến ngày
-    public function TongThu($taiKhoan, $user, $date2, $date1 = '')
+    public function TongThuTK($taiKhoan, $user, $date2, $date1 = '')
     {
         if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
             $date1 = $taiKhoan->ngay_tao;
@@ -159,7 +243,7 @@ class BaoCaoController extends BaseController
     }
 
     // Tổng chi của tài khoản từ ngày đến ngày
-    public function TongChi($taiKhoan, $user, $date2, $date1 = '')
+    public function TongChiTK($taiKhoan, $user, $date2, $date1 = '')
     {
         if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
             $date1 = $taiKhoan->ngay_tao;

@@ -19,7 +19,12 @@ class KhachHang extends Model
         'phi_bb' => 'float',
     ];
 
-    protected $fillable = ['ma_khach_hang', 'ho_ten', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb', 'mst', 'dia_chi', 'email', 'sdt', 'so_du_ky_truoc', 'ngay_nhac', 'ma_dai_ly', 'ghi_chu'];
+    protected $fillable = [
+        'ma_khach_hang', 'ho_ten', 'phan_loai',
+        'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb',
+        'mst', 'dia_chi', 'email', 'sdt',
+        'so_du_ky_truoc', 'ngay_nhac', 'ma_dai_ly', 'ghi_chu'
+    ];
 
     protected $appends = ['so_tien_thu_du'];
 

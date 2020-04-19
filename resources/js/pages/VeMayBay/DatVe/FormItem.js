@@ -67,7 +67,6 @@ const form = React.memo(props => {
         ));
 
     const onChange = (value, type = "") => {
-        console.log("FormItem onChange -> value, type", value, type);
         props.onChangeValue(value, type);
     };
 

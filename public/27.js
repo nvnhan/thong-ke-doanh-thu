@@ -1,20 +1,21 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[27],{
 
-/***/ "./resources/js/pages/BaoCao/TongHopTaiKhoan/index.js":
-/*!************************************************************!*\
-  !*** ./resources/js/pages/BaoCao/TongHopTaiKhoan/index.js ***!
-  \************************************************************/
+/***/ "./resources/js/pages/BaoCao/TongHopCongNo/index.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/pages/BaoCao/TongHopCongNo/index.js ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm/DataTable */ "./resources/js/components/ListForm/DataTable.js");
+/* harmony import */ var _components_ListForm_FilterBox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/FilterBox */ "./resources/js/components/ListForm/FilterBox.js");
+/* harmony import */ var _components_ListForm_ToolsButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/ToolsButton */ "./resources/js/components/ListForm/ToolsButton.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -30,114 +31,98 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
-var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
-  var _React$createElement;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
-    columns: [],
-    tableSize: 1000
+
+
+
+var List = function List(props) {
+  var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["useMergeState"])({
+    data: {
+      muavao: [],
+      banra: []
+    },
+    isLoading: true
   }),
+      _useMergeState2 = _slicedToArray(_useMergeState, 2),
+      state = _useMergeState2[0],
+      setState = _useMergeState2[1];
+
+  var data = state.data,
+      isLoading = state.isLoading;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined),
       _useState2 = _slicedToArray(_useState, 2),
-      trangThai = _useState2[0],
-      setTrangThai = _useState2[1];
+      ownFilter = _useState2[0],
+      setOwnFilter = _useState2[1];
 
-  var columns = trangThai.columns,
-      tableSize = trangThai.tableSize;
+  var isComponentMounted = false;
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    isComponentMounted = true; // Không Có filter hoặc có filter và đã load xong
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      nhanVien = _useState4[0],
-      setNhanVien = _useState4[1];
-
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    axios.get("/api/nhan-vien/all").then(function (response) {
-      if (response.data.success) setNhanVien(response.data.data);
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  }, []);
-  /**
-   * Callback from ListForm to reload Thu Chi from server
-   */
-
-  var onChangeData = function onChangeData(data) {
-    if (_.isEmpty(data)) return;
-    var entry = data[0];
-    var cols = [];
-    var size = 0;
-
-    for (var key in entry) {
-      size += 110;
-      if (key === "tai_khoan") cols.push({
-        title: "Tài khoản",
-        dataIndex: key,
-        width: 120,
-        fixed: "left",
-        optFind: true
-      });else if (key === "dau_ky") cols.push({
-        title: "Đầu / Cuối kỳ",
-        dataIndex: key,
-        // render: text => {
-        //     if (text !== undefined && text !== null && text.indexOf(" | ") > 0) {
-        //         let a = text.split(" | ");
-        //         return (
-        //             <span>
-        //                 {a[0]}
-        //                 <br />
-        //                 {a[1]}
-        //             </span>
-        //         );
-        //     }
-        //     return text;
-        // },
-        width: 100
-      });else if (key === "thu_chi") cols.push({
-        title: "",
-        dataIndex: key,
-        width: 80
-      });else if (key !== "id") cols.push({
-        title: key,
-        dataIndex: key,
-        // render: text => {
-        //     if (text !== undefined && text !== null && text.indexOf(" | ") > 0) {
-        //         let a = text.split(" | ");
-        //         return (
-        //             <span>
-        //                 {a[0]}
-        //                 <br />
-        //                 {a[1]}
-        //             </span>
-        //         );
-        //     }
-        //     return text;
-        // },
-        width: 100
+    if (ownFilter === undefined || !_.isEmpty(ownFilter)) {
+      // Set lại data và loading cho các Component con
+      setState({
+        data: [],
+        isLoading: true
+      });
+      axios.get("/api/tong-hop-cong-no?" + Object(_utils__WEBPACK_IMPORTED_MODULE_1__["queryString"])(ownFilter)).then(function (response) {
+        if (isComponentMounted && response.data.success) {
+          setState({
+            data: response.data.data,
+            isLoading: false
+          });
+        }
+      })["catch"](function (error) {
+        return console.log(error);
       });
     }
 
-    setTrangThai({
-      columns: cols,
-      tableSize: size
-    });
+    return function () {
+      // When Unmount component
+      isComponentMounted = false;
+    };
+  }, [JSON.stringify(ownFilter)]); // Chỉ chạy 1 lần khi mount đến khi ownFilter thay đổi
+
+  /**
+   * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
+   */
+
+  var handleFilterBox = function handleFilterBox(newFilter) {
+    // Thay đổi filter => Load lại dữ liệu
+    if (Object(_utils__WEBPACK_IMPORTED_MODULE_1__["isChangeData"])(ownFilter, newFilter)) setOwnFilter(newFilter);
   };
 
-  var getOtherFilter = function getOtherFilter() {
-    return [{
-      name: "user",
-      label: "Nhân viên",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
-        value: ""
-      }, "T\u1EA5t c\u1EA3"), nhanVien.map(function (nv) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
-          key: nv.username,
-          value: nv.username
-        }, nv.username + " - " + nv.ho_ten);
-      }))
-    }];
+  var renderSummaryBanRa = function renderSummaryBanRa(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          dau_ky: previousValue.dau_ky + currentValue.dau_ky,
+          cuoi_ky: previousValue.cuoi_ky + currentValue.cuoi_ky,
+          giao_dich: previousValue.giao_dich + currentValue.giao_dich,
+          thanh_toan: previousValue.thanh_toan + currentValue.thanh_toan
+        };
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        colSpan: 2
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.dau_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.cuoi_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.thanh_toan)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.giao_dich))));
+    }
   };
 
-  var exportDS = function exportDS(data, selectedKeys) {//TODO: Xuất Excel
+  var renderSummaryMuaVao = function renderSummaryMuaVao(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          dau_ky: previousValue.dau_ky + currentValue.dau_ky,
+          cuoi_ky: previousValue.cuoi_ky + currentValue.cuoi_ky,
+          giao_dich: previousValue.giao_dich + currentValue.giao_dich,
+          thanh_toan: previousValue.thanh_toan + currentValue.thanh_toan
+        };
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.dau_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.cuoi_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.thanh_toan)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.giao_dich))));
+    }
+  };
+
+  var exportDS = function exportDS() {//TODO: Xuất Excel
   };
 
   var otherButtons = [{
@@ -146,19 +131,126 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     title: "Xuất danh sách ra Excel",
     selectRequired: false
   }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], (_React$createElement = {
-    url: "tong-hop-tai-khoan",
+  var columnsBanRa = [{
+    title: "Phân loại",
+    dataIndex: "phan_loai",
+    optFilter: true,
+    width: 100
+  }, {
+    title: "Khách hàng",
+    dataIndex: "khach_hang",
+    optFind: true,
+    width: 170
+  }, {
+    title: "Dư - Nợ đầu kỳ",
+    dataIndex: "dau_ky",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    },
+    width: 100
+  }, {
+    title: "Dư - Nợ cuối kỳ",
+    dataIndex: "cuoi_ky",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    },
+    width: 100
+  }, {
+    title: "Số tiền thanh toán",
+    dataIndex: "thanh_toan",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    },
+    width: 100
+  }, {
+    title: "Tổng tiền giao dịch",
+    dataIndex: "giao_dich",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    },
+    width: 100
+  }];
+  var columnsMuaVao = [{
+    title: "Tài khoản",
+    dataIndex: "tai_khoan",
+    optFind: true,
+    width: 180
+  }, {
+    title: "Dư - Nợ đầu kỳ",
+    dataIndex: "dau_ky",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    },
+    width: 100
+  }, {
+    title: "Dư - Nợ cuối kỳ",
+    dataIndex: "cuoi_ky",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    },
+    width: 100
+  }, {
+    title: "Số tiền thanh toán",
+    dataIndex: "thanh_toan",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    },
+    width: 100
+  }, {
+    title: "Tổng tiền giao dịch",
+    dataIndex: "giao_dich",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    },
+    width: 100
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "list-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_FilterBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    filterBox: true,
+    tuNgayDenNgay: true,
+    onFilter: handleFilterBox
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_ToolsButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
     insertable: false,
-    selectable: true,
+    deleteable: false,
+    selectable: false,
+    otherButtons: otherButtons
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"], {
+    defaultActiveKey: "1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"].TabPane, {
+    tab: "T\u1ED5ng h\u1EE3p b\xE1n ra",
+    key: 1
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    tableSize: {
+      x: 800
+    },
+    data: data.banra,
+    columns: columnsBanRa,
+    isLoading: isLoading,
+    deleteable: false,
+    selectable: false,
     editable: false,
-    deleteable: false
-  }, _defineProperty(_React$createElement, "selectable", false), _defineProperty(_React$createElement, "filterBox", true), _defineProperty(_React$createElement, "otherFilter", getOtherFilter()), _defineProperty(_React$createElement, "filterInitialValue", {
-    user: ""
-  }), _defineProperty(_React$createElement, "columns", columns), _defineProperty(_React$createElement, "tableSize", {
-    x: tableSize
-  }), _defineProperty(_React$createElement, "otherButtons", otherButtons), _defineProperty(_React$createElement, "onChangeData", onChangeData), _React$createElement));
-});
-/* harmony default export */ __webpack_exports__["default"] = (List);
+    primaryKey: "id",
+    renderSummary: renderSummaryBanRa
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"].TabPane, {
+    tab: "T\u1ED5ng h\u1EE3p mua v\xE0o",
+    key: 2
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    tableSize: {
+      x: 800
+    },
+    data: data.muavao,
+    columns: columnsMuaVao,
+    isLoading: isLoading,
+    deleteable: false,
+    selectable: false,
+    editable: false,
+    primaryKey: "id",
+    renderSummary: renderSummaryMuaVao
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(List));
 
 /***/ })
 

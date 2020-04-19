@@ -153,7 +153,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
    */
 
   var retrieveData = function retrieveData(data) {
-    console.log("retrieveData -> data", data);
     var promise1 = axios.get("/api/thu-chi/" + thuChi.id);
     var promise2 = axios.get("/api/thu-chi-chi-tiet/doi-tuong?tc=" + thuChi.id);
     console.log("Retrieving Danh Muc");
@@ -175,7 +174,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
 
 
         var td = tc.id_khach_hang !== null ? tc.so_du_khach_hang : tc.so_tien - tien;
-        console.log("retrieveData -> td", td);
         setState({
           thuChi: tc,
           doiTuong: response[1].data.data,

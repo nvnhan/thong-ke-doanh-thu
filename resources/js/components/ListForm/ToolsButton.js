@@ -17,11 +17,15 @@ const ToolsButton = React.memo(props => {
         selectable,
         deleteable
     } = props;
-    const isSelected = selectedRowKeys.length > 0;
+    const isSelected =
+        selectedRowKeys !== undefined && selectedRowKeys.length > 0;
 
     const renderButtons = () => {
         return otherButtons.map(btn => {
-            if (btn.childs === undefined && (btn.selectRequired === false || isSelected))
+            if (
+                btn.childs === undefined &&
+                (btn.selectRequired === false || isSelected)
+            )
                 return (
                     <Button
                         type="default"
@@ -52,14 +56,16 @@ const ToolsButton = React.memo(props => {
                         return (
                             <Menu.Item
                                 key={btn.key}
-                                onClick={() => btn.onClick(data, selectedRowKeys)}
+                                onClick={() =>
+                                    btn.onClick(data, selectedRowKeys)
+                                }
                                 style={{
                                     color: btn.color
                                 }}
                             >
                                 {btn.icon} {btn.title}
                             </Menu.Item>
-                        )
+                        );
                     return "";
                 })}
             </Menu>

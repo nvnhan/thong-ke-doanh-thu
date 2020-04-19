@@ -126,7 +126,7 @@ const List = React.memo(props => {
         <ListForm
             url="tong-hop-tai-khoan"
             insertable={false}
-            selectable={true}
+            selectable={false}
             editable={false}
             deleteable={false}
             selectable={false}

@@ -8,7 +8,7 @@
 .ant-table-thead > tr > th,
 .ant-table tfoot > tr > td,
 .ant-table tfoot > tr > th {
-  padding: 12px;
+  padding: 12px 10px;
 }
 
 .ant-pagination-next {
@@ -17,6 +17,10 @@
 
 .ant-pagination-options {
   margin-left: 8px;
+}
+
+.ant-tabs-nav-container {
+  margin: auto 12px;
 }
 
 .color-danger {

@@ -1,6 +1,7 @@
 import React from "react";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
+import { vndFormater } from "../../../utils";
 
 const List = React.memo(() => {
     const columns = [
@@ -19,11 +20,7 @@ const List = React.memo(() => {
         {
             title: "Mức phí",
             dataIndex: "muc_phi",
-            render: number =>
-                new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND"
-                }).format(number),
+            render: number => vndFormater.format(number),
             width: 80
         },
         {

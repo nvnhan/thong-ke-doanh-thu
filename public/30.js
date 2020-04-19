@@ -29,7 +29,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var TrangChu = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    datve: [],
+    thongtinve: []
+  }),
       _useState2 = _slicedToArray(_useState, 2),
       data = _useState2[0],
       setData = _useState2[1];
@@ -42,27 +45,34 @@ var TrangChu = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props
     });
   }, []);
   var monthChartData = {
-    labels: data.ngay_thangs,
+    labels: data.datve.ngay_thangs,
     datasets: [{
       label: "Thanh toán",
       fill: false,
       borderColor: "#4bab92",
       backgroundColor: "#4bab92",
       type: "line",
-      data: data.thanh_toans
+      data: data.datve.thanh_toans
     }, {
       label: "Đặt vé",
       backgroundColor: "#AB4B64",
-      // [
-      //     "#fe938c",
-      //     "#e6b89c",
-      //     "#ead2ac",
-      //     "#9cafb7",
-      //     "#4281a4"
-      // ],
-      barPercentage: 0.8,
-      minBarLength: 3,
-      data: data.dat_ves
+      data: data.datve.dat_ves
+    }]
+  };
+  var ttveChartData = {
+    labels: data.thongtinve.hang_muc,
+    datasets: [{
+      label: "Quốc nội",
+      stack: "Stack 0",
+      backgroundColor: "#4bab92",
+      barPercentage: 0.5,
+      data: data.thongtinve.quoc_noi
+    }, {
+      label: "Quốc tế",
+      stack: "Stack 0",
+      backgroundColor: "#AB4B64",
+      barPercentage: 0.5,
+      data: data.thongtinve.quoc_te
     }]
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Row"], {
@@ -98,6 +108,49 @@ var TrangChu = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props
           }
         }],
         yAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          },
+          ticks: {
+            stepSize: 1
+          }
+        }]
+      }
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "chart-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
+    width: 400,
+    height: 250,
+    data: ttveChartData,
+    options: {
+      legend: {
+        position: "bottom"
+      },
+      title: {
+        display: true,
+        text: "Thông tin vé trong tháng",
+        fontSize: 14
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          stacked: true,
           gridLines: {
             display: true,
             drawBorder: true,

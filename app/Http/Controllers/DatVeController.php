@@ -68,7 +68,7 @@ class DatVeController extends BaseController
         if (!empty($request->den_ngay))
             $den_ngay = $request->den_ngay;
         $objs = DatVe::where('ngay_gio_di', ">", $den_ngay)
-            ->orWhere('ngay_gio_di', '>', $den_ngay);
+            ->orWhere('ngay_gio_ve', '>', $den_ngay);
 
         if (!$request->user()->admin)
             $objs = $objs->where('username', $request->user()->username);

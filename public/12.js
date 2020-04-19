@@ -357,6 +357,19 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     setPhanLoai(phanLoai);
   };
 
+  var renderSummary = function renderSummary(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          lai: previousValue.lai + currentValue.lai
+        };
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        colSpan: 6
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(sumObj.lai)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null)));
+    }
+  };
+
   var expandedRowRender = function expandedRowRender(record) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
       style: {
@@ -388,16 +401,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     optFind: true,
     width: 120
   }, {
-    title: "Nhà cung cấp",
-    dataIndex: "nha_cung_cap",
-    optFilter: true,
-    width: 150
-  }, {
-    title: "Khách hàng",
-    dataIndex: "ten_khach_hang",
-    optFilter: true,
-    width: 150
-  }, {
     title: "Lãi",
     dataIndex: "lai",
     render: function render(number) {
@@ -407,6 +410,16 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     sorter: function sorter(a, b) {
       return a.lai - b.lai;
     }
+  }, {
+    title: "Nhà cung cấp",
+    dataIndex: "nha_cung_cap",
+    optFilter: true,
+    width: 150
+  }, {
+    title: "Khách hàng",
+    dataIndex: "ten_khach_hang",
+    optFilter: true,
+    width: 150
   }, {
     title: "Tình trạng",
     dataIndex: "tinh_trang",
@@ -437,7 +450,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       ngay_thang: moment__WEBPACK_IMPORTED_MODULE_0___default()().format("DD/MM/YYYY")
     },
     onChangeData: onChangeData,
-    expandedRowRender: expandedRowRender
+    expandedRowRender: expandedRowRender,
+    renderSummary: renderSummary
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(List));

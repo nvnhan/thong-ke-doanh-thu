@@ -36,6 +36,29 @@ const List = React.memo(props => {
         setPhanLoai(phanLoai);
     };
 
+    const renderSummary = data => {
+        if (!_.isEmpty(data)) {
+            const sumObj = data.reduce((previousValue, currentValue) => {
+                return {
+                    lai: previousValue.lai + currentValue.lai,
+                };
+            });
+            return (
+                <>
+                    <tr>
+                        <th colSpan={6}>Tổng cộng</th>
+                        <td>{vndFormater.format(sumObj.lai)}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </>
+            );
+        }
+    };
+
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
             <li>
@@ -84,6 +107,13 @@ const List = React.memo(props => {
             width: 120
         },
         {
+            title: "Lãi",
+            dataIndex: "lai",
+            render: number => vndFormater.format(number),
+            width: 120,
+            sorter: (a, b) => a.lai - b.lai
+        },
+        {
             title: "Nhà cung cấp",
             dataIndex: "nha_cung_cap",
             optFilter: true,
@@ -94,13 +124,6 @@ const List = React.memo(props => {
             dataIndex: "ten_khach_hang",
             optFilter: true,
             width: 150
-        },
-        {
-            title: "Lãi",
-            dataIndex: "lai",
-            render: number => vndFormater.format(number),
-            width: 120,
-            sorter: (a, b) => a.lai - b.lai
         },
         {
             title: "Tình trạng",
@@ -137,6 +160,7 @@ const List = React.memo(props => {
             }}
             onChangeData={onChangeData}
             expandedRowRender={expandedRowRender}
+            renderSummary={renderSummary}
         />
     );
 });

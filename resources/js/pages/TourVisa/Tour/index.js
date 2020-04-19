@@ -1,13 +1,10 @@
 import { AppstoreAddOutlined } from "@ant-design/icons";
-import { Select } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
-
-const { Option } = Select;
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
@@ -37,12 +34,30 @@ const List = React.memo(props => {
         setPhanLoai(phanLoai);
     };
 
-    /**
-     * Redirect to Tour Chi Tiet with addition params
-     */
-    const onClickRow = record => {
-        const pathname = `/tour-chi-tiet`;
-        props.history.push({ pathname, tour: record });
+    const renderSummary = data => {
+        if (!_.isEmpty(data)) {
+            const sumObj = data.reduce((previousValue, currentValue) => {
+                return {
+                    gia_tour: previousValue.gia_tour + currentValue.gia_tour,
+                    gia_ban: previousValue.gia_ban + currentValue.gia_ban,
+                    lai: previousValue.lai + currentValue.lai
+                };
+            });
+            return (
+                <>
+                    <tr>
+                        <th colSpan={6}>Tổng cộng</th>
+                        <td>{vndFormater.format(sumObj.gia_tour)}</td>
+                        <td>{vndFormater.format(sumObj.gia_ban)}</td>
+                        <td>{vndFormater.format(sumObj.lai)}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </>
+            );
+        }
     };
 
     const expandedRowRender = record => (
@@ -136,6 +151,17 @@ const List = React.memo(props => {
         }
     ];
 
+    /**
+     * Redirect to Tour Chi Tiet with addition params
+     */
+    const onClickRow = record => {
+        const pathname = `/tour-chi-tiet`;
+        props.history.push({
+            pathname,
+            tour: record
+        });
+    };
+
     const tourAction = [
         {
             key: "dsTourChiTiet",
@@ -166,6 +192,7 @@ const List = React.memo(props => {
             otherActions={tourAction}
             onChangeData={onChangeData}
             expandedRowRender={expandedRowRender}
+            renderSummary={renderSummary}
         />
     );
 });

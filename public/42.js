@@ -33,10 +33,10 @@ var MyDatePicker = function MyDatePicker(props) {
 
 /***/ }),
 
-/***/ "./resources/js/pages/VeMayBay/NoVe/index.js":
-/*!***************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/NoVe/index.js ***!
-  \***************************************************/
+/***/ "./resources/js/pages/VeMayBay/ChuaBay/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ChuaBay/index.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -155,6 +155,10 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     width: 110,
     optFilter: true
   }, {
+    title: "Thanh toán",
+    dataIndex: "ngay_thanh_toan",
+    width: 110
+  }, {
     title: "Người nhập",
     dataIndex: "username",
     width: 90,
@@ -170,7 +174,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
           width: "100%"
         },
         locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
-        format: "DD/MM/YYYY"
+        format: "HH:mm DD/MM/YYYY"
       })
     }];
   };
@@ -185,7 +189,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
         colSpan: 11
-      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
     }
   };
 
@@ -197,7 +201,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     title: "Xuất danh sách ra Excel"
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    url: "no-ve",
+    url: "chua-bay",
     insertable: false,
     selectable: true,
     editable: false,
@@ -206,11 +210,11 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     tuNgayDenNgay: false,
     otherFilter: getOtherFilter(),
     filterInitialValue: {
-      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("DD/MM/YYYY")
+      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("HH:mm DD/MM/YYYY")
     },
     columns: columns,
     tableSize: {
-      x: 1700
+      x: 1800
     },
     otherButtons: otherButtons,
     expandedRowRender: expandedRowRender,

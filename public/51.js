@@ -1,13 +1,146 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[51],{
 
-/***/ "./resources/js/pages/BaoCao/TongHopCongNo/index.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/pages/BaoCao/TongHopCongNo/index.js ***!
-  \**********************************************************/
+/***/ "./resources/js/pages/BanHang/TongHop/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/pages/BanHang/TongHop/index.js ***!
+  \*****************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\resources\\js\\pages\\BaoCao\\TongHopCongNo\\index.js: Identifier 'renderSummaryBanRa' has already been declared (83:10)\n\n\u001b[0m \u001b[90m 81 | \u001b[39m    }\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 82 | \u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 83 | \u001b[39m    \u001b[36mconst\u001b[39m renderSummaryBanRa \u001b[33m=\u001b[39m data \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 84 | \u001b[39m        \u001b[36mif\u001b[39m (\u001b[33m!\u001b[39m_\u001b[33m.\u001b[39misEmpty(data)) {\u001b[0m\n\u001b[0m \u001b[90m 85 | \u001b[39m            \u001b[36mconst\u001b[39m sumObj \u001b[33m=\u001b[39m data\u001b[33m.\u001b[39mreduce((previousValue\u001b[33m,\u001b[39m currentValue) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 86 | \u001b[39m                \u001b[36mreturn\u001b[39m {\u001b[0m\n    at Object._raise (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:742:17)\n    at Object.raiseWithData (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:735:17)\n    at Object.raise (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:729:17)\n    at ScopeHandler.checkRedeclarationInScope (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:4769:12)\n    at ScopeHandler.declareName (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:4735:12)\n    at Object.checkLVal (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9207:22)\n    at Object.parseVarId (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11762:10)\n    at Object.parseVar (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11737:12)\n    at Object.parseVarStatement (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11549:10)\n    at Object.parseStatementContent (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11148:21)\n    at Object.parseStatement (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11081:17)\n    at Object.parseBlockOrModuleBlockBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11656:25)\n    at Object.parseBlockBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11642:10)\n    at Object.parseBlock (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11626:10)\n    at Object.parseFunctionBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:10634:24)\n    at Object.parseArrowExpression (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:10603:10)\n    at Object.parseExprAtom (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9900:18)\n    at Object.parseExprAtom (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:4614:20)\n    at Object.parseExprSubscripts (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9602:23)\n    at Object.parseMaybeUnary (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9582:21)\n    at Object.parseExprOps (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9452:23)\n    at Object.parseMaybeConditional (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9425:23)\n    at Object.parseMaybeAssign (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9380:21)\n    at Object.parseVar (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11740:26)\n    at Object.parseVarStatement (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11549:10)\n    at Object.parseStatementContent (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11148:21)\n    at Object.parseStatement (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11081:17)\n    at Object.parseBlockOrModuleBlockBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11656:25)\n    at Object.parseBlockBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11642:10)\n    at Object.parseTopLevel (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11012:10)\n    at Object.parse (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:12637:10)\n    at parse (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:12688:38)\n    at parser (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\lib\\parser\\index.js:54:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:93:38)\n    at normalizeFile.next (<anonymous>)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  var columns = [{
+    title: "Mã hàng",
+    dataIndex: "ma_hang",
+    optFind: true,
+    width: 120
+  }, {
+    title: "Tên hàng",
+    dataIndex: "ten_hang",
+    optFind: true,
+    width: 150
+  }, {
+    title: "Phân loại",
+    dataIndex: "phan_loai",
+    optFilter: true,
+    width: 140
+  }, {
+    title: "Nhà cung cấp",
+    dataIndex: "nha_cung_cap",
+    width: 140,
+    optFilter: true
+  }, // {
+  //     title: "Đơn giá hiện tại",
+  //     dataIndex: "don_gia",
+  //     render: number => vndFormater.format(number),
+  //     // sorter: (a, b) => a.don_gia - b.don_gia,
+  //     width: 110
+  // },
+  {
+    title: "SL mua vào",
+    dataIndex: "so_luong_mua_vao",
+    width: 110
+  }, {
+    title: "TT mua vào",
+    dataIndex: "thanh_tien_mua_vao",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_mua_vao - b.thanh_tien_mua_vao;
+    },
+    width: 120
+  }, {
+    title: "SL bán ra",
+    dataIndex: "so_luong_ban_ra",
+    width: 110
+  }, {
+    title: "TT bán ra",
+    dataIndex: "thanh_tien_ban_ra",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_ban_ra - b.thanh_tien_ban_ra;
+    },
+    width: 120
+  }, {
+    title: "SL hoàn đổi",
+    dataIndex: "so_luong_hoan_doi",
+    width: 110
+  }, {
+    title: "TT hoàn đổi",
+    dataIndex: "thanh_tien_hoan_doi",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_hoan_doi - b.thanh_tien_hoan_doi;
+    },
+    width: 120
+  }, {
+    title: "SL tồn kho",
+    dataIndex: "so_luong_ton_kho",
+    width: 110
+  }, {
+    title: "TT tồn kho",
+    dataIndex: "thanh_tien_ton_kho",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_ton_kho - b.thanh_tien_ton_kho;
+    },
+    width: 120
+  }];
+
+  var renderSummary = function renderSummary(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          thanh_tien_mua_vao: previousValue.thanh_tien_mua_vao + currentValue.thanh_tien_mua_vao,
+          thanh_tien_ban_ra: previousValue.thanh_tien_ban_ra + currentValue.thanh_tien_ban_ra,
+          thanh_tien_hoan_doi: previousValue.thanh_tien_hoan_doi + currentValue.thanh_tien_hoan_doi,
+          thanh_tien_ton_kho: previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
+        };
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        colSpan: 5
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_mua_vao)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ban_ra)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_hoan_doi)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ton_kho))));
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    url: "tong-hop-hang",
+    filterBox: true,
+    columns: columns,
+    insertable: false,
+    selectable: false,
+    editable: false,
+    deleteable: false,
+    tableSize: {
+      x: 1300
+    },
+    renderSummary: renderSummary
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
 
 /***/ })
 

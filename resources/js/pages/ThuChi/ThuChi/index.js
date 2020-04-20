@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
+import exportToExcel from "../../../utils/exportToExcel";
 
 const List = React.memo(props => {
     const [state, setState] = useState({
@@ -59,6 +60,44 @@ const List = React.memo(props => {
             title: "Thu chi chi tiết",
             icon: <AppstoreAddOutlined />,
             color: "#4bab92" // Primary color
+        }
+    ];
+
+    const exportDS = (data, selectedRowKeys) => {
+        const filtered = data.filter(p => selectedRowKeys.indexOf(p.id) !== -1);
+        const newData = filtered.map((p, index) => ({
+            stt: index + 1,
+            ngay_thang: p.ngay_thang,
+            hang_muc: p.hang_muc,
+            so_tien: p.so_tien,
+            con_du: p.con_du,
+            tai_khoan_di: p.tai_khoan_di,
+            tai_khoan_den: p.tai_khoan_den,
+            ten_khach_hang: p.ten_khach_hang,
+            username: p.username
+        }));
+        const dataExport = [
+            {
+                stt: "STT",
+                ngay_thang: "Ngày tháng",
+                hang_muc: "Nội dung",
+                so_tien: "Số tiền",
+                con_du: "Còn dư",
+                tai_khoan_di: "Tài khoản đi",
+                tai_khoan_den: "Nơi nhận",
+                ten_khach_hang: "Khách hàng",
+                username: "Người nhập"
+            },
+            ...newData
+        ];
+        exportToExcel(dataExport, "thu-chi.xlsx");
+    };
+
+    const otherButtons = [
+        {
+            key: "export",
+            onClick: exportDS,
+            title: "Xuất danh sách ra Excel"
         }
     ];
 
@@ -154,6 +193,7 @@ const List = React.memo(props => {
                 so_tien: 100000,
                 ngay_thang: moment().format("DD/MM/YYYY")
             }}
+            otherButtons={otherButtons}
             otherActions={thuChiAction}
             renderSummary={renderSummary}
         />

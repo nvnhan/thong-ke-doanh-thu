@@ -1,5 +1,5 @@
-/* Mixin */
-/* Set các giá trị với màn hình tương ứng */
+//  Mixin
+//  Set các giá trị với màn hình tương ứng
 // Max width
 $xs: 576px;
 $sm: 768px;
@@ -134,7 +134,7 @@ $lg: 1200px;
     box-shadow: 1px 2px 6px rgba(0, 30, 0, 0.25);
 }
 
-/* My Header & Drawer */
+//  My Header & Drawer
 .my-header {
     background: white;
     // background: rgb(20,20,20);      // For dark mode
@@ -177,7 +177,7 @@ $lg: 1200px;
     }
 }
 
-/* Loading screen ban đâu */
+//  Loading screen ban đâu
 .loading-wrapper {
     position: absolute;
     top: 50%;
@@ -205,7 +205,7 @@ $lg: 1200px;
     }
 }
 
-/* Profile & password change */
+//  Profile & password change
 .sm-container {
     padding: 16px;
     max-width: 700px;

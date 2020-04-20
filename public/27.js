@@ -1,21 +1,17 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[27],{
 
-/***/ "./resources/js/pages/BaoCao/TongHopCongNo/index.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/pages/BaoCao/TongHopCongNo/index.js ***!
-  \**********************************************************/
+/***/ "./resources/js/pages/Account/Password/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/Account/Password/index.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm/DataTable */ "./resources/js/components/ListForm/DataTable.js");
-/* harmony import */ var _components_ListForm_FilterBox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/FilterBox */ "./resources/js/components/ListForm/FilterBox.js");
-/* harmony import */ var _components_ListForm_ToolsButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/ToolsButton */ "./resources/js/components/ListForm/ToolsButton.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -30,227 +26,63 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var Password = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
+      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
+      form = _Form$useForm2[0];
 
+  var onFinish = function onFinish() {
+    var values = form.getFieldValue();
+    axios.put("/api/password", values).then(function (response) {
+      if (response.data.success) antd__WEBPACK_IMPORTED_MODULE_0__["message"].success(response.data.message);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  };
 
-
-
-
-var List = function List(props) {
-  var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["useMergeState"])({
-    data: {
-      muavao: [],
-      banra: []
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "sm-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
+    form: form,
+    onFinish: onFinish,
+    labelCol: {
+      span: 8
     },
-    isLoading: true
-  }),
-      _useMergeState2 = _slicedToArray(_useMergeState, 2),
-      state = _useMergeState2[0],
-      setState = _useMergeState2[1];
-
-  var data = state.data,
-      isLoading = state.isLoading;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined),
-      _useState2 = _slicedToArray(_useState, 2),
-      ownFilter = _useState2[0],
-      setOwnFilter = _useState2[1];
-
-  var isComponentMounted = false;
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    isComponentMounted = true; // Không Có filter hoặc có filter và đã load xong
-
-    if (ownFilter === undefined || !_.isEmpty(ownFilter)) {
-      // Set lại data và loading cho các Component con
-      setState({
-        data: [],
-        isLoading: true
-      });
-      axios.get("/api/tong-hop-cong-no?" + Object(_utils__WEBPACK_IMPORTED_MODULE_1__["queryString"])(ownFilter)).then(function (response) {
-        if (isComponentMounted && response.data.success) {
-          setState({
-            data: response.data.data,
-            isLoading: false
-          });
-        }
-      })["catch"](function (error) {
-        return console.log(error);
-      });
+    wrapperCol: {
+      span: 16
     }
-
-    return function () {
-      // When Unmount component
-      isComponentMounted = false;
-    };
-  }, [JSON.stringify(ownFilter)]); // Chỉ chạy 1 lần khi mount đến khi ownFilter thay đổi
-
-  /**
-   * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
-   */
-
-  var handleFilterBox = function handleFilterBox(newFilter) {
-    // Thay đổi filter => Load lại dữ liệu
-    if (Object(_utils__WEBPACK_IMPORTED_MODULE_1__["isChangeData"])(ownFilter, newFilter)) setOwnFilter(newFilter);
-  };
-
-  var renderSummaryBanRa = function renderSummaryBanRa(data) {
-    if (!_.isEmpty(data)) {
-      var sumObj = data.reduce(function (previousValue, currentValue) {
-        return {
-          dau_ky: previousValue.dau_ky + currentValue.dau_ky,
-          cuoi_ky: previousValue.cuoi_ky + currentValue.cuoi_ky,
-          giao_dich: previousValue.giao_dich + currentValue.giao_dich,
-          thanh_toan: previousValue.thanh_toan + currentValue.thanh_toan
-        };
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        colSpan: 2
-      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.dau_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.cuoi_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.thanh_toan)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.giao_dich))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "old_pass",
+    label: "M\u1EADt kh\u1EA9u hi\u1EC7n t\u1EA1i",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Password, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "password",
+    label: "M\u1EADt kh\u1EA9u m\u1EDBi",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Password, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "password_confirmation",
+    label: "Nh\u1EADp l\u1EA1i m\u1EADt kh\u1EA9u m\u1EDBi",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Password, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    wrapperCol: {
+      span: 16,
+      offset: 8
     }
-  };
-
-  var renderSummaryMuaVao = function renderSummaryMuaVao(data) {
-    if (!_.isEmpty(data)) {
-      var sumObj = data.reduce(function (previousValue, currentValue) {
-        return {
-          dau_ky: previousValue.dau_ky + currentValue.dau_ky,
-          cuoi_ky: previousValue.cuoi_ky + currentValue.cuoi_ky,
-          giao_dich: previousValue.giao_dich + currentValue.giao_dich,
-          thanh_toan: previousValue.thanh_toan + currentValue.thanh_toan
-        };
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.dau_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.cuoi_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.thanh_toan)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.giao_dich))));
-    }
-  };
-
-  var exportDS = function exportDS() {//TODO: Xuất Excel
-  };
-
-  var otherButtons = [{
-    key: "export",
-    onClick: exportDS,
-    title: "Xuất danh sách ra Excel",
-    selectRequired: false
-  }];
-  var columnsBanRa = [{
-    title: "Phân loại",
-    dataIndex: "phan_loai",
-    optFilter: true,
-    width: 100
-  }, {
-    title: "Khách hàng",
-    dataIndex: "khach_hang",
-    optFind: true,
-    width: 170
-  }, {
-    title: "Dư - Nợ đầu kỳ",
-    dataIndex: "dau_ky",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Dư - Nợ cuối kỳ",
-    dataIndex: "cuoi_ky",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Số tiền thanh toán",
-    dataIndex: "thanh_toan",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Tổng tiền giao dịch",
-    dataIndex: "giao_dich",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }];
-  var columnsMuaVao = [{
-    title: "Tài khoản",
-    dataIndex: "tai_khoan",
-    optFind: true,
-    width: 180
-  }, {
-    title: "Dư - Nợ đầu kỳ",
-    dataIndex: "dau_ky",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Dư - Nợ cuối kỳ",
-    dataIndex: "cuoi_ky",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Số tiền thanh toán",
-    dataIndex: "thanh_toan",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Tổng tiền giao dịch",
-    dataIndex: "giao_dich",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "list-form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_FilterBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    filterBox: true,
-    tuNgayDenNgay: true,
-    onFilter: handleFilterBox
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_ToolsButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    insertable: false,
-    deleteable: false,
-    selectable: false,
-    otherButtons: otherButtons
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"], {
-    defaultActiveKey: "1"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"].TabPane, {
-    tab: "T\u1ED5ng h\u1EE3p b\xE1n ra",
-    key: 1
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    tableSize: {
-      x: 800
-    },
-    data: data.banra,
-    columns: columnsBanRa,
-    isLoading: isLoading,
-    deleteable: false,
-    selectable: false,
-    editable: false,
-    primaryKey: "id",
-    renderSummary: renderSummaryBanRa
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"].TabPane, {
-    tab: "T\u1ED5ng h\u1EE3p mua v\xE0o",
-    key: 2
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    tableSize: {
-      x: 800
-    },
-    data: data.muavao,
-    columns: columnsMuaVao,
-    isLoading: isLoading,
-    deleteable: false,
-    selectable: false,
-    editable: false,
-    primaryKey: "id",
-    renderSummary: renderSummaryMuaVao
-  }))));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(List));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+    type: "primary",
+    htmlType: "submit"
+  }, "C\u1EADp nh\u1EADt"))));
+});
+/* harmony default export */ __webpack_exports__["default"] = (Password);
 
 /***/ })
 

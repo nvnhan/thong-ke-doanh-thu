@@ -1,6 +1,7 @@
 import { Select } from "antd";
 import React, { useEffect, useState } from "react";
 import ListForm from "../../../components/ListForm";
+import exportToExcel from "../../../utils/exportToExcel";
 const { Option } = Select;
 
 const List = React.memo(props => {
@@ -43,19 +44,6 @@ const List = React.memo(props => {
                 cols.push({
                     title: "Đầu / Cuối kỳ",
                     dataIndex: key,
-                    // render: text => {
-                    //     if (text !== undefined && text !== null && text.indexOf(" | ") > 0) {
-                    //         let a = text.split(" | ");
-                    //         return (
-                    //             <span>
-                    //                 {a[0]}
-                    //                 <br />
-                    //                 {a[1]}
-                    //             </span>
-                    //         );
-                    //     }
-                    //     return text;
-                    // },
                     width: 100
                 });
             else if (key === "thu_chi")
@@ -68,19 +56,6 @@ const List = React.memo(props => {
                 cols.push({
                     title: key,
                     dataIndex: key,
-                    // render: text => {
-                    //     if (text !== undefined && text !== null && text.indexOf(" | ") > 0) {
-                    //         let a = text.split(" | ");
-                    //         return (
-                    //             <span>
-                    //                 {a[0]}
-                    //                 <br />
-                    //                 {a[1]}
-                    //             </span>
-                    //         );
-                    //     }
-                    //     return text;
-                    // },
                     width: 100
                 });
         }
@@ -110,7 +85,12 @@ const List = React.memo(props => {
     };
 
     const exportDS = (data, selectedKeys) => {
-        //TODO: Xuất Excel
+        const newData = data.map((p, index) => {
+            const t = { stt: index + 1, ...p };
+            delete t["id"];
+            return t;
+        });
+        exportToExcel(newData, "tong-hop-tai-khoan.xlsx", false);
     };
 
     const otherButtons = [

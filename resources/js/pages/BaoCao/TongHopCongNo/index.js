@@ -9,6 +9,7 @@ import DataTable from "../../../components/ListForm/DataTable";
 import FilterBox from "../../../components/ListForm/FilterBox";
 import ToolsButton from "../../../components/ListForm/ToolsButton";
 import { Tabs } from "antd";
+import { ExportMultiSheet } from "../../../utils/exportToExcel";
 
 const List = props => {
     const [state, setState] = useMergeState({
@@ -106,7 +107,51 @@ const List = props => {
     };
 
     const exportDS = () => {
-        //TODO: Xuất Excel
+        const banra = data.banra.map((p, ind) => ({
+            stt: ind + 1,
+            phan_loai: p.phan_loai,
+            khach_hang: p.khach_hang,
+            dau_ky: p.dau_ky,
+            cuoi_ky: p.cuoi_ky,
+            thanh_toan: p.thanh_toan,
+            giao_dich: p.giao_dich
+        }));
+        const dataExportBanRa = [
+            {
+                stt: "STT",
+                phan_loai: "Phân loại",
+                khach_hang: "Khách hàng",
+                dau_ky: "Dư - Nợ đầu kỳ",
+                cuoi_ky: "Dư - Nợ cuối kỳ",
+                thanh_toan: "Số tiền thanh toán",
+                giao_dich: "Số tiền giao dịch"
+            },
+            ...banra
+        ];
+        const muavao = data.muavao.map((p, ind) => ({
+            stt: ind + 1,
+            tai_khoan: p.tai_khoan,
+            dau_ky: p.dau_ky,
+            cuoi_ky: p.cuoi_ky,
+            thanh_toan: p.thanh_toan,
+            giao_dich: p.giao_dich
+        }));
+        const dataExportMuaVao = [
+            {
+                stt: "STT",
+                tai_khoan: "Tài khoản",
+                dau_ky: "Dư - Nợ đầu kỳ",
+                cuoi_ky: "Dư - Nợ cuối kỳ",
+                thanh_toan: "Số tiền thanh toán",
+                giao_dich: "Số tiền giao dịch"
+            },
+            ...muavao
+        ];
+        const dataExport = {
+            "Tổng hợp bán ra": dataExportBanRa,
+            "Tổng hợp mua vào": dataExportMuaVao
+        };
+        ExportMultiSheet(dataExport, "tong-hop-cong-no.xlsx");
     };
 
     const otherButtons = [

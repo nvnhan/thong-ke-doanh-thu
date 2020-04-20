@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[32],{
 
-/***/ "./resources/js/components/ListForm/MyDatePicker.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/components/ListForm/MyDatePicker.js ***!
-  \**********************************************************/
+/***/ "./resources/js/pages/TrangChu/index.js":
+/*!**********************************************!*\
+  !*** ./resources/js/pages/TrangChu/index.js ***!
+  \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,174 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
-
-
-
-var MyDatePicker = function MyDatePicker(props) {
-  if (props.value && typeof props.value == "string") {
-    var objMoment = moment__WEBPACK_IMPORTED_MODULE_2___default()(props.value, props.format);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], _extends({}, props, {
-      value: objMoment
-    }));
-  } else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], props);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (MyDatePicker);
-
-/***/ }),
-
-/***/ "./resources/js/pages/BanHang/MuaVao/FormItem.js":
-/*!*******************************************************!*\
-  !*** ./resources/js/pages/BanHang/MuaVao/FormItem.js ***!
-  \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-
-
-
-
-
-var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option,
-    OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup;
-var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
-  var hangHoa = props.hangHoa || [];
-  /**
-   * [
-   *      ['xxx', [{}, {}, {}],
-   *      ['yyyyy', [{}, {}, {}, {}, {}]]
-   * ]
-   */
-
-  var groupHangHoa = Object.entries(_.groupBy(hangHoa, "nha_cung_cap"));
-
-  var getHangHoaDetail = function getHangHoaDetail() {
-    return groupHangHoa.map(function (clist) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(OptGroup, {
-        label: clist[0],
-        key: clist[0]
-      }, clist[1].map(function (hh) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
-          value: hh.id,
-          key: hh.id
-        }, hh.phan_loai, " - ", hh.ma_hang, " (", _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(hh.don_gia), ")");
-      }));
-    });
-  };
-  /**
-   * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
-   */
-
-
-  var onChange = function onChange(idHH) {
-    var hh = hangHoa.filter(function (item) {
-      return item.id === idHH;
-    })[0];
-    if (hh) props.onChangeValue(hh.don_gia);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ngay_thang",
-    label: "Ng\xE0y th\xE1ng",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    style: {
-      width: "100%"
-    },
-    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
-    format: "DD/MM/YYYY"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "id_hang_hoa",
-    label: "H\xE0ng h\xF3a",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    showSearch: true,
-    placeholder: "Ch\u1ECDn h\xE0ng h\xF3a",
-    filterOption: function filterOption(input, option) {
-      if (!option.children) return false;
-      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-    },
-    onChange: onChange
-  }, getHangHoaDetail())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "don_gia",
-    label: "\u0110\u01A1n gi\xE1",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "so_luong",
-    label: "S\u1ED1 l\u01B0\u1EE3ng",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 1,
-    step: 1,
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|\.(,*)/g, "");
-    }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ghi_chu",
-    label: "Ghi ch\xFA"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)));
-});
-/* harmony default export */ __webpack_exports__["default"] = (form);
-
-/***/ }),
-
-/***/ "./resources/js/pages/BanHang/MuaVao/index.js":
-/*!****************************************************!*\
-  !*** ./resources/js/pages/BanHang/MuaVao/index.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/BanHang/MuaVao/FormItem.js");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -194,140 +28,143 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
-var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
+var TrangChu = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    datve: [],
+    thongtinve: []
+  }),
       _useState2 = _slicedToArray(_useState, 2),
-      hangHoa = _useState2[0],
-      setHangHoa = _useState2[1];
+      data = _useState2[0],
+      setData = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(undefined),
-      _useState4 = _slicedToArray(_useState3, 2),
-      formValue = _useState4[0],
-      setFormValue = _useState4[1];
-
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    axios.get("/api/hang-hoa/all").then(function (response) {
-      if (response.data.success) setHangHoa(response.data.data);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    axios.get("/api/trang-chu").then(function (response) {
+      if (response.data.success) setData(response.data.data);
     })["catch"](function (error) {
       return console.log(error);
     });
   }, []);
-
-  var expandedRowRender = function expandedRowRender(record) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
-      style: {
-        margin: 0
+  var monthChartData = {
+    labels: data.datve.ngay_thangs,
+    datasets: [{
+      label: "Thanh toán",
+      fill: false,
+      borderColor: "#4bab92",
+      backgroundColor: "#4bab92",
+      type: "line",
+      data: data.datve.thanh_toans
+    }, {
+      label: "Đặt vé",
+      backgroundColor: "#AB4B64",
+      data: data.datve.dat_ves
+    }]
+  };
+  var ttveChartData = {
+    labels: data.thongtinve.hang_muc,
+    datasets: [{
+      label: "Quốc nội",
+      stack: "Stack 0",
+      backgroundColor: "#4bab92",
+      barPercentage: 0.5,
+      data: data.thongtinve.quoc_noi
+    }, {
+      label: "Quốc tế",
+      stack: "Stack 0",
+      backgroundColor: "#AB4B64",
+      barPercentage: 0.5,
+      data: data.thongtinve.quoc_te
+    }]
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Row"], {
+    gutter: [16, 16]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "chart-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
+    width: 400,
+    height: 250,
+    data: monthChartData,
+    options: {
+      legend: {
+        position: "bottom"
+      },
+      title: {
+        display: true,
+        text: "Số lượng vé đặt / vé thanh toán trong tháng",
+        fontSize: 14
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          },
+          ticks: {
+            stepSize: 1
+          }
+        }]
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "M\xE3 h\xE0ng: ", record.ma_hang, ". T\xEAn h\xE0ng: ", record.ten_hang, ". Ph\xE2n lo\u1EA1i: ", record.phan_loai, ". Nh\xE0 cung c\u1EA5p: ", record.nha_cung_cap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n: ", record.ngay_thanh_toan), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
-  };
-
-  var columns = [{
-    title: "Ngày tháng",
-    dataIndex: "ngay_thang",
-    width: 120,
-    sorter: function sorter(a, b) {
-      return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_thang, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_thang, "DD/MM/YYYY").unix();
     }
-  }, {
-    title: "Mã hàng",
-    dataIndex: "ma_hang",
-    optFind: true,
-    width: 120
-  }, {
-    title: "Tên hàng",
-    dataIndex: "ten_hang",
-    optFind: true,
-    width: 140
-  }, {
-    title: "Nhà cung cấp",
-    dataIndex: "nha_cung_cap",
-    width: 140,
-    optFilter: true
-  }, {
-    title: "Giá mua",
-    dataIndex: "don_gia",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.don_gia - b.don_gia;
-    },
-    width: 120
-  }, {
-    title: "Số lượng",
-    dataIndex: "so_luong",
-    width: 120
-  }, {
-    title: "Thành tiền",
-    dataIndex: "thanh_tien",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.thanh_tien - b.thanh_tien;
-    },
-    width: 120
-  }, {
-    title: "Thanh toán",
-    dataIndex: "ngay_thanh_toan",
-    width: 120
-  }, {
-    title: "Ghi chú",
-    dataIndex: "ghi_chu",
-    ellipsis: true,
-    width: 170
-  }];
-
-  var renderSummary = function renderSummary(data) {
-    if (!_.isEmpty(data)) {
-      var sumObj = data.reduce(function (previousValue, currentValue) {
-        return {
-          thanh_tien: previousValue.thanh_tien + currentValue.thanh_tien
-        };
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-        colSpan: 8
-      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.thanh_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null)));
-    }
-  };
-  /**
-   * Callback from FOrmItem, trigger when select Hang Hoa
-   * => Change setFormValues to ListForm => FormEdit
-   */
-
-
-  var handleFormValue = function handleFormValue(don_gia) {
-    setFormValue({
-      don_gia: don_gia,
-      resetFields: function resetFields() {
-        return setFormValue(undefined);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "chart-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
+    width: 400,
+    height: 250,
+    data: ttveChartData,
+    options: {
+      legend: {
+        position: "bottom"
+      },
+      title: {
+        display: true,
+        text: "Thông tin vé trong tháng",
+        fontSize: 14
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          },
+          ticks: {
+            stepSize: 1
+          }
+        }]
       }
-    });
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    url: "mua-vao",
-    filterBox: true,
-    columns: columns,
-    tableSize: {
-      x: 800
-    },
-    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      hangHoa: hangHoa,
-      onChangeValue: handleFormValue
-    }),
-    formInitialValues: {
-      so_luong: 1,
-      ngay_thang: moment__WEBPACK_IMPORTED_MODULE_0___default()().format("DD/MM/YYYY")
-    },
-    expandedRowRender: expandedRowRender,
-    setFormValues: formValue,
-    renderSummary: renderSummary
-  });
+    }
+  })))));
 });
-/* harmony default export */ __webpack_exports__["default"] = (List);
+/* harmony default export */ __webpack_exports__["default"] = (TrangChu);
 
 /***/ })
 

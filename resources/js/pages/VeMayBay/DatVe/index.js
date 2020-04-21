@@ -6,13 +6,11 @@ import {
 import { Button, Form, Input, message, Modal, Select } from "antd";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
-import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { useMergeState, vndFormater } from "../../../utils";
-import exportToExcel from "../../../utils/exportToExcel";
+import exportDS from "../../../utils/exportDatVe";
 import FormItem from "./FormItem";
 import UpdateLayout from "./UpdateLayout";
-import exportDS from "../../../utils/exportDatVe";
 const { Option } = Select;
 
 const List = React.memo(props => {
@@ -648,4 +646,4 @@ const List = React.memo(props => {
     );
 });
 
-export default withRouter(List);
+export default List;

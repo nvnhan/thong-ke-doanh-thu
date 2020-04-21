@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
+import exportToExcel from "../../../utils/exportToExcel";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
@@ -172,12 +173,55 @@ const List = React.memo(props => {
         }
     ];
 
+    const exportDS = (data, selectedRowKeys) => {
+        const filtered = data.filter(p => selectedRowKeys.indexOf(p.id) !== -1);
+        const newData = filtered.map((p, index) => {
+            const t = { stt: index + 1, ...p };
+            delete t["id"];
+            delete t["id_khach_hang"];
+            return t;
+        });
+
+        const dataExport = [
+            {
+                stt: "STT",
+                ngay_thang: "Ngày tháng",
+                ma_tour: "Mã tour",
+                ten_tour: "Tên tour",
+                phan_loai: "Phân loại",
+                bat_dau: "Bắt đầu",
+                ket_thuc: "Kết thúc",
+                so_luong: "Số lượng",
+                gia_tour: "Giá tour",
+                gia_ban: "Giá bán",
+                tong_tien_ban: "Tổng tiền bán",
+                lai: "Lãi",
+                ten_khach_hang: "Khách hàng",
+                da_thanh_toan: "Đã thanh toán",
+                ngay_thanh_toan: "Ngày thanh toán",
+                chua_thanh_toan: "Còn lại",
+                hoan_thanh: "Hoàn thành",
+                tinh_trang: "Tình trạng",
+                ghi_chu: "Ghi chú",
+                username: "Người nhập"
+            },
+            ...newData
+        ];
+        exportToExcel(dataExport, "tour.xlsx");
+    };
+
+    const otherButtons = [
+        {
+            key: "export",
+            onClick: exportDS,
+            title: "Xuất danh sách ra Excel"
+        }
+    ];
+
     return (
         <ListForm
             url="tour"
             filterBox
-            // otherFilter={getOtherFilter()}
-            // filterInitialValue={{ tinh_trang: "" }}
             columns={columns}
             tableSize={{ x: 1200 }}
             modalWidth="1100px"
@@ -193,6 +237,7 @@ const List = React.memo(props => {
             onChangeData={onChangeData}
             expandedRowRender={expandedRowRender}
             renderSummary={renderSummary}
+            otherButtons={otherButtons}
         />
     );
 });

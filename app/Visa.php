@@ -14,7 +14,10 @@ class Visa extends Model
         'ngay_thang' => 'date:d/m/Y',
         'ngay_thanh_toan' => 'date:d/m/Y',
         'ngay_mua' => 'date:d/m/Y',
-        'ngay_tra_khach' => 'date:d/m/Y'
+        'ngay_tra_khach' => 'date:d/m/Y',
+        'gia_mua' => 'double',
+        'gia_ban' => 'double',
+        'lai' => 'double',
     ];
 
     protected $fillable = ['ngay_thang', 'phan_loai', 'ma_visa', 'quoc_gia', 'ngay_mua', 'ngay_tra_khach', 'gia_mua', 'gia_ban', 'id_khach_hang', 'id_nha_cung_cap', 'ghi_chu'];

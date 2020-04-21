@@ -16,7 +16,8 @@ class Tour extends Model
         'ket_thuc' => 'date:d/m/Y',
         'ngay_thanh_toan' => 'date:d/m/Y',
         'hoan_thanh' => 'boolean',
-        'gia_ban' => 'float'
+        'gia_ban' => 'double',
+        'tong_tien_ban' => 'double'
     ];
 
     protected $fillable = ['ngay_thang', 'ma_tour', 'ten_tour', 'phan_loai', 'bat_dau', 'ket_thuc', 'so_luong', 'gia_ban', 'id_khach_hang', 'hoan_thanh', 'ghi_chu'];

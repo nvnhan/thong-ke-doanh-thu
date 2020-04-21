@@ -1,8 +1,8 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
+import exportToExcel from "../../../utils/exportToExcel";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
@@ -40,7 +40,7 @@ const List = React.memo(props => {
         if (!_.isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
-                    lai: previousValue.lai + currentValue.lai,
+                    lai: previousValue.lai + currentValue.lai
                 };
             });
             return (
@@ -139,6 +139,51 @@ const List = React.memo(props => {
         }
     ];
 
+    const exportDS = (data, selectedRowKeys) => {
+        const filtered = data.filter(p => selectedRowKeys.indexOf(p.id) !== -1);
+        const newData = filtered.map((p, index) => {
+            const t = { stt: index + 1, ...p };
+            delete t["id"];
+            delete t["id_khach_hang"];
+            delete t["id_nha_cung_cap"];
+            delete t["id_nha_cung_cap"];
+            return t;
+        });
+
+        const dataExport = [
+            {
+                stt: "STT",
+                ngay_thang: "Ngày tháng",
+                phan_loai: "Phân loại",
+                ma_visa: "Mã Visa",
+                quoc_gia: "Quốc gia",
+                nha_cung_cap: "Nhà cung cấp",
+                ngay_mua: "Ngày mua",
+                gia_mua: "Giá mua",
+                ngay_tra_khach: "Ngày trả khách",
+                gia_ban: "Giá bán",
+                lai: "Lãi",
+                ten_khach_hang: "Khách hàng",
+                da_thanh_toan: "Đã thanh toán",
+                ngay_thanh_toan: "Ngày thanh toán",
+                chua_thanh_toan: "Còn lại",
+                tinh_trang: "Tình trạng",
+                ghi_chu: "Ghi chú",
+                username: "Người nhập"
+            },
+            ...newData
+        ];
+        exportToExcel(dataExport, "visa.xlsx");
+    };
+
+    const otherButtons = [
+        {
+            key: "export",
+            onClick: exportDS,
+            title: "Xuất danh sách ra Excel"
+        }
+    ];
+
     return (
         <ListForm
             url="visa"
@@ -161,8 +206,9 @@ const List = React.memo(props => {
             onChangeData={onChangeData}
             expandedRowRender={expandedRowRender}
             renderSummary={renderSummary}
+            otherButtons={otherButtons}
         />
     );
 });
 
-export default withRouter(List);
+export default List;

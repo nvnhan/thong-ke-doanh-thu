@@ -41,6 +41,8 @@ var Password = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "list-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "sm-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
     form: form,
@@ -80,7 +82,7 @@ var Password = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
     type: "primary",
     htmlType: "submit"
-  }, "C\u1EADp nh\u1EADt"))));
+  }, "C\u1EADp nh\u1EADt")))));
 });
 /* harmony default export */ __webpack_exports__["default"] = (Password);
 

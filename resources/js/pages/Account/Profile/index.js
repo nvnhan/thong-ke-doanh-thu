@@ -30,49 +30,51 @@ const Profile = React.memo(props => {
     };
 
     return (
-        <div className="sm-container">
-            <Form
-                form={form}
-                onFinish={onFinish}
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-            >
-                <Form.Item
-                    name="username"
-                    label="Tên đăng nhập"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Nhập đầy đủ thông tin!"
-                        }
-                    ]}
+        <div className="list-form">
+            <div className="sm-container">
+                <Form
+                    form={form}
+                    onFinish={onFinish}
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
                 >
-                    <Input disabled />
-                </Form.Item>
-                <Form.Item
-                    name="ho_ten"
-                    label="Họ tên"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Nhập đầy đủ thông tin!"
-                        }
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item name="sdt" label="Số điện thoại">
-                    <Input />
-                </Form.Item>
-                <Form.Item name="dia_chi" label="Địa chỉ">
-                    <Input />
-                </Form.Item>
-                <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
-                    <Button type="primary" htmlType="submit">
-                        Cập nhật
-                    </Button>
-                </Form.Item>
-            </Form>
+                    <Form.Item
+                        name="username"
+                        label="Tên đăng nhập"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <Input disabled />
+                    </Form.Item>
+                    <Form.Item
+                        name="ho_ten"
+                        label="Họ tên"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item name="sdt" label="Số điện thoại">
+                        <Input />
+                    </Form.Item>
+                    <Form.Item name="dia_chi" label="Địa chỉ">
+                        <Input />
+                    </Form.Item>
+                    <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
+                        <Button type="primary" htmlType="submit">
+                            Cập nhật
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
         </div>
     );
 });

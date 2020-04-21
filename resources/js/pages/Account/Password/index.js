@@ -17,55 +17,57 @@ const Password = React.memo(props => {
     };
 
     return (
-        <div className="sm-container">
-            <Form
-                form={form}
-                onFinish={onFinish}
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-            >
-                <Form.Item
-                    name="old_pass"
-                    label="Mật khẩu hiện tại"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Nhập đầy đủ thông tin!"
-                        }
-                    ]}
+        <div className="list-form">
+            <div className="sm-container">
+                <Form
+                    form={form}
+                    onFinish={onFinish}
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
                 >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item
-                    name="password"
-                    label="Mật khẩu mới"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Nhập đầy đủ thông tin!"
-                        }
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item
-                    name="password_confirmation"
-                    label="Nhập lại mật khẩu mới"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Nhập đầy đủ thông tin!"
-                        }
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
-                    <Button type="primary" htmlType="submit">
-                        Cập nhật
-                    </Button>
-                </Form.Item>
-            </Form>
+                    <Form.Item
+                        name="old_pass"
+                        label="Mật khẩu hiện tại"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
+                    <Form.Item
+                        name="password"
+                        label="Mật khẩu mới"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
+                    <Form.Item
+                        name="password_confirmation"
+                        label="Nhập lại mật khẩu mới"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
+                    <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
+                        <Button type="primary" htmlType="submit">
+                            Cập nhật
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
         </div>
     );
 });

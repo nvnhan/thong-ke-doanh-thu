@@ -33,10 +33,10 @@ var MyDatePicker = function MyDatePicker(props) {
 
 /***/ }),
 
-/***/ "./resources/js/pages/VeMayBay/ChuaBay/index.js":
-/*!******************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/ChuaBay/index.js ***!
-  \******************************************************/
+/***/ "./resources/js/pages/VeMayBay/NoVe/index.js":
+/*!***************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/NoVe/index.js ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -50,6 +50,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
 /* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _utils_exportToExcel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportToExcel */ "./resources/js/utils/exportToExcel.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -155,10 +175,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     width: 110,
     optFilter: true
   }, {
-    title: "Thanh toán",
-    dataIndex: "ngay_thanh_toan",
-    width: 110
-  }, {
     title: "Người nhập",
     dataIndex: "username",
     width: 90,
@@ -174,7 +190,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
           width: "100%"
         },
         locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
-        format: "HH:mm DD/MM/YYYY"
+        format: "DD/MM/YYYY"
       })
     }];
   };
@@ -189,11 +205,72 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
         colSpan: 11
-      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
     }
   };
+  /**
+   * Xuất ra Excel
+   */
 
-  var exportDS = function exportDS(data, selectedKeys) {};
+
+  var exportDS = function exportDS(data, selectedRowKeys) {
+    var filtered = data.filter(function (p) {
+      return selectedRowKeys.indexOf(p.id) !== -1;
+    });
+    var newData = filtered.map(function (p, index) {
+      var t = _objectSpread({
+        stt: index + 1
+      }, p);
+
+      delete t["id"];
+      delete t["loai_tuoi"];
+      delete t["id_phi_hanh_ly"];
+      delete t["id_tai_khoan_mua"];
+      delete t["id_khach_hang"];
+      delete t["chang_di"];
+      delete t["chang_ve"];
+      return t;
+    });
+    var dataExport = [{
+      stt: "STT",
+      ngay_thang: "Ngày tháng",
+      ma_giu_cho: "Mã giữ chỗ",
+      so_ve: "Số vé",
+      hang_bay: "Hãng bay",
+      ten_khach: "Tên khách",
+      ten_loai_tuoi: "Loại tuổi",
+      ngay_gio_di: "Thời gian đi",
+      cb_di: "Chuyến bay đi",
+      sb_di: "Sân bay đi",
+      sb_di1: "Sân bay đi 1",
+      ngay_gio_ve: "Thời gian về",
+      cb_ve: "Chuyến bay về",
+      sb_ve: "Sân bay về",
+      sb_ve1: "Sân bay về 1",
+      gia_net: "Giá net",
+      vat: "VAT",
+      phi_san_bay: "Phí soi chiếu, an ninh",
+      phu_phi_san_bay: "Phí quản trị hệ thống",
+      phu_phi: "Phí nơi mua thu",
+      loai_hanh_ly: "Hành lý",
+      hanh_ly: "Phí hành lý",
+      hoa_hong: "Hoa hồng",
+      tong_tien: "Tổng tiền",
+      tong_tien_thu_khach: "Thu khách",
+      lai: "Lãi",
+      noi_mua: "Nơi mua",
+      ma_khach_hang: "Khách hàng",
+      da_thanh_toan: "Đã thanh toán",
+      ngay_thanh_toan: "Ngày thanh toán",
+      chua_thanh_toan: "Còn lại",
+      chua_xuat_ve: "Chưa xuất vé",
+      canh_bao_xuat_ve: "Cảnh báo xuất vé",
+      ngay_nhac_lich: "Ngày nhắc lịch bay",
+      username: "Người nhập",
+      ghi_chu: "Ghi chú"
+    }].concat(_toConsumableArray(newData));
+    Object(_utils_exportToExcel__WEBPACK_IMPORTED_MODULE_6__["default"])(dataExport, "dat-ve.xlsx");
+  };
 
   var otherButtons = [{
     key: "export",
@@ -201,7 +278,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     title: "Xuất danh sách ra Excel"
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    url: "chua-bay",
+    url: "no-ve",
     insertable: false,
     selectable: true,
     editable: false,
@@ -210,11 +287,11 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     tuNgayDenNgay: false,
     otherFilter: getOtherFilter(),
     filterInitialValue: {
-      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("HH:mm DD/MM/YYYY")
+      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("DD/MM/YYYY")
     },
     columns: columns,
     tableSize: {
-      x: 1800
+      x: 1700
     },
     otherButtons: otherButtons,
     expandedRowRender: expandedRowRender,
@@ -222,6 +299,144 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ }),
+
+/***/ "./resources/js/utils/exportToExcel.js":
+/*!*********************************************!*\
+  !*** ./resources/js/utils/exportToExcel.js ***!
+  \*********************************************/
+/*! exports provided: default, ExportMultiSheet */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExportMultiSheet", function() { return ExportMultiSheet; });
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! xlsx */ "./node_modules/xlsx/xlsx.js");
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+function Workbook() {
+  if (!(this instanceof Workbook)) return new Workbook();
+  this.SheetNames = [];
+  this.Sheets = {};
+}
+
+var download = function download(url, name) {
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  a.click();
+  window.URL.revokeObjectURL(url);
+};
+
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+
+  for (var i = 0; i !== s.length; ++i) {
+    view[i] = s.charCodeAt(i) & 0xff;
+  }
+
+  return buf;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (function (data, filename) {
+  var skipHeader = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  var wb = new Workbook();
+  var ws = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.json_to_sheet(data, {
+    skipHeader: skipHeader
+  });
+  wb.SheetNames.push("Export");
+  wb.Sheets["Export"] = ws;
+  var wbout = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.write(wb, {
+    bookType: "xlsx",
+    bookSST: true,
+    type: "binary",
+    Props: {
+      Author: "NVN",
+      Company: "TKDT"
+    }
+  });
+  var url = window.URL.createObjectURL(new Blob([s2ab(wbout)], {
+    type: "application/octet-stream"
+  }));
+  download(url, filename || "report.xlsx");
+});
+var ExportMultiSheet = function ExportMultiSheet(data, filename) {
+  var wb = new Workbook();
+
+  for (var _i = 0, _Object$entries = Object.entries(data); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    var ws = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.json_to_sheet(value, {
+      skipHeader: true
+    });
+    wb.SheetNames.push(key);
+    wb.Sheets[key] = ws;
+  }
+
+  var wbout = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.write(wb, {
+    bookType: "xlsx",
+    bookSST: true,
+    type: "binary",
+    Props: {
+      Author: "NVN",
+      Company: "TKDT"
+    }
+  });
+  var url = window.URL.createObjectURL(new Blob([s2ab(wbout)], {
+    type: "application/octet-stream"
+  }));
+  download(url, filename || "report.xlsx");
+};
+
+/***/ }),
+
+/***/ 1:
+/*!********************!*\
+  !*** fs (ignored) ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 2:
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 3:
+/*!************************!*\
+  !*** stream (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

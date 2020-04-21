@@ -10,7 +10,9 @@ class HangHoa extends Model
     protected $table = "hang_hoa";
     public $timestamps = true;
     // protected $dateFormat = 'd/m/Y';
-    protected $casts = [];
+    protected $casts = [
+        'don_gia' => 'float'
+    ];
 
     protected $fillable = ['id_tai_khoan', 'ma_hang', 'ten_hang', 'phan_loai', 'don_vi', 'don_gia', 'ghi_chu'];
 

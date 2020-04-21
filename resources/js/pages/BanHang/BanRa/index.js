@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
+import exportDS from "../../../utils/exportBanRa";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
@@ -151,6 +152,15 @@ const List = React.memo(props => {
         });
     };
 
+    const otherButtons = [
+        {
+            key: "export",
+            onClick: (data, selectedRowKeys) =>
+                exportDS(data, selectedRowKeys, "ban-ra.xlsx"),
+            title: "Xuất danh sách ra Excel"
+        }
+    ];
+
     return (
         <ListForm
             url="ban-ra"
@@ -174,6 +184,7 @@ const List = React.memo(props => {
             expandedRowRender={expandedRowRender}
             setFormValues={formValue}
             renderSummary={renderSummary}
+            otherButtons={otherButtons}
         />
     );
 });

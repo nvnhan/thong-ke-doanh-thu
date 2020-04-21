@@ -18,6 +18,8 @@ class BanRa extends Model
         'ngay_hoan_doi_xong' => 'date:d/m/Y',
         'thanh_tien_mua' => 'double',
         'thanh_tien_ban' => 'double',
+        'don_gia_mua' => 'double',
+        'don_gia_ban' => 'double',
     ];
 
     protected $fillable = [

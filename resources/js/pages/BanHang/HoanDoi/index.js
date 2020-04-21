@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
+import exportDS from "../../../utils/exportBanRa";
 
 const List = React.memo(props => {
     const [taiKhoan, setTaiKhoan] = useState([]);
 
     useEffect(() => {
         axios
-            .get("/api/tai-khoan/all")
+            .get("/api/tai-khoan")
             .then(response => {
                 if (response.data.success) setTaiKhoan(response.data.data);
             })
@@ -100,43 +101,26 @@ const List = React.memo(props => {
         }
     ];
 
-    // const renderFooter = data => {
-    //     if (!_.isEmpty(data)) {
-    //         const sumObj = data.reduce((previousValue, currentValue) => {
-    //             return {
-    //                 thanh_tien_mua:
-    //                     previousValue.thanh_tien_mua +
-    //                     currentValue.thanh_tien_mua,
-    //                 thanh_tien_ban:
-    //                     previousValue.thanh_tien_ban +
-    //                     currentValue.thanh_tien_ban
-    //             };
-    //         });
-    //         return (
-    //             "Tổng tiền mua: " +
-    //             vndFormater.format(sumObj.thanh_tien_mua) +
-    //             ". Tổng tiền bán: " +
-    //             vndFormater.format(sumObj.thanh_tien_ban) +
-    //             ". Tổng lãi: " +
-    //             vndFormater.format(
-    //                 sumObj.thanh_tien_ban - sumObj.thanh_tien_mua
-    //             )
-    //         );
-    //     }
-    // };
+    const otherButtons = [
+        {
+            key: "export",
+            onClick: (data, selectedRowKeys) =>
+                exportDS(data, selectedRowKeys, "hoan-doi.xlsx"),
+            title: "Xuất danh sách ra Excel"
+        }
+    ];
 
     return (
         <ListForm
             url="hoan-doi"
             filterBox
             insertable={false}
-            selectable={false}
             deleteable={false}
             columns={columns}
             tableSize={{ x: 1200 }}
             formTemplate={<FormItem taiKhoan={taiKhoan} />}
             expandedRowRender={expandedRowRender}
-            // renderFooter={renderFooter}
+            otherButtons={otherButtons}
         />
     );
 });

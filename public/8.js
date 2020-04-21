@@ -50,25 +50,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
 /* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _utils_exportToExcel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportToExcel */ "./resources/js/utils/exportToExcel.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var _utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportDatVe */ "./resources/js/utils/exportDatVe.js");
 
 
 
@@ -212,79 +194,19 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
       }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
     }
   };
-  /**
-   * Xuất ra Excel
-   */
-
-
-  var exportDS = function exportDS(data, selectedRowKeys) {
-    var filtered = data.filter(function (p) {
-      return selectedRowKeys.indexOf(p.id) !== -1;
-    });
-    var newData = filtered.map(function (p, index) {
-      var t = _objectSpread({
-        stt: index + 1
-      }, p);
-
-      delete t["id"];
-      delete t["loai_tuoi"];
-      delete t["id_phi_hanh_ly"];
-      delete t["id_tai_khoan_mua"];
-      delete t["id_khach_hang"];
-      delete t["chang_di"];
-      delete t["chang_ve"];
-      return t;
-    });
-    var dataExport = [{
-      stt: "STT",
-      ngay_thang: "Ngày tháng",
-      ma_giu_cho: "Mã giữ chỗ",
-      so_ve: "Số vé",
-      hang_bay: "Hãng bay",
-      ten_khach: "Tên khách",
-      ten_loai_tuoi: "Loại tuổi",
-      ngay_gio_di: "Thời gian đi",
-      cb_di: "Chuyến bay đi",
-      sb_di: "Sân bay đi",
-      sb_di1: "Sân bay đi 1",
-      ngay_gio_ve: "Thời gian về",
-      cb_ve: "Chuyến bay về",
-      sb_ve: "Sân bay về",
-      sb_ve1: "Sân bay về 1",
-      gia_net: "Giá net",
-      vat: "VAT",
-      phi_san_bay: "Phí soi chiếu, an ninh",
-      phu_phi_san_bay: "Phí quản trị hệ thống",
-      phu_phi: "Phí nơi mua thu",
-      loai_hanh_ly: "Hành lý",
-      hanh_ly: "Phí hành lý",
-      hoa_hong: "Hoa hồng",
-      tong_tien: "Tổng tiền",
-      tong_tien_thu_khach: "Thu khách",
-      lai: "Lãi",
-      noi_mua: "Nơi mua",
-      ma_khach_hang: "Khách hàng",
-      da_thanh_toan: "Đã thanh toán",
-      ngay_thanh_toan: "Ngày thanh toán",
-      chua_thanh_toan: "Còn lại",
-      chua_xuat_ve: "Chưa xuất vé",
-      canh_bao_xuat_ve: "Cảnh báo xuất vé",
-      ngay_nhac_lich: "Ngày nhắc lịch bay",
-      username: "Người nhập",
-      ghi_chu: "Ghi chú"
-    }].concat(_toConsumableArray(newData));
-    Object(_utils_exportToExcel__WEBPACK_IMPORTED_MODULE_6__["default"])(dataExport, "chua-bay.xlsx");
-  };
 
   var otherButtons = [{
     key: "export",
-    onClick: exportDS,
-    title: "Xuất danh sách ra Excel"
+    onClick: function onClick(data, selectedRowKeys) {
+      return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__["default"])(data, selectedRowKeys, "chua-bay.xlsx");
+    },
+    title: "Xuất danh sách ra Excel",
+    selectRequired: false
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
     url: "chua-bay",
     insertable: false,
-    selectable: true,
+    selectable: false,
     editable: false,
     deleteable: false,
     filterBox: true,
@@ -303,6 +225,103 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ }),
+
+/***/ "./resources/js/utils/exportDatVe.js":
+/*!*******************************************!*\
+  !*** ./resources/js/utils/exportDatVe.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _exportToExcel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./exportToExcel */ "./resources/js/utils/exportToExcel.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+/**
+ * Xuất ra Excel
+ */
+
+var exportDS = function exportDS(data, selectedRowKeys, name) {
+  var filtered = data;
+  if (selectedRowKeys.length > 0) filtered = data.filter(function (p) {
+    return selectedRowKeys.indexOf(p.id) !== -1;
+  });
+  var newData = filtered.map(function (p, index) {
+    var t = _objectSpread({
+      stt: index + 1
+    }, p);
+
+    delete t["id"];
+    delete t["loai_tuoi"];
+    delete t["id_phi_hanh_ly"];
+    delete t["id_tai_khoan_mua"];
+    delete t["id_khach_hang"];
+    delete t["chang_di"];
+    delete t["chang_ve"];
+    return t;
+  });
+  var dataExport = [{
+    stt: "STT",
+    ngay_thang: "Ngày tháng",
+    ma_giu_cho: "Mã giữ chỗ",
+    so_ve: "Số vé",
+    hang_bay: "Hãng bay",
+    ten_khach: "Tên khách",
+    ten_loai_tuoi: "Loại tuổi",
+    ngay_gio_di: "Thời gian đi",
+    cb_di: "Chuyến bay đi",
+    sb_di: "Sân bay đi",
+    sb_di1: "Sân bay đi 1",
+    ngay_gio_ve: "Thời gian về",
+    cb_ve: "Chuyến bay về",
+    sb_ve: "Sân bay về",
+    sb_ve1: "Sân bay về 1",
+    gia_net: "Giá net",
+    vat: "VAT",
+    phi_san_bay: "Phí soi chiếu, an ninh",
+    phu_phi_san_bay: "Phí quản trị hệ thống",
+    phu_phi: "Phí nơi mua thu",
+    loai_hanh_ly: "Hành lý",
+    hanh_ly: "Phí hành lý",
+    hoa_hong: "Hoa hồng",
+    tong_tien: "Tổng tiền",
+    tong_tien_thu_khach: "Thu khách",
+    lai: "Lãi",
+    noi_mua: "Nơi mua",
+    ma_khach_hang: "Khách hàng",
+    da_thanh_toan: "Đã thanh toán",
+    ngay_thanh_toan: "Ngày thanh toán",
+    chua_thanh_toan: "Còn lại",
+    chua_xuat_ve: "Chưa xuất vé",
+    canh_bao_xuat_ve: "Cảnh báo xuất vé",
+    ngay_nhac_lich: "Ngày nhắc lịch bay",
+    username: "Người nhập",
+    ghi_chu: "Ghi chú"
+  }].concat(_toConsumableArray(newData));
+  Object(_exportToExcel__WEBPACK_IMPORTED_MODULE_0__["default"])(dataExport, name);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (exportDS);
 
 /***/ }),
 

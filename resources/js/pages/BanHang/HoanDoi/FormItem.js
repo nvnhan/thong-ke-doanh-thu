@@ -9,7 +9,7 @@ const form = React.memo(props => {
     const getTaiKhoanDetail = () =>
         taiKhoan.map(tk => (
             <Option value={tk.id} key={tk.id}>
-                {tk.ky_hieu} - {tk.mo_ta}
+                {tk.ky_hieu}
             </Option>
         ));
 

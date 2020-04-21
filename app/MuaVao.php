@@ -13,7 +13,8 @@ class MuaVao extends Model
     protected $casts = [
         'ngay_thang' => 'date:d/m/Y',
         'ngay_thanh_toan' => 'date:d/m/Y',
-        'thanh_tien' => 'double'
+        'thanh_tien' => 'double',
+        'don_gia' => 'double',
     ];
 
     protected $fillable = ['ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia', 'ghi_chu'];

@@ -1,6 +1,7 @@
 import React from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
+import exportToExcel from "../../../utils/exportToExcel";
 
 const List = React.memo(props => {
     const columns = [
@@ -125,6 +126,51 @@ const List = React.memo(props => {
         }
     };
 
+    const exportDS = (data, selectedKeys) => {
+        const newData = data.map((p, index) => {
+            const t = { stt: index + 1, ...p };
+            delete t["id"];
+            delete t["id_tai_khoan"];
+            delete t["created_at"];
+            delete t["updated_at"];
+            delete t["updated_at"];
+            delete t["ghi_chu"];
+            delete t["username"];
+            return t;
+        });
+
+        const dataExport = [
+            {
+                stt: "STT",
+                ma_hang: "Mã hàng",
+                ten_hang: "Tên hàng",
+                phan_loai: "Phân loại",
+                don_vi: "Đơn vị tính",
+                don_gia: "Đơn giá",
+                nha_cung_cap: "Nhà cung cấp",
+                so_luong_mua_vao: "Số lượng mua vào",
+                thanh_tien_mua_vao: "Thành tiền mua vào",
+                so_luong_ban_ra: "Số lượng bán ra",
+                thanh_tien_ban_ra: "Thành tiền bán ra",
+                so_luong_hoan_doi: "Số lượng hoàn đổi",
+                thanh_tien_hoan_doi: "Thành tiền hoàn đổi",
+                so_luong_ton_kho: "Số lượng tồn kho",
+                thanh_tien_ton_kho: "Thành tiền tồn kho"
+            },
+            ...newData
+        ];
+        exportToExcel(dataExport, "tong-hop-ban-hang.xlsx");
+    };
+
+    const otherButtons = [
+        {
+            key: "export",
+            onClick: exportDS,
+            title: "Xuất danh sách ra Excel",
+            selectRequired: false
+        }
+    ];
+
     return (
         <ListForm
             url="tong-hop-hang"
@@ -136,6 +182,7 @@ const List = React.memo(props => {
             deleteable={false}
             tableSize={{ x: 1300 }}
             renderSummary={renderSummary}
+            otherButtons={otherButtons}
         />
     );
 });

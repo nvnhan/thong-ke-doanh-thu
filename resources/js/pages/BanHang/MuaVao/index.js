@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
+import exportToExcel from "../../../utils/exportToExcel";
 
 const List = React.memo(props => {
     const [hangHoa, setHangHoa] = useState([]);
@@ -124,6 +125,45 @@ const List = React.memo(props => {
         });
     };
 
+    const exportDS = (data, selectedRowKeys) => {
+        const filtered = data.filter(p => selectedRowKeys.indexOf(p.id) !== -1);
+        const newData = filtered.map((p, index) => {
+            const t = { stt: index + 1, ...p };
+            delete t["id"];
+            delete t["id_hang_hoa"];
+            return t;
+        });
+
+        const dataExport = [
+            {
+                stt: "STT",
+                ngay_thang: "Ngày tháng",
+                ma_hang: "Mã hàng",
+                ten_hang: "Tên hàng",
+                phan_loai: "Phân loại",
+                nha_cung_cap: "Nhà cung cấp",
+                so_luong: "Số lượng",
+                don_gia: "Đơn giá",
+                thanh_tien: "Thành tiền",
+                da_thanh_toan: "Đã thanh toán",
+                ngay_thanh_toan: "Ngày thanh toán",
+                chua_thanh_toan: "Còn lại",
+                ghi_chu: "Ghi chú",
+                username: "Người nhập"
+            },
+            ...newData
+        ];
+        exportToExcel(dataExport, "mua-vao.xlsx");
+    };
+
+    const otherButtons = [
+        {
+            key: "export",
+            onClick: exportDS,
+            title: "Xuất danh sách ra Excel"
+        }
+    ];
+
     return (
         <ListForm
             url="mua-vao"
@@ -140,6 +180,7 @@ const List = React.memo(props => {
             expandedRowRender={expandedRowRender}
             setFormValues={formValue}
             renderSummary={renderSummary}
+            otherButtons={otherButtons}
         />
     );
 });

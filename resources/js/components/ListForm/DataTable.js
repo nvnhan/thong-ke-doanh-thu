@@ -232,7 +232,7 @@ const DataTable = React.memo(props => {
         selectedRowKeys,
         onChange: onChangeSelect,
         hideDefaultSelections: true,
-        columnWidth: 50,
+        columnWidth: 45,
         selections: [
             Table.SELECTION_ALL,
             Table.SELECTION_INVERT,

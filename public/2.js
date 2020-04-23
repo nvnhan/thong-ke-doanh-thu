@@ -160,6 +160,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var confirm = antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].confirm;
+/**
+ * Form base for other components
+ *
+ * @param {*} props
+ * @returns
+ */
 
 var ListForm = function ListForm(props) {
   var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm(),

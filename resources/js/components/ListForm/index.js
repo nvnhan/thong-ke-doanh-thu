@@ -9,6 +9,12 @@ import ModalConfirm from "./ModalConfirm";
 import ToolsButton from "./ToolsButton";
 const { confirm } = Modal;
 
+/**
+ * Form base for other components
+ *
+ * @param {*} props
+ * @returns
+ */
 const ListForm = props => {
     const [form] = Form.useForm();
     const {
@@ -139,7 +145,7 @@ const ListForm = props => {
             .post(`/api/${url}`, { ...value, otherParams })
             .then(response => {
                 if (response.data.success) {
-                    const newData = [...data, response.data.data] // Thêm object vào list lấy từ state
+                    const newData = [...data, response.data.data]; // Thêm object vào list lấy từ state
                     setState({
                         data: newData
                     });
@@ -189,7 +195,7 @@ const ListForm = props => {
                         if (response.data.success) {
                             const newData = data.filter(
                                 item => item[primaryKey] !== id
-                            )
+                            );
                             setState({
                                 data: newData
                             });
@@ -224,7 +230,7 @@ const ListForm = props => {
                                     selectedRowKeys.indexOf(
                                         item[primaryKey]
                                     ) === -1
-                            )
+                            );
                             setState({
                                 data: newData,
                                 selectedRowKeys: []
@@ -305,7 +311,7 @@ ListForm.propTypes = {
             title: PropTypes.string,
             color: PropTypes.string,
             childs: PropTypes.array,
-            selectRequired: PropTypes.bool,
+            selectRequired: PropTypes.bool
         })
     ),
     expandedRowRender: PropTypes.func,

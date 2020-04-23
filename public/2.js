@@ -1066,6 +1066,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _utils_exportDatVe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/exportDatVe */ "./resources/js/utils/exportDatVe.js");
+/* harmony import */ var _utils_downloadFile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/downloadFile */ "./resources/js/utils/downloadFile.js");
+
 
 
 
@@ -1095,8 +1097,23 @@ var codeVe = function codeVe(data, selectedRowKeys) {
     return console.log(error);
   });
 };
+/**
+ * Tạo mặt vé điện tử
+ */
 
-var veDienTu = function veDienTu(data, selectedRowKeys) {};
+
+var veDienTu = function veDienTu(data, selectedRowKeys) {
+  axios.get("/api/dat-ve/mau-ve", {
+    params: {
+      objects: selectedRowKeys.join("|")
+    },
+    responseType: "blob" // important
+
+  }).then(function (response) {
+    var url = window.URL.createObjectURL(new Blob([response.data]));
+    Object(_utils_downloadFile__WEBPACK_IMPORTED_MODULE_4__["default"])(url, "mat-ve-dien-tu.xlsx");
+  });
+};
 
 var layHoaDon = function layHoaDon(data, selectedRowKeys) {};
 

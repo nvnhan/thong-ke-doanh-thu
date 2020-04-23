@@ -207,11 +207,39 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
 
 /***/ }),
 
+/***/ "./resources/js/utils/downloadFile.js":
+/*!********************************************!*\
+  !*** ./resources/js/utils/downloadFile.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * Download file từ url
+ * const url = window.URL.createObjectURL(new Blob([response.data]));
+ *
+ * @param {*} url
+ * @param {*} name
+ */
+var downloadFile = function downloadFile(url, name) {
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  a.click();
+  window.URL.revokeObjectURL(url);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (downloadFile);
+
+/***/ }),
+
 /***/ "./resources/js/utils/exportToExcel.js":
 /*!*********************************************!*\
   !*** ./resources/js/utils/exportToExcel.js ***!
   \*********************************************/
-/*! exports provided: default, ExportMultiSheet */
+/*! exports provided: ExportMultiSheet, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -219,6 +247,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExportMultiSheet", function() { return ExportMultiSheet; });
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! xlsx */ "./node_modules/xlsx/xlsx.js");
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _downloadFile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./downloadFile */ "./resources/js/utils/downloadFile.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -233,19 +262,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Workbook() {
   if (!(this instanceof Workbook)) return new Workbook();
   this.SheetNames = [];
   this.Sheets = {};
 }
-
-var download = function download(url, name) {
-  var a = document.createElement("a");
-  a.href = url;
-  a.download = name;
-  a.click();
-  window.URL.revokeObjectURL(url);
-};
 
 function s2ab(s) {
   var buf = new ArrayBuffer(s.length);
@@ -257,8 +279,16 @@ function s2ab(s) {
 
   return buf;
 }
+/**
+ * Xuất dữ liệu ra Excel
+ *
+ * @param {*} data
+ * @param {*} filename
+ * @param {boolean} [skipHeader=true]
+ */
 
-/* harmony default export */ __webpack_exports__["default"] = (function (data, filename) {
+
+var ExportData = function ExportData(data, filename) {
   var skipHeader = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
   var wb = new Workbook();
   var ws = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.json_to_sheet(data, {
@@ -278,8 +308,9 @@ function s2ab(s) {
   var url = window.URL.createObjectURL(new Blob([s2ab(wbout)], {
     type: "application/octet-stream"
   }));
-  download(url, filename || "report.xlsx");
-});
+  Object(_downloadFile__WEBPACK_IMPORTED_MODULE_1__["default"])(url, filename || "report.xlsx");
+};
+
 var ExportMultiSheet = function ExportMultiSheet(data, filename) {
   var wb = new Workbook();
 
@@ -307,8 +338,9 @@ var ExportMultiSheet = function ExportMultiSheet(data, filename) {
   var url = window.URL.createObjectURL(new Blob([s2ab(wbout)], {
     type: "application/octet-stream"
   }));
-  download(url, filename || "report.xlsx");
+  Object(_downloadFile__WEBPACK_IMPORTED_MODULE_1__["default"])(url, filename || "report.xlsx");
 };
+/* harmony default export */ __webpack_exports__["default"] = (ExportData);
 
 /***/ }),
 

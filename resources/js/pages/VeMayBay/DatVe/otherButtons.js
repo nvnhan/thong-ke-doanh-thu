@@ -2,6 +2,7 @@ import { FileExcelOutlined, FileTextOutlined } from "@ant-design/icons";
 import { Input, Modal } from "antd";
 import React from "react";
 import exportDS from "../../../utils/exportDatVe";
+import downloadFile from "../../../utils/downloadFile";
 
 /**
  * Tạo code vé
@@ -28,7 +29,22 @@ const codeVe = (data, selectedRowKeys) => {
         .catch(error => console.log(error));
 };
 
-const veDienTu = (data, selectedRowKeys) => {};
+/**
+ * Tạo mặt vé điện tử
+ */
+const veDienTu = (data, selectedRowKeys) => {
+    axios
+        .get("/api/dat-ve/mau-ve", {
+            params: {
+                objects: selectedRowKeys.join("|")
+            },
+            responseType: "blob" // important
+        })
+        .then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            downloadFile(url, "mat-ve-dien-tu.xlsx");
+        });
+};
 
 const layHoaDon = (data, selectedRowKeys) => {};
 

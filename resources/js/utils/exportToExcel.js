@@ -1,4 +1,5 @@
 import XLSX from "xlsx";
+import download from "./downloadFile";
 
 function Workbook() {
     if (!(this instanceof Workbook)) return new Workbook();
@@ -7,15 +8,6 @@ function Workbook() {
 
     this.Sheets = {};
 }
-
-const download = (url, name) => {
-    let a = document.createElement("a");
-    a.href = url;
-    a.download = name;
-    a.click();
-
-    window.URL.revokeObjectURL(url);
-};
 
 function s2ab(s) {
     const buf = new ArrayBuffer(s.length);
@@ -27,7 +19,14 @@ function s2ab(s) {
     return buf;
 }
 
-export default (data, filename, skipHeader = true) => {
+/**
+ * Xuất dữ liệu ra Excel
+ *
+ * @param {*} data
+ * @param {*} filename
+ * @param {boolean} [skipHeader=true]
+ */
+const ExportData = (data, filename, skipHeader = true) => {
     const wb = new Workbook();
     const ws = XLSX.utils.json_to_sheet(data, { skipHeader });
 
@@ -76,3 +75,5 @@ export const ExportMultiSheet = (data, filename) => {
 
     download(url, filename || "report.xlsx");
 };
+
+export default ExportData;

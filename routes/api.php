@@ -33,6 +33,18 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('san-bay', 'SanBayController')->only(['index', 'store', 'update', 'destroy']);
     Route::get('thue-phi/all', 'ThuePhiController@all');
     Route::resource('thue-phi', 'ThuePhiController')->only(['index', 'update']);
+
+    // Dat Ve
+    Route::delete('dat-ve/deletes', 'DatVeController@deletes');
+    Route::get('dat-ve/code-ve', 'DatVeController@codeve');
+
+    Route::get('no-ve', 'DatVeController@nove');
+    Route::get('chua-bay', 'DatVeController@chuabay');
+    Route::put('dat-ve/updates', 'DatVeController@updates');
+    Route::get('dat-ve/hang-bay', 'DatVeController@hangbay');
+    Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
+
+    Route::get('dat-ve/mau-ve', 'BaoCaoDatVeController@mauve');
     
     // Thong Tin Chung
     Route::get('tai-khoan/all', 'TaiKhoanController@all');
@@ -69,17 +81,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('ton-kho', 'HangHoaController@tonkho');
     Route::get('tong-hop-hang', 'HangHoaController@tonghop');
 
-    // Dat Ve
-    Route::delete('dat-ve/deletes', 'DatVeController@deletes');
-    Route::get('dat-ve/code-ve', 'DatVeController@codeve');
-    Route::get('no-ve', 'DatVeController@nove');
-    Route::get('chua-bay', 'DatVeController@chuabay');
-    Route::put('dat-ve/updates', 'DatVeController@updates');
-    Route::get('dat-ve/hang-bay', 'DatVeController@hangbay');
-    Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
-
-
     // Add middleware checkadmin
+
     Route::delete('nhan-vien/deletes', 'UserController@deletes');
     Route::get('nhan-vien/all', 'UserController@all');
     Route::resource('nhan-vien', 'UserController')->only(['index', 'update', 'destroy']);

@@ -18,7 +18,7 @@
     <div id="app">
         <div class="loading-wrapper">
             <div class="loading-content">
-                <img src="{{ asset('img/intro.png') }}" />
+                <img src="{{ asset('images/intro.png') }}" />
                 <div class="ant-spin ant-spin-lg ant-spin-spinning">
                     <span class="ant-spin-dot ant-spin-dot-spin">
                         <i class="ant-spin-dot-item"></i>

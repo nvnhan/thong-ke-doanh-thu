@@ -598,10 +598,10 @@ var ToolsButton = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (pr
   }, insertable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "primary",
     onClick: handleAddNew
-  }, "Th\xEAm m\u1EDBi"), selectable && deleteable && isSelected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, "Th\xEAm m\u1EDBi"), otherButtons !== undefined && renderButtons(), selectable && deleteable && isSelected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "danger",
     onClick: onMultiDelete
-  }, "X\xF3a ", selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn"), otherButtons !== undefined && renderButtons());
+  }, "X\xF3a ", selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn"));
 });
 /* harmony default export */ __webpack_exports__["default"] = (ToolsButton);
 

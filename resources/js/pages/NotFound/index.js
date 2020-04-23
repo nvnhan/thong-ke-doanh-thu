@@ -1,12 +1,11 @@
 import { Button } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import img from "../../images/not-found.svg";
 
 const NotFound = React.memo(() => {
     return (
         <div className="not-found-content">
-            <img src={img} />
+            <img src="/images/not-found.svg" />
             <h2>404 - Not Found!</h2>
             <p>Rất tiếc, không tìm thấy trang.</p>
             <Button type="primary">

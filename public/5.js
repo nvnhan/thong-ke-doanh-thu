@@ -770,6 +770,123 @@ var form = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
 
 /***/ }),
 
+/***/ "./resources/js/pages/VeMayBay/DatVe/columns.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/DatVe/columns.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+
+
+var columns = [{
+  title: "Ngày tháng",
+  dataIndex: "ngay_thang",
+  width: 110,
+  sorter: function sorter(a, b) {
+    return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_thang, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_thang, "DD/MM/YYYY").unix();
+  }
+}, {
+  title: "Mã giữ chỗ",
+  dataIndex: "ma_giu_cho",
+  optFind: true,
+  width: 90
+}, {
+  title: "Số vé",
+  dataIndex: "so_ve",
+  width: 140,
+  optFind: true
+}, {
+  title: "Hãng bay",
+  dataIndex: "hang_bay",
+  width: 80,
+  optFilter: true
+}, {
+  title: "Tên khách",
+  dataIndex: "ten_khach",
+  width: 130,
+  optFind: true
+}, {
+  title: "TG đi",
+  dataIndex: "ngay_gio_di",
+  width: 110,
+  sorter: function sorter(a, b) {
+    return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix();
+  }
+}, {
+  title: "Chặng đi",
+  dataIndex: "chang_di",
+  width: 100
+}, {
+  title: "TG về",
+  dataIndex: "ngay_gio_ve",
+  width: 110,
+  sorter: function sorter(a, b) {
+    return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix();
+  }
+}, {
+  title: "Chặng về",
+  dataIndex: "chang_ve",
+  width: 100
+}, {
+  title: "Tổng tiền",
+  dataIndex: "tong_tien",
+  render: function render(number) {
+    return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+  },
+  sorter: function sorter(a, b) {
+    return a.tong_tien - b.tong_tien;
+  },
+  width: 110
+}, {
+  title: "Thu khách",
+  dataIndex: "tong_tien_thu_khach",
+  render: function render(number) {
+    return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+  },
+  sorter: function sorter(a, b) {
+    return a.tong_tien_thu_khach - b.tong_tien_thu_khach;
+  },
+  width: 110
+}, {
+  title: "Lãi",
+  dataIndex: "lai",
+  render: function render(number) {
+    return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+  },
+  sorter: function sorter(a, b) {
+    return a.lai - b.lai;
+  },
+  width: 110
+}, {
+  title: "Nơi mua",
+  dataIndex: "noi_mua",
+  width: 110,
+  optFilter: true
+}, {
+  title: "Khách hàng",
+  dataIndex: "ma_khach_hang",
+  width: 110,
+  optFilter: true
+}, {
+  title: "Thanh toán",
+  dataIndex: "ngay_thanh_toan",
+  width: 110
+}, {
+  title: "Người nhập",
+  dataIndex: "username",
+  width: 90,
+  optFilter: true
+}];
+/* harmony default export */ __webpack_exports__["default"] = (columns);
+
+/***/ }),
+
 /***/ "./resources/js/pages/VeMayBay/DatVe/index.js":
 /*!****************************************************!*\
   !*** ./resources/js/pages/VeMayBay/DatVe/index.js ***!
@@ -787,9 +904,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportDatVe */ "./resources/js/utils/exportDatVe.js");
+/* harmony import */ var _columns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./columns */ "./resources/js/pages/VeMayBay/DatVe/columns.js");
 /* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/DatVe/FormItem.js");
-/* harmony import */ var _UpdateLayout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./UpdateLayout */ "./resources/js/pages/VeMayBay/DatVe/UpdateLayout.js");
+/* harmony import */ var _otherButtons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./otherButtons */ "./resources/js/pages/VeMayBay/DatVe/otherButtons.js");
+/* harmony import */ var _otherFilters__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./otherFilters */ "./resources/js/pages/VeMayBay/DatVe/otherFilters.js");
+/* harmony import */ var _tinhPhi__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tinhPhi */ "./resources/js/pages/VeMayBay/DatVe/tinhPhi.js");
+/* harmony import */ var _UpdateLayout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./UpdateLayout */ "./resources/js/pages/VeMayBay/DatVe/UpdateLayout.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -825,7 +945,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
+
+
+
 var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(undefined),
       _useState2 = _slicedToArray(_useState, 2),
@@ -859,10 +981,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       state = _useMergeState4[0],
       setState = _useMergeState4[1];
 
-  var phiHanhLy = state.phiHanhLy,
-      taiKhoan = state.taiKhoan,
-      sanBay = state.sanBay,
-      thuePhi = state.thuePhi;
   var childRef = Object(react__WEBPACK_IMPORTED_MODULE_3__["useRef"])();
   var time = null;
   Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
@@ -907,156 +1025,9 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
    */
 
 
-  var handleFormValue = function handleFormValue(value, type) {
-    var _childRef$current$get = childRef.current.getFormInstance().getFieldsValue(),
-        id_tai_khoan_mua = _childRef$current$get.id_tai_khoan_mua,
-        hang_bay = _childRef$current$get.hang_bay,
-        loai_tuoi = _childRef$current$get.loai_tuoi,
-        sb_di = _childRef$current$get.sb_di,
-        sb_di1 = _childRef$current$get.sb_di1,
-        sb_ve = _childRef$current$get.sb_ve,
-        sb_ve1 = _childRef$current$get.sb_ve1,
-        phu_phi = _childRef$current$get.phu_phi,
-        vat = _childRef$current$get.vat,
-        gia_net = _childRef$current$get.gia_net,
-        hanh_ly = _childRef$current$get.hanh_ly,
-        tong_tien = _childRef$current$get.tong_tien,
-        phi_san_bay = _childRef$current$get.phi_san_bay,
-        phu_phi_san_bay = _childRef$current$get.phu_phi_san_bay,
-        hoa_hong = _childRef$current$get.hoa_hong;
-
-    console.log("Tinh Phu Phi & Tinh Gia, Tinh Phi"); // VAT
-
-    vat = gia_net / 10;
-    var record = {
-      vat: vat
-    }; // Chọn hành lý
-
-    if (type === "hl") {
-      var hl = phiHanhLy.filter(function (item) {
-        return item.id === value;
-      })[0];
-
-      if (hl) {
-        hanh_ly = hl.muc_phi;
-        Object.assign(record, {
-          hanh_ly: hanh_ly
-        });
-      }
-    } // Tính phí nơi mua thu
-
-
-    if (type === "hb" || type === "tk" || type === "sb") {
-      var tk = taiKhoan.filter(function (item) {
-        return item.id === id_tai_khoan_mua;
-      })[0];
-
-      if (tk) {
-        switch (hang_bay) {
-          case "VN":
-            phu_phi = tk.phi_vn || 0;
-
-          case "VJ":
-            phu_phi = tk.phi_vj || 0;
-
-          case "Jets":
-            phu_phi = tk.phi_jets || 0;
-
-          case "BB":
-            phu_phi = tk.phi_bb || 0;
-        }
-
-        if (!_.isEmpty(sb_ve)) phu_phi *= 2;
-        Object.assign(record, {
-          phu_phi: phu_phi
-        });
-      }
-    } // Tính phí quản trị, phí soi chiếu: Phí sân bay, Phụ phí sân bay
-
-
-    if (type === "hb" || type === "lt" || type === "sb") {
-      // Em bé
-      if (loai_tuoi === 2) phi_san_bay = phu_phi_san_bay = 0;else {
-        // Phi sân bay: Phí soi chiếu, an ninh => chỉ tính với sân bay 1 lúc khởi hành
-        phi_san_bay = tinhPhiSB(sb_di, hang_bay, loai_tuoi) + tinhPhiSB(sb_ve, hang_bay, loai_tuoi);
-        phu_phi_san_bay = tinhPhuPhiSB(sb_di, sb_di1, hang_bay) + tinhPhuPhiSB(sb_ve, sb_ve1, hang_bay);
-      }
-      Object.assign(record, {
-        phi_san_bay: phi_san_bay,
-        phu_phi_san_bay: phu_phi_san_bay
-      });
-    } //  Tính giá: Tổng tiền
-
-
-    if (gia_net !== null && gia_net !== 0) {
-      tong_tien = gia_net + vat + (phi_san_bay || 0) + (phu_phi_san_bay || 0) + (hanh_ly || 0) + (phu_phi || 0) - (hoa_hong || 0);
-      Object.assign(record, {
-        tong_tien: tong_tien
-      });
-    }
-
-    Object.assign(record, {
-      resetFields: function resetFields() {
-        return setFormValue(undefined);
-      }
-    });
+  var handleFormValue = function handleFormValue(props) {
+    var record = _tinhPhi__WEBPACK_IMPORTED_MODULE_10__["default"].apply(void 0, [state, childRef].concat(_toConsumableArray(props)));
     setFormValue(record);
-  };
-  /**
-   * Tính phí soi chiếu, an ninh
-   */
-
-
-  var tinhPhiSB = function tinhPhiSB(san_bay, hang_bay, loai_tuoi) {
-    if (hang_bay === undefined || hang_bay === "") return 0;
-    var sb = sanBay.filter(function (item) {
-      return item.ma_san_bay === san_bay;
-    })[0];
-
-    var thue = _toConsumableArray(thuePhi);
-
-    hang_bay = hang_bay.toLowerCase();
-
-    if (sb !== undefined) {
-      if (sb.loai_a) thue = thue.filter(function (item) {
-        return item.loai_phi.indexOf("nhóm A") > 0;
-      });else thue = thue.filter(function (item) {
-        return item.loai_phi.indexOf("nhóm B") > 0;
-      });
-      if (loai_tuoi === 0) thue = thue.filter(function (item) {
-        return item.loai_phi.indexOf("Người lớn") > 0;
-      });else if (loai_tuoi === 1) thue = thue.filter(function (item) {
-        return item.loai_phi.indexOf("Trẻ em") > 0;
-      });else return 0;
-      thue = thue.filter(function (item) {
-        return item.loai_phi.toLowerCase().indexOf(hang_bay) > 0;
-      });
-      if (!_.isEmpty(thue)) return thue[0].muc_phi;
-    }
-
-    return 0;
-  };
-  /**
-   * Tính phí quản trị
-   */
-
-
-  var tinhPhuPhiSB = function tinhPhuPhiSB(san_bay, san_bay1, hang_bay) {
-    if (san_bay === undefined || san_bay === null || san_bay === "") return 0;
-    if (hang_bay === undefined || hang_bay === null || hang_bay === "") return 0;
-
-    var thue = _toConsumableArray(thuePhi);
-
-    thue = thue.filter(function (item) {
-      return item.loai_phi.indexOf("quản trị") > 0;
-    });
-    hang_bay = hang_bay.toLowerCase();
-    thue = thue.filter(function (item) {
-      return item.loai_phi.toLowerCase().indexOf(hang_bay) > 0;
-    }); //TODO: Với VN còn loại SB dài, ngắn
-
-    if (!_.isEmpty(thue)) return thue[0].muc_phi;
-    return 0;
   };
   /**
    * Trigger "Add new" action with addition params
@@ -1090,130 +1061,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
         margin: 0
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Chuy\u1EBFn bay \u0111i: ", record.cb_di, ". Chuy\u1EBFn bay v\u1EC1: ", record.cb_ve), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Lo\u1EA1i tu\u1ED5i: ", record.ten_loai_tuoi), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Gi\xE1 net: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.gia_net), ". Ph\xED soi chi\u1EBFu, an ninh: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_san_bay), ". Ph\xED qu\u1EA3n tr\u1ECB:", " ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phu_phi_san_bay)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "VAT: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.vat), ". Ph\u1EE5 ph\xED:", " ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phu_phi)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "H\xE0nh l\xFD: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.hanh_ly), ". Lo\u1EA1i h\xE0nh l\xFD:", " ", record.loai_hanh_ly), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n: ", record.ngay_thanh_toan), record.chua_xuat_ve ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "C\u1EA3nh b\xE1o xu\u1EA5t v\xE9: ", record.canh_bao_xuat_ve) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "\u2714 \u0110\xE3 xu\u1EA5t v\xE9"), !_.isEmpty(record.ngay_nhac_lich) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Nh\u1EAFc l\u1ECBch bay: ", record.ngay_nhac_lich), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
-  };
-
-  var columns = [{
-    title: "Ngày tháng",
-    dataIndex: "ngay_thang",
-    width: 110,
-    sorter: function sorter(a, b) {
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(a.ngay_thang, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_2___default()(b.ngay_thang, "DD/MM/YYYY").unix();
-    }
-  }, {
-    title: "Mã giữ chỗ",
-    dataIndex: "ma_giu_cho",
-    optFind: true,
-    width: 90
-  }, {
-    title: "Số vé",
-    dataIndex: "so_ve",
-    width: 140,
-    optFind: true
-  }, {
-    title: "Hãng bay",
-    dataIndex: "hang_bay",
-    width: 80,
-    optFilter: true
-  }, {
-    title: "Tên khách",
-    dataIndex: "ten_khach",
-    width: 130,
-    optFind: true
-  }, {
-    title: "TG đi",
-    dataIndex: "ngay_gio_di",
-    width: 110,
-    sorter: function sorter(a, b) {
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_2___default()(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix();
-    }
-  }, {
-    title: "Chặng đi",
-    dataIndex: "chang_di",
-    width: 100
-  }, {
-    title: "TG về",
-    dataIndex: "ngay_gio_ve",
-    width: 110,
-    sorter: function sorter(a, b) {
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(a.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_2___default()(b.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix();
-    }
-  }, {
-    title: "Chặng về",
-    dataIndex: "chang_ve",
-    width: 100
-  }, {
-    title: "Tổng tiền",
-    dataIndex: "tong_tien",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.tong_tien - b.tong_tien;
-    },
-    width: 110
-  }, {
-    title: "Thu khách",
-    dataIndex: "tong_tien_thu_khach",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.tong_tien_thu_khach - b.tong_tien_thu_khach;
-    },
-    width: 110
-  }, {
-    title: "Lãi",
-    dataIndex: "lai",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.lai - b.lai;
-    },
-    width: 110
-  }, {
-    title: "Nơi mua",
-    dataIndex: "noi_mua",
-    width: 110,
-    optFilter: true
-  }, {
-    title: "Khách hàng",
-    dataIndex: "ma_khach_hang",
-    width: 110,
-    optFilter: true
-  }, {
-    title: "Thanh toán",
-    dataIndex: "ngay_thanh_toan",
-    width: 110
-  }, {
-    title: "Người nhập",
-    dataIndex: "username",
-    width: 90,
-    optFilter: true
-  }];
-
-  var getOtherFilter = function getOtherFilter() {
-    return [{
-      name: "sb",
-      label: "Sân bay",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: ""
-      }, "T\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "qn"
-      }, "Qu\u1ED1c n\u1ED9i"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "qt"
-      }, "Qu\u1ED1c t\u1EBF"))
-    }, {
-      name: "xv",
-      label: "Xuất vé",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: ""
-      }, "T\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "1"
-      }, "\u0110\xE3 xu\u1EA5t v\xE9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-        value: "-1"
-      }, "Ch\u01B0a xu\u1EA5t v\xE9"))
-    }];
   };
 
   var renderSummary = function renderSummary(data) {
@@ -1276,96 +1123,17 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       modalVisible: false
     });
   };
-  /**
-   * Tạo code vé
-   */
 
-
-  var codeVe = function codeVe(data, selectedRowKeys) {
-    axios.get("/api/dat-ve/code-ve", {
-      params: {
-        objects: selectedRowKeys.join("|")
-      }
-    }).then(function (response) {
-      if (response.data.success) {
-        antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].info({
-          title: "Code vé",
-          content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].TextArea, {
-            rows: 12,
-            value: response.data.data
-          }),
-          width: "800px",
-          onOk: function onOk() {}
-        });
-      }
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  };
-
-  var veDienTu = function veDienTu(data, selectedRowKeys) {};
-
-  var layHoaDon = function layHoaDon(data, selectedRowKeys) {};
-
-  var banKeHoaDon = function banKeHoaDon(data, selectedRowKeys) {};
-
-  var congNo = function congNo(data, selectedRowKeys) {};
-
-  var otherButtons = [{
-    key: "updates",
-    onClick: showUpdates,
-    title: "Cập nhật thông tin"
-  }, {
-    key: "trichxuat",
-    title: "Trích xuất",
-    childs: [{
-      key: "codeve",
-      onClick: codeVe,
-      title: "Tạo mẫu code vé",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileTextOutlined"], null)
-    }, {
-      key: "vedientu",
-      onClick: veDienTu,
-      title: "Tạo mặt vé điện tử",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileTextOutlined"], null)
-    }, {
-      key: "export",
-      onClick: function onClick(data, selectedRowKeys) {
-        return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__["default"])(data, selectedRowKeys, "dat-ve.xlsx");
-      },
-      title: "Xuất danh sách ra Excel",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
-      color: "#4bab92"
-    }, {
-      key: "layhoadon",
-      onClick: layHoaDon,
-      title: "Thông tin lấy hóa đơn",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
-      color: "#4bab92"
-    }, {
-      key: "bangkehoadon",
-      onClick: banKeHoaDon,
-      title: "Bảng kê hóa đơn",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
-      color: "#4bab92"
-    }, {
-      key: "xuatcongno",
-      onClick: congNo,
-      title: "Mẫu xuất công nợ",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
-      color: "#4bab92"
-    }]
-  }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
     ree: childRef,
     url: "dat-ve",
     filterBox: true,
-    otherFilter: getOtherFilter(),
+    otherFilter: _otherFilters__WEBPACK_IMPORTED_MODULE_9__["default"],
     filterInitialValue: {
       sb: "",
       xv: ""
     },
-    columns: columns,
+    columns: _columns__WEBPACK_IMPORTED_MODULE_6__["default"],
     tableSize: {
       x: 1800
     },
@@ -1387,7 +1155,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       phu_phi: 0
     },
     otherActions: dvAction,
-    otherButtons: otherButtons,
+    otherButtons: Object(_otherButtons__WEBPACK_IMPORTED_MODULE_8__["default"])(showUpdates),
     expandedRowRender: expandedRowRender,
     renderSummary: renderSummary,
     setFormValues: formValue
@@ -1417,11 +1185,363 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       tong_tien: 0,
       tong_tien_thu_khach: 0
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_UpdateLayout__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_UpdateLayout__WEBPACK_IMPORTED_MODULE_11__["default"], {
     danhMuc: state
   }))));
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/DatVe/otherButtons.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/DatVe/otherButtons.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils_exportDatVe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/exportDatVe */ "./resources/js/utils/exportDatVe.js");
+
+
+
+
+/**
+ * Tạo code vé
+ */
+
+var codeVe = function codeVe(data, selectedRowKeys) {
+  axios.get("/api/dat-ve/code-ve", {
+    params: {
+      objects: selectedRowKeys.join("|")
+    }
+  }).then(function (response) {
+    if (response.data.success) {
+      antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].info({
+        title: "Code vé",
+        content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].TextArea, {
+          rows: 12,
+          value: response.data.data
+        }),
+        width: "800px",
+        onOk: function onOk() {}
+      });
+    }
+  })["catch"](function (error) {
+    return console.log(error);
+  });
+};
+
+var veDienTu = function veDienTu(data, selectedRowKeys) {};
+
+var layHoaDon = function layHoaDon(data, selectedRowKeys) {};
+
+var banKeHoaDon = function banKeHoaDon(data, selectedRowKeys) {};
+
+var congNo = function congNo(data, selectedRowKeys) {};
+
+var themTuKetQua = function themTuKetQua() {};
+
+var themTuMail = function themTuMail() {};
+
+var themTuFile = function themTuFile() {};
+
+var otherButtons = function otherButtons(showUpdates) {
+  return [{
+    key: "add-other",
+    title: "Thêm",
+    selectRequired: false,
+    childs: [{
+      key: "them-tu-ket-qua",
+      onClick: themTuKetQua,
+      title: "Thêm từ kết quả đặt vé",
+      selectRequired: false
+    }, {
+      key: "them-tu-mail",
+      onClick: themTuMail,
+      title: "Thêm từ email",
+      selectRequired: false
+    }, {
+      key: "them-tu-file",
+      onClick: themTuFile,
+      title: "Thêm từ file",
+      selectRequired: false
+    }]
+  }, {
+    key: "updates",
+    onClick: showUpdates,
+    title: "Cập nhật thông tin"
+  }, {
+    key: "trichxuat",
+    title: "Trích xuất",
+    childs: [{
+      key: "codeve",
+      onClick: codeVe,
+      title: "Tạo mẫu code vé",
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileTextOutlined"], null)
+    }, {
+      key: "vedientu",
+      onClick: veDienTu,
+      title: "Tạo mặt vé điện tử",
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileTextOutlined"], null)
+    }, {
+      key: "export",
+      onClick: function onClick(data, selectedRowKeys) {
+        return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_3__["default"])(data, selectedRowKeys, "dat-ve.xlsx");
+      },
+      title: "Xuất danh sách ra Excel",
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
+      color: "#4bab92"
+    }, {
+      key: "layhoadon",
+      onClick: layHoaDon,
+      title: "Thông tin lấy hóa đơn",
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
+      color: "#4bab92"
+    }, {
+      key: "bangkehoadon",
+      onClick: banKeHoaDon,
+      title: "Bảng kê hóa đơn",
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
+      color: "#4bab92"
+    }, {
+      key: "xuatcongno",
+      onClick: congNo,
+      title: "Mẫu xuất công nợ",
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
+      color: "#4bab92"
+    }]
+  }];
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (otherButtons);
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/DatVe/otherFilters.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/DatVe/otherFilters.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
+var filters = [{
+  name: "sb",
+  label: "Sân bay",
+  render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+    value: ""
+  }, "T\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+    value: "qn"
+  }, "Qu\u1ED1c n\u1ED9i"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+    value: "qt"
+  }, "Qu\u1ED1c t\u1EBF"))
+}, {
+  name: "xv",
+  label: "Xuất vé",
+  render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+    value: ""
+  }, "T\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+    value: "1"
+  }, "\u0110\xE3 xu\u1EA5t v\xE9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+    value: "-1"
+  }, "Ch\u01B0a xu\u1EA5t v\xE9"))
+}];
+/* harmony default export */ __webpack_exports__["default"] = (filters);
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/DatVe/tinhPhi.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/DatVe/tinhPhi.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var tinhPhi = function tinhPhi(state, childRef, value, type) {
+  var phiHanhLy = state.phiHanhLy,
+      taiKhoan = state.taiKhoan;
+
+  var _childRef$current$get = childRef.current.getFormInstance().getFieldsValue(),
+      id_tai_khoan_mua = _childRef$current$get.id_tai_khoan_mua,
+      hang_bay = _childRef$current$get.hang_bay,
+      loai_tuoi = _childRef$current$get.loai_tuoi,
+      sb_di = _childRef$current$get.sb_di,
+      sb_di1 = _childRef$current$get.sb_di1,
+      sb_ve = _childRef$current$get.sb_ve,
+      sb_ve1 = _childRef$current$get.sb_ve1,
+      phu_phi = _childRef$current$get.phu_phi,
+      vat = _childRef$current$get.vat,
+      gia_net = _childRef$current$get.gia_net,
+      hanh_ly = _childRef$current$get.hanh_ly,
+      tong_tien = _childRef$current$get.tong_tien,
+      phi_san_bay = _childRef$current$get.phi_san_bay,
+      phu_phi_san_bay = _childRef$current$get.phu_phi_san_bay,
+      hoa_hong = _childRef$current$get.hoa_hong;
+
+  console.log("Tinh Phu Phi & Tinh Gia, Tinh Phi"); // VAT
+
+  vat = gia_net / 10;
+  var record = {
+    vat: vat
+  }; // Chọn hành lý
+
+  if (type === "hl") {
+    var hl = phiHanhLy.filter(function (item) {
+      return item.id === value;
+    })[0];
+
+    if (hl) {
+      hanh_ly = hl.muc_phi;
+      Object.assign(record, {
+        hanh_ly: hanh_ly
+      });
+    }
+  } // Tính phí nơi mua thu
+
+
+  if (type === "hb" || type === "tk" || type === "sb") {
+    var tk = taiKhoan.filter(function (item) {
+      return item.id === id_tai_khoan_mua;
+    })[0];
+
+    if (tk) {
+      switch (hang_bay) {
+        case "VN":
+          phu_phi = tk.phi_vn || 0;
+
+        case "VJ":
+          phu_phi = tk.phi_vj || 0;
+
+        case "Jets":
+          phu_phi = tk.phi_jets || 0;
+
+        case "BB":
+          phu_phi = tk.phi_bb || 0;
+      }
+
+      if (!_.isEmpty(sb_ve)) phu_phi *= 2;
+      Object.assign(record, {
+        phu_phi: phu_phi
+      });
+    }
+  } // Tính phí quản trị, phí soi chiếu: Phí sân bay, Phụ phí sân bay
+
+
+  if (type === "hb" || type === "lt" || type === "sb") {
+    // Em bé
+    if (loai_tuoi === 2) phi_san_bay = phu_phi_san_bay = 0;else {
+      // Phi sân bay: Phí soi chiếu, an ninh => chỉ tính với sân bay 1 lúc khởi hành
+      phi_san_bay = tinhPhiSB(state, sb_di, hang_bay, loai_tuoi) + tinhPhiSB(state, sb_ve, hang_bay, loai_tuoi);
+      phu_phi_san_bay = tinhPhuPhiSB(state, sb_di, sb_di1, hang_bay) + tinhPhuPhiSB(state, sb_ve, sb_ve1, hang_bay);
+    }
+    Object.assign(record, {
+      phi_san_bay: phi_san_bay,
+      phu_phi_san_bay: phu_phi_san_bay
+    });
+  } //  Tính giá: Tổng tiền
+
+
+  if (gia_net !== null && gia_net !== 0) {
+    tong_tien = gia_net + vat + (phi_san_bay || 0) + (phu_phi_san_bay || 0) + (hanh_ly || 0) + (phu_phi || 0) - (hoa_hong || 0);
+    Object.assign(record, {
+      tong_tien: tong_tien
+    });
+  }
+
+  Object.assign(record, {
+    resetFields: function resetFields() {
+      return setFormValue(undefined);
+    }
+  });
+  return record;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (tinhPhi);
+/**
+ * Tính phí soi chiếu, an ninh
+ */
+
+var tinhPhiSB = function tinhPhiSB(state, san_bay, hang_bay, loai_tuoi) {
+  var sanBay = state.sanBay,
+      thuePhi = state.thuePhi;
+  if (hang_bay === undefined || hang_bay === "") return 0;
+  var sb = sanBay.filter(function (item) {
+    return item.ma_san_bay === san_bay;
+  })[0];
+
+  var thue = _toConsumableArray(thuePhi);
+
+  hang_bay = hang_bay.toLowerCase();
+
+  if (sb !== undefined) {
+    if (sb.loai_a) thue = thue.filter(function (item) {
+      return item.loai_phi.indexOf("nhóm A") > 0;
+    });else thue = thue.filter(function (item) {
+      return item.loai_phi.indexOf("nhóm B") > 0;
+    });
+    if (loai_tuoi === 0) thue = thue.filter(function (item) {
+      return item.loai_phi.indexOf("Người lớn") > 0;
+    });else if (loai_tuoi === 1) thue = thue.filter(function (item) {
+      return item.loai_phi.indexOf("Trẻ em") > 0;
+    });else return 0;
+    thue = thue.filter(function (item) {
+      return item.loai_phi.toLowerCase().indexOf(hang_bay) > 0;
+    });
+    if (!_.isEmpty(thue)) return thue[0].muc_phi;
+  }
+
+  return 0;
+};
+/**
+ * Tính phí quản trị
+ */
+
+
+var tinhPhuPhiSB = function tinhPhuPhiSB(state, san_bay, san_bay1, hang_bay) {
+  var thuePhi = state.thuePhi;
+  if (san_bay === undefined || san_bay === null || san_bay === "") return 0;
+  if (hang_bay === undefined || hang_bay === null || hang_bay === "") return 0;
+
+  var thue = _toConsumableArray(thuePhi);
+
+  thue = thue.filter(function (item) {
+    return item.loai_phi.indexOf("quản trị") > 0;
+  });
+  hang_bay = hang_bay.toLowerCase();
+  thue = thue.filter(function (item) {
+    return item.loai_phi.toLowerCase().indexOf(hang_bay) > 0;
+  }); //TODO: Với VN còn loại SB dài, ngắn
+
+  if (!_.isEmpty(thue)) return thue[0].muc_phi;
+  return 0;
+};
 
 /***/ }),
 

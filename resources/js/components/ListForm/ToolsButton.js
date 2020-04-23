@@ -79,12 +79,12 @@ const ToolsButton = React.memo(props => {
                     Thêm mới
                 </Button>
             )}
+            {otherButtons !== undefined && renderButtons()}
             {selectable && deleteable && isSelected && (
                 <Button type="danger" onClick={onMultiDelete}>
                     Xóa {selectedRowKeys.length} mục đã chọn
                 </Button>
             )}
-            {otherButtons !== undefined && renderButtons()}
         </div>
     );
 });

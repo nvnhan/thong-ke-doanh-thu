@@ -67,12 +67,12 @@ const form = React.memo(props => {
         ));
 
     const onChange = (value, type = "") => {
-        props.onChangeValue(value, type);
+        props.onChangeValue({ value, type });
     };
 
     const onChangeDebounce = (value, type = "") => {
         if (time !== null) clearTimeout(time);
-        time = setTimeout(() => onChange(value, type), 500);
+        time = setTimeout(() => onChange({ value, type }), 500);
     };
 
     return (

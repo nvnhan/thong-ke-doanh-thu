@@ -1,4 +1,5 @@
 import moment from "moment";
+import React from "react";
 import { vndFormater } from "../../../utils";
 
 const columns = [
@@ -106,4 +107,4 @@ const columns = [
     }
 ];
 
-export default columns;
+export default React.memo(columns);

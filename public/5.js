@@ -127,14 +127,20 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
 
   var _onChange = function onChange(value) {
     var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-    props.onChangeValue(value, type);
+    props.onChangeValue({
+      value: value,
+      type: type
+    });
   };
 
   var onChangeDebounce = function onChangeDebounce(value) {
     var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
     if (time !== null) clearTimeout(time);
     time = setTimeout(function () {
-      return _onChange(value, type);
+      return _onChange({
+        value: value,
+        type: type
+      });
     }, 500);
   };
 
@@ -781,7 +787,10 @@ var form = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+
 
 
 var columns = [{
@@ -837,7 +846,7 @@ var columns = [{
   title: "Tổng tiền",
   dataIndex: "tong_tien",
   render: function render(number) {
-    return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
   },
   sorter: function sorter(a, b) {
     return a.tong_tien - b.tong_tien;
@@ -847,7 +856,7 @@ var columns = [{
   title: "Thu khách",
   dataIndex: "tong_tien_thu_khach",
   render: function render(number) {
-    return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
   },
   sorter: function sorter(a, b) {
     return a.tong_tien_thu_khach - b.tong_tien_thu_khach;
@@ -857,7 +866,7 @@ var columns = [{
   title: "Lãi",
   dataIndex: "lai",
   render: function render(number) {
-    return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
+    return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
   },
   sorter: function sorter(a, b) {
     return a.lai - b.lai;
@@ -883,7 +892,7 @@ var columns = [{
   width: 90,
   optFilter: true
 }];
-/* harmony default export */ __webpack_exports__["default"] = (columns);
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(columns));
 
 /***/ }),
 
@@ -948,7 +957,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
+
+var List = function List(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(undefined),
       _useState2 = _slicedToArray(_useState, 2),
       formValue = _useState2[0],
@@ -1026,7 +1036,14 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
 
 
   var handleFormValue = function handleFormValue(props) {
-    var record = _tinhPhi__WEBPACK_IMPORTED_MODULE_10__["default"].apply(void 0, [state, childRef].concat(_toConsumableArray(props)));
+    var record = Object(_tinhPhi__WEBPACK_IMPORTED_MODULE_10__["default"])(_objectSpread({
+      state: state
+    }, childRef.current.getFormInstance().getFieldsValue(), {}, props));
+    Object.assign(record, {
+      resetFields: function resetFields() {
+        return setFormValue(undefined);
+      }
+    });
     setFormValue(record);
   };
   /**
@@ -1188,8 +1205,9 @@ var List = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_UpdateLayout__WEBPACK_IMPORTED_MODULE_11__["default"], {
     danhMuc: state
   }))));
-});
-/* harmony default export */ __webpack_exports__["default"] = (List);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(List));
 
 /***/ }),
 
@@ -1319,7 +1337,7 @@ var otherButtons = function otherButtons(showUpdates) {
   }];
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (otherButtons);
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(otherButtons));
 
 /***/ }),
 
@@ -1359,7 +1377,7 @@ var filters = [{
     value: "-1"
   }, "Ch\u01B0a xu\u1EA5t v\xE9"))
 }];
-/* harmony default export */ __webpack_exports__["default"] = (filters);
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(filters));
 
 /***/ }),
 
@@ -1384,28 +1402,33 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var tinhPhi = function tinhPhi(state, childRef, value, type) {
+/**
+ * Tính phí cho đặt vé
+ *
+ * @param {*} props
+ * @returns
+ */
+var tinhPhi = function tinhPhi(props) {
+  var state = props.state,
+      value = props.value,
+      type = props.type;
   var phiHanhLy = state.phiHanhLy,
       taiKhoan = state.taiKhoan;
-
-  var _childRef$current$get = childRef.current.getFormInstance().getFieldsValue(),
-      id_tai_khoan_mua = _childRef$current$get.id_tai_khoan_mua,
-      hang_bay = _childRef$current$get.hang_bay,
-      loai_tuoi = _childRef$current$get.loai_tuoi,
-      sb_di = _childRef$current$get.sb_di,
-      sb_di1 = _childRef$current$get.sb_di1,
-      sb_ve = _childRef$current$get.sb_ve,
-      sb_ve1 = _childRef$current$get.sb_ve1,
-      phu_phi = _childRef$current$get.phu_phi,
-      vat = _childRef$current$get.vat,
-      gia_net = _childRef$current$get.gia_net,
-      hanh_ly = _childRef$current$get.hanh_ly,
-      tong_tien = _childRef$current$get.tong_tien,
-      phi_san_bay = _childRef$current$get.phi_san_bay,
-      phu_phi_san_bay = _childRef$current$get.phu_phi_san_bay,
-      hoa_hong = _childRef$current$get.hoa_hong;
-
-  console.log("Tinh Phu Phi & Tinh Gia, Tinh Phi"); // VAT
+  var id_tai_khoan_mua = props.id_tai_khoan_mua,
+      hang_bay = props.hang_bay,
+      loai_tuoi = props.loai_tuoi,
+      sb_di = props.sb_di,
+      sb_di1 = props.sb_di1,
+      sb_ve = props.sb_ve,
+      sb_ve1 = props.sb_ve1,
+      phu_phi = props.phu_phi,
+      vat = props.vat,
+      gia_net = props.gia_net,
+      hanh_ly = props.hanh_ly,
+      tong_tien = props.tong_tien,
+      phi_san_bay = props.phi_san_bay,
+      phu_phi_san_bay = props.phu_phi_san_bay,
+      hoa_hong = props.hoa_hong; // VAT
 
   vat = gia_net / 10;
   var record = {
@@ -1475,11 +1498,6 @@ var tinhPhi = function tinhPhi(state, childRef, value, type) {
     });
   }
 
-  Object.assign(record, {
-    resetFields: function resetFields() {
-      return setFormValue(undefined);
-    }
-  });
   return record;
 };
 

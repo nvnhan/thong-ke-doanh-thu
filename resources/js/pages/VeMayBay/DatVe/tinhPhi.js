@@ -1,4 +1,11 @@
-const tinhPhi = (state, childRef, value, type) => {
+/**
+ * Tính phí cho đặt vé
+ *
+ * @param {*} props
+ * @returns
+ */
+const tinhPhi = props => {
+    const { state, value, type } = props;
     const { phiHanhLy, taiKhoan } = state;
     let {
         id_tai_khoan_mua,
@@ -16,8 +23,7 @@ const tinhPhi = (state, childRef, value, type) => {
         phi_san_bay,
         phu_phi_san_bay,
         hoa_hong
-    } = childRef.current.getFormInstance().getFieldsValue();
-    console.log("Tinh Phu Phi & Tinh Gia, Tinh Phi");
+    } = props;
 
     // VAT
     vat = gia_net / 10;
@@ -77,7 +83,6 @@ const tinhPhi = (state, childRef, value, type) => {
         Object.assign(record, { tong_tien });
     }
 
-    Object.assign(record, { resetFields: () => setFormValue(undefined) });
     return record;
 };
 

@@ -27,4 +27,4 @@ const filters = [
     }
 ];
 
-export default filters;
+export default React.memo(filters);

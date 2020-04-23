@@ -11,7 +11,7 @@ import otherFilters from "./otherFilters";
 import tinhPhi from "./tinhPhi";
 import UpdateLayout from "./UpdateLayout";
 
-const List = React.memo(props => {
+const List = props => {
     const [formValue, setFormValue] = useState(undefined);
     const [update, setUpdate] = useMergeState({
         selectedKeys: [],
@@ -97,7 +97,12 @@ const List = React.memo(props => {
      * => Change setFormValues to ListForm => FormEdit
      */
     const handleFormValue = props => {
-        const record = tinhPhi(state, childRef, ...props);
+        const record = tinhPhi({
+            state,
+            ...childRef.current.getFormInstance().getFieldsValue(),
+            ...props
+        });
+        Object.assign(record, { resetFields: () => setFormValue(undefined) });
         setFormValue(record);
     };
 
@@ -293,6 +298,6 @@ const List = React.memo(props => {
             </Modal>
         </React.Fragment>
     );
-});
+};
 
-export default List;
+export default React.memo(List);

@@ -122,4 +122,4 @@ const otherButtons = showUpdates => [
     }
 ];
 
-export default React.memo(otherButtons);
+export default otherButtons;

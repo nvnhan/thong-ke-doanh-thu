@@ -11,7 +11,7 @@ import otherFilters from "./otherFilters";
 import tinhPhi from "./tinhPhi";
 import UpdateLayout from "./UpdateLayout";
 
-const List = props => {
+const List = (props => {
     const [formValue, setFormValue] = useState(undefined);
     const [update, setUpdate] = useMergeState({
         selectedKeys: [],
@@ -298,6 +298,6 @@ const List = props => {
             </Modal>
         </React.Fragment>
     );
-};
+});
 
 export default React.memo(List);

@@ -892,7 +892,7 @@ var columns = [{
   width: 90,
   optFilter: true
 }];
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(columns));
+/* harmony default export */ __webpack_exports__["default"] = (columns);
 
 /***/ }),
 
@@ -1337,7 +1337,7 @@ var otherButtons = function otherButtons(showUpdates) {
   }];
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(otherButtons));
+/* harmony default export */ __webpack_exports__["default"] = (otherButtons);
 
 /***/ }),
 
@@ -1377,7 +1377,7 @@ var filters = [{
     value: "-1"
   }, "Ch\u01B0a xu\u1EA5t v\xE9"))
 }];
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(filters));
+/* harmony default export */ __webpack_exports__["default"] = (filters);
 
 /***/ }),
 

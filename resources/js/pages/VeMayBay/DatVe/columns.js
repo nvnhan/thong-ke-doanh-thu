@@ -107,4 +107,4 @@ const columns = [
     }
 ];
 
-export default React.memo(columns);
+export default columns;

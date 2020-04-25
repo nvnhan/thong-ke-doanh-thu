@@ -133,6 +133,68 @@ class BaoCaoDatVeController extends Controller
 
     public function layhoadon(Request $request)
     {
-        
+        $objs = explode('|', $request['objects']);
+        if (!\is_array($objs))
+            return;
+
+        // Prepare Excel File
+        $file = storage_path('app/reports') . "/thong-tin-hoa-don.xlsx";
+        $reader = IOFactory::createReader("Xlsx");
+        $spreadSheet = $reader->load($file);
+        $sheet = $spreadSheet->getSheet(0);
+
+        $datVe = DatVe::whereIn('id', $objs)->get();
+        // Thông tin nơi mua
+        $noiMua = $datVe[0]->tai_khoan_mua;
+        if ($noiMua != null) {
+            $sheet->setCellValue("B2", $noiMua->mo_ta);
+            $sheet->setCellValue("B3", "Mã số thuế: " . $noiMua->mst);
+            $sheet->setCellValue("B4", "Địa chỉ: " . $noiMua->dia_chi);
+            $sheet->setCellValue("B5", "Email: " . $noiMua->email);
+        }
+        // Thông tin đại lý
+        $sheet->setCellValue("C7", env("TT_DAI_LY"));
+        $sheet->setCellValue("C14", env("TT_TEN_CONG_TY"));
+        $sheet->setCellValue("C15", env("TT_MST_CONG_TY"));
+        $sheet->setCellValue("C16", env("TT_DIA_CHI_CONG_TY"));
+
+        // Khách hàng nhận hóa đơn
+        $khachHang = $datVe[0]->khach_hang;
+        if ($khachHang != null) {
+            $sheet->setCellValue("C19", $khachHang->ho_ten);
+            $sheet->setCellValue("C20", $khachHang->dia_chi);
+            $sheet->setCellValue("C21", $khachHang->sdt);
+        }
+
+        $rowIndex = 11;
+        if (count($datVe) > 0) $sheet->insertNewRowBefore($rowIndex + 1, count($datVe) - 1);
+        foreach ($datVe as $key => $ve) {
+            $sheet->setCellValue("A" . $rowIndex, $key + 1);
+            $sheet->setCellValue("B" . $rowIndex, (new DateTime($ve->ngay_thang))->format('d/m/Y'));
+
+            if ($ve->hang_bay == "VN" || $ve->hang_bay == "BB")
+                $sheet->setCellValue("C" . $rowIndex, $ve->so_ve);
+            else
+                $sheet->setCellValue("C" . $rowIndex, $ve->ma_giu_cho);
+
+            $sheet->setCellValue("D" . $rowIndex, "$ve->sb_di $ve->sb_di1 $ve->sb_ve1");
+            $sheet->setCellValue("E" . $rowIndex, $ve->tong_tien);
+
+            if ($request->type == 1) {
+                $sheet->setCellValue("F" . $rowIndex, $ve->tong_tien);
+            } else if ($request->type == 2) {
+                $sheet->setCellValue("F" . $rowIndex, $ve->tong_tien_thu_khach);
+                $sheet->setCellValue("G" . $rowIndex, $ve->lai);
+            }
+            $rowIndex++;
+        }
+
+        //set the header first, so the result will be treated as an xlsx file.
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        //make it an attachment so we can define filename
+        header('Content-Disposition: attachment;filename="result.xlsx"');
+        $writer = IOFactory::createWriter($spreadSheet, "Xlsx");
+        // Write file to output
+        $writer->save('php://output');
     }
 }

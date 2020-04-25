@@ -1074,6 +1074,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var downloadApi = function downloadApi(url, selectedRowKeys, fileName) {
+  var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
   antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].info({
     title: "Thông báo",
     centered: true,
@@ -1091,7 +1092,8 @@ var downloadApi = function downloadApi(url, selectedRowKeys, fileName) {
   });
   axios.get(url, {
     params: {
-      objects: selectedRowKeys.join("|")
+      objects: selectedRowKeys.join("|"),
+      type: type
     },
     responseType: "blob" // important
 
@@ -1143,8 +1145,8 @@ var veDienTu = function veDienTu(data, selectedRowKeys) {
  */
 
 
-var layHoaDon = function layHoaDon(data, selectedRowKeys) {
-  return downloadApi("/api/dat-ve/lay-hoa-don", selectedRowKeys, "thong-tin-lay-hoa-don.xlsx");
+var layHoaDon = function layHoaDon(data, selectedRowKeys, type) {
+  return downloadApi("/api/dat-ve/lay-hoa-don", selectedRowKeys, "thong-tin-lay-hoa-don.xlsx", type);
 };
 /**
  * Bảng kê hóa đơn
@@ -1213,26 +1215,40 @@ var otherButtons = function otherButtons(showUpdates) {
         return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_4__["default"])(data, selectedRowKeys, "dat-ve.xlsx");
       },
       title: "Xuất danh sách ra Excel",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
-      color: "#4bab92"
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null)
     }, {
       key: "layhoadon",
-      onClick: layHoaDon,
       title: "Thông tin lấy hóa đơn",
       icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
-      color: "#4bab92"
+      childs: [{
+        key: "hoadonmuavao",
+        onClick: function onClick(data, selectedRowKeys) {
+          return layHoaDon(data, selectedRowKeys, 1);
+        },
+        title: "Xuất theo giá mua vào"
+      }, {
+        key: "hoadonbanra",
+        onClick: function onClick(data, selectedRowKeys) {
+          return layHoaDon(data, selectedRowKeys, 2);
+        },
+        title: "Xuất theo giá bán ra"
+      }, {
+        key: "hoadontunhap",
+        onClick: function onClick(data, selectedRowKeys) {
+          return layHoaDon(data, selectedRowKeys, 0);
+        },
+        title: "Tự nhập giá"
+      }]
     }, {
       key: "bangkehoadon",
       onClick: bangKeHoaDon,
       title: "Bảng kê hóa đơn",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
-      color: "#4bab92"
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null)
     }, {
       key: "xuatcongno",
       onClick: congNo,
       title: "Mẫu xuất công nợ",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null),
-      color: "#4bab92"
+      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null)
     }]
   }];
 };

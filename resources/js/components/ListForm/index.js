@@ -309,7 +309,6 @@ ListForm.propTypes = {
             onClick: PropTypes.func,
             icon: PropTypes.node,
             title: PropTypes.string,
-            color: PropTypes.string,
             childs: PropTypes.array,
             selectRequired: PropTypes.bool
         })

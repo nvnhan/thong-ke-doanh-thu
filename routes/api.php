@@ -43,8 +43,9 @@ Route::middleware('auth:api')->group(function () {
     Route::put('dat-ve/updates', 'DatVeController@updates');
     Route::get('dat-ve/hang-bay', 'DatVeController@hangbay');
     Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
-
+    // Bao Cao
     Route::get('dat-ve/mau-ve', 'BaoCaoDatVeController@mauve');
+    Route::get('dat-ve/lay-hoa-don', 'BaoCaoDatVeController@layhoadon');
     
     // Thong Tin Chung
     Route::get('tai-khoan/all', 'TaiKhoanController@all');

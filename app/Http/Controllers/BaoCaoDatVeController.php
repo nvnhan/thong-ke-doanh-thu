@@ -130,4 +130,9 @@ class BaoCaoDatVeController extends Controller
         // Write file to output
         $writer->save('php://output');
     }
+
+    public function layhoadon(Request $request)
+    {
+        
+    }
 }

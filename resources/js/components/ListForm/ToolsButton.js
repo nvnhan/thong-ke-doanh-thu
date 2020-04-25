@@ -1,5 +1,5 @@
 import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Menu } from "antd";
+import { Button, Dropdown, Menu, Divider } from "antd";
 import React from "react";
 import "./ToolsButton.scss";
 
@@ -39,7 +39,7 @@ const ToolsButton = React.memo(props => {
             else if (btn.selectRequired === false || isSelected)
                 return (
                     <Dropdown key={btn.key} overlay={layButtons(btn.childs)}>
-                        <Button>
+                        <Button icon={btn.icon}>
                             {btn.title} <DownOutlined />
                         </Button>
                     </Dropdown>
@@ -52,20 +52,39 @@ const ToolsButton = React.memo(props => {
         return (
             <Menu>
                 {childs.map(btn => {
-                    if (btn.selectRequired === false || isSelected)
-                        return (
-                            <Menu.Item
-                                key={btn.key}
-                                onClick={() =>
-                                    btn.onClick(data, selectedRowKeys)
-                                }
-                                style={{
-                                    color: btn.color
-                                }}
-                            >
-                                {btn.icon} {btn.title}
-                            </Menu.Item>
-                        );
+                    if (btn.selectRequired === false || isSelected) {
+                        // Không có child
+                        if (btn.childs === undefined)
+                            return (
+                                <Menu.Item
+                                    key={btn.key}
+                                    onClick={() =>
+                                        btn.onClick(data, selectedRowKeys)
+                                    }
+                                >
+                                    {btn.title}
+                                </Menu.Item>
+                            );
+                        // Map tiếp để tạo các submenu items
+                        else
+                            return (
+                                <Menu.SubMenu title={btn.title} key={btn.key}>
+                                    {btn.childs.map(btn1 => (
+                                        <Menu.Item
+                                            key={btn1.key}
+                                            onClick={() =>
+                                                btn1.onClick(
+                                                    data,
+                                                    selectedRowKeys
+                                                )
+                                            }
+                                        >
+                                            {btn1.title}
+                                        </Menu.Item>
+                                    ))}
+                                </Menu.SubMenu>
+                            );
+                    }
                     return "";
                 })}
             </Menu>
@@ -81,9 +100,12 @@ const ToolsButton = React.memo(props => {
             )}
             {otherButtons !== undefined && renderButtons()}
             {selectable && deleteable && isSelected && (
-                <Button type="danger" onClick={onMultiDelete}>
-                    Xóa {selectedRowKeys.length} mục đã chọn
-                </Button>
+                <>
+                    <Divider type="vertical" />
+                    <Button type="link" danger onClick={onMultiDelete}>
+                        Xóa {selectedRowKeys.length} mục đã chọn
+                    </Button>
+                </>
             )}
         </div>
     );

@@ -573,22 +573,36 @@ var ToolsButton = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (pr
       }, btn.title);else if (btn.selectRequired === false || isSelected) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Dropdown"], {
         key: btn.key,
         overlay: layButtons(btn.childs)
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, btn.title, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DownOutlined"], null)));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+        icon: btn.icon
+      }, btn.title, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DownOutlined"], null)));
       return "";
     });
   };
 
   var layButtons = function layButtons(childs) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"], null, childs.map(function (btn) {
-      if (btn.selectRequired === false || isSelected) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
-        key: btn.key,
-        onClick: function onClick() {
-          return btn.onClick(data, selectedRowKeys);
-        },
-        style: {
-          color: btn.color
-        }
-      }, btn.icon, " ", btn.title);
+      if (btn.selectRequired === false || isSelected) {
+        // Không có child
+        if (btn.childs === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
+          key: btn.key,
+          onClick: function onClick() {
+            return btn.onClick(data, selectedRowKeys);
+          }
+        }, btn.title); // Map tiếp để tạo các submenu items
+        else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].SubMenu, {
+            title: btn.title,
+            key: btn.key
+          }, btn.childs.map(function (btn1) {
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
+              key: btn1.key,
+              onClick: function onClick() {
+                return btn1.onClick(data, selectedRowKeys);
+              }
+            }, btn1.title);
+          }));
+      }
+
       return "";
     }));
   };
@@ -598,10 +612,13 @@ var ToolsButton = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (pr
   }, insertable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "primary",
     onClick: handleAddNew
-  }, "Th\xEAm m\u1EDBi"), otherButtons !== undefined && renderButtons(), selectable && deleteable && isSelected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    type: "danger",
+  }, "Th\xEAm m\u1EDBi"), otherButtons !== undefined && renderButtons(), selectable && deleteable && isSelected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Divider"], {
+    type: "vertical"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    type: "link",
+    danger: true,
     onClick: onMultiDelete
-  }, "X\xF3a ", selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn"));
+  }, "X\xF3a ", selectedRowKeys.length, " m\u1EE5c \u0111\xE3 ch\u1ECDn")));
 });
 /* harmony default export */ __webpack_exports__["default"] = (ToolsButton);
 

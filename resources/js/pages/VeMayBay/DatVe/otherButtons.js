@@ -4,7 +4,7 @@ import React from "react";
 import downloadFile from "../../../utils/downloadFile";
 import exportDS from "../../../utils/exportDatVe";
 
-const downloadApi = (url, selectedRowKeys, fileName) => {
+const downloadApi = (url, selectedRowKeys, fileName, type = "") => {
     Modal.info({
         title: "Thông báo",
         centered: true,
@@ -24,7 +24,8 @@ const downloadApi = (url, selectedRowKeys, fileName) => {
     axios
         .get(url, {
             params: {
-                objects: selectedRowKeys.join("|")
+                objects: selectedRowKeys.join("|"),
+                type
             },
             responseType: "blob" // important
         })
@@ -69,11 +70,12 @@ const veDienTu = (data, selectedRowKeys) =>
 /**
  * Thông tin lấy hóa đơn
  */
-const layHoaDon = (data, selectedRowKeys) =>
+const layHoaDon = (data, selectedRowKeys, type) =>
     downloadApi(
         "/api/dat-ve/lay-hoa-don",
         selectedRowKeys,
-        "thong-tin-lay-hoa-don.xlsx"
+        "thong-tin-lay-hoa-don.xlsx",
+        type
     );
 /**
  * Bảng kê hóa đơn
@@ -148,29 +150,44 @@ const otherButtons = showUpdates => [
                 onClick: (data, selectedRowKeys) =>
                     exportDS(data, selectedRowKeys, "dat-ve.xlsx"),
                 title: "Xuất danh sách ra Excel",
-                icon: <FileExcelOutlined />,
-                color: "#4bab92"
+                icon: <FileExcelOutlined />
             },
             {
                 key: "layhoadon",
-                onClick: layHoaDon,
                 title: "Thông tin lấy hóa đơn",
                 icon: <FileExcelOutlined />,
-                color: "#4bab92"
+                childs: [
+                    {
+                        key: "hoadonmuavao",
+                        onClick: (data, selectedRowKeys) =>
+                            layHoaDon(data, selectedRowKeys, 1),
+                        title: "Xuất theo giá mua vào"
+                    },
+                    {
+                        key: "hoadonbanra",
+                        onClick: (data, selectedRowKeys) =>
+                            layHoaDon(data, selectedRowKeys, 2),
+                        title: "Xuất theo giá bán ra"
+                    },
+                    {
+                        key: "hoadontunhap",
+                        onClick: (data, selectedRowKeys) =>
+                            layHoaDon(data, selectedRowKeys, 0),
+                        title: "Tự nhập giá"
+                    }
+                ]
             },
             {
                 key: "bangkehoadon",
                 onClick: bangKeHoaDon,
                 title: "Bảng kê hóa đơn",
-                icon: <FileExcelOutlined />,
-                color: "#4bab92"
+                icon: <FileExcelOutlined />
             },
             {
                 key: "xuatcongno",
                 onClick: congNo,
                 title: "Mẫu xuất công nợ",
-                icon: <FileExcelOutlined />,
-                color: "#4bab92"
+                icon: <FileExcelOutlined />
             }
         ]
     }

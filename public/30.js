@@ -1,17 +1,18 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[30],{
 
-/***/ "./resources/js/pages/Account/Profile/index.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/pages/Account/Profile/index.js ***!
-  \*****************************************************/
+/***/ "./resources/js/pages/TrangChu/index.js":
+/*!**********************************************!*\
+  !*** ./resources/js/pages/TrangChu/index.js ***!
+  \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -26,78 +27,144 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
-      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
-      form = _Form$useForm2[0];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    // Check it in server
-    axios.get("/api/get-user").then(function (response) {
-      if (response.data.success) {
-        var data = response.data.data;
-        form.setFieldsValue(data);
-      } else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
+var TrangChu = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    datve: [],
+    thongtinve: []
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    axios.get("/api/trang-chu").then(function (response) {
+      if (response.data.success) setData(response.data.data);
     })["catch"](function (error) {
       return console.log(error);
     });
   }, []);
-
-  var onFinish = function onFinish() {
-    var values = form.getFieldValue();
-    axios.put("/api/profile", values).then(function (response) {
-      if (response.data.success) antd__WEBPACK_IMPORTED_MODULE_0__["message"].success(response.data.message);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
-    })["catch"](function (error) {
-      return console.log(error);
-    });
+  var monthChartData = {
+    labels: data.datve.ngay_thangs,
+    datasets: [{
+      label: "Thanh toán",
+      fill: false,
+      borderColor: "#4bab92",
+      backgroundColor: "#4bab92",
+      type: "line",
+      data: data.datve.thanh_toans
+    }, {
+      label: "Đặt vé",
+      backgroundColor: "#AB4B64",
+      data: data.datve.dat_ves
+    }]
   };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "list-form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "sm-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
-    form: form,
-    onFinish: onFinish,
-    labelCol: {
-      span: 8
-    },
-    wrapperCol: {
-      span: 16
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "username",
-    label: "T\xEAn \u0111\u0103ng nh\u1EADp",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
+  var ttveChartData = {
+    labels: data.thongtinve.hang_muc,
+    datasets: [{
+      label: "Quốc nội",
+      stack: "Stack 0",
+      backgroundColor: "#4bab92",
+      barPercentage: 0.5,
+      data: data.thongtinve.quoc_noi
+    }, {
+      label: "Quốc tế",
+      stack: "Stack 0",
+      backgroundColor: "#AB4B64",
+      barPercentage: 0.5,
+      data: data.thongtinve.quoc_te
     }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
-    disabled: true
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ho_ten",
-    label: "H\u1ECD t\xEAn",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "sdt",
-    label: "S\u1ED1 \u0111i\u1EC7n tho\u1EA1i"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "dia_chi",
-    label: "\u0110\u1ECBa ch\u1EC9"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    wrapperCol: {
-      span: 16,
-      offset: 8
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Row"], {
+    gutter: [16, 16]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "chart-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
+    width: 400,
+    height: 250,
+    data: monthChartData,
+    options: {
+      legend: {
+        position: "bottom"
+      },
+      title: {
+        display: true,
+        text: "Số lượng vé đặt / vé thanh toán trong tháng",
+        fontSize: 14
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          },
+          ticks: {
+            stepSize: 1
+          }
+        }]
+      }
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
-    type: "primary",
-    htmlType: "submit"
-  }, "C\u1EADp nh\u1EADt")))));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "chart-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
+    width: 400,
+    height: 250,
+    data: ttveChartData,
+    options: {
+      legend: {
+        position: "bottom"
+      },
+      title: {
+        display: true,
+        text: "Thông tin vé trong tháng",
+        fontSize: 14
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          gridLines: {
+            display: true,
+            drawBorder: true,
+            drawOnChartArea: false
+          },
+          ticks: {
+            stepSize: 1
+          }
+        }]
+      }
+    }
+  })))));
 });
-/* harmony default export */ __webpack_exports__["default"] = (Profile);
+/* harmony default export */ __webpack_exports__["default"] = (TrangChu);
 
 /***/ })
 

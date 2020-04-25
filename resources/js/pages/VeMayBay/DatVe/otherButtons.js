@@ -1,8 +1,40 @@
 import { FileExcelOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Input, Modal } from "antd";
+import { Input, Modal, Progress } from "antd";
 import React from "react";
-import exportDS from "../../../utils/exportDatVe";
 import downloadFile from "../../../utils/downloadFile";
+import exportDS from "../../../utils/exportDatVe";
+
+const downloadApi = (url, selectedRowKeys, fileName) => {
+    Modal.info({
+        title: "Thông báo",
+        centered: true,
+        icon: null,
+        content: (
+            <div style={{ textAlign: "center" }}>
+                <Progress
+                    percent={100}
+                    status="active"
+                    showInfo={false}
+                    strokeColor="#6dc3a6"
+                />
+                <span>Đang tạo báo cáo...</span>
+            </div>
+        )
+    });
+    axios
+        .get(url, {
+            params: {
+                objects: selectedRowKeys.join("|")
+            },
+            responseType: "blob" // important
+        })
+        .then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            downloadFile(url, fileName);
+        })
+        .catch(error => console.log(error))
+        .then(() => Modal.destroyAll());
+};
 
 /**
  * Tạo code vé
@@ -32,25 +64,31 @@ const codeVe = (data, selectedRowKeys) => {
 /**
  * Tạo mặt vé điện tử
  */
-const veDienTu = (data, selectedRowKeys) => {
-    axios
-        .get("/api/dat-ve/mau-ve", {
-            params: {
-                objects: selectedRowKeys.join("|")
-            },
-            responseType: "blob" // important
-        })
-        .then(response => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            downloadFile(url, "mat-ve-dien-tu.xlsx");
-        });
-};
-
-const layHoaDon = (data, selectedRowKeys) => {};
-
-const banKeHoaDon = (data, selectedRowKeys) => {};
-
-const congNo = (data, selectedRowKeys) => {};
+const veDienTu = (data, selectedRowKeys) =>
+    downloadApi("/api/dat-ve/mau-ve", selectedRowKeys, "mat-ve-dien-tu.xlsx");
+/**
+ * Thông tin lấy hóa đơn
+ */
+const layHoaDon = (data, selectedRowKeys) =>
+    downloadApi(
+        "/api/dat-ve/lay-hoa-don",
+        selectedRowKeys,
+        "thong-tin-lay-hoa-don.xlsx"
+    );
+/**
+ * Bảng kê hóa đơn
+ */
+const bangKeHoaDon = (data, selectedRowKeys) =>
+    downloadApi("/api/dat-ve/bang-ke", selectedRowKeys, "bang-ke-hoa-don.xlsx");
+/**
+ * Mẫu xuất công nợ
+ */
+const congNo = (data, selectedRowKeys) =>
+    downloadApi(
+        "/api/dat-ve/cong-no",
+        selectedRowKeys,
+        "mau-xuat-cong-no.xlsx"
+    );
 
 const themTuKetQua = () => {};
 
@@ -122,7 +160,7 @@ const otherButtons = showUpdates => [
             },
             {
                 key: "bangkehoadon",
-                onClick: banKeHoaDon,
+                onClick: bangKeHoaDon,
                 title: "Bảng kê hóa đơn",
                 icon: <FileExcelOutlined />,
                 color: "#4bab92"

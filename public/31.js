@@ -1,170 +1,93 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[31],{
 
-/***/ "./resources/js/pages/TrangChu/index.js":
-/*!**********************************************!*\
-  !*** ./resources/js/pages/TrangChu/index.js ***!
-  \**********************************************/
+/***/ "./resources/js/pages/VeMayBay/ChuaBay/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ChuaBay/index.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportDatVe */ "./resources/js/utils/exportDatVe.js");
+/* harmony import */ var _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../DatVe/columns */ "./resources/js/pages/VeMayBay/DatVe/columns.js");
+/* harmony import */ var _DatVe_expandedRow__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../DatVe/expandedRow */ "./resources/js/pages/VeMayBay/DatVe/expandedRow.js");
 
 
 
 
-var TrangChu = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
-    datve: [],
-    thongtinve: []
-  }),
-      _useState2 = _slicedToArray(_useState, 2),
-      data = _useState2[0],
-      setData = _useState2[1];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    axios.get("/api/trang-chu").then(function (response) {
-      if (response.data.success) setData(response.data.data);
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  }, []);
-  var monthChartData = {
-    labels: data.datve.ngay_thangs,
-    datasets: [{
-      label: "Thanh toán",
-      fill: false,
-      borderColor: "#4bab92",
-      backgroundColor: "#4bab92",
-      type: "line",
-      data: data.datve.thanh_toans
-    }, {
-      label: "Đặt vé",
-      backgroundColor: "#AB4B64",
-      data: data.datve.dat_ves
-    }]
+
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
+  var getOtherFilter = function getOtherFilter() {
+    return [{
+      name: "den_ngay",
+      label: "Tính đến",
+      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        style: {
+          width: "100%"
+        },
+        locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
+        format: "HH:mm DD/MM/YYYY"
+      })
+    }];
   };
-  var ttveChartData = {
-    labels: data.thongtinve.hang_muc,
-    datasets: [{
-      label: "Quốc nội",
-      stack: "Stack 0",
-      backgroundColor: "#4bab92",
-      barPercentage: 0.5,
-      data: data.thongtinve.quoc_noi
-    }, {
-      label: "Quốc tế",
-      stack: "Stack 0",
-      backgroundColor: "#AB4B64",
-      barPercentage: 0.5,
-      data: data.thongtinve.quoc_te
-    }]
+
+  var renderSummary = function renderSummary(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          tong_tien: previousValue.tong_tien + currentValue.tong_tien,
+          tong_tien_thu_khach: previousValue.tong_tien_thu_khach + currentValue.tong_tien_thu_khach
+        };
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
+        colSpan: 10
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
+    }
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Row"], {
-    gutter: [16, 16]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "chart-card"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
-    width: 400,
-    height: 250,
-    data: monthChartData,
-    options: {
-      legend: {
-        position: "bottom"
-      },
-      title: {
-        display: true,
-        text: "Số lượng vé đặt / vé thanh toán trong tháng",
-        fontSize: 14
-      },
-      tooltips: {
-        mode: "index",
-        intersect: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines: {
-            display: true,
-            drawBorder: true,
-            drawOnChartArea: false
-          }
-        }],
-        yAxes: [{
-          gridLines: {
-            display: true,
-            drawBorder: true,
-            drawOnChartArea: false
-          },
-          ticks: {
-            stepSize: 1
-          }
-        }]
-      }
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "chart-card"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
-    width: 400,
-    height: 250,
-    data: ttveChartData,
-    options: {
-      legend: {
-        position: "bottom"
-      },
-      title: {
-        display: true,
-        text: "Thông tin vé trong tháng",
-        fontSize: 14
-      },
-      tooltips: {
-        mode: "index",
-        intersect: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines: {
-            display: true,
-            drawBorder: true,
-            drawOnChartArea: false
-          }
-        }],
-        yAxes: [{
-          stacked: true,
-          gridLines: {
-            display: true,
-            drawBorder: true,
-            drawOnChartArea: false
-          },
-          ticks: {
-            stepSize: 1
-          }
-        }]
-      }
-    }
-  })))));
+
+  var otherButtons = [{
+    key: "export",
+    onClick: function onClick(data, selectedRowKeys) {
+      return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__["default"])(data, selectedRowKeys, "chua-bay.xlsx");
+    },
+    title: "Xuất danh sách ra Excel",
+    selectRequired: false
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    url: "chua-bay",
+    insertable: false,
+    selectable: false,
+    editable: false,
+    deleteable: false,
+    filterBox: true,
+    tuNgayDenNgay: false,
+    otherFilter: getOtherFilter(),
+    filterInitialValue: {
+      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("HH:mm DD/MM/YYYY")
+    },
+    columns: _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__["default"],
+    tableSize: {
+      x: 1800
+    },
+    otherButtons: otherButtons,
+    expandedRowRender: _DatVe_expandedRow__WEBPACK_IMPORTED_MODULE_8__["default"],
+    renderSummary: renderSummary
+  });
 });
-/* harmony default export */ __webpack_exports__["default"] = (TrangChu);
+/* harmony default export */ __webpack_exports__["default"] = (List);
 
 /***/ })
 

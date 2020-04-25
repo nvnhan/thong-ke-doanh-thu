@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DatVe;
 use App\SanBay;
+use App\Util;
 use DateTime;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -188,6 +189,90 @@ class BaoCaoDatVeController extends Controller
             }
             $rowIndex++;
         }
+
+        //set the header first, so the result will be treated as an xlsx file.
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        //make it an attachment so we can define filename
+        header('Content-Disposition: attachment;filename="result.xlsx"');
+        $writer = IOFactory::createWriter($spreadSheet, "Xlsx");
+        // Write file to output
+        $writer->save('php://output');
+    }
+
+    public function bangkehoadon(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (!\is_array($objs))
+            return;
+
+        // Prepare Excel File
+        $file = storage_path('app/reports') . "/bang-ke.xlsx";
+        $reader = IOFactory::createReader("Xlsx");
+        $spreadSheet = $reader->load($file);
+        $sheet = $spreadSheet->getSheet(0);
+
+        $sheet->setCellValue("A1", "Công ty: " . env("TT_TEN_CONG_TY"));
+        $sheet->setCellValue("A2", "MST: " . env("TT_MST_CONG_TY"));
+        $sheet->setCellValue("A3", "Địa chỉ: " . env("TT_DIA_CHI_CONG_TY"));
+
+        $datVe = DatVe::whereIn('id', $objs)->get();
+
+        // Thông tin khách hàng
+        $khachHang = $datVe[0]->khach_hang;
+        if ($khachHang != null) {
+            $sheet->setCellValue("A6", "Tên khách hàng (Customer): " . $khachHang->ho_ten);
+            $sheet->setCellValue("A7", "Mã số thuế (Vat Code): " . $khachHang->mst);
+            $sheet->setCellValue("A8", "Địa chỉ (Address): " . $khachHang->dia_chi);
+        }
+
+        $rowIndex = 12;
+        $snet = 0;
+        $sfee = 0;
+        $svat = 0;
+        $smisc = 0;
+        if (count($datVe) > 0) $sheet->insertNewRowBefore($rowIndex + 1, count($datVe) - 1);
+        foreach ($datVe as $key => $ve) {
+            $sheet->setCellValue("A" . $rowIndex, $key + 1);
+            $sheet->setCellValue("B" . $rowIndex, $ve->so_ve);
+            $sheet->setCellValue("C" . $rowIndex, $ve->ten_khach);
+
+            $sheet->setCellValue("D" . $rowIndex, "$ve->sb_di $ve->sb_di1 $ve->sb_ve1");
+            $sheet->setCellValue("E" . $rowIndex, 1);
+
+            $tmp = $ve->gia_net;
+            $snet += $ve->gia_net;
+            $sheet->setCellValue("F" . $rowIndex, $ve->gia_net);
+            $sheet->setCellValue("G" . $rowIndex, $ve->gia_net);
+
+            $fee = ($ve->lai + $ve->hanh_ly + $ve->phu_phi + $ve->phu_phi_san_bay) / 1.1;
+            $tmp += $fee;
+            $sfee += $fee;
+            $sheet->setCellValue("H" . $rowIndex, $fee);
+
+            $vat = ($ve->gia_net + $fee) / 10;
+            $tmp += $vat;
+            $svat += $vat;
+            $sheet->setCellValue("I" . $rowIndex, $vat);
+
+            $tmp += $ve->phi_san_bay;
+            $smisc += $ve->phi_san_bay;
+            $sheet->setCellValue("J" . $rowIndex, $ve->phi_san_bay);
+            $sheet->setCellValue("K" . $rowIndex, 0);
+            $sheet->setCellValue("L" . $rowIndex, $tmp);
+
+            $rowIndex++;
+        }
+        $sheet->setCellValue("F" . $rowIndex, $snet);
+        $sheet->setCellValue("G" . $rowIndex, $snet);
+        $sheet->setCellValue("H" . $rowIndex, $sfee);
+        $sheet->setCellValue("I" . $rowIndex, $svat);
+        $sheet->setCellValue("J" . $rowIndex, $smisc);
+        $sheet->setCellValue("K" . $rowIndex, 0);
+        $sum = $snet + $sfee + $svat + $smisc;
+        $sheet->setCellValue("L" . $rowIndex, $sum);
+
+        $rowIndex += 2;
+        $sheet->setCellValue("B" . $rowIndex, "(Bằng chữ: " . Util::convert_number_to_words((int) $sum) . " đồng./.)");
 
         //set the header first, so the result will be treated as an xlsx file.
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

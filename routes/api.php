@@ -47,7 +47,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('dat-ve/mau-ve', 'BaoCaoDatVeController@mauve');
     Route::get('dat-ve/lay-hoa-don', 'BaoCaoDatVeController@layhoadon');
     Route::get('dat-ve/bang-ke', 'BaoCaoDatVeController@bangkehoadon');
-    
+
     // Thong Tin Chung
     Route::get('tai-khoan/all', 'TaiKhoanController@all');
     Route::delete('tai-khoan/deletes', 'TaiKhoanController@deletes');
@@ -84,10 +84,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('tong-hop-hang', 'HangHoaController@tonghop');
 
     // Add middleware checkadmin
-
-    Route::delete('nhan-vien/deletes', 'UserController@deletes');
-    Route::get('nhan-vien/all', 'UserController@all');
-    Route::resource('nhan-vien', 'UserController')->only(['index', 'update', 'destroy']);
+    Route::middleware('checkadmin')->group(function () {
+        Route::delete('nhan-vien/deletes', 'UserController@deletes');
+        Route::get('nhan-vien/all', 'UserController@all');
+        Route::resource('nhan-vien', 'UserController')->only(['index', 'update', 'destroy']);
+    });
 
 
     Route::delete('thu-chi/deletes', 'ThuChiController@deletes');

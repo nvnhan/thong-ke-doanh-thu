@@ -30,11 +30,15 @@ const List = props => {
         hangBay: []
     });
     const childRef = useRef();
+    let isComponentMounted = false;
     let time = null;
 
     useEffect(() => {
+        isComponentMounted = true;
         retrieveData();
         return () => {
+            // When Unmount component
+            isComponentMounted = false;
             if (time) clearTimeout(time);
         };
     }, []);
@@ -60,32 +64,33 @@ const List = props => {
             promise6
         ])
             .then(response => {
-                if (
-                    response[0].data.success &&
-                    response[1].data.success &&
-                    response[2].data.success &&
-                    response[3].data.success &&
-                    response[4].data.success &&
-                    response[5].data.success
-                ) {
-                    setState({
-                        sanBay: response[0].data.data,
-                        thuePhi: response[1].data.data,
-                        phiHanhLy: response[2].data.data,
-                        taiKhoan: response[3].data.data,
-                        khachHang: response[4].data.data,
-                        hangBay: [
-                            ...new Set([
-                                ...response[5].data.data,
-                                "VN",
-                                "VJ",
-                                "Jets",
-                                "BB"
-                            ])
-                        ]
-                    });
-                    console.log("Retrieved Danh Muc Succcessfully");
-                } else time = setTimeout(retrieveData, 2000);
+                if (isComponentMounted)
+                    if (
+                        response[0].data.success &&
+                        response[1].data.success &&
+                        response[2].data.success &&
+                        response[3].data.success &&
+                        response[4].data.success &&
+                        response[5].data.success
+                    ) {
+                        setState({
+                            sanBay: response[0].data.data,
+                            thuePhi: response[1].data.data,
+                            phiHanhLy: response[2].data.data,
+                            taiKhoan: response[3].data.data,
+                            khachHang: response[4].data.data,
+                            hangBay: [
+                                ...new Set([
+                                    ...response[5].data.data,
+                                    "VN",
+                                    "VJ",
+                                    "Jets",
+                                    "BB"
+                                ])
+                            ]
+                        });
+                        console.log("Retrieved Danh Muc Succcessfully");
+                    } else time = setTimeout(retrieveData, 2000);
             })
             .catch(error => {
                 console.log(error);

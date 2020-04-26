@@ -1,30 +1,110 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
 
-/***/ "./resources/js/pages/BaoCao/TongHopCongNo/index.js":
+/***/ "./node_modules/antd/es/date-picker/locale/vi_VN.js":
 /*!**********************************************************!*\
-  !*** ./resources/js/pages/BaoCao/TongHopCongNo/index.js ***!
+  !*** ./node_modules/antd/es/date-picker/locale/vi_VN.js ***!
   \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm/DataTable */ "./resources/js/components/ListForm/DataTable.js");
-/* harmony import */ var _components_ListForm_FilterBox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/FilterBox */ "./resources/js/components/ListForm/FilterBox.js");
-/* harmony import */ var _components_ListForm_ToolsButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/ToolsButton */ "./resources/js/components/ListForm/ToolsButton.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var _utils_exportToExcel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportToExcel */ "./resources/js/utils/exportToExcel.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+/* harmony import */ var rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rc-picker/es/locale/vi_VN */ "./node_modules/rc-picker/es/locale/vi_VN.js");
+/* harmony import */ var _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../time-picker/locale/vi_VN */ "./node_modules/antd/es/time-picker/locale/vi_VN.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+ // Merge into a locale object
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+var locale = {
+  lang: _extends({
+    placeholder: 'Chọn thời điểm',
+    rangePlaceholder: ['Ngày bắt đầu', 'Ngày kết thúc']
+  }, rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"]),
+  timePickerLocale: _extends({}, _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"])
+}; // All settings at:
+// https://github.com/ant-design/ant-design/blob/master/components/date-picker/locale/example.json
 
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/antd/es/time-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/time-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  placeholder: 'Chọn thời gian'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/rc-picker/es/locale/vi_VN.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rc-picker/es/locale/vi_VN.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  locale: 'vi_VN',
+  today: 'Hôm nay',
+  now: 'Bây giờ',
+  backToToday: 'Trở về hôm nay',
+  ok: 'Ok',
+  clear: 'Xóa',
+  month: 'Tháng',
+  year: 'Năm',
+  timeSelect: 'Chọn thời gian',
+  dateSelect: 'Chọn ngày',
+  weekSelect: 'Chọn tuần',
+  monthSelect: 'Chọn tháng',
+  yearSelect: 'Chọn năm',
+  decadeSelect: 'Chọn thập kỷ',
+  yearFormat: 'YYYY',
+  dateFormat: 'D/M/YYYY',
+  dayFormat: 'D',
+  dateTimeFormat: 'D/M/YYYY HH:mm:ss',
+  monthBeforeYear: true,
+  previousMonth: 'Tháng trước (PageUp)',
+  nextMonth: 'Tháng sau (PageDown)',
+  previousYear: 'Năm trước (Control + left)',
+  nextYear: 'Năm sau (Control + right)',
+  previousDecade: 'Thập kỷ trước',
+  nextDecade: 'Thập kỷ sau',
+  previousCentury: 'Thế kỷ trước',
+  nextCentury: 'Thế kỷ sau'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./resources/js/pages/BaoCao/DoiSoatTaiKhoan/index.js":
+/*!************************************************************!*\
+  !*** ./resources/js/pages/BaoCao/DoiSoatTaiKhoan/index.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_downloadFile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/downloadFile */ "./resources/js/utils/downloadFile.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -44,266 +124,117 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var RangePicker = antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"].RangePicker;
+var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option,
+    OptGroup = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].OptGroup;
 
-var List = function List(props) {
-  var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["useMergeState"])({
-    data: {
-      muavao: [],
-      banra: []
-    },
-    isLoading: true
+var index = function index(props) {
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm(),
+      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
+      form = _Form$useForm2[0];
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(function () {
+    axios.get("/api/tai-khoan/all").then(function (response) {
+      if (response.data.success) setTaiKhoan(response.data.data);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
   }),
-      _useMergeState2 = _slicedToArray(_useMergeState, 2),
-      state = _useMergeState2[0],
-      setState = _useMergeState2[1];
-
-  var data = state.data,
-      isLoading = state.isLoading;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined),
       _useState2 = _slicedToArray(_useState, 2),
-      ownFilter = _useState2[0],
-      setOwnFilter = _useState2[1];
+      taiKhoan = _useState2[0],
+      setTaiKhoan = _useState2[1];
 
-  var isComponentMounted = false;
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    isComponentMounted = true; // Không Có filter hoặc có filter và đã load xong
+  var onFinish = function onFinish() {
+    var values = form.getFieldsValue();
 
-    if (ownFilter === undefined || !_.isEmpty(ownFilter)) {
-      // Set lại data và loading cho các Component con
-      setState({
-        data: [],
-        isLoading: true
+    if (values.hasOwnProperty("thoiGian")) {
+      values = Object.assign(values, {
+        bat_dau: values.thoiGian[0],
+        ket_thuc: values.thoiGian[1]
       });
-      axios.get("/api/tong-hop-cong-no?" + Object(_utils__WEBPACK_IMPORTED_MODULE_1__["queryString"])(ownFilter)).then(function (response) {
-        if (isComponentMounted && response.data.success) {
-          setState({
-            data: response.data.data,
-            isLoading: false
-          });
-        }
-      })["catch"](function (error) {
-        return console.log(error);
-      });
+      delete values.thoiGian;
     }
 
-    return function () {
-      // When Unmount component
-      isComponentMounted = false;
-    };
-  }, [JSON.stringify(ownFilter)]); // Chỉ chạy 1 lần khi mount đến khi ownFilter thay đổi
-
-  /**
-   * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
-   */
-
-  var handleFilterBox = function handleFilterBox(newFilter) {
-    // Thay đổi filter => Load lại dữ liệu
-    if (Object(_utils__WEBPACK_IMPORTED_MODULE_1__["isChangeData"])(ownFilter, newFilter)) setOwnFilter(newFilter);
+    Object(_utils_downloadFile__WEBPACK_IMPORTED_MODULE_5__["downloadApi"])("/api/doi-soat-tai-khoan", Object(_utils__WEBPACK_IMPORTED_MODULE_6__["parseValues"])(values), "doi-soat-tai-khoan.xlsx");
   };
 
-  var renderSummaryBanRa = function renderSummaryBanRa(data) {
-    if (!_.isEmpty(data)) {
-      var sumObj = data.reduce(function (previousValue, currentValue) {
-        return {
-          dau_ky: previousValue.dau_ky + currentValue.dau_ky,
-          cuoi_ky: previousValue.cuoi_ky + currentValue.cuoi_ky,
-          giao_dich: previousValue.giao_dich + currentValue.giao_dich,
-          thanh_toan: previousValue.thanh_toan + currentValue.thanh_toan
-        };
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        colSpan: 2
-      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.dau_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.cuoi_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.thanh_toan)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.giao_dich))));
-    }
-  };
-
-  var renderSummaryMuaVao = function renderSummaryMuaVao(data) {
-    if (!_.isEmpty(data)) {
-      var sumObj = data.reduce(function (previousValue, currentValue) {
-        return {
-          dau_ky: previousValue.dau_ky + currentValue.dau_ky,
-          cuoi_ky: previousValue.cuoi_ky + currentValue.cuoi_ky,
-          giao_dich: previousValue.giao_dich + currentValue.giao_dich,
-          thanh_toan: previousValue.thanh_toan + currentValue.thanh_toan
-        };
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.dau_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.cuoi_ky)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.thanh_toan)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(sumObj.giao_dich))));
-    }
-  };
-
-  var exportDS = function exportDS() {
-    var banra = data.banra.map(function (p, ind) {
-      return {
-        stt: ind + 1,
-        phan_loai: p.phan_loai,
-        khach_hang: p.khach_hang,
-        dau_ky: p.dau_ky,
-        cuoi_ky: p.cuoi_ky,
-        thanh_toan: p.thanh_toan,
-        giao_dich: p.giao_dich
-      };
+  var getTaiKhoanDetail = function getTaiKhoanDetail() {
+    return Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(function (clist) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(OptGroup, {
+        label: clist[0] || "Tài khoản ngân hàng",
+        key: clist[0]
+      }, clist[1].map(function (ncc) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Option, {
+          value: ncc.id,
+          key: ncc.id
+        }, ncc.ky_hieu);
+      }));
     });
-    var dataExportBanRa = [{
-      stt: "STT",
-      phan_loai: "Phân loại",
-      khach_hang: "Khách hàng",
-      dau_ky: "Dư - Nợ đầu kỳ",
-      cuoi_ky: "Dư - Nợ cuối kỳ",
-      thanh_toan: "Số tiền thanh toán",
-      giao_dich: "Số tiền giao dịch"
-    }].concat(_toConsumableArray(banra));
-    var muavao = data.muavao.map(function (p, ind) {
-      return {
-        stt: ind + 1,
-        tai_khoan: p.tai_khoan,
-        dau_ky: p.dau_ky,
-        cuoi_ky: p.cuoi_ky,
-        thanh_toan: p.thanh_toan,
-        giao_dich: p.giao_dich
-      };
-    });
-    var dataExportMuaVao = [{
-      stt: "STT",
-      tai_khoan: "Tài khoản",
-      dau_ky: "Dư - Nợ đầu kỳ",
-      cuoi_ky: "Dư - Nợ cuối kỳ",
-      thanh_toan: "Số tiền thanh toán",
-      giao_dich: "Số tiền giao dịch"
-    }].concat(_toConsumableArray(muavao));
-    var dataExport = {
-      "Tổng hợp bán ra": dataExportBanRa,
-      "Tổng hợp mua vào": dataExportMuaVao
-    };
-    Object(_utils_exportToExcel__WEBPACK_IMPORTED_MODULE_6__["ExportMultiSheet"])(dataExport, "tong-hop-cong-no.xlsx");
   };
 
-  var otherButtons = [{
-    key: "export",
-    onClick: exportDS,
-    title: "Xuất danh sách ra Excel",
-    selectRequired: false
-  }];
-  var columnsBanRa = [{
-    title: "Phân loại",
-    dataIndex: "phan_loai",
-    optFilter: true,
-    width: 100
-  }, {
-    title: "Khách hàng",
-    dataIndex: "khach_hang",
-    optFind: true,
-    width: 170
-  }, {
-    title: "Dư - Nợ đầu kỳ",
-    dataIndex: "dau_ky",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Dư - Nợ cuối kỳ",
-    dataIndex: "cuoi_ky",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Số tiền thanh toán",
-    dataIndex: "thanh_toan",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Tổng tiền giao dịch",
-    dataIndex: "giao_dich",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }];
-  var columnsMuaVao = [{
-    title: "Tài khoản",
-    dataIndex: "tai_khoan",
-    optFind: true,
-    width: 180
-  }, {
-    title: "Dư - Nợ đầu kỳ",
-    dataIndex: "dau_ky",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Dư - Nợ cuối kỳ",
-    dataIndex: "cuoi_ky",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Số tiền thanh toán",
-    dataIndex: "thanh_toan",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }, {
-    title: "Tổng tiền giao dịch",
-    dataIndex: "giao_dich",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_1__["vndFormater"].format(number);
-    },
-    width: 100
-  }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "list-form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_FilterBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    filterBox: true,
-    tuNgayDenNgay: true,
-    onFilter: handleFilterBox
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_ToolsButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    insertable: false,
-    deleteable: false,
-    selectable: false,
-    otherButtons: otherButtons
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"], {
-    defaultActiveKey: "1"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"].TabPane, {
-    tab: "T\u1ED5ng h\u1EE3p b\xE1n ra",
-    key: 1
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    tableSize: {
-      x: 800
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+    className: "sm-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
+    form: form,
+    initialValues: {
+      thoiGian: [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("month")]
     },
-    data: data.banra,
-    columns: columnsBanRa,
-    isLoading: isLoading,
-    deleteable: false,
-    selectable: false,
-    editable: false,
-    primaryKey: "id",
-    renderSummary: renderSummaryBanRa
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_5__["Tabs"].TabPane, {
-    tab: "T\u1ED5ng h\u1EE3p mua v\xE0o",
-    key: 2
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm_DataTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    tableSize: {
-      x: 800
+    labelCol: {
+      span: 8
     },
-    data: data.muavao,
-    columns: columnsMuaVao,
-    isLoading: isLoading,
-    deleteable: false,
-    selectable: false,
-    editable: false,
-    primaryKey: "id",
-    renderSummary: renderSummaryMuaVao
-  }))));
+    wrapperCol: {
+      span: 16
+    },
+    onFinish: onFinish
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "thoiGian",
+    label: "Th\u1EDDi gian",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(RangePicker, {
+    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_2__["default"],
+    style: {
+      width: "100%"
+    },
+    ranges: {
+      "Hôm nay": [moment__WEBPACK_IMPORTED_MODULE_3___default()(), moment__WEBPACK_IMPORTED_MODULE_3___default()()],
+      "Tuần này": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("week"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("week")],
+      "Tháng này": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("month")]
+    },
+    format: "DD/MM/YYYY",
+    placeholder: ["Từ ngày", "đến ngày"]
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "id_tai_khoan",
+    label: "T\xE0i kho\u1EA3n",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
+    showSearch: true,
+    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
+    filterOption: function filterOption(input, option) {
+      if (!option.children) return false;
+      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    }
+  }, getTaiKhoanDetail())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    wrapperCol: {
+      md: {
+        span: 16,
+        offset: 8
+      }
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    htmlType: "submit",
+    type: "primary"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null), " Xu\u1EA5t danh s\xE1ch")))));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(List));
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_4___default.a.memo(index));
 
 /***/ }),
 
@@ -375,19 +306,26 @@ var downloadApi = function downloadApi(url, params, fileName) {
 
 /***/ }),
 
-/***/ "./resources/js/utils/exportToExcel.js":
-/*!*********************************************!*\
-  !*** ./resources/js/utils/exportToExcel.js ***!
-  \*********************************************/
-/*! exports provided: ExportMultiSheet, default */
+/***/ "./resources/js/utils/index.js":
+/*!*************************************!*\
+  !*** ./resources/js/utils/index.js ***!
+  \*************************************/
+/*! exports provided: useMergeState, queryString, parseValues, isChangeData, vndFormater */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExportMultiSheet", function() { return ExportMultiSheet; });
-/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! xlsx */ "./node_modules/xlsx/xlsx.js");
-/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _downloadFile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./downloadFile */ "./resources/js/utils/downloadFile.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useMergeState", function() { return useMergeState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "queryString", function() { return queryString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseValues", function() { return parseValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isChangeData", function() { return isChangeData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "vndFormater", function() { return vndFormater; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -402,118 +340,77 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-function Workbook() {
-  if (!(this instanceof Workbook)) return new Workbook();
-  this.SheetNames = [];
-  this.Sheets = {};
-}
-
-function s2ab(s) {
-  var buf = new ArrayBuffer(s.length);
-  var view = new Uint8Array(buf);
-
-  for (var i = 0; i !== s.length; ++i) {
-    view[i] = s.charCodeAt(i) & 0xff;
-  }
-
-  return buf;
-}
 /**
- * Xuất dữ liệu ra Excel
- *
- * @param {*} data
- * @param {*} filename
- * @param {boolean} [skipHeader=true]
+ * useState mới, dùng tương đương (MERGE) state của Class component
  */
 
+var useMergeState = function useMergeState(initialState) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(initialState),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
 
-var ExportData = function ExportData(data, filename) {
-  var skipHeader = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  var wb = new Workbook();
-  var ws = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.json_to_sheet(data, {
-    skipHeader: skipHeader
-  });
-  wb.SheetNames.push("Export");
-  wb.Sheets["Export"] = ws;
-  var wbout = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.write(wb, {
-    bookType: "xlsx",
-    bookSST: true,
-    type: "binary",
-    Props: {
-      Author: "NVN",
-      Company: "TKDT"
-    }
-  });
-  var url = window.URL.createObjectURL(new Blob([s2ab(wbout)], {
-    type: "application/octet-stream"
-  }));
-  Object(_downloadFile__WEBPACK_IMPORTED_MODULE_1__["default"])(url, filename || "report.xlsx");
+  var setMergedState = function setMergedState(newState) {
+    return setState(function (prevState) {
+      return Object.assign({}, prevState, newState);
+    });
+  };
+
+  return [state, setMergedState];
 };
+/**
+ * Ghép object thành queryString
+ */
 
-var ExportMultiSheet = function ExportMultiSheet(data, filename) {
-  var wb = new Workbook();
+var queryString = function queryString(obj) {
+  var str = [];
 
-  for (var _i = 0, _Object$entries = Object.entries(data); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+  for (var p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      if (obj[p] === undefined) obj[p] = "";
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  }
+
+  return str.join("&");
+};
+/**
+ * Xử lý dữ liệu (ngày tháng) từ form nhập vào
+ */
+
+var parseValues = function parseValues(values) {
+  for (var _i2 = 0, _Object$entries = Object.entries(values); _i2 < _Object$entries.length; _i2++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
         key = _Object$entries$_i[0],
         value = _Object$entries$_i[1];
 
-    var ws = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.json_to_sheet(value, {
-      skipHeader: true
-    });
-    wb.SheetNames.push(key);
-    wb.Sheets[key] = ws;
+    if (value !== null && value !== undefined) if (_typeof(value) === "object") // Convert từ moment (from DatePicker) về dạng string để backend xử lý
+      values[key] = value.format("YYYY-MM-DD HH:mm:ss");else if (typeof value === "string") if (value.match(/(.*?):(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_0___default()(value, "HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss");else if (value.match(/(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_0___default()(value, "DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss");
   }
 
-  var wbout = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.write(wb, {
-    bookType: "xlsx",
-    bookSST: true,
-    type: "binary",
-    Props: {
-      Author: "NVN",
-      Company: "TKDT"
-    }
-  });
-  var url = window.URL.createObjectURL(new Blob([s2ab(wbout)], {
-    type: "application/octet-stream"
-  }));
-  Object(_downloadFile__WEBPACK_IMPORTED_MODULE_1__["default"])(url, filename || "report.xlsx");
+  return values;
 };
-/* harmony default export */ __webpack_exports__["default"] = (ExportData);
+/**
+ * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
+ */
 
-/***/ }),
+var isChangeData = function isChangeData(record, data) {
+  if (record === undefined || data === undefined) return true;
+  var isChanged = false;
 
-/***/ 1:
-/*!********************!*\
-  !*** fs (ignored) ***!
-  \********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+  for (var k in record) {
+    if (record.hasOwnProperty(k) && data.hasOwnProperty(k) && record[k] !== data[k]) {
+      isChanged = true;
+      break;
+    }
+  }
 
-/* (ignored) */
-
-/***/ }),
-
-/***/ 2:
-/*!************************!*\
-  !*** crypto (ignored) ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 3:
-/*!************************!*\
-  !*** stream (ignored) ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
+  return isChanged;
+};
+var vndFormater = new Intl.NumberFormat("vi-VN", {
+  style: "currency",
+  currency: "VND"
+});
 
 /***/ })
 

@@ -83,11 +83,15 @@ Route::middleware('auth:api')->group(function () {
     Route::get('ton-kho', 'HangHoaController@tonkho');
     Route::get('tong-hop-hang', 'HangHoaController@tonghop');
 
+    Route::get('nhan-vien/all', 'UserController@all');
+
     // Add middleware checkadmin
     Route::middleware('checkadmin')->group(function () {
         Route::delete('nhan-vien/deletes', 'UserController@deletes');
-        Route::get('nhan-vien/all', 'UserController@all');
         Route::resource('nhan-vien', 'UserController')->only(['index', 'update', 'destroy']);
+
+        Route::get('cai-dat', 'SettingController@index');
+        Route::put('cai-dat', 'SettingController@update');
     });
 
 

@@ -110,4 +110,30 @@ class Util
             return 0;
         return number_format($number, 0, '', '.') . '₫';
     }
+
+    public static function updateDotEnv($key, $newValue)
+    {
+        $path = base_path('.env');
+        // get old value from current env
+        $oldValue = env($key);
+
+        // was there any change?
+        if ($oldValue === $newValue) {
+            return;
+        }
+        $delim = '"';
+
+        // rewrite file content with changed data
+        if (file_exists($path)) {
+            // replace current value with new value 
+            file_put_contents(
+                $path,
+                str_replace(
+                    [$key . '=' . $delim . $oldValue . $delim],
+                    [$key . '=' . $delim . $newValue . $delim],
+                    file_get_contents($path)
+                )
+            );
+        }
+    }
 }

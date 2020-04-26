@@ -42,6 +42,7 @@ const Profile = lazy(() => import("../../pages/Account/Profile"));
 const Password = lazy(() => import("../../pages/Account/Password"));
 
 const NhanVien = lazy(() => import("../../pages/QuanTri/NhanVien"));
+const CaiDat = lazy(() => import("../../pages/QuanTri/CaiDat"));
 
 const routes = [
     {
@@ -225,6 +226,13 @@ const routes = [
         title: "Nhân viên",
         menu: menus.QT_USER,
         component: <NhanVien />
+    },
+    {
+        path: "/cai-dat",
+        exact: false,
+        title: "Cài đặt",
+        menu: menus.QT_CAI_DAT,
+        component: <CaiDat />
     },
     {
         path: "/thong-tin-ca-nhan",

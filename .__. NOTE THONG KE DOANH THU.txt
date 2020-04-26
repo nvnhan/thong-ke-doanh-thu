@@ -26,7 +26,7 @@ Chức năng, tính năng còn:
 - Đặt vé: Thêm text, file
 - Đọc email
 - Auto run cron job
-- Cài đặt
+////////////- Cài đặt
 
 
 - Nhập từ excel: Thu chi

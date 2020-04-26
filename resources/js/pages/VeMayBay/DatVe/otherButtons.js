@@ -1,40 +1,17 @@
-import { FileExcelOutlined, FileTextOutlined } from "@ant-design/icons";
-import { Input, Modal, Progress } from "antd";
+import { Input, Modal } from "antd";
 import React from "react";
-import downloadFile from "../../../utils/downloadFile";
+import { downloadApi as createReport } from "../../../utils/downloadFile";
 import exportDS from "../../../utils/exportDatVe";
 
 const downloadApi = (url, selectedRowKeys, fileName, type = "") => {
-    Modal.info({
-        title: "Thông báo",
-        centered: true,
-        icon: null,
-        content: (
-            <div style={{ textAlign: "center" }}>
-                <Progress
-                    percent={100}
-                    status="active"
-                    showInfo={false}
-                    strokeColor="#6dc3a6"
-                />
-                <span>Đang tạo báo cáo...</span>
-            </div>
-        )
-    });
-    axios
-        .get(url, {
-            params: {
-                objects: selectedRowKeys.join("|"),
-                type
-            },
-            responseType: "blob" // important
-        })
-        .then(response => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            downloadFile(url, fileName);
-        })
-        .catch(error => console.log(error))
-        .then(() => Modal.destroyAll());
+    createReport(
+        url,
+        {
+            objects: selectedRowKeys.join("|"),
+            type
+        },
+        fileName
+    );
 };
 
 /**
@@ -136,26 +113,22 @@ const otherButtons = showUpdates => [
             {
                 key: "codeve",
                 onClick: codeVe,
-                title: "Tạo mẫu code vé",
-                icon: <FileTextOutlined />
+                title: "Tạo mẫu code vé"
             },
             {
                 key: "vedientu",
                 onClick: veDienTu,
-                title: "Tạo mặt vé điện tử",
-                icon: <FileTextOutlined />
+                title: "Tạo mặt vé điện tử"
             },
             {
                 key: "export",
                 onClick: (data, selectedRowKeys) =>
                     exportDS(data, selectedRowKeys, "dat-ve.xlsx"),
-                title: "Xuất danh sách ra Excel",
-                icon: <FileExcelOutlined />
+                title: "Xuất danh sách ra Excel"
             },
             {
                 key: "layhoadon",
                 title: "Thông tin lấy hóa đơn",
-                icon: <FileExcelOutlined />,
                 childs: [
                     {
                         key: "hoadonmuavao",
@@ -180,14 +153,12 @@ const otherButtons = showUpdates => [
             {
                 key: "bangkehoadon",
                 onClick: bangKeHoaDon,
-                title: "Bảng kê hóa đơn",
-                icon: <FileExcelOutlined />
+                title: "Bảng kê hóa đơn"
             },
             {
                 key: "xuatcongno",
                 onClick: congNo,
-                title: "Mẫu xuất công nợ",
-                icon: <FileExcelOutlined />
+                title: "Mẫu xuất công nợ"
             }
         ]
     }

@@ -53,6 +53,11 @@ class TourChiTiet extends Model
         return $this->thu_chi_chi_tiets()->sum('so_tien');
     }
 
+    public function getMaTourAttribute()
+    {
+        return $this->tour->ma_tour;
+    }
+
     public function getChuaThanhToanAttribute()
     {
         return $this->thanh_tien - $this->da_thanh_toan;

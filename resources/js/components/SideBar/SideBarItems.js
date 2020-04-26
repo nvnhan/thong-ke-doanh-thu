@@ -17,7 +17,8 @@ import {
     RollbackOutlined,
     DatabaseOutlined,
     CalculatorOutlined,
-    TeamOutlined, FundOutlined
+    TeamOutlined,
+    FundOutlined
 } from "@ant-design/icons";
 
 import * as SideMenus from "../../constants/SideMenus";
@@ -59,8 +60,8 @@ const items = [
                 title: "Chưa bay"
             },
             {
-                key: 'divider',
-                admin: true,
+                key: "divider",
+                admin: true
             },
             {
                 key: SideMenus.VMB_SAN_BAY,
@@ -153,15 +154,27 @@ const items = [
                 title: "TH tài khoản"
             },
             {
+                key: SideMenus.BC_CONG_NO_CHI_TIET,
+                href: "/cong-no-chi-tiet",
+                icon: <CaretRightOutlined />,
+                title: "Công nợ chi tiết"
+            },
+            {
                 key: SideMenus.BC_TONG_HOP_CONG_NO,
                 href: "/tong-hop-cong-no",
                 icon: <CaretRightOutlined />,
                 title: "TH công nợ"
             },
+            {
+                key: SideMenus.BC_DOI_SOAT_TAI_KHOAN,
+                href: "/doi-soat-tai-khoan",
+                icon: <CaretRightOutlined />,
+                title: "Đối soát tài khoản"
+            }
         ]
     },
     {
-        key: 'divider'
+        key: "divider"
     },
     {
         key: "SUB_TT",

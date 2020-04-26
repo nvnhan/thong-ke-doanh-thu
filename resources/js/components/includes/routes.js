@@ -1,8 +1,8 @@
 import React, { lazy } from "react";
 import * as menus from "../../constants/SideMenus";
 
-const TrangChu = lazy(() => import("../../pages/TrangChu"));
-const NotFound = lazy(() => import("../../pages/NotFound"));
+import TrangChu from "../../pages/TrangChu";
+import NotFound from "../../pages/NotFound";
 
 const ThuChi = lazy(() => import("../../pages/ThuChi/ThuChi"));
 const ThuChiChiTiet = lazy(() => import("../../pages/ThuChi/ThuChiChiTiet"));
@@ -24,8 +24,14 @@ const HoanDoi = lazy(() => import("../../pages/BanHang/HoanDoi"));
 const TonKho = lazy(() => import("../../pages/BanHang/TonKho"));
 const TongHop = lazy(() => import("../../pages/BanHang/TongHop"));
 
-const TongHopTaiKhoan = lazy(() => import("../../pages/BaoCao/TongHopTaiKhoan"));
+const TongHopTaiKhoan = lazy(() =>
+    import("../../pages/BaoCao/TongHopTaiKhoan")
+);
 const TongHopCongNo = lazy(() => import("../../pages/BaoCao/TongHopCongNo"));
+const CongNoChiTiet = lazy(() => import("../../pages/BaoCao/CongNoChiTiet"));
+const DoiSoatTaiKhoan = lazy(() =>
+    import("../../pages/BaoCao/DoiSoatTaiKhoan")
+);
 
 const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
 const NhaCungCap = lazy(() => import("../../pages/ThongTin/NhaCungCap"));
@@ -170,6 +176,20 @@ const routes = [
         title: "Tổng hợp công nợ",
         menu: menus.BC_TONG_HOP_CONG_NO,
         component: <TongHopCongNo />
+    },
+    {
+        path: "/cong-no-chi-tiet",
+        exact: false,
+        title: "Công nợ chi tiết",
+        menu: menus.BC_CONG_NO_CHI_TIET,
+        component: <CongNoChiTiet />
+    },
+    {
+        path: "/doi-soat-tai-khoan",
+        exact: false,
+        title: "Đối soát tài khoản",
+        menu: menus.BC_DOI_SOAT_TAI_KHOAN,
+        component: <DoiSoatTaiKhoan />
     },
     {
         path: "/tai-khoan",

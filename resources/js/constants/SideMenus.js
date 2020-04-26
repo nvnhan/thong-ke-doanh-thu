@@ -25,6 +25,8 @@ export const BH_TONG_HOP = "BH_TONG_HOP";
 
 export const BC_TONG_HOP_TAI_KHOAN = "BC_TONG_HOP_TAI_KHOAN";
 export const BC_TONG_HOP_CONG_NO = "BC_TONG_HOP_CONG_NO";
+export const BC_CONG_NO_CHI_TIET = "BC_CONG_NO_CHI_TIET";
+export const BC_DOI_SOAT_TAI_KHOAN = "BC_DOI_SOAT_TAI_KHOAN";
 
 export const QT_USER = "QT_USER";
 export const QT_CAI_DAT = "QT_CAI_DAT";

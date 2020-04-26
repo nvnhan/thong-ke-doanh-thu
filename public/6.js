@@ -33,10 +33,10 @@ var MyDatePicker = function MyDatePicker(props) {
 
 /***/ }),
 
-/***/ "./resources/js/pages/BanHang/BanRa/FormItem.js":
-/*!******************************************************!*\
-  !*** ./resources/js/pages/BanHang/BanRa/FormItem.js ***!
-  \******************************************************/
+/***/ "./resources/js/pages/BanHang/HoanDoi/FormItem.js":
+/*!********************************************************!*\
+  !*** ./resources/js/pages/BanHang/HoanDoi/FormItem.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -47,74 +47,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
 
 
 
 
-
-var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option,
-    OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup;
+var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
 var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
-  var khachHang = props.khachHang || [];
-  /**
-   * [
-   *      ['xxx', [{}, {}, {}],
-   *      ['yyyyy', [{}, {}, {}, {}, {}]]
-   * ]
-   */
+  var taiKhoan = props.taiKhoan || [];
 
-  var groupKhachHang = Object.entries(_.groupBy(khachHang, "phan_loai"));
-
-  var getKhachHangDetail = function getKhachHangDetail() {
-    return groupKhachHang.map(function (clist) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(OptGroup, {
-        label: clist[0],
-        key: clist[0]
-      }, clist[1].map(function (ncc) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
-          value: ncc.id,
-          key: ncc.id
-        }, ncc.ma_khach_hang);
-      }));
+  var getTaiKhoanDetail = function getTaiKhoanDetail() {
+    return taiKhoan.map(function (tk) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
+        value: tk.id,
+        key: tk.id
+      }, tk.ky_hieu);
     });
   };
 
-  var hangHoa = props.hangHoa || [];
-  var groupHangHoa = Object.entries(_.groupBy(hangHoa, "nha_cung_cap"));
-
-  var getHangHoaDetail = function getHangHoaDetail() {
-    return groupHangHoa.map(function (clist) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(OptGroup, {
-        label: clist[0],
-        key: clist[0]
-      }, clist[1].map(function (hh) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
-          value: hh.id,
-          key: hh.id
-        }, hh.phan_loai + " - " + hh.ma_hang + " (" + _utils__WEBPACK_IMPORTED_MODULE_4__["vndFormater"].format(hh.don_gia) + ")");
-      }));
-    });
-  };
-  /**
-   * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
-   */
-
-
-  var onChange = function onChange(idHH) {
-    var hh = hangHoa.filter(function (item) {
-      return item.id === idHH;
-    })[0];
-    if (hh) props.onChangeValue(hh.don_gia);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
-    gutter: [5, 5]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    sm: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ngay_thang",
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ngay_hoan_doi",
     label: "Ng\xE0y th\xE1ng",
     rules: [{
       required: true,
@@ -126,129 +77,42 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     },
     locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
     format: "DD/MM/YYYY"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    sm: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "id_hang_hoa",
-    label: "H\xE0ng h\xF3a",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    showSearch: true,
-    placeholder: "Ch\u1ECDn h\xE0ng h\xF3a",
-    filterOption: function filterOption(input, option) {
-      if (!option.children) return false;
-      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-    },
-    onChange: onChange
-  }, getHangHoaDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    sm: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "don_gia_mua",
-    label: "Gi\xE1 mua",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    sm: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "so_luong",
-    label: "S\u1ED1 l\u01B0\u1EE3ng",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 1,
-    step: 1,
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|\.(,*)/g, "");
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    sm: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "don_gia_ban",
-    label: "Gi\xE1 b\xE1n",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    sm: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "id_khach_hang",
-    label: "Kh\xE1ch h\xE0ng"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    showSearch: true,
-    placeholder: "Ch\u1ECDn kh\xE1ch h\xE0ng",
-    filterOption: function filterOption(input, option) {
-      if (!option.children) return false;
-      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-    }
-  }, getKhachHangDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    sm: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ngay_hoan_doi",
-    label: "Ho\xE0n \u0111\u1ED5i"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ngay_thanh_toan_hoan_doi",
+    label: "Thanh to\xE1n"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
     style: {
       width: "100%"
     },
     locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
-    format: "DD/MM/YYYY",
-    placeholder: "(kh\xF4ng ho\xE0n \u0111\u1ED5i)"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    sm: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    format: "DD/MM/YYYY"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "id_tai_khoan_tra_hoan_doi",
+    label: "TK tr\u1EA3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
+    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n"
+  }, getTaiKhoanDetail())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ngay_hoan_doi_xong",
+    label: "Ho\xE0n \u0111\u1ED5i xong"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    style: {
+      width: "100%"
+    },
+    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
+    format: "DD/MM/YYYY"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     name: "ghi_chu",
     label: "Ghi ch\xFA"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)));
 });
 /* harmony default export */ __webpack_exports__["default"] = (form);
 
 /***/ }),
 
-/***/ "./resources/js/pages/BanHang/BanRa/index.js":
-/*!***************************************************!*\
-  !*** ./resources/js/pages/BanHang/BanRa/index.js ***!
-  \***************************************************/
+/***/ "./resources/js/pages/BanHang/HoanDoi/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/pages/BanHang/HoanDoi/index.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -260,8 +124,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _utils_exportBanRa__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/exportBanRa */ "./resources/js/utils/exportBanRa.js");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/BanHang/BanRa/FormItem.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/BanHang/HoanDoi/FormItem.js");
+/* harmony import */ var _utils_exportBanRa__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/exportBanRa */ "./resources/js/utils/exportBanRa.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -281,30 +145,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
-    hangHoa: [],
-    khachHang: []
-  }),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
-
-  var hangHoa = state.hangHoa,
-      khachHang = state.khachHang;
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(undefined),
-      _useState4 = _slicedToArray(_useState3, 2),
-      formValue = _useState4[0],
-      setFormValue = _useState4[1];
+      taiKhoan = _useState2[0],
+      setTaiKhoan = _useState2[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    var promise1 = axios.get("/api/hang-hoa/all");
-    var promise2 = axios.get("/api/khach-hang/all");
-    Promise.all([promise1, promise2]).then(function (response) {
-      if (response[0].data.success && response[1].data.success) setState({
-        hangHoa: response[0].data.data,
-        khachHang: response[1].data.data
-      });
+    axios.get("/api/tai-khoan").then(function (response) {
+      if (response.data.success) setTaiKhoan(response.data.data);
+    })["catch"](function (error) {
+      return console.log(error);
     });
   }, []);
 
@@ -313,32 +163,32 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       style: {
         margin: 0
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "M\xE3 h\xE0ng: ", record.ma_hang, ". T\xEAn h\xE0ng: ", record.ten_hang, ". Ph\xE2n lo\u1EA1i: ", record.phan_loai, ". Nh\xE0 cung c\u1EA5p: ", record.nha_cung_cap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1 mua: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.don_gia_mua), ". Th\xE0nh ti\u1EC1n mua: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.thanh_tien_mua)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1 b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.don_gia_ban), ". Th\xE0nh ti\u1EC1n b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.thanh_tien_ban)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n: ", record.ngay_thanh_toan), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "M\xE3 h\xE0ng: ", record.ma_hang, ". T\xEAn h\xE0ng: ", record.ten_hang, ". Ph\xE2n lo\u1EA1i: ", record.phan_loai, ". Nh\xE0 cung c\u1EA5p: ", record.nha_cung_cap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1 mua: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.don_gia_mua), ". Th\xE0nh ti\u1EC1n mua: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.thanh_tien_mua), ". S\u1ED1 l\u01B0\u1EE3ng:", " ", record.so_luong), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1 b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.don_gia_ban), ". Th\xE0nh ti\u1EC1n b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.thanh_tien_ban), ". L\xE3i:", " ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.lai)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
   };
 
   var columns = [{
     title: "Ngày tháng",
-    dataIndex: "ngay_thang",
+    dataIndex: "ngay_hoan_doi",
     width: 120,
     sorter: function sorter(a, b) {
-      return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_thang, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_thang, "DD/MM/YYYY").unix();
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_hoan_doi, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_hoan_doi, "DD/MM/YYYY").unix();
     }
   }, {
     title: "Mã hàng",
     dataIndex: "ma_hang",
     optFind: true,
-    width: 140
+    width: 130
   }, {
     title: "Tên hàng",
     dataIndex: "ten_hang",
     optFind: true,
-    width: 170
+    width: 160
   }, {
     title: "Số lượng",
     dataIndex: "so_luong",
-    width: 120
+    width: 90
   }, {
-    title: "TT bán",
+    title: "Tổng tiền bán",
     dataIndex: "thanh_tien_ban",
     render: function render(number) {
       return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
@@ -348,93 +198,49 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     },
     width: 120
   }, {
-    title: "Lãi",
-    dataIndex: "lai",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.lai - b.lai;
-    },
-    width: 120
-  }, {
     title: "Khách hàng",
     dataIndex: "ma_khach_hang",
     optFilter: true,
     width: 120
   }, {
-    title: "Thanh toán",
-    dataIndex: "ngay_thanh_toan",
+    title: "TT hoàn đổi",
+    dataIndex: "ngay_thanh_toan_hoan_doi",
     width: 120
   }, {
-    title: "Hoàn đổi",
-    dataIndex: "ngay_hoan_doi",
+    title: "TK trả hoàn đổi",
+    dataIndex: "tai_khoan_tra_hoan_doi",
+    width: 120,
+    optFilter: true
+  }, {
+    title: "Hoàn đổi xong",
+    dataIndex: "ngay_hoan_doi xong",
     width: 120
   }, {
     title: "Ghi chú",
     dataIndex: "ghi_chu",
     ellipsis: true,
-    width: 170
+    width: 150
   }];
-
-  var renderSummary = function renderSummary(data) {
-    if (!_.isEmpty(data)) {
-      var sumObj = data.reduce(function (previousValue, currentValue) {
-        return {
-          lai: previousValue.lai + currentValue.lai,
-          thanh_tien_ban: previousValue.thanh_tien_ban + currentValue.thanh_tien_ban
-        };
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-        colSpan: 6
-      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.thanh_tien_ban)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.lai)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null)));
-    }
-  };
-  /**
-   * Callback from FOrmItem, trigger when select Hang Hoa
-   * => Change setFormValues to ListForm => FormEdit
-   */
-
-
-  var handleFormValue = function handleFormValue(don_gia) {
-    setFormValue({
-      don_gia_mua: don_gia,
-      don_gia_ban: don_gia,
-      resetFields: function resetFields() {
-        return setFormValue(undefined);
-      }
-    });
-  };
-
   var otherButtons = [{
     key: "export",
     onClick: function onClick(data, selectedRowKeys) {
-      return Object(_utils_exportBanRa__WEBPACK_IMPORTED_MODULE_4__["default"])(data, selectedRowKeys, "ban-ra.xlsx");
+      return Object(_utils_exportBanRa__WEBPACK_IMPORTED_MODULE_5__["default"])(data, selectedRowKeys, "hoan-doi.xlsx");
     },
     title: "Xuất danh sách ra Excel"
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    url: "ban-ra",
+    url: "hoan-doi",
     filterBox: true,
+    insertable: false,
+    deleteable: false,
     columns: columns,
     tableSize: {
-      x: 1000
+      x: 1200
     },
-    modalWidth: "800px",
-    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      hangHoa: hangHoa,
-      khachHang: khachHang,
-      onChangeValue: handleFormValue
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      taiKhoan: taiKhoan
     }),
-    formInitialValues: {
-      so_luong: 1,
-      don_gia_mua: 0,
-      don_gia_ban: 0,
-      ngay_thang: moment__WEBPACK_IMPORTED_MODULE_0___default()().format("DD/MM/YYYY")
-    },
     expandedRowRender: expandedRowRender,
-    setFormValues: formValue,
-    renderSummary: renderSummary,
     otherButtons: otherButtons
   });
 });
@@ -446,11 +252,17 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
 /*!********************************************!*\
   !*** ./resources/js/utils/downloadFile.js ***!
   \********************************************/
-/*! exports provided: default */
+/*! exports provided: downloadApi, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downloadApi", function() { return downloadApi; });
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
 /**
  * Download file từ url
  * const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -458,6 +270,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param {*} url
  * @param {*} name
  */
+
 var downloadFile = function downloadFile(url, name) {
   var a = document.createElement("a");
   a.href = url;
@@ -465,7 +278,40 @@ var downloadFile = function downloadFile(url, name) {
   a.click();
   window.URL.revokeObjectURL(url);
 };
+/**
+ * Tạo và download file từ url
+ */
 
+
+var downloadApi = function downloadApi(url, params, fileName) {
+  antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].info({
+    title: "Thông báo",
+    centered: true,
+    icon: null,
+    content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      style: {
+        textAlign: "center"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Progress"], {
+      percent: 100,
+      status: "active",
+      showInfo: false,
+      strokeColor: "#6dc3a6"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "\u0110ang t\u1EA1o b\xE1o c\xE1o..."))
+  });
+  axios.get(url, {
+    params: params,
+    responseType: "blob" // important
+
+  }).then(function (response) {
+    var url = window.URL.createObjectURL(new Blob([response.data]));
+    downloadFile(url, fileName);
+  })["catch"](function (error) {
+    return console.log(error);
+  }).then(function () {
+    return antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].destroyAll();
+  });
+};
 /* harmony default export */ __webpack_exports__["default"] = (downloadFile);
 
 /***/ }),

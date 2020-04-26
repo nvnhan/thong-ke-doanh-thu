@@ -103,4 +103,11 @@ class Util
         }
         return $string;
     }
+
+    public static function VNDFormater($number)
+    {
+        if ($number == 0)
+            return 0;
+        return number_format($number, 0, '', '.') . '₫';
+    }
 }

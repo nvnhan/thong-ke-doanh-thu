@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
-/***/ "./resources/js/components/ListForm/MyDatePicker.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/components/ListForm/MyDatePicker.js ***!
-  \**********************************************************/
+/***/ "./resources/js/pages/BanHang/TongHop/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/pages/BanHang/TongHop/index.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,46 +11,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
-
-
-
-var MyDatePicker = function MyDatePicker(props) {
-  if (props.value && typeof props.value == "string") {
-    var objMoment = moment__WEBPACK_IMPORTED_MODULE_2___default()(props.value, props.format);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], _extends({}, props, {
-      value: objMoment
-    }));
-  } else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"], props);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (MyDatePicker);
-
-/***/ }),
-
-/***/ "./resources/js/pages/BanHang/TonKho/index.js":
-/*!****************************************************!*\
-  !*** ./resources/js/pages/BanHang/TonKho/index.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _utils_exportToExcel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportToExcel */ "./resources/js/utils/exportToExcel.js");
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _utils_exportToExcel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/exportToExcel */ "./resources/js/utils/exportToExcel.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -73,10 +36,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
-
-
-var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   var columns = [{
     title: "Mã hàng",
     dataIndex: "ma_hang",
@@ -86,7 +46,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     title: "Tên hàng",
     dataIndex: "ten_hang",
     optFind: true,
-    width: 140
+    width: 150
   }, {
     title: "Phân loại",
     dataIndex: "phan_loai",
@@ -97,23 +57,64 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     dataIndex: "nha_cung_cap",
     width: 140,
     optFilter: true
+  }, // {
+  //     title: "Đơn giá hiện tại",
+  //     dataIndex: "don_gia",
+  //     render: number => vndFormater.format(number),
+  //     // sorter: (a, b) => a.don_gia - b.don_gia,
+  //     width: 110
+  // },
+  {
+    title: "SL mua vào",
+    dataIndex: "so_luong_mua_vao",
+    width: 110
   }, {
-    title: "Đơn giá hiện tại",
-    dataIndex: "don_gia",
+    title: "TT mua vào",
+    dataIndex: "thanh_tien_mua_vao",
     render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
     },
-    // sorter: (a, b) => a.don_gia - b.don_gia,
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_mua_vao - b.thanh_tien_mua_vao;
+    },
     width: 120
   }, {
-    title: "Số lượng",
+    title: "SL bán ra",
+    dataIndex: "so_luong_ban_ra",
+    width: 110
+  }, {
+    title: "TT bán ra",
+    dataIndex: "thanh_tien_ban_ra",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_ban_ra - b.thanh_tien_ban_ra;
+    },
+    width: 120
+  }, {
+    title: "SL hoàn đổi",
+    dataIndex: "so_luong_hoan_doi",
+    width: 110
+  }, {
+    title: "TT hoàn đổi",
+    dataIndex: "thanh_tien_hoan_doi",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+    },
+    sorter: function sorter(a, b) {
+      return a.thanh_tien_hoan_doi - b.thanh_tien_hoan_doi;
+    },
+    width: 120
+  }, {
+    title: "SL tồn kho",
     dataIndex: "so_luong_ton_kho",
-    width: 120
+    width: 110
   }, {
-    title: "Thành tiền",
+    title: "TT tồn kho",
     dataIndex: "thanh_tien_ton_kho",
     render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
     },
     sorter: function sorter(a, b) {
       return a.thanh_tien_ton_kho - b.thanh_tien_ton_kho;
@@ -125,27 +126,24 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     if (!_.isEmpty(data)) {
       var sumObj = data.reduce(function (previousValue, currentValue) {
         return {
+          thanh_tien_mua_vao: previousValue.thanh_tien_mua_vao + currentValue.thanh_tien_mua_vao,
+          thanh_tien_ban_ra: previousValue.thanh_tien_ban_ra + currentValue.thanh_tien_ban_ra,
+          thanh_tien_hoan_doi: previousValue.thanh_tien_hoan_doi + currentValue.thanh_tien_hoan_doi,
           thanh_tien_ton_kho: previousValue.thanh_tien_ton_kho + currentValue.thanh_tien_ton_kho
         };
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
-        colSpan: 6
-      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.thanh_tien_ton_kho))));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        colSpan: 5
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_mua_vao)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ban_ra)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_hoan_doi)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: 2
+      }, _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(sumObj.thanh_tien_ton_kho))));
     }
-  };
-
-  var getOtherFilter = function getOtherFilter() {
-    return [{
-      name: "den_ngay",
-      label: "Đến ngày",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        style: {
-          width: "100%"
-        },
-        locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
-        format: "DD/MM/YYYY"
-      })
-    }];
   };
 
   var exportDS = function exportDS(data, selectedKeys) {
@@ -171,10 +169,16 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
       don_vi: "Đơn vị tính",
       don_gia: "Đơn giá",
       nha_cung_cap: "Nhà cung cấp",
+      so_luong_mua_vao: "Số lượng mua vào",
+      thanh_tien_mua_vao: "Thành tiền mua vào",
+      so_luong_ban_ra: "Số lượng bán ra",
+      thanh_tien_ban_ra: "Thành tiền bán ra",
+      so_luong_hoan_doi: "Số lượng hoàn đổi",
+      thanh_tien_hoan_doi: "Thành tiền hoàn đổi",
       so_luong_ton_kho: "Số lượng tồn kho",
       thanh_tien_ton_kho: "Thành tiền tồn kho"
     }].concat(_toConsumableArray(newData));
-    Object(_utils_exportToExcel__WEBPACK_IMPORTED_MODULE_6__["default"])(dataExport, "ton-kho.xlsx");
+    Object(_utils_exportToExcel__WEBPACK_IMPORTED_MODULE_3__["default"])(dataExport, "tong-hop-ban-hang.xlsx");
   };
 
   var otherButtons = [{
@@ -183,21 +187,16 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     title: "Xuất danh sách ra Excel",
     selectRequired: false
   }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    url: "ton-kho",
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    url: "tong-hop-hang",
     filterBox: true,
-    tuNgayDenNgay: false,
-    otherFilter: getOtherFilter(),
-    filterInitialValue: {
-      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("DD/MM/YYYY")
-    },
     columns: columns,
     insertable: false,
     selectable: false,
     editable: false,
     deleteable: false,
     tableSize: {
-      x: 800
+      x: 1300
     },
     renderSummary: renderSummary,
     otherButtons: otherButtons
@@ -211,11 +210,17 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
 /*!********************************************!*\
   !*** ./resources/js/utils/downloadFile.js ***!
   \********************************************/
-/*! exports provided: default */
+/*! exports provided: downloadApi, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downloadApi", function() { return downloadApi; });
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
 /**
  * Download file từ url
  * const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -223,6 +228,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param {*} url
  * @param {*} name
  */
+
 var downloadFile = function downloadFile(url, name) {
   var a = document.createElement("a");
   a.href = url;
@@ -230,7 +236,40 @@ var downloadFile = function downloadFile(url, name) {
   a.click();
   window.URL.revokeObjectURL(url);
 };
+/**
+ * Tạo và download file từ url
+ */
 
+
+var downloadApi = function downloadApi(url, params, fileName) {
+  antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].info({
+    title: "Thông báo",
+    centered: true,
+    icon: null,
+    content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      style: {
+        textAlign: "center"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Progress"], {
+      percent: 100,
+      status: "active",
+      showInfo: false,
+      strokeColor: "#6dc3a6"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "\u0110ang t\u1EA1o b\xE1o c\xE1o..."))
+  });
+  axios.get(url, {
+    params: params,
+    responseType: "blob" // important
+
+  }).then(function (response) {
+    var url = window.URL.createObjectURL(new Blob([response.data]));
+    downloadFile(url, fileName);
+  })["catch"](function (error) {
+    return console.log(error);
+  }).then(function () {
+    return antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].destroyAll();
+  });
+};
 /* harmony default export */ __webpack_exports__["default"] = (downloadFile);
 
 /***/ }),

@@ -22,12 +22,16 @@ Chức năng, tính năng còn:
 ////////////- Đặt ngày thanh toán sau khi thêm tcct
 ////////////- Thống kê: Tổng hợp công nợ, tổng hợp tài khoản
 ////////////- Tổng quan: Số vé trong tháng (tổng số, thanh toán theo ngày)
-- Nhập xuất excel
+////////////- Thống kê báo cáo: đối soát tài khoản
+- Đặt vé: Thêm text, file
 - Đọc email
 - Auto run cron job
 - Cài đặt
 
 
+- Nhập từ excel: Thu chi
+- báo cáo tổng hộp
+- Đặt vé: Mẫu xuất công nợ + Công nợ chi tiết
 - Tổng quan: tổng hợp công nợ
 - Tổng hợp công nợ: Tính nơi khác
 - Tổng hợp tài khoản: Thiếu Dư - Nợ

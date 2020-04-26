@@ -8,7 +8,6 @@ use App\Util;
 use DateTime;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class BaoCaoDatVeController extends Controller
 {
@@ -282,4 +281,6 @@ class BaoCaoDatVeController extends Controller
         // Write file to output
         $writer->save('php://output');
     }
+
+    //TODO: Mẫu xuất công nợ
 }

@@ -29,10 +29,10 @@ class HomeController extends BaseController
 
     public function DatVeTrongThang()
     {
-        $dv = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])
-            ->select('ngay_thang', DB::raw('count(*) as dat_ve'))->groupBy('ngay_thang')->get();
-        $tt = DatVe::whereBetween('ngay_thanh_toan', [date('Y-m-01'), date('Y-m-t')])
-            ->select(DB::raw('ngay_thanh_toan as ngay_thang'), DB::raw('count(*) as thanh_toan'))->groupBy('ngay_thanh_toan')->get();
+        $dv = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->groupBy('ngay_thang')
+            ->select('ngay_thang', DB::raw('count(*) as dat_ve'))->get();
+        $tt = DatVe::whereBetween('ngay_thanh_toan', [date('Y-m-01'), date('Y-m-t')])->groupBy('ngay_thanh_toan')
+            ->select(DB::raw('ngay_thanh_toan as ngay_thang'), DB::raw('count(*) as thanh_toan'))->get();
 
         $data = [];
         $m = date('m');

@@ -94,13 +94,13 @@ const index = props => {
                             placeholder={["Từ ngày", "đến ngày"]}
                         />
                     </Form.Item>
-                    <Form.Item
+                    {/* <Form.Item
                         wrapperCol={{ md: { span: 16, offset: 8 } }}
                         name="all"
                         valuePropName="checked"
                     >
                         <Checkbox>Tất cả khách hàng</Checkbox>
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item
                         name="id_khach_hang"
                         label="Khách hàng"

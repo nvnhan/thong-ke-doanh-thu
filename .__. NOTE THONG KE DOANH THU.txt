@@ -23,22 +23,24 @@ Chức năng, tính năng còn:
 ////////////- Thống kê: Tổng hợp công nợ, tổng hợp tài khoản
 ////////////- Tổng quan: Số vé trong tháng (tổng số, thanh toán theo ngày)
 ////////////- Thống kê báo cáo: đối soát tài khoản
+////////////- Công nợ: Đặt vé, Công nợ chi tiết
+////////////- Cài đặt
 - Đặt vé: Thêm text, file
 - Đọc email
-- Auto run cron job
-////////////- Cài đặt
+- Auto run cron job: Nhắc lịch bay, xuất vé
+- Backup / Restore
 
 
-- Nhập từ excel: Thu chi
+- Nhập từ excel: Thu chi...
 - báo cáo tổng hộp
-- Đặt vé: Mẫu xuất công nợ + Công nợ chi tiết
+- Công nợ chi tiết: Tính ngày thanh toán, nội dung, đối tượng khác
 - Tổng quan: tổng hợp công nợ
 - Tổng hợp công nợ: Tính nơi khác
 - Tổng hợp tài khoản: Thiếu Dư - Nợ
 - Account: expire time, login 1 máy
 - Đặt vé: tính phí giảm VN, sân bay chặng dài
 - Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select
-/////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)
+////////////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)
 - Thu chi đã có chi tiết có thể sửa ko?  // KO nên cho sửa
 
 

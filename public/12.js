@@ -215,15 +215,6 @@ var index = function index(props) {
     format: "DD/MM/YYYY",
     placeholder: ["Từ ngày", "đến ngày"]
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    wrapperCol: {
-      md: {
-        span: 16,
-        offset: 8
-      }
-    },
-    name: "all",
-    valuePropName: "checked"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], null, "T\u1EA5t c\u1EA3 kh\xE1ch h\xE0ng")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     name: "id_khach_hang",
     label: "Kh\xE1ch h\xE0ng",
     rules: [{

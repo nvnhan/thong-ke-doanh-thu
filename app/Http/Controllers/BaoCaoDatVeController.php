@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DatVe;
+use App\Report;
 use App\SanBay;
 use App\Util;
 use DateTime;
@@ -282,5 +283,13 @@ class BaoCaoDatVeController extends Controller
         $writer->save('php://output');
     }
 
-    //TODO: Mẫu xuất công nợ
+    public function congno(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (!\is_array($objs))
+            return;
+
+        $datVe = DatVe::whereIn('id', $objs)->get();
+        Report::maucongno('', '', $datVe);
+    }
 }

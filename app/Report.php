@@ -2,9 +2,11 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use stdClass;
 
 class Report
@@ -172,10 +174,10 @@ class Report
             $data[$tmp] = $val;
         }
         // Tài khoản thu vào: chỉ từ thu chi
-        $thuVao = $taiKhoan->thu_chi_dens()->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy('thu_chi.ngay_thang');
-        foreach ($thuVao as $ngay => $items) {
-            $ngay = new DateTime($ngay);
-            $nt = trim($ngay->format('d/m/Y'));
+        $thuVao = $taiKhoan->thu_chi_dens()->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+            return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
+        });
+        foreach ($thuVao as $nt => $items) {
             foreach ($items as $tc) {
                 $val = new stdClass;
                 $val->hang_muc = $tc->hang_muc . ' - ' . $tc->tai_khoan_di;
@@ -185,10 +187,10 @@ class Report
         }
 
         // Các mục chi ra của tài khoản
-        $q = $taiKhoan->thu_chi_dis()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy('thu_chi.ngay_thang');
-        foreach ($q as $ngay => $items) {
-            $ngay = new DateTime($ngay);
-            $nt = trim($ngay->format('d/m/Y'));
+        $q = $taiKhoan->thu_chi_dis()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+            return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
+        });
+        foreach ($q as $nt => $items) {
             foreach ($items as $tc) {
                 $val = new stdClass;
                 $val->hang_muc = $tc->hang_muc . ' - ' . $tc->tai_khoan_den;
@@ -197,10 +199,10 @@ class Report
             }
         }
 
-        $q = $taiKhoan->dat_ves()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy('dat_ve.ngay_thang');
-        foreach ($q as $ngay => $items) {
-            $ngay = new DateTime($ngay);
-            $nt = trim($ngay->format('d/m/Y'));
+        $q = $taiKhoan->dat_ves()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+            return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
+        });
+        foreach ($q as $nt => $items) {
             foreach ($items as $tc) {
                 $val = new stdClass;
                 $val->hang_muc = "Đặt vé " . $tc->so_ve . ' - ' . $tc->ma_khach_hang;
@@ -209,10 +211,10 @@ class Report
             }
         }
 
-        $q = $taiKhoan->ban_ra_hoa_dois()->whereBetween('ngay_thanh_toan_hoan_doi', [$tu_ngay, $den_ngay])->get()->groupBy('ban_ra.ngay_thanh_toan_hoan_doi');
-        foreach ($q as $ngay => $items) {
-            $ngay = new DateTime($ngay);
-            $nt = trim($ngay->format('d/m/Y'));
+        $q = $taiKhoan->ban_ra_hoa_dois()->whereBetween('ngay_thanh_toan_hoan_doi', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+            return Carbon::parse($ob->ngay_thanh_toan_hoan_doi)->format('d/m/Y');
+        });
+        foreach ($q as $nt => $items) {
             foreach ($items as $tc) {
                 $val = new stdClass;
                 $val->hang_muc = "Hoàn đổi " . $tc->ma_hang . ' - ' . $tc->ma_khach_hang;
@@ -221,10 +223,10 @@ class Report
             }
         }
 
-        $q = $taiKhoan->tour_chi_tiets()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy('tour_chi_tiet.ngay_thang');
-        foreach ($q as $ngay => $items) {
-            $ngay = new DateTime($ngay);
-            $nt = trim($ngay->format('d/m/Y'));
+        $q = $taiKhoan->tour_chi_tiets()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+            return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
+        });
+        foreach ($q as $nt => $items) {
             foreach ($items as $tc) {
                 $val = new stdClass;
                 $val->hang_muc = "Tour chi tiết " . $tc->ma_tour . ' - ' . $tc->ma_hang;
@@ -233,10 +235,10 @@ class Report
             }
         }
 
-        $q = $taiKhoan->visas()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy('visa.ngay_thang');
-        foreach ($q as $ngay => $items) {
-            $ngay = new DateTime($ngay);
-            $nt = trim($ngay->format('d/m/Y'));
+        $q = $taiKhoan->visas()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+            return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
+        });
+        foreach ($q as $nt => $items) {
             foreach ($items as $tc) {
                 $val = new stdClass;
                 $val->hang_muc = "Visa " . $tc->ma_visa;
@@ -245,10 +247,10 @@ class Report
             }
         }
 
-        $q = $taiKhoan->mua_vaos()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy('mua_vao.ngay_thang');
-        foreach ($q as $ngay => $items) {
-            $ngay = new DateTime($ngay);
-            $nt = trim($ngay->format('d/m/Y'));
+        $q = $taiKhoan->mua_vaos()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+            return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
+        });
+        foreach ($q as $nt => $items) {
             foreach ($items as $tc) {
                 $val = new stdClass;
                 $val->hang_muc = "Mua vào " . $tc->ma_hang;
@@ -258,5 +260,135 @@ class Report
         }
 
         return $data;
+    }
+
+    public static function maucongno(string $tu_ngay = "", string $den_ngay = "", $dat_ve = [], KhachHang $khach_hang = null)
+    {
+        // Prepare Excel File
+        $file = storage_path('app/reports') . "/cong-no.xlsx";
+        $reader = IOFactory::createReader("Xlsx");
+        $spreadSheet = $reader->load($file);
+        $sheet = $spreadSheet->getSheet(0);
+        // Infomation 
+        $sheet->setCellValue("A1", env("TT_TEN_CONG_TY"));
+        $sheet->setCellValue("A2", env("TT_DIA_CHI_CONG_TY"));
+        $sheet->setCellValue("A3", "Tel: " . env("TT_SDT_CONG_TY") . " / Fax: " . env("TT_FAX_CONG_TY"));
+        $sheet->setCellValue("A4", "Email: " . env("TT_EMAIL_CONG_TY"));
+        // Dates
+        if (empty($tu_ngay) || empty($den_ngay)) {
+            $tu_ngay = date('Y-m-01');
+            $den_ngay = date('Y-m-d');
+        }
+        $sheet->setCellValue("G3", "From date: " . (new DateTime($tu_ngay))->format('d/m/Y'));
+        $sheet->setCellValue("G4", "To date: " . (new DateTime($den_ngay))->format('d/m/Y'));
+
+        $thu_chi = [];
+        // Chỉ có khách hàng === Xuất phát từ Công nợ chi tiết ==> Tính toàn bộ theo khách hàng
+        if ($dat_ve == []) {
+            // Đặt vé phát sinh trong khoảng thời gian của khách hàng tương ứng
+            $dat_ve = $khach_hang->dat_ves()->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+            // All thu chi of this Customer
+            $thu_chi = $khach_hang->thu_chis()->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+
+            //TODO: Other object: Tour, Visa...
+        } else if ($khach_hang == null)
+            $khach_hang = $dat_ve[0]->khach_hang;
+        // Fill Customer Info
+        $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
+        $no_dau_ky = 0;
+        if ($khach_hang != null) {
+            $sheet->setCellValue("A7", "Kính gửi (To):    $khach_hang->ho_ten");
+            $sheet->setCellValue("A8", "Tên giao dịch (Name):   $khach_hang->ho_ten - Tel: $khach_hang->sdt - Email: $khach_hang->email");
+            $no_dau_ky = $khach_hang->so_du_ky_truoc + self::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc) - self::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
+            $sheet->setCellValue("M8", $no_dau_ky);
+        }
+
+        $data = [];
+        $interval = DateInterval::createFromDateString('1 day');
+        $period = new DatePeriod(new DateTime($tu_ngay), $interval, new DateTime($den_ngay));
+        foreach ($period as $dt) {
+            $tmp = $dt->format('d/m/Y');
+            $data[$tmp] = [];
+        }
+
+        $sno = 0;
+        $sco = 0;
+        $row_count = 0;
+        $dat_ve = $dat_ve->groupBy(function ($ob) {
+            return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
+        });
+        // Each day
+        foreach ($dat_ve as $ngay => $ves) {
+            $tmp = $ves->groupBy('so_ve');
+            // Each So Ve
+            foreach ($tmp as $sove => $ves1) {
+                $obj = new stdClass;
+                $obj->ngay_thang = $ngay;
+                $obj->chung_tu = $sove;
+                $obj->no = $ves1->sum('tong_tien_thu_khach');
+                $obj->noi_dung = $sove . ' ' . count($ves1) . ' vé';
+                $obj->dich_vu = $ves1->sum('lai');
+                $obj->tong_tien = $ves1->sum('tong_tien');
+                $obj->loai_tuoi = $ves1[0]->ten_loai_tuoi;
+                //TODO: Tai Khoan "CO" la Tong Tien da thu trong khoang thoi gian???
+                $obj->co = 0;
+                // Chua xu ly Ngay thanh toan tron Dat Ve
+                $sno += $obj->no;
+                $data[$ngay][] = $obj;
+                $row_count++;
+            }
+        }
+
+        foreach ($thu_chi as $tc) {
+            $ngay = (new DateTime($tc->ngay_thang))->format('d/m/Y');
+            $obj = new stdClass;
+            $obj->ngay_thang = $ngay;
+            $obj->chung_tu = "";
+            $obj->no = 0;
+            $obj->noi_dung = "$tc->tai_khoan_di => $tc->tai_khoan_den - $tc->hang_muc";
+            $obj->dich_vu = '';
+            $obj->tong_tien = '';
+            $obj->loai_tuoi = '';
+            $obj->co = $tc->so_tien;
+
+            $sco += $obj->co;
+            $data[$ngay][] = $obj;
+            $row_count++;
+        }
+        // No Cuoi Ky
+        $sheet->setCellValue("M17", $no_dau_ky + $sco - $sno);
+
+        $sheet->insertNewRowBefore(15, $row_count);
+        $sheet->removeRow(13, 2);
+        $row_index = 13;
+        foreach ($data as $ngay => $values) {
+            foreach ($values as $value) {
+                $sheet->setCellValue("A$row_index", $row_index - 12);
+                $sheet->setCellValue("B$row_index", $ngay);
+                $sheet->setCellValue("C$row_index", $value->chung_tu);
+                $sheet->setCellValue("E$row_index", $value->noi_dung);
+
+                $sheet->setCellValue("G$row_index", $value->loai_tuoi);
+                $sheet->setCellValue("H$row_index", $value->tong_tien);
+                $sheet->setCellValue("I$row_index", $value->dich_vu);
+
+                $sheet->setCellValue("L$row_index", $value->no);
+                $sheet->setCellValue("M$row_index", $value->co);
+                $no_dau_ky += $value->co - $value->no;
+                $sheet->setCellValue("N$row_index", $no_dau_ky);
+                $row_index++;
+            }
+        }
+        $sheet->setCellValue("E$row_index", "Tổng cộng");
+        $sheet->setCellValue("L$row_index", $sno);
+        $sheet->setCellValue("M$row_index", $sco);
+
+        //set the header first, so the result will be treated as an xlsx file.
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        //make it an attachment so we can define filename
+        header('Content-Disposition: attachment;filename="result.xlsx"');
+        $writer = IOFactory::createWriter($spreadSheet, "Xlsx");
+        // Write file to output
+        $writer->save('php://output');
     }
 }

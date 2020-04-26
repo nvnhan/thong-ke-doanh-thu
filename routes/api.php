@@ -47,6 +47,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('dat-ve/mau-ve', 'BaoCaoDatVeController@mauve');
     Route::get('dat-ve/lay-hoa-don', 'BaoCaoDatVeController@layhoadon');
     Route::get('dat-ve/bang-ke', 'BaoCaoDatVeController@bangkehoadon');
+    Route::get('dat-ve/cong-no', 'BaoCaoDatVeController@congno');
 
     // Thong Tin Chung
     Route::get('tai-khoan/all', 'TaiKhoanController@all');

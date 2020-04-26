@@ -27,7 +27,11 @@ class SettingController extends BaseController
 
             'tt_ten_cong_ty' => env('TT_TEN_CONG_TY'),
             'tt_mst_cong_ty' => env('TT_MST_CONG_TY'),
-            'tt_dia_chi_cong_ty' => env('TT_DIA_CHI_CONG_TY')
+            'tt_dia_chi_cong_ty' => env('TT_DIA_CHI_CONG_TY'),
+
+            'tt_sdt_cong_ty' => env('TT_SDT_CONG_TY'),
+            'tt_fax_cong_ty' => env('TT_FAX_CONG_TY'),
+            'tt_email_cong_ty' => env('TT_EMAIL_CONG_TY')
         ];
         return $this->sendResponse((object) $data, "Setting retrieved successfully");
     }
@@ -54,6 +58,10 @@ class SettingController extends BaseController
         Util::updateDotEnv('TT_TEN_CONG_TY', $request->tt_ten_cong_ty);
         Util::updateDotEnv('TT_MST_CONG_TY', $request->tt_mst_cong_ty);
         Util::updateDotEnv('TT_DIA_CHI_CONG_TY', $request->tt_dia_chi_cong_ty);
+
+        Util::updateDotEnv('TT_SDT_CONG_TY', $request->tt_sdt_cong_ty);
+        Util::updateDotEnv('TT_FAX_CONG_TY', $request->tt_fax_cong_ty);
+        Util::updateDotEnv('TT_EMAIL_CONG_TY', $request->tt_email_cong_ty);
 
         return $this->sendResponse([], "Cập nhật thành công");
     }

@@ -136,34 +136,14 @@ class BaoCaoController extends BaseController
 
     public function congnochitiet(Request $request)
     {
-        //TODO: Công nợ chi tiết ~ Đặt vé Công nợ
-        $tu_ngay =  date('Y-m-01');
-        $den_ngay = date('Y-m-t');
+        $tu_ngay = date('Y-m-01');
+        $den_ngay = date('Y-m-d');
         if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
             $tu_ngay = substr($request->bat_dau, 0, 10);
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
-        // $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
-
-        // Prepare Excel File
-        $file = storage_path('app/reports') . "/cong-no.xlsx";
-        $reader = IOFactory::createReader("Xlsx");
-        $spreadSheet = $reader->load($file);
-        $sheet = $spreadSheet->getSheet(0);
-
-        $sheet->setCellValue("A1", "Công ty: " . env("TT_TEN_CONG_TY"));
-        $sheet->setCellValue("A2", "MST: " . env("TT_MST_CONG_TY"));
-        $sheet->setCellValue("A3", "Địa chỉ: " . env("TT_DIA_CHI_CONG_TY"));
-
-
-
-        //set the header first, so the result will be treated as an xlsx file.
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        //make it an attachment so we can define filename
-        header('Content-Disposition: attachment;filename="result.xlsx"');
-        $writer = IOFactory::createWriter($spreadSheet, "Xlsx");
-        // Write file to output
-        $writer->save('php://output');
+        $khach_hang = KhachHang::find($request->id_khach_hang);
+        Report::maucongno($tu_ngay, $den_ngay, [], $khach_hang);
     }
 
     public function doisoattaikhoan(Request $request)

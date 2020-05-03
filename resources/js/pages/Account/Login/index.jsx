@@ -16,7 +16,7 @@ class Login extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.onChangeTitle("Đăng nhập | Thống kê doanh thu");
+        this.props.onChangeTitle("Đăng nhập");
     }
 
     onChangeForm = () => {
@@ -31,7 +31,7 @@ class Login extends PureComponent {
     render() {
         const { login } = this.state;
         return (
-            <Card className="card-login" title={<img src="/img/intro.png" />}>
+            <Card className="card-login" title={<img src="/images/intro.png" />}>
                 {login ? (
                     <LoginForm onSetAuth={this.props.onSetAuth} onRegister={this.onChangeForm} />
                 ) : (

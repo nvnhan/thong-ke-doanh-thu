@@ -39,7 +39,7 @@ const ExportData = (data, filename, skipHeader = true) => {
         type: "binary",
         Props: {
             Author: "NVN",
-            Company: "TKDT"
+            Company: "tienve.net"
         }
     });
 
@@ -65,7 +65,7 @@ export const ExportMultiSheet = (data, filename) => {
         type: "binary",
         Props: {
             Author: "NVN",
-            Company: "TKDT"
+            Company: "tienve.net"
         }
     });
 

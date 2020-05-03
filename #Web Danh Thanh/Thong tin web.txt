@@ -1,0 +1,32 @@
+// Email:
+danhthanh810@gmail.com
+danhthanh888
+
+
+// Server
+VPS Hostinger
+Login with Google
+
+SSH Details
+SSH IP: 156.67.216.24
+New Server: 31.220.55.122
+SSH Port: 22 
+SSH username: root 
+IPV6: 2a02:4780:3:3:2d3f:1cee:9cf1:0f94
+Password: 123456789012
+
+
+// Domain : tienve.net
+matbao
+ID: MB1615245
+Pass: Danhthanh@810
+
+Vesta CP: sv.tienve.net: 8083
+User: admin
+Pass: @Abc123456@
+
+
+// Database
+admin_tkdt
+DB_USERNAME=admin_tkdt
+DB_PASSWORD=O2kKGHHMZh

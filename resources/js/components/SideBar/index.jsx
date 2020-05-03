@@ -53,7 +53,7 @@ class SideBar extends PureComponent {
         return (
             <Sider breakpoint="lg" collapsedWidth="0" collapsible>
                 <div className="logo">
-                    <img src="/images/logo.png" /> TKDT
+                    <img src="/images/logo.png" /> Tiền vé
                 </div>
                 <Menu
                     mode="inline"

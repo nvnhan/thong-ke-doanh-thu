@@ -1,1 +1,406 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[22],{637:function(e,t,a){"use strict";var n=a(0),r=a(32),l=a(1),c=a.n(l),i=a(13),o=a(33),m=a(45),u=a(17);function s(){return(s=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var a=arguments[t];for(var n in a)Object.prototype.hasOwnProperty.call(a,n)&&(e[n]=a[n])}return e}).apply(this,arguments)}function p(e){return(p="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}var d=o.a.Option,h=o.a;function f(e){return e&&e.type&&(e.type.isSelectOption||e.type.isSelectOptGroup)}var y=n.forwardRef((function(e,t){var a,l=e.prefixCls,y=e.className,E=e.children,b=e.dataSource,g=Object(r.a)(E),v=n.useRef();n.useImperativeHandle(t,(function(){return v.current})),1===g.length&&n.isValidElement(g[0])&&!f(g[0])&&(a=g[0]);var _,w=function(){return a};return _=g.length&&f(g[0])?E:b?b.map((function(e){if(n.isValidElement(e))return e;switch(p(e)){case"string":return n.createElement(d,{key:e,value:e},e);case"object":var t=e.value;return n.createElement(d,{key:t,value:t},e.text);default:throw new Error("AutoComplete[dataSource] only supports type `string[] | Object[]`.")}})):[],n.useEffect((function(){Object(u.a)(!("dataSource"in e),"AutoComplete","`dataSource` is deprecated, please use `options` instead."),Object(u.a)(!a||!("size"in e),"AutoComplete","You need to control style self instead of setting `size` when using customize input.")}),[]),n.createElement(m.a,null,(function(t){var a=(0,t.getPrefixCls)("select",l);return n.createElement(h,s({ref:v},Object(i.a)(e,["dataSource"]),{prefixCls:a,className:c()(y,"".concat(a,"-auto-complete")),mode:o.a.SECRET_COMBOBOX_MODE_DO_NOT_USE,getInputElement:w}),_)}))}));y.Option=d,t.a=y},638:function(e,t,a){"use strict";var n=a(0),r={name:"appstore-add",theme:"outlined",icon:{tag:"svg",attrs:{viewBox:"64 64 896 896",focusable:"false"},children:[{tag:"defs",attrs:{},children:[{tag:"style",attrs:{}}]},{tag:"path",attrs:{d:"M464 144H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm-52 268H212V212h200v200zm452-268H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm-52 268H612V212h200v200zm52 132H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zm-52 268H612V612h200v200zM424 712H296V584c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v128H104c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h128v128c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V776h128c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z"}}]}},l=a(6),c=function(e,t){return n.createElement(l.a,Object.assign({},e,{ref:t,icon:r}))};c.displayName="AppstoreAddOutlined";t.a=n.forwardRef(c)},663:function(e,t,a){"use strict";a.r(t);var n=a(638),r=a(0),l=a.n(r),c=a(78),i=a(12),o=a(58),m=a(20),u=a(14),s=a(25),p=a(637),d=a(631),h=l.a.memo((function(e){var t=(e.phanLoai||[]).map((function(e){return{value:e}}));return l.a.createElement(l.a.Fragment,null,l.a.createElement(o.a,{gutter:[5,5]},l.a.createElement(m.a,{span:24,md:8,sm:12},l.a.createElement(u.a.Item,{name:"ky_hieu",label:"Ký hiệu",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},l.a.createElement(s.a,null))),l.a.createElement(m.a,{span:24,md:8,sm:12},l.a.createElement(u.a.Item,{name:"mo_ta",label:"Tên NCC",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},l.a.createElement(s.a,null))),l.a.createElement(m.a,{span:24,md:8,sm:12},l.a.createElement(u.a.Item,{name:"phan_loai",label:"Phân loại",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},l.a.createElement(p.a,{options:t,filterOption:function(e,t){return-1!==t.value.toUpperCase().indexOf(e.toUpperCase())}}))),l.a.createElement(m.a,{span:12,md:8,sm:12},l.a.createElement(u.a.Item,{name:"sdt",label:"SĐT"},l.a.createElement(s.a,null))),l.a.createElement(m.a,{span:12,md:8,sm:12},l.a.createElement(u.a.Item,{name:"email",label:"Email"},l.a.createElement(s.a,{type:"email"}))),l.a.createElement(m.a,{span:24,md:8,sm:12},l.a.createElement(u.a.Item,{name:"dia_chi",label:"Địa chỉ"},l.a.createElement(s.a,null))),l.a.createElement(m.a,{span:12,md:8,sm:12},l.a.createElement(u.a.Item,{name:"mst",label:"Mã số thuế"},l.a.createElement(s.a,null))),l.a.createElement(m.a,{span:12,md:8,sm:12},l.a.createElement(u.a.Item,{name:"so_du_ky_truoc",label:"Số dư đầu"},l.a.createElement(d.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),l.a.createElement(m.a,{span:12,md:8,sm:12},l.a.createElement(u.a.Item,{name:"phi_vn",label:"Phí VN"},l.a.createElement(d.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),l.a.createElement(m.a,{span:12,md:8,sm:12},l.a.createElement(u.a.Item,{name:"phi_vj",label:"Phí VJ"},l.a.createElement(d.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),l.a.createElement(m.a,{span:12,md:8,sm:12},l.a.createElement(u.a.Item,{name:"phi_jets",label:"Phí Jets"},l.a.createElement(d.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),l.a.createElement(m.a,{span:12,md:8,sm:12},l.a.createElement(u.a.Item,{name:"phi_bb",label:"Phí BB"},l.a.createElement(d.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),l.a.createElement(m.a,{span:24,md:8,sm:12},l.a.createElement(u.a.Item,{name:"ghi_chu",label:"Ghi chú"},l.a.createElement(s.a,null)))))})),f=a(4);function y(e){return function(e){if(Array.isArray(e))return g(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||b(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function E(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var a=[],n=!0,r=!1,l=void 0;try{for(var c,i=e[Symbol.iterator]();!(n=(c=i.next()).done)&&(a.push(c.value),!t||a.length!==t);n=!0);}catch(e){r=!0,l=e}finally{try{n||null==i.return||i.return()}finally{if(r)throw l}}return a}(e,t)||b(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function b(e,t){if(e){if("string"==typeof e)return g(e,t);var a=Object.prototype.toString.call(e).slice(8,-1);return"Object"===a&&e.constructor&&(a=e.constructor.name),"Map"===a||"Set"===a?Array.from(a):"Arguments"===a||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(a)?g(e,t):void 0}}function g(e,t){(null==t||t>e.length)&&(t=e.length);for(var a=0,n=new Array(t);a<t;a++)n[a]=e[a];return n}var v=l.a.memo((function(e){var t=E(Object(r.useState)([]),2),a=t[0],c=t[1],o=[{title:"Ký hiệu",dataIndex:"ky_hieu",optFind:!0,width:140},{title:"Nhà cung cấp",dataIndex:"mo_ta",optFind:!0,width:170},{title:"Phân loại",dataIndex:"phan_loai",width:120,optFilter:!0},{title:"SĐT",dataIndex:"sdt",width:120},{title:"Email",dataIndex:"email",width:150},{title:"Địa chỉ",dataIndex:"dia_chi",ellipsis:!0,width:170},{title:"MST",dataIndex:"mst",width:120},{title:"Số dư ban đầu",dataIndex:"so_du_ky_truoc",render:function(e){return f.e.format(e)},width:120},{title:"Ghi chú",dataIndex:"ghi_chu",ellipsis:!0,width:170}],m=[{key:"dsHangHoa",onClick:function(t){e.history.push({pathname:"/hang-hoa",ncc:t})},title:"Danh sách hàng hóa",icon:l.a.createElement(n.a,null),color:"#4bab92"}];return l.a.createElement(i.a,{url:"nha-cung-cap",columns:o,tableSize:{x:1200},modalWidth:"1100px",formTemplate:l.a.createElement(h,{phanLoai:a}),formInitialValues:{so_du_ky_truoc:0,phi_vn:0,phi_vj:0,phi_jets:0,phi_bb:0},otherActions:m,onChangeData:function(e){var t=y(new Set(e.map((function(e){return e.phan_loai}))));c(t)},expandedRowRender:function(e){return l.a.createElement("ul",{style:{margin:0}},l.a.createElement("li",null,"Phí thu VN: ",f.e.format(e.phi_vn)),l.a.createElement("li",null,"Phí thu VJ: ",f.e.format(e.phi_vj)),l.a.createElement("li",null,"Phí thu Jets: ",f.e.format(e.phi_jets)),l.a.createElement("li",null,"Phí thu BB: ",f.e.format(e.phi_bb)),l.a.createElement("li",null,"Ngày tạo: ",e.ngay_tao),l.a.createElement("li",null,"Ghi chú: ",e.ghi_chu))}})}));t.default=Object(c.g)(v)}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[22],{
+
+/***/ "./resources/js/pages/ThongTin/NhaCungCap/FormItem.js":
+/*!************************************************************!*\
+  !*** ./resources/js/pages/ThongTin/NhaCungCap/FormItem.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+
+
+var form = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
+  var phanLoai = props.phanLoai || [];
+  var options = phanLoai.map(function (pl) {
+    return {
+      value: pl
+    };
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+    gutter: [5, 5]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ky_hieu",
+    label: "K\xFD hi\u1EC7u",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "mo_ta",
+    label: "T\xEAn NCC",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phan_loai",
+    label: "Ph\xE2n lo\u1EA1i",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["AutoComplete"], {
+    options: options,
+    filterOption: function filterOption(inputValue, option) {
+      return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "sdt",
+    label: "S\u0110T"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "email",
+    label: "Email"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    type: "email"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "dia_chi",
+    label: "\u0110\u1ECBa ch\u1EC9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "mst",
+    label: "M\xE3 s\u1ED1 thu\u1EBF"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "so_du_ky_truoc",
+    label: "S\u1ED1 d\u01B0 \u0111\u1EA7u"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_vn",
+    label: "Ph\xED VN"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_vj",
+    label: "Ph\xED VJ"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_jets",
+    label: "Ph\xED Jets"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phi_bb",
+    label: "Ph\xED BB"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 8,
+    sm: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ghi_chu",
+    label: "Ghi ch\xFA"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)))));
+});
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./resources/js/pages/ThongTin/NhaCungCap/index.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/pages/ThongTin/NhaCungCap/index.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/ThongTin/NhaCungCap/FormItem.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      phanLoai = _useState2[0],
+      setPhanLoai = _useState2[1];
+  /**
+   * Callback from ListForm to get PhanLoai from data
+   */
+
+
+  var onChangeData = function onChangeData(data) {
+    var phanLoai = _toConsumableArray(new Set(data.map(function (x) {
+      return x.phan_loai;
+    })));
+
+    setPhanLoai(phanLoai);
+  };
+  /**
+   * Redirect to Hang Hoa with addition params
+   */
+
+
+  var onClickRow = function onClickRow(record) {
+    var pathname = "/hang-hoa";
+    props.history.push({
+      pathname: pathname,
+      ncc: record
+    });
+  };
+
+  var expandedRowRender = function expandedRowRender(record) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
+      style: {
+        margin: 0
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED thu VN: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_vn)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED thu VJ: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_vj)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED thu Jets: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_jets)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED thu BB: ", _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(record.phi_bb)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\xE0y t\u1EA1o: ", record.ngay_tao), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu));
+  };
+
+  var columns = [{
+    title: "Ký hiệu",
+    dataIndex: "ky_hieu",
+    optFind: true,
+    width: 140
+  }, {
+    title: "Nhà cung cấp",
+    dataIndex: "mo_ta",
+    optFind: true,
+    width: 170
+  }, {
+    title: "Phân loại",
+    dataIndex: "phan_loai",
+    width: 120,
+    optFilter: true
+  }, {
+    title: "SĐT",
+    dataIndex: "sdt",
+    width: 120
+  }, {
+    title: "Email",
+    dataIndex: "email",
+    width: 150
+  }, {
+    title: "Địa chỉ",
+    dataIndex: "dia_chi",
+    ellipsis: true,
+    width: 170
+  }, {
+    title: "MST",
+    dataIndex: "mst",
+    width: 120
+  }, {
+    title: "Số dư ban đầu",
+    dataIndex: "so_du_ky_truoc",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(number);
+    },
+    width: 120
+  }, // {
+  //     title: "Phí VN",
+  //     dataIndex: "phi_vn",
+  //     render: number =>
+  //         new Intl.NumberFormat("vi-VN", {
+  //             style: "currency",
+  //             currency: "VND"
+  //         }).format(number),
+  //     width: 120
+  // },
+  // {
+  //     title: "Phí VJ",
+  //     dataIndex: "phi_vj",
+  //     render: number =>
+  //         new Intl.NumberFormat("vi-VN", {
+  //             style: "currency",
+  //             currency: "VND"
+  //         }).format(number),
+  //     width: 120
+  // },
+  // {
+  //     title: "Phí Jets",
+  //     dataIndex: "phi_jets",
+  //     render: number =>
+  //         new Intl.NumberFormat("vi-VN", {
+  //             style: "currency",
+  //             currency: "VND"
+  //         }).format(number),
+  //     width: 120
+  // },
+  // {
+  //     title: "Phí BB",
+  //     dataIndex: "phi_bb",
+  //     render: number =>
+  //         new Intl.NumberFormat("vi-VN", {
+  //             style: "currency",
+  //             currency: "VND"
+  //         }).format(number),
+  //     width: 120
+  // },
+  // {
+  //     title: "Ngày tạo",
+  //     dataIndex: "ngay_tao",
+  //     width: 120
+  // },
+  {
+    title: "Ghi chú",
+    dataIndex: "ghi_chu",
+    ellipsis: true,
+    width: 170
+  }];
+  var hangHoaAction = [{
+    key: "dsHangHoa",
+    onClick: onClickRow,
+    title: "Danh sách hàng hóa",
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["AppstoreAddOutlined"], null),
+    color: "#4bab92" // Primary color
+
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    url: "nha-cung-cap",
+    columns: columns,
+    tableSize: {
+      x: 1200
+    },
+    modalWidth: "1100px",
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      phanLoai: phanLoai
+    }),
+    formInitialValues: {
+      so_du_ky_truoc: 0,
+      phi_vn: 0,
+      phi_vj: 0,
+      phi_jets: 0,
+      phi_bb: 0
+    },
+    otherActions: hangHoaAction,
+    onChangeData: onChangeData,
+    expandedRowRender: expandedRowRender
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(List));
+
+/***/ })
+
+}]);

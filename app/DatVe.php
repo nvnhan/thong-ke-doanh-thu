@@ -121,7 +121,7 @@ class DatVe extends Model
 
     public function getTenLoaiTuoiAttribute()
     {
-        switch ($this->attribute['loai_tuoi']) {
+        switch ($this->loai_tuoi) {
             case 1:
                 return "Trẻ em";
             case 2:

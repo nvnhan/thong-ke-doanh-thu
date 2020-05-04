@@ -78,12 +78,18 @@ const ListForm = props => {
      * Create trigger for calling functions from other component
      */
     useImperativeHandle(props.ree, () => ({
-        triggerAddNew: () => {
-            handleAddNew();
-        },
-        getFormInstance: () => {
-            return form;
-        }
+        /**
+         * Gọi sự kiện thêm mới từ form khác
+         */
+        triggerAddNew: () => handleAddNew(),
+        /**
+         * Kích hoạt chức năng thêm 1 hàng mới vào table
+         */
+        triggerInsertFromText: response => doInsertRow(response),
+        /**
+         * Trả form instance về form khác (form cha)
+         */
+        getFormInstance: () => form
     }));
 
     /**
@@ -138,21 +144,23 @@ const ListForm = props => {
      */
     const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
+    const doInsertRow = response => {
+        if (response.data.success) {
+            const newData = [...data, response.data.data]; // Thêm object vào list lấy từ state
+            setState({
+                data: newData
+            });
+            message.info(response.data.message);
+            if (onChangeData) onChangeData(newData);
+        } else message.error(response.data.message);
+    };
+
     const onAdd = value => {
         if (otherParams !== undefined)
             value = Object.assign(value, otherParams);
         axios
             .post(`/api/${url}`, { ...value, otherParams })
-            .then(response => {
-                if (response.data.success) {
-                    const newData = [...data, response.data.data]; // Thêm object vào list lấy từ state
-                    setState({
-                        data: newData
-                    });
-                    message.info(response.data.message);
-                    if (onChangeData) onChangeData(newData);
-                }
-            })
+            .then(response => doInsertRow(response))
             .catch(error => console.log(error));
     };
 

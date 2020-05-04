@@ -1,1 +1,417 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[13,4],{105:function(e,t,n){"use strict";var r=n(636),a=n(632),o=n(633),i=n(383),c=n(98),l=n(19),u=n(31),s=n(25),f=n(187),d=n(0),h=n.n(d),m=n(190),y=n.n(m);function b(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function p(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function g(e){return function(e){if(Array.isArray(e))return w(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||O(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function v(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||O(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function O(e,t){if(e){if("string"==typeof e)return w(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return"Object"===n&&e.constructor&&(n=e.constructor.name),"Map"===n||"Set"===n?Array.from(n):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?w(e,t):void 0}}function w(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var j=h.a.memo((function(e){var t,n=e.selectedRowKeys,m=e.data,O=e.isLoading,w=e.columns,j=e.selectable,E=e.editable,x=e.deleteable,S=e.primaryKey,k=e.tableSize,C=e.onDelete,I=e.handleEdit,A=e.onChangeSelect,T=e.otherActions,D=e.expandedRowRender,P=e.renderFooter,Y=e.renderSummary,R=v(Object(d.useState)([]),2),N=R[0],F=R[1],M="",H="";Object(d.useEffect)((function(){F(L())}),[O]);var L=function(){var e=w.map((function(e){return V(e,m)}));return(E||x||!_.isEmpty(T))&&e.push(K()),e},V=function(e,t){if(e.optFilter){var n=g(new Set(t.map((function(t){return t[e.dataIndex]})))).map((function(e){return{text:null!==e?e:"(không có)",value:e}}));Object.assign(e,{filters:n,onFilter:function(t,n){return n[e.dataIndex]===t||null!==n[e.dataIndex]&&0===n[e.dataIndex].indexOf(t)}})}else e.optFind&&Object.assign(e,function(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?b(Object(n),!0).forEach((function(t){p(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):b(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}({},U(e.dataIndex)));return e},K=function(){return{title:"",key:"action",fixed:"right",align:"center",width:72,render:function(e,t){return h.a.createElement(c.a,{overlay:B(t)},h.a.createElement(l.a,null,h.a.createElement(r.a,null)))}}},B=function(e){return h.a.createElement(u.a,null,!_.isEmpty(T)&&T.map((function(t){return h.a.createElement(u.a.Item,{key:t.key,onClick:function(){return t.onClick(e)},style:{color:t.color}},t.icon," ",t.title)})),E&&h.a.createElement(u.a.Item,{key:"edit",onClick:function(){return I(e)},className:"color-link"},h.a.createElement(a.a,null)," Chỉnh sửa"),x&&h.a.createElement(u.a.Item,{key:"delete",onClick:function(){return C(e[S])},className:"color-danger"},h.a.createElement(o.a,null)," Xóa"))},U=function(e){return{filterDropdown:function(n){var r=n.setSelectedKeys,a=n.selectedKeys,o=n.confirm,c=n.clearFilters;return h.a.createElement("div",{style:{padding:8}},h.a.createElement(s.a,{ref:function(e){t=e},placeholder:"Tìm kiếm...",value:a[0],onChange:function(e){return r(e.target.value?[e.target.value]:[])},onPressEnter:function(){return q(a,o,e)},style:{width:188,marginBottom:8,display:"block"}}),h.a.createElement(l.a,{type:"primary",onClick:function(){return q(a,o,e)},icon:h.a.createElement(i.a,null),size:"small",style:{width:90,marginRight:8}},"Tìm"),h.a.createElement(l.a,{onClick:function(){return G(c)},size:"small",style:{width:90}},"Hủy"))},filterIcon:function(e){return h.a.createElement(i.a,{style:{color:e?"#1890ff":void 0}})},onFilter:function(t,n){return n[e].toString().toLowerCase().includes(t.toLowerCase())},onFilterDropdownVisibleChange:function(e){e&&setTimeout((function(){return t.select()}))},render:function(t){return H===e?h.a.createElement(y.a,{highlightStyle:{backgroundColor:"#ffc069",padding:0},searchWords:[M],autoEscape:!0,textToHighlight:t.toString()}):t}}},q=function(e,t,n){t(),H=n,M=e[0]},G=function(e){e(),H="",M=""},z={selectedRowKeys:n,onChange:A,hideDefaultSelections:!0,columnWidth:45,selections:[f.a.SELECTION_ALL,f.a.SELECTION_INVERT,{key:"invert_all",text:"Bỏ chọn tất cả",onSelect:function(){return A([])}}]};return h.a.createElement(f.a,{dataSource:m,columns:N,loading:O,rowKey:function(t){return t[e.primaryKey]},rowSelection:j?z:null,locale:{filterConfirm:"Lọc",filterReset:"Hủy",emptyText:"Không có dữ liệu",cancelSort:"CLick để Bỏ sắp xếp",triggerAsc:"Click để Sắp xếp tăng dần",triggerDesc:"Click để Sắp xếp giảm dần",selectionAll:"Chọn tất cả dữ liệu",selectInvert:"Đảo chọn trang hiện tại"},scroll:k,expandable:D?{expandedRowRender:function(e){return D(e)}}:null,footer:P?function(){return P(m)}:void 0,summary:Y?function(){return Y(m)}:void 0})}));t.a=j},12:function(e,t,n){"use strict";var r=n(0),a=n.n(r),o={name:"exclamation-circle",theme:"outlined",icon:{tag:"svg",attrs:{viewBox:"64 64 896 896",focusable:"false"},children:[{tag:"path",attrs:{d:"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"}},{tag:"path",attrs:{d:"M464 688a48 48 0 1096 0 48 48 0 10-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z"}}]}},i=n(6),c=function(e,t){return r.createElement(i.a,Object.assign({},e,{ref:t,icon:o}))};c.displayName="ExclamationCircleOutlined";var l=r.forwardRef(c),u=n(382),s=n(14),f=n(80),d=n(2),h=n.n(d),m=n(4),y=n(105),b=n(120),p=n(19),g=a.a.memo((function(e){var t=e.form,n=e.formInitialValues,o=e.currentRecord,i=e.setFormValues,c=e.formTemplate,l=e.modalVisible;return Object(r.useLayoutEffect)((function(){l?void 0!==i?t.setFieldsValue(i):void 0!==o&&t.setFieldsValue(o):(t.resetFields(),void 0!==i&&void 0!==i.resetFields&&i.resetFields())})),a.a.createElement(s.a,{form:t,initialValues:n,labelCol:{span:8},wrapperCol:{span:16}},c)}));function v(){return(v=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}var O=a.a.memo((function(e){var t=e.form,n=function(){t.validateFields().then((function(t){return e.handleOk(Object(m.b)(t))})).catch((function(e){return console.log("Validate Failed: ",e)}))};return a.a.createElement(u.a,{width:e.modalWidth,visible:e.modalVisible,title:void 0!==e.currentRecord?"Chỉnh sửa":"Thêm mới",onOk:n,onCancel:e.handleCancel,footer:[a.a.createElement(p.a,{key:"back",onClick:e.handleCancel},"Hủy"),a.a.createElement(p.a,{key:"submit",type:"primary",loading:e.formSubmiting,onClick:n},"Đồng ý")]},a.a.createElement(g,v({},e,{form:t})))})),w=n(121);function j(){return(j=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function E(e){return function(e){if(Array.isArray(e))return I(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||C(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function x(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function S(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function k(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||C(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function C(e,t){if(e){if("string"==typeof e)return I(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return"Object"===n&&e.constructor&&(n=e.constructor.name),"Map"===n||"Set"===n?Array.from(n):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?I(e,t):void 0}}function I(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var A=u.a.confirm,T=function(e){var t=k(s.a.useForm(),1)[0],n=e.url,o=e.onChangeData,i=e.primaryKey,c=e.filter,u=e.filterBox,d=e.otherParams,h=k(Object(m.d)({data:[],isLoading:!0,modalVisible:!1,formSubmiting:!1,selectedRowKeys:[],currentRecord:void 0}),2),p=h[0],g=h[1],v=p.data,C=p.isLoading,I=p.modalVisible,T=p.formSubmiting,D=p.selectedRowKeys,P=p.currentRecord,Y=k(Object(r.useState)(c),2),R=Y[0],N=Y[1],F=!1,M=void 0!==c?c:R;Object(r.useEffect)((function(){return F=!0,void 0!==M&&_.isEmpty(M)||(console.log("Load data from server in ListForm",M),g({data:[],isLoading:!0}),axios.get("/api/"+n+"?"+Object(m.c)(M)).then((function(e){F&&e.data.success&&(o&&o(e.data.data),g({data:e.data.data,isLoading:!1}))})).catch((function(e){return console.log(e)}))),function(){F=!1}}),[JSON.stringify(M)]),Object(r.useImperativeHandle)(e.ree,(function(){return{triggerAddNew:function(){H()},getFormInstance:function(){return t}}}));var H=function(){g({currentRecord:void 0,modalVisible:!0})},L=function(e){void 0!==d&&(e=Object.assign(e,d)),axios.post("/api/".concat(n),function(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?x(Object(n),!0).forEach((function(t){S(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):x(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}({},e,{otherParams:d})).then((function(e){if(e.data.success){var t=[].concat(E(v),[e.data.data]);g({data:t}),f.a.info(e.data.message),o&&o(t)}})).catch((function(e){return console.log(e)}))},V=function(e){axios.put("/api/".concat(n,"/").concat(P[i]),e).then((function(e){if(e.data.success){var t=[];Object.assign(t,v.map((function(t){return t[i]===P[i]?e.data.data:t}))),g({data:t}),o&&o(t),f.a.info(e.data.message)}})).catch((function(e){return console.log(e)}))};return a.a.createElement("div",{className:"list-form"},u&&a.a.createElement(b.a,j({},e,{onFilter:function(e){Object(m.a)(R,e)&&N(e)}})),a.a.createElement(w.a,j({},e,{data:v,selectedRowKeys:D,handleAddNew:H,onMultiDelete:function(){A({title:"Bạn muốn xóa những mục này?",icon:a.a.createElement(l,null),content:"Tất cả "+D.length+" mục",okText:"Đồng ý",okType:"danger",cancelText:"Không",onOk:function(){axios.delete("/api/".concat(n,"/deletes"),{params:{objects:D.join("|")}}).then((function(e){if(e.data.success){var t=v.filter((function(e){return-1===D.indexOf(e[i])}));g({data:t,selectedRowKeys:[]}),o&&o(t),f.a.info(e.data.message)}})).catch((function(e){return console.log(e)}))}})}})),a.a.createElement(y.a,j({},e,{data:v,isLoading:C,selectedRowKeys:D,onChangeSelect:function(e){return g({selectedRowKeys:e})},handleEdit:function(e){g({modalVisible:!0,currentRecord:e})},onDelete:function(e){A({title:"Bạn muốn xóa mục này?",icon:a.a.createElement(l,null),content:"Thao tác không thể khôi phục",okText:"Đồng ý",okType:"danger",cancelText:"Không",onOk:function(){axios.delete("/api/".concat(n,"/").concat(e)).then((function(t){if(t.data.success){var n=v.filter((function(t){return t[i]!==e}));g({data:n}),f.a.info(t.data.message),o&&o(n)}})).catch((function(e){return console.log(e)}))}})}})),void 0!==e.formTemplate&&a.a.createElement(O,j({},e,{form:t,modalVisible:I,formSubmiting:T,currentRecord:P,handleOk:function(e){g({formSubmiting:!0}),void 0===P?L(e):Object(m.a)(P,e)&&V(e),g({formSubmiting:!1,modalVisible:!1})},handleCancel:function(){g({modalVisible:!1})}})))};T.propTypes={url:h.a.string.isRequired,columns:h.a.arrayOf(h.a.object).isRequired,formTemplate:h.a.node,onChangeData:h.a.func,selectable:h.a.bool,insertable:h.a.bool,editable:h.a.bool,deleteable:h.a.bool,primaryKey:h.a.string,tableSize:h.a.shape({x:h.a.number,y:h.a.number}),modalWidth:h.a.oneOfType([h.a.string,h.a.number]),formInitialValues:h.a.object,otherActions:h.a.arrayOf(h.a.shape({key:h.a.string.isRequired,onClick:h.a.func.isRequired,icon:h.a.node,title:h.a.string,color:h.a.string})),otherButtons:h.a.arrayOf(h.a.shape({key:h.a.string.isRequired,onClick:h.a.func,icon:h.a.node,title:h.a.string,childs:h.a.array,selectRequired:h.a.bool})),expandedRowRender:h.a.func,filter:h.a.object,filterBox:h.a.bool,tuNgayDenNgay:h.a.bool,otherFilter:h.a.arrayOf(h.a.shape({name:h.a.string.isRequired,label:h.a.string.isRequired,render:h.a.node.isRequired})),filterInitialValue:h.a.object,otherParams:h.a.object,renderFooter:h.a.func,renderSummary:h.a.func,setFormValues:h.a.object},T.defaultProps={selectable:!0,insertable:!0,editable:!0,deleteable:!0,primaryKey:"id",tableSize:{x:500},filterBox:!1,tuNgayDenNgay:!0};t.a=a.a.memo(T)},120:function(e,t,n){"use strict";var r=n(634),a=n(119),o=n(14),i=n(58),c=n(20),l=n(19),u=n(11),s=n(3),f=n.n(s),d=n(0),h=n.n(d),m=n(4);n(384);function y(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function b(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function p(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return g(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return g(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function g(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var v=a.a.RangePicker,O=h.a.memo((function(e){var t=e.onFilter,n=e.tuNgayDenNgay,a=e.otherFilter,s=e.filterInitialValue,g=p(o.a.useForm(),1)[0];Object(d.useEffect)((function(){g.setFieldsValue(function(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?y(Object(n),!0).forEach((function(t){b(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):y(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}({},s,{thoiGian:[f()().startOf("month"),f()().endOf("month")]}))}),[]);return h.a.createElement("div",{className:"filter-box"},h.a.createElement(o.a,{form:g,onFinish:function(){var e=g.getFieldsValue();e.hasOwnProperty("thoiGian")&&delete(e=Object.assign(e,{bat_dau:e.thoiGian[0],ket_thuc:e.thoiGian[1]})).thoiGian,t(Object(m.b)(e))},labelCol:{span:8},wrapperCol:{span:16}},h.a.createElement(i.a,{gutter:[5,5]},n&&h.a.createElement(c.a,{span:24,md:16,lg:12,xl:7},h.a.createElement(o.a.Item,{name:"thoiGian",label:"Thời gian",labelCol:{span:4,xl:6},wrapperCol:{span:20,xl:18}},h.a.createElement(v,{locale:u.a,style:{width:"100%"},ranges:{"Hôm nay":[f()(),f()()],"Tuần này":[f()().startOf("week"),f()().endOf("week")],"Tháng này":[f()().startOf("month"),f()().endOf("month")]},format:"DD/MM/YYYY",placeholder:["Từ ngày","đến ngày"]}))),!_.isEmpty(a)&&a.map((function(e){return h.a.createElement(c.a,{span:12,md:8,lg:6,xl:5,key:e.name},h.a.createElement(o.a.Item,{name:e.name,label:e.label},e.render))})),h.a.createElement(c.a,{span:12,md:8,lg:6,xl:5},h.a.createElement(l.a,{htmlType:"submit"},h.a.createElement(r.a,null),"Lọc")))))}));t.a=O},121:function(e,t,n){"use strict";var r=n(635),a=n(19),o=n(98),i=n(31),c=n(628),l=n(0),u=n.n(l),s=(n(386),u.a.memo((function(e){var t=e.handleAddNew,n=e.insertable,l=e.selectedRowKeys,s=e.data,f=e.otherButtons,d=e.onMultiDelete,h=e.selectable,m=e.deleteable,y=void 0!==l&&l.length>0,b=function(e){return u.a.createElement(i.a,null,e.map((function(e){return!1===e.selectRequired||y?void 0===e.childs?u.a.createElement(i.a.Item,{key:e.key,onClick:function(){return e.onClick(s,l)}},e.title):u.a.createElement(i.a.SubMenu,{title:e.title,key:e.key},e.childs.map((function(e){return u.a.createElement(i.a.Item,{key:e.key,onClick:function(){return e.onClick(s,l)}},e.title)}))):""})))};return u.a.createElement("div",{className:"tools-button"},n&&u.a.createElement(a.a,{type:"primary",onClick:t},"Thêm mới"),void 0!==f&&f.map((function(e){return void 0!==e.childs||!1!==e.selectRequired&&!y?!1===e.selectRequired||y?u.a.createElement(o.a,{key:e.key,overlay:b(e.childs)},u.a.createElement(a.a,{icon:e.icon},e.title," ",u.a.createElement(r.a,null))):"":u.a.createElement(a.a,{type:"default",key:e.key,icon:e.icon,onClick:function(){return e.onClick(s,l)}},e.title)})),h&&m&&y&&u.a.createElement(u.a.Fragment,null,u.a.createElement(c.a,{type:"vertical"}),u.a.createElement(a.a,{type:"link",danger:!0,onClick:d},"Xóa ",l.length," mục đã chọn")))})));t.a=s},16:function(e,t,n){"use strict";var r=n(0),a=n.n(r),o=n(119),i=n(3),c=n.n(i);function l(){return(l=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}t.a=function(e){if(e.value&&"string"==typeof e.value){var t=c()(e.value,e.format);return a.a.createElement(o.a,l({},e,{value:t}))}return a.a.createElement(o.a,e)}},188:function(e,t){},26:function(e,t,n){"use strict";n.d(t,"a",(function(){return s}));var r=n(106),a=n.n(r),o=n(59);function i(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return c(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return c(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function c(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}function l(){if(!(this instanceof l))return new l;this.SheetNames=[],this.Sheets={}}function u(e){for(var t=new ArrayBuffer(e.length),n=new Uint8Array(t),r=0;r!==e.length;++r)n[r]=255&e.charCodeAt(r);return t}var s=function(e,t){for(var n=new l,r=0,c=Object.entries(e);r<c.length;r++){var s=i(c[r],2),f=s[0],d=s[1],h=a.a.utils.json_to_sheet(d,{skipHeader:!0});n.SheetNames.push(f),n.Sheets[f]=h}var m=a.a.write(n,{bookType:"xlsx",bookSST:!0,type:"binary",Props:{Author:"NVN",Company:"tienve.net"}}),y=window.URL.createObjectURL(new Blob([u(m)],{type:"application/octet-stream"}));Object(o.a)(y,t||"report.xlsx")};t.b=function(e,t){var n=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],r=new l,i=a.a.utils.json_to_sheet(e,{skipHeader:n});r.SheetNames.push("Export"),r.Sheets.Export=i;var c=a.a.write(r,{bookType:"xlsx",bookSST:!0,type:"binary",Props:{Author:"NVN",Company:"tienve.net"}}),s=window.URL.createObjectURL(new Blob([u(c)],{type:"application/octet-stream"}));Object(o.a)(s,t||"report.xlsx")}},384:function(e,t,n){var r=n(385);"string"==typeof r&&(r=[[e.i,r,""]]);var a={hmr:!0,transform:void 0,insertInto:void 0};n(152)(r,a);r.locals&&(e.exports=r.locals)},385:function(e,t,n){(e.exports=n(151)(!1)).push([e.i,"/* Filter Box */\n.filter-box .ant-form-item {\n  margin: 0;\n}",""])},386:function(e,t,n){var r=n(387);"string"==typeof r&&(r=[[e.i,r,""]]);var a={hmr:!0,transform:void 0,insertInto:void 0};n(152)(r,a);r.locals&&(e.exports=r.locals)},387:function(e,t,n){(e.exports=n(151)(!1)).push([e.i,'@charset "UTF-8";\n/* Button trong form danh mục */\n.tools-button {\n  padding-left: 5px;\n}\n.tools-button button {\n  margin: 10px 5px;\n}',""])},388:function(e,t){},389:function(e,t){},4:function(e,t,n){"use strict";n.d(t,"d",(function(){return u})),n.d(t,"c",(function(){return s})),n.d(t,"b",(function(){return f})),n.d(t,"a",(function(){return d})),n.d(t,"e",(function(){return h}));var r=n(3),a=n.n(r),o=n(0);function i(e){return(i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function c(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var n=[],r=!0,a=!1,o=void 0;try{for(var i,c=e[Symbol.iterator]();!(r=(i=c.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){a=!0,o=e}finally{try{r||null==c.return||c.return()}finally{if(a)throw o}}return n}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return l(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return l(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function l(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var u=function(e){var t=c(Object(o.useState)(e),2),n=t[0],r=t[1];return[n,function(e){return r((function(t){return Object.assign({},t,e)}))}]},s=function(e){var t=[];for(var n in e)e.hasOwnProperty(n)&&(void 0===e[n]&&(e[n]=""),t.push(encodeURIComponent(n)+"="+encodeURIComponent(e[n])));return t.join("&")},f=function(e){for(var t=0,n=Object.entries(e);t<n.length;t++){var r=c(n[t],2),o=r[0],l=r[1];null!=l&&("object"===i(l)?e[o]=l.format("YYYY-MM-DD HH:mm:ss"):"string"==typeof l&&(l.match(/(.*?):(.*?)\/(.*?)\//g)?e[o]=a()(l,"HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss"):l.match(/(.*?)\/(.*?)\//g)&&(e[o]=a()(l,"DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss"))))}return e},d=function(e,t){if(void 0===e||void 0===t)return!0;var n=!1;for(var r in e)if(e.hasOwnProperty(r)&&t.hasOwnProperty(r)&&e[r]!==t[r]){n=!0;break}return n},h=new Intl.NumberFormat("vi-VN",{style:"currency",currency:"VND"})},59:function(e,t,n){"use strict";n.d(t,"b",(function(){return l}));var r=n(382),a=n(630),o=n(0),i=n.n(o),c=function(e,t){var n=document.createElement("a");n.href=e,n.download=t,n.click(),window.URL.revokeObjectURL(e)},l=function(e,t,n){r.a.info({title:"Thông báo",centered:!0,icon:null,content:i.a.createElement("div",{style:{textAlign:"center"}},i.a.createElement(a.a,{percent:100,status:"active",showInfo:!1,strokeColor:"#6dc3a6"}),i.a.createElement("span",null,"Đang tạo báo cáo..."))}),axios.get(e,{params:t,responseType:"blob"}).then((function(e){var t=window.URL.createObjectURL(new Blob([e.data]));c(t,n)})).catch((function(e){return console.log(e)})).then((function(){return r.a.destroyAll()}))};t.a=c},640:function(e,t,n){"use strict";n.r(t);var r=n(11),a=n(3),o=n.n(a),i=n(0),c=n.n(i),l=n(12),u=n(16),s=n(4),f=n(89),d=n(88),h=n(90),m=c.a.memo((function(e){var t=[{key:"export",onClick:function(e,t){return Object(f.a)(e,t,"chua-bay.xlsx")},title:"Xuất danh sách ra Excel",selectRequired:!1}];return c.a.createElement(l.a,{url:"chua-bay",insertable:!1,selectable:!1,editable:!1,deleteable:!1,filterBox:!0,tuNgayDenNgay:!1,otherFilter:[{name:"den_ngay",label:"Tính đến",render:c.a.createElement(u.a,{style:{width:"100%"},locale:r.a,format:"HH:mm DD/MM/YYYY"})}],filterInitialValue:{den_ngay:o()().format("HH:mm DD/MM/YYYY")},columns:d.a,tableSize:{x:1800},otherButtons:t,expandedRowRender:h.a,renderSummary:function(e){if(!_.isEmpty(e)){var t=e.reduce((function(e,t){return{tong_tien:e.tong_tien+t.tong_tien,tong_tien_thu_khach:e.tong_tien_thu_khach+t.tong_tien_thu_khach}}));return c.a.createElement(c.a.Fragment,null,c.a.createElement("tr",null,c.a.createElement("th",{colSpan:10},"Tổng cộng"),c.a.createElement("td",null,s.e.format(t.tong_tien)),c.a.createElement("td",null,s.e.format(t.tong_tien_thu_khach)),c.a.createElement("td",null,s.e.format(t.tong_tien_thu_khach-t.tong_tien)),c.a.createElement("td",null),c.a.createElement("td",null),c.a.createElement("td",null),c.a.createElement("td",null)))}}})}));t.default=m},88:function(e,t,n){"use strict";var r=n(3),a=n.n(r),o=(n(0),n(4)),i=[{title:"Ngày tháng",dataIndex:"ngay_thang",width:110,sorter:function(e,t){return a()(e.ngay_thang,"DD/MM/YYYY").unix()-a()(t.ngay_thang,"DD/MM/YYYY").unix()}},{title:"Mã giữ chỗ",dataIndex:"ma_giu_cho",optFind:!0,width:90},{title:"Số vé",dataIndex:"so_ve",width:140,optFind:!0},{title:"Hãng bay",dataIndex:"hang_bay",width:80,optFilter:!0},{title:"Tên khách",dataIndex:"ten_khach",width:130,optFind:!0},{title:"TG đi",dataIndex:"ngay_gio_di",width:110,sorter:function(e,t){return a()(e.ngay_gio_di,"HH:mm DD/MM/YYYY").unix()-a()(t.ngay_gio_di,"HH:mm DD/MM/YYYY").unix()}},{title:"Chặng đi",dataIndex:"chang_di",width:100},{title:"TG về",dataIndex:"ngay_gio_ve",width:110,sorter:function(e,t){return a()(e.ngay_gio_ve,"HH:mm DD/MM/YYYY").unix()-a()(t.ngay_gio_ve,"HH:mm DD/MM/YYYY").unix()}},{title:"Chặng về",dataIndex:"chang_ve",width:100},{title:"Tổng tiền",dataIndex:"tong_tien",render:function(e){return o.e.format(e)},sorter:function(e,t){return e.tong_tien-t.tong_tien},width:110},{title:"Thu khách",dataIndex:"tong_tien_thu_khach",render:function(e){return o.e.format(e)},sorter:function(e,t){return e.tong_tien_thu_khach-t.tong_tien_thu_khach},width:110},{title:"Lãi",dataIndex:"lai",render:function(e){return o.e.format(e)},sorter:function(e,t){return e.lai-t.lai},width:110},{title:"Nơi mua",dataIndex:"noi_mua",width:110,optFilter:!0},{title:"Khách hàng",dataIndex:"ma_khach_hang",width:110,optFilter:!0},{title:"Thanh toán",dataIndex:"ngay_thanh_toan",width:110},{title:"Người nhập",dataIndex:"username",width:90,optFilter:!0}];t.a=i},89:function(e,t,n){"use strict";var r=n(26);function a(e){return function(e){if(Array.isArray(e))return o(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||function(e,t){if(!e)return;if("string"==typeof e)return o(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(n);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return o(e,t)}(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function o(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}function i(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function c(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}t.a=function(e,t,n){var o=e;t.length>0&&(o=e.filter((function(e){return-1!==t.indexOf(e.id)})));var l=o.map((function(e,t){var n=function(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?i(Object(n),!0).forEach((function(t){c(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):i(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}({stt:t+1},e);return delete n.id,delete n.loai_tuoi,delete n.id_phi_hanh_ly,delete n.id_tai_khoan_mua,delete n.id_khach_hang,delete n.chang_di,delete n.chang_ve,n})),u=[{stt:"STT",ngay_thang:"Ngày tháng",ma_giu_cho:"Mã giữ chỗ",so_ve:"Số vé",hang_bay:"Hãng bay",ten_khach:"Tên khách",ten_loai_tuoi:"Loại tuổi",ngay_gio_di:"Thời gian đi",cb_di:"Chuyến bay đi",sb_di:"Sân bay đi",sb_di1:"Sân bay đi 1",ngay_gio_ve:"Thời gian về",cb_ve:"Chuyến bay về",sb_ve:"Sân bay về",sb_ve1:"Sân bay về 1",gia_net:"Giá net",vat:"VAT",phi_san_bay:"Phí soi chiếu, an ninh",phu_phi_san_bay:"Phí quản trị hệ thống",phu_phi:"Phí nơi mua thu",loai_hanh_ly:"Hành lý",hanh_ly:"Phí hành lý",hoa_hong:"Hoa hồng",tong_tien:"Tổng tiền",tong_tien_thu_khach:"Thu khách",lai:"Lãi",noi_mua:"Nơi mua",ma_khach_hang:"Khách hàng",da_thanh_toan:"Đã thanh toán",ngay_thanh_toan:"Ngày thanh toán",chua_thanh_toan:"Còn lại",chua_xuat_ve:"Chưa xuất vé",canh_bao_xuat_ve:"Cảnh báo xuất vé",ngay_nhac_lich:"Ngày nhắc lịch bay",username:"Người nhập",ghi_chu:"Ghi chú"}].concat(a(l));Object(r.b)(u,n)}},90:function(e,t,n){"use strict";var r=n(4),a=n(0),o=n.n(a);t.a=function(e){return o.a.createElement("ul",{style:{margin:0}},o.a.createElement("li",null,"Chuyến bay đi: ",e.cb_di,". Chuyến bay về: ",e.cb_ve),o.a.createElement("li",null,"Loại tuổi: ",e.ten_loai_tuoi),o.a.createElement("li",null,"Giá net: ",r.e.format(e.gia_net),". Phí soi chiếu, an ninh: ",r.e.format(e.phi_san_bay),". Phí quản trị:"," ",r.e.format(e.phu_phi_san_bay)),o.a.createElement("li",null,"VAT: ",r.e.format(e.vat),". Phụ phí:"," ",r.e.format(e.phu_phi)),o.a.createElement("li",null,"Hành lý: ",r.e.format(e.hanh_ly),". Loại hành lý:"," ",e.loai_hanh_ly),o.a.createElement("li",null,"Đã thanh toán: ",r.e.format(e.da_thanh_toan),". Ngày thanh toán: ",e.ngay_thanh_toan),e.chua_xuat_ve?o.a.createElement("li",null,"Cảnh báo xuất vé: ",e.canh_bao_xuat_ve):o.a.createElement("li",null,"✔ Đã xuất vé"),!_.isEmpty(e.ngay_nhac_lich)&&o.a.createElement("li",null,"Nhắc lịch bay: ",e.ngay_nhac_lich),o.a.createElement("li",null,"Ghi chú: ",e.ghi_chu),o.a.createElement("li",null,"Người tạo: ",e.username))}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
+
+/***/ "./node_modules/antd/es/date-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/date-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rc-picker/es/locale/vi_VN */ "./node_modules/rc-picker/es/locale/vi_VN.js");
+/* harmony import */ var _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../time-picker/locale/vi_VN */ "./node_modules/antd/es/time-picker/locale/vi_VN.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+ // Merge into a locale object
+
+var locale = {
+  lang: _extends({
+    placeholder: 'Chọn thời điểm',
+    rangePlaceholder: ['Ngày bắt đầu', 'Ngày kết thúc']
+  }, rc_picker_es_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"]),
+  timePickerLocale: _extends({}, _time_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"])
+}; // All settings at:
+// https://github.com/ant-design/ant-design/blob/master/components/date-picker/locale/example.json
+
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/antd/es/time-picker/locale/vi_VN.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/antd/es/time-picker/locale/vi_VN.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  placeholder: 'Chọn thời gian'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./node_modules/rc-picker/es/locale/vi_VN.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rc-picker/es/locale/vi_VN.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var locale = {
+  locale: 'vi_VN',
+  today: 'Hôm nay',
+  now: 'Bây giờ',
+  backToToday: 'Trở về hôm nay',
+  ok: 'Ok',
+  clear: 'Xóa',
+  month: 'Tháng',
+  year: 'Năm',
+  timeSelect: 'Chọn thời gian',
+  dateSelect: 'Chọn ngày',
+  weekSelect: 'Chọn tuần',
+  monthSelect: 'Chọn tháng',
+  yearSelect: 'Chọn năm',
+  decadeSelect: 'Chọn thập kỷ',
+  yearFormat: 'YYYY',
+  dateFormat: 'D/M/YYYY',
+  dayFormat: 'D',
+  dateTimeFormat: 'D/M/YYYY HH:mm:ss',
+  monthBeforeYear: true,
+  previousMonth: 'Tháng trước (PageUp)',
+  nextMonth: 'Tháng sau (PageDown)',
+  previousYear: 'Năm trước (Control + left)',
+  nextYear: 'Năm sau (Control + right)',
+  previousDecade: 'Thập kỷ trước',
+  nextDecade: 'Thập kỷ sau',
+  previousCentury: 'Thế kỷ trước',
+  nextCentury: 'Thế kỷ sau'
+};
+/* harmony default export */ __webpack_exports__["default"] = (locale);
+
+/***/ }),
+
+/***/ "./resources/js/pages/BaoCao/DoiSoatTaiKhoan/index.js":
+/*!************************************************************!*\
+  !*** ./resources/js/pages/BaoCao/DoiSoatTaiKhoan/index.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_downloadFile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/downloadFile */ "./resources/js/utils/downloadFile.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var RangePicker = antd__WEBPACK_IMPORTED_MODULE_1__["DatePicker"].RangePicker;
+var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option,
+    OptGroup = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].OptGroup;
+
+var index = function index(props) {
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm(),
+      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
+      form = _Form$useForm2[0];
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(function () {
+    axios.get("/api/tai-khoan/all").then(function (response) {
+      if (response.data.success) setTaiKhoan(response.data.data);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      taiKhoan = _useState2[0],
+      setTaiKhoan = _useState2[1];
+
+  var onFinish = function onFinish() {
+    var values = form.getFieldsValue();
+
+    if (values.hasOwnProperty("thoiGian")) {
+      values = Object.assign(values, {
+        bat_dau: values.thoiGian[0],
+        ket_thuc: values.thoiGian[1]
+      });
+      delete values.thoiGian;
+    }
+
+    Object(_utils_downloadFile__WEBPACK_IMPORTED_MODULE_5__["downloadApi"])("/api/doi-soat-tai-khoan", Object(_utils__WEBPACK_IMPORTED_MODULE_6__["parseValues"])(values), "doi-soat-tai-khoan.xlsx");
+  };
+
+  var getTaiKhoanDetail = function getTaiKhoanDetail() {
+    return Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(function (clist) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(OptGroup, {
+        label: clist[0] || "Tài khoản ngân hàng",
+        key: clist[0]
+      }, clist[1].map(function (ncc) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Option, {
+          value: ncc.id,
+          key: ncc.id
+        }, ncc.ky_hieu);
+      }));
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+    className: "list-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+    className: "sm-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
+    form: form,
+    initialValues: {
+      thoiGian: [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("month")]
+    },
+    labelCol: {
+      span: 8
+    },
+    wrapperCol: {
+      span: 16
+    },
+    onFinish: onFinish
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "thoiGian",
+    label: "Th\u1EDDi gian",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(RangePicker, {
+    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_2__["default"],
+    style: {
+      width: "100%"
+    },
+    ranges: {
+      "Hôm nay": [moment__WEBPACK_IMPORTED_MODULE_3___default()(), moment__WEBPACK_IMPORTED_MODULE_3___default()()],
+      "Tuần này": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("week"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("week")],
+      "Tháng này": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("month")]
+    },
+    format: "DD/MM/YYYY",
+    placeholder: ["Từ ngày", "đến ngày"]
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "id_tai_khoan",
+    label: "T\xE0i kho\u1EA3n",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
+    showSearch: true,
+    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
+    filterOption: function filterOption(input, option) {
+      if (!option.children) return false;
+      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    }
+  }, getTaiKhoanDetail())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    wrapperCol: {
+      md: {
+        span: 16,
+        offset: 8
+      }
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    htmlType: "submit",
+    type: "primary"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FileExcelOutlined"], null), " Xu\u1EA5t danh s\xE1ch")))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_4___default.a.memo(index));
+
+/***/ }),
+
+/***/ "./resources/js/utils/downloadFile.js":
+/*!********************************************!*\
+  !*** ./resources/js/utils/downloadFile.js ***!
+  \********************************************/
+/*! exports provided: downloadApi, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downloadApi", function() { return downloadApi; });
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * Download file từ url
+ * const url = window.URL.createObjectURL(new Blob([response.data]));
+ *
+ * @param {*} url
+ * @param {*} name
+ */
+
+var downloadFile = function downloadFile(url, name) {
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  a.click();
+  window.URL.revokeObjectURL(url);
+};
+/**
+ * Tạo và download file từ url
+ */
+
+
+var downloadApi = function downloadApi(url, params, fileName) {
+  antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].info({
+    title: "Thông báo",
+    centered: true,
+    icon: null,
+    content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      style: {
+        textAlign: "center"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Progress"], {
+      percent: 100,
+      status: "active",
+      showInfo: false,
+      strokeColor: "#6dc3a6"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "\u0110ang t\u1EA1o b\xE1o c\xE1o..."))
+  });
+  axios.get(url, {
+    params: params,
+    responseType: "blob" // important
+
+  }).then(function (response) {
+    var url = window.URL.createObjectURL(new Blob([response.data]));
+    downloadFile(url, fileName);
+  })["catch"](function (error) {
+    return console.log(error);
+  }).then(function () {
+    return antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].destroyAll();
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (downloadFile);
+
+/***/ }),
+
+/***/ "./resources/js/utils/index.js":
+/*!*************************************!*\
+  !*** ./resources/js/utils/index.js ***!
+  \*************************************/
+/*! exports provided: useMergeState, queryString, parseValues, isChangeData, vndFormater */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useMergeState", function() { return useMergeState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "queryString", function() { return queryString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseValues", function() { return parseValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isChangeData", function() { return isChangeData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "vndFormater", function() { return vndFormater; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+/**
+ * useState mới, dùng tương đương (MERGE) state của Class component
+ */
+
+var useMergeState = function useMergeState(initialState) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(initialState),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var setMergedState = function setMergedState(newState) {
+    return setState(function (prevState) {
+      return Object.assign({}, prevState, newState);
+    });
+  };
+
+  return [state, setMergedState];
+};
+/**
+ * Ghép object thành queryString
+ */
+
+var queryString = function queryString(obj) {
+  var str = [];
+
+  for (var p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      if (obj[p] === undefined) obj[p] = "";
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  }
+
+  return str.join("&");
+};
+/**
+ * Xử lý dữ liệu (ngày tháng) từ form nhập vào
+ */
+
+var parseValues = function parseValues(values) {
+  for (var _i2 = 0, _Object$entries = Object.entries(values); _i2 < _Object$entries.length; _i2++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    if (value !== null && value !== undefined) if (_typeof(value) === "object") // Convert từ moment (from DatePicker) về dạng string để backend xử lý
+      values[key] = value.format("YYYY-MM-DD HH:mm:ss");else if (typeof value === "string") if (value.match(/(.*?):(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_0___default()(value, "HH:mm DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss");else if (value.match(/(.*?)\/(.*?)\//g)) values[key] = moment__WEBPACK_IMPORTED_MODULE_0___default()(value, "DD/MM/YYYY").format("YYYY-MM-DD HH:mm:ss");
+  }
+
+  return values;
+};
+/**
+ * Check liệu dữ liệu người dùng sửa có thay đổi gì ko?
+ */
+
+var isChangeData = function isChangeData(record, data) {
+  if (record === undefined || data === undefined) return true;
+  var isChanged = false;
+
+  for (var k in record) {
+    if (record.hasOwnProperty(k) && data.hasOwnProperty(k) && record[k] !== data[k]) {
+      isChanged = true;
+      break;
+    }
+  }
+
+  return isChanged;
+};
+var vndFormater = new Intl.NumberFormat("vi-VN", {
+  style: "currency",
+  currency: "VND"
+});
+
+/***/ })
+
+}]);

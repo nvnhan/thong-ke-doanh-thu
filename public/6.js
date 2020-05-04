@@ -459,7 +459,7 @@ var ExportData = function ExportData(data, filename) {
     type: "binary",
     Props: {
       Author: "NVN",
-      Company: "TKDT"
+      Company: "tienve.net"
     }
   });
   var url = window.URL.createObjectURL(new Blob([s2ab(wbout)], {
@@ -489,7 +489,7 @@ var ExportMultiSheet = function ExportMultiSheet(data, filename) {
     type: "binary",
     Props: {
       Author: "NVN",
-      Company: "TKDT"
+      Company: "tienve.net"
     }
   });
   var url = window.URL.createObjectURL(new Blob([s2ab(wbout)], {

@@ -1,1 +1,94 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[32],{655:function(e,a,t){"use strict";t.r(a);var n=t(0),l=t.n(n),r=t(12),i=t(33),m=t(14),c=t(25),h=t(631),u=i.a.Option,d=l.a.memo((function(){return l.a.createElement("div",null,l.a.createElement(m.a.Item,{name:"hanh_ly",label:"Hành lý",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},l.a.createElement(c.a,null)),l.a.createElement(m.a.Item,{name:"muc_phi",label:"Mức phí",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},l.a.createElement(h.a,{style:{width:"100%"},min:1e3,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}})),l.a.createElement(m.a.Item,{name:"hang_bay",label:"Hãng bay"},l.a.createElement(i.a,{allowClear:!0},l.a.createElement(u,{value:"VN"},"VN"),l.a.createElement(u,{value:"VJ"},"VJ"),l.a.createElement(u,{value:"Jets"},"Jets"),l.a.createElement(u,{value:"BB"},"BB"))),l.a.createElement(m.a.Item,{name:"ghi_chu",label:"Ghi chú"},l.a.createElement(c.a,null)))})),o=t(4),p=l.a.memo((function(){var e=[{title:"Loại hành lý",dataIndex:"hanh_ly",optFind:!0,width:100},{title:"Hãng bay",dataIndex:"hang_bay",optFilter:!0,width:80},{title:"Mức phí",dataIndex:"muc_phi",render:function(e){return o.e.format(e)},width:80},{title:"Ghi chú",dataIndex:"ghi_chu",ellipsis:!0,width:100}];return l.a.createElement(r.a,{url:"phi-hanh-ly",columns:e,tableSize:{x:600},formTemplate:l.a.createElement(d,null),formInitialValues:{muc_phi:1e5}})}));a.default=p}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[32],{
+
+/***/ "./resources/js/pages/VeMayBay/NoVe/index.js":
+/*!***************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/NoVe/index.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportDatVe */ "./resources/js/utils/exportDatVe.js");
+/* harmony import */ var _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../DatVe/columns */ "./resources/js/pages/VeMayBay/DatVe/columns.js");
+/* harmony import */ var _DatVe_expandedRow__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../DatVe/expandedRow */ "./resources/js/pages/VeMayBay/DatVe/expandedRow.js");
+
+
+
+
+
+
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
+  var getOtherFilter = function getOtherFilter() {
+    return [{
+      name: "den_ngay",
+      label: "Tính đến",
+      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        style: {
+          width: "100%"
+        },
+        locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
+        format: "DD/MM/YYYY"
+      })
+    }];
+  };
+
+  var renderSummary = function renderSummary(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          tong_tien: previousValue.tong_tien + currentValue.tong_tien,
+          tong_tien_thu_khach: previousValue.tong_tien_thu_khach + currentValue.tong_tien_thu_khach
+        };
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
+        colSpan: 10
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
+    }
+  };
+
+  var otherButtons = [{
+    key: "export",
+    onClick: function onClick(data, selectedRowKeys) {
+      return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__["default"])(data, selectedRowKeys, "no-ve.xlsx");
+    },
+    title: "Xuất danh sách ra Excel",
+    selectRequired: false
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    url: "no-ve",
+    insertable: false,
+    selectable: false,
+    editable: false,
+    deleteable: false,
+    filterBox: true,
+    tuNgayDenNgay: false,
+    otherFilter: getOtherFilter(),
+    filterInitialValue: {
+      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("DD/MM/YYYY")
+    },
+    columns: _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__["default"],
+    tableSize: {
+      x: 1800
+    },
+    otherButtons: otherButtons,
+    expandedRowRender: _DatVe_expandedRow__WEBPACK_IMPORTED_MODULE_8__["default"],
+    renderSummary: renderSummary
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ })
+
+}]);

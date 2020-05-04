@@ -40,8 +40,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('no-ve', 'DatVeController@nove');
     Route::get('chua-bay', 'DatVeController@chuabay');
-    Route::put('dat-ve/updates', 'DatVeController@updates');
+
     Route::get('dat-ve/hang-bay', 'DatVeController@hangbay');
+    Route::put('dat-ve/updates', 'DatVeController@updates');
+    Route::put('dat-ve/them-text', 'DatVeController@themtext');
     Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
     // Bao Cao
     Route::get('dat-ve/mau-ve', 'BaoCaoDatVeController@mauve');

@@ -1,1 +1,123 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[26],{16:function(e,t,a){"use strict";var n=a(0),r=a.n(n),l=a(119),i=a(3),o=a.n(i);function u(){return(u=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var a=arguments[t];for(var n in a)Object.prototype.hasOwnProperty.call(a,n)&&(e[n]=a[n])}return e}).apply(this,arguments)}t.a=function(e){if(e.value&&"string"==typeof e.value){var t=o()(e.value,e.format);return r.a.createElement(l.a,u({},e,{value:t}))}return r.a.createElement(l.a,e)}},657:function(e,t,a){"use strict";a.r(t);var n=a(3),r=a.n(n),l=a(0),i=a.n(l),o=a(78),u=a(12),c=a(33),h=a(58),m=a(20),d=a(14),s=a(631),g=a(25),f=a(11),p=a(16),E=a(4),y=c.a.Option,b=c.a.OptGroup,v=i.a.memo((function(e){var t=e.hangHoa||[],a=Object.entries(_.groupBy(t,"nha_cung_cap"));return i.a.createElement(i.a.Fragment,null,i.a.createElement(h.a,{gutter:[5,5]},i.a.createElement(m.a,{span:12},i.a.createElement(d.a.Item,{name:"ngay_thang",label:"Ngày tháng",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(p.a,{style:{width:"100%"},locale:f.a,format:"DD/MM/YYYY"}))),i.a.createElement(m.a,{span:12},i.a.createElement(d.a.Item,{name:"id_hang_hoa",label:"Hạng mục",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(c.a,{showSearch:!0,placeholder:"Chọn hàng hóa",filterOption:function(e,t){return!!t.children&&t.children.toLowerCase().indexOf(e.toLowerCase())>=0},onChange:function(a){var n=t.filter((function(e){return e.id===a}))[0];n&&e.onChangeValue(n.don_gia)}},a.map((function(e){return i.a.createElement(b,{label:e[0],key:e[0]},e[1].map((function(e){return i.a.createElement(y,{value:e.id,key:e.id},e.phan_loai," - ",e.ma_hang," (",E.e.format(e.don_gia),")")})))}))))),i.a.createElement(m.a,{span:12},i.a.createElement(d.a.Item,{name:"don_gia",label:"Đơn giá",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(s.a,{style:{width:"100%"},min:0,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),i.a.createElement(m.a,{span:12},i.a.createElement(d.a.Item,{name:"so_luong",label:"Số lượng",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},i.a.createElement(s.a,{style:{width:"100%"},min:1,step:1,parser:function(e){return e.replace(/\₫\s?|\.(,*)/g,"")}}))),i.a.createElement(m.a,{span:12},i.a.createElement(d.a.Item,{name:"bat_dau",label:"Bắt đầu"},i.a.createElement(p.a,{style:{width:"100%"},locale:f.a,format:"DD/MM/YYYY"}))),i.a.createElement(m.a,{span:12},i.a.createElement(d.a.Item,{name:"ket_thuc",label:"Kết thúc"},i.a.createElement(p.a,{style:{width:"100%"},locale:f.a,format:"DD/MM/YYYY"}))),i.a.createElement(m.a,{span:24},i.a.createElement(d.a.Item,{labelCol:{md:4,span:8},wrapperCol:{md:20,span:16},name:"ghi_chu",label:"Ghi chú"},i.a.createElement(g.a,null)))))}));function w(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var a=[],n=!0,r=!1,l=void 0;try{for(var i,o=e[Symbol.iterator]();!(n=(i=o.next()).done)&&(a.push(i.value),!t||a.length!==t);n=!0);}catch(e){r=!0,l=e}finally{try{n||null==o.return||o.return()}finally{if(r)throw l}}return a}(e,t)||function(e,t){if(!e)return;if("string"==typeof e)return Y(e,t);var a=Object.prototype.toString.call(e).slice(8,-1);"Object"===a&&e.constructor&&(a=e.constructor.name);if("Map"===a||"Set"===a)return Array.from(a);if("Arguments"===a||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(a))return Y(e,t)}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function Y(e,t){(null==t||t>e.length)&&(t=e.length);for(var a=0,n=new Array(t);a<t;a++)n[a]=e[a];return n}var I=i.a.memo((function(e){var t=e.location.tour,a=w(Object(l.useState)([]),2),n=a[0],c=a[1],h=w(Object(l.useState)(void 0),2),m=h[0],d=h[1];if(void 0===t)return i.a.createElement(o.a,{to:"/"});Object(l.useEffect)((function(){void 0!==t&&axios.get("/api/hang-hoa/all").then((function(e){e.data.success&&c(e.data.data)})).catch((function(e){return console.log(e)}))}),[]);var s=[{title:"Ngày tháng",dataIndex:"ngay_thang",width:120,sorter:function(e,t){return r()(e.ngay_thang,"DD/MM/YYYY").unix()-r()(t.ngay_thang,"DD/MM/YYYY").unix()}},{title:"Phân loại",dataIndex:"phan_loai",optFilter:!0,width:120},{title:"Mã hàng",dataIndex:"ma_hang",optFind:!0,width:120},{title:"Nhà cung cấp",dataIndex:"nha_cung_cap",optFilter:!0,width:150},{title:"Thành tiền",dataIndex:"thanh_tien",render:function(e){return E.e.format(e)},width:120,sorter:function(e,t){return e.thanh_tien-t.thanh_tien}},{title:"Thanh toán",dataIndex:"ngay_thanh_toan",width:120},{title:"Ghi chú",dataIndex:"ghi_chu",ellipsis:!0,width:150}];return i.a.createElement(i.a.Fragment,null,i.a.createElement("div",{className:"filter-box"},"Tour:"," ",i.a.createElement("b",null,t.ma_tour," (",t.ten_tour,")"),". Ngày bắt đầu: ",t.bat_dau,", kết thúc: ",t.ket_thuc),i.a.createElement(u.a,{url:"tour-chi-tiet",filter:{tour:t.id},otherParams:{id_tour:t.id},columns:s,modalWidth:"800px",formTemplate:i.a.createElement(v,{hangHoa:n,onChangeValue:function(e){d({don_gia:e,resetFields:function(){return d(void 0)}})}}),formInitialValues:{so_luong:1,ngay_thang:r()().format("DD/MM/YYYY"),bat_dau:t.bat_dau,ket_thuc:t.ket_thuc},expandedRowRender:function(e){return i.a.createElement("ul",{style:{margin:0}},i.a.createElement("li",null,"Bắt đầu: ",e.bat_dau,". Kết thúc: ",e.ket_thuc),i.a.createElement("li",null,"Mã hàng: ",e.ma_hang,". Tên hàng: ",e.ten_hang,"."),i.a.createElement("li",null,"Đơn giá: ",E.e.format(e.don_gia),". Số lượng:"," ",e.so_luong),i.a.createElement("li",null,"Đã thanh toán: ",E.e.format(e.da_thanh_toan),". Ngày thanh toán: ",e.ngay_thanh_toan),i.a.createElement("li",null,"Ghi chú: ",e.ghi_chu),i.a.createElement("li",null,"Người tạo: ",e.username))},renderSummary:function(e){if(!_.isEmpty(e)){var t=e.reduce((function(e,t){return{thanh_tien:e.thanh_tien+t.thanh_tien}}));return i.a.createElement(i.a.Fragment,null,i.a.createElement("tr",null,i.a.createElement("th",{colSpan:6},"Tổng cộng"),i.a.createElement("td",null,E.e.format(t.thanh_tien)),i.a.createElement("td",null),i.a.createElement("td",null),i.a.createElement("td",null)))}},setFormValues:m}))}));t.default=Object(o.g)(I)}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[26],{
+
+/***/ "./resources/js/pages/VeMayBay/SanBay/FormItem.js":
+/*!********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/SanBay/FormItem.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+
+
+var Option = antd__WEBPACK_IMPORTED_MODULE_1__["Select"].Option;
+
+function form() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ma_san_bay",
+    label: "M\xE3 s\xE2n bay",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "ten_san_bay",
+    label: "T\xEAn s\xE2n bay",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "phan_loai",
+    label: "Khu v\u1EF1c"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
+    allowClear: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Ch\xE2u \xC2u"
+  }, "Ch\xE2u \xC2u"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Ch\xE2u \xDAc"
+  }, "Ch\xE2u \xDAc"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "\u0110\xF4ng B\u1EAFc \xC1"
+  }, "\u0110\xF4ng B\u1EAFc \xC1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "\u0110\xF4ng D\u01B0\u01A1ng"
+  }, "\u0110\xF4ng D\u01B0\u01A1ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "\u0110\xF4ng Nam \xC1"
+  }, "\u0110\xF4ng Nam \xC1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Hoa K\u1EF3"
+  }, "Hoa K\u1EF3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+    value: "Vi\u1EC7t Nam"
+  }, "Vi\u1EC7t Nam"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    wrapperCol: {
+      sm: {
+        offset: 8,
+        span: 16
+      }
+    },
+    name: "loai_a",
+    valuePropName: "checked"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], null, "S\xE2n bay lo\u1EA1i A")));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/SanBay/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/SanBay/index.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/SanBay/FormItem.js");
+
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function () {
+  var columns = [{
+    title: "Mã sân bay",
+    dataIndex: "ma_san_bay",
+    optFind: true,
+    width: 100
+  }, {
+    title: "Tên sân bay",
+    dataIndex: "ten_san_bay",
+    optFind: true,
+    width: 140
+  }, {
+    title: "Khu vực",
+    dataIndex: "phan_loai",
+    optFilter: true,
+    width: 110
+  }, {
+    title: "Sân bay loại A",
+    dataIndex: "loai_a",
+    render: function render(bol) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], {
+        checked: bol
+      });
+    },
+    width: 90
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    url: "san-bay",
+    columns: columns,
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_3__["default"], null)
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ })
+
+}]);

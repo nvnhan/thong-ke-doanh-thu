@@ -1,25 +1,29 @@
 import { UserAddOutlined } from "@ant-design/icons";
-import { Button, Form, message, Modal } from "antd";
+import { Button, Form, Input, message, Modal } from "antd";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { useMergeState, vndFormater } from "../../../utils";
 import columns from "./columns";
+import expandedRow from "./expandedRow";
 import FormItem from "./FormItem";
 import otherButtons from "./otherButtons";
 import otherFilters from "./otherFilters";
 import tinhPhi from "./tinhPhi";
 import UpdateLayout from "./UpdateLayout";
-import expandedRow from "./expandedRow";
 
 const List = props => {
     const [formValue, setFormValue] = useState(undefined);
+
     const [update, setUpdate] = useMergeState({
         selectedKeys: [],
         modalVisible: false
     });
     const { selectedKeys, modalVisible } = update;
     const [updateForm] = Form.useForm();
+
+    const [textFormVisible, setTextFormVisible] = useState(false);
+    const [textForm] = Form.useForm();
 
     const [state, setState] = useMergeState({
         sanBay: [],
@@ -108,7 +112,9 @@ const List = props => {
             ...childRef.current.getFormInstance().getFieldsValue(),
             ...props
         });
-        Object.assign(record, { resetFields: () => setFormValue(undefined) });
+        Object.assign(record, {
+            resetFields: () => setFormValue(undefined)
+        });
         setFormValue(record);
     };
 
@@ -176,7 +182,10 @@ const List = props => {
      * Show modal cập nhật
      */
     const showUpdates = (data, selectedRowKeys) => {
-        setUpdate({ selectedKeys: selectedRowKeys, modalVisible: true });
+        setUpdate({
+            selectedKeys: selectedRowKeys,
+            modalVisible: true
+        });
     };
 
     /**
@@ -188,7 +197,9 @@ const List = props => {
             .validateFields()
             .then(values => {
                 // Update
-                Object.assign(values, { objects: selectedKeys.join("|") });
+                Object.assign(values, {
+                    objects: selectedKeys.join("|")
+                });
                 axios
                     .put(`/api/dat-ve/updates`, values)
                     .then(response => {
@@ -207,8 +218,36 @@ const List = props => {
     };
 
     const handleCancel = () => {
-        setUpdate({ selectedKeys: [], modalVisible: false });
+        setUpdate({
+            selectedKeys: [],
+            modalVisible: false
+        });
     };
+
+    /**
+     * Show modal thêm text
+     */
+    const showThemText = () => setTextFormVisible(true);
+
+    /**
+     * Thực hiện Thêm text
+     */
+    const handleThemText = () => {
+        textForm
+            .validateFields()
+            .then(values =>
+                axios
+                    .put("/api/dat-ve/them-text", values)
+                    .then(response => {
+                        childRef.current.triggerInsertFromText(response);
+                        handleCancelThemText();
+                    })
+                    .catch(error => console.log(error))
+            )
+            .catch(info => console.log("Validate Failed: ", info));
+    };
+
+    const handleCancelThemText = () => setTextFormVisible(false);
 
     return (
         <React.Fragment>
@@ -237,7 +276,10 @@ const List = props => {
                     phu_phi: 0
                 }}
                 otherActions={dvAction}
-                otherButtons={otherButtons(showUpdates)}
+                otherButtons={otherButtons({
+                    showUpdates,
+                    showThemText
+                })}
                 expandedRowRender={expandedRow}
                 renderSummary={renderSummary}
                 setFormValues={formValue}
@@ -261,9 +303,45 @@ const List = props => {
                     form={updateForm}
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
-                    initialValues={{ tong_tien: 0, tong_tien_thu_khach: 0 }}
+                    initialValues={{
+                        tong_tien: 0,
+                        tong_tien_thu_khach: 0
+                    }}
                 >
                     <UpdateLayout danhMuc={state} />
+                </Form>
+            </Modal>
+            <Modal
+                width="800px"
+                title="Thêm text"
+                onCancel={handleCancelThemText}
+                onOk={handleThemText}
+                visible={textFormVisible}
+                footer={[
+                    <Button key="cancel" onClick={handleCancelThemText}>
+                        Hủy
+                    </Button>,
+                    <Button
+                        key="submit"
+                        type="primary"
+                        onClick={handleThemText}
+                    >
+                        Xử lý
+                    </Button>
+                ]}
+            >
+                <Form form={textForm} wrapperCol={{ span: 24 }}>
+                    <Input.TextArea
+                        name="text"
+                        rows={20}
+                        placeholder="Kết quả đặt vé..."
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    />
                 </Form>
             </Modal>
         </React.Fragment>

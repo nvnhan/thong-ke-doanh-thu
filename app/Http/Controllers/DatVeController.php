@@ -99,6 +99,26 @@ class DatVeController extends BaseController
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function themtext(Request $request)
+    {
+        $data = $request->text;
+        //TODO: Xử lý text
+        //
+        //
+
+        // $obj = new DatVe();
+        // $obj->username = $request->user()->username;
+        // $obj->save();
+        // return $this->sendResponse($obj, "Thêm mới thành công");
+        return $this->sendError("Không xử lý được");
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -111,6 +131,7 @@ class DatVeController extends BaseController
         $model = DatVe::find($id);
         $model->fill($data);
         $model->save();
+        $model->refresh();
         return $this->sendResponse($model, "Cập nhật thành công");
     }
 

@@ -69,13 +69,11 @@ const congNo = (data, selectedRowKeys) =>
         "mau-xuat-cong-no.xlsx"
     );
 
-const themTuKetQua = () => {};
-
 const themTuMail = () => {};
 
 const themTuFile = () => {};
 
-const otherButtons = showUpdates => [
+const otherButtons = props => [
     {
         key: "add-other",
         title: "Thêm",
@@ -83,7 +81,7 @@ const otherButtons = showUpdates => [
         childs: [
             {
                 key: "them-tu-ket-qua",
-                onClick: themTuKetQua,
+                onClick: props.showThemText,
                 title: "Thêm từ kết quả đặt vé",
                 selectRequired: false
             },
@@ -103,7 +101,7 @@ const otherButtons = showUpdates => [
     },
     {
         key: "updates",
-        onClick: showUpdates,
+        onClick: props.showUpdates,
         title: "Cập nhật thông tin"
     },
     {

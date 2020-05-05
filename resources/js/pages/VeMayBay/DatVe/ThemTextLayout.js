@@ -48,7 +48,7 @@ const form = React.memo(props => {
                     />
                 </Form.Item>
             </Col>
-            <Col span={12}>
+            {/* <Col span={12}>
                 <Form.Item
                     name="hang_bay"
                     label="Hãng bay"
@@ -68,7 +68,7 @@ const form = React.memo(props => {
                         }
                     />
                 </Form.Item>
-            </Col>
+            </Col> */}
             <Col span={12}>
                 <Form.Item name="id_tai_khoan_mua" label="Nơi mua">
                     <Select

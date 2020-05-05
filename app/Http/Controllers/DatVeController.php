@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DatVe;
+use App\Helpers\ThemText;
 use App\SanBay;
 use DateTime;
 use Illuminate\Http\Request;
@@ -106,16 +107,32 @@ class DatVeController extends BaseController
      */
     public function themtext(Request $request)
     {
-        $data = $request->text;
+        $text = $request->text;
+        $lines = explode("\n",  $text);
+        $data = [];
         //TODO: Xử lý text
         //
-        //
+        if (strpos($text, "Bamboo Airways") !== false)
+            $data = ThemText::parse_bamboo($lines, $request);
+        // else if (strpos($text, "Các chuyến bay của bạn") !== false)
+        //     parseJetsMail();
+        // else if (strpos($text, "VIETNAM AIRLINES") !== false)
+        //     parseVNMail();
+        // else if (memoEdit1 . Lines[0] . Trim() . Length == 8 || strpos($text, "Thông tin chuyến bay") !== false || strpos($text, "Flight Information") !== false)
+        //     parseVJ();
+        // else if (memoEdit1 . Lines[1] . Contains("1.1"))
+        //     parseVN();
+        // else if (strpos($text, "Chuyến bay đi") !== false)
+        //     parseJetsChuaXuat();
+        // else if (strpos($text, "Jetstar") !== false)
+        //     // Tương tự Jets Mail ở trên  ????
+        //     parseJetsMoi();         // Theo mẫu ngày 03/02/2020
+        // else
+        //     parseJets();
 
-        // $obj = new DatVe();
-        // $obj->username = $request->user()->username;
-        // $obj->save();
-        // return $this->sendResponse($obj, "Thêm mới thành công");
-        return $this->sendError("Không xử lý được");
+        if (count($data) > 0)
+            return $this->sendResponse($data, "Thêm mới thành công " . count($data) . ' mục');
+        else return $this->sendError("Không xử lý được");
     }
 
     /**

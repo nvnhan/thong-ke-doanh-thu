@@ -4,6 +4,11 @@ namespace App;
 
 class Util
 {
+
+    public static $thang = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    public static $thang_full = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    public static $thang_full_viet = ["Tháng Một", "Tháng Hai", "Tháng Ba", "Tháng Tư", "Tháng Năm", "Tháng Sáu", "Tháng Bảy", "Tháng Tám", "Tháng Chín", "Tháng Mười", "Tháng Mười Một", "Tháng Mười Hai"];
+
     public static function convert_number_to_words($number)
     {
         $hyphen = ' ';

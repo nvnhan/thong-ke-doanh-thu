@@ -1,5 +1,5 @@
 import { UserAddOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Modal } from "antd";
+import { Button, Form, message, Modal } from "antd";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import ListForm from "../../../components/ListForm";
@@ -9,6 +9,7 @@ import expandedRow from "./expandedRow";
 import FormItem from "./FormItem";
 import otherButtons from "./otherButtons";
 import otherFilters from "./otherFilters";
+import ThemTextLayout from "./ThemTextLayout";
 import tinhPhi from "./tinhPhi";
 import UpdateLayout from "./UpdateLayout";
 
@@ -240,6 +241,7 @@ const List = props => {
                     .put("/api/dat-ve/them-text", values)
                     .then(response => {
                         childRef.current.triggerInsertFromText(response);
+                        textForm.resetFields();
                         handleCancelThemText();
                     })
                     .catch(error => console.log(error))
@@ -330,18 +332,17 @@ const List = props => {
                     </Button>
                 ]}
             >
-                <Form form={textForm} wrapperCol={{ span: 24 }}>
-                    <Input.TextArea
-                        name="text"
-                        rows={20}
-                        placeholder="Kết quả đặt vé..."
-                        rules={[
-                            {
-                                required: true,
-                                message: "Nhập đầy đủ thông tin!"
-                            }
-                        ]}
-                    />
+                <Form
+                    form={textForm}
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    initialValues={{
+                        tong_tien: 0,
+                        tong_tien_thu_khach: 0,
+                        gia_net: 0
+                    }}
+                >
+                    <ThemTextLayout danhMuc={state} />
                 </Form>
             </Modal>
         </React.Fragment>

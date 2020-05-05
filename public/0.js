@@ -306,7 +306,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
     selectedRowKeys: selectedRowKeys,
     onChange: onChangeSelect,
     hideDefaultSelections: true,
-    columnWidth: 45,
+    columnWidth: 43,
     selections: [antd__WEBPACK_IMPORTED_MODULE_1__["Table"].SELECTION_ALL, antd__WEBPACK_IMPORTED_MODULE_1__["Table"].SELECTION_INVERT, {
       key: "invert_all",
       text: "Bỏ chọn tất cả",

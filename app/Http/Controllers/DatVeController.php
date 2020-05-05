@@ -76,7 +76,7 @@ class DatVeController extends BaseController
         return $this->sendResponse($objs->get(), "ChuaBay retrieved successfully");
     }
 
-    public function hangbay(Request $request)
+    public function hangbay()
     {
         $objs = DatVe::all()->pluck('hang_bay');
 

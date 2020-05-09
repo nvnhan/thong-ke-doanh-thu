@@ -34,6 +34,12 @@ class ThemText
         $so_ve = [];
         $i = 0;
         $line = "";
+        $tmp = new stdClass;
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "BB";
+        $tmp->ma_giu_cho = trim($lines[0]);
+        $tmp->ngay_thang = date("Y-m-d");
+        $tmp->loai_tuoi = 0;
 
         for ($i = 1; $i < count($lines); $i++) {    // Tên khách từ Passengers
             $line = trim($lines[$i]);
@@ -59,7 +65,6 @@ class ThemText
             }
         }
         $i++;
-        $tmp = new stdClass;
 
         $line = trim(str_replace('.', ' ', $lines[$i]));
         preg_match("/(\d{2}) (.+) (\d{4})/", $line, $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
@@ -105,17 +110,11 @@ class ThemText
         $result = [];
         for ($j = 0; $j < count($hanh_khach); $j++) {
             $obj = new DatVe();
-            $obj->username = $request->user()->username;
-            $obj->hang_bay = "BB";
-            $obj->ma_giu_cho = trim($lines[0]);
-            $obj->ngay_thang = date("Y-m-d");
-            $obj->loai_tuoi = 0;
 
             if (count($so_ve) > $j)
                 $obj->so_ve = $so_ve[$j];
-            //TODO: So ve mac dinh
-            // else
-            //     dv.SoVe = Properties.Settings.Default.SoVeVNMacDinh;
+            else
+                $obj->so_ve = env('SO_VE_VN_MAC_DINH');
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
@@ -206,6 +205,157 @@ class ThemText
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+
+            //TODO: Chung code???
+            // if (dv.GiaNet == 0 && chkChungCode.Checked)
+            // {
+            //     dv.TenKhach = String.Join(", ", lstHanhKhach);
+            //     lstDatVe.Add(dv);
+            //     break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            // }
+            // else
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $obj->refresh();        // Reload object from sql
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Parse VietNam Airline
+     */
+    public static function parse_vn($lines, Request $request)
+    {
+        $hanh_khach = [];
+        $tre_em = [];
+        $i = 0;
+        $line = "";
+        $tmp = new stdClass;
+        $tmp->ma_giu_cho = trim($lines[0]);
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "VN";
+        $tmp->ngay_thang = date('Y-m-d');
+
+        for ($i = 1; $i < count($lines); $i++)        // Tên khách từ hàng thứ 2 trở đi
+        {
+            $line = trim($lines[$i]);
+            $line = str_replace('/', ' ', $line);
+            $line = self::remove_prefix_name($line);
+            preg_match_all("/\d\.(I )?1([A-Z ]+)/", $line, $matches);
+            if (count($matches[2]) > 0) {
+                foreach ($matches[2] as $key => $value) { // Trong 1 hàng có thể có nhiều khách
+                    if (strpos($matches[0][$key], "I 1") !== false)      // EM bé
+                        $tre_em[] = true;
+                    else $tre_em[] = false;
+                    $hanh_khach[] = trim($value);
+                }
+            } else
+                break;
+        }
+
+        #region Chuyến bay đầu tiên
+        $line = trim($lines[$i++]);    // Mã chuyến bay, hành trình, giờ bay
+        $line = str_replace("VN ", "VN", $line);
+        $line = str_replace("VN ", "VN", $line);
+        $line = str_replace("VN ", "VN", $line);
+
+        $arr = explode(' ', $line);
+        $tmp->cb_di = substr($arr[1], 0, strlen($arr[1]) - 1);    // Bỏ ký tự cuối cùng
+
+        // Ngày bay
+        preg_match('/\d+/', $arr[2], $matches);
+        $ngay = $matches[0];
+        preg_match('/[A-Z]{3}/', $arr[2], $matches);
+        $thang = array_search($matches[0], Util::$thang);
+        if ($thang !== false) $thang += 1;
+        $nam = date('Y');
+        // Giờ bay
+        preg_match('/\d{4}/', $line, $matches);
+        $gio = substr($matches[0], 0, 2);
+        $phut = substr($matches[0], 2, 2);
+        $tmp->ngay_gio_di = "$nam-$thang-$ngay $gio:$phut:00";
+
+        // Hành trình bay
+        preg_match('/[A-Z]{6}/', $line, $matches);
+        $tmp->sb_di = substr($matches[0], 0, 3);
+        $tmp->sb_di1 = substr($matches[0], 3, 3);
+        if (strpos($lines[$i], "OPERATED BY") !== false || strpos($lines[$i], "DCVN") !== false)
+            $i++;
+        #endregion
+
+        #region Chuyến bay thứ hai
+        $line = trim($lines[$i++]);
+        if (preg_match('/\d/', $line)) {
+            $line = str_replace("VN ", "VN", $line);
+            $line = str_replace("VN ", "VN", $line);
+            $line = str_replace("VN ", "VN", $line);
+
+            $arr = explode(' ', $line);
+            $tmp->cb_ve = substr($arr[1], 0, strlen($arr[1]) - 1);    // Bỏ ký tự cuối cùng
+
+            // Ngày bay
+            preg_match('/\d+/', $arr[2], $matches);
+            $ngay = $matches[0];
+            preg_match('/[A-Z]{3}/', $arr[2], $matches);
+            $thang = array_search($matches[0], Util::$thang);
+            if ($thang !== false) $thang += 1;
+            $nam = date('Y');
+            // Giờ bay
+            preg_match('/\d{4}/', $line, $matches);
+            $gio = substr($matches[0], 0, 2);
+            $phut = substr($matches[0], 2, 2);
+            $tmp->ngay_gio_ve = "$nam-$thang-$ngay $gio:$phut:00";
+
+            // Hành trình bay
+            preg_match('/[A-Z]{6}/', $line, $matches);
+            $tmp->sb_ve = substr($matches[0], 0, 3);
+            $tmp->sb_ve1 = substr($matches[0], 3, 3);
+            if (strpos($lines[$i], "OPERATED BY") !== false || strpos($lines[$i], "DCVN") !== false)
+                $i++;
+        }
+        #endregion
+
+        if (strpos($lines[$i], "OPERATED BY") !== false || strpos($lines[$i], "DCVN") !== false)
+            $i++;
+
+        $i++;
+        $line = trim($lines[$i++]);
+        if (strpos($line, '-') !== false)         // Nếu có ngày đặt
+        {
+            $arr = explode('-', $line);
+            // Ngày đặt
+            preg_match('/\d+/', $arr[1], $matches);
+            $ngay = $matches[0];
+            preg_match('/[A-Z]{3}/', $arr[1], $matches);
+            $thang = array_search($matches[0], Util::$thang);
+            if ($thang !== false) $thang += 1;
+            $nam = date('Y');
+            $tmp->ngay_thang = "$nam-$thang-$ngay";
+        }
+        // Số vé
+        $so_ve = [];
+        for (; $i < count($lines); $i++) {
+            preg_match('/\d{13}/', $lines[$i], $matches);
+            if (count($matches) > 0)
+                $so_ve[] = $matches[0];
+            if (count($so_ve) === count($hanh_khach))
+                break;
+        }
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            if (count($so_ve) > $j)
+                $obj->so_ve = $so_ve[$j];
+            else
+                $obj->so_ve = env('SO_VE_VN_MAC_DINH');
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            $obj->loai_tuoi = (int) $tre_em[$j];
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)

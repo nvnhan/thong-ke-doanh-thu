@@ -120,8 +120,8 @@ class DatVeController extends BaseController
         //     parseVNMail();
         else if (strlen(trim($lines[0])) === 8 || strpos($text, "Thông tin chuyến bay") !== false || strpos($text, "Flight Information") !== false)
             $data = ThemText::parse_vj($lines, $request);
-        // else if (memoEdit1 . Lines[1] . Contains("1.1"))
-        //     parseVN();
+        else if (strpos($lines[1], '1.1') !== false)
+            $data = ThemText::parse_vn($lines, $request);
         // else if (strpos($text, "Chuyến bay đi") !== false)
         //     parseJetsChuaXuat();
         // else if (strpos($text, "Jetstar") !== false)

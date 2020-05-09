@@ -4,11 +4,15 @@ namespace App\Helpers;
 
 use App\DatVe;
 use App\Util;
+use DateTime;
 use Illuminate\Http\Request;
 use stdClass;
 
 class ThemText
 {
+    /**
+     * Remove prefix name as MR, MRS, MISS...
+     */
     public static function remove_prefix_name(string $line, string $bo_sung = "")
     {
         $line = strtoupper($line);
@@ -21,6 +25,9 @@ class ThemText
         return trim($line);
     }
 
+    /**
+     * Parse Bamboo Airline
+     */
     public static function parse_bamboo($lines, Request $request)
     {
         $hanh_khach = [];
@@ -100,6 +107,7 @@ class ThemText
             $obj = new DatVe();
             $obj->username = $request->user()->username;
             $obj->hang_bay = "BB";
+            $obj->ma_giu_cho = trim($lines[0]);
             $obj->ngay_thang = date("Y-m-d");
             $obj->loai_tuoi = 0;
 
@@ -108,9 +116,9 @@ class ThemText
             //TODO: So ve mac dinh
             // else
             //     dv.SoVe = Properties.Settings.Default.SoVeVNMacDinh;
+
             $obj->fill((array) $tmp);
-            $obj->fill($request->all());
-            //TODO: addGia(ref dv, j == 0);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)
@@ -122,7 +130,94 @@ class ThemText
             // else
             $obj->ten_khach = $hanh_khach[$j];
             $obj->save();
-            $obj->refresh();
+            $obj->refresh();        // Reload object from sql
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Parse VietJet
+     */
+    public static function parse_vj($lines, Request $request)
+    {
+        $hanh_khach = [];
+        $i = 0;
+        $line = "";
+        $tmp = new stdClass;
+        $tmp->so_ve = trim($lines[0]);
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "VJ";
+        $tmp->loai_tuoi = 0;
+        $tmp->ngay_thang = date('Y-m-d');
+
+        for ($i = 0; $i < count($lines); $i++) {
+            preg_match("/(\d+)\/(\d+)\/(\d+)/", $lines[$i], $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
+            if (count($matches) > 0) {
+                $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
+                break;
+            }
+        }
+        for (; $i < 10; $i++) {
+            $line = trim($lines[$i]);
+            if (strpos($line, "Tên hành khách") !== false || strpos($line, "Passenger Name") !== false)
+                break;
+        }
+        $i++;
+        for (; $i < count($lines); $i += 2) {
+            preg_match("/^[A-Z ,]+$/", $lines[$i], $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
+            if (count($matches) > 0)
+                $hanh_khach[] = trim(str_replace(',', '', $lines[$i]));
+            else
+                break;
+        }
+        $i += 2;
+
+        // Chiều đi
+        $line = $lines[$i++];
+        $tmp->cb_di = explode(' ', str_replace("\t", ' ', $line))[0];
+
+        preg_match("/(\d+)\/(\d+)\/(\d+)/", $line, $matches);
+        preg_match("/(\d+):(\d+)/", $line, $matches1);
+        $tmp->ngay_gio_di = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
+        preg_match_all("/\(([A-Z]{3})\)/", $line, $matches);
+        $tmp->sb_di = $matches[1][0];
+        $tmp->sb_di1 = $matches[1][1];
+
+        // // Chuyến về tương tự
+        if (count($lines) > $i) {
+            $line = $lines[$i];
+            $tmp->cb_ve = explode(' ', str_replace("\t", ' ', $line))[0];
+
+            preg_match("/(\d+)\/(\d+)\/(\d+)/", $line, $matches);
+            preg_match("/(\d+):(\d+)/", $line, $matches1);
+            if (count($matches) > 0 && count($matches1) > 0) {
+                $tmp->ngay_gio_ve = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
+                preg_match_all("/\(([A-Z]{3})\)/", $line, $matches);
+                $tmp->sb_ve = $matches[1][0];
+                $tmp->sb_ve1 = $matches[1][1];
+            }
+        }
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+
+            //TODO: Chung code???
+            // if (dv.GiaNet == 0 && chkChungCode.Checked)
+            // {
+            //     dv.TenKhach = String.Join(", ", lstHanhKhach);
+            //     lstDatVe.Add(dv);
+            //     break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            // }
+            // else
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $obj->refresh();        // Reload object from sql
             $result[] = $obj;
         }
 

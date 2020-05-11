@@ -617,12 +617,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   var _props$danhMuc = props.danhMuc,
       taiKhoan = _props$danhMuc.taiKhoan,
       khachHang = _props$danhMuc.khachHang,
-      hangBay = _props$danhMuc.hangBay;
-  var hbOptions = hangBay.map(function (pl) {
-    return {
-      value: pl
-    };
-  });
+      hangBay = _props$danhMuc.hangBay; // const hbOptions = hangBay.map(pl => ({ value: pl }));
 
   var getKhachHangDetail = function getKhachHangDetail() {
     return Object.entries(_.groupBy(khachHang, "phan_loai")).map(function (clist) {
@@ -920,6 +915,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ThemTextLayout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ThemTextLayout */ "./resources/js/pages/VeMayBay/DatVe/ThemTextLayout.js");
 /* harmony import */ var _tinhPhi__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./tinhPhi */ "./resources/js/pages/VeMayBay/DatVe/tinhPhi.js");
 /* harmony import */ var _UpdateLayout__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./UpdateLayout */ "./resources/js/pages/VeMayBay/DatVe/UpdateLayout.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -945,6 +941,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -1212,7 +1209,8 @@ var List = function List(props) {
     otherActions: dvAction,
     otherButtons: Object(_otherButtons__WEBPACK_IMPORTED_MODULE_9__["default"])({
       showUpdates: showUpdates,
-      showThemText: showThemText
+      showThemText: showThemText,
+      history: props.history
     }),
     expandedRowRender: _expandedRow__WEBPACK_IMPORTED_MODULE_7__["default"],
     renderSummary: renderSummary,
@@ -1277,7 +1275,7 @@ var List = function List(props) {
   }))));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(List));
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(Object(react_router_dom__WEBPACK_IMPORTED_MODULE_14__["withRouter"])(List)));
 
 /***/ }),
 
@@ -1366,10 +1364,6 @@ var congNo = function congNo(data, selectedRowKeys) {
   return downloadApi("/api/dat-ve/cong-no", selectedRowKeys, "mau-xuat-cong-no.xlsx");
 };
 
-var themTuMail = function themTuMail() {};
-
-var themTuFile = function themTuFile() {};
-
 var otherButtons = function otherButtons(props) {
   return [{
     key: "add-other",
@@ -1382,12 +1376,20 @@ var otherButtons = function otherButtons(props) {
       selectRequired: false
     }, {
       key: "them-tu-mail",
-      onClick: themTuMail,
+      onClick: function onClick() {
+        return props.history.push({
+          pathname: "/dat-ve/them-mail"
+        });
+      },
       title: "Thêm từ email",
       selectRequired: false
     }, {
       key: "them-tu-file",
-      onClick: themTuFile,
+      onClick: function onClick() {
+        return props.history.push({
+          pathname: "/dat-ve/them-file"
+        });
+      },
       title: "Thêm từ file",
       selectRequired: false
     }]

@@ -69,10 +69,6 @@ const congNo = (data, selectedRowKeys) =>
         "mau-xuat-cong-no.xlsx"
     );
 
-const themTuMail = () => {};
-
-const themTuFile = () => {};
-
 const otherButtons = props => [
     {
         key: "add-other",
@@ -87,13 +83,15 @@ const otherButtons = props => [
             },
             {
                 key: "them-tu-mail",
-                onClick: themTuMail,
+                onClick: () =>
+                    props.history.push({ pathname: "/dat-ve/them-mail" }),
                 title: "Thêm từ email",
                 selectRequired: false
             },
             {
                 key: "them-tu-file",
-                onClick: themTuFile,
+                onClick: () =>
+                    props.history.push({ pathname: "/dat-ve/them-file" }),
                 title: "Thêm từ file",
                 selectRequired: false
             }

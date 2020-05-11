@@ -37,13 +37,15 @@ Route::middleware('auth:api')->group(function () {
     // Dat Ve
     Route::delete('dat-ve/deletes', 'DatVeController@deletes');
     Route::get('dat-ve/code-ve', 'DatVeController@codeve');
+    Route::get('dat-ve/hang-bay', 'DatVeController@hangbay');
 
     Route::get('no-ve', 'DatVeController@nove');
     Route::get('chua-bay', 'DatVeController@chuabay');
 
-    Route::get('dat-ve/hang-bay', 'DatVeController@hangbay');
     Route::put('dat-ve/updates', 'DatVeController@updates');
     Route::put('dat-ve/them-text', 'DatVeController@themtext');
+    Route::put('dat-ve/them-file', 'DatVeController@themfile');
+
     Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
     // Bao Cao
     Route::get('dat-ve/mau-ve', 'BaoCaoDatVeController@mauve');

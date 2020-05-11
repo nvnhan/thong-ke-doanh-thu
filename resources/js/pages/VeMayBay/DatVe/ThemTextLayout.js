@@ -5,7 +5,7 @@ const { Option, OptGroup } = Select;
 const form = React.memo(props => {
     const { taiKhoan, khachHang, hangBay } = props.danhMuc;
 
-    const hbOptions = hangBay.map(pl => ({ value: pl }));
+    // const hbOptions = hangBay.map(pl => ({ value: pl }));
 
     const getKhachHangDetail = () =>
         Object.entries(_.groupBy(khachHang, "phan_loai")).map(clist => (

@@ -25,12 +25,13 @@ Chức năng, tính năng còn:
 ////////////- Thống kê báo cáo: đối soát tài khoản
 ////////////- Công nợ: Đặt vé, Công nợ chi tiết
 ////////////- Cài đặt
-- Đặt vé: Thêm text, file
+- Đặt vé: Thêm file
 - Đọc email
 - Auto run cron job: Nhắc lịch bay, xuất vé
 - Backup / Restore
 
 
+- Thêm text: Còn jets, XXXmail...
 - Nhập từ excel: Thu chi...
 - báo cáo tổng hộp
 - Công nợ chi tiết: Tính ngày thanh toán, nội dung, đối tượng khác

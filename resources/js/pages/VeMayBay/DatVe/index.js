@@ -12,6 +12,7 @@ import otherFilters from "./otherFilters";
 import ThemTextLayout from "./ThemTextLayout";
 import tinhPhi from "./tinhPhi";
 import UpdateLayout from "./UpdateLayout";
+import { withRouter } from "react-router-dom";
 
 const List = props => {
     const [formValue, setFormValue] = useState(undefined);
@@ -280,7 +281,8 @@ const List = props => {
                 otherActions={dvAction}
                 otherButtons={otherButtons({
                     showUpdates,
-                    showThemText
+                    showThemText,
+                    history: props.history
                 })}
                 expandedRowRender={expandedRow}
                 renderSummary={renderSummary}
@@ -349,4 +351,4 @@ const List = props => {
     );
 };
 
-export default React.memo(List);
+export default React.memo(withRouter(List));

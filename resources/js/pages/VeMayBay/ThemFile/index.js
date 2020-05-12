@@ -61,11 +61,20 @@ const index = props => {
             });
     };
 
-    const onFinish = () => {
-        if (fileList.length === 0) {
-            message.warn("Chưa chọn file");
-            return;
-        }
+    /**
+     * Lưu thông tin cột vào localStorage
+     */
+    const saveColumns = cols => {
+        delete cols.thoiGian;
+        delete cols.id_tai_khoan_mua;
+        delete cols.id_khach_hang;
+        delete cols.tong_tien_thu_khach;
+        delete cols.khong_tinh_phi;
+        delete cols.ngay_thanh_toan;
+        localStorage.setItem("cot_excel", JSON.stringify(cols));
+    };
+
+    const showWaiting = () => {
         Modal.info({
             title: "Thông báo",
             centered: true,
@@ -87,37 +96,56 @@ const index = props => {
                 </div>
             )
         });
-        let values = form.getFieldsValue();
-        // Lưu thông tin cột vào localStorage
-        let cols = { ...values };
-        delete cols.thoiGian;
-        delete cols.id_tai_khoan_mua;
-        delete cols.id_khach_hang;
-        delete cols.tong_tien_thu_khach;
-        delete cols.khong_tinh_phi;
-        delete cols.ngay_thanh_toan;
-        localStorage.setItem("cot_excel", JSON.stringify(cols));
+    };
 
+    const getFormData = values => {
         if (
             values.hasOwnProperty("thoiGian") &&
             values.thoiGian !== undefined
         ) {
-            values = Object.assign(values, {
+            Object.assign(values, {
                 bat_dau: values.thoiGian[0],
                 ket_thuc: values.thoiGian[1]
             });
-            delete values.thoiGian;
         }
+        const data = new FormData();
+        data.append("file", fileList[0]);
+
+        delete values.thoiGian;
+        delete values.file;
+        for (let key in values)
+            if (values[key] !== undefined) data.append(key, values[key]);
+        return data;
+    };
+
+    const onFinish = () => {
+        if (fileList.length === 0) {
+            message.warn("Chưa chọn file");
+            return;
+        }
+        showWaiting();
+        const values = form.getFieldsValue();
+        saveColumns({ ...values });
+        const data = getFormData(values);
+        console.log("onFinish -> values", values)
 
         // Truyền lên server
         axios
-            .put(`/api/dat-ve/them-file`, values)
+            .post(`/api/dat-ve/them-file`, data, {
+                headers: {
+                    "Content-Type":
+                        "multipart/form-data; charset=utf-8; boundary=" +
+                        Math.random()
+                            .toString()
+                            .substr(2)
+                }
+            })
             .then(response => {
                 if (response.data.success) {
                     message.success(response.data.message);
                     props.history.push({
                         pathname: "/dat-ve",
-                        dd: response.dd
+                        dd: response.data.data
                     });
                 } else message.error(response.data.message);
             })
@@ -153,6 +181,7 @@ const index = props => {
                     <Col span={24}>
                         <Form.Item
                             labelCol={{ span: 3 }}
+                            wrapperCol={{ span: 21 }}
                             name="file"
                             label="Chọn file"
                         >

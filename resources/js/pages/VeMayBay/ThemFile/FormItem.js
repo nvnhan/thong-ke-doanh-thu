@@ -189,7 +189,7 @@ const form = React.memo(props => {
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
-                    <Form.Item name="tong_tien_thu_khach" label="Thu khách">
+                    <Form.Item name="tong_tien_thu_khach" label="TT thu khách">
                         <InputNumber
                             style={{ width: "100%" }}
                             min={0}

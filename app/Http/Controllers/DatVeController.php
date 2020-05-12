@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DatVe;
+use App\Helpers\ThemFile;
 use App\Helpers\ThemText;
 use App\SanBay;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DatVeController extends BaseController
 {
@@ -45,6 +47,9 @@ class DatVeController extends BaseController
             if ($request->xv == 1) $objs = $objs->where('chua_xuat_ve', false);
             else if ($request->xv == -1) $objs = $objs->where('chua_xuat_ve', true);
         }
+
+        if (!empty($request->dd))
+            $objs = $objs->where('dinh_danh', $request->dd);
 
         return $this->sendResponse($objs->get(), "DatVe retrieved successfully");
     }
@@ -132,6 +137,34 @@ class DatVeController extends BaseController
 
         if (count($data) > 0)
             return $this->sendResponse($data, "Thêm mới thành công " . count($data) . ' mục');
+        else return $this->sendError("Không xử lý được");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function themfile(Request $request)
+    {
+        $cnt = 0;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $ext = strtolower($file->getClientOriginalExtension());
+            $dinh_danh = time();
+            $file->storeAs('upload', "$dinh_danh.$ext"); // In storage
+
+            if ($ext === 'xls' || $ext === 'xlsx')
+                $cnt = ThemFile::parse_excel($request, $dinh_danh, $ext);
+            else if ($ext === 'html' || $ext === 'htm')
+                $cnt = ThemFile::parse_html($request, $dinh_danh, $ext);
+
+            Storage::delete("upload/$dinh_danh.$ext");
+        }
+
+        if ($cnt > 0)
+            return $this->sendResponse($dinh_danh, "Thêm mới thành công $cnt mục");
         else return $this->sendError("Không xử lý được");
     }
 

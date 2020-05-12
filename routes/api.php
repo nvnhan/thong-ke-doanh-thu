@@ -44,7 +44,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::put('dat-ve/updates', 'DatVeController@updates');
     Route::put('dat-ve/them-text', 'DatVeController@themtext');
-    Route::put('dat-ve/them-file', 'DatVeController@themfile');
+    Route::post('dat-ve/them-file', 'DatVeController@themfile');
 
     Route::resource('dat-ve', 'DatVeController')->only(['index', 'store', 'update', 'destroy']);
     // Bao Cao

@@ -15,6 +15,7 @@ import UpdateLayout from "./UpdateLayout";
 import { withRouter } from "react-router-dom";
 
 const List = props => {
+    const dinh_danh = props.location.dd;
     const [formValue, setFormValue] = useState(undefined);
 
     const [update, setUpdate] = useMergeState({
@@ -254,12 +255,21 @@ const List = props => {
 
     return (
         <React.Fragment>
+            {dinh_danh !== undefined && (
+                <div
+                    style={{ padding: "16px 20px 0", backgroundColor: "#fff" }}
+                >
+                    <b>Dữ liệu xử lý được:</b>
+                </div>
+            )}
             <ListForm
                 ree={childRef}
                 url="dat-ve"
-                filterBox
+                filter={dinh_danh && { dd: dinh_danh }}
+                filterBox={dinh_danh === undefined}
                 otherFilter={otherFilters}
                 filterInitialValue={{ sb: "", xv: "" }}
+                insertable={dinh_danh === undefined}
                 columns={columns}
                 tableSize={{ x: 1800 }}
                 modalWidth="1200px"

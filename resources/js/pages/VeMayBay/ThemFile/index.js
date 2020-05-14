@@ -1,5 +1,16 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, message, Modal, Progress, Row, Upload } from "antd";
+import {
+    Button,
+    Col,
+    Form,
+    message,
+    Modal,
+    Progress,
+    Row,
+    Upload,
+    Select,
+    AutoComplete
+} from "antd";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { useMergeState } from "../../../utils";
@@ -71,6 +82,7 @@ const index = props => {
         delete cols.tong_tien_thu_khach;
         delete cols.khong_tinh_phi;
         delete cols.ngay_thanh_toan;
+        delete cols.file;
         localStorage.setItem("cot_excel", JSON.stringify(cols));
     };
 
@@ -99,13 +111,18 @@ const index = props => {
     };
 
     const getFormData = values => {
+        if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
+            Object.assign(values, {
+                bat_dau: values.thoiGian[0].format("YYYY-MM-DD"),
+                ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
+            });
+        }
         if (
-            values.hasOwnProperty("thoiGian") &&
-            values.thoiGian !== undefined
+            values.hasOwnProperty("ngay_thanh_toan") &&
+            !_.isEmpty(values.ngay_thanh_toan)
         ) {
             Object.assign(values, {
-                bat_dau: values.thoiGian[0],
-                ket_thuc: values.thoiGian[1]
+                ngay_thanh_toan: values.ngay_thanh_toan.format("YYYY-MM-DD")
             });
         }
         const data = new FormData();
@@ -127,7 +144,6 @@ const index = props => {
         const values = form.getFieldsValue();
         saveColumns({ ...values });
         const data = getFormData(values);
-        console.log("onFinish -> values", values)
 
         // Truyền lên server
         axios
@@ -141,13 +157,14 @@ const index = props => {
                 }
             })
             .then(response => {
-                if (response.data.success) {
-                    message.success(response.data.message);
-                    props.history.push({
-                        pathname: "/dat-ve",
-                        dd: response.data.data
-                    });
-                } else message.error(response.data.message);
+                console.log("onFinish -> response", response);
+                // if (response.data.success) {
+                //     message.success(response.data.message);
+                //     props.history.push({
+                //         pathname: "/dat-ve",
+                //         dd: response.data.data
+                //     });
+                // } else message.error(response.data.message);
             })
             .catch(error => console.log(error))
             .then(() => Modal.destroyAll());
@@ -161,6 +178,8 @@ const index = props => {
         setFileList([file]);
         return false;
     };
+
+    const hbOptions = ["VN", "VJ", "Jets", "BB"].map(pl => ({ value: pl }));
 
     return (
         <div className="list-form" style={{ padding: "16px 12px" }}>
@@ -178,10 +197,32 @@ const index = props => {
                         marginBottom: "12px"
                     }}
                 >
-                    <Col span={24}>
+                    <Col span={12} md={6}>
                         <Form.Item
-                            labelCol={{ span: 3 }}
-                            wrapperCol={{ span: 21 }}
+                            name="hang_bay"
+                            label="Hãng bay"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Nhập đầy đủ thông tin!"
+                                }
+                            ]}
+                        >
+                            <AutoComplete
+                                options={hbOptions}
+                                filterOption={(inputValue, option) =>
+                                    option.value
+                                        .toUpperCase()
+                                        .indexOf(inputValue.toUpperCase()) !==
+                                    -1
+                                }
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col span={24} md={18}>
+                        <Form.Item
+                            labelCol={{ md: 4 }}
+                            wrapperCol={{ md: 20 }}
                             name="file"
                             label="Chọn file"
                         >

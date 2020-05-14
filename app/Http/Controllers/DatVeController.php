@@ -148,24 +148,25 @@ class DatVeController extends BaseController
      */
     public function themfile(Request $request)
     {
-        $cnt = 0;
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $ext = strtolower($file->getClientOriginalExtension());
-            $dinh_danh = time();
-            $file->storeAs('upload', "$dinh_danh.$ext"); // In storage
+        $cnt = [];
+        $cnt = ThemFile::parse_excel($request, "vj", "xlsx");
+        // if ($request->hasFile('file')) {
+        //     $file = $request->file('file');
+        //     $ext = strtolower($file->getClientOriginalExtension());
+        //     $dinh_danh = time();
+        //     $file->storeAs('upload', "$dinh_danh.$ext"); // In storage
 
-            if ($ext === 'xls' || $ext === 'xlsx')
-                $cnt = ThemFile::parse_excel($request, $dinh_danh, $ext);
-            else if ($ext === 'html' || $ext === 'htm')
-                $cnt = ThemFile::parse_html($request, $dinh_danh, $ext);
+        //     if ($ext === 'xls' || $ext === 'xlsx')
+        //         $cnt = ThemFile::parse_excel($request, $dinh_danh, $ext);
+        //     else if ($ext === 'html' || $ext === 'htm')
+        //         $cnt = ThemFile::parse_html($request, $dinh_danh, $ext);
 
-            Storage::delete("upload/$dinh_danh.$ext");
-        }
+        //     Storage::delete("upload/$dinh_danh.$ext");
+        // }
 
-        if ($cnt > 0)
-            return $this->sendResponse($dinh_danh, "Thêm mới thành công $cnt mục");
-        else return $this->sendError("Không xử lý được");
+        // if ($cnt > 0)
+            return $this->sendResponse($cnt, "Thêm mới thành công mục");
+        // else return $this->sendError("Không xử lý được");
     }
 
     /**

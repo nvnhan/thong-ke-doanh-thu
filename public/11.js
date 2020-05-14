@@ -189,14 +189,14 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "cot_ngay_thang",
-    label: "C\u1ED9t ng\xE0y th\xE1ng"
+    name: "cot_so_ve",
+    label: "C\u1ED9t s\u1ED1 v\xE9"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "cot_so_ve",
-    label: "C\u1ED9t s\u1ED1 v\xE9"
+    name: "cot_ma_giu_cho",
+    label: "C\u1ED9t m\xE3 gi\u1EEF ch\u1ED7"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
@@ -207,8 +207,14 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "cot_so_tien",
-    label: "C\u1ED9t s\u1ED1 ti\u1EC1n"
+    name: "cot_loai_tuoi",
+    label: "C\u1ED9t lo\u1EA1i tu\u1ED5i"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_ngay_thang",
+    label: "C\u1ED9t ng\xE0y th\xE1ng"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
@@ -231,26 +237,20 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "cot_ma_giu_cho",
-    label: "C\u1ED9t m\xE3 gi\u1EEF ch\u1ED7"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     name: "cot_hoa_hong",
     label: "C\u1ED9t hoa h\u1ED3ng"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "cot_thu_khach",
-    label: "C\u1ED9t thu kh\xE1ch"
+    name: "cot_so_tien",
+    label: "C\u1ED9t s\u1ED1 ti\u1EC1n"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "cot_loai_tuoi",
-    label: "C\u1ED9t lo\u1EA1i tu\u1ED5i"
+    name: "cot_thu_khach",
+    label: "C\u1ED9t thu kh\xE1ch"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
@@ -284,25 +284,37 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     format: "DD/MM/YYYY",
     placeholder: ["Nhập từ ngày", "đến ngày"]
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
+    span: 24,
+    md: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     name: "id_tai_khoan_mua",
-    label: "N\u01A1i mua"
+    label: "N\u01A1i mua",
+    labelCol: {
+      span: 6
+    },
+    wrapperCol: {
+      span: 18
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
     showSearch: true,
     allowClear: true,
-    placeholder: "Ch\u1ECDn n\u01A1i mua",
+    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
     filterOption: function filterOption(input, option) {
       if (!option.children) return false;
       return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
     }
   }, getTaiKhoanDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
+    span: 24,
+    md: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     name: "id_khach_hang",
-    label: "Kh\xE1ch h\xE0ng M\u0110"
+    label: "Kh\xE1ch h\xE0ng M\u0110",
+    labelCol: {
+      span: 6
+    },
+    wrapperCol: {
+      span: 18
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
     showSearch: true,
     placeholder: "Kh\xE1ch h\xE0ng m\u1EB7c \u0111\u1ECBnh",
@@ -311,18 +323,6 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
     }
   }, getKhachHangDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ngay_thanh_toan",
-    label: "Thanh to\xE1n"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    style: {
-      width: "100%"
-    },
-    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
-    format: "DD/MM/YYYY"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
@@ -358,6 +358,18 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     parser: function parser(value) {
       return value.replace(/\₫\s?|(,*)/g, "");
     }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ngay_thanh_toan",
+    label: "Ng\xE0y thanh to\xE1n"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    style: {
+      width: "100%"
+    },
+    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
+    format: "DD/MM/YYYY"
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
     gutter: [5, 5]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
@@ -496,6 +508,7 @@ var index = function index(props) {
     delete cols.tong_tien_thu_khach;
     delete cols.khong_tinh_phi;
     delete cols.ngay_thanh_toan;
+    delete cols.file;
     localStorage.setItem("cot_excel", JSON.stringify(cols));
   };
 
@@ -521,10 +534,16 @@ var index = function index(props) {
   };
 
   var getFormData = function getFormData(values) {
-    if (values.hasOwnProperty("thoiGian") && values.thoiGian !== undefined) {
+    if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
       Object.assign(values, {
-        bat_dau: values.thoiGian[0],
-        ket_thuc: values.thoiGian[1]
+        bat_dau: values.thoiGian[0].format("YYYY-MM-DD"),
+        ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
+      });
+    }
+
+    if (values.hasOwnProperty("ngay_thanh_toan") && !_.isEmpty(values.ngay_thanh_toan)) {
+      Object.assign(values, {
+        ngay_thanh_toan: values.ngay_thanh_toan.format("YYYY-MM-DD")
       });
     }
 
@@ -549,21 +568,20 @@ var index = function index(props) {
     showWaiting();
     var values = form.getFieldsValue();
     saveColumns(_objectSpread({}, values));
-    var data = getFormData(values);
-    console.log("onFinish -> values", values); // Truyền lên server
+    var data = getFormData(values); // Truyền lên server
 
     axios.post("/api/dat-ve/them-file", data, {
       headers: {
         "Content-Type": "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
       }
     }).then(function (response) {
-      if (response.data.success) {
-        antd__WEBPACK_IMPORTED_MODULE_1__["message"].success(response.data.message);
-        props.history.push({
-          pathname: "/dat-ve",
-          dd: response.data.data
-        });
-      } else antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(response.data.message);
+      console.log("onFinish -> response", response); // if (response.data.success) {
+      //     message.success(response.data.message);
+      //     props.history.push({
+      //         pathname: "/dat-ve",
+      //         dd: response.data.data
+      //     });
+      // } else message.error(response.data.message);
     })["catch"](function (error) {
       return console.log(error);
     }).then(function () {
@@ -580,6 +598,11 @@ var index = function index(props) {
     return false;
   };
 
+  var hbOptions = ["VN", "VJ", "Jets", "BB"].map(function (pl) {
+    return {
+      value: pl
+    };
+  });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "list-form",
     style: {
@@ -602,13 +625,29 @@ var index = function index(props) {
       marginBottom: "12px"
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    span: 24
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "hang_bay",
+    label: "H\xE3ng bay",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["AutoComplete"], {
+    options: hbOptions,
+    filterOption: function filterOption(inputValue, option) {
+      return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 18
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     labelCol: {
-      span: 3
+      md: 4
     },
     wrapperCol: {
-      span: 21
+      md: 20
     },
     name: "file",
     label: "Ch\u1ECDn file"

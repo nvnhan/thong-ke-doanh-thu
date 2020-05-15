@@ -326,8 +326,8 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "tong_tien_thu_khach",
-    label: "TT thu kh\xE1ch"
+    name: "phi_thu_khach",
+    label: "Ph\xED thu kh\xE1ch"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
     style: {
       width: "100%"
@@ -358,18 +358,6 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     parser: function parser(value) {
       return value.replace(/\₫\s?|(,*)/g, "");
     }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ngay_thanh_toan",
-    label: "Ng\xE0y thanh to\xE1n"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    style: {
-      width: "100%"
-    },
-    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
-    format: "DD/MM/YYYY"
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
     gutter: [5, 5]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
@@ -446,7 +434,7 @@ var index = function index(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(function () {
     // Get data from localStorage
     var cols = {
-      tong_tien_thu_khach: 0,
+      phi_thu_khach: 0,
       khong_tinh_phi: 0
     };
     var cot = localStorage.getItem("cot_excel");
@@ -505,7 +493,7 @@ var index = function index(props) {
     delete cols.thoiGian;
     delete cols.id_tai_khoan_mua;
     delete cols.id_khach_hang;
-    delete cols.tong_tien_thu_khach;
+    delete cols.phi_thu_khach;
     delete cols.khong_tinh_phi;
     delete cols.ngay_thanh_toan;
     delete cols.file;
@@ -575,13 +563,13 @@ var index = function index(props) {
         "Content-Type": "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
       }
     }).then(function (response) {
-      console.log("onFinish -> response", response); // if (response.data.success) {
-      //     message.success(response.data.message);
-      //     props.history.push({
-      //         pathname: "/dat-ve",
-      //         dd: response.data.data
-      //     });
-      // } else message.error(response.data.message);
+      if (response.data.success) {
+        antd__WEBPACK_IMPORTED_MODULE_1__["message"].success(response.data.message);
+        props.history.push({
+          pathname: "/dat-ve",
+          dd: response.data.data
+        });
+      } else antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(response.data.message);
     })["catch"](function (error) {
       return console.log(error);
     }).then(function () {

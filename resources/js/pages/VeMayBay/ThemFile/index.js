@@ -25,7 +25,7 @@ const index = props => {
     const [columns, setColumns] = useState(() => {
         // Get data from localStorage
         let cols = {
-            tong_tien_thu_khach: 0,
+            phi_thu_khach: 0,
             khong_tinh_phi: 0
         };
         const cot = localStorage.getItem("cot_excel");
@@ -79,7 +79,7 @@ const index = props => {
         delete cols.thoiGian;
         delete cols.id_tai_khoan_mua;
         delete cols.id_khach_hang;
-        delete cols.tong_tien_thu_khach;
+        delete cols.phi_thu_khach;
         delete cols.khong_tinh_phi;
         delete cols.ngay_thanh_toan;
         delete cols.file;
@@ -157,14 +157,13 @@ const index = props => {
                 }
             })
             .then(response => {
-                console.log("onFinish -> response", response);
-                // if (response.data.success) {
-                //     message.success(response.data.message);
-                //     props.history.push({
-                //         pathname: "/dat-ve",
-                //         dd: response.data.data
-                //     });
-                // } else message.error(response.data.message);
+                if (response.data.success) {
+                    message.success(response.data.message);
+                    props.history.push({
+                        pathname: "/dat-ve",
+                        dd: response.data.data
+                    });
+                } else message.error(response.data.message);
             })
             .catch(error => console.log(error))
             .then(() => Modal.destroyAll());

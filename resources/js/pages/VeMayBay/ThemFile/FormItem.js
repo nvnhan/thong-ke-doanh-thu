@@ -191,7 +191,7 @@ const form = React.memo(props => {
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
-                    <Form.Item name="tong_tien_thu_khach" label="TT thu khách">
+                    <Form.Item name="phi_thu_khach" label="Phí thu khách">
                         <InputNumber
                             style={{ width: "100%" }}
                             min={0}
@@ -222,7 +222,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={12} md={6}>
+                {/* <Col span={12} md={6}>
                     <Form.Item name="ngay_thanh_toan" label="Ngày thanh toán">
                         <MyDatePicker
                             style={{ width: "100%" }}
@@ -230,7 +230,7 @@ const form = React.memo(props => {
                             format="DD/MM/YYYY"
                         />
                     </Form.Item>
-                </Col>
+                </Col> */}
             </Row>
             <Row gutter={[5, 5]}>
                 <Col span={12} md={6}>

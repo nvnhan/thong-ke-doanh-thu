@@ -38,7 +38,8 @@ class DatVe extends Model
         'ngay_gio_ve', 'cb_ve', 'sb_ve', 'sb_ve1',
         'gia_net', 'phu_phi', 'phi_san_bay', 'phu_phi_san_bay',
         'id_phi_hanh_ly', 'hanh_ly', 'hoa_hong',
-        'tong_tien', 'tong_tien_thu_khach', 'ghi_chu'
+        'tong_tien', 'tong_tien_thu_khach', 'ghi_chu',
+        'username', 'dinh_danh'
     ];
 
     protected $appends = [

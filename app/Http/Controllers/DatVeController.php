@@ -21,8 +21,9 @@ class DatVeController extends BaseController
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
             $objs = DatVe::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
-        else
+        else if (empty($request->dd))
             $objs = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
+        else $objs = DatVe::query();        // Co Dinh Danh thi ko xet tu ngay den ngay
 
         if (!$request->user()->admin)
             $objs = $objs->where('username', $request->user()->username);
@@ -97,11 +98,15 @@ class DatVeController extends BaseController
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $obj = DatVe::create($data);
-        $obj->username = $request->user()->username;
-        $obj->save();
-        return $this->sendResponse($obj, "Thêm mới thành công");
+        try {
+            $data = $request->all();
+            $obj = DatVe::create($data);
+            $obj->username = $request->user()->username;
+            $obj->save();
+            return $this->sendResponse($obj, "Thêm mới thành công");
+        } catch (\Exception $e) {
+            return $this->sendError("Error");
+        }
     }
 
     /**
@@ -148,25 +153,24 @@ class DatVeController extends BaseController
      */
     public function themfile(Request $request)
     {
-        $cnt = [];
-        $cnt = ThemFile::parse_excel($request, "vj", "xlsx");
-        // if ($request->hasFile('file')) {
-        //     $file = $request->file('file');
-        //     $ext = strtolower($file->getClientOriginalExtension());
-        //     $dinh_danh = time();
-        //     $file->storeAs('upload', "$dinh_danh.$ext"); // In storage
+        $cnt = 0;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $ext = strtolower($file->getClientOriginalExtension());
+            $dinh_danh = time();
+            $file->storeAs('upload', "$dinh_danh.$ext"); // Upload file to storage/app/upload
 
-        //     if ($ext === 'xls' || $ext === 'xlsx')
-        //         $cnt = ThemFile::parse_excel($request, $dinh_danh, $ext);
-        //     else if ($ext === 'html' || $ext === 'htm')
-        //         $cnt = ThemFile::parse_html($request, $dinh_danh, $ext);
+            if ($ext === 'xls' || $ext === 'xlsx')
+                $cnt = ThemFile::parse_excel($request, $dinh_danh, $ext);
+            else if ($ext === 'html' || $ext === 'htm')
+                $cnt = ThemFile::parse_html($request, $dinh_danh, $ext);
 
-        //     Storage::delete("upload/$dinh_danh.$ext");
-        // }
+            Storage::delete("upload/$dinh_danh.$ext");
+        }
 
-        // if ($cnt > 0)
-            return $this->sendResponse($cnt, "Thêm mới thành công mục");
-        // else return $this->sendError("Không xử lý được");
+        if ($cnt > 0)
+            return $this->sendResponse($dinh_danh, "Thêm mới thành công $cnt mục");
+        else return $this->sendError("Không xử lý được");
     }
 
     /**

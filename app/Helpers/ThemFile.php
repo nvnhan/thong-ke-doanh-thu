@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\DatVe;
+use App\KhachHang;
 use App\Util;
 use DateTime;
 use Illuminate\Http\Request;
@@ -30,6 +31,11 @@ class ThemFile
         // Parse data from file
         while (true) {
             $tmp = new stdClass;
+            $tmp->ngay_thang = date("Y-m-d");
+            $tmp->username = $request->user()->username;
+            $tmp->hang_bay = $request->hang_bay;
+            $tmp->dinh_danh = $dinh_danh;
+
             $tmp->so_ve = $sheet->getCell($request->cot_so_ve . $ind)->getValue();
             if (empty($tmp->so_ve))
                 break;
@@ -151,10 +157,62 @@ class ThemFile
         // Khách hàng mặc định
         $id_khach_hang = -1;
         if (!empty($request->id_khach_hang)) $id_khach_hang = $request->id_khach_hang;
+        $khach_hang = KhachHang::find($id_khach_hang);
 
-        //TODO: insert rows to db
+        // insert rows to db
+        $cnt = 0;
+        foreach ($parse as $item) {
+            $dv = new DatVe((array) $item);
 
-        return $parse;
+            if ($id_tai_khoan_mua !== -1) $dv->id_tai_khoan_mua = $id_tai_khoan_mua;
+            // Ko set ngay thanh toan truc tiep => bat buoc phai qua Thu chi
+            // if (!empty($request->ngay_thanh_toan)) $dv->ngay_thanh_toan = $request->ngay_thanh_toan;
+
+            $so_nguoi = count(explode(";", $item->ten_khach));
+            $so_chieu = empty($item->sb_ve) ? 1 : 2;
+
+            // Nếu trong file không có tổng tiền thu khách
+            if (empty($item->tong_tien_thu_khach)) {
+                $kh = null;
+                // Find KhachHang has Ma Dai Ly
+                if (!empty($item->ma_dai_ly))
+                    $kh = KhachHang::all()->filter(function ($model) use ($item) {
+                        return in_array($item->ma_dai_ly, $model->dai_ly);
+                    })->first(null);
+                if (empty($kh)) $kh = $khach_hang;
+                if (!empty($kh)) {
+                    $dv->id_khach_hang = $kh->id;
+
+                    switch ($item->hang_bay) {
+                        case "VN":
+                            $dv->tong_tien_thu_khach = $kh->phi_vn;
+                            break;
+                        case "VJ":
+                            $dv->tong_tien_thu_khach = $kh->phi_vj;
+                            break;
+                        case "Jets":
+                            $dv->tong_tien_thu_khach = $kh->phi_jets;
+                            break;
+                        case "BB":
+                            $dv->tong_tien_thu_khach = $kh->phi_bb;
+                            break;
+                    }
+                    $dv->tong_tien_thu_khach *= $so_nguoi * $so_chieu;
+                }
+
+                if (!empty($request->khong_tinh_phi) && $request->khong_tinh_phi >= ($item->tong_tien + $request->phi_thu_khach))
+                    $dv->tong_tien_thu_khach = 0;          // Ko tính phí Đại lý thu nữa
+                $dv->tong_tien_thu_khach += $item->tong_tien +  $request->phi_thu_khach;
+            }
+
+            try {
+                $dv->save();
+                $cnt++;
+            } catch (\Exception $e) {
+            }
+        }
+
+        return $cnt;
     }
 
     public static function parse_money(string $tt)

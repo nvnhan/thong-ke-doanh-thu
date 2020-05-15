@@ -71,8 +71,8 @@ class KhachHang extends Model
         return $this->so_du_ky_truoc + $this->thu_chis()->get()->sum('con_du');
     }
 
-    public function getDaiLysAttribute()
+    public function getDaiLyAttribute()
     {
-        return split(',', $this->ma_dai_ly);
+        return explode(',', $this->ma_dai_ly);
     }
 }

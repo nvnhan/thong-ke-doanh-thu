@@ -12,6 +12,14 @@ use stdClass;
 
 class ThemFile
 {
+    public static function parse_money(string $tt)
+    {
+        $tt = str_replace(',', '', $tt);
+        $tt = str_replace('.', '', $tt);
+        $tt = str_replace('-', '', $tt);
+        return (float) (trim($tt));
+    }
+
     /**
      * Parse data from Excel
      */
@@ -39,7 +47,13 @@ class ThemFile
             $tmp->so_ve = $sheet->getCell($request->cot_so_ve . $ind)->getValue();
             if (empty($tmp->so_ve))
                 break;
-            // TODO: Xử lý số vé gồm cả chữ (VJA, VJC) trong một sô trường hộp????
+
+            if (preg_match("/[0-9A-Z]{6,20}/", $tmp->so_ve, $matches)) {
+                $tmp->so_ve = $matches[0];
+                $ss = substr($tmp->so_ve, 0, 3);
+                if ($ss === "VJA" || $ss === "VJC" || $ss === "550")
+                    $tmp->so_ve = substr($tmp->so_ve, 3);
+            } else continue;
 
             // Loại tuổi
             if (!empty($request->cot_loai_tuoi)) {
@@ -213,14 +227,6 @@ class ThemFile
         }
 
         return $cnt;
-    }
-
-    public static function parse_money(string $tt)
-    {
-        $tt = str_replace(',', '', $tt);
-        $tt = str_replace('.', '', $tt);
-        $tt = str_replace('-', '', $tt);
-        return (float) (trim($tt));
     }
 
     /**

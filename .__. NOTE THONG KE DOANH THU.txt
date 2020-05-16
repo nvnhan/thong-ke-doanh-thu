@@ -2,6 +2,8 @@ Project: Thống kê doanh thu
 Web App
 Convert từ phần mềm THỐNG KÊ DOANH THU viết cho DANH THANH
 
+LOGO: https://www.iconfinder.com/icons/3592873/document_general_letter_note_office_page_paper_icon
+
 Ngày bắt đầu 19/02/2020
 Chi phí 11 triệu (Bao gồm chi phí convert + thêm chức năng)
 

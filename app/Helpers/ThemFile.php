@@ -20,6 +20,79 @@ class ThemFile
         return (float) (trim($tt));
     }
 
+    public static function insert_into_db($parse, Request $request)
+    {
+        // filter data 
+        // Lọc từ ngày đến ngày
+        if (!empty($request->bat_dau) && !empty($request->ket_thuc))
+            $parse = array_filter($parse, function ($item) use ($request) {
+                return $item->ngay_thang >= $request->bat_dau && $item->ngay_thang <= $request->ket_thuc;
+            });
+
+        // Tài khoản F1 nơi mua
+        $id_tai_khoan_mua = -1;
+        if (!empty($request->id_tai_khoan_mua)) $id_tai_khoan_mua = $request->id_tai_khoan_mua;
+        // Khách hàng mặc định
+        $id_khach_hang = -1;
+        if (!empty($request->id_khach_hang)) $id_khach_hang = $request->id_khach_hang;
+        $khach_hang = KhachHang::find($id_khach_hang);
+
+        $cnt = 0;
+        foreach ($parse as $item) {
+            $dv = new DatVe((array) $item);
+
+            if ($id_tai_khoan_mua !== -1) $dv->id_tai_khoan_mua = $id_tai_khoan_mua;
+            // Ko set ngay thanh toan truc tiep => bat buoc phai qua Thu chi
+            // if (!empty($request->ngay_thanh_toan)) $dv->ngay_thanh_toan = $request->ngay_thanh_toan;
+
+            $so_nguoi = count(explode(";", $item->ten_khach));
+            $so_chieu = empty($item->sb_ve) ? 1 : 2;
+
+            // Nếu trong file không có tổng tiền thu khách
+            if (empty($item->tong_tien_thu_khach)) {
+                $kh = null;
+                // Find KhachHang has Ma Dai Ly
+                if (!empty($item->ma_dai_ly))
+                    $kh = KhachHang::all()->filter(function ($model) use ($item) {
+                        return in_array($item->ma_dai_ly, $model->dai_ly);
+                    })->first(null);
+                if (empty($kh)) $kh = $khach_hang;
+
+                if (!empty($kh)) {
+                    $dv->id_khach_hang = $kh->id;
+
+                    switch ($item->hang_bay) {
+                        case "VN":
+                            $dv->tong_tien_thu_khach = $kh->phi_vn;
+                            break;
+                        case "VJ":
+                            $dv->tong_tien_thu_khach = $kh->phi_vj;
+                            break;
+                        case "Jets":
+                            $dv->tong_tien_thu_khach = $kh->phi_jets;
+                            break;
+                        case "BB":
+                            $dv->tong_tien_thu_khach = $kh->phi_bb;
+                            break;
+                    }
+                    $dv->tong_tien_thu_khach *= $so_nguoi * $so_chieu;
+                }
+
+                if (!empty($request->khong_tinh_phi) && $request->khong_tinh_phi >= ($item->tong_tien + $request->phi_thu_khach))
+                    $dv->tong_tien_thu_khach = 0;          // Ko tính phí Đại lý thu nữa
+                $dv->tong_tien_thu_khach += $item->tong_tien +  $request->phi_thu_khach;
+            }
+
+            try {
+                $dv->save();
+                $cnt++;
+            } catch (\Exception $e) {
+            }
+        }
+
+        return $cnt;
+    }
+
     /**
      * Parse data from Excel
      */
@@ -158,73 +231,9 @@ class ThemFile
             $parse[] = $tmp;
             $ind++;
         }
-        // filter data 
-        // Lọc từ ngày đến ngày
-        if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $parse = array_filter($parse, function ($item) use ($request) {
-                return $item->ngay_thang >= $request->bat_dau && $item->ngay_thang <= $request->ket_thuc;
-            });
-
-        // Tài khoản F1 nơi mua
-        $id_tai_khoan_mua = -1;
-        if (!empty($request->id_tai_khoan_mua)) $id_tai_khoan_mua = $request->id_tai_khoan_mua;
-        // Khách hàng mặc định
-        $id_khach_hang = -1;
-        if (!empty($request->id_khach_hang)) $id_khach_hang = $request->id_khach_hang;
-        $khach_hang = KhachHang::find($id_khach_hang);
 
         // insert rows to db
-        $cnt = 0;
-        foreach ($parse as $item) {
-            $dv = new DatVe((array) $item);
-
-            if ($id_tai_khoan_mua !== -1) $dv->id_tai_khoan_mua = $id_tai_khoan_mua;
-            // Ko set ngay thanh toan truc tiep => bat buoc phai qua Thu chi
-            // if (!empty($request->ngay_thanh_toan)) $dv->ngay_thanh_toan = $request->ngay_thanh_toan;
-
-            $so_nguoi = count(explode(";", $item->ten_khach));
-            $so_chieu = empty($item->sb_ve) ? 1 : 2;
-
-            // Nếu trong file không có tổng tiền thu khách
-            if (empty($item->tong_tien_thu_khach)) {
-                $kh = null;
-                // Find KhachHang has Ma Dai Ly
-                if (!empty($item->ma_dai_ly))
-                    $kh = KhachHang::all()->filter(function ($model) use ($item) {
-                        return in_array($item->ma_dai_ly, $model->dai_ly);
-                    })->first(null);
-                if (empty($kh)) $kh = $khach_hang;
-                if (!empty($kh)) {
-                    $dv->id_khach_hang = $kh->id;
-
-                    switch ($item->hang_bay) {
-                        case "VN":
-                            $dv->tong_tien_thu_khach = $kh->phi_vn;
-                            break;
-                        case "VJ":
-                            $dv->tong_tien_thu_khach = $kh->phi_vj;
-                            break;
-                        case "Jets":
-                            $dv->tong_tien_thu_khach = $kh->phi_jets;
-                            break;
-                        case "BB":
-                            $dv->tong_tien_thu_khach = $kh->phi_bb;
-                            break;
-                    }
-                    $dv->tong_tien_thu_khach *= $so_nguoi * $so_chieu;
-                }
-
-                if (!empty($request->khong_tinh_phi) && $request->khong_tinh_phi >= ($item->tong_tien + $request->phi_thu_khach))
-                    $dv->tong_tien_thu_khach = 0;          // Ko tính phí Đại lý thu nữa
-                $dv->tong_tien_thu_khach += $item->tong_tien +  $request->phi_thu_khach;
-            }
-
-            try {
-                $dv->save();
-                $cnt++;
-            } catch (\Exception $e) {
-            }
-        }
+        $cnt = self::insert_into_db($parse, $request);
 
         return $cnt;
     }
@@ -234,9 +243,110 @@ class ThemFile
      */
     public static function parse_html(Request $request, string $dinh_danh, string $extension)
     {
-        $data = [];
         $path = storage_path('app/upload') . "/$dinh_danh.$extension";
+        $parse = [];
+        if ($request->hang_bay === "BB")
+            $parse = self::parse_html_bb($path, $dinh_danh, $request->user()->username);
+        if ($request->hang_bay === "VJ")
+            $parse = self::parse_html_vj($path, $dinh_danh, $request->user()->username);
 
-        return $data;
+        // insert rows to db
+        $cnt = self::insert_into_db($parse, $request);
+
+        return $cnt;
+    }
+
+    public static function parse_html_bb(string $path, string $dinh_danh, $username)
+    {
+        $parse = [];
+        $content = file_get_html($path);
+        $rows = $content->find('table.data-table tbody tr');
+
+        foreach ($rows as $row) {
+            $tmp = new stdClass;
+            $tmp->ngay_thang = date("Y-m-d");
+            $tmp->username = $username;
+            $tmp->hang_bay = "BB";
+            $tmp->dinh_danh = $dinh_danh;
+
+            $cols = $row->find('td');
+            $tmp->so_ve = $cols[6]->plaintext;
+            if (empty($tmp->so_ve))
+                continue;
+            $tmp->ma_giu_cho = $cols[4]->plaintext;
+
+            // Ngay dat
+            if (preg_match("/(\d+)-([a-zA-Z]+)-(\d+)/", $cols[0]->plaintext, $matches)) { //  03-Apr-2019	
+                $mon = array_search(strtoupper($matches[2]), Util::$thang);
+                if ($mon !== false) {
+                    $mon++;
+                    $tmp->ngay_thang = "$matches[3]-$mon-$matches[1]";
+                }
+            }
+            $tmp->ma_dai_ly = $cols[3]->plaintext;
+            $tmp->ten_khach = str_replace('/', ' ', $cols[7]->plaintext);
+
+            // Loai tuoi
+            $tuoi = $cols[8]->plaintext;
+            switch ($tuoi) {
+                case 'ADULT':
+                    $tmp->loai_tuoi = 0;
+                    break;
+                case 'CHILD':
+                    $tmp->loai_tuoi = 1;
+                    break;
+                default:
+                    $tmp->loai_tuoi = 2;
+                    break;
+            }
+            // tong Tien
+            $tmp->tong_tien = (float) (str_replace([',', '.'], '', $cols[15]->plaintext));
+
+            // Hanh trinh, ngay bay, chuyen bay
+            $hanh_trinh = $cols[23]->plaintext;
+
+            if (preg_match_all("/\b([A-Z]{3})\b/", $hanh_trinh, $matches)) {
+                $tmp->sb_di = $matches[1][0];
+                $tmp->sb_di1 = $matches[1][1];
+                if (count($matches[1]) >= 4) {
+                    $tmp->sb_ve = $matches[1][2];
+                    $tmp->sb_ve1 = $matches[1][3];
+                }
+            }
+            if (preg_match_all("/QH [0-9\-A-Z]+/", $hanh_trinh, $matches)) {
+                $tmp->cb_di = $matches[0][0];
+                if (count($matches[0]) > 1)
+                    $tmp->cb_ve = $matches[0][1];
+            }
+            if (preg_match_all("/(\d+)\/(\d+)\/(\d{4})/", $hanh_trinh, $matches)) {  // Dạng dd/mm/yyyy
+                $tmp->ngay_gio_di = $matches[3][0] . "-" . $matches[2][0] . "-" . $matches[1][0];
+                if (count($matches[1]) > 1)
+                    $tmp->ngay_gio_ve = $matches[3][1] . "-" . $matches[2][1] . "-" . $matches[1][1];
+            }
+            //TODO: Nếu ko đc thì thử dạng MMM dd, yyyy
+
+            $parse[] = $tmp;
+        }
+
+        return $parse;
+    }
+
+    public static function parse_html_vj(string $path, string $dinh_danh, $username)
+    {
+        $parse = [];
+        $content = file_get_html($path);
+        $rows = $content->find('table.data-table tbody tr');
+
+        foreach ($rows as $row) {
+            $tmp = new stdClass;
+            $tmp->ngay_thang = date("Y-m-d");
+            $tmp->username = $username;
+            $tmp->hang_bay = "BB";
+            $tmp->dinh_danh = $dinh_danh;
+
+            $parse[] = $tmp;
+        }
+
+        return $parse;
     }
 }

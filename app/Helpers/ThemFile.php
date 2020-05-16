@@ -322,8 +322,20 @@ class ThemFile
                 $tmp->ngay_gio_di = $matches[3][0] . "-" . $matches[2][0] . "-" . $matches[1][0];
                 if (count($matches[1]) > 1)
                     $tmp->ngay_gio_ve = $matches[3][1] . "-" . $matches[2][1] . "-" . $matches[1][1];
+            } else if (preg_match_all("/([a-zA-Z]{3}) (\d+), (\d{4})/", $hanh_trinh, $matches)) { // Nếu ko đc thì thử dạng MMM dd, yyyy
+                $mon = array_search(strtoupper($matches[1][0]), Util::$thang);
+                if ($mon !== false) {
+                    $mon++;
+                    $tmp->ngay_gio_di = $matches[3][0] . "-" . $mon . "-" . $matches[2][0];
+                }
+                if (count($matches[1]) > 1) {
+                    $mon = array_search(strtoupper($matches[1][1]), Util::$thang);
+                    if ($mon !== false) {
+                        $mon++;
+                        $tmp->ngay_gio_ve = $matches[3][1] . "-" . $mon . "-" . $matches[2][1];
+                    }
+                }
             }
-            //TODO: Nếu ko đc thì thử dạng MMM dd, yyyy
 
             $parse[] = $tmp;
         }
@@ -335,14 +347,63 @@ class ThemFile
     {
         $parse = [];
         $content = file_get_html($path);
-        $rows = $content->find('table.data-table tbody tr');
+        $rows = $content->find('tr.GridPayDetsEven, tr.GridPayDetsOdd');
 
         foreach ($rows as $row) {
             $tmp = new stdClass;
             $tmp->ngay_thang = date("Y-m-d");
             $tmp->username = $username;
-            $tmp->hang_bay = "BB";
+            $tmp->hang_bay = "VJ";
             $tmp->dinh_danh = $dinh_danh;
+
+            $cols = $row->find('td');
+            // So Ve
+            $tmp->so_ve = $cols[1]->plaintext;
+            if (empty($tmp->so_ve))
+                continue;
+
+            // Ngay dat
+            if (preg_match("/(\d+)\/(\d+)\/(\d+)/", $cols[3]->plaintext, $matches))
+                $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
+
+            $tmp->ma_dai_ly = $cols[6]->plaintext;
+            $tmp->ten_khach = str_replace(',', '', $cols[2]->plaintext);
+
+            // Loai tuoi
+            $tmp->loai_tuoi = 0;
+
+            // tong Tien
+            $tmp->tong_tien = (float) (str_replace([',', '.', '$'], '', $cols[9]->plaintext)) / 100;
+
+            // Hanh trinh, ngay bay, chuyen bay
+            $hanh_trinh = $cols[4]->plaintext;
+
+            if (preg_match_all("/\b([A-Z]{3})\b/", $hanh_trinh, $matches)) {
+                $tmp->sb_di = $matches[1][0];
+                $tmp->sb_di1 = $matches[1][1];
+                if (count($matches[1]) >= 4) {
+                    $tmp->sb_ve = $matches[1][2];
+                    $tmp->sb_ve1 = $matches[1][3];
+                }
+            }
+            if (preg_match_all("/([a-zA-Z]{3}) (\d+), (\d{4})/", $hanh_trinh, $matches)) { // Nếu ko đc thì thử dạng MMM dd, yyyy
+                $mon = array_search(strtoupper($matches[1][0]), Util::$thang);
+                if ($mon !== false) {
+                    $mon++;
+                    $tmp->ngay_gio_di = $matches[3][0] . "-" . $mon . "-" . $matches[2][0];
+                }
+                if (count($matches[1]) > 1) {
+                    $mon = array_search(strtoupper($matches[1][1]), Util::$thang);
+                    if ($mon !== false) {
+                        $mon++;
+                        $tmp->ngay_gio_ve = $matches[3][1] . "-" . $mon . "-" . $matches[2][1];
+                    }
+                }
+            } else if (preg_match_all("/(\d+)\/(\d+)\/(\d{4})/", $hanh_trinh, $matches)) {  // Dạng dd/mm/yyyy
+                $tmp->ngay_gio_di = $matches[3][0] . "-" . $matches[2][0] . "-" . $matches[1][0];
+                if (count($matches[1]) > 1)
+                    $tmp->ngay_gio_ve = $matches[3][1] . "-" . $matches[2][1] . "-" . $matches[1][1];
+            }
 
             $parse[] = $tmp;
         }

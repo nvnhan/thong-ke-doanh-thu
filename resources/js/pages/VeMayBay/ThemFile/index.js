@@ -117,14 +117,14 @@ const index = props => {
                 ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
             });
         }
-        if (
-            values.hasOwnProperty("ngay_thanh_toan") &&
-            !_.isEmpty(values.ngay_thanh_toan)
-        ) {
-            Object.assign(values, {
-                ngay_thanh_toan: values.ngay_thanh_toan.format("YYYY-MM-DD")
-            });
-        }
+        // if (
+        //     values.hasOwnProperty("ngay_thanh_toan") &&
+        //     !_.isEmpty(values.ngay_thanh_toan)
+        // ) {
+        //     Object.assign(values, {
+        //         ngay_thanh_toan: values.ngay_thanh_toan.format("YYYY-MM-DD")
+        //     });
+        // }
         const data = new FormData();
         data.append("file", fileList[0]);
 

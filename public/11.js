@@ -317,6 +317,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
     showSearch: true,
+    allowClear: true,
     placeholder: "Kh\xE1ch h\xE0ng m\u1EB7c \u0111\u1ECBnh",
     filterOption: function filterOption(input, option) {
       if (!option.children) return false;
@@ -527,13 +528,15 @@ var index = function index(props) {
         bat_dau: values.thoiGian[0].format("YYYY-MM-DD"),
         ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
       });
-    }
+    } // if (
+    //     values.hasOwnProperty("ngay_thanh_toan") &&
+    //     !_.isEmpty(values.ngay_thanh_toan)
+    // ) {
+    //     Object.assign(values, {
+    //         ngay_thanh_toan: values.ngay_thanh_toan.format("YYYY-MM-DD")
+    //     });
+    // }
 
-    if (values.hasOwnProperty("ngay_thanh_toan") && !_.isEmpty(values.ngay_thanh_toan)) {
-      Object.assign(values, {
-        ngay_thanh_toan: values.ngay_thanh_toan.format("YYYY-MM-DD")
-      });
-    }
 
     var data = new FormData();
     data.append("file", fileList[0]);

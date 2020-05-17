@@ -1,279 +1,158 @@
-import React, { useEffect, useState } from "react";
-import {
-    isChangeData,
-    queryString,
-    useMergeState,
-    vndFormater
-} from "../../../utils";
-import DataTable from "../../../components/ListForm/DataTable";
-import FilterBox from "../../../components/ListForm/FilterBox";
-import ToolsButton from "../../../components/ListForm/ToolsButton";
-import { Tabs } from "antd";
-import { ExportMultiSheet } from "../../../utils/exportToExcel";
+import { Form, Modal, Progress } from "antd";
+import moment from "moment";
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import { useMergeState } from "../../../utils";
+import FormItem from "./FormItem";
 
-const List = props => {
+const index = props => {
+    const [form] = Form.useForm();
     const [state, setState] = useMergeState({
-        data: {
-            muavao: [],
-            banra: []
-        },
-        isLoading: true
+        taiKhoan: [],
+        khachHang: [],
+        email: [],
+        selectedRowKeys: []
     });
-    const { data, isLoading } = state;
-    const [ownFilter, setOwnFilter] = useState(undefined);
     let isComponentMounted = false;
+    let time = null;
 
     useEffect(() => {
         isComponentMounted = true;
-        // Không Có filter hoặc có filter và đã load xong
-        if (ownFilter === undefined || !_.isEmpty(ownFilter)) {
-            // Set lại data và loading cho các Component con
-            setState({ data: [], isLoading: true });
-
-            axios
-                .get("/api/tong-hop-cong-no?" + queryString(ownFilter))
-                .then(response => {
-                    if (isComponentMounted && response.data.success) {
-                        setState({
-                            data: response.data.data,
-                            isLoading: false
-                        });
-                    }
-                })
-                .catch(error => console.log(error));
-        }
+        retrieveData();
         return () => {
             // When Unmount component
             isComponentMounted = false;
+            if (time) clearTimeout(time);
         };
-    }, [JSON.stringify(ownFilter)]); // Chỉ chạy 1 lần khi mount đến khi ownFilter thay đổi
+    }, []);
 
     /**
-     * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
+     * Retriving data from server
+     * If has error, auto recall after 1 second
      */
-    const handleFilterBox = newFilter => {
-        // Thay đổi filter => Load lại dữ liệu
-        if (isChangeData(ownFilter, newFilter)) setOwnFilter(newFilter);
-    };
-
-    const renderSummaryBanRa = data => {
-        if (!_.isEmpty(data)) {
-            const sumObj = data.reduce((previousValue, currentValue) => {
-                return {
-                    dau_ky: previousValue.dau_ky + currentValue.dau_ky,
-                    cuoi_ky: previousValue.cuoi_ky + currentValue.cuoi_ky,
-                    giao_dich: previousValue.giao_dich + currentValue.giao_dich,
-                    thanh_toan:
-                        previousValue.thanh_toan + currentValue.thanh_toan
-                };
+    const retrieveData = () => {
+        const promise1 = axios.get("/api/tai-khoan/all");
+        const promise2 = axios.get("/api/khach-hang/all");
+        console.log("Retrieving Danh Muc");
+        Promise.all([promise1, promise2])
+            .then(response => {
+                if (isComponentMounted)
+                    if (response[0].data.success && response[1].data.success) {
+                        setState({
+                            taiKhoan: response[0].data.data,
+                            khachHang: response[1].data.data
+                        });
+                        console.log("Retrieved Danh Muc Succcessfully");
+                    } else time = setTimeout(retrieveData, 2000);
+            })
+            .catch(error => {
+                console.log(error);
+                time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
             });
-            return (
-                <>
-                    <tr>
-                        <th colSpan={2}>Tổng cộng</th>
-                        <td>{vndFormater.format(sumObj.dau_ky)}</td>
-                        <td>{vndFormater.format(sumObj.cuoi_ky)}</td>
-                        <td>{vndFormater.format(sumObj.thanh_toan)}</td>
-                        <td>{vndFormater.format(sumObj.giao_dich)}</td>
-                    </tr>
-                </>
-            );
-        }
     };
 
-    const renderSummaryMuaVao = data => {
-        if (!_.isEmpty(data)) {
-            const sumObj = data.reduce((previousValue, currentValue) => {
-                return {
-                    dau_ky: previousValue.dau_ky + currentValue.dau_ky,
-                    cuoi_ky: previousValue.cuoi_ky + currentValue.cuoi_ky,
-                    giao_dich: previousValue.giao_dich + currentValue.giao_dich,
-                    thanh_toan:
-                        previousValue.thanh_toan + currentValue.thanh_toan
-                };
+    const showWaiting = (des = "Đang xử lý dữ liệu...") => {
+        Modal.info({
+            title: "Thông báo",
+            centered: true,
+            icon: null,
+            okButtonProps: { hidden: true },
+            content: (
+                <div style={{ textAlign: "center" }}>
+                    <Progress
+                        percent={100}
+                        status="active"
+                        showInfo={false}
+                        strokeColor="#6dc3a6"
+                    />
+                    <span>{des}</span>
+                    <br />
+                    <small>
+                        <i>(Không thể hủy cho đến khi tiến trình kết thúc!)</i>
+                    </small>
+                </div>
+            )
+        });
+    };
+
+    const getFormData = values => {
+        if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
+            Object.assign(values, {
+                bat_dau: values.thoiGian[0].format("YYYY-MM-DD"),
+                ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
             });
-            return (
-                <>
-                    <tr>
-                        <th>Tổng cộng</th>
-                        <td>{vndFormater.format(sumObj.dau_ky)}</td>
-                        <td>{vndFormater.format(sumObj.cuoi_ky)}</td>
-                        <td>{vndFormater.format(sumObj.thanh_toan)}</td>
-                        <td>{vndFormater.format(sumObj.giao_dich)}</td>
-                    </tr>
-                </>
-            );
         }
+        delete values.thoiGian;
+        return values;
     };
 
-    const exportDS = () => {
-        const banra = data.banra.map((p, ind) => ({
-            stt: ind + 1,
-            phan_loai: p.phan_loai,
-            khach_hang: p.khach_hang,
-            dau_ky: p.dau_ky,
-            cuoi_ky: p.cuoi_ky,
-            thanh_toan: p.thanh_toan,
-            giao_dich: p.giao_dich
-        }));
-        const dataExportBanRa = [
-            {
-                stt: "STT",
-                phan_loai: "Phân loại",
-                khach_hang: "Khách hàng",
-                dau_ky: "Dư - Nợ đầu kỳ",
-                cuoi_ky: "Dư - Nợ cuối kỳ",
-                thanh_toan: "Số tiền thanh toán",
-                giao_dich: "Số tiền giao dịch"
-            },
-            ...banra
-        ];
-        const muavao = data.muavao.map((p, ind) => ({
-            stt: ind + 1,
-            tai_khoan: p.tai_khoan,
-            dau_ky: p.dau_ky,
-            cuoi_ky: p.cuoi_ky,
-            thanh_toan: p.thanh_toan,
-            giao_dich: p.giao_dich
-        }));
-        const dataExportMuaVao = [
-            {
-                stt: "STT",
-                tai_khoan: "Tài khoản",
-                dau_ky: "Dư - Nợ đầu kỳ",
-                cuoi_ky: "Dư - Nợ cuối kỳ",
-                thanh_toan: "Số tiền thanh toán",
-                giao_dich: "Số tiền giao dịch"
-            },
-            ...muavao
-        ];
-        const dataExport = {
-            "Tổng hợp bán ra": dataExportBanRa,
-            "Tổng hợp mua vào": dataExportMuaVao
-        };
-        ExportMultiSheet(dataExport, "tong-hop-cong-no.xlsx");
+    const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
+
+    const onFinish = () => {
+        showWaiting();
+        const values = form.getFieldsValue();
+        const data = getFormData(values);
+        //TODO: Get selected email from table
+
+        // Truyền lên server
+        axios
+            .post(`/api/dat-ve/them-mail`, data)
+            .then(response => {
+                if (response.data.success) {
+                    message.success(response.data.message);
+                    props.history.push({
+                        pathname: "/dat-ve",
+                        dd: response.data.data
+                    });
+                } else message.error(response.data.message);
+            })
+            .catch(error => console.log(error))
+            .then(() => Modal.destroyAll());
     };
 
-    const otherButtons = [
-        {
-            key: "export",
-            onClick: exportDS,
-            title: "Xuất danh sách ra Excel",
-            selectRequired: false
-        }
-    ];
-
-    const columnsBanRa = [
-        {
-            title: "Phân loại",
-            dataIndex: "phan_loai",
-            optFilter: true,
-            width: 100
-        },
-        {
-            title: "Khách hàng",
-            dataIndex: "khach_hang",
-            optFind: true,
-            width: 170
-        },
-        {
-            title: "Dư - Nợ đầu kỳ",
-            dataIndex: "dau_ky",
-            render: number => vndFormater.format(number),
-            width: 100
-        },
-        {
-            title: "Dư - Nợ cuối kỳ",
-            dataIndex: "cuoi_ky",
-            render: number => vndFormater.format(number),
-            width: 100
-        },
-        {
-            title: "Số tiền thanh toán",
-            dataIndex: "thanh_toan",
-            render: number => vndFormater.format(number),
-            width: 100
-        },
-        {
-            title: "Tổng tiền giao dịch",
-            dataIndex: "giao_dich",
-            render: number => vndFormater.format(number),
-            width: 100
-        }
-    ];
-
-    const columnsMuaVao = [
-        {
-            title: "Tài khoản",
-            dataIndex: "tai_khoan",
-            optFind: true,
-            width: 180
-        },
-        {
-            title: "Dư - Nợ đầu kỳ",
-            dataIndex: "dau_ky",
-            render: number => vndFormater.format(number),
-            width: 100
-        },
-        {
-            title: "Dư - Nợ cuối kỳ",
-            dataIndex: "cuoi_ky",
-            render: number => vndFormater.format(number),
-            width: 100
-        },
-        {
-            title: "Số tiền thanh toán",
-            dataIndex: "thanh_toan",
-            render: number => vndFormater.format(number),
-            width: 100
-        },
-        {
-            title: "Tổng tiền giao dịch",
-            dataIndex: "giao_dich",
-            render: number => vndFormater.format(number),
-            width: 100
-        }
-    ];
+    const onGetEmail = () => {
+        showWaiting("Đang lấy thông tin email...");
+        const values = form.getFieldsValue();
+        const data = getFormData(values);
+        // Get Email from GMAIL
+        axios
+            .post(`/api/dat-ve/get-mail`, data)
+            .then(response => {
+                if (response.data.success) {
+                    message.success(response.data.message);
+                    setState({ email: response.data.data });
+                } else message.error(response.data.message);
+            })
+            .catch(error => console.log(error))
+            .then(() => Modal.destroyAll());
+    };
 
     return (
-        <div className="list-form">
-            <FilterBox filterBox tuNgayDenNgay onFilter={handleFilterBox} />
-            <ToolsButton
-                insertable={false}
-                deleteable={false}
-                selectable={false}
-                otherButtons={otherButtons}
-            />
-            <Tabs defaultActiveKey="1">
-                <Tabs.TabPane tab="Tổng hợp bán ra" key={1}>
-                    <DataTable
-                        tableSize={{ x: 800 }}
-                        data={data.banra}
-                        columns={columnsBanRa}
-                        isLoading={isLoading}
-                        deleteable={false}
-                        selectable={false}
-                        editable={false}
-                        primaryKey="id"
-                        renderSummary={renderSummaryBanRa}
-                    />
-                </Tabs.TabPane>
-                <Tabs.TabPane tab="Tổng hợp mua vào" key={2}>
-                    <DataTable
-                        tableSize={{ x: 800 }}
-                        data={data.muavao}
-                        columns={columnsMuaVao}
-                        isLoading={isLoading}
-                        deleteable={false}
-                        selectable={false}
-                        editable={false}
-                        primaryKey="id"
-                        renderSummary={renderSummaryMuaVao}
-                    />
-                </Tabs.TabPane>
-            </Tabs>
+        <div className="list-form" style={{ padding: "16px 12px" }}>
+            <Form
+                form={form}
+                labelCol={{ span: 12 }}
+                wrapperCol={{ span: 12 }}
+                onFinish={onFinish}
+                initialValues={{
+                    thoiGian: [
+                        moment().startOf("week"),
+                        moment().endOf("week")
+                    ],
+                    gioi_han: 20,
+                    gia_net: 0,
+                    tong_tien: 0,
+                    tong_tien_thu_khach: 0
+                }}
+            >
+                <FormItem
+                    danhMuc={state}
+                    onChangeSelect={onChangeSelect}
+                    onGetEmail={onGetEmail}
+                />
+            </Form>
         </div>
     );
 };
 
-export default React.memo(List);
+export default React.memo(withRouter(index));

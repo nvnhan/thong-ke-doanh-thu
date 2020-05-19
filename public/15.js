@@ -87,10 +87,10 @@ var locale = {
 
 /***/ }),
 
-/***/ "./resources/js/pages/BaoCao/CongNoChiTiet/index.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/pages/BaoCao/CongNoChiTiet/index.js ***!
-  \**********************************************************/
+/***/ "./resources/js/pages/BaoCao/DoiSoatTaiKhoan/index.js":
+/*!************************************************************!*\
+  !*** ./resources/js/pages/BaoCao/DoiSoatTaiKhoan/index.js ***!
+  \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -133,23 +133,16 @@ var index = function index(props) {
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  var getKhachHang = function getKhachHang() {
-    var bat_dau = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var ket_thuc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    var all = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    axios.get("/api/khach-hang/all").then(function (response) {
-      if (response.data.success) setKhachHang(response.data.data);
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(function () {
+    axios.get("/api/tai-khoan/all").then(function (response) {
+      if (response.data.success) setTaiKhoan(response.data.data);
     })["catch"](function (error) {
       return console.log(error);
     });
-  };
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(function () {
-    getKhachHang();
   }),
       _useState2 = _slicedToArray(_useState, 2),
-      khachHang = _useState2[0],
-      setKhachHang = _useState2[1];
+      taiKhoan = _useState2[0],
+      setTaiKhoan = _useState2[1];
 
   var onFinish = function onFinish() {
     var values = form.getFieldsValue();
@@ -162,19 +155,19 @@ var index = function index(props) {
       delete values.thoiGian;
     }
 
-    Object(_utils_downloadFile__WEBPACK_IMPORTED_MODULE_5__["downloadApi"])("/api/cong-no-chi-tiet", Object(_utils__WEBPACK_IMPORTED_MODULE_6__["parseValues"])(values), "cong-no-chi-tiet.xlsx");
+    Object(_utils_downloadFile__WEBPACK_IMPORTED_MODULE_5__["downloadApi"])("/api/doi-soat-tai-khoan", Object(_utils__WEBPACK_IMPORTED_MODULE_6__["parseValues"])(values), "doi-soat-tai-khoan.xlsx");
   };
 
-  var getKhachHangDetail = function getKhachHangDetail() {
-    return Object.entries(_.groupBy(khachHang, "phan_loai")).map(function (clist) {
+  var getTaiKhoanDetail = function getTaiKhoanDetail() {
+    return Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(function (clist) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(OptGroup, {
-        label: clist[0],
+        label: clist[0] || "Tài khoản ngân hàng",
         key: clist[0]
       }, clist[1].map(function (ncc) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Option, {
           value: ncc.id,
           key: ncc.id
-        }, ncc.ma_khach_hang);
+        }, ncc.ky_hieu);
       }));
     });
   };
@@ -215,20 +208,20 @@ var index = function index(props) {
     format: "DD/MM/YYYY",
     placeholder: ["Từ ngày", "đến ngày"]
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    name: "id_khach_hang",
-    label: "Kh\xE1ch h\xE0ng",
+    name: "id_tai_khoan",
+    label: "T\xE0i kho\u1EA3n",
     rules: [{
       required: true,
       message: "Nhập đầy đủ thông tin!"
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
     showSearch: true,
-    placeholder: "Ch\u1ECDn kh\xE1ch h\xE0ng",
+    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
     filterOption: function filterOption(input, option) {
       if (!option.children) return false;
       return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
     }
-  }, getKhachHangDetail())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+  }, getTaiKhoanDetail())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     wrapperCol: {
       md: {
         span: 16,

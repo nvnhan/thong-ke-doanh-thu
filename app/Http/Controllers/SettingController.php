@@ -31,7 +31,10 @@ class SettingController extends BaseController
 
             'tt_sdt_cong_ty' => env('TT_SDT_CONG_TY'),
             'tt_fax_cong_ty' => env('TT_FAX_CONG_TY'),
-            'tt_email_cong_ty' => env('TT_EMAIL_CONG_TY')
+            'tt_email_cong_ty' => env('TT_EMAIL_CONG_TY'),
+
+            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'client_secret' => env('GOOGLE_CLIENT_SECRET')
         ];
         return $this->sendResponse((object) $data, "Setting retrieved successfully");
     }
@@ -62,6 +65,9 @@ class SettingController extends BaseController
         Util::updateDotEnv('TT_SDT_CONG_TY', $request->tt_sdt_cong_ty);
         Util::updateDotEnv('TT_FAX_CONG_TY', $request->tt_fax_cong_ty);
         Util::updateDotEnv('TT_EMAIL_CONG_TY', $request->tt_email_cong_ty);
+
+        Util::updateDotEnv('GOOGLE_CLIENT_ID', $request->client_id);
+        Util::updateDotEnv('GOOGLE_CLIENT_SECRET', $request->client_secret);
 
         return $this->sendResponse([], "Cập nhật thành công");
     }

@@ -28,6 +28,10 @@ const index = props => {
             .catch(error => console.log(error));
     };
 
+    const redirectGmail = () => {
+        window.location = "/oauth/gmail";
+    };
+
     return (
         <div className="list-form">
             <Form
@@ -151,11 +155,32 @@ const index = props => {
                             <Input />
                         </Form.Item>
                     </Col>
+                </Row>
 
-                    <Col span={12} md={6}>
+                <Row
+                    gutter={[12, 12]}
+                    className="filter-box"
+                    style={{ paddingBottom: 0 }}
+                >
+                    <Col span={24} md={12}>
+                        <Form.Item name="client_id" label="Client ID">
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                        <Form.Item name="client_secret" label="Client Secret">
+                            <Input />
+                        </Form.Item>
+                    </Col>
+
+                    <Col span={24}>
                         <Form.Item wrapperCol={{ md: { span: 16, offset: 8 } }}>
                             <Button htmlType="submit" type="primary">
                                 Cập nhật
+                            </Button>
+                            &nbsp;
+                            <Button onClick={redirectGmail}>
+                                Xác thực Gmail
                             </Button>
                         </Form.Item>
                     </Col>

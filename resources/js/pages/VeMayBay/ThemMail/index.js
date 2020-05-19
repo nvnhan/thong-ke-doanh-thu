@@ -1,4 +1,4 @@
-import { Form, Modal, Progress } from "antd";
+import { Form, Modal, Progress, message } from "antd";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
@@ -13,6 +13,7 @@ const index = props => {
         email: [],
         selectedRowKeys: []
     });
+    const { selectedRowKeys } = state;
     let isComponentMounted = false;
     let time = null;
 
@@ -89,10 +90,15 @@ const index = props => {
     const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
     const onFinish = () => {
+        if (selectedRowKeys.length === 0) {
+            message.warning("Chưa chọn email");
+            return;
+        }
+
         showWaiting();
         const values = form.getFieldsValue();
         const data = getFormData(values);
-        //TODO: Get selected email from table
+        Object.assign(data, { mails: selectedRowKeys.join("|") });
 
         // Truyền lên server
         axios
@@ -118,10 +124,9 @@ const index = props => {
         axios
             .post(`/api/dat-ve/get-mail`, data)
             .then(response => {
-                if (response.data.success) {
-                    message.success(response.data.message);
+                if (response.data.success)
                     setState({ email: response.data.data });
-                } else message.error(response.data.message);
+                else message.error(response.data.message);
             })
             .catch(error => console.log(error))
             .then(() => Modal.destroyAll());

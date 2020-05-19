@@ -65,16 +65,15 @@ const form = React.memo(props => {
                 moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
         {
-            title: "Email",
-            dataIndex: "email",
-            optFind: true,
+            title: "Người gửi",
+            dataIndex: "nguoi_gui",
             width: 150
         },
         {
-            title: "Nội dung",
-            dataIndex: "noi_dung",
-            optFind: true,
-            width: 350
+            title: "Chủ đề",
+            dataIndex: "email",
+            width: 450,
+            ellipsis: true
         }
     ];
 

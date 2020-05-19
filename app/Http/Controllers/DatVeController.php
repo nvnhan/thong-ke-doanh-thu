@@ -6,9 +6,11 @@ use App\DatVe;
 use App\Helpers\ThemFile;
 use App\Helpers\ThemText;
 use App\SanBay;
+use Dacastro4\LaravelGmail\Facade\LaravelGmail;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use stdClass;
 
 class DatVeController extends BaseController
 {
@@ -170,6 +172,41 @@ class DatVeController extends BaseController
 
         if ($cnt > 0)
             return $this->sendResponse($dinh_danh, "Thêm mới thành công $cnt mục");
+        else return $this->sendError("Không xử lý được");
+    }
+
+    /**
+     */
+    public function getmail(Request $request)
+    {
+        // if (!empty($request->bat_dau) && !empty($request->ket_thuc))
+        //     $objs = DatVe::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
+        // else
+        //     $objs = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
+        $data = [];
+        $mails = LaravelGmail::message()->subject($request->tu_khoa)->take($request->gioi_han)->preload()->all();
+        foreach ($mails as $mail) {
+            $tmp = new stdClass;
+            $tmp->id = $mail->getId();
+            $da = new DateTime();
+            $da->setTimestamp((int) substr($mail->getInternalDate(), 0, 10));
+            $tmp->ngay_thang = $da->format('d/m/Y');
+
+            $tmp->nguoi_gui = str_replace("\"", '', $mail->getFromName());
+            $tmp->email = $mail->getSubject();
+            $data[] = $tmp;
+        }
+        return $this->sendResponse($data, "Gmail retrieved successfully");
+    }
+
+    /**
+     */
+    public function themmail(Request $request)
+    {
+        $cnt = 0;
+
+        if ($cnt > 0)
+            return $this->sendResponse("", "Thêm mới thành công $cnt mục");
         else return $this->sendError("Không xử lý được");
     }
 

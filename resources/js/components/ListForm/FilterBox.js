@@ -51,7 +51,10 @@ const FilterBox = React.memo(props => {
                                     locale={locale}
                                     style={{ width: "100%" }}
                                     ranges={{
-                                        "Hôm nay": [moment(), moment()],
+                                        "Hôm nay": [
+                                            moment().startOf("day"),
+                                            moment().endOf("day")
+                                        ],
                                         "Tuần này": [
                                             moment().startOf("week"),
                                             moment().endOf("week")

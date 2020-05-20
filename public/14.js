@@ -208,7 +208,7 @@ var index = function index(props) {
       width: "100%"
     },
     ranges: {
-      "Hôm nay": [moment__WEBPACK_IMPORTED_MODULE_3___default()(), moment__WEBPACK_IMPORTED_MODULE_3___default()()],
+      "Hôm nay": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("day"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("day")],
       "Tuần này": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("week"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("week")],
       "Tháng này": [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("month")]
     },

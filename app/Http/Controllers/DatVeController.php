@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\DatVe;
 use App\Helpers\ThemFile;
+use App\Helpers\ThemMail;
 use App\Helpers\ThemText;
 use App\SanBay;
-use Dacastro4\LaravelGmail\Facade\LaravelGmail;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use stdClass;
 
 class DatVeController extends BaseController
 {
@@ -179,23 +178,8 @@ class DatVeController extends BaseController
      */
     public function getmail(Request $request)
     {
-        // if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-        //     $objs = DatVe::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
-        // else
-        //     $objs = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
-        $data = [];
-        $mails = LaravelGmail::message()->subject($request->tu_khoa)->take($request->gioi_han)->preload()->all();
-        foreach ($mails as $mail) {
-            $tmp = new stdClass;
-            $tmp->id = $mail->getId();
-            $da = new DateTime();
-            $da->setTimestamp((int) substr($mail->getInternalDate(), 0, 10));
-            $tmp->ngay_thang = $da->format('d/m/Y');
+        $data = ThemMail::get_all_mail($request);
 
-            $tmp->nguoi_gui = str_replace("\"", '', $mail->getFromName());
-            $tmp->email = $mail->getSubject();
-            $data[] = $tmp;
-        }
         return $this->sendResponse($data, "Gmail retrieved successfully");
     }
 
@@ -203,11 +187,28 @@ class DatVeController extends BaseController
      */
     public function themmail(Request $request)
     {
-        $cnt = 0;
+        $objs = explode('|', $request['mails']);
+        if (\is_array($objs)) {
+            $cnt = 0;
+            $dinh_danh = time();
+            foreach ($objs as $id) {
+                $body = ThemMail::get_mail_body($id);
 
-        if ($cnt > 0)
-            return $this->sendResponse("", "Thêm mới thành công $cnt mục");
-        else return $this->sendError("Không xử lý được");
+                if (strpos($body, "Bamboo Airways") !== false)
+                    $cnt += count(ThemMail::parse_bb($body, $request, $dinh_danh));
+                else if (strpos($body, "VIETNAM AIRLINES") !== false)
+                    $cnt += count(ThemMail::parse_vn($body, $request, $dinh_danh));
+                else if (strpos($body, "vietjetair.com") !== false)
+                    $cnt += count(ThemMail::parse_vj($body, $request, $dinh_danh));
+                else
+                    $cnt += count(ThemMail::parse_jets($body, $request, $dinh_danh));
+            }
+
+            if ($cnt > 0)
+                return $this->sendResponse($dinh_danh, "Thêm mới thành công $cnt mục");
+        }
+
+        return $this->sendError("Không xử lý được");
     }
 
     /**

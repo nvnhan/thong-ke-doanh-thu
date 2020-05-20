@@ -6,40 +6,17 @@ import {
     Input,
     InputNumber,
     Row,
-    Select,
     Table
 } from "antd";
 import locale from "antd/es/date-picker/locale/vi_VN";
 import moment from "moment";
 import React from "react";
-const { Option, OptGroup } = Select;
+import ThongTin from "./ThongTin";
 const { RangePicker } = DatePicker;
 
 const form = React.memo(props => {
-    const { taiKhoan, khachHang, email, selectedRowKeys } = props.danhMuc;
+    const { email, selectedRowKeys } = props.danhMuc;
     const { onChangeSelect } = props;
-
-    const getKhachHangDetail = () =>
-        Object.entries(_.groupBy(khachHang, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
-
-    const getTaiKhoanDetail = () =>
-        Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
 
     const rowSelection = {
         selectedRowKeys,
@@ -96,7 +73,10 @@ const form = React.memo(props => {
                             locale={locale}
                             style={{ width: "100%" }}
                             ranges={{
-                                "Hôm nay": [moment(), moment()],
+                                "Hôm nay": [
+                                    moment().startOf("day"),
+                                    moment().endOf("day")
+                                ],
                                 "Tuần này": [
                                     moment().startOf("week"),
                                     moment().endOf("week")
@@ -157,103 +137,9 @@ const form = React.memo(props => {
             </Row>
 
             <Row gutter={[10, 10]}>
-                <Col span={24} md={12}>
-                    <Form.Item
-                        name="id_tai_khoan_mua"
-                        label="Nơi mua"
-                        labelCol={{ span: 6 }}
-                        wrapperCol={{ span: 18 }}
-                    >
-                        <Select
-                            showSearch
-                            allowClear
-                            placeholder="Chọn tài khoản / nhà cung cấp"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getTaiKhoanDetail()}
-                        </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={24} md={12}>
-                    <Form.Item
-                        name="id_khach_hang"
-                        label="Khách hàng"
-                        labelCol={{ span: 6 }}
-                        wrapperCol={{ span: 18 }}
-                    >
-                        <Select
-                            showSearch
-                            allowClear
-                            placeholder="Chọn khách hàng"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getKhachHangDetail()}
-                        </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={12} md={6}>
-                    <Form.Item name="gia_net" label="Giá net">
-                        <InputNumber
-                            style={{ width: "100%" }}
-                            min={0}
-                            step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
-                        />
-                    </Form.Item>
-                </Col>
-                <Col span={12} md={6}>
-                    <Form.Item name="tong_tien" label="Tổng tiền">
-                        <InputNumber
-                            style={{ width: "100%" }}
-                            min={0}
-                            step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
-                        />
-                    </Form.Item>
-                </Col>
-                <Col span={12} md={6}>
-                    <Form.Item name="tong_tien_thu_khach" label="Thu khách">
-                        <InputNumber
-                            style={{ width: "100%" }}
-                            min={0}
-                            step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
-                        />
-                    </Form.Item>
-                </Col>
+                <ThongTin />
             </Row>
+
             <Row gutter={[10, 10]}>
                 <Col span={12} md={6}>
                     <Form.Item wrapperCol={{ offset: 12, span: 12 }}>

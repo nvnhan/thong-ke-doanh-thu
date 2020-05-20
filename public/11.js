@@ -277,7 +277,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       width: "100%"
     },
     ranges: {
-      "Hôm nay": [moment__WEBPACK_IMPORTED_MODULE_2___default()(), moment__WEBPACK_IMPORTED_MODULE_2___default()()],
+      "Hôm nay": [moment__WEBPACK_IMPORTED_MODULE_2___default()().startOf("day"), moment__WEBPACK_IMPORTED_MODULE_2___default()().endOf("day")],
       "Tuần này": [moment__WEBPACK_IMPORTED_MODULE_2___default()().startOf("week"), moment__WEBPACK_IMPORTED_MODULE_2___default()().endOf("week")],
       "Tháng này": [moment__WEBPACK_IMPORTED_MODULE_2___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_2___default()().endOf("month")]
     },

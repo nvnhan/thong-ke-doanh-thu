@@ -128,7 +128,10 @@ const form = React.memo(props => {
                             locale={locale}
                             style={{ width: "100%" }}
                             ranges={{
-                                "Hôm nay": [moment(), moment()],
+                                "Hôm nay": [
+                                    moment().startOf("day"),
+                                    moment().endOf("day")
+                                ],
                                 "Tuần này": [
                                     moment().startOf("week"),
                                     moment().endOf("week")
@@ -175,7 +178,8 @@ const form = React.memo(props => {
                         wrapperCol={{ span: 18 }}
                     >
                         <Select
-                            showSearch allowClear
+                            showSearch
+                            allowClear
                             placeholder="Khách hàng mặc định"
                             filterOption={(input, option) => {
                                 if (!option.children) return false;

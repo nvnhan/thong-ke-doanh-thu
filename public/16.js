@@ -102,49 +102,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ThongTin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ThongTin */ "./resources/js/pages/VeMayBay/ThemMail/ThongTin.js");
 
 
 
 
-var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option,
-    OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup;
+
 var RangePicker = antd__WEBPACK_IMPORTED_MODULE_0__["DatePicker"].RangePicker;
 var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   var _props$danhMuc = props.danhMuc,
-      taiKhoan = _props$danhMuc.taiKhoan,
-      khachHang = _props$danhMuc.khachHang,
       email = _props$danhMuc.email,
       selectedRowKeys = _props$danhMuc.selectedRowKeys;
   var onChangeSelect = props.onChangeSelect;
-
-  var getKhachHangDetail = function getKhachHangDetail() {
-    return Object.entries(_.groupBy(khachHang, "phan_loai")).map(function (clist) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(OptGroup, {
-        label: clist[0],
-        key: clist[0]
-      }, clist[1].map(function (ncc) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-          value: ncc.id,
-          key: ncc.id
-        }, ncc.ma_khach_hang);
-      }));
-    });
-  };
-
-  var getTaiKhoanDetail = function getTaiKhoanDetail() {
-    return Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(function (clist) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(OptGroup, {
-        label: clist[0] || "Tài khoản ngân hàng",
-        key: clist[0]
-      }, clist[1].map(function (ncc) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
-          value: ncc.id,
-          key: ncc.id
-        }, ncc.ky_hieu);
-      }));
-    });
-  };
-
   var rowSelection = {
     selectedRowKeys: selectedRowKeys,
     onChange: onChangeSelect,
@@ -198,7 +167,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       width: "100%"
     },
     ranges: {
-      "Hôm nay": [moment__WEBPACK_IMPORTED_MODULE_2___default()(), moment__WEBPACK_IMPORTED_MODULE_2___default()()],
+      "Hôm nay": [moment__WEBPACK_IMPORTED_MODULE_2___default()().startOf("day"), moment__WEBPACK_IMPORTED_MODULE_2___default()().endOf("day")],
       "Tuần này": [moment__WEBPACK_IMPORTED_MODULE_2___default()().startOf("week"), moment__WEBPACK_IMPORTED_MODULE_2___default()().endOf("week")],
       "Tháng này": [moment__WEBPACK_IMPORTED_MODULE_2___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_2___default()().endOf("month")]
     },
@@ -259,101 +228,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
     gutter: [10, 10]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "id_tai_khoan_mua",
-    label: "N\u01A1i mua",
-    labelCol: {
-      span: 6
-    },
-    wrapperCol: {
-      span: 18
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    showSearch: true,
-    allowClear: true,
-    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
-    filterOption: function filterOption(input, option) {
-      if (!option.children) return false;
-      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-    }
-  }, getTaiKhoanDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "id_khach_hang",
-    label: "Kh\xE1ch h\xE0ng",
-    labelCol: {
-      span: 6
-    },
-    wrapperCol: {
-      span: 18
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    showSearch: true,
-    allowClear: true,
-    placeholder: "Ch\u1ECDn kh\xE1ch h\xE0ng",
-    filterOption: function filterOption(input, option) {
-      if (!option.children) return false;
-      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-    }
-  }, getKhachHangDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "gia_net",
-    label: "Gi\xE1 net"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "tong_tien",
-    label: "T\u1ED5ng ti\u1EC1n"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "tong_tien_thu_khach",
-    label: "Thu kh\xE1ch"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ThongTin__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
     gutter: [10, 10]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
@@ -369,6 +244,211 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   }, "X\u1EED l\xFD")))));
 });
 /* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/ThemMail/ThongTin.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ThemMail/ThongTin.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup,
+    Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
+
+var ThongTin = function ThongTin(props) {
+  var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["useMergeState"])({
+    taiKhoan: [],
+    khachHang: []
+  }),
+      _useMergeState2 = _slicedToArray(_useMergeState, 2),
+      state = _useMergeState2[0],
+      setState = _useMergeState2[1];
+
+  var taiKhoan = state.taiKhoan,
+      khachHang = state.khachHang;
+  var isComponentMounted = false;
+  var time = null;
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    isComponentMounted = true;
+    retrieveData();
+    return function () {
+      // When Unmount component
+      isComponentMounted = false;
+      if (time) clearTimeout(time);
+    };
+  }, []);
+  /**
+   * Retriving data from server
+   * If has error, auto recall after 1 second
+   */
+
+  var retrieveData = function retrieveData() {
+    var promise1 = axios.get("/api/tai-khoan/all");
+    var promise2 = axios.get("/api/khach-hang/all");
+    console.log("Retrieving Danh Muc in ThongTin");
+    Promise.all([promise1, promise2]).then(function (response) {
+      if (isComponentMounted) if (response[0].data.success && response[1].data.success) {
+        setState({
+          taiKhoan: response[0].data.data,
+          khachHang: response[1].data.data
+        });
+        console.log("Retrieved Danh Muc Succcessfully");
+      } else time = setTimeout(retrieveData, 2000);
+    })["catch"](function (error) {
+      console.log(error);
+      time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
+    });
+  };
+
+  var getKhachHangDetail = function getKhachHangDetail() {
+    return Object.entries(_.groupBy(khachHang, "phan_loai")).map(function (clist) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OptGroup, {
+        label: clist[0],
+        key: clist[0]
+      }, clist[1].map(function (ncc) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+          value: ncc.id,
+          key: ncc.id
+        }, ncc.ma_khach_hang);
+      }));
+    });
+  };
+
+  var getTaiKhoanDetail = function getTaiKhoanDetail() {
+    return Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(function (clist) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OptGroup, {
+        label: clist[0] || "Tài khoản ngân hàng",
+        key: clist[0]
+      }, clist[1].map(function (ncc) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+          value: ncc.id,
+          key: ncc.id
+        }, ncc.ky_hieu);
+      }));
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "id_tai_khoan_mua",
+    label: "N\u01A1i mua",
+    labelCol: {
+      span: 6
+    },
+    wrapperCol: {
+      span: 18
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
+    showSearch: true,
+    allowClear: true,
+    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
+    filterOption: function filterOption(input, option) {
+      if (!option.children) return false;
+      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    }
+  }, getTaiKhoanDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "id_khach_hang",
+    label: "Kh\xE1ch h\xE0ng",
+    labelCol: {
+      span: 6
+    },
+    wrapperCol: {
+      span: 18
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
+    showSearch: true,
+    allowClear: true,
+    placeholder: "Ch\u1ECDn kh\xE1ch h\xE0ng",
+    filterOption: function filterOption(input, option) {
+      if (!option.children) return false;
+      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    }
+  }, getKhachHangDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "gia_net",
+    label: "Gi\xE1 net"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tong_tien",
+    label: "T\u1ED5ng ti\u1EC1n"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tong_tien_thu_khach",
+    label: "Thu kh\xE1ch"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(ThongTin));
 
 /***/ }),
 
@@ -414,8 +494,6 @@ var index = function index(props) {
       form = _Form$useForm2[0];
 
   var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_4__["useMergeState"])({
-    taiKhoan: [],
-    khachHang: [],
     email: [],
     selectedRowKeys: []
   }),
@@ -424,39 +502,6 @@ var index = function index(props) {
       setState = _useMergeState2[1];
 
   var selectedRowKeys = state.selectedRowKeys;
-  var isComponentMounted = false;
-  var time = null;
-  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    isComponentMounted = true;
-    retrieveData();
-    return function () {
-      // When Unmount component
-      isComponentMounted = false;
-      if (time) clearTimeout(time);
-    };
-  }, []);
-  /**
-   * Retriving data from server
-   * If has error, auto recall after 1 second
-   */
-
-  var retrieveData = function retrieveData() {
-    var promise1 = axios.get("/api/tai-khoan/all");
-    var promise2 = axios.get("/api/khach-hang/all");
-    console.log("Retrieving Danh Muc");
-    Promise.all([promise1, promise2]).then(function (response) {
-      if (isComponentMounted) if (response[0].data.success && response[1].data.success) {
-        setState({
-          taiKhoan: response[0].data.data,
-          khachHang: response[1].data.data
-        });
-        console.log("Retrieved Danh Muc Succcessfully");
-      } else time = setTimeout(retrieveData, 2000);
-    })["catch"](function (error) {
-      console.log(error);
-      time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
-    });
-  };
 
   var showWaiting = function showWaiting() {
     var des = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Đang xử lý dữ liệu...";
@@ -483,8 +528,8 @@ var index = function index(props) {
   var getFormData = function getFormData(values) {
     if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
       Object.assign(values, {
-        bat_dau: values.thoiGian[0].format("YYYY-MM-DD"),
-        ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
+        bat_dau: values.thoiGian[0].format("YYYY-MM-DD HH:mm:ss"),
+        ket_thuc: values.thoiGian[1].format("YYYY-MM-DD HH:mm:ss")
       });
     }
 
@@ -509,7 +554,8 @@ var index = function index(props) {
     var data = getFormData(values);
     Object.assign(data, {
       mails: selectedRowKeys.join("|")
-    }); // Truyền lên server
+    });
+    console.log("onFinish -> data", data); // Truyền lên server
 
     axios.post("/api/dat-ve/them-mail", data).then(function (response) {
       if (response.data.success) {

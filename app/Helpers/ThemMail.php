@@ -40,7 +40,8 @@ class ThemMail
     {
         $s = "";
         $mail = LaravelGmail::message()->get($id);
-        $s = $mail->getPlainTextBody();
+        $s = $mail->getHtmlBody();
+        if (empty($s)) $s = $mail->getPlainBody();
         return $s;
     }
 
@@ -151,6 +152,120 @@ class ThemMail
         return $result;
     }
 
+    public static function parse_vn(string $body, Request $request, $dinh_danh)
+    {
+        $content = str_get_html($body);
+
+        $tmp = new stdClass;
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "VN";
+        $tmp->loai_tuoi = 0;
+        $tmp->dinh_danh = $dinh_danh;
+        $tmp->ngay_thang = date('Y-m-d');
+
+        $hanh_khach = [];
+        // Ten hanh khach
+        $node = $content->find('b[id^=documents-passenger]');
+        foreach ($node as $hk) {
+            $ten = strtoupper(str_replace(':', '', $hk->plaintext));
+            $ten = trim(ThemText::remove_prefix_name($ten));
+            $hanh_khach[] = $ten;
+        }
+        $so_ve = [];
+        // So ve dien tu
+        $node = $content->find('a[id^=document-link]');
+        foreach ($node as $sv) {
+            $ve = $sv->plaintext;
+            if (preg_match("/[0-9]{10,13}/", $ve, $matches))
+                $so_ve[] = $matches[0];
+        }
+        // Thong tin chuyen bay
+        $chuyen_bay = $content->find('span[id^=airSegment-flight-number]');
+        $ngay_bay = $content->find('strong[id^=airSegment-flight-date]');
+        $khoi_hanh = $content->find('span[id^=airSegment-departure-city]');
+        $diem_den = $content->find('span[id^=airSegment-arrival-city]');
+
+        #region Chuyen bay dau tien
+        $tmp->cb_di = trim($chuyen_bay[0]->plaintext);
+
+        $line = trim($ngay_bay[0]->plaintext);
+        // Tuesday, 25 June
+        // Tiếng Việt: Ngày 26 Tháng 05
+        preg_match("/\d+/", $line, $matches);
+        $idate = $matches[0];
+
+        $arr = explode(' ', $line);
+        $thang = end($arr);
+        if (strlen($thang) < 3)
+            $imonth = (int) $thang;
+        else
+            $imonth = array_search(strtoupper(substr($thang, 0, 3)), Util::$thang) + 1;     // Bao cả tiếng Việt & Anh
+
+        preg_match("/(\d+):(\d+)/", $khoi_hanh[0]->parent()->plaintext, $matches);
+        // Ngày giờ bay  đi
+        $tmp->ngay_gio_di = date('Y') . "-$imonth-$idate $matches[1]:$matches[2]:0";
+
+        $tmp->sb_di = strtoupper(substr(trim($khoi_hanh[0]->plaintext), 0, 3));
+        $tmp->sb_di1 = strtoupper(substr(trim($diem_den[0]->plaintext), 0, 3));
+        #endregion
+
+        #region Chuyen bay thu hai
+        if (count($chuyen_bay) > 1) {
+            $tmp->cb_ve = trim($chuyen_bay[1]->plaintext);
+
+            $line = trim($ngay_bay[1]->plaintext);
+            // Tuesday, 25 June
+            // Tiếng Việt: Ngày 26 Tháng 05
+            preg_match("/\d+/", $line, $matches);
+            $idate = $matches[0];
+
+            $arr = explode(' ', $line);
+            $thang = end($arr);
+            if (strlen($thang) < 3)
+                $imonth = (int) $thang;
+            else
+                $imonth = array_search(strtoupper(substr($thang, 0, 3)), Util::$thang) + 1;     // Bao cả tiếng Việt & Anh
+
+            preg_match("/(\d+):(\d+)/", $khoi_hanh[0]->parent()->plaintext, $matches);
+            // Ngày giờ bay  đi
+            $tmp->ngay_gio_ve = date('Y') . "-$imonth-$idate $matches[1]:$matches[2]:0";
+
+            $tmp->sb_ve = strtoupper(substr(trim($khoi_hanh[1]->plaintext), 0, 3));
+            $tmp->sb_ve1 = strtoupper(substr(trim($diem_den[1]->plaintext), 0, 3));
+        }
+        #endregion
+
+        // Ma giu cho
+        $tmp->ma_giu_cho = trim($content->find('td[width=132]', 0)->plaintext);
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            if (count($so_ve) > $j)
+                $obj->so_ve = $so_ve[$j];
+            else
+                $obj->so_ve = env('SO_VE_VN_MAC_DINH');
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+
+            //TODO: Chung code???
+            // if (dv.GiaNet == 0 && chkChungCode.Checked)
+            // {
+            //     dv.TenKhach = String.Join(", ", lstHanhKhach);
+            //     lstDatVe.Add(dv);
+            //     break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            // }
+            // else
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
     public static function parse_vj(string $body, Request $request, $dinh_danh)
     {
         $cnt = 0;
@@ -160,14 +275,6 @@ class ThemMail
     }
 
     public static function parse_jets(string $body, Request $request, $dinh_danh)
-    {
-        $cnt = 0;
-        $content = str_get_html($body);
-
-        return $cnt;
-    }
-
-    public static function parse_vn(string $body, Request $request, $dinh_danh)
     {
         $cnt = 0;
         $content = str_get_html($body);

@@ -41,7 +41,7 @@ class ThemMail
         $s = "";
         $mail = LaravelGmail::message()->get($id);
         $s = $mail->getHtmlBody();
-        if (empty($s)) $s = $mail->getPlainBody();
+        if (empty($s)) $s = $mail->getPlainTextBody();
         return $s;
     }
 
@@ -268,10 +268,87 @@ class ThemMail
 
     public static function parse_vj(string $body, Request $request, $dinh_danh)
     {
-        $cnt = 0;
         $content = str_get_html($body);
 
-        return $cnt;
+        $tmp = new stdClass;
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "VJ";
+        $tmp->loai_tuoi = 0;
+        $tmp->dinh_danh = $dinh_danh;
+        $tmp->ngay_thang = date('Y-m-d');
+
+        $node = $content->find('span[style^=font-size:25px]');
+        $tmp->so_ve = trim($node[0]->plaintext);
+
+        $hanh_khach = [];
+        // Ten hanh khach
+        for ($i = 1; $i < count($node); $i++) {
+            $ten = strtoupper(str_replace(',', '', $node[$i]->plaintext));
+            $ten = trim($ten);
+            $hanh_khach[] = $ten;
+        }
+        // Thong tin chuyen bay
+        $trs = $content->find('table[cellspacing=0px]', 0);
+        $trs = $trs->find('tr');
+
+        #region Chuyen bay dau tien
+        $tds = $trs[0]->find('td');
+        $tmp->cb_di = trim($tds[0]->plaintext);
+
+        preg_match("/(\d+)\/(\d+)\/(\d+)/", $tds[1]->plaintext, $matches);
+        preg_match("/(\d+):(\d+)/", $tds[3]->plaintext, $matches1);
+        // Ngày giờ bay  đi
+        $tmp->ngay_gio_di = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
+
+        preg_match('/\b([A-Z]{3})\b/', $tds[3]->plaintext, $matches);
+        $tmp->sb_di = $matches[1];
+        preg_match('/\b([A-Z]{3})\b/', $tds[4]->plaintext, $matches);
+        $tmp->sb_di1 = $matches[1];
+        #endregion
+
+        #region Chuyen bay thu hai
+        if (count($trs) > 1) {
+            $tds = $trs[1]->find('td');
+            $tmp->cb_ve = trim($tds[0]->plaintext);
+
+            preg_match("/(\d+)\/(\d+)\/(\d+)/", $tds[1]->plaintext, $matches);
+            preg_match("/(\d+):(\d+)/", $tds[3]->plaintext, $matches1);
+            // Ngày giờ bay  đi
+            $tmp->ngay_gio_ve = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
+
+            preg_match('/\b([A-Z]{3})\b/', $tds[3]->plaintext, $matches);
+            $tmp->sb_ve = $matches[1];
+            preg_match('/\b([A-Z]{3})\b/', $tds[4]->plaintext, $matches);
+            $tmp->sb_ve1 = $matches[1];
+        }
+        #endregion
+
+        $node = $content->find('th[style=background:#58585a;color:#ffffff;]', 2);
+        $node = $node->next_sibling();
+        preg_match("/(\d+)\/(\d+)\/(\d+)/", $node->plaintext, $matches);
+        $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
+        
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+
+            //TODO: Chung code???
+            // if (dv.GiaNet == 0 && chkChungCode.Checked)
+            // {
+            //     dv.TenKhach = String.Join(", ", lstHanhKhach);
+            //     lstDatVe.Add(dv);
+            //     break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            // }
+            // else
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $result[] = $obj;
+        }
+
+        return $result;
     }
 
     public static function parse_jets(string $body, Request $request, $dinh_danh)

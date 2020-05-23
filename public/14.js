@@ -1198,7 +1198,7 @@ var List = function List(props) {
     insertable: dinh_danh === undefined,
     columns: _columns__WEBPACK_IMPORTED_MODULE_6__["default"],
     tableSize: {
-      x: 1800
+      x: 1500
     },
     modalWidth: "1200px",
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_8__["default"], {

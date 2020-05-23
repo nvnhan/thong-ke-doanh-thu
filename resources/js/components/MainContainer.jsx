@@ -68,7 +68,7 @@ class MainContainer extends PureComponent {
                     <Layout>
                         <MyHeader />
                         <Content />
-                        <MyFooter />
+                        {/* <MyFooter /> */}
                     </Layout>
                 </Layout>
             );

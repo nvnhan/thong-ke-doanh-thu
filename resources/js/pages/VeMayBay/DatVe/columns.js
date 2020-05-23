@@ -6,7 +6,7 @@ const columns = [
     {
         title: "Ngày tháng",
         dataIndex: "ngay_thang",
-        width: 110,
+        width: 90,
         sorter: (a, b) =>
             moment(a.ngay_thang, "DD/MM/YYYY").unix() -
             moment(b.ngay_thang, "DD/MM/YYYY").unix()
@@ -15,30 +15,30 @@ const columns = [
         title: "Mã giữ chỗ",
         dataIndex: "ma_giu_cho",
         optFind: true,
-        width: 90
+        width: 80
     },
     {
         title: "Số vé",
         dataIndex: "so_ve",
-        width: 140,
+        width: 130,
         optFind: true
     },
     {
         title: "Hãng bay",
         dataIndex: "hang_bay",
-        width: 80,
+        width: 65,
         optFilter: true
     },
     {
         title: "Tên khách",
         dataIndex: "ten_khach",
-        width: 130,
+        width: 140,
         optFind: true
     },
     {
         title: "TG đi",
         dataIndex: "ngay_gio_di",
-        width: 110,
+        width: 90,
         sorter: (a, b) =>
             moment(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() -
             moment(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix()
@@ -46,12 +46,12 @@ const columns = [
     {
         title: "Chặng đi",
         dataIndex: "chang_di",
-        width: 100
+        width: 90
     },
     {
         title: "TG về",
         dataIndex: "ngay_gio_ve",
-        width: 110,
+        width: 90,
         sorter: (a, b) =>
             moment(a.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix() -
             moment(b.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix()
@@ -59,7 +59,7 @@ const columns = [
     {
         title: "Chặng về",
         dataIndex: "chang_ve",
-        width: 100
+        width: 90
     },
     {
         title: "Tổng tiền",
@@ -97,7 +97,7 @@ const columns = [
     {
         title: "Thanh toán",
         dataIndex: "ngay_thanh_toan",
-        width: 110
+        width: 90
     },
     {
         title: "Người nhập",

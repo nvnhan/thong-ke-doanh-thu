@@ -271,7 +271,7 @@ const List = props => {
                 filterInitialValue={{ sb: "", xv: "" }}
                 insertable={dinh_danh === undefined}
                 columns={columns}
-                tableSize={{ x: 1800 }}
+                tableSize={{ x: 1500 }}
                 modalWidth="1200px"
                 formTemplate={
                     <FormItem danhMuc={state} onChangeValue={handleFormValue} />

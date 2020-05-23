@@ -2,7 +2,8 @@
 .ant-table-thead > tr > th,
 .ant-table tfoot > tr > td,
 .ant-table tfoot > tr > th {
-  padding: 10px 8px;
+  padding: 8px 6px;
+  font-size: 13.5px;
 }
 
 table tr td.ant-table-selection-column,

@@ -28,7 +28,7 @@ Chức năng, tính năng còn:
 ////////////- Công nợ: Đặt vé, Công nợ chi tiết
 ////////////- Cài đặt
 ////////////- Đặt vé: Thêm file
-- Đọc email
+////////////- Đọc email
 - Auto run cron job: Nhắc lịch bay, xuất vé
 - Backup / Restore
 

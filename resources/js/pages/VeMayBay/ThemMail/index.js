@@ -91,7 +91,10 @@ const index = props => {
                     setState({ email: response.data.data });
                 else message.error(response.data.message);
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error);
+                setState({ email: [] });
+            })
             .then(() => Modal.destroyAll());
     };
 

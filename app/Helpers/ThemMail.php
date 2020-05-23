@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\DatVe;
+use App\SanBay;
 use App\Util;
 use Dacastro4\LaravelGmail\Facade\LaravelGmail;
 use DateTime;
@@ -11,6 +12,14 @@ use stdClass;
 
 class ThemMail
 {
+    public static function tim_san_bay_theo_tv($ten)
+    {
+        $ten = Util::vn_to_str(html_entity_decode($ten));
+        $ten = trim(str_replace(['Tp.', 'Thanh pho', 'Thanh Pho', 'City'],  '', $ten));
+        $sb = SanBay::where('ten_san_bay', 'like', "%$ten%")->first();
+        return optional($sb)->ma_san_bay;
+    }
+
     public static function get_all_mail(Request $request)
     {
         $data = [];
@@ -327,7 +336,7 @@ class ThemMail
         $node = $node->next_sibling();
         preg_match("/(\d+)\/(\d+)\/(\d+)/", $node->plaintext, $matches);
         $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
-        
+
         $result = [];
         for ($j = 0; $j < count($hanh_khach); $j++) {
             $obj = new DatVe();
@@ -353,9 +362,120 @@ class ThemMail
 
     public static function parse_jets(string $body, Request $request, $dinh_danh)
     {
-        $cnt = 0;
         $content = str_get_html($body);
 
-        return $cnt;
+        $tmp = new stdClass;
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "Jets";
+        $tmp->loai_tuoi = 0;
+        $tmp->dinh_danh = $dinh_danh;
+
+        $node = $content->find('td.lighter', 0);
+        $tmp->so_ve = trim($node->plaintext);
+
+        // Ngay dat
+        $node = $content->find('td.desk', 0);
+        preg_match("/(\d+)(.*)(\d{4})/", $node->plaintext, $matches);       // Bao ca tieng Viet & Anh
+        $imonth = trim(strtoupper($matches[2]));
+        if (substr($imonth, 0, 1) === 'T') {
+            $imonth = substr($imonth, 1);
+            $thang = (int) $imonth;
+        } else {
+            $imonth = substr($imonth, 0, 3);
+            $thang = array_search($imonth, Util::$thang) + 1;
+        }
+        $tmp->ngay_thang = "$matches[3]-$thang-$matches[1]";
+
+        $node = $content->find('table.passengers', 0)->find('tr.desk');
+        $hanh_khach = [];
+        $em_be = [];
+        // Ten hanh khach
+        for ($i = 1; $i < count($node); $i++) {
+            $hk = $node[$i]->find('th', 0);
+            $ten = strtoupper($hk->plaintext);
+            $ten = trim(ThemText::remove_prefix_name($ten));
+            $ten = str_replace(['PASSENGER', ':', '  '], ['', '', ' '], $ten);
+            if (empty($ten)) continue;
+
+            $arr = explode('|', str_replace("INFANT", '|', $ten));
+            $hanh_khach[] = trim($arr[0]);
+            $em_be[] = false;
+            if (count($arr) > 1) {      // Co em be
+                $hanh_khach[] = trim($arr[1]);
+                $em_be[] = true;
+            }
+        }
+        // Thong tin chuyen bay
+        $trs = $content->find('table.details', 0)->find('tr');
+
+        #region Chuyen bay dau tien
+        $ths = $trs[1]->find('th');
+        $tmp->cb_di = trim($ths[1]->find('h4', 0)->plaintext);
+
+        // Ngày giờ bay  đi
+        preg_match("/(\d+)(.*)(\d{4})/", $ths[0]->plaintext, $matches);       // Bao ca tieng Viet & Anh
+        $imonth = trim(strtoupper($matches[2]));
+        if (substr($imonth, 0, 1) === 'T') {
+            $imonth = substr($imonth, 1);
+            $thang = (int) $imonth;
+        } else {
+            $imonth = substr($imonth, 0, 3);
+            $thang = array_search($imonth, Util::$thang) + 1;
+        }
+        preg_match_all("/(\d+):(\d+)/", $ths[0]->plaintext, $matches1);
+        $tmp->ngay_gio_di = "$matches[3]-$thang-$matches[1] " . $matches1[1][1] . ":" . $matches1[2][1] . ":0";
+
+        $sb = $ths[2]->find('h4', 0)->plaintext;
+        $tmp->sb_di = self::tim_san_bay_theo_tv($sb);
+        $sb = $ths[3]->find('h4', 0)->plaintext;
+        $tmp->sb_di1 = self::tim_san_bay_theo_tv($sb);
+        #endregion
+
+        #region Chuyen bay thu hai
+        if (count($trs) > 2) {
+            $ths = $trs[2]->find('th');
+            $tmp->cb_ve = trim($ths[1]->find('h4', 0)->plaintext);
+
+            // Ngày giờ bay  đi
+            preg_match("/(\d+)(.*)(\d{4})/", $ths[0]->plaintext, $matches);       // Bao ca tieng Viet & Anh
+            $imonth = trim(strtoupper($matches[2]));
+            if (substr($imonth, 0, 1) === 'T') {
+                $imonth = substr($imonth, 1);
+                $thang = (int) $imonth;
+            } else {
+                $imonth = substr($imonth, 0, 3);
+                $thang = array_search($imonth, Util::$thang) + 1;
+            }
+            preg_match_all("/(\d+):(\d+)/", $ths[0]->plaintext, $matches1);
+            $tmp->ngay_gio_ve = "$matches[3]-$thang-$matches[1] " . $matches1[1][1] . ":" . $matches1[2][1] . ":0";
+
+            $sb = $ths[2]->find('h4', 0)->plaintext;
+            $tmp->sb_ve = self::tim_san_bay_theo_tv($sb);
+            $sb = $ths[3]->find('h4', 0)->plaintext;
+            $tmp->sb_ve1 = self::tim_san_bay_theo_tv($sb);
+        }
+        #endregion
+        
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+
+            //TODO: Chung code???
+            // if (dv.GiaNet == 0 && chkChungCode.Checked)
+            // {
+            //     dv.TenKhach = String.Join(", ", lstHanhKhach);
+            //     lstDatVe.Add(dv);
+            //     break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            // }
+            // else
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $result[] = $obj;
+        }
+
+        return $result;
     }
 }

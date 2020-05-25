@@ -193,7 +193,7 @@ class DatVeController extends BaseController
             $dinh_danh = time();
             foreach ($objs as $id) {
                 $body = ThemMail::get_mail_body($id);
-                // return $body;
+                return $body;
                 // return ThemMail::parse_jets($body, $request, $dinh_danh);
 
                 if (strpos($body, "Bamboo Airways") !== false)

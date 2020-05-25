@@ -74,7 +74,10 @@ const index = props => {
                     });
                 } else message.error(response.data.message);
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error);
+                message.error("Có lỗi xảy ra");
+            })
             .then(() => Modal.destroyAll());
     };
 
@@ -92,6 +95,7 @@ const index = props => {
                 else message.error(response.data.message);
             })
             .catch(error => {
+                message.error("Có lỗi xảy ra");
                 console.log(error);
                 setState({ email: [] });
             })

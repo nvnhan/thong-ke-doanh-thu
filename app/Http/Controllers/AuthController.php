@@ -69,7 +69,7 @@ class AuthController extends BaseController
     {
         $user = $request->user();
         if ($user) {
-            $user->fill($request->except('username', 'password'))->save();
+            $user->fill($request->except('username', 'password', 'ngay_het_han'))->save();
             return $this->sendResponse($user, 'Cập nhật thành công');
         } else
             return $this->sendError('Invalid token or is Revoked', []);

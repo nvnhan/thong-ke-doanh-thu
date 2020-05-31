@@ -11,7 +11,7 @@
     <script>
         setTimeout(() => {
             window.location.href = "/oauth/gmail";
-        }, 500);
+        }, 200);
     </script>
 </body>
 </html>

@@ -31,17 +31,31 @@ var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props)
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+  var _Form$useForm3 = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
+      _Form$useForm4 = _slicedToArray(_Form$useForm3, 1),
+      formLogin = _Form$useForm4[0];
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(function () {
     // Check it in server
     axios.get("/api/get-user").then(function (response) {
       if (response.data.success) {
         var data = response.data.data;
+        setUser(data);
         form.setFieldsValue(data);
       } else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
     })["catch"](function (error) {
       return console.log(error);
     });
-  }, []);
+    return {};
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      user = _useState2[0],
+      setUser = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      modalVisible = _useState4[0],
+      setModalVisible = _useState4[1];
 
   var onFinish = function onFinish() {
     var values = form.getFieldValue();
@@ -52,12 +66,23 @@ var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props)
     });
   };
 
-  var onAuthenticate = function onAuthenticate() {
-    var values = form.getFieldValue();
-    if (values.gmail_client !== "" && values.gmail_secret !== "") window.location.href = "/oauth/gmail";
+  var handleOk = function handleOk() {
+    formLogin.validateFields().then(function (value) {//TODO: Post form
+    })["catch"](function (info) {
+      return console.log("Validate Failed: ", info);
+    });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  var handleCancel = function handleCancel() {
+    return setModalVisible(false);
+  };
+
+  var onAuthenticate = function onAuthenticate() {
+    var values = form.getFieldValue();
+    if (values.gmail_client !== "" && values.gmail_secret !== "") setModalVisible(true);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warning("Chưa nhập client & secret key");
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "list-form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "sm-container"
@@ -108,7 +133,47 @@ var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props)
     htmlType: "submit"
   }, "C\u1EADp nh\u1EADt"), " ", "\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
     onClick: onAuthenticate
-  }, "X\xE1c th\u1EF1c Gmail")))));
+  }, "X\xE1c th\u1EF1c Gmail"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Modal"], {
+    title: "X\xE1c nh\u1EADn t\xE0i kho\u1EA3n",
+    onCancel: handleCancel,
+    onOk: handleOk,
+    visible: modalVisible,
+    footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+      key: "back",
+      onClick: handleCancel
+    }, "H\u1EE7y"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+      key: "submit",
+      type: "primary",
+      onClick: handleOk
+    }, "\u0110\u1ED3ng \xFD")]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
+    form: formLogin,
+    labelCol: {
+      span: 8
+    },
+    wrapperCol: {
+      span: 16
+    },
+    initialValues: {
+      username: user.username
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "username",
+    label: "T\xEAn \u0111\u0103ng nh\u1EADp",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    disabled: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "password",
+    label: "M\u1EADt kh\u1EA9u",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Password, null)))));
 });
 /* harmony default export */ __webpack_exports__["default"] = (Profile);
 

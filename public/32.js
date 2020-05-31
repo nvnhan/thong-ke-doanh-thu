@@ -1,1 +1,209 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[32],{16:function(e,a,t){"use strict";var n=t(0),l=t.n(n),r=t(120),i=t(3),c=t.n(i);function m(){return(m=Object.assign||function(e){for(var a=1;a<arguments.length;a++){var t=arguments[a];for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n])}return e}).apply(this,arguments)}a.a=function(e){if(e.value&&"string"==typeof e.value){var a=c()(e.value,e.format);return l.a.createElement(r.a,m({},e,{value:a}))}return l.a.createElement(r.a,e)}},684:function(e,a,t){"use strict";t.r(a);var n=t(115),l=t(0),r=t.n(l),i=t(13),c=t(12),m=t(27),d=t(10),o=t(16);var u=function(){return r.a.createElement("div",null,r.a.createElement(c.a.Item,{name:"username",label:"Tên tài khoản"},r.a.createElement(m.a,{disabled:!0})),r.a.createElement(c.a.Item,{name:"ho_ten",label:"Họ tên",rules:[{required:!0,message:"Nhập đầy đủ thông tin!"}]},r.a.createElement(m.a,null)),r.a.createElement(c.a.Item,{name:"sdt",label:"SĐT"},r.a.createElement(m.a,null)),r.a.createElement(c.a.Item,{name:"dia_chi",label:"Địa chỉ"},r.a.createElement(m.a,null)),r.a.createElement(c.a.Item,{name:"ngay_het_han",label:"Ngày hết hạn"},r.a.createElement(o.a,{style:{width:"100%"},locale:d.a,format:"DD/MM/YYYY"})),r.a.createElement(c.a.Item,{wrapperCol:{sm:{offset:8,span:16}},name:"admin",valuePropName:"checked"},r.a.createElement(n.a,null,"Admin")),r.a.createElement(c.a.Item,{wrapperCol:{sm:{offset:8,span:16}},name:"actived",valuePropName:"checked"},r.a.createElement(n.a,null,"Hoạt động")))},h=r.a.memo((function(){var e=[{title:"Tên tài khoản",dataIndex:"username",optFind:!0,width:90},{title:"Họ tên",dataIndex:"ho_ten",optFind:!0,width:110},{title:"SĐT",dataIndex:"sdt",width:100},{title:"Địa chỉ",dataIndex:"dia_chi",width:130},{title:"Ngày hết hạn",dataIndex:"ngay_het_han",width:100},{title:"Admin",dataIndex:"admin",render:function(e){return r.a.createElement(n.a,{checked:e})},width:80},{title:"Hoạt động",dataIndex:"actived",render:function(e){return r.a.createElement(n.a,{checked:e})},width:80},{title:"Ngày tạo",dataIndex:"created_at",width:100}];return r.a.createElement(i.a,{url:"nhan-vien",insertable:!1,selectable:!1,columns:e,tableSize:{x:800},formTemplate:r.a.createElement(u,null)})}));a.default=h}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[32],{
+
+/***/ "./resources/js/pages/QuanTri/CaiDat/index.js":
+/*!****************************************************!*\
+  !*** ./resources/js/pages/QuanTri/CaiDat/index.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var index = function index(props) {
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
+      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
+      form = _Form$useForm2[0];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    // Check it in server
+    axios.get("/api/cai-dat").then(function (response) {
+      if (response.data.success) form.setFieldsValue(response.data.data);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  }, []);
+
+  var onFinish = function onFinish() {
+    var values = form.getFieldsValue();
+    axios.put("/api/cai-dat", values).then(function (response) {
+      if (response.data.success) antd__WEBPACK_IMPORTED_MODULE_0__["message"].success(response.data.message);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  };
+
+  var redirectGmail = function redirectGmail() {
+    window.location = "/oauth/gmail";
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "list-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
+    form: form,
+    labelCol: {
+      span: 8
+    },
+    wrapperCol: {
+      span: 16
+    },
+    onFinish: onFinish
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [12, 12],
+    className: "filter-box",
+    style: {
+      paddingBottom: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cb_dai_han",
+    label: "Chuy\u1EBFn bay d\xE0i HAN"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cb_dai_sgn",
+    label: "Chuy\u1EBFn bay d\xE0i SGN"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "sb_giam_phi",
+    label: "SB gi\u1EA3m ph\xED"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "phi_giam",
+    label: "Ph\xED gi\u1EA3m"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 1000,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "so_ve_vn_mac_dinh",
+    label: "S\u1ED1 v\xE9 VN m\u1EB7c \u0111\u1ECBnh"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [12, 12],
+    className: "filter-box",
+    style: {
+      paddingBottom: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_ten_cong_ty",
+    label: "T\xEAn c\xF4ng ty"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_mst_cong_ty",
+    label: "MST"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_dia_chi_cong_ty",
+    label: "\u0110\u1ECBa ch\u1EC9 c\xF4ng ty"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_sdt_cong_ty",
+    label: "S\u0110T c\xF4ng ty"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_fax_cong_ty",
+    label: "FAX"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_email_cong_ty",
+    label: "Email c\xF4ng ty"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    type: "email"
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [12, 12],
+    className: "filter-box",
+    style: {
+      paddingBottom: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_dai_ly",
+    label: "\u0110\u1EA1i l\xFD"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_sdt_dai_ly",
+    label: "S\u0110T"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "tt_dia_chi_dai_ly",
+    label: "\u0110\u1ECBa ch\u1EC9 \u0111\u1EA1i l\xFD"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [12, 12],
+    className: "filter-box",
+    style: {
+      paddingBottom: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    wrapperCol: {
+      md: {
+        span: 16,
+        offset: 8
+      }
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+    htmlType: "submit",
+    type: "primary"
+  }, "C\u1EADp nh\u1EADt"))))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(index));
+
+/***/ })
+
+}]);

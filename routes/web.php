@@ -11,10 +11,12 @@
 |
 */
 
+// Login routes for Gmail Authenticate
+Route::get('/oauth/login', 'GmailController@getLogin');
+Route::post('/oauth/login', 'GmailController@postLogin');
+
 // Laravel Gmail
-Route::get('/oauth/gmail', function () {
-    return LaravelGmail::redirect();
-});
+Route::get('/oauth/gmail', 'GmailController@redirect');
 
 Route::get('/oauth/gmail/callback', function () {
     LaravelGmail::makeToken();

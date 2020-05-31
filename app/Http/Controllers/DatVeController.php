@@ -178,9 +178,18 @@ class DatVeController extends BaseController
      */
     public function getmail(Request $request)
     {
-        $data = ThemMail::get_all_mail($request);
+        $user_id = $request->user()->id;        // ~ auth()->user()->id
+        $disk = Storage::disk('local');
+        $file = "gmail/tokens/gmail-json-$user_id.json";
 
-        return $this->sendResponse($data, "Gmail retrieved successfully");
+        // Just only login in API, 
+        // Get User ID with API for GMAIL Client
+        
+        if ($disk->exists($file)) {
+            $data = ThemMail::get_all_mail($request);
+            return $this->sendResponse($data, "Gmail retrieved successfully");
+        } else
+            return $this->sendError("Chưa xác thực Gmail", []);
     }
 
     /**
@@ -193,7 +202,7 @@ class DatVeController extends BaseController
             $dinh_danh = time();
             foreach ($objs as $id) {
                 $body = ThemMail::get_mail_body($id);
-                return $body;
+                // return $body;
                 // return ThemMail::parse_jets($body, $request, $dinh_danh);
 
                 if (strpos($body, "Bamboo Airways") !== false)

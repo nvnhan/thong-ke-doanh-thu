@@ -29,6 +29,12 @@ const Profile = React.memo(props => {
             .catch(error => console.log(error));
     };
 
+    const onAuthenticate = () => {
+        let values = form.getFieldValue();
+        if (values.gmail_client !== "" && values.gmail_secret !== "")
+            window.location.href = "/oauth/gmail";
+    };
+
     return (
         <div className="list-form">
             <div className="sm-container">
@@ -68,10 +74,18 @@ const Profile = React.memo(props => {
                     <Form.Item name="dia_chi" label="Địa chỉ">
                         <Input />
                     </Form.Item>
+                    <Form.Item name="gmail_client" label="Gmail Client ID">
+                        <Input />
+                    </Form.Item>
+                    <Form.Item name="gmail_secret" label="Secret key">
+                        <Input />
+                    </Form.Item>
                     <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
                         <Button type="primary" htmlType="submit">
                             Cập nhật
-                        </Button>
+                        </Button>{" "}
+                        &nbsp;
+                        <Button onClick={onAuthenticate}>Xác thực Gmail</Button>
                     </Form.Item>
                 </Form>
             </div>

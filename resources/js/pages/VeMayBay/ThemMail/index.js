@@ -91,13 +91,16 @@ const index = props => {
             .post(`/api/dat-ve/get-mail`, data)
             .then(response => {
                 if (response.data.success)
-                    setState({ email: response.data.data });
+                    setState({
+                        email: response.data.data,
+                        selectedRowKeys: []
+                    });
                 else message.error(response.data.message);
             })
             .catch(error => {
                 message.error("Có lỗi xảy ra");
                 console.log(error);
-                setState({ email: [] });
+                setState({ email: [], selectedRowKeys: [] });
             })
             .then(() => Modal.destroyAll());
     };

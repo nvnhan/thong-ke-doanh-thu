@@ -35,9 +35,14 @@ const Profile = React.memo(props => {
     const handleOk = () => {
         formLogin
             .validateFields()
-            .then(value => {
-                //TODO: Post form
-            })
+            .then(
+                ({ username, password }) =>
+                    (window.location.href =
+                        "/oauth/login?username=" +
+                        username +
+                        "&password=" +
+                        password)
+            )
             .catch(info => console.log("Validate Failed: ", info));
     };
 

@@ -12,7 +12,7 @@
 */
 
 // Login routes for Gmail Authenticate
-Route::post('/oauth/login', 'GmailController@login');
+Route::get('/oauth/login', 'GmailController@login');
 
 // Laravel Gmail
 Route::get('/oauth/gmail', 'GmailController@redirect');

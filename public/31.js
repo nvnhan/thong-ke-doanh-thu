@@ -67,7 +67,10 @@ var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props)
   };
 
   var handleOk = function handleOk() {
-    formLogin.validateFields().then(function (value) {//TODO: Post form
+    formLogin.validateFields().then(function (_ref) {
+      var username = _ref.username,
+          password = _ref.password;
+      return window.location.href = "/oauth/login?username=" + username + "&password=" + password;
     })["catch"](function (info) {
       return console.log("Validate Failed: ", info);
     });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Dacastro4\LaravelGmail\Facade\LaravelGmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class GmailController extends BaseController
 {
@@ -14,9 +15,15 @@ class GmailController extends BaseController
     public function login(Request $request)
     {
         $credential = $request->only(['username', 'password']);
-        if (Auth::attempt($credential, true))
+        if (Auth::attempt($credential, true)) {
+            $user_id = $request->user()->id;        // ~ auth()->user()->id
+            $disk = Storage::disk('local');
+            $file = "gmail/tokens/gmail-json-$user_id.json";
+            // Delete old token file
+            if ($disk->exists($file)) $disk->delete($file);
+
             return view('redirect-to-gmail');
-        else return 'Login failed';
+        } else return 'Login failed';
     }
 
     /**

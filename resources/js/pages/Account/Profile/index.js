@@ -48,12 +48,7 @@ const Profile = React.memo(props => {
 
     const handleCancel = () => setModalVisible(false);
 
-    const onAuthenticate = () => {
-        let values = form.getFieldValue();
-        if (values.gmail_client !== "" && values.gmail_secret !== "")
-            setModalVisible(true);
-        else message.warning("Chưa nhập client & secret key");
-    };
+    const onAuthenticate = () => setModalVisible(true);
 
     return (
         <>
@@ -99,12 +94,12 @@ const Profile = React.memo(props => {
                         <Form.Item name="dia_chi" label="Địa chỉ">
                             <Input />
                         </Form.Item>
-                        <Form.Item name="gmail_client" label="Gmail Client ID">
+                        {/* <Form.Item name="gmail_client" label="Gmail Client ID">
                             <Input />
                         </Form.Item>
                         <Form.Item name="gmail_secret" label="Secret key">
                             <Input />
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item
                             wrapperCol={{
                                 span: 16,

@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use App\DatVe;
 use App\SanBay;
-use App\Util;
 use Dacastro4\LaravelGmail\Facade\LaravelGmail;
 use DateTime;
 use Illuminate\Http\Request;
@@ -53,6 +52,7 @@ class ThemMail
         if (empty($s)) $s = $mail->getPlainTextBody();
         return $s;
     }
+    
 
     public static function parse_bb(string $body, Request $request, $dinh_danh)
     {
@@ -70,7 +70,7 @@ class ThemMail
         foreach ($node as $hk) {
             $ten = str_replace(["(Em bé)", "\t", "&nbsp;"], "", $hk->plaintext);
             $ten = str_replace('  ', ' ', $ten);
-            $ten = trim(ThemText::remove_prefix_name($ten, '. '));
+            $ten = trim(DatVeHelper::remove_prefix_name($ten, '. '));
             $hanh_khach[] = $ten;
         }
         $so_ve = [];
@@ -144,6 +144,7 @@ class ThemMail
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)
@@ -177,7 +178,7 @@ class ThemMail
         $node = $content->find('b[id^=documents-passenger]');
         foreach ($node as $hk) {
             $ten = strtoupper(str_replace(':', '', $hk->plaintext));
-            $ten = trim(ThemText::remove_prefix_name($ten));
+            $ten = trim(DatVeHelper::remove_prefix_name($ten));
             $hanh_khach[] = $ten;
         }
         $so_ve = [];
@@ -258,6 +259,7 @@ class ThemMail
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)
@@ -343,6 +345,7 @@ class ThemMail
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)
@@ -393,7 +396,7 @@ class ThemMail
         for ($i = 1; $i < count($node); $i++) {
             $hk = $node[$i]->find('th', 0);
             $ten = strtoupper($hk->plaintext);
-            $ten = trim(ThemText::remove_prefix_name($ten));
+            $ten = trim(DatVeHelper::remove_prefix_name($ten));
             $ten = str_replace(['PASSENGER', ':', '  '], ['', '', ' '], $ten);
             if (empty($ten)) continue;
 
@@ -462,6 +465,7 @@ class ThemMail
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)

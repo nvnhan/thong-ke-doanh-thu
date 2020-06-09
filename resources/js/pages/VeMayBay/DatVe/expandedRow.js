@@ -17,12 +17,12 @@ const expandedRow = record => (
             {vndFormater.format(record.phu_phi)}
         </li>
         <li>
-            Hành lý: {vndFormater.format(record.hanh_ly)}. Loại hành lý:{" "}
+            Phí hành lý: {vndFormater.format(record.hanh_ly)}. Loại hành lý:{" "}
             {record.loai_hanh_ly}
         </li>
         <li>
             Đã thanh toán: {vndFormater.format(record.da_thanh_toan)}. Ngày
-            thanh toán: {record.ngay_thanh_toan}
+            thanh toán xong: {record.ngay_thanh_toan}
         </li>
         {record.chua_xuat_ve ? (
             <li>Cảnh báo xuất vé: {record.canh_bao_xuat_ve}</li>

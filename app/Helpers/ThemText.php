@@ -3,27 +3,11 @@
 namespace App\Helpers;
 
 use App\DatVe;
-use App\Util;
-use DateTime;
 use Illuminate\Http\Request;
 use stdClass;
 
 class ThemText
 {
-    /**
-     * Remove prefix name as MR, MRS, MISS...
-     */
-    public static function remove_prefix_name(string $line, string $bo_sung = "")
-    {
-        $line = strtoupper($line);
-
-        $line = str_replace("MSTR" . $bo_sung, "", $line);
-        $line = str_replace("MRS" . $bo_sung, "", $line);
-        $line = str_replace("MR" . $bo_sung, "", $line);
-        $line = str_replace("MS" . $bo_sung, "", $line);
-        $line = str_replace("MISS" . $bo_sung, "", $line);
-        return trim($line);
-    }
 
     /**
      * Parse Bamboo Airline
@@ -51,7 +35,7 @@ class ThemText
                     if ($line === "Outbound Flight" || $line === "Chuyến bay đi" || $line === "Khởi hành")        // Khi chuyển sang thông tin chuyến bay thì dừng
                         break;
                     $line = str_replace("(Em bé)", "", $line);
-                    $line = self::remove_prefix_name($line, ". ");
+                    $line = DatVeHelper::remove_prefix_name($line, ". ");
 
                     preg_match("/^([A-Z ]+)$/", $line, $matches);
                     if (count($matches) > 0)      // Tên khách
@@ -110,14 +94,15 @@ class ThemText
         $result = [];
         for ($j = 0; $j < count($hanh_khach); $j++) {
             $obj = new DatVe();
+            $obj->fill((array) $tmp);
 
             if (count($so_ve) > $j)
                 $obj->so_ve = $so_ve[$j];
             else
                 $obj->so_ve = env('SO_VE_VN_MAC_DINH');
 
-            $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)
@@ -205,6 +190,7 @@ class ThemText
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)
@@ -242,7 +228,7 @@ class ThemText
         {
             $line = trim($lines[$i]);
             $line = str_replace('/', ' ', $line);
-            $line = self::remove_prefix_name($line);
+            $line = DatVeHelper::remove_prefix_name($line);
             preg_match_all("/\d\.(I )?1([A-Z ]+)/", $line, $matches);
             if (count($matches[2]) > 0) {
                 foreach ($matches[2] as $key => $value) { // Trong 1 hàng có thể có nhiều khách
@@ -356,6 +342,7 @@ class ThemText
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
             $obj->loai_tuoi = (int) $tre_em[$j];
+            DatVeHelper::add_gia($obj, $request);
 
             //TODO: Chung code???
             // if (dv.GiaNet == 0 && chkChungCode.Checked)

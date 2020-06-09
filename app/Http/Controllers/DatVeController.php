@@ -121,7 +121,7 @@ class DatVeController extends BaseController
         $text = $request->text;
         $lines = explode("\n",  $text);
         $data = [];
-        //TODO: Xử lý text
+        //TODO: Xử lý text các phần còn lại
         //
         if (strpos($text, "Bamboo Airways") !== false)
             $data = ThemText::parse_bamboo($lines, $request);

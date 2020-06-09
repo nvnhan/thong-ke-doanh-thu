@@ -1,4 +1,4 @@
-import { AutoComplete, Col, Form, InputNumber, Row, Select, Input } from "antd";
+import { Checkbox, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import React from "react";
 const { Option, OptGroup } = Select;
 
@@ -142,6 +142,15 @@ const form = React.memo(props => {
                         }
                         parser={value => value.replace(/\₫\s?|(,*)/g, "")}
                     />
+                </Form.Item>
+            </Col>
+            <Col span={12}>
+                <Form.Item
+                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                    name="chung_code"
+                    valuePropName="checked"
+                >
+                    <Checkbox>Chung code?</Checkbox>
                 </Form.Item>
             </Col>
         </Row>

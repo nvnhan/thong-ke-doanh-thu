@@ -1,4 +1,4 @@
-import { Col, InputNumber, Select, Form } from "antd";
+import { Checkbox, Col, Form, InputNumber, Select } from "antd";
 import React, { useEffect } from "react";
 import { useMergeState } from "../../../utils";
 const { OptGroup, Option } = Select;
@@ -156,6 +156,15 @@ const ThongTin = props => {
                         }
                         parser={value => value.replace(/\₫\s?|(,*)/g, "")}
                     />
+                </Form.Item>
+            </Col>
+            <Col span={12} md={6}>
+                <Form.Item
+                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                    name="chung_code"
+                    valuePropName="checked"
+                >
+                    <Checkbox>Chung code?</Checkbox>
                 </Form.Item>
             </Col>
         </>

@@ -104,14 +104,15 @@ class ThemText
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
             DatVeHelper::add_gia($obj, $request);
 
-            //TODO: Chung code???
-            // if (dv.GiaNet == 0 && chkChungCode.Checked)
-            // {
-            //     dv.TenKhach = String.Join(", ", lstHanhKhach);
-            //     lstDatVe.Add(dv);
-            //     break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
-            // }
-            // else
+            // Chung code???
+            if ($obj->gia_net === 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+
             $obj->ten_khach = $hanh_khach[$j];
             $obj->save();
             $obj->refresh();        // Reload object from sql
@@ -192,14 +193,15 @@ class ThemText
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
             DatVeHelper::add_gia($obj, $request);
 
-            //TODO: Chung code???
-            // if (dv.GiaNet == 0 && chkChungCode.Checked)
-            // {
-            //     dv.TenKhach = String.Join(", ", lstHanhKhach);
-            //     lstDatVe.Add(dv);
-            //     break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
-            // }
-            // else
+            // Chung code???
+            if ($obj->gia_net === 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+
             $obj->ten_khach = $hanh_khach[$j];
             $obj->save();
             $obj->refresh();        // Reload object from sql
@@ -344,14 +346,15 @@ class ThemText
             $obj->loai_tuoi = (int) $tre_em[$j];
             DatVeHelper::add_gia($obj, $request);
 
-            //TODO: Chung code???
-            // if (dv.GiaNet == 0 && chkChungCode.Checked)
-            // {
-            //     dv.TenKhach = String.Join(", ", lstHanhKhach);
-            //     lstDatVe.Add(dv);
-            //     break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
-            // }
-            // else
+            // Chung code???
+            if ($obj->gia_net === 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+            
             $obj->ten_khach = $hanh_khach[$j];
             $obj->save();
             $obj->refresh();        // Reload object from sql

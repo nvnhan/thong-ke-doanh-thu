@@ -27,6 +27,43 @@ class AuthController extends BaseController
         return $this->sendResponse("", 'Đăng ký thành công, xin chờ quản trị viên phê duyệt');
     }
 
+    /**
+     * Login = app & tool
+     */
+    public function getApiLogin(Request $req)
+    {
+        $us = User::where('username', $req->username)->first();
+        if (!$us)
+            return response()->json(array('message' => 'User does not exist'), 400);
+        if (!$us->actived)
+            return response()->json(array('message' => 'User inactived'), 400);
+
+        if ($us->ngay_het_han && $us->ngay_het_han <= date('Y-m-d'))
+            return response()->json(array('message' => 'Account has expired'), 400);
+        // if ($req->ip && $us->clientapi != '' && $us->clientapi != $req->ip)
+        //     return response()->json(array('message' => 'User is already logged in'), 400);
+        // if ($req->desktop && $us->desktop != '' && $us->desktop != $req->desktop)
+        //     return response()->json(array('message' => 'You have logged in with another computer'), 400);
+
+        // Kiểm tra đăng nhập
+        if (Hash::check($req->password, $us->password)) {
+            if ($req->ip) { // Tool
+                if (!$us->tool)
+                    return response()->json(array('message' => 'You dont have permission'), 400);
+                $us->clientapi = $req->ip;
+                $us->save();
+            } else if ($req->desktop) { // App
+                if (!$us->app)
+                    return response()->json(array('message' => 'You dont have permission'), 400);
+                $us->desktop = $req->desktop;
+                $us->save();
+            }
+
+            return response()->json(['username' => $us->username, 'hoten' => $us->ho_ten, 'ngayhethan' => $us->ngay_het_han]);
+        } else
+            return response()->json(array('message' => 'Username/Email and Password mismatch'), 400);
+    }
+
     public function login(Request $request)
     {
         $user = User::where('username', $request->username)->first();

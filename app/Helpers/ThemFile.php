@@ -4,8 +4,6 @@ namespace App\Helpers;
 
 use App\DatVe;
 use App\KhachHang;
-use App\Util;
-use DateTime;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use stdClass;

@@ -1,0 +1,876 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd xhtml 1.0 transitional//en" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd">
+<!-- saved from url=(0069)https://agents.vietjetair.com/CompanyPayRpt.aspx?lang=vi&st=sl&sesid= -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty</title>
+    <meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+    <meta name="CODE_LANGUAGE" content="Visual Basic .NET 7.1">
+    <meta name="vs_defaultClientScript" content="JavaScript">
+    <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+    <link rel="stylesheet" href="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/resstyles.css" type="text/css">
+    <link rel="stylesheet" href="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/lang_vi.css" type="text/css">
+
+    
+    <meta http-equiv="Content-Language" content="en-us">
+
+    
+<script type="text/javascript" async="" src="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/ga.js.tải xuống"></script><script src="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/jquery.js.tải xuống" type="text/javascript"></script>
+
+<script language="JavaScript" src="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/main2.js.tải xuống" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/style_min.css">
+
+<!--[if lt IE 7]>
+<script defer type="text/javascript" src="pngfix.js"></script>
+<![endif]-->
+
+
+<link rel="stylesheet" href="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/subModal.css" type="text/css">
+    <!-- JavaScript client side validation -->
+    <script language="JavaScript" type="text/javascript">
+function SubmitForm() {
+   if (CSValidation()) {
+        if (typeof(goLoading) != 'undefined') {
+            goLoading();
+        }
+       pop('?lang=vi');
+       setTimeout("document.forms['CompanyPayments'].submit()", 100);
+   }
+}
+function ResetForm() {
+    if (typeof(goLoading) != 'undefined') {
+        goLoading();
+    }
+   pop('?lang=vi');
+   setTimeout("document.forms['CompanyPayments'].submit()", 100);
+}
+</script>
+<script language="JavaScript" type="text/javascript">
+try {
+function preventBack(){ if(typeof(allowBackButton) === 'undefined'){window.history.forward();} }
+setTimeout('preventBack()', 0);
+window.onunload=function(){null};
+} catch (error) {}
+</script>
+<script language="JavaScript" type="text/javascript"><!--
+function CSValidation() {
+try {    var bRv = true;
+chkRoundTrip = (typeof chkRoundTrip === 'undefined') ? false : chkRoundTrip;
+var shouldValidate = true;
+if (shouldValidate && document.forms['CompanyPayments'].dlstFromDate_Month.options[document.forms['CompanyPayments'].dlstFromDate_Month.selectedIndex].value != '' && document.forms['CompanyPayments'].dlstFromDate_Day.options[document.forms['CompanyPayments'].dlstFromDate_Day.selectedIndex].value != '') {
+var strDate = document.forms['CompanyPayments'].dlstFromDate_Month.options[document.forms['CompanyPayments'].dlstFromDate_Month.selectedIndex].value + '/' + document.forms['CompanyPayments'].dlstFromDate_Day.options[document.forms['CompanyPayments'].dlstFromDate_Day.selectedIndex].value;
+var nTestMth = new Date(str2dt4(document.forms['CompanyPayments'].dlstFromDate_Month.options[document.forms['CompanyPayments'].dlstFromDate_Month.selectedIndex].value + '/01')).getMonth();
+var dlstFromDate = new Date(str2dt4(strDate));
+if (nTestMth != dlstFromDate.getMonth()) {   alert('Hãy nhập ngày hợp lệ cho  ');   bRv = false;}
+}
+else if (shouldValidate && document.forms['CompanyPayments'].dlstFromDate_Month.options[document.forms['CompanyPayments'].dlstFromDate_Month.selectedIndex].value == '' | document.forms['CompanyPayments'].dlstFromDate_Day.options[document.forms['CompanyPayments'].dlstFromDate_Day.selectedIndex].value == '') {
+   alert('Hãy nhập ngày hợp lệ cho  ');   bRv = false;}
+
+
+chkRoundTrip = (typeof chkRoundTrip === 'undefined') ? false : chkRoundTrip;
+var shouldValidate = true;
+if (shouldValidate && document.forms['CompanyPayments'].dlstToDate_Month.options[document.forms['CompanyPayments'].dlstToDate_Month.selectedIndex].value != '' && document.forms['CompanyPayments'].dlstToDate_Day.options[document.forms['CompanyPayments'].dlstToDate_Day.selectedIndex].value != '') {
+var strDate = document.forms['CompanyPayments'].dlstToDate_Month.options[document.forms['CompanyPayments'].dlstToDate_Month.selectedIndex].value + '/' + document.forms['CompanyPayments'].dlstToDate_Day.options[document.forms['CompanyPayments'].dlstToDate_Day.selectedIndex].value;
+var nTestMth = new Date(str2dt4(document.forms['CompanyPayments'].dlstToDate_Month.options[document.forms['CompanyPayments'].dlstToDate_Month.selectedIndex].value + '/01')).getMonth();
+var dlstToDate = new Date(str2dt4(strDate));
+if (nTestMth != dlstToDate.getMonth()) {   alert('Hãy nhập ngày hợp lệ cho  ');   bRv = false;}
+}
+else if (shouldValidate && document.forms['CompanyPayments'].dlstToDate_Month.options[document.forms['CompanyPayments'].dlstToDate_Month.selectedIndex].value == '' | document.forms['CompanyPayments'].dlstToDate_Day.options[document.forms['CompanyPayments'].dlstToDate_Day.selectedIndex].value == '') {
+   alert('Hãy nhập ngày hợp lệ cho  ');   bRv = false;}
+
+
+} catch(e) {  console.log('Client Validation Failed: ' + e.name + '-' + e.message);  bRv = false;  alert('A javascript error has occurred: ' + e.name + '-' + e.message);}
+   return bRv;
+}
+//--></script>
+
+</head>
+<body onload="unpop();">
+    <!-- GA Call Center -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30190614-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    <div id="wrapper">
+        <div id="wrapper-2">
+            <div id="wrapper3">
+                <img src="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/bg-footer-vi.png"></div>
+            <div id="container">
+            <div id="header">
+	<div id="banner">
+		<div class="logo">
+			<a href="http://www.vietjetair.com/Sites/Web/vi-VN/Home"><img alt="logo" src="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/logo.png"></a>
+		</div>
+		<div class="lang">
+            <select onchange="document.location=this.value">
+                <option selected="selected" value="?lang=vi">tiếng Việt</option>
+				<option value="?lang=en">English</option>
+				<option value="?lang=zh">中国 (简体中文)</option>
+				<option value="?lang=tw">香港 (繁體中文)</option>
+				<option value="?lang=ko">한국의</option>
+                <option value="?lang=th">ภาษาไทย</option>
+                <option value="?lang=ja">日本語</option>
+            </select>	
+        </div> 
+	</div><!--End banner-->
+</div><!--End header-->
+
+<div class="clear" style="height:10px;">&nbsp;</div>
+
+            <div id="main" style="padding-left:20px;">
+            <h1 class="headeing1_restyle">Thông tin công ty - Báo cáo thanh toán</h1>
+                    <div class="top_900"></div>
+                    <div class="mid_900">
+                        
+                        <form method="post" action="https://agents.vietjetair.com/CompanyPayRpt.aspx?lang=vi&amp;st=sl&amp;sesid=" id="CompanyPayments">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTIxMzE4NDE3ODUPZBYCAgEPZBYCAgMPEGRkFgBkZA85x5J4bgNbM67FQU+gN5Kq+iPM">
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="19B4378E">
+</div>
+                            <span id="XMLSessionMgr"></span>
+                            
+                            <input type="hidden" name="SesID" value=""><input type="hidden" name="DebugID" value="G4">
+                            <input type="hidden" id="button" name="button">
+
+                            <table width="100%" class="midTable">
+
+                                
+                                <tbody><tr>
+                                    <td colspan="2">
+                                        <table width="700px">
+                                            <tbody><tr>
+                                                <td align="left">
+                                                    <h3>Chọn Công ty:</h3>
+                                                </td>
+                                                <td align="left" colspan="3">
+                                                    <select id="lstCompany" name="lstCompany">
+<option value="-1ƒ---">---</option><option value="4841ƒCTY TNHH DAU TU DV TM TKT" selected="selected">37399331 - CTY TNHH DAU TU DV TM TKT</option>
+</select></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left">
+                                                    <h3>Thanh toán từ:</h3>
+                                                </td>
+                                                <td align="left">
+                                                    <select name="dlstFromDate_Day" id="dlstFromDate_Day" onchange="">
+<option value=""></option><option value="01" selected="">1</option><option value="02">2</option><option value="03">3</option><option value="04">4</option><option value="05">5</option><option value="06">6</option><option value="07">7</option><option value="08">8</option><option value="09">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select name="dlstFromDate_Month" id="dlstFromDate_Month" onchange="">
+<option value=""></option><option value="2018/07">Tháng Bảy 2018</option><option value="2018/08">Tháng Tám 2018</option><option value="2018/09">Tháng Chín 2018</option><option value="2018/10">Tháng Mười 2018</option><option value="2018/11">Tháng Mười Một 2018</option><option value="2018/12">Tháng Mười Hai. 2018</option><option value="2019/01">Tháng Một 2019</option><option value="2019/02">Tháng Hai 2019</option><option value="2019/03">Tháng Ba 2019</option><option value="2019/04">Tháng Tư 2019</option><option value="2019/05">Tháng Năm 2019</option><option value="2019/06">Tháng Sáu 2019</option><option value="2019/07" selected="">Tháng Bảy 2019</option><option value="2019/08">Tháng Tám 2019</option><option value="2019/09">Tháng Chín 2019</option><option value="2019/10">Tháng Mười 2019</option><option value="2019/11">Tháng Mười Một 2019</option><option value="2019/12">Tháng Mười Hai. 2019</option><option value="2020/01">Tháng Một 2020</option><option value="2020/02">Tháng Hai 2020</option><option value="2020/03">Tháng Ba 2020</option><option value="2020/04">Tháng Tư 2020</option><option value="2020/05">Tháng Năm 2020</option><option value="2020/06">Tháng Sáu 2020</option><option value="2020/07">Tháng Bảy 2020</option></select><b>*</b>
+                                                </td>
+                                                <td align="left">
+                                                    <h3>To:</h3>
+                                                </td>
+                                                <td align="left">
+                                                    <select name="dlstToDate_Day" id="dlstToDate_Day" onchange="">
+<option value=""></option><option value="01">1</option><option value="02">2</option><option value="03">3</option><option value="04">4</option><option value="05">5</option><option value="06">6</option><option value="07" selected="">7</option><option value="08">8</option><option value="09">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select name="dlstToDate_Month" id="dlstToDate_Month" onchange="">
+<option value=""></option><option value="2018/07">Tháng Bảy 2018</option><option value="2018/08">Tháng Tám 2018</option><option value="2018/09">Tháng Chín 2018</option><option value="2018/10">Tháng Mười 2018</option><option value="2018/11">Tháng Mười Một 2018</option><option value="2018/12">Tháng Mười Hai. 2018</option><option value="2019/01">Tháng Một 2019</option><option value="2019/02">Tháng Hai 2019</option><option value="2019/03">Tháng Ba 2019</option><option value="2019/04">Tháng Tư 2019</option><option value="2019/05">Tháng Năm 2019</option><option value="2019/06">Tháng Sáu 2019</option><option value="2019/07" selected="">Tháng Bảy 2019</option><option value="2019/08">Tháng Tám 2019</option><option value="2019/09">Tháng Chín 2019</option><option value="2019/10">Tháng Mười 2019</option><option value="2019/11">Tháng Mười Một 2019</option><option value="2019/12">Tháng Mười Hai. 2019</option><option value="2020/01">Tháng Một 2020</option><option value="2020/02">Tháng Hai 2020</option><option value="2020/03">Tháng Ba 2020</option><option value="2020/04">Tháng Tư 2020</option><option value="2020/05">Tháng Năm 2020</option><option value="2020/06">Tháng Sáu 2020</option><option value="2020/07">Tháng Bảy 2020</option></select><b>*</b>
+                                                </td>
+                                            </tr>
+                                        </tbody></table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2">
+                                        <h3>Chú ý: Số ngày tối đa  7 giữa Từ ngày và Đến ngày</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div style="height: 10px;"></div>
+                                        <a class="button" href="javascript:document.forms[&#39;CompanyPayments&#39;].button.value=&#39;GetPaymnt&#39;;SubmitForm();">
+                                            Công ty thanh toán<span></span>
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                                
+                            </tbody></table>
+                        </form>
+
+
+                        
+                        <div style="margin-left: 27px;">
+                            <tr">
+		</tr"><table id="grdCompPayRptMaster" cellspacing="0" width="100%">
+	
+	<tbody><tr>
+		<td class="CompPayRptMstrHdr" colspan="2"><h1>CTY TNHH DAU TU DV TM TKT</h1></td>
+	</tr>
+	<!--tr class="">
+		<td class="CompInfoMstrNote" colspan="">All&nbsp;amounts&nbsp;are&nbsp;in&nbsp;{CurrencyIdent}</td>		
+	</tr-->
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<table width="870px" border="0" id="PayDetsGrd" cellpadding="4px" cellspacing="0">
+			
+				
+<tbody><tr class="hdr_midTable">
+	<th width="3%">&nbsp;</th>
+	<th class="CompPayGridHdr">Res.&nbsp;#</th>
+	<th class="CompPayGridHdr">Pax&nbsp;Name</th>	
+	<th class="CompPayGridHdr">Ngày&nbsp;Paid</th>
+	<th class="CompPayGridHdr">Segments</th>
+	<th class="CompPayGridHdr">Paid&nbsp;By</th>	
+	<th class="CompPayGridHdr">Taken&nbsp;By</th>
+	<th class="CompPayGridHdr">Account&nbsp;#</th>	
+	<th class="CompPayGridHdr">P.O.&nbsp;#</th>
+	<th class="CompPayGridHdr" align="right">Số tiền</th>					
+</tr>
+
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86529050</td>
+	<td width="" class="PaymntData">NGUYEN, THI KIM CUC</td>	
+	<td width="" class="PaymntData">01/07/2019 Mon</td>
+	<td width="" class="PaymntData">Jul 02, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,717,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86492493</td>
+	<td width="" class="PaymntData">NGUYEN, THY AI LIEN</td>	
+	<td width="" class="PaymntData">01/07/2019 Mon</td>
+	<td width="" class="PaymntData">Jul 03, 2019 UIH - HAN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933104-TTTLinh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$192,500.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86569602</td>
+	<td width="" class="PaymntData">TRINH, HONG KHOI</td>	
+	<td width="" class="PaymntData">02/07/2019 Tue</td>
+	<td width="" class="PaymntData">Jul 05, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,200,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86569657</td>
+	<td width="" class="PaymntData">TRINH, HONG KHOI</td>	
+	<td width="" class="PaymntData">02/07/2019 Tue</td>
+	<td width="" class="PaymntData">Jul 07, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,220,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86581793</td>
+	<td width="" class="PaymntData">SUNTHA, SANDEEP</td>	
+	<td width="" class="PaymntData">02/07/2019 Tue</td>
+	<td width="" class="PaymntData">Jul 04, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,561,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86575409</td>
+	<td width="" class="PaymntData">NGUYEN, THI HOAI PHUONG</td>	
+	<td width="" class="PaymntData">02/07/2019 Tue</td>
+	<td width="" class="PaymntData">Jul 04, 2019 HAN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$2,606,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86604037</td>
+	<td width="" class="PaymntData">TRAN, THI THU HUONG</td>	
+	<td width="" class="PaymntData">02/07/2019 Tue</td>
+	<td width="" class="PaymntData">Jul 05, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,418,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86604037</td>
+	<td width="" class="PaymntData">VO, NGUYEN BINH</td>	
+	<td width="" class="PaymntData">02/07/2019 Tue</td>
+	<td width="" class="PaymntData">Jul 05, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,418,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86630543</td>
+	<td width="" class="PaymntData">VU, NGOC TUAN</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 03, 2019 UIH - HAN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,838,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86581793</td>
+	<td width="" class="PaymntData">SUNTHA, SANDEEP</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 04, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,298,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86581793</td>
+	<td width="" class="PaymntData">SUNTHA, SANDEEP</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 04, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$170,500.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86638240</td>
+	<td width="" class="PaymntData">NGO, VAN NGHI</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 16, 2019 UIH - HAN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933104-TTTLinh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,992,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86638240</td>
+	<td width="" class="PaymntData">NGUYEN, THI THU HUONG</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 16, 2019 UIH - HAN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933104-TTTLinh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,992,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86638240</td>
+	<td width="" class="PaymntData">DO, THI NU</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 16, 2019 UIH - HAN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933104-TTTLinh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,992,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86638240</td>
+	<td width="" class="PaymntData">BUI, HONG MINH</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 16, 2019 UIH - HAN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933104-TTTLinh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,992,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86630938</td>
+	<td width="" class="PaymntData">TRAN, THI HANH</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 12, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,013,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86575409</td>
+	<td width="" class="PaymntData">NGUYEN, THI HOAI PHUONG</td>	
+	<td width="" class="PaymntData">03/07/2019 Wed</td>
+	<td width="" class="PaymntData">Jul 04, 2019 HAN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933101-LMThu</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$44,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86604037</td>
+	<td width="" class="PaymntData">TRAN, THI THU HUONG</td>	
+	<td width="" class="PaymntData">04/07/2019 Thu</td>
+	<td width="" class="PaymntData">Jul 05, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$170,500.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86762803</td>
+	<td width="" class="PaymntData">NGUYEN, CAO PHAN</td>	
+	<td width="" class="PaymntData">05/07/2019 Fri</td>
+	<td width="" class="PaymntData">Aug 08, 2019 SGN - VDH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,163,900.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86762803</td>
+	<td width="" class="PaymntData">NGUYEN, VAN LINH</td>	
+	<td width="" class="PaymntData">05/07/2019 Fri</td>
+	<td width="" class="PaymntData">Aug 08, 2019 SGN - VDH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,163,900.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86762803</td>
+	<td width="" class="PaymntData">VO, VAN TUAN</td>	
+	<td width="" class="PaymntData">05/07/2019 Fri</td>
+	<td width="" class="PaymntData">Aug 08, 2019 SGN - VDH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,163,900.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86796264</td>
+	<td width="" class="PaymntData">VO, PHUONG MAI</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 26, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,095,500.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86796264</td>
+	<td width="" class="PaymntData">VO, NGUYEN BINH</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 26, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$903,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86796264</td>
+	<td width="" class="PaymntData">HUYNH, THI MAI DUNG</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 26, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,095,500.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86796264</td>
+	<td width="" class="PaymntData">NGUYEN, VO BAO LONG</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 26, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$853,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86796264</td>
+	<td width="" class="PaymntData">NGUYEN, VO PHUONG UYEN</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 26, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$853,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86796264</td>
+	<td width="" class="PaymntData">VO, HOANG BAO NHI</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 26, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,045,500.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86796264</td>
+	<td width="" class="PaymntData">VO, HOANG THIEN PHUC</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 26, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$853,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86796264</td>
+	<td width="" class="PaymntData">VO, HOANG THIEN BAO</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 26, 2019 UIH - SGN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$853,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86808933</td>
+	<td width="" class="PaymntData">HO, THI BICH LE</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 20, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,220,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86815253</td>
+	<td width="" class="PaymntData">DANG, VINH THO</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Aug 30, 2019 UIH - HAN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933105-TLNKhanh</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,033,900.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86807124</td>
+	<td width="" class="PaymntData">TRUONG, NGOC QUY</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 24, 2019 SGN - NRT CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$2,211,500.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86807124</td>
+	<td width="" class="PaymntData">BUI, VU HANH NGUYEN</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 24, 2019 SGN - NRT CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$2,211,500.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86807124</td>
+	<td width="" class="PaymntData">TRUONG, NGOC KHANH LINH</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 24, 2019 SGN - NRT CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,951,500.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86807124</td>
+	<td width="" class="PaymntData">TRUONG, GIA HUNG</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 24, 2019 SGN - NRT CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,951,500.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86824339</td>
+	<td width="" class="PaymntData">PHUNG, KIM TUAN</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 07, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,132,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86824339</td>
+	<td width="" class="PaymntData">PHAN, THI BICH HUE</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 07, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,132,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86824339</td>
+	<td width="" class="PaymntData">PHUNG, HIEU NGAN</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 07, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,132,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86824339</td>
+	<td width="" class="PaymntData">PHUNG, QUOC ANH KHOI</td>	
+	<td width="" class="PaymntData">06/07/2019 Sat</td>
+	<td width="" class="PaymntData">Jul 07, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,072,000.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86569657</td>
+	<td width="" class="PaymntData">TRINH, HONG KHOI</td>	
+	<td width="" class="PaymntData">07/07/2019 Sun</td>
+	<td width="" class="PaymntData">Jul 07, 2019 SGN - UIH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$374,000.00</td>				
+</tr>
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86861517</td>
+	<td width="" class="PaymntData">NGUYEN, THI THUY QUYEN</td>	
+	<td width="" class="PaymntData">07/07/2019 Sun</td>
+	<td width="" class="PaymntData">Aug 02, 2019 DAD - HAN CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$613,900.00</td>				
+</tr>
+<tr class="GridPayDetsOdd">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">86860916</td>
+	<td width="" class="PaymntData">DANG, VAN TRINH</td>	
+	<td width="" class="PaymntData">07/07/2019 Sun</td>
+	<td width="" class="PaymntData">Aug 08, 2019 SGN - VDH CONF</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">AG39933102-TTThuan</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">$1,163,900.00</td>				
+</tr>
+
+
+
+<tr>
+	<td class="CompPayGridHdrTotal" colspan="9" align="right">Tổng cộng:&nbsp;AG</td>
+	<td class="CompPayGridHdrTotal" align="right">$52,077,400.00</td>
+</tr>
+							
+<tr class="hdr_midTable">
+	<th width="3%">&nbsp;</th>
+	<th class="CompPayGridHdr">Res.&nbsp;#</th>
+	<th class="CompPayGridHdr">Pax&nbsp;Name</th>	
+	<th class="CompPayGridHdr">Ngày&nbsp;Paid</th>
+	<th class="CompPayGridHdr">Segments</th>
+	<th class="CompPayGridHdr">Paid&nbsp;By</th>	
+	<th class="CompPayGridHdr">Taken&nbsp;By</th>
+	<th class="CompPayGridHdr">Account&nbsp;#</th>	
+	<th class="CompPayGridHdr">P.O.&nbsp;#</th>
+	<th class="CompPayGridHdr" align="right">Số tiền</th>					
+</tr>
+
+<tr class="GridPayDetsEven">
+	<td width="">&nbsp;</td>
+	<td width="" class="PaymntData">85241649</td>
+	<td width="" class="PaymntData">VO, DIEU LINH</td>	
+	<td width="" class="PaymntData">01/07/2019 Mon</td>
+	<td width="" class="PaymntData">Jun 20, 2019 SGN - UIH CANX</td>
+	<td width="" class="PaymntData">37399331 - CTY TNHH DAU TU DV TM TKT</td>	
+	<td width="" class="PaymntData">VJFI51-NgocDo</td>
+	<td width="" class="PaymntData">37399331</td>	
+	<td width="" class="PaymntData"></td>
+	<td width="" class="PaymntData" align="right">($1,011,000.00)</td>				
+</tr>
+
+
+
+<tr>
+	<td class="CompPayGridHdrTotal" colspan="9" align="right">Tổng cộng:&nbsp;RFAG</td>
+	<td class="CompPayGridHdrTotal" align="right">($1,011,000.00)</td>
+</tr>
+							
+				
+			</tbody></table>
+		</td>	
+	</tr>
+	
+	<tr><td class="CompPayRptTtlAmt" align="right">Total:</td>
+		<td class="CompPayRptTtlAmt" align="right">$51,066,400.00</td>
+	</tr>
+
+</tbody></table>
+                        </div>
+                        
+                    </div>
+                    <!-- mid_980 -->
+                    <div class="bottom_900"></div>
+                    <div style="height: 20px"></div>
+
+                    <table>
+                        <tbody><tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="" width="15%">
+
+                                <a class="button" href="javascript:document.forms[&#39;CompanyPayments&#39;].button.value=&#39;AgencyMenu&#39;;SubmitForm();">
+                                    Trang Menu<span></span>
+                                </a>
+
+                            </td>
+                            <td>
+                                <a class="button" href="javascript:window.print()">
+                                    In<span></span></a>
+
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <!-- main -->
+                <div id="footer">
+                        <div id="footer">
+		<p style="padding-top:60px;">
+            © 2014 Vietjet Air Copy Right. All Rights Reserved.<br>
+        </p>
+		<p class="author"></p>
+        <div class="clear"></div>
+    </div><!--End footer-->
+    <div class="clear"></div>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!--End wrapper-2-->
+        <div class="clear"></div>
+    </div>
+    <!--End wrapper-->
+    
+
+<style>
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .0 ) 
+                url('https://d3dh07ymq581.cloudfront.net/images/wait_bg.png')
+                50% 50% 
+                no-repeat;
+}
+body.loading {
+    overflow: hidden;   
+}
+body.loading .modal {
+    display: block;
+}
+</style>
+
+<div class="modal">
+    <table height="100%" width="100%" style="z-index:1001;">
+		<tbody>
+            <tr>
+				<td style="vertical-align:middle;">
+					<h1 style="text-align:center;">Xin chờ trong giây lát…</h1>
+					<p style="text-align:center;padding-top:25px;">
+					    <img src="./Vietjet Trang đặt chỗ - Báo cáo thanh toán công ty_files/loading11.gif">
+					</p>
+				</td>
+			</tr>
+		</tbody>
+    </table>
+</div>
+
+
+</body></html>

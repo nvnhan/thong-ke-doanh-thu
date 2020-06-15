@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'phan_quyen', 'id_nguoi_tao', 'id'
+        'password', 'id_nguoi_tao'
     ];
 
     /**
@@ -41,11 +41,11 @@ class User extends Authenticatable
         'tour_visa' => "boolean",
         'ban_hang' => "boolean",
         'ngay_het_han' => 'datetime:d/m/Y',
-        'created_at' => 'datetime:H:i d/m/Y',
+        'created_at' => 'datetime:d/m/Y',
         'updated_at' => 'datetime:H:i d/m/Y',
     ];
 
-    protected $appends = ['admin', 'dai_ly'];
+    protected $appends = ['admin', 'dai_ly', 'quyen'];
 
     public function getAdminAttribute()
     {
@@ -54,7 +54,22 @@ class User extends Authenticatable
 
     public function getDaiLyAttribute()
     {
-        return $this->phan_quyen === 1;
+        return $this->phan_quyen >= 1;
+    }
+
+    public function getQuyenAttribute()
+    {
+        switch ($this->phan_quyen) {
+            case '9':
+                return 'Quản trị';
+                break;
+            case '1':
+                return 'Đại lý';
+                break;
+            default:
+                return 'Nhân viên';
+                break;
+        }
     }
 
     /**

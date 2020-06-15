@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // public routes
-Route::get('/login', 'AuthController@getApiLogin');
+Route::get('/login', 'AuthController@getApiLogin');         // Login in App or Extension
 Route::post('/login', 'AuthController@login')->name('login.api');
 Route::post('/register', 'AuthController@register')->name('register.api');
 
@@ -92,16 +92,15 @@ Route::middleware('auth:api')->group(function () {
     Route::get('ton-kho', 'HangHoaController@tonkho');
     Route::get('tong-hop-hang', 'HangHoaController@tonghop');
 
-    Route::get('nhan-vien/all', 'UserController@all');
-
     // Add middleware checkadmin
     Route::middleware('checkadmin')->group(function () {
-        Route::delete('nhan-vien/deletes', 'UserController@deletes');
-        Route::resource('nhan-vien', 'UserController')->only(['index', 'update', 'destroy']);
-
         Route::get('cai-dat', 'SettingController@index');
         Route::put('cai-dat', 'SettingController@update');
     });
+
+    Route::get('nhan-vien/all', 'UserController@all');
+    // Route::delete('nhan-vien/deletes', 'UserController@deletes');
+    Route::resource('nhan-vien', 'UserController')->only(['index', 'store', 'update', 'destroy']);
 
 
     Route::delete('thu-chi/deletes', 'ThuChiController@deletes');

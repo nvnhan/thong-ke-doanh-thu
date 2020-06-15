@@ -28,14 +28,9 @@ class MainContainer extends PureComponent {
             axios
                 .get(`/api/get-user`)
                 .then(response => {
-                    if (response.data.success) {
-                        const { data } = response.data;
-                        this.props.onSetAuth({
-                            username: data.username,
-                            hoTen: data.ho_ten,
-                            isAdmin: data.admin
-                        });
-                    } else {
+                    if (response.data.success)
+                        this.props.onSetAuth(response.data.data);
+                    else {
                         localStorage.removeItem("token");
                         message.warn(response.data.message);
                     }

@@ -32,7 +32,7 @@ class MyHeader extends PureComponent {
             <span>
                 <UserOutlined />
                 &nbsp;
-                {this.props.authUser.hoTen}
+                {this.props.authUser.ho_ten}
             </span>
         );
     };
@@ -66,7 +66,7 @@ class MyHeader extends PureComponent {
                                         >
                                             Chào
                                             </span>
-                                        {this.props.authUser.hoTen}
+                                        {this.props.authUser.ho_ten}
                                         <Avatar
                                             style={{
                                                 marginLeft: 8,

@@ -8,7 +8,7 @@ const { SubMenu } = Menu;
 
 class SideBar extends PureComponent {
     genLinkMenuItem = (item, index) => {
-        if (item.admin && !this.props.authUser.isAdmin) return "";
+        if (item.admin && !this.props.authUser.admin) return "";
         if (item.key === "divider") return <Menu.Divider key={index} />;
         return (
             <Menu.Item key={item.key}>
@@ -22,7 +22,7 @@ class SideBar extends PureComponent {
 
     genSiderMenu = items => {
         return items.map((item, index) => {
-            if (item.admin && !this.props.authUser.isAdmin) return "";
+            if (item.admin && !this.props.authUser.admin) return "";
             if (item.childs) {
                 // Has childs
                 return (

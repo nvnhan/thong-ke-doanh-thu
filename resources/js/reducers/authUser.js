@@ -3,8 +3,8 @@ import * as types from "../constants/ActionTypes";
 
 var initialState = {
     username: "",
-    hoTen: "",
-    isAdmin: false
+    ho_ten: "",
+    admin: false
 };
 
 const myReducer = (state = initialState, action) => {

@@ -16,16 +16,13 @@ function LoginForm(props) {
             .then(response => {
                 if (response.data.success) {
                     const { data } = response.data;
+
                     // Setup default config for axios
                     axios.defaults.headers.common["Authorization"] =
                         "Bearer " + data.token;
                     localStorage.setItem("token", data.token);
                     message.success(response.data.message);
-                    props.onSetAuth({
-                        username: data.username,
-                        hoTen: data.ho_ten,
-                        isAdmin: data.admin
-                    });
+                    props.onSetAuth(data);
                 } else {
                     message.warn(response.data.message);
                 }
@@ -76,9 +73,9 @@ function LoginForm(props) {
                 />
             </Form.Item>
             <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
+                {/* <Form.Item name="remember" valuePropName="checked" noStyle>
                     <Checkbox>Ghi nhớ</Checkbox>
-                </Form.Item>
+                </Form.Item> */}
 
                 <Link
                     className="login-form-forgot"
@@ -98,10 +95,10 @@ function LoginForm(props) {
                 >
                     Đăng nhập
                 </Button>
-                Hoặc{" "}
+                {/* Hoặc{" "}
                 <Link onClick={() => props.onRegister()} to="">
                     đăng ký tài khoản!
-                </Link>
+                </Link> */}
             </Form.Item>
         </Form>
     );

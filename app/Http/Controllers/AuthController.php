@@ -72,8 +72,9 @@ class AuthController extends BaseController
             if (Hash::check($request->password, $user->password)) {
                 if ($user->actived) {
                     if (empty($user->ngay_het_han) || now() < $user->ngay_het_han) {
+                        $response = $user->toArray();
                         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                        $response = ['username' => $user->username, 'ho_ten' => $user->ho_ten, 'admin' => $user->admin, 'token' => $token];
+                        $response['token'] = $token;
                         return $this->sendResponse($response, 'Đăng nhập thành công');
                     } else
                         return $this->sendError("Tài khoản đã hết hạn sử dụng", []);

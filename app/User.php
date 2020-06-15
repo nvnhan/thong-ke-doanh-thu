@@ -17,7 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'ho_ten', 'username', 'password', 'sdt', 'dia_chi', 'admin', 'ngay_het_han', 'actived'
+        'ho_ten', 'username', 'password', 'sdt', 'dia_chi',
+        'email', 'ngay_het_han', 'actived', 'phan_quyen',
+        'tour_visa', 'ban_hang'
     ];
 
     /**
@@ -26,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'phan_quyen', 'id_nguoi_tao', 'id'
     ];
 
     /**
@@ -35,12 +37,25 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'admin' => 'boolean',
         'actived' => "boolean",
+        'tour_visa' => "boolean",
+        'ban_hang' => "boolean",
         'ngay_het_han' => 'datetime:d/m/Y',
         'created_at' => 'datetime:H:i d/m/Y',
         'updated_at' => 'datetime:H:i d/m/Y',
     ];
+
+    protected $appends = ['admin', 'dai_ly'];
+
+    public function getAdminAttribute()
+    {
+        return $this->phan_quyen === 9;
+    }
+
+    public function getDaiLyAttribute()
+    {
+        return $this->phan_quyen === 1;
+    }
 
     /**
      * Find the user instance for the given username.

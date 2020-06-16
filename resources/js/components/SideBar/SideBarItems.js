@@ -34,7 +34,8 @@ const items = [
         key: SideMenus.THU_CHI,
         href: "/thu-chi",
         icon: <WalletOutlined />,
-        title: "Thu chi"
+        title: "Thu chi",
+        role: "chuc_nang"
     },
     {
         key: "SUB_VMB",
@@ -45,44 +46,47 @@ const items = [
                 key: SideMenus.VMB_DAT_VE,
                 href: "/dat-ve",
                 icon: <PieChartOutlined />,
-                title: "Đặt vé"
+                title: "Đặt vé",
+                role: "chuc_nang"
             },
             {
                 key: SideMenus.VMB_NO_VE,
                 href: "/no-ve",
                 icon: <PieChartOutlined />,
-                title: "Nợ vé"
+                title: "Nợ vé",
+                role: "chuc_nang"
             },
             {
                 key: SideMenus.VMB_CHUA_BAY,
                 href: "/chua-bay",
                 icon: <PieChartOutlined />,
-                title: "Chưa bay"
+                title: "Chưa bay",
+                role: "chuc_nang"
             },
             {
                 key: "divider",
-                admin: true
+                role: "admin"
             },
             {
                 key: SideMenus.VMB_SAN_BAY,
                 href: "/san-bay",
-                admin: true,
                 icon: <CaretRightOutlined />,
-                title: "Sân bay"
+                title: "Sân bay",
+                role: "admin"
             },
             {
                 key: SideMenus.VMB_THUE_PHI,
                 href: "/thue-phi",
-                admin: true,
                 icon: <CaretRightOutlined />,
-                title: "Thuế phí"
+                title: "Thuế phí",
+                role: "admin"
             },
             {
                 key: SideMenus.VMB_HANH_LY,
                 href: "/phi-hanh-ly",
-                admin: true,
                 icon: <CaretRightOutlined />,
-                title: "Phí hành lý"
+                title: "Phí hành lý",
+                role: "admin"
             }
         ]
     },
@@ -90,6 +94,7 @@ const items = [
         key: "SUB_TV",
         icon: <AppstoreOutlined />,
         title: "Tour - Visa",
+        role: "tour_visa",
         childs: [
             {
                 key: SideMenus.TV_TOUR,
@@ -109,6 +114,7 @@ const items = [
         key: "SUB_BH",
         icon: <ShoppingCartOutlined />,
         title: "Bán hàng",
+        role: "ban_hang",
         childs: [
             {
                 key: SideMenus.BH_MUA_VAO,
@@ -146,6 +152,7 @@ const items = [
         key: "SUB_BC",
         icon: <FundOutlined />,
         title: "Báo cáo",
+        role: "chuc_nang",
         childs: [
             {
                 key: SideMenus.BC_TONG_HOP_TAI_KHOAN,
@@ -180,6 +187,7 @@ const items = [
         key: "SUB_TT",
         icon: <BarsOutlined />,
         title: "Thông tin chung",
+        role: "chuc_nang",
         childs: [
             {
                 key: SideMenus.TT_TAI_KHOAN,
@@ -211,7 +219,7 @@ const items = [
         key: "SUB_QT",
         icon: <ToolOutlined />,
         title: "Quản trị",
-        admin: true,
+        role: "quan_ly",
         childs: [
             {
                 key: SideMenus.QT_USER,
@@ -223,7 +231,8 @@ const items = [
                 key: SideMenus.QT_CAI_DAT,
                 href: "/cai-dat",
                 icon: <SettingOutlined />,
-                title: "Cài đặt"
+                title: "Cài đặt",
+                role: "admin"
             }
         ]
     }

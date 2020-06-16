@@ -18,7 +18,7 @@ class UserController extends BaseController
         $user = $request->user();
         if ($user->admin)
             $objs = User::where('username', '!=', $user->username)->get();
-        else if ($user->dai_ly)
+        else if ($user->quan_ly)
             $objs = User::where('id_nguoi_tao', $user->id)->get();
         else $objs = [];
         return $this->sendResponse($objs, "User retrieved successfully");
@@ -29,7 +29,7 @@ class UserController extends BaseController
         $user = $request->user();
         if ($user->admin)
             $objs = User::query();
-        else if ($user->dai_ly)
+        else if ($user->quan_ly)
             $objs = User::where('id_nguoi_tao', $user->id);
         else
             $objs = User::where('username', $user->username);

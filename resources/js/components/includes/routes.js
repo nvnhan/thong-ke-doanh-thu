@@ -252,9 +252,9 @@ const routes = [
         component: <CaiDat />
     },
     {
-        path: "/thong-tin-ca-nhan",
+        path: "/cai-dat-ca-nhan",
         exact: false,
-        title: "Thông tin cá nhân",
+        title: "Cài đặt cá nhân",
         menu: "",
         component: <Profile />
     },

@@ -17,8 +17,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'ho_ten', 'username', 'password', 'sdt', 'dia_chi',
-        'email', 'ngay_het_han', 'actived', 'phan_quyen',
+        'ho_ten', 'username', 'password',
+        'dai_ly', 'sdt', 'dia_chi',
+        'ct_ten', 'ct_sdt', 'ct_fax', 'ct_email', 'ct_dia_chi', 'ct_mst',
+        'ngay_het_han', 'actived', 'phan_quyen',
         'tour_visa', 'ban_hang'
     ];
 
@@ -45,16 +47,21 @@ class User extends Authenticatable
         'updated_at' => 'datetime:H:i d/m/Y',
     ];
 
-    protected $appends = ['admin', 'dai_ly', 'quyen'];
+    protected $appends = ['admin', 'quan_ly', 'quyen', 'chuc_nang'];
 
     public function getAdminAttribute()
     {
         return $this->phan_quyen === 9;
     }
 
-    public function getDaiLyAttribute()
+    public function getQuanLyAttribute()
     {
         return $this->phan_quyen >= 1;
+    }
+
+    public function getChucNangAttribute()
+    {
+        return $this->phan_quyen <= 1;
     }
 
     public function getQuyenAttribute()
@@ -71,6 +78,7 @@ class User extends Authenticatable
                 break;
         }
     }
+
 
     /**
      * Find the user instance for the given username.

@@ -20,14 +20,14 @@ class List extends PureComponent {
                 width: 110
             },
             {
-                title: "SĐT",
-                dataIndex: "sdt",
-                width: 90
+                title: "Đại lý",
+                dataIndex: "dai_ly",
+                ellipsis: true,
+                width: 110
             },
             {
-                title: "Email",
-                dataIndex: "email",
-                ellipsis: true,
+                title: "SĐT",
+                dataIndex: "sdt",
                 width: 90
             },
             {

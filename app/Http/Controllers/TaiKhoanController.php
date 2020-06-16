@@ -34,6 +34,8 @@ class TaiKhoanController extends BaseController
     {
         $data = $request->all();
         $obj = TaiKhoan::create($data);
+        $obj->username = $request->user()->username;
+        $obj->save();
         return $this->sendResponse($obj, "Thêm mới thành công");
     }
 

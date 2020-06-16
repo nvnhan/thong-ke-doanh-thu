@@ -65,7 +65,7 @@ class MyHeader extends PureComponent {
                                             }}
                                         >
                                             Chào
-                                            </span>
+                                        </span>
                                         {this.props.authUser.ho_ten}
                                         <Avatar
                                             style={{
@@ -79,14 +79,12 @@ class MyHeader extends PureComponent {
                                 }
                             >
                                 <Menu.Item key="profile">
-                                    <Link to="/thong-tin-ca-nhan">
-                                        Thông tin cá nhân
-                                        </Link>
+                                    <Link to="/cai-dat-ca-nhan">
+                                        Cài đặt cá nhân
+                                    </Link>
                                 </Menu.Item>
                                 <Menu.Item key="password">
-                                    <Link to="/doi-mat-khau">
-                                        Đổi mật khẩu
-                                        </Link>
+                                    <Link to="/doi-mat-khau">Đổi mật khẩu</Link>
                                 </Menu.Item>
                                 <Menu.Divider />
                                 <Menu.Item
@@ -95,7 +93,7 @@ class MyHeader extends PureComponent {
                                     onClick={this.onLogout}
                                 >
                                     Đăng xuất
-                                    </Menu.Item>
+                                </Menu.Item>
                             </SubMenu>
                         </Menu>
                         <Button
@@ -119,12 +117,10 @@ class MyHeader extends PureComponent {
                                 <Menu.Item key="profile">
                                     <Link to="/thong-tin-ca-nhan">
                                         Thông tin cá nhân
-                                        </Link>
+                                    </Link>
                                 </Menu.Item>
                                 <Menu.Item key="password">
-                                    <Link to="/doi-mat-khau">
-                                        Đổi mật khẩu
-                                        </Link>
+                                    <Link to="/doi-mat-khau">Đổi mật khẩu</Link>
                                 </Menu.Item>
                                 <Menu.Divider />
                                 <Menu.Item
@@ -133,7 +129,7 @@ class MyHeader extends PureComponent {
                                     onClick={this.onLogout}
                                 >
                                     Đăng xuất
-                                    </Menu.Item>
+                                </Menu.Item>
                             </Menu>
                         </Drawer>
                     </React.Fragment>

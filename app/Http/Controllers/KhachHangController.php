@@ -34,6 +34,8 @@ class KhachHangController extends BaseController
     {
         $data = $request->all();
         $obj = KhachHang::create($data);
+        $obj->username = $request->user()->username;
+        $obj->save();
         return $this->sendResponse($obj, "Thêm mới thành công");
     }
 

@@ -40,13 +40,19 @@ const form = ({ phanQuyen = false }) => {
                 </Form.Item>
             </Col>
             <Col span={12}>
-                <Form.Item name="sdt" label="SĐT">
+                <Form.Item
+                    name="dai_ly"
+                    label="Đại lý"
+                    rules={[
+                        { required: true, message: "Nhập đầy đủ thông tin!" }
+                    ]}
+                >
                     <Input />
                 </Form.Item>
             </Col>
             <Col span={12}>
-                <Form.Item name="email" label="Email">
-                    <Input type="email" />
+                <Form.Item name="sdt" label="SĐT">
+                    <Input />
                 </Form.Item>
             </Col>
             <Col span={12}>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DatVe;
 use App\Report;
 use App\SanBay;
-use App\Util;
+use App\Helpers\Util;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -20,14 +20,15 @@ class BaoCaoDatVeController extends Controller
         if (!\is_array($objs))
             return;
 
+        $user = $request->user();
         // Prepare Excel File
         $file = storage_path('app/reports') . "/mau-ve.xlsx";
         $reader = IOFactory::createReader("Xlsx");
         $spreadSheet = $reader->load($file);
 
         // Get data from SQL
-        $vnbb = DatVe::whereIn('id', $objs)->whereIn('hang_bay', ['VN', 'BB'])->get()->groupBy('ma_giu_cho');
-        $vjjets = DatVe::whereIn('id', $objs)->whereIn('hang_bay', ['VJ', 'Jets'])->get()->groupBy('so_ve');
+        $vnbb = DatVe::ofUser($request->user())->whereIn('id', $objs)->whereIn('hang_bay', ['VN', 'BB'])->get()->groupBy('ma_giu_cho');
+        $vjjets = DatVe::ofUser($request->user())->whereIn('id', $objs)->whereIn('hang_bay', ['VJ', 'Jets'])->get()->groupBy('so_ve');
 
         foreach ($vnbb as $mgc => $ves) {
             $sheet = clone $spreadSheet->getSheet(0);
@@ -37,9 +38,9 @@ class BaoCaoDatVeController extends Controller
             $spreadSheet->addSheet($sheet);
             $sheet->setCellValue("C9", $mgc);
             // Information of Dai Ly
-            $sheet->setCellValue("C1", env("TT_DAI_LY"));
-            $sheet->setCellValue("C2", env("TT_DIA_CHI_DAI_LY"));
-            $sheet->setCellValue("C3", env("TT_SDT_DAI_LY"));
+            $sheet->setCellValue("C1", $user->dai_ly);
+            $sheet->setCellValue("C2", $user->dia_chi);
+            $sheet->setCellValue("C3", $user->sdt);
             // Chuyen Bay di
             $sheet->setCellValue("A8", $ves[0]->cb_di);
             $sheet->setCellValue("B8", (new DateTime($ves[0]->ngay_gio_di))->format('d/m/Y'));
@@ -81,9 +82,9 @@ class BaoCaoDatVeController extends Controller
             $spreadSheet->addSheet($sheet);
             $sheet->setCellValue("A8", $sove);
             // Information of Dai Ly
-            $sheet->setCellValue("D1", env("TT_DAI_LY"));
-            $sheet->setCellValue("D2", env("TT_DIA_CHI_DAI_LY"));
-            $sheet->setCellValue("D3", env("TT_SDT_DAI_LY"));
+            $sheet->setCellValue("D1", $user->dai_ly);
+            $sheet->setCellValue("D2", $user->dia_chi);
+            $sheet->setCellValue("D3", $user->sdt);
             // Ngay Thang
             $sheet->setCellValue("D8", (new DateTime($ves[0]->ngay_thang))->format('d/m/Y'));
             $sheet->setCellValue("D9", $ves[0]->ten_khach);
@@ -140,13 +141,14 @@ class BaoCaoDatVeController extends Controller
         if (!\is_array($objs))
             return;
 
+        $user = $request->user();
         // Prepare Excel File
         $file = storage_path('app/reports') . "/thong-tin-hoa-don.xlsx";
         $reader = IOFactory::createReader("Xlsx");
         $spreadSheet = $reader->load($file);
         $sheet = $spreadSheet->getSheet(0);
 
-        $datVe = DatVe::whereIn('id', $objs)->get();
+        $datVe = DatVe::ofUser($request->user())->whereIn('id', $objs)->get();
         // Thông tin nơi mua
         $noiMua = $datVe[0]->tai_khoan_mua;
         if ($noiMua != null) {
@@ -156,10 +158,10 @@ class BaoCaoDatVeController extends Controller
             $sheet->setCellValue("B5", "Email: " . $noiMua->email);
         }
         // Thông tin đại lý
-        $sheet->setCellValue("C7", env("TT_DAI_LY"));
-        $sheet->setCellValue("C14", env("TT_TEN_CONG_TY"));
-        $sheet->setCellValue("C15", env("TT_MST_CONG_TY"));
-        $sheet->setCellValue("C16", env("TT_DIA_CHI_CONG_TY"));
+        $sheet->setCellValue("C7", $user->dai_ly);
+        $sheet->setCellValue("C14", $user->ct_ten);
+        $sheet->setCellValue("C15", $user->ct_mst);
+        $sheet->setCellValue("C16", $user->ct_dia_chi);
 
         // Khách hàng nhận hóa đơn
         $khachHang = $datVe[0]->khach_hang;
@@ -207,17 +209,18 @@ class BaoCaoDatVeController extends Controller
         if (!\is_array($objs))
             return;
 
+        $user = $request->user();
         // Prepare Excel File
         $file = storage_path('app/reports') . "/bang-ke.xlsx";
         $reader = IOFactory::createReader("Xlsx");
         $spreadSheet = $reader->load($file);
         $sheet = $spreadSheet->getSheet(0);
 
-        $sheet->setCellValue("A1", "Công ty: " . env("TT_TEN_CONG_TY"));
-        $sheet->setCellValue("A2", "MST: " . env("TT_MST_CONG_TY"));
-        $sheet->setCellValue("A3", "Địa chỉ: " . env("TT_DIA_CHI_CONG_TY"));
+        $sheet->setCellValue("A1", "Công ty: " . $user->ct_ten);
+        $sheet->setCellValue("A2", "MST: " . $user->ct_mst);
+        $sheet->setCellValue("A3", "Địa chỉ: " . $user->ct_dia_chi);
 
-        $datVe = DatVe::whereIn('id', $objs)->get();
+        $datVe = DatVe::ofUser($request->user())->whereIn('id', $objs)->get();
 
         // Thông tin khách hàng
         $khachHang = $datVe[0]->khach_hang;
@@ -291,7 +294,7 @@ class BaoCaoDatVeController extends Controller
         if (!\is_array($objs))
             return;
 
-        $datVe = DatVe::whereIn('id', $objs)->get();
+        $datVe = DatVe::ofUser($request->user())->whereIn('id', $objs)->get();
         Report::maucongno('', '', $datVe);
     }
 }

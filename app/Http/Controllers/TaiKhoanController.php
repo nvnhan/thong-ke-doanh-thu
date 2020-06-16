@@ -12,15 +12,15 @@ class TaiKhoanController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $objs = TaiKhoan::whereLoai(0)->get();
+        $objs = TaiKhoan::ofUser($request->user())->whereLoai(0)->get();
         return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
     }
 
-    public function all()
+    public function all(Request $request)
     {
-        $objs = TaiKhoan::where('loai', "!=", '-1')->get(['id', 'ky_hieu', 'loai', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
+        $objs = TaiKhoan::ofUser($request->user())->where('loai', "!=", '-1')->get(['id', 'ky_hieu', 'loai', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
         return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
     }
 

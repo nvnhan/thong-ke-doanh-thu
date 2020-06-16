@@ -21,9 +21,9 @@ class DatVeController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = DatVe::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
+            $objs = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else if (empty($request->dd))
-            $objs = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
+            $objs = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
         else $objs = DatVe::query();        // Co Dinh Danh thi ko xet tu ngay den ngay
 
         if (!$request->user()->admin)
@@ -61,7 +61,7 @@ class DatVeController extends BaseController
         $den_ngay = date('Y-m-d');
         if (!empty($request->den_ngay))
             $den_ngay = $request->den_ngay;
-        $objs = DatVe::whereNull('ngay_thanh_toan')
+        $objs = DatVe::ofUser($request->user())->whereNull('ngay_thanh_toan')
             ->orWhere('ngay_thanh_toan', '>', $den_ngay);
 
         if (!$request->user()->admin)
@@ -75,7 +75,7 @@ class DatVeController extends BaseController
         $den_ngay = date('Y-m-d H:i:s');
         if (!empty($request->den_ngay))
             $den_ngay = $request->den_ngay;
-        $objs = DatVe::where('ngay_gio_di', ">", $den_ngay)
+        $objs = DatVe::ofUser($request->user())->where('ngay_gio_di', ">", $den_ngay)
             ->orWhere('ngay_gio_ve', '>', $den_ngay);
 
         if (!$request->user()->admin)

@@ -14,15 +14,15 @@ class NhaCungCapController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = TaiKhoan::whereLoai(1);
+        $objs = TaiKhoan::ofUser($request->user())->whereLoai(1);
         if (!empty($request->ncc) && $request->ncc != -1)
             $objs = $objs->where('id', $request->ncc);
         return $this->sendResponse($objs->get(), "NhaCungCap retrieved successfully");
     }
 
-    public function all()
+    public function all(Request $request)
     {
-        $objs = TaiKhoan::whereLoai('1')->get(['id', 'ky_hieu', 'phan_loai']);
+        $objs = TaiKhoan::ofUser($request->user())->whereLoai('1')->get(['id', 'ky_hieu', 'phan_loai']);
         return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
     }
 

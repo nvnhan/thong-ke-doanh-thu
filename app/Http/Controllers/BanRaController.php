@@ -15,9 +15,9 @@ class BanRaController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = BanRa::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
+            $objs = BanRa::ofUser($request->user())->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
         else
-            $objs = BanRa::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
+            $objs = BanRa::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
 
         return $this->sendResponse($objs, "BanRa retrieved successfully");
     }

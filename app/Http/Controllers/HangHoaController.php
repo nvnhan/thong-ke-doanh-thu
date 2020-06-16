@@ -15,15 +15,15 @@ class HangHoaController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = HangHoa::query();
+        $objs = HangHoa::ofUser($request->user());
         if (!empty($request->ncc) && $request->ncc != -1)
             $objs = $objs->where('id_tai_khoan', $request->ncc);
         return $this->sendResponse($objs->get(), "HangHoa retrieved successfully");
     }
 
-    public function all()
+    public function all(Request $request)
     {
-        $objs = HangHoa::all();
+        $objs = HangHoa::ofUser($request->user())->get();
         foreach ($objs as $value)
             $value->setHidden(['id_tai_khoan', 'ten_hang', 'don_vi', 'ghi_chu', 'username', 'created_at', 'updated_at']);
 
@@ -97,7 +97,7 @@ class HangHoaController extends BaseController
         if (!empty($request->den_ngay))
             $date = $request->den_ngay;
 
-        $hang_hoa = HangHoa::whereHas('mua_vaos', function ($query) use ($date) {
+        $hang_hoa = HangHoa::ofUser($request->user())->whereHas('mua_vaos', function ($query) use ($date) {
             $query->where('ngay_thang', "<=", $date);
         })->get();
         foreach ($hang_hoa as $value) {
@@ -120,7 +120,7 @@ class HangHoaController extends BaseController
             $ket_thuc = $request->ket_thuc;
         }
 
-        $hang_hoa = HangHoa::whereHas('mua_vaos', function ($query) use ($bat_dau, $ket_thuc) {
+        $hang_hoa = HangHoa::ofUser($request->user())->whereHas('mua_vaos', function ($query) use ($bat_dau, $ket_thuc) {
             $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
         })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
             $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);

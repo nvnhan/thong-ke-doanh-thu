@@ -12,15 +12,15 @@ class KhachHangController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $objs = KhachHang::get();
+        $objs = KhachHang::ofUser($request->user())->get();
         return $this->sendResponse($objs, "KhachHang retrieved successfully");
     }
 
-    public function all()
+    public function all(Request $request)
     {
-        $objs = KhachHang::get(['id', 'ma_khach_hang', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
+        $objs = KhachHang::ofUser($request->user())->get(['id', 'ma_khach_hang', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
         return $this->sendResponse($objs, "KhachHang retrieved successfully");
     }
 

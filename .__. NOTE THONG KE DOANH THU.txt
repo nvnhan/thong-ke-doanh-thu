@@ -59,11 +59,11 @@ OKEEE
 
 ====
 Yêu cầu:
-- Phân quyền 3 cấp; admin chỉ quản lý danh mục, nhân viên. Mọi nhân viên chỉ hiển thị dữ liệu của họ
+//- Phân quyền 3 cấp; admin chỉ quản lý danh mục, nhân viên. Mọi nhân viên chỉ hiển thị dữ liệu của họ
 //+ Admin: Chỉ quản lý danh mục, nhân viên, đại lý, xóa nhân viên
 //+ Đại lý: Các chức năng, thêm nhân viên
 //+ Nhân viên: Chức năng
-- Lọc dữ liệu theo từng nhân viên, bao gồm cả cài đặt
+//- Lọc dữ liệu theo từng nhân viên, bao gồm cả cài đặt
 // Thêm nhân viên
 //- Bỏ Đăng ký
 //- Xóa trường admin

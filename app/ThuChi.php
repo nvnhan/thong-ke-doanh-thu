@@ -37,6 +37,18 @@ class ThuChi extends Model
         });
     }
 
+    /**
+     * Scope a query to only include record of a given user.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $user
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfUser($query, $user)
+    {
+        return $query->where('username', $user->username);
+    }
+
     public function khach_hang()
     {
         return $this->belongsTo('App\KhachHang', 'id_khach_hang');

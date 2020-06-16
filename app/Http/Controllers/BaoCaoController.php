@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Util;
 use App\KhachHang;
 use App\Report;
 use App\TaiKhoan;
-use App\Util;
-use DateInterval;
-use DatePeriod;
 use DateTime;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -27,7 +25,7 @@ class BaoCaoController extends BaseController
             $tu_ngay = substr($request->bat_dau, 0, 10);
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
-        $taiKhoan = TaiKhoan::where('loai', '!=', '-1')->where(function ($q) use ($den_ngay) {
+        $taiKhoan = TaiKhoan::ofUser($request->user())->where('loai', '!=', '-1')->where(function ($q) use ($den_ngay) {
             return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
         })->orderBy('loai')->get();
 
@@ -39,16 +37,16 @@ class BaoCaoController extends BaseController
             $tmp->id = $tk->id;
             $tmp->tai_khoan = $tk->ky_hieu;
 
-            $duCuoiKy = Report::TongThuTK($tk, $user, $den_ngay) - Report::TongChiTK($tk, $user, $den_ngay);
+            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
             $sum += $duCuoiKy;
-            $tmp->dau_ky = Util::VNDFormater(Report::TongThuTK($tk, $user, $ngayTruoc) - Report::TongChiTK($tk, $user, $ngayTruoc)) . ' | '       // Đầu kỳ
+            $tmp->dau_ky = Util::VNDFormater(Report::TongThuTK($tk, $ngayTruoc) - Report::TongChiTK($tk, $ngayTruoc)) . ' | '       // Đầu kỳ
                 . Util::VNDFormater($duCuoiKy);
             $tmp->thu_chi = "THU | CHI";
             $coDuLieu = false;
             // Thêm các cột tương ứng với giá trị thu theo từng ngày
             for ($i = $tu_ngay; $i <= $den_ngay; $i++) {
                 $t = (new DateTime($i))->format('d/m/y');
-                $tmp->$t = Util::VNDFormater(Report::TongThuTK($tk, $user, $i, $i)) . ' | ' . Util::VNDFormater(Report::TongChiTK($tk, $user, $i, $i));
+                $tmp->$t = Util::VNDFormater(Report::TongThuTK($tk, $i, $i)) . ' | ' . Util::VNDFormater(Report::TongChiTK($tk, $i, $i));
                 if ($tmp->$t != '0 | 0')
                     $coDuLieu = true;
             }
@@ -64,14 +62,14 @@ class BaoCaoController extends BaseController
         $tmp->dau_ky = $duNo;
         $result[] = $tmp;
         // Thêm Lãi
-        $lai = report::TinhLai($user, $tu_ngay, $den_ngay);
+        $lai = Report::TinhLai($request, $tu_ngay, $den_ngay);
         $tmp = new stdClass;
         $tmp->id = -1;
         $tmp->tai_khoan = "LÃI";
         $tmp->dau_ky = Util::VNDFormater($lai);
         $result[] = $tmp;
         // Thêm tồn kho
-        $tonKho = report::TinhTonKho($user, $den_ngay);
+        $tonKho = Report::TinhTonKho($request, $den_ngay);
         $sum += $tonKho;
         $tmp = new stdClass;
         $tmp->id = -4;
@@ -100,7 +98,9 @@ class BaoCaoController extends BaseController
         }
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
 
-        $khachHang = KhachHang::whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay)->get();
+        $khachHang = KhachHang::ofUser($request->user())
+            ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
+            ->get();
         foreach ($khachHang as $kh) {
             $tmp = new stdClass;
             $tmp->id = $kh->id;
@@ -115,7 +115,7 @@ class BaoCaoController extends BaseController
             $banra[] = $tmp;
         }
 
-        $nhaCungCap = TaiKhoan::whereLoai(1)->get();
+        $nhaCungCap = TaiKhoan::ofUser($request->user())->whereLoai(1)->get();
         foreach ($nhaCungCap as $ncc) {
             $tmp = new stdClass;
             $tmp->id = $ncc->id;
@@ -143,7 +143,7 @@ class BaoCaoController extends BaseController
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
         $khach_hang = KhachHang::find($request->id_khach_hang);
-        Report::maucongno($tu_ngay, $den_ngay, [], $khach_hang);
+        Report::maucongno($request, $tu_ngay, $den_ngay, [], $khach_hang);
     }
 
     public function doisoattaikhoan(Request $request)

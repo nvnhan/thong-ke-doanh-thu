@@ -43,50 +43,39 @@ class Report
     }
 
     // Tổng lãi cho tổng hợp tài khoản
-    public  static function TinhLai($user, $date1, $date2)
+    public  static function TinhLai($request, $date1, $date2)
     {
         $lai = 0;
-        $q = DatVe::where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
+        $q = DatVe::ofUser($request->user())->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
         $lai += $q->sum('lai');
 
-        $q = BanRa::where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
+        $q = BanRa::ofUser($request->user())->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
         $lai += $q->get()->sum('lai');
 
-        $q = Tour::where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
+        $q = Tour::ofUser($request->user())->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
         $lai += $q->get()->sum('lai');
 
-        $q = Visa::where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
+        $q = Visa::ofUser($request->user())->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
         $lai += $q->sum('lai');
 
         return (float) $lai;
     }
 
     // Tổng tồn kho cho Tổng hợp tài khoản
-    public  static function TinhTonKho($user, $date2)
+    public  static function TinhTonKho($request, $date2)
     {
         $tonKho = 0;
-        $hh = HangHoa::all();
+        $hh = HangHoa::ofUser($request->user())->get();
         foreach ($hh as $h) {
             $q = $h->mua_vaos()->where('ngay_thang', '<=', $date2);
-            if (!empty($user))
-                $q = $q->where('username', $user);
             $sl = $q->sum('so_luong');
+
             $q = $h->ban_ras()->where('ngay_thang', '<=', $date2);
-            if (!empty($user))
-                $q = $q->where('username', $user);
             $sl -= $q->sum('so_luong');
+
             $q = $h->ban_ras()->where('ngay_hoan_doi_xong', '<=', $date2);
-            if (!empty($user))
-                $q = $q->where('username', $user);
             $sl += $q->sum('so_luong');
+
             if ($sl > 0)
                 $tonKho += $sl * $h->don_gia;
         }
@@ -94,7 +83,7 @@ class Report
     }
 
     // Tổng thu của tài khoản từ ngày đến ngày
-    public  static function TongThuTK($taiKhoan, $user, $date2, $date1 = '')
+    public  static function TongThuTK($taiKhoan, $date2, $date1 = '')
     {
         if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
             $date1 = $taiKhoan->ngay_tao;
@@ -102,8 +91,6 @@ class Report
             return 0;
 
         $q = $taiKhoan->thu_chi_dens()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
         $sthu = $q->sum('so_tien');
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao <= $date2 && $taiKhoan->ngay_tao >= $date1)
             $sthu += $taiKhoan->so_du_ky_truoc;
@@ -111,7 +98,7 @@ class Report
     }
 
     // Tổng chi của tài khoản từ ngày đến ngày
-    public  static function TongChiTK($taiKhoan, $user, $date2, $date1 = '')
+    public  static function TongChiTK($taiKhoan, $date2, $date1 = '')
     {
         if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
             $date1 = $taiKhoan->ngay_tao;
@@ -119,33 +106,21 @@ class Report
             return 0;
 
         $q = $taiKhoan->thu_chi_dis()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
         $schi = $q->sum('so_tien');
 
         $q = $taiKhoan->dat_ves()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
         $schi += $q->sum('tong_tien');
 
         $q = $taiKhoan->ban_ra_hoa_dois()->where('ngay_thanh_toan_hoan_doi', '>=', $date1)->where('ngay_thanh_toan_hoan_doi', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
         $schi += $q->sum('thanh_tien_ban');
 
         $q = $taiKhoan->tour_chi_tiets()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
         $schi += $q->sum('thanh_tien');
 
         $q = $taiKhoan->visas()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
         $schi += $q->sum('gia_ban');
 
         $q = $taiKhoan->mua_vaos()->where('ngay_thang', '>=', $date1)->where('ngay_thang', '<=', $date2);
-        if (!empty($user))
-            $q = $q->where('username', $user);
         $schi += $q->sum('thanh_tien');
 
         return (float) $schi;
@@ -262,18 +237,19 @@ class Report
         return $data;
     }
 
-    public static function maucongno(string $tu_ngay = "", string $den_ngay = "", $dat_ve = [], KhachHang $khach_hang = null)
+    public static function maucongno($request, string $tu_ngay = "", string $den_ngay = "", $dat_ve = [], KhachHang $khach_hang = null)
     {
+        $user = $request->user();
         // Prepare Excel File
         $file = storage_path('app/reports') . "/cong-no.xlsx";
         $reader = IOFactory::createReader("Xlsx");
         $spreadSheet = $reader->load($file);
         $sheet = $spreadSheet->getSheet(0);
         // Infomation 
-        $sheet->setCellValue("A1", env("TT_TEN_CONG_TY"));
-        $sheet->setCellValue("A2", env("TT_DIA_CHI_CONG_TY"));
-        $sheet->setCellValue("A3", "Tel: " . env("TT_SDT_CONG_TY") . " / Fax: " . env("TT_FAX_CONG_TY"));
-        $sheet->setCellValue("A4", "Email: " . env("TT_EMAIL_CONG_TY"));
+        $sheet->setCellValue("A1", $user->ct_ten);
+        $sheet->setCellValue("A2", $user->ct_dia_chi);
+        $sheet->setCellValue("A3", "Tel: " . $user->ct_sdt . " / Fax: " . $user->ct_fax);
+        $sheet->setCellValue("A4", "Email: " . $user->ct_email);
         // Dates
         if (empty($tu_ngay) || empty($den_ngay)) {
             $tu_ngay = date('Y-m-01');

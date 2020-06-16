@@ -18,7 +18,7 @@ class HomeController extends BaseController
      */
     public function index(Request $request)
     {
-        $datve = self::DatVeTrongThang();
+        $datve = self::DatVeTrongThang($request);
         $ttve = self::ThongTinVe($request);
         $result = [
             'datve' => $datve,
@@ -27,11 +27,11 @@ class HomeController extends BaseController
         return $this->sendResponse((object) $result, "Home retrieved successfully");
     }
 
-    public function DatVeTrongThang()
+    public static function DatVeTrongThang(Request $request)
     {
-        $dv = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->groupBy('ngay_thang')
+        $dv = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->groupBy('ngay_thang')
             ->select('ngay_thang', DB::raw('count(*) as dat_ve'))->get();
-        $tt = DatVe::whereBetween('ngay_thanh_toan', [date('Y-m-01'), date('Y-m-t')])->groupBy('ngay_thanh_toan')
+        $tt = DatVe::ofUser($request->user())->whereBetween('ngay_thanh_toan', [date('Y-m-01'), date('Y-m-t')])->groupBy('ngay_thanh_toan')
             ->select(DB::raw('ngay_thanh_toan as ngay_thang'), DB::raw('count(*) as thanh_toan'))->get();
 
         $data = [];
@@ -65,12 +65,12 @@ class HomeController extends BaseController
         return $result;
     }
 
-    public function ThongTinVe($request)
+    public static function ThongTinVe($request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = DatVe::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
+            $objs = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else
-            $objs = DatVe::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
+            $objs = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
 
         // if (!$request->user()->admin)
         //     $objs = $objs->where('username', $request->user()->username);

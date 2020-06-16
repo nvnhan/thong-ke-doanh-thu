@@ -51,15 +51,16 @@ class DatVe extends Model
 
     protected $hidden = ['dinh_danh'];
 
-    public static function boot()
+    /**
+     * Scope a query to only include record of a given user.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $user
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfUser($query, $user)
     {
-        parent::boot();
-        self::creating(function ($model) {
-        });
-        self::updating(function ($model) {
-        });
-        self::deleting(function ($model) {
-        });
+        return $query->where('username', $user->username);
     }
 
     public function khach_hang()

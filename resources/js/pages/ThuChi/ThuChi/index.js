@@ -173,12 +173,12 @@ const List = React.memo(props => {
             width: 120,
             optFilter: true
         },
-        {
-            title: "Người nhập",
-            dataIndex: "username",
-            width: 120,
-            optFilter: true
-        }
+        // {
+        //     title: "Người nhập",
+        //     dataIndex: "username",
+        //     width: 120,
+        //     optFilter: true
+        // }
     ];
 
     return (

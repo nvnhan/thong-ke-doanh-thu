@@ -282,11 +282,12 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
     dataIndex: "ghi_chu",
     ellipsis: true,
     width: 150
-  }, {
-    title: "Người tạo",
-    dataIndex: "username",
-    width: 120
-  }];
+  } // {
+  //     title: "Người tạo",
+  //     dataIndex: "username",
+  //     width: 120
+  // }
+  ];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, ncc !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "filter-box"
   }, "Nh\xE0 cung c\u1EA5p:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, ncc.ky_hieu, " (", ncc.mo_ta, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Button"], {

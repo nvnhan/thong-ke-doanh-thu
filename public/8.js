@@ -398,12 +398,13 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     dataIndex: "ten_khach_hang",
     width: 120,
     optFilter: true
-  }, {
-    title: "Người nhập",
-    dataIndex: "username",
-    width: 120,
-    optFilter: true
-  }];
+  } // {
+  //     title: "Người nhập",
+  //     dataIndex: "username",
+  //     width: 120,
+  //     optFilter: true
+  // }
+  ];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
     url: "thu-chi",
     filterBox: true,

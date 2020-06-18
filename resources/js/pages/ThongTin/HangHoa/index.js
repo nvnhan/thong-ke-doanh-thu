@@ -92,11 +92,11 @@ const List = React.memo(props => {
             ellipsis: true,
             width: 150
         },
-        {
-            title: "Người tạo",
-            dataIndex: "username",
-            width: 120
-        }
+        // {
+        //     title: "Người tạo",
+        //     dataIndex: "username",
+        //     width: 120
+        // }
     ];
 
     return (

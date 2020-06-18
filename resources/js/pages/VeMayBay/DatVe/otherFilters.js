@@ -1,8 +1,13 @@
-import { Select } from "antd";
+import { Select, Input } from "antd";
 import React from "react";
 const { Option } = Select;
 
 const filters = [
+    {
+        name: "q",
+        label: "Tìm kiếm",
+        render: <Input placeholder="Mã giữ chỗ, Số vé, Tên khách" />
+    },
     {
         name: "sb",
         label: "Sân bay",

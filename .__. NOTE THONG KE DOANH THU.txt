@@ -46,6 +46,8 @@ Chức năng, tính năng còn:
 ////////////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)
 - Thu chi đã có chi tiết có thể sửa ko?  // KO nên cho sửa
 - Mặt vé điện tử file excel ko mở đc trên đt, có nên chuyển sang HTML?
+- Tìm kiếm ĐV theo từ khóa
+- Thêm khoảng thời gian ở Tổng quan, lọc dữ liệu trong Tổng quan
 
 
 

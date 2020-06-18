@@ -103,18 +103,21 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   };
 
   var getOtherFilter = function getOtherFilter() {
-    return [{
-      name: "user",
-      label: "Nhân viên",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
-        value: ""
-      }, "T\u1EA5t c\u1EA3"), nhanVien.map(function (nv) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
-          key: nv.username,
-          value: nv.username
-        }, nv.username + " - " + nv.ho_ten);
-      }))
-    }];
+    return [// {
+      //     name: "user",
+      //     label: "Nhân viên",
+      //     render: (
+      //         <Select>
+      //             <Option value="">Tất cả</Option>
+      //             {nhanVien.map(nv => (
+      //                 <Option key={nv.username} value={nv.username}>
+      //                     {nv.username + " - " + nv.ho_ten}
+      //                 </Option>
+      //             ))}
+      //         </Select>
+      //     )
+      // }
+    ];
   };
 
   var exportDS = function exportDS(data, selectedKeys) {

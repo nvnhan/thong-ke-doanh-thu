@@ -1490,6 +1490,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
 var filters = [{
+  name: "q",
+  label: "Tìm kiếm",
+  render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    placeholder: "M\xE3 gi\u1EEF ch\u1ED7, S\u1ED1 v\xE9, T\xEAn kh\xE1ch"
+  })
+}, {
   name: "sb",
   label: "Sân bay",
   render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {

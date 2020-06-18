@@ -38,7 +38,7 @@ const columns = [
     {
         title: "TG đi",
         dataIndex: "ngay_gio_di",
-        width: 90,
+        width: 120,
         sorter: (a, b) =>
             moment(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() -
             moment(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix()
@@ -46,12 +46,12 @@ const columns = [
     {
         title: "Chặng đi",
         dataIndex: "chang_di",
-        width: 90
+        width: 85
     },
     {
         title: "TG về",
         dataIndex: "ngay_gio_ve",
-        width: 90,
+        width: 120,
         sorter: (a, b) =>
             moment(a.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix() -
             moment(b.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix()
@@ -59,7 +59,7 @@ const columns = [
     {
         title: "Chặng về",
         dataIndex: "chang_ve",
-        width: 90
+        width: 85
     },
     {
         title: "Tổng tiền",
@@ -98,12 +98,6 @@ const columns = [
         title: "Thanh toán",
         dataIndex: "ngay_thanh_toan",
         width: 90
-    },
-    {
-        title: "Người nhập",
-        dataIndex: "username",
-        width: 90,
-        optFilter: true
     }
 ];
 

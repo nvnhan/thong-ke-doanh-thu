@@ -67,20 +67,20 @@ const List = React.memo(props => {
 
     const getOtherFilter = () => {
         return [
-            {
-                name: "user",
-                label: "Nhân viên",
-                render: (
-                    <Select>
-                        <Option value="">Tất cả</Option>
-                        {nhanVien.map(nv => (
-                            <Option key={nv.username} value={nv.username}>
-                                {nv.username + " - " + nv.ho_ten}
-                            </Option>
-                        ))}
-                    </Select>
-                )
-            }
+            // {
+            //     name: "user",
+            //     label: "Nhân viên",
+            //     render: (
+            //         <Select>
+            //             <Option value="">Tất cả</Option>
+            //             {nhanVien.map(nv => (
+            //                 <Option key={nv.username} value={nv.username}>
+            //                     {nv.username + " - " + nv.ho_ten}
+            //                 </Option>
+            //             ))}
+            //         </Select>
+            //     )
+            // }
         ];
     };
 

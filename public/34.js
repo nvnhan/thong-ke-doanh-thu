@@ -39,7 +39,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
           width: "100%"
         },
         locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
-        format: "DD/MM/YYYY"
+        format: "DD/MM/YYYY",
+        allowClear: false
       })
     }];
   };

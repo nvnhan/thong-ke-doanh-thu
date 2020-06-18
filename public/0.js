@@ -412,6 +412,11 @@ var FilterBox = react__WEBPACK_IMPORTED_MODULE_4___default.a.memo(function (prop
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      expandFilter = _useState2[0],
+      setExpandFilter = _useState2[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
     form.setFieldsValue(_objectSpread({}, filterInitialValue, {
       thoiGian: [moment__WEBPACK_IMPORTED_MODULE_3___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_3___default()().endOf("month")]
@@ -449,7 +454,7 @@ var FilterBox = react__WEBPACK_IMPORTED_MODULE_4___default.a.memo(function (prop
     span: 24,
     md: 16,
     lg: 12,
-    xl: 7
+    xl: 9
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     name: "thoiGian",
     label: "Th\u1EDDi gian",
@@ -462,6 +467,7 @@ var FilterBox = react__WEBPACK_IMPORTED_MODULE_4___default.a.memo(function (prop
       xl: 18
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(RangePicker, {
+    allowClear: false,
     locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_2__["default"],
     style: {
       width: "100%"
@@ -473,7 +479,7 @@ var FilterBox = react__WEBPACK_IMPORTED_MODULE_4___default.a.memo(function (prop
     },
     format: "DD/MM/YYYY",
     placeholder: ["Từ ngày", "đến ngày"]
-  }))), !_.isEmpty(otherFilter) && otherFilter.map(function (filter) {
+  }))), !_.isEmpty(otherFilter) && expandFilter && otherFilter.map(function (filter) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
       span: 12,
       md: 8,
@@ -489,7 +495,12 @@ var FilterBox = react__WEBPACK_IMPORTED_MODULE_4___default.a.memo(function (prop
     md: 8,
     lg: 6,
     xl: 5
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, !_.isEmpty(otherFilter) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    onClick: function onClick() {
+      return setExpandFilter(!expandFilter);
+    },
+    type: "dashed"
+  }, expandFilter ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["MinusOutlined"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["PlusOutlined"], null)), "\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     htmlType: "submit"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["FilterOutlined"], null), "L\u1ECDc")))));
 });

@@ -1,8 +1,8 @@
-import { FilterOutlined } from "@ant-design/icons";
+import { FilterOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { Button, Col, DatePicker, Form, Row } from "antd";
 import locale from "antd/es/date-picker/locale/vi_VN";
 import moment from "moment";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { parseValues } from "../../utils";
 import "./FilterBox.scss";
 const { RangePicker } = DatePicker;
@@ -10,6 +10,7 @@ const { RangePicker } = DatePicker;
 const FilterBox = React.memo(props => {
     const { onFilter, tuNgayDenNgay, otherFilter, filterInitialValue } = props;
     const [form] = Form.useForm();
+    const [expandFilter, setExpandFilter] = useState(false);
 
     useEffect(() => {
         form.setFieldsValue({
@@ -40,7 +41,7 @@ const FilterBox = React.memo(props => {
             >
                 <Row gutter={[5, 5]}>
                     {tuNgayDenNgay && (
-                        <Col span={24} md={16} lg={12} xl={7}>
+                        <Col span={24} md={16} lg={12} xl={9}>
                             <Form.Item
                                 name="thoiGian"
                                 label="Thời gian"
@@ -48,6 +49,7 @@ const FilterBox = React.memo(props => {
                                 wrapperCol={{ span: 20, xl: 18 }}
                             >
                                 <RangePicker
+                                    allowClear={false}
                                     locale={locale}
                                     style={{ width: "100%" }}
                                     ranges={{
@@ -71,6 +73,7 @@ const FilterBox = React.memo(props => {
                         </Col>
                     )}
                     {!_.isEmpty(otherFilter) &&
+                        expandFilter &&
                         otherFilter.map(filter => (
                             <Col
                                 span={12}
@@ -88,6 +91,18 @@ const FilterBox = React.memo(props => {
                             </Col>
                         ))}
                     <Col span={12} md={8} lg={6} xl={5}>
+                        {!_.isEmpty(otherFilter) && (
+                            <Button
+                                onClick={() => setExpandFilter(!expandFilter)} type="dashed"
+                            >
+                                {expandFilter ? (
+                                    <MinusOutlined />
+                                ) : (
+                                    <PlusOutlined />
+                                )}
+                            </Button>
+                        )}
+                        &nbsp;
                         <Button htmlType="submit">
                             <FilterOutlined />
                             Lọc

@@ -73,6 +73,7 @@ const index = props => {
                         ]}
                     >
                         <RangePicker
+                            allowClear={false}
                             locale={locale}
                             style={{ width: "100%" }}
                             ranges={{

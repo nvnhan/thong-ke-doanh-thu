@@ -24,20 +24,16 @@ class DatVeController extends BaseController
             $objs = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else if (empty($request->dd))
             $objs = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
-        else $objs = DatVe::query();        // Co Dinh Danh thi ko xet tu ngay den ngay
-
-        if (!$request->user()->admin)
-            $objs = $objs->where('username', $request->user()->username);
+        else $objs = DatVe::ofUser($request->user());        // Co Dinh Danh thi ko xet tu ngay den ngay
 
         // Lọc theosân bay
-        if (!empty($request->sb)) {
+        if ($request->sb) {
             $sbqt = SanBay::where('phan_loai', '!=', 'Việt Nam')->pluck('ma_san_bay');
             if ($request->sb == 'qt')
-                $objs = $objs
-                    ->whereIn('sb_di', $sbqt)
+                $objs = $objs->where(fn ($query) => $query->whereIn('sb_di', $sbqt)
                     ->orWhereIn('sb_di1', $sbqt)
                     ->orWhereIn('sb_ve', $sbqt)
-                    ->orWhereIn('sb_ve1', $sbqt);
+                    ->orWhereIn('sb_ve1', $sbqt));
             else if ($request->sb == 'qn')
                 $objs = $objs->whereNotIn('sb_di', $sbqt)
                     ->whereNotIn('sb_di1', $sbqt)
@@ -45,13 +41,18 @@ class DatVeController extends BaseController
                     ->whereNotIn('sb_ve1', $sbqt);
         }
 
-        if (!empty($request->xv)) {
+        if ($request->xv) {
             if ($request->xv == 1) $objs = $objs->where('chua_xuat_ve', false);
             else if ($request->xv == -1) $objs = $objs->where('chua_xuat_ve', true);
         }
 
-        if (!empty($request->dd))
+        if ($request->dd)
             $objs = $objs->where('dinh_danh', $request->dd);
+
+        if ($request->q)
+            $objs = $objs->where(fn ($query) => $query->where('ma_giu_cho', 'LIKE', "%$request->q%")
+                ->orWhere('so_ve', 'LIKE', "%$request->q%")
+                ->orWhere('ten_khach', 'LIKE', "%$request->q%"));
 
         return $this->sendResponse($objs->get(), "DatVe retrieved successfully");
     }
@@ -184,7 +185,7 @@ class DatVeController extends BaseController
 
         // Just only login in API, 
         // Get User ID with API for GMAIL Client
-        
+
         if ($disk->exists($file)) {
             $data = ThemMail::get_all_mail($request);
             return $this->sendResponse($data, "Gmail retrieved successfully");

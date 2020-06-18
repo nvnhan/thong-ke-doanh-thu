@@ -21,6 +21,7 @@ const List = React.memo(props => {
                         }}
                         locale={locale}
                         format="DD/MM/YYYY"
+                        allowClear={false}
                     />
                 )
             }

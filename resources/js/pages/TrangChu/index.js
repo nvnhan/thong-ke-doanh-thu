@@ -1,14 +1,22 @@
+import { Button, Col, DatePicker, Form, Row } from "antd";
+import locale from "antd/es/date-picker/locale/vi_VN";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { Row, Col } from "antd";
+import { parseValues } from "../../utils";
+const { RangePicker } = DatePicker;
 
 const TrangChu = React.memo(props => {
+    const [form] = Form.useForm();
     const [data, setData] = useState({
         datve: [],
         thongtinve: []
     });
 
     useEffect(() => {
+        form.setFieldsValue({
+            thoiGian: [moment().startOf("month"), moment().endOf("month")]
+        });
         axios
             .get("/api/trang-chu")
             .then(response => {
@@ -16,6 +24,23 @@ const TrangChu = React.memo(props => {
             })
             .catch(error => console.log(error));
     }, []);
+
+    const onFinish = () => {
+        let values = form.getFieldsValue();
+        if (values.hasOwnProperty("thoiGian")) {
+            values = Object.assign(values, {
+                bat_dau: values.thoiGian[0],
+                ket_thuc: values.thoiGian[1]
+            });
+            delete values.thoiGian;
+        }
+        axios
+            .get("/api/trang-chu", { params: parseValues(values) })
+            .then(response => {
+                if (response.data.success) setData(response.data.data);
+            })
+            .catch(error => console.log(error));
+    };
 
     const monthChartData = {
         labels: data.datve.ngay_thangs,
@@ -57,7 +82,7 @@ const TrangChu = React.memo(props => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <Row gutter={[16, 16]}>
                 <Col span={24} md={12}>
                     <div className="chart-card">
@@ -69,8 +94,7 @@ const TrangChu = React.memo(props => {
                                 legend: { position: "bottom" },
                                 title: {
                                     display: true,
-                                    text:
-                                        "Số lượng vé đặt / vé thanh toán trong tháng",
+                                    text: "Số lượng vé đặt / vé thanh toán",
                                     fontSize: 14
                                 },
                                 tooltips: {
@@ -115,7 +139,7 @@ const TrangChu = React.memo(props => {
                                 legend: { position: "bottom" },
                                 title: {
                                     display: true,
-                                    text: "Thông tin vé trong tháng",
+                                    text: "Thông tin vé",
                                     fontSize: 14
                                 },
                                 tooltips: {
@@ -151,7 +175,50 @@ const TrangChu = React.memo(props => {
                     </div>
                 </Col>
             </Row>
-        </React.Fragment>
+
+            <Form
+                form={form}
+                onFinish={onFinish}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+            >
+                <Row gutter={[16, 16]}>
+                    <Col span={24} md={16} lg={12} xl={9}>
+                        <Form.Item
+                            name="thoiGian"
+                            label="Thời gian"
+                            labelCol={{ span: 4, xl: 6 }}
+                            wrapperCol={{ span: 20, xl: 18 }}
+                        >
+                            <RangePicker
+                                allowClear={false}
+                                locale={locale}
+                                style={{ width: "100%" }}
+                                ranges={{
+                                    "Hôm nay": [
+                                        moment().startOf("day"),
+                                        moment().endOf("day")
+                                    ],
+                                    "Tuần này": [
+                                        moment().startOf("week"),
+                                        moment().endOf("week")
+                                    ],
+                                    "Tháng này": [
+                                        moment().startOf("month"),
+                                        moment().endOf("month")
+                                    ]
+                                }}
+                                format="DD/MM/YYYY"
+                                placeholder={["Từ ngày", "đến ngày"]}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12} md={8} lg={6} xl={5}>
+                        <Button htmlType="submit">Lọc</Button>
+                    </Col>
+                </Row>
+            </Form>
+        </>
     );
 });
 

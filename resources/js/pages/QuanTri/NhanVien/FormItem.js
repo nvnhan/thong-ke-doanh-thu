@@ -4,7 +4,7 @@ import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 const { Option } = Select;
 
-const form = ({ phanQuyen = false }) => {
+const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
     const getRoleDetail = () => {
         return (
             <>
@@ -20,7 +20,7 @@ const form = ({ phanQuyen = false }) => {
             <Col span={12}>
                 <Form.Item
                     name="username"
-                    label="Tài khoản"
+                    label="Tài khoản (ko sửa)"
                     rules={[
                         { required: true, message: "Nhập đầy đủ thông tin!" }
                     ]}
@@ -69,24 +69,29 @@ const form = ({ phanQuyen = false }) => {
                     />
                 </Form.Item>
             </Col>
-            <Col span={12}>
-                <Form.Item
-                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
-                    name="tour_visa"
-                    valuePropName="checked"
-                >
-                    <Checkbox>Tour - Visa</Checkbox>
-                </Form.Item>
-            </Col>
-            <Col span={12}>
-                <Form.Item
-                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
-                    name="ban_hang"
-                    valuePropName="checked"
-                >
-                    <Checkbox>Bán hàng</Checkbox>
-                </Form.Item>
-            </Col>
+            {tourVisa && (
+                <Col span={12}>
+                    <Form.Item
+                        wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                        name="tour_visa"
+                        valuePropName="checked"
+                    >
+                        <Checkbox>Tour - Visa</Checkbox>
+                    </Form.Item>
+                </Col>
+            )}
+
+            {banHang && (
+                <Col span={12}>
+                    <Form.Item
+                        wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                        name="ban_hang"
+                        valuePropName="checked"
+                    >
+                        <Checkbox>Bán hàng</Checkbox>
+                    </Form.Item>
+                </Col>
+            )}
             {phanQuyen && (
                 <Col span={12}>
                     <Form.Item name="phan_quyen" label="Phân quyền">

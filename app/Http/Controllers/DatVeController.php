@@ -122,14 +122,15 @@ class DatVeController extends BaseController
         $text = $request->text;
         $lines = explode("\n",  $text);
         $data = [];
+        // return ThemText::parse_vn($lines, $request);
         //TODO: Xử lý text các phần còn lại
         //
         if (strpos($text, "Bamboo Airways") !== false)
             $data = ThemText::parse_bamboo($lines, $request);
         // else if (strpos($text, "Các chuyến bay của bạn") !== false)
         //     parseJetsMail();
-        // else if (strpos($text, "VIETNAM AIRLINES") !== false)
-        //     parseVNMail();
+        else if (strpos($text, "VIETNAM AIRLINES") !== false)
+            $data = ThemText::parse_vn_mail($lines, $request);
         else if (strlen(trim($lines[0])) === 8 || strpos($text, "Thông tin chuyến bay") !== false || strpos($text, "Flight Information") !== false)
             $data = ThemText::parse_vj($lines, $request);
         else if (strpos($lines[1], '1.1') !== false)

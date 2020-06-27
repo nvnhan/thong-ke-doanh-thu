@@ -331,8 +331,9 @@ var ListForm = function ListForm(props) {
 
   var doInsertRow = function doInsertRow(response) {
     if (response.data.success) {
-      var newData = [].concat(_toConsumableArray(data), [response.data.data]); // Thêm object vào list lấy từ state
+      var newData = [].concat(_toConsumableArray(data), _toConsumableArray(response.data.data)); // Thêm object vào list lấy từ state
 
+      console.log("doInsertRow -> newData", newData);
       setState({
         data: newData
       });

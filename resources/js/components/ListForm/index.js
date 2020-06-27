@@ -146,7 +146,8 @@ const ListForm = props => {
 
     const doInsertRow = response => {
         if (response.data.success) {
-            const newData = [...data, response.data.data]; // Thêm object vào list lấy từ state
+            const newData = [...data, ...response.data.data]; // Thêm object vào list lấy từ state
+            console.log("doInsertRow -> newData", newData)
             setState({
                 data: newData
             });

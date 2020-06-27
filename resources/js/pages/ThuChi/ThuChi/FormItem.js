@@ -89,7 +89,8 @@ const form = React.memo(props => {
             <Col span={12}>
                 <Form.Item name="id_tai_khoan_di" label="Tài khoản chi">
                     <Select
-                        showSearch allowClear
+                        showSearch
+                        allowClear
                         placeholder="Chọn tài khoản"
                         filterOption={(input, option) => {
                             if (!option.children) return false;
@@ -108,12 +109,12 @@ const form = React.memo(props => {
                 <Form.Item
                     name="id_tai_khoan_den"
                     label="Nơi nhận"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Nhập đầy đủ thông tin!"
-                        }
-                    ]}
+                    // rules={[
+                    //     {
+                    //         required: true,
+                    //         message: "Nhập đầy đủ thông tin!"
+                    //     }
+                    // ]}
                 >
                     <Select
                         showSearch
@@ -134,7 +135,8 @@ const form = React.memo(props => {
             <Col span={12}>
                 <Form.Item name="id_khach_hang" label="Khách hàng">
                     <Select
-                        showSearch allowClear
+                        showSearch
+                        allowClear
                         placeholder="Chọn khách hàng"
                         filterOption={(input, option) => {
                             if (!option.children) return false;

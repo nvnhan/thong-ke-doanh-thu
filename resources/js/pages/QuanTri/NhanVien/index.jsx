@@ -80,7 +80,17 @@ class List extends PureComponent {
                 tableSize={{ x: 1100 }}
                 modalWidth={800}
                 formTemplate={
-                    <FormItem phanQuyen={this.props.authUser.admin} />
+                    <FormItem
+                        phanQuyen={this.props.authUser.admin}
+                        banHang={
+                            this.props.authUser.admin ||
+                            this.props.authUser.ban_hang
+                        }
+                        tourVisa={
+                            this.props.authUser.admin ||
+                            this.props.authUser.tour_visa
+                        }
+                    />
                 }
                 formInitialValues={{ phan_quyen: 0, actived: true }}
             />

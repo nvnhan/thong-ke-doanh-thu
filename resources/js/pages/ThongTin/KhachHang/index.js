@@ -7,7 +7,10 @@ const List = React.memo(() => {
     const [phanLoai, setPhanLoai] = useState([]);
 
     const onChangeData = data => {
-        let phanLoai = [...new Set(data.map(x => x.phan_loai))];
+        let phanLoai = [
+            "Thu Chi ngoài",
+            ...new Set([...data.map(x => x.phan_loai)])
+        ];
         setPhanLoai(phanLoai);
     };
 

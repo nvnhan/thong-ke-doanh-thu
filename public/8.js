@@ -162,11 +162,13 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     span: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     name: "id_tai_khoan_den",
-    label: "N\u01A1i nh\u1EADn",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
+    label: "N\u01A1i nh\u1EADn" // rules={[
+    //     {
+    //         required: true,
+    //         message: "Nhập đầy đủ thông tin!"
+    //     }
+    // ]}
+
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
     showSearch: true,
     placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",

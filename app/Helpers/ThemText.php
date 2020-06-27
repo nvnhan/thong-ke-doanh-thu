@@ -274,8 +274,9 @@ class ThemText
         #endregion
 
         #region Chuyến bay thứ hai
-        $line = trim($lines[$i++]);
+        $line = trim($lines[$i]);
         if (preg_match('/\d/', $line)) {
+            $i++;
             $line = str_replace("VN ", "VN", $line);
             $line = str_replace("VN ", "VN", $line);
             $line = str_replace("VN ", "VN", $line);
@@ -305,9 +306,6 @@ class ThemText
         }
         #endregion
 
-        if (strpos($lines[$i], "OPERATED BY") !== false || strpos($lines[$i], "DCVN") !== false)
-            $i++;
-
         $i++;
         $line = trim($lines[$i++]);
         if (strpos($line, '-') !== false)         // Nếu có ngày đặt
@@ -325,8 +323,7 @@ class ThemText
         // Số vé
         $so_ve = [];
         for (; $i < count($lines); $i++) {
-            preg_match('/\d{13}/', $lines[$i], $matches);
-            if (count($matches) > 0)
+            if (preg_match('/\d{13}/', $lines[$i], $matches))
                 $so_ve[] = $matches[0];
             if (count($so_ve) === count($hanh_khach))
                 break;
@@ -354,7 +351,130 @@ class ThemText
                 $result[] = $obj;
                 break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
             }
-            
+
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $obj->refresh();        // Reload object from sql
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Parse Mail VietNam Airline
+     */
+    public static function parse_vn_mail($lines, Request $request)
+    {
+        $hanh_khach = [];
+        $so_ve = [];
+        $i = 0;
+        $line = "";
+        $tmp = new stdClass;
+        $tmp->ma_giu_cho = trim($lines[0]);
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "VN";
+        $tmp->loai_tuoi = 0;
+        $tmp->ngay_thang = date('Y-m-d');
+
+        #region Chuyến bay đầu tiên
+        for ($i = 1; $i < count($lines); $i++)        // Tên khách từ hàng thứ 2 trở đi
+        {
+            $line = $lines[$i];
+            if (preg_match('/VN( ?)\d{3,4}/', $line, $matches)) {
+                $tmp->cb_di = $matches[0];
+
+                $line = $lines[++$i];       // Next line: CONFIRMED	Saturday, 20 June
+                preg_match('/\d+/', $line, $matches1); // 20
+                $iday = $matches1[0];
+                $arr = explode(' ', $line);
+                $month = end($arr);      // June
+                $imonth = array_search($month, Util::$thang_full) + 1;
+
+                preg_match('/[A-Z]{3}/', $lines[++$i], $matches1);      // Departure:	SGN HO CHI MINH CITY, VIETNAM
+                $tmp->sb_di = $matches1[0];
+
+                preg_match('/(\d+)\:(\d+)/', $lines[++$i], $matches1);
+                $tmp->ngay_gio_di = date('Y') . "-$imonth-$iday $matches1[1]:$matches1[2]:00";
+                $i++;
+                while (empty($tmp->sb_di1))
+                    if (preg_match('/\b[A-Z]{3}\b/', $lines[++$i], $matches1))
+                        $tmp->sb_di1 = $matches1[0];
+
+                break;
+            }
+        }
+        #endregion
+
+        #region Chuyến bay thứ hai
+        $tmpi = $i;
+        for ($i; $i < count($lines); $i++)        // Tên khách từ hàng thứ 2 trở đi
+        {
+            $line = $lines[$i];
+            if (preg_match('/VN( ?)\d{3,4}/', $line, $matches)) {
+                $tmp->cb_ve = $matches[0];
+
+                $line = $lines[++$i];       // Next line: CONFIRMED	Saturday, 20 June
+                preg_match('/\d+/', $line, $matches1); // 20
+                $iday = $matches1[0];
+                $arr = explode(' ', $line);
+                $month = end($arr);      // June
+                $imonth = array_search($month, Util::$thang_full) + 1;
+
+                preg_match('/[A-Z]{3}/', $lines[++$i], $matches1);      // Departure:	SGN HO CHI MINH CITY, VIETNAM
+                $tmp->sb_ve = $matches1[0];
+
+                preg_match('/(\d+)\:(\d+)/', $lines[++$i], $matches1);
+                $tmp->ngay_gio_ve = date('Y') . "-$imonth-$iday $matches1[1]:$matches1[2]:00";
+                $i++;
+                while (empty($tmp->sb_ve1))
+                    if (preg_match(
+                        '/\b[A-Z]{3}\b/',
+                        $lines[++$i],
+                        $matches1
+                    ))
+                        $tmp->sb_ve1 = $matches1[0];
+
+                break;
+            }
+        }
+        #endregion
+
+        for ($i = $tmpi; $i < count($lines); $i++) {
+            $line = trim($lines[$i]);
+            if (strpos($line, 'Your ticket') !== false || strpos($line, 'Số vé') !== false) {
+                $i++;
+                for ($i; $i < count($lines); $i++) {
+                    $arr = explode(':', $lines[$i]);         // Mrs Thi Long Nguyen: 7382440537326
+                    $hanh_khach[] = DatVeHelper::remove_prefix_name($arr[0]);
+                    $so_ve[] = trim($arr[1]);
+                }
+                break;
+            }
+        }
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            if (count($so_ve) > $j)
+                $obj->so_ve = $so_ve[$j];
+            else
+                $obj->so_ve = env('SO_VE_VN_MAC_DINH');
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
+
+            // Chung code???
+            if ($obj->gia_net === 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+
             $obj->ten_khach = $hanh_khach[$j];
             $obj->save();
             $obj->refresh();        // Reload object from sql

@@ -47,18 +47,18 @@ class AuthController extends BaseController
 
         // Kiểm tra đăng nhập
         if (Hash::check($req->password, $us->password)) {
-            if ($req->ip) { // Tool
-                if (!$us->tool)
-                    return response()->json(array('message' => 'You dont have permission'), 400);
-                $us->clientapi = $req->ip;
-                $us->save();
-            } else if ($req->desktop) { // App
-                if (!$us->app)
-                    return response()->json(array('message' => 'You dont have permission'), 400);
-                $us->desktop = $req->desktop;
-                $us->save();
-            }
-
+            // if ($req->ip) { // Tool
+            //     if (!$us->tool)
+            //         return response()->json(array('message' => 'You dont have permission'), 400);
+            //     $us->clientapi = $req->ip;
+            //     $us->save();
+            // } else if ($req->desktop) { // App
+            //     if (!$us->app)
+            //         return response()->json(array('message' => 'You dont have permission'), 400);
+            //     $us->desktop = $req->desktop;
+            //     $us->save();
+            // }
+            // $token = $us->createToken('App/Tool login')->accessToken;
             return response()->json(['username' => $us->username, 'hoten' => $us->ho_ten, 'ngayhethan' => $us->ngay_het_han]);
         } else
             return response()->json(array('message' => 'Username/Email and Password mismatch'), 400);
@@ -72,10 +72,16 @@ class AuthController extends BaseController
             if (Hash::check($request->password, $user->password)) {
                 if ($user->actived) {
                     if (empty($user->ngay_het_han) || now() < $user->ngay_het_han) {
-                        $response = $user->toArray();
-                        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                        $response['token'] = $token;
-                        return $this->sendResponse($response, 'Đăng nhập thành công');
+                        $tokens = $user->tokens()
+                            ->where('name', 'Web API login')
+                            ->where(fn ($query) => $query->where('revoked', 0)->orWhere('expires_at', '<=', date('Y-m-d H:i:s')))->count();
+                        if ($tokens <= 0) {
+                            $response = $user->toArray();
+                            $token = $user->createToken('Web API login')->accessToken;
+                            $response['token'] = $token;
+                            return $this->sendResponse($response, 'Đăng nhập thành công');
+                        } else
+                            return $this->sendError("Tài khoản đã đăng nhập trên thiết bị khác", []);
                     } else
                         return $this->sendError("Tài khoản đã hết hạn sử dụng", []);
                 } else

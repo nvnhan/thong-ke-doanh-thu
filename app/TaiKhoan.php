@@ -18,7 +18,12 @@ class TaiKhoan extends Model
         'phi_bb' => 'float',
     ];
 
-    protected $fillable = ['ky_hieu', 'mo_ta', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb', 'mst', 'dia_chi', 'email', 'sdt', 'so_du_ky_truoc', 'ghi_chu'];
+    protected $fillable = [
+        'ky_hieu', 'mo_ta', 'phan_loai',
+        'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb',
+        'mst', 'dia_chi', 'email', 'sdt',
+        'so_du_ky_truoc', 'ngay_tao', 'ghi_chu'
+    ];
 
     public static function boot()
     {

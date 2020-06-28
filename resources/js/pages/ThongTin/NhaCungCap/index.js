@@ -1,9 +1,10 @@
 import { AppstoreAddOutlined } from "@ant-design/icons";
+import moment from "moment";
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
-import FormItem from "./FormItem";
 import { vndFormater } from "../../../utils";
+import FormItem from "./FormItem";
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
@@ -26,6 +27,9 @@ const List = React.memo(props => {
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
+            <li>
+                Email: {record.email}. MST: {record.mst}
+            </li>
             <li>Phí thu VN: {vndFormater.format(record.phi_vn)}</li>
             <li>Phí thu VJ: {vndFormater.format(record.phi_vj)}</li>
             <li>Phí thu Jets: {vndFormater.format(record.phi_jets)}</li>
@@ -60,20 +64,10 @@ const List = React.memo(props => {
             width: 120
         },
         {
-            title: "Email",
-            dataIndex: "email",
-            width: 150
-        },
-        {
             title: "Địa chỉ",
             dataIndex: "dia_chi",
             ellipsis: true,
             width: 170
-        },
-        {
-            title: "MST",
-            dataIndex: "mst",
-            width: 120
         },
         {
             title: "Số dư ban đầu",
@@ -81,51 +75,6 @@ const List = React.memo(props => {
             render: number => vndFormater.format(number),
             width: 120
         },
-        // {
-        //     title: "Phí VN",
-        //     dataIndex: "phi_vn",
-        //     render: number =>
-        //         new Intl.NumberFormat("vi-VN", {
-        //             style: "currency",
-        //             currency: "VND"
-        //         }).format(number),
-        //     width: 120
-        // },
-        // {
-        //     title: "Phí VJ",
-        //     dataIndex: "phi_vj",
-        //     render: number =>
-        //         new Intl.NumberFormat("vi-VN", {
-        //             style: "currency",
-        //             currency: "VND"
-        //         }).format(number),
-        //     width: 120
-        // },
-        // {
-        //     title: "Phí Jets",
-        //     dataIndex: "phi_jets",
-        //     render: number =>
-        //         new Intl.NumberFormat("vi-VN", {
-        //             style: "currency",
-        //             currency: "VND"
-        //         }).format(number),
-        //     width: 120
-        // },
-        // {
-        //     title: "Phí BB",
-        //     dataIndex: "phi_bb",
-        //     render: number =>
-        //         new Intl.NumberFormat("vi-VN", {
-        //             style: "currency",
-        //             currency: "VND"
-        //         }).format(number),
-        //     width: 120
-        // },
-        // {
-        //     title: "Ngày tạo",
-        //     dataIndex: "ngay_tao",
-        //     width: 120
-        // },
         {
             title: "Ghi chú",
             dataIndex: "ghi_chu",
@@ -152,6 +101,7 @@ const List = React.memo(props => {
             modalWidth="1100px"
             formTemplate={<FormItem phanLoai={phanLoai} />}
             formInitialValues={{
+                ngay_tao: moment().format("DD/MM/YYYY"),
                 so_du_ky_truoc: 0,
                 phi_vn: 0,
                 phi_vj: 0,

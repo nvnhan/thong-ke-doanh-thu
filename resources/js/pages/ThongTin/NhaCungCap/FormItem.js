@@ -1,5 +1,7 @@
+import { AutoComplete, Col, Form, Input, InputNumber, Row } from "antd";
+import locale from "antd/es/date-picker/locale/vi_VN";
 import React from "react";
-import { Form, Input, InputNumber, Row, Col, AutoComplete } from "antd";
+import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 
 const form = React.memo(props => {
     const phanLoai = props.phanLoai || [];
@@ -160,6 +162,15 @@ const form = React.memo(props => {
                     </Form.Item>
                 </Col>
 
+                <Col span={24} md={8} sm={12}>
+                    <Form.Item name="ngay_tao" label="Ngày tạo">
+                        <MyDatePicker
+                            style={{ width: "100%" }}
+                            locale={locale}
+                            format="DD/MM/YYYY"
+                        />
+                    </Form.Item>
+                </Col>
                 <Col span={24} md={8} sm={12}>
                     <Form.Item name="ghi_chu" label="Ghi chú">
                         <Input />

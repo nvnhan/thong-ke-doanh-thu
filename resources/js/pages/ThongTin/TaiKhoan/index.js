@@ -1,6 +1,7 @@
 import React from "react";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
+import moment from "moment";
 
 const List = React.memo(() => {
     const columns = [
@@ -40,7 +41,10 @@ const List = React.memo(() => {
             columns={columns}
             tableSize={{ x: 600 }}
             formTemplate={<FormItem />}
-            formInitialValues={{ so_du_ky_truoc: 0 }}
+            formInitialValues={{
+                ngay_tao: moment().format("DD/MM/YYYY"),
+                so_du_ky_truoc: 0
+            }}
         />
     );
 });

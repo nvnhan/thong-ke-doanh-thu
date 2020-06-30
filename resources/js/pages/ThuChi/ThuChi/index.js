@@ -95,6 +95,13 @@ const List = React.memo(props => {
 
     const otherButtons = [
         {
+            key: "them-tu-file",
+            onClick: () =>
+                props.history.push({ pathname: "/thu-chi/them-file" }),
+            title: "Thêm từ file",
+            selectRequired: false
+        },
+        {
             key: "export",
             onClick: exportDS,
             title: "Xuất danh sách ra Excel"
@@ -115,7 +122,6 @@ const List = React.memo(props => {
                         <th colSpan={3}>Tổng cộng</th>
                         <td>{vndFormater.format(sumObj.so_tien)}</td>
                         <td>{vndFormater.format(sumObj.con_du)}</td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -172,7 +178,7 @@ const List = React.memo(props => {
             dataIndex: "ten_khach_hang",
             width: 120,
             optFilter: true
-        },
+        }
         // {
         //     title: "Người nhập",
         //     dataIndex: "username",

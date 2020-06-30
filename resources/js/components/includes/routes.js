@@ -5,6 +5,7 @@ import TrangChu from "../../pages/TrangChu";
 import NotFound from "../../pages/NotFound";
 
 const ThuChi = lazy(() => import("../../pages/ThuChi/ThuChi"));
+const ThemFileThuChi = lazy(() => import("../../pages/ThuChi/ThemFile"));
 const ThuChiChiTiet = lazy(() => import("../../pages/ThuChi/ThuChiChiTiet"));
 
 const DatVe = lazy(() => import("../../pages/VeMayBay/DatVe"));
@@ -57,10 +58,17 @@ const routes = [
     },
     {
         path: "/thu-chi",
-        exact: false,
+        exact: true,
         title: "Thu chi",
         menu: menus.THU_CHI,
         component: <ThuChi />
+    },
+    {
+        path: "/thu-chi/them-file",
+        exact: false,
+        title: "Thêm Thu chi từ Excel",
+        menu: "",
+        component: <ThemFileThuChi />
     },
     {
         path: "/thu-chi-chi-tiet",

@@ -105,6 +105,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::delete('thu-chi/deletes', 'ThuChiController@deletes');
     Route::resource('thu-chi', 'ThuChiController')->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::post('thu-chi/them-file', 'ThuChiController@themfile');
+
     Route::delete('thu-chi-chi-tiet/deletes', 'ThuChiChiTietController@deletes');
     Route::get('thu-chi-chi-tiet/doi-tuong', 'ThuChiChiTietController@doituong');
     Route::resource('thu-chi-chi-tiet', 'ThuChiChiTietController')->only(['index', 'store', 'destroy']);

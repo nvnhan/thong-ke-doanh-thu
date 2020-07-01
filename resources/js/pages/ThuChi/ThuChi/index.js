@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
-import FormItem from "./FormItem";
 import exportToExcel from "../../../utils/exportToExcel";
+import FormItem from "./FormItem";
 
 const List = React.memo(props => {
+    const dinh_danh = props.location.dd;
     const [state, setState] = useState({
         khachHang: [],
         taiKhoan: []
@@ -188,21 +189,32 @@ const List = React.memo(props => {
     ];
 
     return (
-        <ListForm
-            url="thu-chi"
-            filterBox
-            columns={columns}
-            tableSize={{ x: 1000 }}
-            modalWidth="800px"
-            formTemplate={<FormItem danhMuc={state} />}
-            formInitialValues={{
-                so_tien: 100000,
-                ngay_thang: moment().format("DD/MM/YYYY")
-            }}
-            otherButtons={otherButtons}
-            otherActions={thuChiAction}
-            renderSummary={renderSummary}
-        />
+        <>
+            {dinh_danh !== undefined && (
+                <div
+                    style={{ padding: "16px 20px 0", backgroundColor: "#fff" }}
+                >
+                    <b>Dữ liệu xử lý được:</b>
+                </div>
+            )}
+            <ListForm
+                url="thu-chi"
+                filter={dinh_danh && { dd: dinh_danh }}
+                filterBox={dinh_danh === undefined}
+                insertable={dinh_danh === undefined}
+                columns={columns}
+                tableSize={{ x: 1000 }}
+                modalWidth="800px"
+                formTemplate={<FormItem danhMuc={state} />}
+                formInitialValues={{
+                    so_tien: 100000,
+                    ngay_thang: moment().format("DD/MM/YYYY")
+                }}
+                otherButtons={otherButtons}
+                otherActions={thuChiAction}
+                renderSummary={renderSummary}
+            />
+        </>
     );
 });
 

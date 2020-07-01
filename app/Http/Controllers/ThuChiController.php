@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ThemFileThuChi;
 use App\ThuChi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ThuChiController extends BaseController
 {
@@ -94,5 +96,31 @@ class ThuChiController extends BaseController
         }
 
         return $this->sendError('Không xóa được', []);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function themfile(Request $request)
+    {
+        $cnt = 0;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $ext = strtolower($file->getClientOriginalExtension());
+            $dinh_danh = $file->getClientOriginalName() . time();
+            $file->storeAs('upload', "$dinh_danh.$ext"); // Upload file to storage/app/upload
+
+            if ($ext === 'xls' || $ext === 'xlsx')
+                $cnt = ThemFileThuChi::parse_excel($request, $dinh_danh, $ext);
+
+            Storage::delete("upload/$dinh_danh.$ext");
+        }
+
+        if ($cnt > 0)
+            return $this->sendResponse($dinh_danh, "Thêm mới thành công $cnt mục");
+        else return $this->sendError("Không xử lý được");
     }
 }

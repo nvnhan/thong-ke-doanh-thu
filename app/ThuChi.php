@@ -18,7 +18,8 @@ class ThuChi extends Model
 
     protected $fillable = [
         'ngay_thang', 'hang_muc', 'so_tien',
-        'id_tai_khoan_di', 'id_tai_khoan_den', 'id_khach_hang'
+        'id_tai_khoan_di', 'id_tai_khoan_den', 'id_khach_hang',
+        'username', 'dinh_danh'
     ];
 
     protected $appends = [

@@ -72,9 +72,12 @@ class AuthController extends BaseController
             if (Hash::check($request->password, $user->password)) {
                 if ($user->actived) {
                     if (empty($user->ngay_het_han) || now() < $user->ngay_het_han) {
+                        // Token chưa hủy & chưa hết hạn
                         $tokens = $user->tokens()
                             ->where('name', 'Web API login')
-                            ->where(fn ($query) => $query->where('revoked', 0)->orWhere('expires_at', '<=', date('Y-m-d H:i:s')))->count();
+                            ->where('revoked', 0)
+                            ->where('expires_at', '>=', date('Y-m-d H:i:s'))
+                            ->count();
                         if ($tokens <= 0) {
                             $response = $user->toArray();
                             $token = $user->createToken('Web API login')->accessToken;

@@ -160,7 +160,7 @@ class DatVeController extends BaseController
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $ext = strtolower($file->getClientOriginalExtension());
-            $dinh_danh = time();
+            $dinh_danh = $file->getClientOriginalName() . time();
             $file->storeAs('upload', "$dinh_danh.$ext"); // Upload file to storage/app/upload
 
             if ($ext === 'xls' || $ext === 'xlsx')

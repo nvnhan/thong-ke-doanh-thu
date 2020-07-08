@@ -18,7 +18,10 @@ const myReducer = (state = initialState, action) => {
                     if (response.data.success)
                         message.info(response.data.message);
                 })
-                .catch(error => console.log("Error Logout ", error));
+                .catch(error => {
+                    if (error.response.status !== 401)
+                        console.log("Error Logout ", error);
+                });
             // Remove token from localStorage
             localStorage.removeItem("token");
             state = initialState;

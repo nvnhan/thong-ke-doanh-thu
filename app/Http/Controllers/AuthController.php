@@ -72,19 +72,15 @@ class AuthController extends BaseController
             if (Hash::check($request->password, $user->password)) {
                 if ($user->actived) {
                     if (empty($user->ngay_het_han) || now() < $user->ngay_het_han) {
-                        // Token chưa hủy & chưa hết hạn
-                        $tokens = $user->tokens()
+                        // Delete all previous Tokens
+                        $user->tokens()
                             ->where('name', 'Web API login')
-                            ->where('revoked', 0)
-                            ->where('expires_at', '>=', date('Y-m-d H:i:s'))
-                            ->count();
-                        if ($tokens <= 0) {
-                            $response = $user->toArray();
-                            $token = $user->createToken('Web API login')->accessToken;
-                            $response['token'] = $token;
-                            return $this->sendResponse($response, 'Đăng nhập thành công');
-                        } else
-                            return $this->sendError("Tài khoản đã đăng nhập trên thiết bị khác", []);
+                            ->delete();
+
+                        $response = $user->toArray();
+                        $token = $user->createToken('Web API login')->accessToken;
+                        $response['token'] = $token;
+                        return $this->sendResponse($response, 'Đăng nhập thành công');
                     } else
                         return $this->sendError("Tài khoản đã hết hạn sử dụng", []);
                 } else

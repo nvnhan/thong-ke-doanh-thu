@@ -36,7 +36,8 @@ class MainContainer extends PureComponent {
                     }
                 })
                 .catch(error => {
-                    if (error.response.status === "401") {
+                    if (error.response.status === 401) {
+                        // Unauthorized
                         message.warn(
                             "Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại"
                         );

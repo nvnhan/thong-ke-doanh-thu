@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 // public routes
 Route::get('/login', 'AuthController@getApiLogin');         // Login in App or Extension
+Route::get('parcel', 'FooController@parcel');       // Parse excel text from extension
+
 Route::post('/login', 'AuthController@login')->name('login.api');
 Route::post('/register', 'AuthController@register')->name('register.api');
 

@@ -78,6 +78,15 @@ class MyHeader extends PureComponent {
                                     </React.Fragment>
                                 }
                             >
+                                <Menu.Item>
+                                    <span>
+                                        Số ngày đăng nhập còn lại:{" "}
+                                        {
+                                            this.props.authUser
+                                                .ngay_dang_nhap_con_lai
+                                        }
+                                    </span>
+                                </Menu.Item>
                                 <Menu.Item key="profile">
                                     <Link to="/cai-dat-ca-nhan">
                                         Cài đặt cá nhân
@@ -114,9 +123,18 @@ class MyHeader extends PureComponent {
                                 selectable={false}
                                 onClick={this.onClose}
                             >
+                                <Menu.Item>
+                                    <span>
+                                        Số ngày đăng nhập còn lại:{" "}
+                                        {
+                                            this.props.authUser
+                                                .ngay_dang_nhap_con_lai
+                                        }
+                                    </span>
+                                </Menu.Item>
                                 <Menu.Item key="profile">
-                                    <Link to="/thong-tin-ca-nhan">
-                                        Thông tin cá nhân
+                                    <Link to="/cai-dat-ca-nhan">
+                                        Cài đặt cá nhân
                                     </Link>
                                 </Menu.Item>
                                 <Menu.Item key="password">

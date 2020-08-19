@@ -64,6 +64,9 @@ class AuthController extends BaseController
             return response()->json(array('message' => 'Username/Email and Password mismatch'), 400);
     }
 
+    /**
+     * Login in web
+     */
     public function login(Request $request)
     {
         $user = User::where('username', $request->username)->first();
@@ -71,18 +74,30 @@ class AuthController extends BaseController
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 if ($user->actived) {
-                    if (empty($user->ngay_het_han) || now() < $user->ngay_het_han) {
+                    $today = date("Y-m-d");
+                    if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
+                        $user->ngay_dang_nhap = $today;
+                        $user->so_ngay_dang_nhap++;
+                    }
+                    $max_dn = intval(env('NGAY_DANG_NHAP_TOI_DA'));
+                    if ($user->so_ngay_dang_nhap <= $max_dn) {
+                        $user->save();
                         // Delete all previous Tokens
                         $user->tokens()
                             ->where('name', 'Web API login')
                             ->delete();
 
                         $response = $user->toArray();
+                        unset($response['khong_gioi_han_dang_nhap']);
+                        unset($response['so_ngay_dang_nhap']);
+                        unset($response['ngay_dang_nhap']);
+
                         $token = $user->createToken('Web API login')->accessToken;
                         $response['token'] = $token;
+                        $response['ngay_dang_nhap_con_lai'] = $max_dn - $user->so_ngay_dang_nhap;
                         return $this->sendResponse($response, 'Đăng nhập thành công');
                     } else
-                        return $this->sendError("Tài khoản đã hết hạn sử dụng", []);
+                        return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);
                 } else
                     return $this->sendError("Tài khoản không hoạt động. Vui lòng liên hệ quản trị viên", []);
             } else
@@ -90,13 +105,32 @@ class AuthController extends BaseController
         } else
             return $this->sendError('Tài khoản không tồn tại', []);
     }
-
+    /**
+     * Get user information
+     */
     public function user(Request $request)
     {
         $user = $request->user();
 
         if ($user) {
-            return $this->sendResponse($user, 'Get user successfully');
+            $today = date("Y-m-d");
+            if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
+                $user->ngay_dang_nhap = $today;
+                $user->so_ngay_dang_nhap++;
+            }
+            $max_dn = intval(env('NGAY_DANG_NHAP_TOI_DA'));
+            if ($user->so_ngay_dang_nhap <= $max_dn) {
+                $user->save();
+
+                $response = $user->toArray();
+                unset($response['khong_gioi_han_dang_nhap']);
+                unset($response['so_ngay_dang_nhap']);
+                unset($response['ngay_dang_nhap']);
+
+                $response['ngay_dang_nhap_con_lai'] = $max_dn - $user->so_ngay_dang_nhap;
+                return $this->sendResponse($response, 'Get user successfully');
+            } else
+                return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);
         } else
             return $this->sendError('Invalid token or is Revoked', []);
     }

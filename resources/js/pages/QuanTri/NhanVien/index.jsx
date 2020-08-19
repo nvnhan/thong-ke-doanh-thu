@@ -37,40 +37,38 @@ class List extends PureComponent {
                 width: 120
             },
             {
-                title: "Ngày hết hạn",
-                dataIndex: "ngay_het_han",
-                width: 90
-            },
-            {
-                title: "Quyền",
+                title: "Phân quyền",
                 dataIndex: "quyen",
                 optFilter: true,
-                width: 90
+                width: 80
             },
             {
                 title: "Tour - Visa",
                 dataIndex: "tour_visa",
                 render: bol => <Checkbox checked={bol} />,
-                width: 75
+                width: 70
             },
             {
                 title: "Bán hàng",
                 dataIndex: "ban_hang",
                 render: bol => <Checkbox checked={bol} />,
-                width: 75
+                width: 70
             },
             {
                 title: "Hoạt động",
                 dataIndex: "actived",
                 render: bol => <Checkbox checked={bol} />,
-                width: 75
-            },
-            {
-                title: "Ngày tạo",
-                dataIndex: "created_at",
-                width: 80
+                width: 70
             }
         ];
+
+        const expandedRowRender = record => (
+            <ul style={{ margin: 0 }}>
+                <li>Ngày đăng nhập cuối: {record.ngay_dang_nhap}</li>
+                <li>Tổng số ngày đăng nhập: {record.so_ngay_dang_nhap}</li>
+                <li>Ngày tạo tài khoản: {record.created_at}</li>
+            </ul>
+        );
 
         return (
             <ListForm
@@ -92,6 +90,7 @@ class List extends PureComponent {
                         }
                     />
                 }
+                expandedRowRender={expandedRowRender}
                 formInitialValues={{ phan_quyen: 0, actived: true }}
             />
         );

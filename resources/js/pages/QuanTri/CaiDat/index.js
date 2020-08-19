@@ -86,7 +86,13 @@ const index = props => {
                     </Col>
                 </Row>
 
-                <Row gutter={[12, 12]}>
+                <Row
+                    gutter={[12, 12]}
+                    style={{
+                        borderBottom: "1px solid rgba(0,0,0,.1)",
+                        margin: "0 0 12px"
+                    }}
+                >
                     <Col span={24} md={12}>
                         <Form.Item name="client_id" label="Client ID">
                             <Input />
@@ -97,7 +103,22 @@ const index = props => {
                             <Input />
                         </Form.Item>
                     </Col>
+                    <Col span={24} md={12}>
+                        <Form.Item
+                            name="dang_nhap_toi_da"
+                            label="Số ngày đăng nhập tối đa"
+                        >
+                            <InputNumber
+                                step={1}
+                                min={1}
+                                max={999}
+                                style={{ width: "100%" }}
+                            />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
+                <Row gutter={[12, 12]}>
                     <Col span={24} md={12}>
                         <Form.Item wrapperCol={{ md: { span: 16, offset: 8 } }}>
                             <Button htmlType="submit" type="primary">

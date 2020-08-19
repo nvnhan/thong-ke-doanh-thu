@@ -248,14 +248,10 @@ var List = /*#__PURE__*/function (_PureComponent) {
         ellipsis: true,
         width: 120
       }, {
-        title: "Ngày hết hạn",
-        dataIndex: "ngay_het_han",
-        width: 90
-      }, {
-        title: "Quyền",
+        title: "Phân quyền",
         dataIndex: "quyen",
         optFilter: true,
-        width: 90
+        width: 80
       }, {
         title: "Tour - Visa",
         dataIndex: "tour_visa",
@@ -264,7 +260,7 @@ var List = /*#__PURE__*/function (_PureComponent) {
             checked: bol
           });
         },
-        width: 75
+        width: 70
       }, {
         title: "Bán hàng",
         dataIndex: "ban_hang",
@@ -273,7 +269,7 @@ var List = /*#__PURE__*/function (_PureComponent) {
             checked: bol
           });
         },
-        width: 75
+        width: 70
       }, {
         title: "Hoạt động",
         dataIndex: "actived",
@@ -282,12 +278,17 @@ var List = /*#__PURE__*/function (_PureComponent) {
             checked: bol
           });
         },
-        width: 75
-      }, {
-        title: "Ngày tạo",
-        dataIndex: "created_at",
-        width: 80
+        width: 70
       }];
+
+      var expandedRowRender = function expandedRowRender(record) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
+          style: {
+            margin: 0
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\xE0y \u0111\u0103ng nh\u1EADp cu\u1ED1i: ", record.ngay_dang_nhap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "T\u1ED5ng s\u1ED1 ng\xE0y \u0111\u0103ng nh\u1EADp: ", record.so_ngay_dang_nhap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\xE0y t\u1EA1o t\xE0i kho\u1EA3n: ", record.created_at));
+      };
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
         url: "nhan-vien",
         selectable: false,
@@ -301,6 +302,7 @@ var List = /*#__PURE__*/function (_PureComponent) {
           banHang: this.props.authUser.admin || this.props.authUser.ban_hang,
           tourVisa: this.props.authUser.admin || this.props.authUser.tour_visa
         }),
+        expandedRowRender: expandedRowRender,
         formInitialValues: {
           phan_quyen: 0,
           actived: true

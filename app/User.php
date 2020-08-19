@@ -21,7 +21,7 @@ class User extends Authenticatable
         'dai_ly', 'sdt', 'dia_chi',
         'ct_ten', 'ct_sdt', 'ct_fax', 'ct_email', 'ct_dia_chi', 'ct_mst',
         'ngay_het_han', 'actived', 'phan_quyen',
-        'tour_visa', 'ban_hang'
+        'tour_visa', 'ban_hang', 'khong_gioi_han_dang_nhap'
     ];
 
     /**
@@ -42,7 +42,9 @@ class User extends Authenticatable
         'actived' => "boolean",
         'tour_visa' => "boolean",
         'ban_hang' => "boolean",
+        'khong_gioi_han_dang_nhap' => "boolean",
         'ngay_het_han' => 'datetime:d/m/Y',
+        'ngay_dang_nhap' => 'datetime:d/m/Y',
         'created_at' => 'datetime:d/m/Y',
         'updated_at' => 'datetime:H:i d/m/Y',
     ];

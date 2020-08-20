@@ -32,36 +32,37 @@ class AuthController extends BaseController
      */
     public function getApiLogin(Request $req)
     {
-        $us = User::where('username', $req->username)->first();
-        if (!$us)
-            return response()->json(array('message' => 'User does not exist'), 400);
-        if (!$us->actived)
-            return response()->json(array('message' => 'User inactived'), 400);
-
-        if ($us->ngay_het_han && $us->ngay_het_han <= date('Y-m-d'))
-            return response()->json(array('message' => 'Account has expired'), 400);
-        // if ($req->ip && $us->clientapi != '' && $us->clientapi != $req->ip)
-        //     return response()->json(array('message' => 'User is already logged in'), 400);
-        // if ($req->desktop && $us->desktop != '' && $us->desktop != $req->desktop)
-        //     return response()->json(array('message' => 'You have logged in with another computer'), 400);
-
+        $user = User::where('username', $req->username)->first();
+        if (!$user)
+            return $this->sendError('Account does not exist', [], 400);
         // Kiểm tra đăng nhập
-        if (Hash::check($req->password, $us->password)) {
-            // if ($req->ip) { // Tool
-            //     if (!$us->tool)
-            //         return response()->json(array('message' => 'You dont have permission'), 400);
-            //     $us->clientapi = $req->ip;
-            //     $us->save();
-            // } else if ($req->desktop) { // App
-            //     if (!$us->app)
-            //         return response()->json(array('message' => 'You dont have permission'), 400);
-            //     $us->desktop = $req->desktop;
-            //     $us->save();
-            // }
-            // $token = $us->createToken('App/Tool login')->accessToken;
-            return response()->json(['username' => $us->username, 'hoten' => $us->ho_ten, 'ngayhethan' => $us->ngay_het_han]);
+        if (!Hash::check($req->password, $user->password))
+            return $this->sendError('Username and Password mismatch', [], 400);
+        if (!$user->actived)
+            return $this->sendError('Account inactived', [], 400);
+
+        $today = date("Y-m-d");
+        if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
+            $user->ngay_dang_nhap = $today;
+            $user->so_ngay_dang_nhap++;
+        }
+        $max_dn = intval(env('NGAY_DANG_NHAP_TOI_DA'));
+        if ($user->so_ngay_dang_nhap <= $max_dn) {
+            $user->save();
+            // Delete all previous Tokens
+            $user->tokens()
+                ->where('name', 'Extension API login')
+                ->delete();
+
+            $token = $user->createToken('Extension API login')->accessToken;
+            return response()->json([
+                'username' => $user->username,
+                'hoten' => $user->ho_ten,
+                'songay' => $max_dn - $user->so_ngay_dang_nhap,
+                'token' => $token
+            ], 200);
         } else
-            return response()->json(array('message' => 'Username/Email and Password mismatch'), 400);
+            return $this->sendError("The account has run out of limited login attempts", [], 400);
     }
 
     /**

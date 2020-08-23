@@ -1,7 +1,5 @@
-import { Checkbox, Form, Input, Row, Col, Select } from "antd";
-import locale from "antd/es/date-picker/locale/vi_VN";
+import { Checkbox, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import React from "react";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 const { Option } = Select;
 
 const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
@@ -61,11 +59,15 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                 </Form.Item>
             </Col>
             <Col span={12}>
-                <Form.Item name="ngay_het_han" label="Ngày hết hạn">
-                    <MyDatePicker
+                <Form.Item
+                    name="so_ngay_dang_nhap"
+                    label="Ngày đăng nhập còn lại"
+                >
+                    <InputNumber
+                        step={1}
+                        min={0}
+                        max={9999}
                         style={{ width: "100%" }}
-                        locale={locale}
-                        format="DD/MM/YYYY"
                     />
                 </Form.Item>
             </Col>

@@ -91,7 +91,11 @@ class List extends PureComponent {
                     />
                 }
                 expandedRowRender={expandedRowRender}
-                formInitialValues={{ phan_quyen: 0, actived: true }}
+                formInitialValues={{
+                    phan_quyen: 0,
+                    actived: true,
+                    so_ngay_dang_nhap: 10
+                }}
             />
         );
     }

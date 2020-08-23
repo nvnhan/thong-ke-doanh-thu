@@ -44,10 +44,9 @@ class AuthController extends BaseController
         $today = date("Y-m-d");
         if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
             $user->ngay_dang_nhap = $today;
-            $user->so_ngay_dang_nhap++;
+            $user->so_ngay_dang_nhap--;
         }
-        $max_dn = intval(env('NGAY_DANG_NHAP_TOI_DA'));
-        if ($user->so_ngay_dang_nhap <= $max_dn) {
+        if ($user->so_ngay_dang_nhap >= 0) {
             $user->save();
             // Delete all previous Tokens
             $user->tokens()
@@ -58,7 +57,7 @@ class AuthController extends BaseController
             return response()->json([
                 'username' => $user->username,
                 'hoten' => $user->ho_ten,
-                'songay' => $max_dn - $user->so_ngay_dang_nhap,
+                'songay' => $user->so_ngay_dang_nhap,
                 'token' => $token
             ], 200);
         } else
@@ -78,10 +77,9 @@ class AuthController extends BaseController
                     $today = date("Y-m-d");
                     if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
                         $user->ngay_dang_nhap = $today;
-                        $user->so_ngay_dang_nhap++;
+                        $user->so_ngay_dang_nhap--;
                     }
-                    $max_dn = intval(env('NGAY_DANG_NHAP_TOI_DA'));
-                    if ($user->so_ngay_dang_nhap <= $max_dn) {
+                    if ($user->so_ngay_dang_nhap >= 0) {
                         $user->save();
                         // Delete all previous Tokens
                         $user->tokens()
@@ -95,7 +93,7 @@ class AuthController extends BaseController
 
                         $token = $user->createToken('Web API login')->accessToken;
                         $response['token'] = $token;
-                        $response['ngay_dang_nhap_con_lai'] = $max_dn - $user->so_ngay_dang_nhap;
+                        $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
                         return $this->sendResponse($response, 'Đăng nhập thành công');
                     } else
                         return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);
@@ -117,10 +115,9 @@ class AuthController extends BaseController
             $today = date("Y-m-d");
             if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
                 $user->ngay_dang_nhap = $today;
-                $user->so_ngay_dang_nhap++;
+                $user->so_ngay_dang_nhap--;
             }
-            $max_dn = intval(env('NGAY_DANG_NHAP_TOI_DA'));
-            if ($user->so_ngay_dang_nhap <= $max_dn) {
+            if ($user->so_ngay_dang_nhap >= 0) {
                 $user->save();
 
                 $response = $user->toArray();
@@ -128,7 +125,7 @@ class AuthController extends BaseController
                 unset($response['so_ngay_dang_nhap']);
                 unset($response['ngay_dang_nhap']);
 
-                $response['ngay_dang_nhap_con_lai'] = $max_dn - $user->so_ngay_dang_nhap;
+                $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
                 return $this->sendResponse($response, 'Get user successfully');
             } else
                 return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);

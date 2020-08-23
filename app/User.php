@@ -21,7 +21,8 @@ class User extends Authenticatable
         'dai_ly', 'sdt', 'dia_chi',
         'ct_ten', 'ct_sdt', 'ct_fax', 'ct_email', 'ct_dia_chi', 'ct_mst',
         'ngay_het_han', 'actived', 'phan_quyen',
-        'tour_visa', 'ban_hang', 'khong_gioi_han_dang_nhap'
+        'tour_visa', 'ban_hang',
+        'khong_gioi_han_dang_nhap', 'so_ngay_dang_nhap'
     ];
 
     /**

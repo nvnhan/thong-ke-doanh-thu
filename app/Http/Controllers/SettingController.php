@@ -23,9 +23,7 @@ class SettingController extends BaseController
             'so_ve_vn_mac_dinh' => env('SO_VE_VN_MAC_DINH'),
 
             'client_id' => env('GOOGLE_CLIENT_ID'),
-            'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-
-            'dang_nhap_toi_da' => env('NGAY_DANG_NHAP_TOI_DA')
+            'client_secret' => env('GOOGLE_CLIENT_SECRET')
         ];
         return $this->sendResponse((object) $data, "Setting retrieved successfully");
     }
@@ -48,8 +46,6 @@ class SettingController extends BaseController
 
         Util::updateDotEnv('GOOGLE_CLIENT_ID', $request->client_id);
         Util::updateDotEnv('GOOGLE_CLIENT_SECRET', $request->client_secret);
-
-        Util::updateDotEnv('NGAY_DANG_NHAP_TOI_DA', $request->dang_nhap_toi_da);
 
         return $this->sendResponse([], "Cập nhật thành công");
     }

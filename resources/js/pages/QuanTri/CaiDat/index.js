@@ -103,7 +103,7 @@ const index = props => {
                             <Input />
                         </Form.Item>
                     </Col>
-                    <Col span={24} md={12}>
+                    {/* <Col span={24} md={12}>
                         <Form.Item
                             name="dang_nhap_toi_da"
                             label="Số ngày đăng nhập tối đa"
@@ -115,7 +115,7 @@ const index = props => {
                                 style={{ width: "100%" }}
                             />
                         </Form.Item>
-                    </Col>
+                    </Col> */}
                 </Row>
 
                 <Row gutter={[12, 12]}>

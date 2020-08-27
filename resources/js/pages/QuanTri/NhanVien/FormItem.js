@@ -61,7 +61,7 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
             <Col span={12}>
                 <Form.Item
                     name="so_ngay_dang_nhap"
-                    label="Ngày đăng nhập còn lại"
+                    label="Số ngày ĐN"
                 >
                     <InputNumber
                         step={1}

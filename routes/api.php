@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 // public routes
 Route::get('/login', 'AuthController@getApiLogin');         // Login in App or Extension
-Route::get('parcel', 'FooController@parcel');       // Parse excel text from extension
 
 Route::post('/login', 'AuthController@login')->name('login.api');
 Route::post('/register', 'AuthController@register')->name('register.api');
 
 // private routes
 Route::middleware('auth:api')->group(function () {
+    Route::get('parcel', 'FooController@parcel');       // Parse excel text from extension
+
     // Account
     Route::get('/logout', 'AuthController@logout')->name('logout');
     Route::get('/get-user', 'AuthController@user')->name('getuser');

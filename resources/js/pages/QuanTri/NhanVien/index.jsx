@@ -65,7 +65,7 @@ class List extends PureComponent {
         const expandedRowRender = record => (
             <ul style={{ margin: 0 }}>
                 <li>Ngày đăng nhập cuối: {record.ngay_dang_nhap}</li>
-                <li>Tổng số ngày đăng nhập: {record.so_ngay_dang_nhap}</li>
+                <li>Số ngày đăng nhập còn lại: {record.so_ngay_dang_nhap}</li>
                 <li>Ngày tạo tài khoản: {record.created_at}</li>
             </ul>
         );

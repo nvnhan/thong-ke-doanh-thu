@@ -44,7 +44,8 @@ class AuthController extends BaseController
         $today = date("Y-m-d");
         if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
             $user->ngay_dang_nhap = $today;
-            $user->so_ngay_dang_nhap--;
+            if (!$user->admin)
+                $user->so_ngay_dang_nhap--;
         }
         if ($user->so_ngay_dang_nhap >= 0) {
             $user->save();
@@ -77,7 +78,8 @@ class AuthController extends BaseController
                     $today = date("Y-m-d");
                     if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
                         $user->ngay_dang_nhap = $today;
-                        $user->so_ngay_dang_nhap--;
+                        if (!$user->admin)
+                            $user->so_ngay_dang_nhap--;
                     }
                     if ($user->so_ngay_dang_nhap >= 0) {
                         $user->save();

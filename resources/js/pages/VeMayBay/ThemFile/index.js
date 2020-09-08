@@ -1,5 +1,6 @@
 import { UploadOutlined } from "@ant-design/icons";
 import {
+    AutoComplete,
     Button,
     Col,
     Form,
@@ -7,14 +8,12 @@ import {
     Modal,
     Progress,
     Row,
-    Upload,
-    Select,
-    AutoComplete
+    Upload
 } from "antd";
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
 import { useMergeState } from "../../../utils";
 import FormItem from "./FormItem";
+import ModalPreviewDatVe from "../ModalPreviewDatVe";
 
 const index = props => {
     const [form] = Form.useForm();
@@ -34,6 +33,10 @@ const index = props => {
         return cols;
     });
     const [fileList, setFileList] = useState([]);
+    const [modalDatVe, setModalDatVe] = useState({
+        visible: false,
+        datve: ""
+    });
     let isComponentMounted = false;
     let time = null;
 
@@ -159,19 +162,23 @@ const index = props => {
             .then(response => {
                 if (response.data.success) {
                     message.success(response.data.message);
-                    props.history.push({
-                        pathname: "/dat-ve",
-                        dd: response.data.data
-                    });
+                    setModalDatVe({ visible: true, datve: response.data.data });
                 } else message.error(response.data.message);
             })
             .catch(error => console.log(error))
             .then(() => Modal.destroyAll());
     };
 
-    const onRemove = file => {
-        setFileList([]);
-    };
+    /**
+     * Cancel Modal preview
+     */
+    const handleCancel = () =>
+        setModalDatVe({ visible: false, datve: "" }) && setFileList([]);
+
+    /**
+     * Remove selected file
+     */
+    const onRemove = () => setFileList([]);
 
     const beforeUpload = file => {
         setFileList([file]);
@@ -223,7 +230,7 @@ const index = props => {
                             labelCol={{ md: 4 }}
                             wrapperCol={{ md: 20 }}
                             name="file"
-                            label="Chọn file"
+                            label="Tập tin"
                         >
                             <Upload
                                 accept=".xls,.xlsx,.htm,.html"
@@ -232,7 +239,7 @@ const index = props => {
                                 fileList={fileList}
                             >
                                 <Button>
-                                    <UploadOutlined /> Tải lên
+                                    <UploadOutlined /> Chọn file tải lên
                                 </Button>
                             </Upload>
                         </Form.Item>
@@ -240,8 +247,13 @@ const index = props => {
                 </Row>
                 <FormItem danhMuc={state} />
             </Form>
+            <ModalPreviewDatVe
+                ddDatVe={modalDatVe.datve}
+                handleCancel={handleCancel}
+                modalVisible={modalDatVe.visible}
+            />
         </div>
     );
 };
 
-export default React.memo(withRouter(index));
+export default React.memo(index);

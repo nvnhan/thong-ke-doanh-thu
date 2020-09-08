@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[56],{
 
-/***/ "./resources/js/pages/VeMayBay/NoVe/index.js":
-/*!***************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/NoVe/index.js ***!
-  \***************************************************/
+/***/ "./resources/js/pages/VeMayBay/ChuaBay/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ChuaBay/index.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -39,7 +39,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
           width: "100%"
         },
         locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
-        format: "DD/MM/YYYY"
+        format: "HH:mm DD/MM/YYYY",
+        allowClear: false
       })
     }];
   };
@@ -61,13 +62,13 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
   var otherButtons = [{
     key: "export",
     onClick: function onClick(data, selectedRowKeys) {
-      return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__["default"])(data, selectedRowKeys, "no-ve.xlsx");
+      return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__["default"])(data, selectedRowKeys, "chua-bay.xlsx");
     },
     title: "Xuất danh sách ra Excel",
     selectRequired: false
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    url: "no-ve",
+    url: "chua-bay",
     insertable: false,
     selectable: false,
     editable: false,
@@ -76,7 +77,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     tuNgayDenNgay: false,
     otherFilter: getOtherFilter(),
     filterInitialValue: {
-      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("DD/MM/YYYY")
+      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("HH:mm DD/MM/YYYY")
     },
     columns: _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__["default"],
     tableSize: {

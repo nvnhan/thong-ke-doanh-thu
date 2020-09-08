@@ -11,7 +11,6 @@ import {
 import locale from "antd/es/date-picker/locale/vi_VN";
 import moment from "moment";
 import React from "react";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 const { Option, OptGroup } = Select;
 const { RangePicker } = DatePicker;
 

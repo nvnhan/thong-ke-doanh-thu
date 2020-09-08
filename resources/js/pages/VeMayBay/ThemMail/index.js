@@ -4,12 +4,17 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { useMergeState } from "../../../utils";
 import FormItem from "./FormItem";
+import ModalPreviewDatVe from "../ModalPreviewDatVe";
 
 const index = props => {
     const [form] = Form.useForm();
     const [state, setState] = useMergeState({
         email: [],
         selectedRowKeys: []
+    });
+    const [modalDatVe, setModalDatVe] = useMergeState({
+        visible: false,
+        datve: ""
     });
     const { selectedRowKeys } = state;
 
@@ -59,7 +64,9 @@ const index = props => {
         showWaiting();
         const values = form.getFieldsValue();
         const data = getFormData(values);
-        Object.assign(data, { mails: selectedRowKeys.join("|") });
+        Object.assign(data, {
+            mails: selectedRowKeys.join("|")
+        });
         console.log("onFinish -> data", data);
 
         // Truyền lên server
@@ -68,9 +75,9 @@ const index = props => {
             .then(response => {
                 if (response.data.success) {
                     message.success(response.data.message);
-                    props.history.push({
-                        pathname: "/dat-ve",
-                        dd: response.data.data
+                    setModalDatVe({
+                        visible: true,
+                        datve: response.data.data
                     });
                 } else message.error(response.data.message);
             })
@@ -80,6 +87,11 @@ const index = props => {
             })
             .then(() => Modal.destroyAll());
     };
+
+    /**
+     * Cancel Modal preview
+     */
+    const handleCancel = () => setModalDatVe({ visible: false, datve: "" });
 
     const onGetEmail = () => {
         showWaiting("Đang lấy thông tin email...");
@@ -100,7 +112,10 @@ const index = props => {
             .catch(error => {
                 message.error("Có lỗi xảy ra");
                 console.log(error);
-                setState({ email: [], selectedRowKeys: [] });
+                setState({
+                    email: [],
+                    selectedRowKeys: []
+                });
             })
             .then(() => Modal.destroyAll());
     };
@@ -129,6 +144,11 @@ const index = props => {
                     onGetEmail={onGetEmail}
                 />
             </Form>
+            <ModalPreviewDatVe
+                ddDatVe={modalDatVe.datve}
+                handleCancel={handleCancel}
+                modalVisible={modalDatVe.visible}
+            />
         </div>
     );
 };

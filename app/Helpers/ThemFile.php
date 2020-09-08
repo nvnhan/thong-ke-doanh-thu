@@ -210,7 +210,7 @@ class ThemFile
                     $tmp->ngay_gio_di = $matches[3][0] . "-" . $matches[2][0] . "-" . $matches[1][0];
                     if (count($matches[0]) > 1)
                         $tmp->ngay_gio_ve = $matches[3][1] . "-" . $matches[2][1] . "-" . $matches[1][1];
-                } else if (preg_match_all("/([a-zA-Z]{3}) (\d+), (\d{4})/", $t, $matches)) {              // Dạng dd/mm/yyyy
+                } else if (preg_match_all("/([a-zA-Z]{3}) (\d+), (\d{4})/", $t, $matches)) {              // Dạng mmm dd, yyyy
                     $mon = array_search(strtoupper($matches[2][0]), Util::$thang);
                     if ($mon !== false) {
                         $mon++;

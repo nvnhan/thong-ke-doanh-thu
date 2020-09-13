@@ -61,7 +61,7 @@ const ListForm = props => {
             setState({ data: [], isLoading: true });
 
             axios
-                .get("/api/" + url + "?" + queryString(finalFilter))
+                .get(`/api/${url}?` + queryString(finalFilter))
                 .then(response => {
                     if (isComponentMounted && response.data.success) {
                         //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form

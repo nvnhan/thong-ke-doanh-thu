@@ -5,7 +5,6 @@ import * as actions from "../actions";
 import Login from "../pages/Account/Login";
 import Content from "./includes/Content";
 import Loader from "./includes/Loader";
-import MyFooter from "./includes/MyFooter";
 import MyHeader from "./includes/MyHeader";
 import SideBar from "./SideBar";
 
@@ -28,9 +27,20 @@ class MainContainer extends PureComponent {
             axios
                 .get(`/api/get-user`)
                 .then(response => {
-                    if (response.data.success)
+                    if (response.data.success) {
+                        // Add a response interceptor
+                        axios.interceptors.response.use(null, error => {
+                            if (error.response.status === 401) {
+                                // Unauthorized
+                                message.warn(
+                                    "Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại"
+                                );
+                                setTimeout(() => this.props.onLogout(), 2000);
+                            }
+                            return Promise.reject(error);
+                        });
                         this.props.onSetAuth(response.data.data);
-                    else {
+                    } else {
                         localStorage.removeItem("token");
                         message.warn(response.data.message);
                     }
@@ -41,12 +51,10 @@ class MainContainer extends PureComponent {
                         message.warn(
                             "Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại"
                         );
-                        this.props.onLogout();
+                        setTimeout(() => this.props.onLogout(), 2000);
                     } else console.log(error);
                 })
-                .then(() => {
-                    this.setState({ isLoading: false });
-                });
+                .then(() => this.setState({ isLoading: false }));
         } else this.setState({ isLoading: false }); // Chuyển tới Login page
     }
 
@@ -64,7 +72,6 @@ class MainContainer extends PureComponent {
                     <Layout>
                         <MyHeader />
                         <Content />
-                        {/* <MyFooter /> */}
                     </Layout>
                 </Layout>
             );

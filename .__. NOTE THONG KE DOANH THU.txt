@@ -60,7 +60,7 @@ Ngày 21/8/2020:
 ////////////- XÓA 1 hàng chưa cập nhật ngay ở danh sách?????????????????????? // 13/09/2020
 
 Ngày 19/8/2020
-//- Đăng nhập: Bỏ ngày hết hạn, thay bằng số ngày đăng nhập: Mỗi user chỉ đc đăng nhập trong 1 số ngày nhất định.
+////////////- Đăng nhập: Bỏ ngày hết hạn, thay bằng số ngày đăng nhập: Mỗi user chỉ đc đăng nhập trong 1 số ngày nhất định.  // 13/09/2020: Check login expire & logout
 1 ngày có thể đăng nhập nhiều lần (chỉ tính là 1)
 
 

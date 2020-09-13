@@ -215,7 +215,7 @@ var ListForm = function ListForm(props) {
         data: [],
         isLoading: true
       });
-      axios.get("/api/" + url + "?" + Object(_utils__WEBPACK_IMPORTED_MODULE_4__["queryString"])(finalFilter)).then(function (response) {
+      axios.get("/api/".concat(url, "?") + Object(_utils__WEBPACK_IMPORTED_MODULE_4__["queryString"])(finalFilter)).then(function (response) {
         if (isComponentMounted && response.data.success) {
           //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
           if (onChangeData) onChangeData(response.data.data);

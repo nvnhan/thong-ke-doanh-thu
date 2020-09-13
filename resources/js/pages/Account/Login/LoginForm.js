@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Form, Input, message } from "antd";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -11,21 +11,32 @@ function LoginForm(props) {
     const onFinish = () => {
         setSubmiting(true);
         const values = form.getFieldsValue();
+
         axios
             .post(`/api/login`, values)
             .then(response => {
                 if (response.data.success) {
                     const { data } = response.data;
 
+                    localStorage.setItem("token", data.token);
+                    message.success(response.data.message);
+
                     // Setup default config for axios
                     axios.defaults.headers.common["Authorization"] =
                         "Bearer " + data.token;
-                    localStorage.setItem("token", data.token);
-                    message.success(response.data.message);
+                    // Add a response interceptor
+                    axios.interceptors.response.use(null, error => {
+                        if (error.response.status === 401) {
+                            message.warn(
+                                "Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại"
+                            );
+                            // this.props.onLogout();
+                        }
+                        return Promise.reject(error);
+                    });
+
                     props.onSetAuth(data);
-                } else {
-                    message.warn(response.data.message);
-                }
+                } else message.warn(response.data.message);
             })
             .catch(error => console.log(error));
         setSubmiting(false);

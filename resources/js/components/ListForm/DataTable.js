@@ -19,13 +19,13 @@ const DataTable = React.memo(props => {
         deleteable,
         primaryKey,
         tableSize,
-        onDelete,
+        handleDelete,
         handleEdit,
         onChangeSelect,
         otherActions,
         expandedRowRender,
         renderFooter,
-        renderSummary,
+        renderSummary
     } = props;
     const [myColumns, setMyColumns] = useState([]);
     let searchText = "";
@@ -69,11 +69,14 @@ const DataTable = React.memo(props => {
                 // specify the condition of filtering result
                 // here is that finding the name started with `value`
                 onFilter: (value, record) =>
-                    (record[column.dataIndex] === value) ||
-                    (record[column.dataIndex] !== null && record[column.dataIndex].indexOf(value) === 0)
+                    record[column.dataIndex] === value ||
+                    (record[column.dataIndex] !== null &&
+                        record[column.dataIndex].indexOf(value) === 0)
             });
         } else if (column.optFind) {
-            Object.assign(column, { ...getColumnSearchProps(column.dataIndex) });
+            Object.assign(column, {
+                ...getColumnSearchProps(column.dataIndex)
+            });
         }
         return column;
     };
@@ -122,7 +125,7 @@ const DataTable = React.memo(props => {
             {deleteable && (
                 <Menu.Item
                     key="delete"
-                    onClick={() => onDelete(record[primaryKey])}
+                    onClick={() => handleDelete(record)}
                     className="color-danger"
                 >
                     <DeleteOutlined /> Xóa
@@ -141,48 +144,48 @@ const DataTable = React.memo(props => {
             confirm,
             clearFilters
         }) => (
-                <div style={{ padding: 8 }}>
-                    <Input
-                        ref={node => {
-                            searchInput = node;
-                        }}
-                        placeholder="Tìm kiếm..."
-                        value={selectedKeys[0]}
-                        onChange={e =>
-                            setSelectedKeys(e.target.value ? [e.target.value] : [])
-                        }
-                        onPressEnter={() =>
-                            handleSearch(selectedKeys, confirm, dataIndex)
-                        }
-                        style={{
-                            width: 188,
-                            marginBottom: 8,
-                            display: "block"
-                        }}
-                    />
-                    <Button
-                        type="primary"
-                        onClick={() =>
-                            handleSearch(selectedKeys, confirm, dataIndex)
-                        }
-                        icon={<SearchOutlined />}
-                        size="small"
-                        style={{
-                            width: 90,
-                            marginRight: 8
-                        }}
-                    >
-                        Tìm
+            <div style={{ padding: 8 }}>
+                <Input
+                    ref={node => {
+                        searchInput = node;
+                    }}
+                    placeholder="Tìm kiếm..."
+                    value={selectedKeys[0]}
+                    onChange={e =>
+                        setSelectedKeys(e.target.value ? [e.target.value] : [])
+                    }
+                    onPressEnter={() =>
+                        handleSearch(selectedKeys, confirm, dataIndex)
+                    }
+                    style={{
+                        width: 188,
+                        marginBottom: 8,
+                        display: "block"
+                    }}
+                />
+                <Button
+                    type="primary"
+                    onClick={() =>
+                        handleSearch(selectedKeys, confirm, dataIndex)
+                    }
+                    icon={<SearchOutlined />}
+                    size="small"
+                    style={{
+                        width: 90,
+                        marginRight: 8
+                    }}
+                >
+                    Tìm
                 </Button>
-                    <Button
-                        onClick={() => handleReset(clearFilters)}
-                        size="small"
-                        style={{ width: 90 }}
-                    >
-                        Hủy
+                <Button
+                    onClick={() => handleReset(clearFilters)}
+                    size="small"
+                    style={{ width: 90 }}
+                >
+                    Hủy
                 </Button>
-                </div>
-            ),
+            </div>
+        ),
         filterIcon: filtered => (
             <SearchOutlined
                 style={{
@@ -212,8 +215,8 @@ const DataTable = React.memo(props => {
                     textToHighlight={text.toString()}
                 />
             ) : (
-                    text
-                )
+                text
+            )
     });
 
     const handleSearch = (selectedKeys, confirm, dataIndex) => {

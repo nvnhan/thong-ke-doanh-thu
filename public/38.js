@@ -33,86 +33,21 @@ var MyDatePicker = function MyDatePicker(props) {
 
 /***/ }),
 
-/***/ "./resources/js/pages/BanHang/HoanDoi/FormItem.js":
-/*!********************************************************!*\
-  !*** ./resources/js/pages/BanHang/HoanDoi/FormItem.js ***!
-  \********************************************************/
+/***/ "./resources/js/components/ListForm/index.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/ListForm/index.js ***!
+  \***************************************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
-
-
-
-
-var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
-var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
-  var taiKhoan = props.taiKhoan || [];
-
-  var getTaiKhoanDetail = function getTaiKhoanDetail() {
-    return taiKhoan.map(function (tk) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
-        value: tk.id,
-        key: tk.id
-      }, tk.ky_hieu);
-    });
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ngay_hoan_doi",
-    label: "Ng\xE0y th\xE1ng",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    style: {
-      width: "100%"
-    },
-    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
-    format: "DD/MM/YYYY"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ngay_thanh_toan_hoan_doi",
-    label: "Thanh to\xE1n"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    style: {
-      width: "100%"
-    },
-    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
-    format: "DD/MM/YYYY"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "id_tai_khoan_tra_hoan_doi",
-    label: "TK tr\u1EA3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n"
-  }, getTaiKhoanDetail())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ngay_hoan_doi_xong",
-    label: "Ho\xE0n \u0111\u1ED5i xong"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    style: {
-      width: "100%"
-    },
-    locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_1__["default"],
-    format: "DD/MM/YYYY"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "ghi_chu",
-    label: "Ghi ch\xFA"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)));
-});
-/* harmony default export */ __webpack_exports__["default"] = (form);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\resources\\js\\components\\ListForm\\index.js: Unexpected token, expected \",\" (216:32)\n\n\u001b[0m \u001b[90m 214 | \u001b[39m                            setState({\u001b[0m\n\u001b[0m \u001b[90m 215 | \u001b[39m                                data\u001b[33m:\u001b[39m newData\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 216 | \u001b[39m                                selectedRowKeys\u001b[33m:\u001b[39m []\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 217 | \u001b[39m                            })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 218 | \u001b[39m                            message\u001b[33m.\u001b[39minfo(response\u001b[33m.\u001b[39mdata\u001b[33m.\u001b[39mmessage)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 219 | \u001b[39m                            \u001b[36mif\u001b[39m (onChangeData) onChangeData(newData)\u001b[33m;\u001b[39m\u001b[0m\n    at Object._raise (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:742:17)\n    at Object.raiseWithData (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:735:17)\n    at Object.raise (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:729:17)\n    at Object.unexpected (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:8757:16)\n    at Object.expect (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:8743:28)\n    at Object.parseObj (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:10365:14)\n    at Object.parseExprAtom (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9995:28)\n    at Object.parseExprAtom (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:4614:20)\n    at Object.parseExprSubscripts (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9602:23)\n    at Object.parseMaybeUnary (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9582:21)\n    at Object.parseExprOps (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9452:23)\n    at Object.parseMaybeConditional (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9425:23)\n    at Object.parseMaybeAssign (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9380:21)\n    at Object.parseExprListItem (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:10718:18)\n    at Object.parseCallExpressionArguments (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9790:22)\n    at Object.parseSubscript (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9696:31)\n    at Object.parseSubscripts (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9625:19)\n    at Object.parseExprSubscripts (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9608:17)\n    at Object.parseMaybeUnary (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9582:21)\n    at Object.parseExprOps (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9452:23)\n    at Object.parseMaybeConditional (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9425:23)\n    at Object.parseMaybeAssign (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9380:21)\n    at Object.parseExpression (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:9332:23)\n    at Object.parseStatementContent (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11210:23)\n    at Object.parseStatement (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11081:17)\n    at Object.parseBlockOrModuleBlockBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11656:25)\n    at Object.parseBlockBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11642:10)\n    at Object.parseBlock (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11626:10)\n    at Object.parseStatementContent (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11157:21)\n    at Object.parseStatement (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11081:17)\n    at Object.parseIfStatement (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11433:28)\n    at Object.parseStatementContent (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11126:21)\n    at Object.parseStatement (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11081:17)\n    at Object.parseBlockOrModuleBlockBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11656:25)\n    at Object.parseBlockBody (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11642:10)\n    at Object.parseBlock (D:\\xampp\\htdocs\\2020\\thong-ke-doanh-thu\\node_modules\\@babel\\core\\node_modules\\@babel\\parser\\lib\\index.js:11626:10)");
 
 /***/ }),
 
-/***/ "./resources/js/pages/BanHang/HoanDoi/index.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/pages/BanHang/HoanDoi/index.js ***!
-  \*****************************************************/
+/***/ "./resources/js/pages/VeMayBay/DatVe/columns.js":
+/*!******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/DatVe/columns.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -122,129 +57,132 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/BanHang/HoanDoi/FormItem.js");
-/* harmony import */ var _utils_exportBanRa__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/exportBanRa */ "./resources/js/utils/exportBanRa.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
 
 
 
+var columns = [{
+  title: "Ngày tháng",
+  dataIndex: "ngay_thang",
+  width: 90,
+  sorter: function sorter(a, b) {
+    return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_thang, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_thang, "DD/MM/YYYY").unix();
+  }
+}, {
+  title: "Mã giữ chỗ",
+  dataIndex: "ma_giu_cho",
+  optFind: true,
+  width: 80
+}, {
+  title: "Số vé",
+  dataIndex: "so_ve",
+  width: 130,
+  optFind: true
+}, {
+  title: "Hãng bay",
+  dataIndex: "hang_bay",
+  width: 65,
+  optFilter: true
+}, {
+  title: "Tên khách",
+  dataIndex: "ten_khach",
+  width: 140,
+  optFind: true
+}, {
+  title: "TG đi",
+  dataIndex: "ngay_gio_di",
+  width: 120,
+  sorter: function sorter(a, b) {
+    return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix();
+  }
+}, {
+  title: "Chặng đi",
+  dataIndex: "chang_di",
+  width: 85
+}, {
+  title: "TG về",
+  dataIndex: "ngay_gio_ve",
+  width: 120,
+  sorter: function sorter(a, b) {
+    return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix();
+  }
+}, {
+  title: "Chặng về",
+  dataIndex: "chang_ve",
+  width: 85
+}, {
+  title: "Tổng tiền",
+  dataIndex: "tong_tien",
+  render: function render(number) {
+    return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+  },
+  sorter: function sorter(a, b) {
+    return a.tong_tien - b.tong_tien;
+  },
+  width: 110
+}, {
+  title: "Thu khách",
+  dataIndex: "tong_tien_thu_khach",
+  render: function render(number) {
+    return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+  },
+  sorter: function sorter(a, b) {
+    return a.tong_tien_thu_khach - b.tong_tien_thu_khach;
+  },
+  width: 110
+}, {
+  title: "Lãi",
+  dataIndex: "lai",
+  render: function render(number) {
+    return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
+  },
+  sorter: function sorter(a, b) {
+    return a.lai - b.lai;
+  },
+  width: 110
+}, {
+  title: "Nơi mua",
+  dataIndex: "noi_mua",
+  width: 110,
+  optFilter: true
+}, {
+  title: "Khách hàng",
+  dataIndex: "ma_khach_hang",
+  width: 110,
+  optFilter: true
+}, {
+  title: "Thanh toán",
+  dataIndex: "ngay_thanh_toan",
+  width: 90
+}];
+/* harmony default export */ __webpack_exports__["default"] = (columns);
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/DatVe/expandedRow.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/DatVe/expandedRow.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
-
-var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      taiKhoan = _useState2[0],
-      setTaiKhoan = _useState2[1];
-
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    axios.get("/api/tai-khoan").then(function (response) {
-      if (response.data.success) setTaiKhoan(response.data.data);
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  }, []);
-
-  var expandedRowRender = function expandedRowRender(record) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
-      style: {
-        margin: 0
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "M\xE3 h\xE0ng: ", record.ma_hang, ". T\xEAn h\xE0ng: ", record.ten_hang, ". Ph\xE2n lo\u1EA1i: ", record.phan_loai, ". Nh\xE0 cung c\u1EA5p: ", record.nha_cung_cap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1 mua: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.don_gia_mua), ". Th\xE0nh ti\u1EC1n mua: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.thanh_tien_mua), ". S\u1ED1 l\u01B0\u1EE3ng:", " ", record.so_luong), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\u01A1n gi\xE1 b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.don_gia_ban), ". Th\xE0nh ti\u1EC1n b\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.thanh_tien_ban), ". L\xE3i:", " ", _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(record.lai)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
-  };
-
-  var columns = [{
-    title: "Ngày tháng",
-    dataIndex: "ngay_hoan_doi",
-    width: 120,
-    sorter: function sorter(a, b) {
-      return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_hoan_doi, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_hoan_doi, "DD/MM/YYYY").unix();
+var expandedRow = function expandedRow(record) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
+    style: {
+      margin: 0
     }
-  }, {
-    title: "Mã hàng",
-    dataIndex: "ma_hang",
-    optFind: true,
-    width: 130
-  }, {
-    title: "Tên hàng",
-    dataIndex: "ten_hang",
-    optFind: true,
-    width: 160
-  }, {
-    title: "Số lượng",
-    dataIndex: "so_luong",
-    width: 90
-  }, {
-    title: "Tổng tiền bán",
-    dataIndex: "thanh_tien_ban",
-    render: function render(number) {
-      return _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(number);
-    },
-    sorter: function sorter(a, b) {
-      return a.thanh_tien_ban - b.thanh_tien_ban;
-    },
-    width: 120
-  }, {
-    title: "Khách hàng",
-    dataIndex: "ma_khach_hang",
-    optFilter: true,
-    width: 120
-  }, {
-    title: "TT hoàn đổi",
-    dataIndex: "ngay_thanh_toan_hoan_doi",
-    width: 120
-  }, {
-    title: "TK trả hoàn đổi",
-    dataIndex: "tai_khoan_tra_hoan_doi",
-    width: 120,
-    optFilter: true
-  }, {
-    title: "Hoàn đổi xong",
-    dataIndex: "ngay_hoan_doi xong",
-    width: 120
-  }, {
-    title: "Ghi chú",
-    dataIndex: "ghi_chu",
-    ellipsis: true,
-    width: 150
-  }];
-  var otherButtons = [{
-    key: "export",
-    onClick: function onClick(data, selectedRowKeys) {
-      return Object(_utils_exportBanRa__WEBPACK_IMPORTED_MODULE_5__["default"])(data, selectedRowKeys, "hoan-doi.xlsx");
-    },
-    title: "Xuất danh sách ra Excel"
-  }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    url: "hoan-doi",
-    filterBox: true,
-    insertable: false,
-    deleteable: false,
-    columns: columns,
-    tableSize: {
-      x: 1200
-    },
-    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      taiKhoan: taiKhoan
-    }),
-    expandedRowRender: expandedRowRender,
-    otherButtons: otherButtons
-  });
-});
-/* harmony default export */ __webpack_exports__["default"] = (List);
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Chuy\u1EBFn bay \u0111i: ", record.cb_di, ". Chuy\u1EBFn bay v\u1EC1: ", record.cb_ve), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Lo\u1EA1i tu\u1ED5i: ", record.ten_loai_tuoi), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Gi\xE1 net: ", _utils__WEBPACK_IMPORTED_MODULE_0__["vndFormater"].format(record.gia_net), ". Ph\xED soi chi\u1EBFu, an ninh: ", _utils__WEBPACK_IMPORTED_MODULE_0__["vndFormater"].format(record.phi_san_bay), ". Ph\xED qu\u1EA3n tr\u1ECB:", " ", _utils__WEBPACK_IMPORTED_MODULE_0__["vndFormater"].format(record.phu_phi_san_bay)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "VAT: ", _utils__WEBPACK_IMPORTED_MODULE_0__["vndFormater"].format(record.vat), ". Ph\u1EE5 ph\xED:", " ", _utils__WEBPACK_IMPORTED_MODULE_0__["vndFormater"].format(record.phu_phi)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ph\xED h\xE0nh l\xFD: ", _utils__WEBPACK_IMPORTED_MODULE_0__["vndFormater"].format(record.hanh_ly), ". Lo\u1EA1i h\xE0nh l\xFD:", " ", record.loai_hanh_ly), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u0110\xE3 thanh to\xE1n: ", _utils__WEBPACK_IMPORTED_MODULE_0__["vndFormater"].format(record.da_thanh_toan), ". Ng\xE0y thanh to\xE1n xong: ", record.ngay_thanh_toan), record.chua_xuat_ve ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "C\u1EA3nh b\xE1o xu\u1EA5t v\xE9: ", record.canh_bao_xuat_ve) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "\u2714 \u0110\xE3 xu\u1EA5t v\xE9"), !_.isEmpty(record.ngay_nhac_lich) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Nh\u1EAFc l\u1ECBch bay: ", record.ngay_nhac_lich), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ghi ch\xFA: ", record.ghi_chu), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\u01B0\u1EDDi t\u1EA1o: ", record.username));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (expandedRow);
 
 /***/ }),
 
@@ -316,9 +254,9 @@ var downloadApi = function downloadApi(url, params, fileName) {
 
 /***/ }),
 
-/***/ "./resources/js/utils/exportBanRa.js":
+/***/ "./resources/js/utils/exportDatVe.js":
 /*!*******************************************!*\
-  !*** ./resources/js/utils/exportBanRa.js ***!
+  !*** ./resources/js/utils/exportDatVe.js ***!
   \*******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -345,9 +283,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+/**
+ * Xuất ra Excel
+ */
 
 var exportDS = function exportDS(data, selectedRowKeys, name) {
-  var filtered = data.filter(function (p) {
+  var filtered = data;
+  if (selectedRowKeys.length > 0) filtered = data.filter(function (p) {
     return selectedRowKeys.indexOf(p.id) !== -1;
   });
   var newData = filtered.map(function (p, index) {
@@ -356,34 +298,51 @@ var exportDS = function exportDS(data, selectedRowKeys, name) {
     }, p);
 
     delete t["id"];
-    delete t["id_hang_hoa"];
+    delete t["loai_tuoi"];
+    delete t["id_phi_hanh_ly"];
+    delete t["id_tai_khoan_mua"];
     delete t["id_khach_hang"];
-    delete t["id_tai_khoan_tra_hoan_doi"];
+    delete t["chang_di"];
+    delete t["chang_ve"];
     return t;
   });
   var dataExport = [{
     stt: "STT",
     ngay_thang: "Ngày tháng",
-    ma_hang: "Mã hàng",
-    ten_hang: "Tên hàng",
-    phan_loai: "Phân loại",
-    nha_cung_cap: "Nhà cung cấp",
-    so_luong: "Số lượng",
-    don_gia_mua: "Đơn giá mua",
-    don_gia_ban: "Đơn giá bán",
-    thanh_tien_mua: "Thành tiền mua",
-    thanh_tien_ban: "Thành tiền bán",
+    ma_giu_cho: "Mã giữ chỗ",
+    so_ve: "Số vé",
+    hang_bay: "Hãng bay",
+    ten_khach: "Tên khách",
+    ten_loai_tuoi: "Loại tuổi",
+    ngay_gio_di: "Thời gian đi",
+    cb_di: "Chuyến bay đi",
+    sb_di: "Sân bay đi",
+    sb_di1: "Sân bay đi 1",
+    ngay_gio_ve: "Thời gian về",
+    cb_ve: "Chuyến bay về",
+    sb_ve: "Sân bay về",
+    sb_ve1: "Sân bay về 1",
+    gia_net: "Giá net",
+    vat: "VAT",
+    phi_san_bay: "Phí soi chiếu, an ninh",
+    phu_phi_san_bay: "Phí quản trị hệ thống",
+    phu_phi: "Phí nơi mua thu",
+    loai_hanh_ly: "Hành lý",
+    hanh_ly: "Phí hành lý",
+    hoa_hong: "Hoa hồng",
+    tong_tien: "Tổng tiền",
+    tong_tien_thu_khach: "Thu khách",
     lai: "Lãi",
+    noi_mua: "Nơi mua",
     ma_khach_hang: "Khách hàng",
     da_thanh_toan: "Đã thanh toán",
     ngay_thanh_toan: "Ngày thanh toán",
     chua_thanh_toan: "Còn lại",
-    ngay_hoan_doi: "Ngày hoàn đổi",
-    ngay_thanh_toan_hoan_doi: "Ngày thanh toán hoàn đổi",
-    ngay_hoan_doi_xong: "Ngày hoàn đổi xong",
-    tai_khoan_tra_hoan_doi: "Tài khoản trả hoàn đổi",
-    ghi_chu: "Ghi chú",
-    username: "Người nhập"
+    chua_xuat_ve: "Chưa xuất vé",
+    canh_bao_xuat_ve: "Cảnh báo xuất vé",
+    ngay_nhac_lich: "Ngày nhắc lịch bay",
+    username: "Người nhập",
+    ghi_chu: "Ghi chú"
   }].concat(_toConsumableArray(newData));
   Object(_exportToExcel__WEBPACK_IMPORTED_MODULE_0__["default"])(dataExport, name);
 };

@@ -124,12 +124,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ToolsButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ToolsButton */ "./resources/js/components/ListForm/ToolsButton.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -168,6 +162,7 @@ var confirm = antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].confirm;
  */
 
 var ListForm = function ListForm(props) {
+  //#region  Khai báo biến
   var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
@@ -183,6 +178,7 @@ var ListForm = function ListForm(props) {
     data: [],
     isLoading: true,
     modalVisible: false,
+    modalDeleteVisible: false,
     formSubmiting: false,
     selectedRowKeys: [],
     currentRecord: undefined
@@ -194,6 +190,7 @@ var ListForm = function ListForm(props) {
   var data = state.data,
       isLoading = state.isLoading,
       modalVisible = state.modalVisible,
+      modalDeleteVisible = state.modalDeleteVisible,
       formSubmiting = state.formSubmiting,
       selectedRowKeys = state.selectedRowKeys,
       currentRecord = state.currentRecord;
@@ -205,7 +202,9 @@ var ListForm = function ListForm(props) {
 
   var isComponentMounted = false; // Final filter: Filter <= props, OwnFilter <= FilterBox
 
-  var finalFilter = filter !== undefined ? filter : ownFilter;
+  var finalFilter = filter !== undefined ? filter : ownFilter; //#endregion
+  //#region  Sự kiện, hooks
+
   Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
     isComponentMounted = true; // Không Có filter hoặc có filter và đã load xong
 
@@ -263,7 +262,9 @@ var ListForm = function ListForm(props) {
         return form;
       }
     };
-  });
+  }); //#endregion
+  //#region  Triggers from components
+
   /**
    * Show modal Thêm mới, Sửa
    */
@@ -288,8 +289,10 @@ var ListForm = function ListForm(props) {
   };
 
   var handleCancel = function handleCancel() {
-    setState({
-      modalVisible: false
+    return setState({
+      modalVisible: false,
+      modalDeleteVisible: false,
+      currentRecord: undefined
     });
   };
   /**
@@ -298,14 +301,14 @@ var ListForm = function ListForm(props) {
 
 
   var handleAddNew = function handleAddNew() {
-    setState({
+    return setState({
       currentRecord: undefined,
       modalVisible: true
     });
   };
 
   var handleEdit = function handleEdit(record) {
-    setState({
+    return setState({
       modalVisible: true,
       currentRecord: record
     });
@@ -316,11 +319,16 @@ var ListForm = function ListForm(props) {
 
 
   var handleFilterBox = function handleFilterBox(newFilter) {
-    if (Object(_utils__WEBPACK_IMPORTED_MODULE_4__["isChangeData"])(ownFilter, newFilter)) setOwnFilter(newFilter);
+    return Object(_utils__WEBPACK_IMPORTED_MODULE_4__["isChangeData"])(ownFilter, newFilter) && setOwnFilter(newFilter);
   };
-  /**
-   * Thực thi các sự kiện
-   */
+
+  var handleDelete = function handleDelete(record) {
+    return setState({
+      modalDeleteVisible: true,
+      currentRecord: record
+    });
+  }; //#endregion
+  //#region  Thực thi các sự kiện
 
 
   var onChangeSelect = function onChangeSelect(selectedRowKeys) {
@@ -331,9 +339,10 @@ var ListForm = function ListForm(props) {
 
   var doInsertRow = function doInsertRow(response) {
     if (response.data.success) {
-      var newData = [].concat(_toConsumableArray(data), _toConsumableArray(response.data.data)); // Thêm object vào list lấy từ state
+      var newData = []; // Thêm object vào list lấy từ state
 
-      console.log("doInsertRow -> newData", newData);
+      if (Array.isArray(response.data.data)) newData = [].concat(_toConsumableArray(data), _toConsumableArray(response.data.data));else newData = [].concat(_toConsumableArray(data), [response.data.data]);
+      console.log("doInsertRow -> newData: ", newData);
       setState({
         data: newData
       });
@@ -344,9 +353,7 @@ var ListForm = function ListForm(props) {
 
   var onAdd = function onAdd(value) {
     if (otherParams !== undefined) value = Object.assign(value, otherParams);
-    axios.post("/api/".concat(url), _objectSpread({}, value, {
-      otherParams: otherParams
-    })).then(function (response) {
+    axios.post("/api/".concat(url), value).then(function (response) {
       return doInsertRow(response);
     })["catch"](function (error) {
       return console.log(error);
@@ -371,34 +378,27 @@ var ListForm = function ListForm(props) {
     });
   };
 
-  var onDelete = function onDelete(id) {
-    confirm({
-      title: "Bạn muốn xóa mục này?",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
-      content: "Thao tác không thể khôi phục",
-      okText: "Đồng ý",
-      okType: "danger",
-      cancelText: "Không",
-      onOk: function onOk() {
-        axios["delete"]("/api/".concat(url, "/").concat(id)).then(function (response) {
-          if (response.data.success) {
-            var newData = data.filter(function (item) {
-              return item[primaryKey] !== id;
-            });
-            setState({
-              data: newData
-            });
-            antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
-            if (onChangeData) onChangeData(newData);
-          }
-        })["catch"](function (error) {
-          return console.log(error);
+  var onDelete = function onDelete() {
+    currentRecord !== undefined && axios["delete"]("/api/".concat(url, "/").concat(currentRecord["id"])).then(function (response) {
+      if (response.data.success) {
+        var newData = data.filter(function (item) {
+          return item[primaryKey] !== currentRecord["id"];
         });
+        setState({
+          data: newData,
+          modalDeleteVisible: false,
+          currentRecord: undefined
+        });
+        antd__WEBPACK_IMPORTED_MODULE_1__["message"].info(response.data.message);
+        if (onChangeData) onChangeData(newData);
       }
+    })["catch"](function (error) {
+      return console.log(error);
     });
   };
 
   var onMultiDelete = function onMultiDelete() {
+    console.log("before delete", state);
     confirm({
       title: "Bạn muốn xóa những mục này?",
       icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["ExclamationCircleOutlined"], null),
@@ -428,7 +428,8 @@ var ListForm = function ListForm(props) {
         });
       }
     });
-  };
+  }; //#endregion
+
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: "list-form"
@@ -445,7 +446,7 @@ var ListForm = function ListForm(props) {
     selectedRowKeys: selectedRowKeys,
     onChangeSelect: onChangeSelect,
     handleEdit: handleEdit,
-    onDelete: onDelete
+    handleDelete: handleDelete
   })), props.formTemplate !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ModalConfirm__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, props, {
     form: form,
     modalVisible: modalVisible,
@@ -453,7 +454,15 @@ var ListForm = function ListForm(props) {
     currentRecord: currentRecord,
     handleOk: handleOk,
     handleCancel: handleCancel
-  })));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
+    visible: modalDeleteVisible,
+    onOk: onDelete,
+    onCancel: handleCancel,
+    title: "B\u1EA1n mu\u1ED1n x\xF3a m\u1EE5c n\xE0y?",
+    okText: "X\xF3a",
+    cancelText: "H\u1EE7y",
+    okType: "danger"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", null, "L\u01B0u \xFD: Thao t\xE1c kh\xF4ng th\u1EC3 ho\xE0n t\xE1c")));
 };
 
 ListForm.propTypes = {

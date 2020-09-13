@@ -16,6 +16,7 @@ const { confirm } = Modal;
  * @returns
  */
 const ListForm = props => {
+    //#region  Khai báo biến
     const [form] = Form.useForm();
     const {
         url,
@@ -29,6 +30,7 @@ const ListForm = props => {
         data: [],
         isLoading: true,
         modalVisible: false,
+        modalDeleteVisible: false,
         formSubmiting: false,
         selectedRowKeys: [],
         currentRecord: undefined
@@ -37,15 +39,19 @@ const ListForm = props => {
         data,
         isLoading,
         modalVisible,
+        modalDeleteVisible,
         formSubmiting,
         selectedRowKeys,
         currentRecord
     } = state;
+
     const [ownFilter, setOwnFilter] = useState(filter);
     let isComponentMounted = false;
     // Final filter: Filter <= props, OwnFilter <= FilterBox
     const finalFilter = filter !== undefined ? filter : ownFilter;
+    //#endregion
 
+    //#region  Sự kiện, hooks
     useEffect(() => {
         isComponentMounted = true;
         // Không Có filter hoặc có filter và đã load xong
@@ -91,7 +97,9 @@ const ListForm = props => {
          */
         getFormInstance: () => form
     }));
+    //#endregion
 
+    //#region  Triggers from components
     /**
      * Show modal Thêm mới, Sửa
      */
@@ -111,43 +119,52 @@ const ListForm = props => {
         });
     };
 
-    const handleCancel = () => {
-        setState({ modalVisible: false });
-    };
-
+    const handleCancel = () =>
+        setState({
+            modalVisible: false,
+            modalDeleteVisible: false,
+            currentRecord: undefined
+        });
     /**
      * Xử lý sự kiện người dùng
      */
-    const handleAddNew = () => {
+    const handleAddNew = () =>
         setState({
             currentRecord: undefined,
             modalVisible: true
         });
-    };
 
-    const handleEdit = record => {
+    const handleEdit = record =>
         setState({
             modalVisible: true,
             currentRecord: record
         });
-    };
 
     /**
      * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
      */
-    const handleFilterBox = newFilter => {
-        if (isChangeData(ownFilter, newFilter)) setOwnFilter(newFilter);
-    };
+    const handleFilterBox = newFilter =>
+        isChangeData(ownFilter, newFilter) && setOwnFilter(newFilter);
 
-    /**
-     * Thực thi các sự kiện
-     */
+    const handleDelete = record =>
+        setState({
+            modalDeleteVisible: true,
+            currentRecord: record
+        });
+
+    //#endregion
+
+    //#region  Thực thi các sự kiện
     const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
     const doInsertRow = response => {
         if (response.data.success) {
-            const newData = [...data, ...response.data.data]; // Thêm object vào list lấy từ state
-            console.log("doInsertRow -> newData", newData)
+            let newData = [];
+            // Thêm object vào list lấy từ state
+            if (Array.isArray(response.data.data))
+                newData = [...data, ...response.data.data];
+            else newData = [...data, response.data.data];
+            console.log("doInsertRow -> newData: ", newData);
             setState({
                 data: newData
             });
@@ -160,7 +177,7 @@ const ListForm = props => {
         if (otherParams !== undefined)
             value = Object.assign(value, otherParams);
         axios
-            .post(`/api/${url}`, { ...value, otherParams })
+            .post(`/api/${url}`, value)
             .then(response => doInsertRow(response))
             .catch(error => console.log(error));
     };
@@ -189,35 +206,29 @@ const ListForm = props => {
             .catch(error => console.log(error));
     };
 
-    const onDelete = id => {
-        confirm({
-            title: "Bạn muốn xóa mục này?",
-            icon: <ExclamationCircleOutlined />,
-            content: "Thao tác không thể khôi phục",
-            okText: "Đồng ý",
-            okType: "danger",
-            cancelText: "Không",
-            onOk: () => {
-                axios
-                    .delete(`/api/${url}/${id}`)
-                    .then(response => {
-                        if (response.data.success) {
-                            const newData = data.filter(
-                                item => item[primaryKey] !== id
-                            );
-                            setState({
-                                data: newData
-                            });
-                            message.info(response.data.message);
-                            if (onChangeData) onChangeData(newData);
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
-        });
+    const onDelete = () => {
+        currentRecord !== undefined &&
+            axios
+                .delete(`/api/${url}/${currentRecord["id"]}`)
+                .then(response => {
+                    if (response.data.success) {
+                        const newData = data.filter(
+                            item => item[primaryKey] !== currentRecord["id"]
+                        );
+                        setState({
+                            data: newData,
+                            modalDeleteVisible: false,
+                            currentRecord: undefined
+                        });
+                        message.info(response.data.message);
+                        if (onChangeData) onChangeData(newData);
+                    }
+                })
+                .catch(error => console.log(error));
     };
 
     const onMultiDelete = () => {
+        console.log("before delete", state);
         confirm({
             title: "Bạn muốn xóa những mục này?",
             icon: <ExclamationCircleOutlined />,
@@ -252,6 +263,7 @@ const ListForm = props => {
             }
         });
     };
+    //#endregion
 
     return (
         <div className="list-form">
@@ -270,7 +282,7 @@ const ListForm = props => {
                 selectedRowKeys={selectedRowKeys}
                 onChangeSelect={onChangeSelect}
                 handleEdit={handleEdit}
-                onDelete={onDelete}
+                handleDelete={handleDelete}
             />
             {props.formTemplate !== undefined && (
                 <ModalConfirm
@@ -283,6 +295,17 @@ const ListForm = props => {
                     handleCancel={handleCancel}
                 />
             )}
+            <Modal
+                visible={modalDeleteVisible}
+                onOk={onDelete}
+                onCancel={handleCancel}
+                title="Bạn muốn xóa mục này?"
+                okText="Xóa"
+                cancelText="Hủy"
+                okType="danger"
+            >
+                <p>Lưu ý: Thao tác không thể hoàn tác</p>
+            </Modal>
         </div>
     );
 };

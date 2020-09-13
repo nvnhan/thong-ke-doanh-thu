@@ -57,7 +57,7 @@ Yêu cầu:
 
 Ngày 21/8/2020:
 ////////////- Xử lý mail, file: Hiện popup thông tin các đặt vé vừa thêm để có thể "Xem chi tiết" hoặc "Xử lý tiếp" // 08/09/2020
-- Thêm mới, sửa, xóa chưa cập nhật ngay ở danh sách
+////////////- XÓA 1 hàng chưa cập nhật ngay ở danh sách?????????????????????? // 13/09/2020
 
 Ngày 19/8/2020
 //- Đăng nhập: Bỏ ngày hết hạn, thay bằng số ngày đăng nhập: Mỗi user chỉ đc đăng nhập trong 1 số ngày nhất định.

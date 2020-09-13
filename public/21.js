@@ -144,9 +144,9 @@ var ModalPreviewDatVe = function ModalPreviewDatVe(props) {
 
 /***/ }),
 
-/***/ "./resources/js/pages/VeMayBay/ThemMail/FormItem.js":
+/***/ "./resources/js/pages/VeMayBay/ThemFile/FormItem.js":
 /*!**********************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/ThemMail/FormItem.js ***!
+  !*** ./resources/js/pages/VeMayBay/ThemFile/FormItem.js ***!
   \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -159,53 +159,128 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _ThongTin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ThongTin */ "./resources/js/pages/VeMayBay/ThemMail/ThongTin.js");
 
 
 
 
-
+var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option,
+    OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup;
 var RangePicker = antd__WEBPACK_IMPORTED_MODULE_0__["DatePicker"].RangePicker;
 var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
   var _props$danhMuc = props.danhMuc,
-      email = _props$danhMuc.email,
-      selectedRowKeys = _props$danhMuc.selectedRowKeys;
-  var onChangeSelect = props.onChangeSelect;
-  var rowSelection = {
-    selectedRowKeys: selectedRowKeys,
-    onChange: onChangeSelect,
-    hideDefaultSelections: true,
-    columnWidth: 43,
-    selections: [{
-      key: "invert_all",
-      text: "Bỏ chọn tất cả",
-      onSelect: function onSelect() {
-        return onChangeSelect([]);
-      }
-    }]
+      taiKhoan = _props$danhMuc.taiKhoan,
+      khachHang = _props$danhMuc.khachHang;
+
+  var getKhachHangDetail = function getKhachHangDetail() {
+    return Object.entries(_.groupBy(khachHang, "phan_loai")).map(function (clist) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(OptGroup, {
+        label: clist[0],
+        key: clist[0]
+      }, clist[1].map(function (ncc) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
+          value: ncc.id,
+          key: ncc.id
+        }, ncc.ma_khach_hang);
+      }));
+    });
   };
-  var columns = [{
-    title: "Ngày tháng",
-    dataIndex: "ngay_thang",
-    width: 100,
-    sorter: function sorter(a, b) {
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(a.ngay_thang, "DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_2___default()(b.ngay_thang, "DD/MM/YYYY").unix();
-    }
-  }, {
-    title: "Người gửi",
-    dataIndex: "nguoi_gui",
-    width: 150
-  }, {
-    title: "Chủ đề",
-    dataIndex: "email",
-    width: 450,
-    ellipsis: true
-  }];
+
+  var getTaiKhoanDetail = function getTaiKhoanDetail() {
+    return Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(function (clist) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(OptGroup, {
+        label: clist[0] || "Tài khoản ngân hàng",
+        key: clist[0]
+      }, clist[1].map(function (ncc) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Option, {
+          value: ncc.id,
+          key: ncc.id
+        }, ncc.ky_hieu);
+      }));
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
-    gutter: [10, 10],
+    gutter: [5, 5]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("span", null, "X\u1EED l\xFD file Excel"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [5, 5],
     style: {
-      marginBottom: "25px"
+      borderBottom: "1px solid rgba(0,0,0,.07)",
+      marginBottom: "12px"
     }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_so_ve",
+    label: "C\u1ED9t s\u1ED1 v\xE9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_ma_giu_cho",
+    label: "C\u1ED9t m\xE3 gi\u1EEF ch\u1ED7"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_ten_khach",
+    label: "C\u1ED9t t\xEAn kh\xE1ch"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_loai_tuoi",
+    label: "C\u1ED9t lo\u1EA1i tu\u1ED5i"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_ngay_thang",
+    label: "C\u1ED9t ng\xE0y th\xE1ng"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_hanh_trinh",
+    label: "C\u1ED9t h\xE0nh tr\xECnh"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_ngay_bay",
+    label: "C\u1ED9t ng\xE0y bay"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_ma_dai_ly",
+    label: "C\u1ED9t m\xE3 \u0111\u1EA1i l\xFD"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_hoa_hong",
+    label: "C\u1ED9t hoa h\u1ED3ng"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_so_tien",
+    label: "C\u1ED9t s\u1ED1 ti\u1EC1n"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "cot_thu_khach",
+    label: "C\u1ED9t thu kh\xE1ch"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "xu_ly_tu_hang",
+    label: "X\u1EED l\xFD t\u1EEB h\xE0ng"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [5, 5]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 24,
     md: 12
@@ -229,64 +304,85 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
       "Tháng này": [moment__WEBPACK_IMPORTED_MODULE_2___default()().startOf("month"), moment__WEBPACK_IMPORTED_MODULE_2___default()().endOf("month")]
     },
     format: "DD/MM/YYYY",
-    placeholder: ["Email nhận từ ngày", "đến ngày"]
+    placeholder: ["Nhập từ ngày", "đến ngày"]
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "id_tai_khoan_mua",
+    label: "N\u01A1i mua",
+    labelCol: {
+      span: 6
+    },
+    wrapperCol: {
+      span: 18
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
+    showSearch: true,
+    allowClear: true,
+    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
+    filterOption: function filterOption(input, option) {
+      if (!option.children) return false;
+      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    }
+  }, getTaiKhoanDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "id_khach_hang",
+    label: "Kh\xE1ch h\xE0ng M\u0110",
+    labelCol: {
+      span: 6
+    },
+    wrapperCol: {
+      span: 18
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
+    showSearch: true,
+    allowClear: true,
+    placeholder: "Kh\xE1ch h\xE0ng m\u1EB7c \u0111\u1ECBnh",
+    filterOption: function filterOption(input, option) {
+      if (!option.children) return false;
+      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    }
+  }, getKhachHangDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "tu_khoa",
-    label: "T\u1EEB kh\xF3a"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
-    placeholder: "T\u1EEB kh\xF3a t\xECm ki\u1EBFm..."
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "gioi_han",
-    label: "Gi\u1EDBi h\u1EA1n"
+    name: "phi_thu_khach",
+    label: "Ph\xED thu kh\xE1ch"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    min: 10,
-    max: 100,
-    step: 1,
     style: {
       width: "100%"
+    },
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    wrapperCol: {
-      offset: 12,
-      span: 12
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
-    type: "default",
-    onClick: function onClick() {
-      return props.onGetEmail();
-    }
-  }, "\u0110\u1ECDc Email"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Table"], {
-    dataSource: email,
-    columns: columns,
-    rowKey: function rowKey(row) {
-      return row["id"];
+    name: "khong_tinh_phi",
+    label: "Ko t\xEDnh ph\xED"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
     },
-    rowSelection: rowSelection,
-    locale: {
-      filterConfirm: "Lọc",
-      filterReset: "Hủy",
-      emptyText: "Không có dữ liệu",
-      cancelSort: "CLick để Bỏ sắp xếp",
-      triggerAsc: "Click để Sắp xếp tăng dần",
-      triggerDesc: "Click để Sắp xếp giảm dần",
-      selectionAll: "Chọn tất cả dữ liệu",
-      selectInvert: "Đảo chọn trang hiện tại"
+    min: 0,
+    step: 1000,
+    formatter: function formatter(value) {
+      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    },
+    parser: function parser(value) {
+      return value.replace(/\₫\s?|(,*)/g, "");
     }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
-    gutter: [10, 10]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_ThongTin__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
-    gutter: [10, 10]
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    gutter: [5, 5]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
@@ -304,19 +400,28 @@ var form = react__WEBPACK_IMPORTED_MODULE_3___default.a.memo(function (props) {
 
 /***/ }),
 
-/***/ "./resources/js/pages/VeMayBay/ThemMail/ThongTin.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/ThemMail/ThongTin.js ***!
-  \**********************************************************/
+/***/ "./resources/js/pages/VeMayBay/ThemFile/index.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ThemFile/index.js ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/ThemFile/FormItem.js");
+/* harmony import */ var _ModalPreviewDatVe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../ModalPreviewDatVe */ "./resources/js/pages/VeMayBay/ModalPreviewDatVe.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -332,11 +437,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup,
-    Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
 
-var ThongTin = function ThongTin(props) {
-  var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["useMergeState"])({
+
+
+
+var index = function index(props) {
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm(),
+      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
+      form = _Form$useForm2[0];
+
+  var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_3__["useMergeState"])({
     taiKhoan: [],
     khachHang: []
   }),
@@ -344,11 +454,37 @@ var ThongTin = function ThongTin(props) {
       state = _useMergeState2[0],
       setState = _useMergeState2[1];
 
-  var taiKhoan = state.taiKhoan,
-      khachHang = state.khachHang;
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(function () {
+    // Get data from localStorage
+    var cols = {
+      phi_thu_khach: 0,
+      khong_tinh_phi: 0
+    };
+    var cot = localStorage.getItem("cot_excel");
+    if (cot !== undefined) Object.assign(cols, JSON.parse(cot)); //
+
+    return cols;
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      columns = _useState2[0],
+      setColumns = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      fileList = _useState4[0],
+      setFileList = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    visible: false,
+    datve: ""
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      modalDatVe = _useState6[0],
+      setModalDatVe = _useState6[1];
+
   var isComponentMounted = false;
   var time = null;
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
     isComponentMounted = true;
     retrieveData();
     return function () {
@@ -365,7 +501,7 @@ var ThongTin = function ThongTin(props) {
   var retrieveData = function retrieveData() {
     var promise1 = axios.get("/api/tai-khoan/all");
     var promise2 = axios.get("/api/khach-hang/all");
-    console.log("Retrieving Danh Muc in ThongTin");
+    console.log("Retrieving Danh Muc");
     Promise.all([promise1, promise2]).then(function (response) {
       if (isComponentMounted) if (response[0].data.success && response[1].data.success) {
         setState({
@@ -379,212 +515,24 @@ var ThongTin = function ThongTin(props) {
       time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
     });
   };
+  /**
+   * Lưu thông tin cột vào localStorage
+   */
 
-  var getKhachHangDetail = function getKhachHangDetail() {
-    return Object.entries(_.groupBy(khachHang, "phan_loai")).map(function (clist) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OptGroup, {
-        label: clist[0],
-        key: clist[0]
-      }, clist[1].map(function (ncc) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
-          value: ncc.id,
-          key: ncc.id
-        }, ncc.ma_khach_hang);
-      }));
-    });
+
+  var saveColumns = function saveColumns(cols) {
+    delete cols.thoiGian;
+    delete cols.id_tai_khoan_mua;
+    delete cols.id_khach_hang;
+    delete cols.phi_thu_khach;
+    delete cols.khong_tinh_phi;
+    delete cols.ngay_thanh_toan;
+    delete cols.file;
+    localStorage.setItem("cot_excel", JSON.stringify(cols));
   };
-
-  var getTaiKhoanDetail = function getTaiKhoanDetail() {
-    return Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(function (clist) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OptGroup, {
-        label: clist[0] || "Tài khoản ngân hàng",
-        key: clist[0]
-      }, clist[1].map(function (ncc) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
-          value: ncc.id,
-          key: ncc.id
-        }, ncc.ky_hieu);
-      }));
-    });
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "id_tai_khoan_mua",
-    label: "N\u01A1i mua",
-    labelCol: {
-      span: 6
-    },
-    wrapperCol: {
-      span: 18
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    showSearch: true,
-    allowClear: true,
-    placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
-    filterOption: function filterOption(input, option) {
-      if (!option.children) return false;
-      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-    }
-  }, getTaiKhoanDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "id_khach_hang",
-    label: "Kh\xE1ch h\xE0ng",
-    labelCol: {
-      span: 6
-    },
-    wrapperCol: {
-      span: 18
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    showSearch: true,
-    allowClear: true,
-    placeholder: "Ch\u1ECDn kh\xE1ch h\xE0ng",
-    filterOption: function filterOption(input, option) {
-      if (!option.children) return false;
-      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-    }
-  }, getKhachHangDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "gia_net",
-    label: "Gi\xE1 net"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "tong_tien",
-    label: "T\u1ED5ng ti\u1EC1n"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "tong_tien_thu_khach",
-    label: "Thu kh\xE1ch"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12,
-    md: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    wrapperCol: {
-      sm: {
-        offset: 8,
-        span: 16
-      }
-    },
-    name: "chung_code",
-    valuePropName: "checked"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], null, "Chung code?"))));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(ThongTin));
-
-/***/ }),
-
-/***/ "./resources/js/pages/VeMayBay/ThemMail/index.js":
-/*!*******************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/ThemMail/index.js ***!
-  \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/ThemMail/FormItem.js");
-/* harmony import */ var _ModalPreviewDatVe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ModalPreviewDatVe */ "./resources/js/pages/VeMayBay/ModalPreviewDatVe.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-
-
-
-
-var index = function index(props) {
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
-      _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
-      form = _Form$useForm2[0];
-
-  var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_4__["useMergeState"])({
-    email: [],
-    selectedRowKeys: []
-  }),
-      _useMergeState2 = _slicedToArray(_useMergeState, 2),
-      state = _useMergeState2[0],
-      setState = _useMergeState2[1];
-
-  var _useMergeState3 = Object(_utils__WEBPACK_IMPORTED_MODULE_4__["useMergeState"])({
-    visible: false,
-    datve: ""
-  }),
-      _useMergeState4 = _slicedToArray(_useMergeState3, 2),
-      modalDatVe = _useMergeState4[0],
-      setModalDatVe = _useMergeState4[1];
-
-  var selectedRowKeys = state.selectedRowKeys;
 
   var showWaiting = function showWaiting() {
-    var des = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Đang xử lý dữ liệu...";
-    antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].info({
+    antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].info({
       title: "Thông báo",
       centered: true,
       icon: null,
@@ -595,60 +543,70 @@ var index = function index(props) {
         style: {
           textAlign: "center"
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Progress"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Progress"], {
         percent: 100,
         status: "active",
         showInfo: false,
         strokeColor: "#6dc3a6"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, des), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("small", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", null, "(Kh\xF4ng th\u1EC3 h\u1EE7y cho \u0111\u1EBFn khi ti\u1EBFn tr\xECnh k\u1EBFt th\xFAc!)")))
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, "\u0110ang x\u1EED l\xFD d\u1EEF li\u1EC7u..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("small", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", null, "(Kh\xF4ng th\u1EC3 h\u1EE7y cho \u0111\u1EBFn khi ti\u1EBFn tr\xECnh k\u1EBFt th\xFAc!)")))
     });
   };
 
   var getFormData = function getFormData(values) {
     if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
       Object.assign(values, {
-        bat_dau: values.thoiGian[0].format("YYYY-MM-DD HH:mm:ss"),
-        ket_thuc: values.thoiGian[1].format("YYYY-MM-DD HH:mm:ss")
+        bat_dau: values.thoiGian[0].format("YYYY-MM-DD"),
+        ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
       });
+    } // if (
+    //     values.hasOwnProperty("ngay_thanh_toan") &&
+    //     !_.isEmpty(values.ngay_thanh_toan)
+    // ) {
+    //     Object.assign(values, {
+    //         ngay_thanh_toan: values.ngay_thanh_toan.format("YYYY-MM-DD")
+    //     });
+    // }
+
+
+    var data = new FormData();
+    data.append("file", fileList[0]);
+    delete values.thoiGian;
+    delete values.file;
+
+    for (var key in values) {
+      if (values[key] !== undefined) data.append(key, values[key]);
     }
 
-    delete values.thoiGian;
-    return values;
-  };
-
-  var onChangeSelect = function onChangeSelect(selectedRowKeys) {
-    return setState({
-      selectedRowKeys: selectedRowKeys
-    });
+    return data;
   };
 
   var onFinish = function onFinish() {
-    if (selectedRowKeys.length === 0) {
-      antd__WEBPACK_IMPORTED_MODULE_0__["message"].warning("Chưa chọn email");
+    if (fileList.length === 0) {
+      antd__WEBPACK_IMPORTED_MODULE_1__["message"].warn("Chưa chọn file");
       return;
     }
 
     showWaiting();
     var values = form.getFieldsValue();
-    var data = getFormData(values);
-    Object.assign(data, {
-      mails: selectedRowKeys.join("|")
-    });
-    console.log("onFinish -> data", data); // Truyền lên server
+    saveColumns(_objectSpread({}, values));
+    var data = getFormData(values); // Truyền lên server
 
-    axios.post("/api/dat-ve/them-mail", data).then(function (response) {
+    axios.post("/api/dat-ve/them-file", data, {
+      headers: {
+        "Content-Type": "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
+      }
+    }).then(function (response) {
       if (response.data.success) {
-        antd__WEBPACK_IMPORTED_MODULE_0__["message"].success(response.data.message);
+        antd__WEBPACK_IMPORTED_MODULE_1__["message"].success(response.data.message);
         setModalDatVe({
           visible: true,
           datve: response.data.data
         });
-      } else antd__WEBPACK_IMPORTED_MODULE_0__["message"].error(response.data.message);
+      } else antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(response.data.message);
     })["catch"](function (error) {
-      console.log(error);
-      antd__WEBPACK_IMPORTED_MODULE_0__["message"].error("Có lỗi xảy ra");
+      return console.log(error);
     }).then(function () {
-      return antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].destroyAll();
+      return antd__WEBPACK_IMPORTED_MODULE_1__["Modal"].destroyAll();
     });
   };
   /**
@@ -660,37 +618,33 @@ var index = function index(props) {
     return setModalDatVe({
       visible: false,
       datve: ""
-    });
+    }) && setFileList([]);
+  };
+  /**
+   * Remove selected file
+   */
+
+
+  var onRemove = function onRemove() {
+    return setFileList([]);
   };
 
-  var onGetEmail = function onGetEmail() {
-    showWaiting("Đang lấy thông tin email...");
-    var values = form.getFieldsValue();
-    var data = getFormData(values); // Get Email from GMAIL
-
-    axios.post("/api/dat-ve/get-mail", data).then(function (response) {
-      if (response.data.success) setState({
-        email: response.data.data,
-        selectedRowKeys: []
-      });else antd__WEBPACK_IMPORTED_MODULE_0__["message"].error(response.data.message);
-    })["catch"](function (error) {
-      antd__WEBPACK_IMPORTED_MODULE_0__["message"].error("Có lỗi xảy ra");
-      console.log(error);
-      setState({
-        email: [],
-        selectedRowKeys: []
-      });
-    }).then(function () {
-      return antd__WEBPACK_IMPORTED_MODULE_0__["Modal"].destroyAll();
-    });
+  var beforeUpload = function beforeUpload(file) {
+    setFileList([file]);
+    return false;
   };
 
+  var hbOptions = ["VN", "VJ", "Jets", "BB"].map(function (pl) {
+    return {
+      value: pl
+    };
+  });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "list-form",
     style: {
       padding: "16px 12px"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
     form: form,
     labelCol: {
       span: 12
@@ -699,25 +653,55 @@ var index = function index(props) {
       span: 12
     },
     onFinish: onFinish,
-    initialValues: {
-      thoiGian: [moment__WEBPACK_IMPORTED_MODULE_1___default()().startOf("week"), moment__WEBPACK_IMPORTED_MODULE_1___default()().endOf("week")],
-      gioi_han: 20,
-      gia_net: 0,
-      tong_tien: 0,
-      tong_tien_thu_khach: 0
+    initialValues: columns
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+    gutter: [5, 5],
+    style: {
+      borderBottom: "1px solid rgba(0,0,0,.07)",
+      marginBottom: "12px"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    danhMuc: state,
-    onChangeSelect: onChangeSelect,
-    onGetEmail: onGetEmail
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ModalPreviewDatVe__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 12,
+    md: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    name: "hang_bay",
+    label: "H\xE3ng bay",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["AutoComplete"], {
+    options: hbOptions,
+    filterOption: function filterOption(inputValue, option) {
+      return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 24,
+    md: 18
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    labelCol: {
+      md: 4
+    },
+    wrapperCol: {
+      md: 20
+    },
+    name: "file",
+    label: "T\u1EADp tin"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Upload"], {
+    accept: ".xls,.xlsx,.htm,.html",
+    beforeUpload: beforeUpload,
+    onRemove: onRemove,
+    fileList: fileList
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["UploadOutlined"], null), " Ch\u1ECDn file t\u1EA3i l\xEAn"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    danhMuc: state
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ModalPreviewDatVe__WEBPACK_IMPORTED_MODULE_5__["default"], {
     ddDatVe: modalDatVe.datve,
     handleCancel: handleCancel,
     modalVisible: modalDatVe.visible
   }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(index)));
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(index));
 
 /***/ })
 

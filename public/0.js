@@ -93,7 +93,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
       deleteable = props.deleteable,
       primaryKey = props.primaryKey,
       tableSize = props.tableSize,
-      onDelete = props.onDelete,
+      handleDelete = props.handleDelete,
       handleEdit = props.handleEdit,
       onChangeSelect = props.onChangeSelect,
       otherActions = props.otherActions,
@@ -200,7 +200,7 @@ var DataTable = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (prop
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["EditOutlined"], null), " Ch\u1EC9nh s\u1EEDa"), deleteable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
       key: "delete",
       onClick: function onClick() {
-        return onDelete(record[primaryKey]);
+        return handleDelete(record);
       },
       className: "color-danger"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_0__["DeleteOutlined"], null), " X\xF3a"));

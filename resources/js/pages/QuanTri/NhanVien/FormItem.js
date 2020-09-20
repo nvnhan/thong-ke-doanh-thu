@@ -49,6 +49,11 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                 </Form.Item>
             </Col>
             <Col span={12}>
+                <Form.Item name="email" label="Email">
+                    <Input />
+                </Form.Item>
+            </Col>
+            {/* <Col span={12}>
                 <Form.Item name="sdt" label="SĐT">
                     <Input />
                 </Form.Item>
@@ -57,18 +62,24 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                 <Form.Item name="dia_chi" label="Địa chỉ">
                     <Input />
                 </Form.Item>
-            </Col>
+            </Col> */}
             <Col span={12}>
-                <Form.Item
-                    name="so_ngay_dang_nhap"
-                    label="Số ngày ĐN"
-                >
+                <Form.Item name="so_ngay_dang_nhap" label="Số ngày ĐN">
                     <InputNumber
                         step={1}
                         min={0}
                         max={9999}
                         style={{ width: "100%" }}
                     />
+                </Form.Item>
+            </Col>
+            <Col span={12}>
+                <Form.Item
+                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                    name="actived"
+                    valuePropName="checked"
+                >
+                    <Checkbox>Kích hoạt tài khoản</Checkbox>
                 </Form.Item>
             </Col>
             {tourVisa && (
@@ -78,7 +89,7 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                         name="tour_visa"
                         valuePropName="checked"
                     >
-                        <Checkbox>Tour - Visa</Checkbox>
+                        <Checkbox>Chức năng Tour - Visa</Checkbox>
                     </Form.Item>
                 </Col>
             )}
@@ -90,7 +101,7 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                         name="ban_hang"
                         valuePropName="checked"
                     >
-                        <Checkbox>Bán hàng</Checkbox>
+                        <Checkbox>Chức năng Bán hàng</Checkbox>
                     </Form.Item>
                 </Col>
             )}
@@ -101,15 +112,6 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                     </Form.Item>
                 </Col>
             )}
-            <Col span={12}>
-                <Form.Item
-                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
-                    name="actived"
-                    valuePropName="checked"
-                >
-                    <Checkbox>Hoạt động</Checkbox>
-                </Form.Item>
-            </Col>
         </Row>
     );
 };

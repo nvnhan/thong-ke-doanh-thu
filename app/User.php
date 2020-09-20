@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'ho_ten', 'username', 'password',
-        'dai_ly', 'sdt', 'dia_chi',
+        'dai_ly', 'sdt', 'dia_chi', 'email',
         'ct_ten', 'ct_sdt', 'ct_fax', 'ct_email', 'ct_dia_chi', 'ct_mst',
         'ngay_het_han', 'actived', 'phan_quyen',
         'tour_visa', 'ban_hang',

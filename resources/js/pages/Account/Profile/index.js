@@ -117,6 +117,11 @@ const Profile = React.memo(props => {
                                 <Input />
                             </Form.Item>
                         </Col>
+                        <Col span={12}>
+                            <Form.Item name="email" label="Email">
+                                <Input />
+                            </Form.Item>
+                        </Col>
                         <Col span={24} md={12}>
                             <Form.Item name="dia_chi" label="Địa chỉ">
                                 <Input />
@@ -124,7 +129,13 @@ const Profile = React.memo(props => {
                         </Col>
                     </Row>
 
-                    <Row gutter={[12, 12]}>
+                    <Row
+                        gutter={[12, 12]}
+                        style={{
+                            borderBottom: "1px solid rgba(0,0,0,.1)",
+                            margin: "0 0 12px"
+                        }}
+                    >
                         <Col span={12}>
                             <Form.Item name="ct_ten" label="Tên công ty">
                                 <Input />
@@ -147,7 +158,7 @@ const Profile = React.memo(props => {
                         </Col>
 
                         <Col span={24} md={12}>
-                            <Form.Item name="ct_email" label="Email">
+                            <Form.Item name="ct_email" label="Email công ty">
                                 <Input type="email" />
                             </Form.Item>
                         </Col>

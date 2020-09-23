@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'ho_ten', 'username', 'password',
-        'dai_ly', 'sdt', 'dia_chi', 'email',
+        'dai_ly', 'sdt', 'dia_chi', 'email', 'thong_bao',
         'ct_ten', 'ct_sdt', 'ct_fax', 'ct_email', 'ct_dia_chi', 'ct_mst',
         'ngay_het_han', 'actived', 'phan_quyen',
         'tour_visa', 'ban_hang',
@@ -43,6 +43,7 @@ class User extends Authenticatable
         'actived' => "boolean",
         'tour_visa' => "boolean",
         'ban_hang' => "boolean",
+        'thong_bao' => "boolean",
         'khong_gioi_han_dang_nhap' => "boolean",
         'ngay_het_han' => 'datetime:d/m/Y',
         'ngay_dang_nhap' => 'datetime:d/m/Y',

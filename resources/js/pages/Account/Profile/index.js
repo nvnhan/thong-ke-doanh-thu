@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Row, Col } from "antd";
+import { Button, Checkbox, Col, Form, Input, message, Modal, Row } from "antd";
 import React, { useState } from "react";
 
 const Profile = React.memo(props => {
@@ -71,16 +71,7 @@ const Profile = React.memo(props => {
                         }}
                     >
                         <Col span={12}>
-                            <Form.Item
-                                name="username"
-                                label="Tên đăng nhập"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Nhập đầy đủ thông tin!"
-                                    }
-                                ]}
-                            >
+                            <Form.Item name="username" label="Tên đăng nhập">
                                 <Input disabled />
                             </Form.Item>
                         </Col>
@@ -117,7 +108,7 @@ const Profile = React.memo(props => {
                                 <Input />
                             </Form.Item>
                         </Col>
-                        <Col span={12}>
+                        <Col span={24} md={12}>
                             <Form.Item name="email" label="Email">
                                 <Input />
                             </Form.Item>
@@ -125,6 +116,15 @@ const Profile = React.memo(props => {
                         <Col span={24} md={12}>
                             <Form.Item name="dia_chi" label="Địa chỉ">
                                 <Input />
+                            </Form.Item>
+                        </Col>
+                        <Col span={24} md={12}>
+                            <Form.Item
+                                wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                                name="thong_bao"
+                                valuePropName="checked"
+                            >
+                                <Checkbox>Nhận thông báo qua Email</Checkbox>
                             </Form.Item>
                         </Col>
                     </Row>

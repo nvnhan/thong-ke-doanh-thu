@@ -110,7 +110,7 @@ const Profile = React.memo(props => {
                         </Col>
                         <Col span={24} md={12}>
                             <Form.Item name="email" label="Email">
-                                <Input />
+                                <Input type="email" />
                             </Form.Item>
                         </Col>
                         <Col span={24} md={12}>

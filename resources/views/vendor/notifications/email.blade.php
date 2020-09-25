@@ -13,6 +13,8 @@
 @endforeach
 @endforeach
 
+Chú ý kiểm tra các vé hiện tại, nhớ xuất vé và nhắc nhở khách hàng bay đúng thời gian.
+
 {{-- Action Button --}}
 @component('mail::button', ['url' => config('app.url')])
 Kiểm tra vé

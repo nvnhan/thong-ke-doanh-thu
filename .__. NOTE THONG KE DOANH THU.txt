@@ -29,7 +29,7 @@ Chức năng, tính năng còn:
 ////////////- Cài đặt
 ////////////- Đặt vé: Thêm file
 ////////////- Đọc email
-- Auto run cron job: Nhắc lịch bay, xuất vé
+////////////- Auto run cron job: Nhắc lịch bay, xuất vé
 - Backup / Restore
 
 
@@ -42,7 +42,7 @@ Chức năng, tính năng còn:
 - Tổng hợp tài khoản: Thiếu Dư - Nợ
 ////////////- Account: expire time, login 1 máy
 - Đặt vé: tính phí giảm VN, sân bay chặng dài
-- Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select
+- Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select: Thu Chi, Đắt vé
 ////////////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)
 - Thu chi đã có chi tiết có thể sửa ko?  // KO nên cho sửa
 - Mặt vé điện tử file excel ko mở đc trên đt, có nên chuyển sang HTML?

@@ -37,6 +37,7 @@ class NhaCungCapController extends BaseController
         $data = $request->all();
         $obj = TaiKhoan::create($data);
         $obj->loai = 1;
+        $obj->username = $request->user()->username;
         $obj->save();
         return $this->sendResponse($obj, "Thêm mới thành công");
     }

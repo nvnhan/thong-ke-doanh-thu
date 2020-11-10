@@ -35,7 +35,7 @@ Chức năng, tính năng còn:
 
 - Thêm text: Còn jets, XXXmail...
 ////////////- Nhập từ excel: Thu chi...
-- báo cáo tổng hộp
+- 09/11/2020: Báo cáo tổng hộp
 - Công nợ chi tiết: Tính ngày thanh toán, nội dung, đối tượng khác
 - Tổng quan: tổng hợp công nợ
 - Tổng hợp công nợ: Tính nơi khác
@@ -45,7 +45,7 @@ Chức năng, tính năng còn:
 - Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select: Thu Chi, Đắt vé
 ////////////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)
 - Thu chi đã có chi tiết có thể sửa ko?  // KO nên cho sửa
-- Mặt vé điện tử file excel ko mở đc trên đt, có nên chuyển sang HTML?
+- 09/11/2020: Mặt vé điện tử file excel ko mở đc trên đt, có nên chuyển sang HTML?
 ////////////- Tìm kiếm ĐV theo từ khóa
 ////////////- Thêm khoảng thời gian ở Tổng quan, lọc dữ liệu trong Tổng quan
 
@@ -54,6 +54,16 @@ Chức năng, tính năng còn:
 
 ====
 Yêu cầu:
+
+Ngày 08/11/2020: 
+- Thêm từ file: Bỏ phần chọn Hãng bay vì trong 1 file có thể có nhiều hãng. Đọc file PTTK (Sổ chi tiết chi trả)
+- Lỗi email ngày 31/10/2020: Vietnamairline
+- Thu chi thêm từ file NGANHANG
+- khi tài khoản đại lý có 10 ngày thì tài khoản nhân viên khơi tạo ra max cũng chỉ 10 ngày thôi eah. 
+	Khi tk đại lý bị khoá thì tk nhân viên bên dưới của nó cũng bị khoá e a
+- Đặt vé: Chung code...
+
+
 
 Ngày 21/8/2020:
 ////////////- Xử lý mail, file: Hiện popup thông tin các đặt vé vừa thêm để có thể "Xem chi tiết" hoặc "Xử lý tiếp" // 08/09/2020

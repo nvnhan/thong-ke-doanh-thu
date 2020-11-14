@@ -191,7 +191,7 @@ class DatVeController extends BaseController
             $data = ThemMail::get_all_mail($request);
             return $this->sendResponse($data, "Gmail retrieved successfully");
         } else
-            return $this->sendError("Chưa xác thực Gmail", []);
+            return $this->sendError("Bạn chưa thực hiện xác thực Gmail", []);
     }
 
     /**

@@ -247,7 +247,7 @@ class ThemMail
         #endregion
 
         // Ma giu cho
-        $tmp->ma_giu_cho = trim($content->find('td[width=132]', 0)->plaintext);
+        $tmp->ma_giu_cho = trim($content->find('td[width=132]', 0)->plaintext ?? "");
 
         $result = [];
         for ($j = 0; $j < count($hanh_khach); $j++) {

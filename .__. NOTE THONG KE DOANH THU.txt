@@ -57,11 +57,12 @@ Yêu cầu:
 
 Ngày 08/11/2020: 
 /////////////- Thêm từ file: Bỏ phần chọn Hãng bay vì trong 1 file có thể có nhiều hãng. Đọc file PTTK (Sổ chi tiết chi trả)
-- Lỗi email ngày 31/10/2020: Vietnamairline
+/////////////- Lỗi email ngày 31/10/2020: Vietnamairline
 - Thu chi thêm từ file NGANHANG
-- khi tài khoản đại lý có 10 ngày thì tài khoản nhân viên khơi tạo ra max cũng chỉ 10 ngày thôi eah. 
+???- khi tài khoản đại lý có 10 ngày thì tài khoản nhân viên khơi tạo ra max cũng chỉ 10 ngày thôi eah. 
 	Khi tk đại lý bị khoá thì tk nhân viên bên dưới của nó cũng bị khoá e a
 - Đặt vé: Chung code...
+- Biểu đồ
 
 
 

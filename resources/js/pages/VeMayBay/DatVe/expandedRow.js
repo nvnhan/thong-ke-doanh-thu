@@ -3,11 +3,19 @@ import React from "react";
 
 const expandedRow = record => (
     <ul style={{ margin: 0 }}>
+        <li>Hãng bay: {record.hang_bay}</li>
         <li>
-            Chuyến bay đi: {record.cb_di}. Chuyến bay về: {record.cb_ve}
+            Mã đặt chỗ: {record.ma_giu_cho}. Số vé: {record.so_ve}
         </li>
-        <li>Loại tuổi: {record.ten_loai_tuoi}</li>
+        <li>Tên khách: {record.ten_khach}</li>
         <li>
+            Chuyến bay đi: {record.ngay_gio_di}, {record.cb_di}
+        </li>
+        <li>
+            Chuyến bay về: {record.ngay_gio_ve}, {record.cb_ve}
+        </li>
+        {/* <li>Loại tuổi: {record.ten_loai_tuoi}</li> */}
+        {/* <li>
             Giá net: {vndFormater.format(record.gia_net)}. Phí soi chiếu, an
             ninh: {vndFormater.format(record.phi_san_bay)}. Phí quản trị:{" "}
             {vndFormater.format(record.phu_phi_san_bay)}
@@ -15,7 +23,7 @@ const expandedRow = record => (
         <li>
             VAT: {vndFormater.format(record.vat)}. Phụ phí:{" "}
             {vndFormater.format(record.phu_phi)}
-        </li>
+        </li> */}
         <li>
             Phí hành lý: {vndFormater.format(record.hanh_ly)}. Loại hành lý:{" "}
             {record.loai_hanh_ly}

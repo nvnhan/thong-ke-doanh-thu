@@ -174,9 +174,14 @@ class ThemFile
             // Hành trình chỉ có trong 4 file tương ứng với 4 hãng
             if (!empty($request->cot_hanh_trinh)) {
                 $ht = trim($sheet->getCell($request->cot_hanh_trinh . $ind)->getValue());
-                if (strpos($ht, '-') === false) {       // Đối với các hành trình dạng này HANVNSGNVNDAD 
-                    $ht1 = strtoupper($ht);
-                    $ht1 = str_replace([' ', 'VN', 'BL', "VJ", "QH"], "", $ht1);
+                if (preg_match("/\b([a-zA-Z]{8,})\b/", $ht, $matches)) {       // Đối với các hành trình dạng này HANVNSGNVNDAD, DADVNBMV....
+                    $ht1 = strtoupper($matches[0]);
+                    if (strpos($ht1, 'VN')) $tmp->hang_bay = 'VN';
+                    else if (strpos($ht1, 'BL')) $tmp->hang_bay = 'Jets';
+                    else if (strpos($ht1, 'VJ')) $tmp->hang_bay = 'VJ';
+                    else if (strpos($ht1, 'QH')) $tmp->hang_bay = 'BB';
+
+                    $ht1 = str_replace(['VN', 'BL', "VJ", "QH"], "", $ht1);
                     preg_match("/[A-Z]+/", $ht1, $matches);
                     $tmp->sb_di = substr($matches[0], 0, 3);
                     $tmp->sb_di1 = substr($matches[0], 3, 3);
@@ -185,16 +190,18 @@ class ThemFile
                         $tmp->sb_ve1 = substr($matches[0], 6, 3);
                     }
                 } else if (preg_match_all("/\b([A-Z]{3})\b/", $ht, $matches)) {        // 3 hãng còn lại có dạng HAN - SGN hoặc HAN-SGN
-                    $tmp->sb_di = $matches[0][0];
-                    $tmp->sb_di1 = $matches[0][1];
-                    if (count($matches[0]) >= 4) {      // Có lượt về
-                        $tmp->sb_ve = $matches[0][2];
-                        $tmp->sb_ve1 = $matches[0][3];
-                    }
+                    if (count($matches[0]) >= 4) {
+                        $tmp->sb_di = $matches[0][0];
+                        $tmp->sb_di1 = $matches[0][1];
+                        if (count($matches[0]) >= 4) {      // Có lượt về
+                            $tmp->sb_ve = $matches[0][2];
+                            $tmp->sb_ve1 = $matches[0][3];
+                        }
 
-                    if (preg_match_all("/QH [0-9\-A-Z]+/", $ht, $matches)) {       // Đối với BamBoo trong hành trình có cả mã chuyến bay ví dụ QH 208-R
-                        $tmp->cb_di = $matches[0][0];
-                        if (count($matches[0]) > 1) $tmp->cb_ve = $matches[0][1];
+                        if (preg_match_all("/QH [0-9\-A-Z]+/", $ht, $matches)) {       // Đối với BamBoo trong hành trình có cả mã chuyến bay ví dụ QH 208-R
+                            $tmp->cb_di = $matches[0][0];
+                            if (count($matches[0]) > 1) $tmp->cb_ve = $matches[0][1];
+                        }
                     }
                 }
             }

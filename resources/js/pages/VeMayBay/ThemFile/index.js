@@ -206,7 +206,7 @@ const index = props => {
                     <Col span={12} md={6}>
                         <Form.Item
                             name="hang_bay"
-                            label="Hãng bay"
+                            label="HB mặc định"
                             rules={[
                                 {
                                     required: true,

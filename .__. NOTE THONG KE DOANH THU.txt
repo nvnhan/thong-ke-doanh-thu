@@ -36,7 +36,7 @@ Chức năng, tính năng còn:
 - Thêm text: Còn jets, XXXmail...
 ////////////- Nhập từ excel: Thu chi...
 - 09/11/2020: Báo cáo tổng hộp
-- Công nợ chi tiết: Tính ngày thanh toán, nội dung, đối tượng khác
+- Công nợ chi tiết: Tính ngày thanh toán, đối tượng khác
 - Tổng quan: tổng hợp công nợ
 - Tổng hợp công nợ: Tính nơi khác
 - Tổng hợp tài khoản: Thiếu Dư - Nợ

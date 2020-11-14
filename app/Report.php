@@ -126,6 +126,21 @@ class Report
         return (float) $schi;
     }
 
+    public static function TinhNoiDungXuatCongNo($dat_ves)
+    {
+        $s = '';
+        $dv = $dat_ves[0];
+        $s = ($dv->hang_bay == "VN" || $dv->hang_bay == "BB") ? $dv->ma_giu_cho : $dv->so_ve;
+        $s .= ' - ';
+
+        foreach ($dat_ves as $ve)
+            $s .= $ve->ten_khach . '/' . $ve->tong_tien_thu_khach . ' ';
+
+        $s .= $ve->sb_di . $ve->sb_di1 . $ve->sb_ve1;
+        $s .= ' ' . $ve->ngay_gio_di . ' ' . $ve->cb_di . ' ' . $ve->ngay_gio_ve . ' ' . $ve->cb_ve;
+        return $s;
+    }
+
     /**
      * Chi tiết đối soát tài khoản
      * 
@@ -302,7 +317,7 @@ class Report
                 $obj->ngay_thang = $ngay;
                 $obj->chung_tu = $sove;
                 $obj->no = $ves1->sum('tong_tien_thu_khach');
-                $obj->noi_dung = $sove . ' ' . count($ves1) . ' vé';
+                $obj->noi_dung = self::TinhNoiDungXuatCongNo($ves1);
                 $obj->dich_vu = $ves1->sum('lai');
                 $obj->tong_tien = $ves1->sum('tong_tien');
                 $obj->loai_tuoi = $ves1[0]->ten_loai_tuoi;

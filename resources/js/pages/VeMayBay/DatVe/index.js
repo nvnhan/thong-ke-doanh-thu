@@ -2,6 +2,7 @@ import { UserAddOutlined } from "@ant-design/icons";
 import { Button, Form, message, Modal } from "antd";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
+import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { useMergeState, vndFormater } from "../../../utils";
 import columns from "./columns";
@@ -9,10 +10,8 @@ import expandedRow from "./expandedRow";
 import FormItem from "./FormItem";
 import otherButtons from "./otherButtons";
 import otherFilters from "./otherFilters";
-import ThemTextLayout from "./ThemTextLayout";
 import tinhPhi from "./tinhPhi";
 import UpdateLayout from "./UpdateLayout";
-import { withRouter } from "react-router-dom";
 
 const List = props => {
     const dinh_danh = props.location.dd;
@@ -24,9 +23,6 @@ const List = props => {
     });
     const { selectedKeys, modalVisible } = update;
     const [updateForm] = Form.useForm();
-
-    const [textFormVisible, setTextFormVisible] = useState(false);
-    const [textForm] = Form.useForm();
 
     const [state, setState] = useMergeState({
         sanBay: [],
@@ -227,32 +223,6 @@ const List = props => {
         });
     };
 
-    /**
-     * Show modal thêm text
-     */
-    const showThemText = () => setTextFormVisible(true);
-
-    /**
-     * Thực hiện Thêm text
-     */
-    const handleThemText = () => {
-        textForm
-            .validateFields()
-            .then(values =>
-                axios
-                    .put("/api/dat-ve/them-text", values)
-                    .then(response => {
-                        childRef.current.triggerInsertFromText(response);
-                        textForm.resetFields();
-                        handleCancelThemText();
-                    })
-                    .catch(error => console.log(error))
-            )
-            .catch(info => console.log("Validate Failed: ", info));
-    };
-
-    const handleCancelThemText = () => setTextFormVisible(false);
-
     return (
         <React.Fragment>
             {dinh_danh !== undefined && (
@@ -291,7 +261,6 @@ const List = props => {
                 otherActions={dvAction}
                 otherButtons={otherButtons({
                     showUpdates,
-                    showThemText,
                     history: props.history
                 })}
                 expandedRowRender={expandedRow}
@@ -323,38 +292,6 @@ const List = props => {
                     }}
                 >
                     <UpdateLayout danhMuc={state} />
-                </Form>
-            </Modal>
-            <Modal
-                width="800px"
-                title="Thêm text"
-                onCancel={handleCancelThemText}
-                onOk={handleThemText}
-                visible={textFormVisible}
-                footer={[
-                    <Button key="cancel" onClick={handleCancelThemText}>
-                        Hủy
-                    </Button>,
-                    <Button
-                        key="submit"
-                        type="primary"
-                        onClick={handleThemText}
-                    >
-                        Xử lý
-                    </Button>
-                ]}
-            >
-                <Form
-                    form={textForm}
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    initialValues={{
-                        tong_tien: 0,
-                        tong_tien_thu_khach: 0,
-                        gia_net: 0
-                    }}
-                >
-                    <ThemTextLayout danhMuc={state} />
                 </Form>
             </Modal>
         </React.Fragment>

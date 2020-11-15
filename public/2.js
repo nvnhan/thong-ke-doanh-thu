@@ -251,9 +251,7 @@ var ListForm = function ListForm(props) {
       /**
        * Kích hoạt chức năng thêm 1 hàng mới vào table
        */
-      triggerInsertFromText: function triggerInsertFromText(response) {
-        return doInsertRow(response);
-      },
+      // triggerInsertFromText: response => doInsertRow(response),
 
       /**
        * Trả form instance về form khác (form cha)

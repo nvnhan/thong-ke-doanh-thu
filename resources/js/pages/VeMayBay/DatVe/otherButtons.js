@@ -77,7 +77,8 @@ const otherButtons = props => [
         childs: [
             {
                 key: "them-tu-ket-qua",
-                onClick: props.showThemText,
+                onClick: () =>
+                    props.history.push({ pathname: "/dat-ve/them-text" }),
                 title: "Thêm từ kết quả đặt vé",
                 selectRequired: false
             },

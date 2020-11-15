@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[33],{
 
-/***/ "./resources/js/pages/QuanTri/CaiDat/index.js":
-/*!****************************************************!*\
-  !*** ./resources/js/pages/QuanTri/CaiDat/index.js ***!
-  \****************************************************/
+/***/ "./resources/js/pages/Account/Profile/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/pages/Account/Profile/index.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -26,41 +26,75 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-var index = function index(props) {
+var Profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+  var _Form$useForm3 = antd__WEBPACK_IMPORTED_MODULE_0__["Form"].useForm(),
+      _Form$useForm4 = _slicedToArray(_Form$useForm3, 1),
+      formLogin = _Form$useForm4[0];
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(function () {
     // Check it in server
-    axios.get("/api/cai-dat").then(function (response) {
-      if (response.data.success) form.setFieldsValue(response.data.data);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
+    axios.get("/api/get-user").then(function (response) {
+      if (response.data.success) {
+        var data = response.data.data;
+        setUser(data);
+        form.setFieldsValue(data);
+      } else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
     })["catch"](function (error) {
       return console.log(error);
     });
-  }, []);
+    return {};
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      user = _useState2[0],
+      setUser = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      modalVisible = _useState4[0],
+      setModalVisible = _useState4[1];
 
   var onFinish = function onFinish() {
-    var values = form.getFieldsValue();
-    axios.put("/api/cai-dat", values).then(function (response) {
+    var values = form.getFieldValue();
+    axios.put("/api/profile", values).then(function (response) {
       if (response.data.success) antd__WEBPACK_IMPORTED_MODULE_0__["message"].success(response.data.message);else antd__WEBPACK_IMPORTED_MODULE_0__["message"].warn(response.data.message);
     })["catch"](function (error) {
       return console.log(error);
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  var handleOk = function handleOk() {
+    formLogin.validateFields().then(function (_ref) {
+      var username = _ref.username,
+          password = _ref.password;
+      return window.location.href = "/oauth/login?username=" + username + "&password=" + password;
+    })["catch"](function (info) {
+      return console.log("Validate Failed: ", info);
+    });
+  };
+
+  var handleCancel = function handleCancel() {
+    return setModalVisible(false);
+  };
+
+  var onAuthenticate = function onAuthenticate() {
+    return setModalVisible(true);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "list-form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
     form: form,
+    onFinish: onFinish,
     labelCol: {
       span: 8
     },
     wrapperCol: {
       span: 16
-    },
-    onFinish: onFinish
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
     gutter: [12, 12],
     style: {
@@ -68,65 +102,101 @@ var index = function index(props) {
       margin: "0 0 12px"
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    md: 12
+    span: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "cb_dai_han",
-    label: "Chuy\u1EBFn bay d\xE0i HAN"
+    name: "username",
+    label: "T\xEAn \u0111\u0103ng nh\u1EADp"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    disabled: true
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ho_ten",
+    label: "H\u1ECD t\xEAn",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "dai_ly",
+    label: "\u0110\u1EA1i l\xFD",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "sdt",
+    label: "S\u1ED1 \u0111i\u1EC7n tho\u1EA1i"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 24,
     md: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "cb_dai_sgn",
-    label: "Chuy\u1EBFn bay d\xE0i SGN"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "sb_giam_phi",
-    label: "SB gi\u1EA3m ph\xED"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    md: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "phi_giam",
-    label: "Ph\xED gi\u1EA3m"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 1000,
-    step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
+    name: "email",
+    label: "Email"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    type: "email"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 24,
     md: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "so_ve_vn_mac_dinh",
-    label: "S\u1ED1 v\xE9 VN m\u1EB7c \u0111\u1ECBnh"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    name: "dia_chi",
+    label: "\u0110\u1ECBa ch\u1EC9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    wrapperCol: {
+      sm: {
+        offset: 8,
+        span: 16
+      }
+    },
+    name: "thong_bao",
+    valuePropName: "checked"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], null, "Nh\u1EADn th\xF4ng b\xE1o qua Email")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
     gutter: [12, 12],
     style: {
       borderBottom: "1px solid rgba(0,0,0,.1)",
       margin: "0 0 12px"
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 24,
-    md: 12
+    span: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "client_id",
-    label: "Client ID"
+    name: "ct_ten",
+    label: "T\xEAn c\xF4ng ty"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ct_mst",
+    label: "M\xE3 s\u1ED1 thu\u1EBF"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ct_sdt",
+    label: "S\u1ED1 \u0111i\u1EC7n tho\u1EA1i"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ct_fax",
+    label: "FAX"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 24,
     md: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "client_secret",
-    label: "Client Secret"
+    name: "ct_email",
+    label: "Email c\xF4ng ty"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    type: "email"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 24,
+    md: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ct_dia_chi",
+    label: "\u0110\u1ECBa ch\u1EC9 c\xF4ng ty"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
     gutter: [12, 12]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
@@ -134,18 +204,57 @@ var index = function index(props) {
     md: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     wrapperCol: {
-      md: {
-        span: 16,
-        offset: 8
-      }
+      span: 16,
+      offset: 8
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
-    htmlType: "submit",
-    type: "primary"
-  }, "C\u1EADp nh\u1EADt"))))));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(index));
+    type: "primary",
+    htmlType: "submit"
+  }, "C\u1EADp nh\u1EADt"), " ", "\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+    onClick: onAuthenticate
+  }, "X\xE1c th\u1EF1c Gmail")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Modal"], {
+    title: "X\xE1c nh\u1EADn t\xE0i kho\u1EA3n",
+    onCancel: handleCancel,
+    onOk: handleOk,
+    visible: modalVisible,
+    footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+      key: "back",
+      onClick: handleCancel
+    }, "H\u1EE7y"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+      key: "submit",
+      type: "primary",
+      onClick: handleOk
+    }, "\u0110\u1ED3ng \xFD")]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
+    form: formLogin,
+    labelCol: {
+      span: 8
+    },
+    wrapperCol: {
+      span: 16
+    },
+    initialValues: {
+      username: user.username
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "username",
+    label: "T\xEAn \u0111\u0103ng nh\u1EADp",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    disabled: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "password",
+    label: "M\u1EADt kh\u1EA9u",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Password, null)))));
+});
+/* harmony default export */ __webpack_exports__["default"] = (Profile);
 
 /***/ })
 

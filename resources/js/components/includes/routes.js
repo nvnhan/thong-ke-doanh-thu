@@ -9,6 +9,7 @@ const ThemFileThuChi = lazy(() => import("../../pages/ThuChi/ThemFile"));
 const ThuChiChiTiet = lazy(() => import("../../pages/ThuChi/ThuChiChiTiet"));
 
 const DatVe = lazy(() => import("../../pages/VeMayBay/DatVe"));
+const ThemText = lazy(() => import("../../pages/VeMayBay/ThemText"));
 const ThemFile = lazy(() => import("../../pages/VeMayBay/ThemFile"));
 const ThemMail = lazy(() => import("../../pages/VeMayBay/ThemMail"));
 
@@ -83,6 +84,13 @@ const routes = [
         title: "Đặt vé",
         menu: menus.VMB_DAT_VE,
         component: <DatVe />
+    },
+    {
+        path: "/dat-ve/them-text",
+        exact: false,
+        title: "Thêm từ kết quả đặt vé",
+        menu: "",
+        component: <ThemText />
     },
     {
         path: "/dat-ve/them-file",

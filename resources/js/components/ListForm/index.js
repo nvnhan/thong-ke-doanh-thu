@@ -91,7 +91,7 @@ const ListForm = props => {
         /**
          * Kích hoạt chức năng thêm 1 hàng mới vào table
          */
-        triggerInsertFromText: response => doInsertRow(response),
+        // triggerInsertFromText: response => doInsertRow(response),
         /**
          * Trả form instance về form khác (form cha)
          */

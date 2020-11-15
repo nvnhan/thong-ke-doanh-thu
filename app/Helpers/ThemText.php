@@ -12,7 +12,7 @@ class ThemText
     /**
      * Parse Bamboo Airline
      */
-    public static function parse_bamboo($lines, Request $request)
+    public static function parse_bamboo($lines, Request $request, $dinh_danh)
     {
         $hanh_khach = [];
         $so_ve = [];
@@ -24,6 +24,7 @@ class ThemText
         $tmp->ma_giu_cho = trim($lines[0]);
         $tmp->ngay_thang = date("Y-m-d");
         $tmp->loai_tuoi = 0;
+        $tmp->dinh_danh = $dinh_danh;
 
         for ($i = 1; $i < count($lines); $i++) {    // Tên khách từ Passengers
             $line = trim($lines[$i]);
@@ -125,7 +126,7 @@ class ThemText
     /**
      * Parse VietJet
      */
-    public static function parse_vj($lines, Request $request)
+    public static function parse_vj($lines, Request $request, $dinh_danh)
     {
         $hanh_khach = [];
         $i = 0;
@@ -136,6 +137,7 @@ class ThemText
         $tmp->hang_bay = "VJ";
         $tmp->loai_tuoi = 0;
         $tmp->ngay_thang = date('Y-m-d');
+        $tmp->dinh_danh  = $dinh_danh;
 
         for ($i = 0; $i < count($lines); $i++) {
             preg_match("/(\d+)\/(\d+)\/(\d+)/", $lines[$i], $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
@@ -214,7 +216,7 @@ class ThemText
     /**
      * Parse VietNam Airline
      */
-    public static function parse_vn($lines, Request $request)
+    public static function parse_vn($lines, Request $request, $dinh_danh)
     {
         $hanh_khach = [];
         $tre_em = [];
@@ -225,6 +227,7 @@ class ThemText
         $tmp->username = $request->user()->username;
         $tmp->hang_bay = "VN";
         $tmp->ngay_thang = date('Y-m-d');
+        $tmp->dinh_danh  = $dinh_danh;
 
         for ($i = 1; $i < count($lines); $i++)        // Tên khách từ hàng thứ 2 trở đi
         {
@@ -364,7 +367,7 @@ class ThemText
     /**
      * Parse Mail VietNam Airline
      */
-    public static function parse_vn_mail($lines, Request $request)
+    public static function parse_vn_mail($lines, Request $request, $dinh_danh)
     {
         $hanh_khach = [];
         $so_ve = [];
@@ -376,6 +379,7 @@ class ThemText
         $tmp->hang_bay = "VN";
         $tmp->loai_tuoi = 0;
         $tmp->ngay_thang = date('Y-m-d');
+        $tmp->dinh_danh = $dinh_danh;
 
         #region Chuyến bay đầu tiên
         for ($i = 1; $i < count($lines); $i++)        // Tên khách từ hàng thứ 2 trở đi

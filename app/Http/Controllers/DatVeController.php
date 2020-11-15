@@ -122,19 +122,20 @@ class DatVeController extends BaseController
         $text = $request->text;
         $lines = explode("\n",  $text);
         $data = [];
+        $dinh_danh = $request->user()->id . '.' . time();
         // return ThemText::parse_vn($lines, $request);
         //TODO: Xử lý text các phần còn lại
         //
         if (strpos($text, "Bamboo Airways") !== false)
-            $data = ThemText::parse_bamboo($lines, $request);
+            $data = ThemText::parse_bamboo($lines, $request, $dinh_danh);
         // else if (strpos($text, "Các chuyến bay của bạn") !== false)
         //     parseJetsMail();
         else if (strpos($text, "VIETNAM AIRLINES") !== false)
-            $data = ThemText::parse_vn_mail($lines, $request);
+            $data = ThemText::parse_vn_mail($lines, $request, $dinh_danh);
         else if (strlen(trim($lines[0])) === 8 || strpos($text, "Thông tin chuyến bay") !== false || strpos($text, "Flight Information") !== false)
-            $data = ThemText::parse_vj($lines, $request);
+            $data = ThemText::parse_vj($lines, $request, $dinh_danh);
         else if (strpos($lines[1], '1.1') !== false)
-            $data = ThemText::parse_vn($lines, $request);
+            $data = ThemText::parse_vn($lines, $request, $dinh_danh);
         // else if (strpos($text, "Chuyến bay đi") !== false)
         //     parseJetsChuaXuat();
         // else if (strpos($text, "Jetstar") !== false)
@@ -144,7 +145,7 @@ class DatVeController extends BaseController
         //     parseJets();
 
         if (count($data) > 0)
-            return $this->sendResponse($data, "Thêm mới thành công " . count($data) . ' mục');
+            return $this->sendResponse($dinh_danh, "Thêm mới thành công " . count($data) . ' mục');
         else return $this->sendError("Không xử lý được");
     }
 
@@ -201,7 +202,7 @@ class DatVeController extends BaseController
         $objs = explode('|', $request['mails']);
         if (\is_array($objs)) {
             $cnt = 0;
-            $dinh_danh = time();
+            $dinh_danh = $request->user()->id . '.' . time();
             foreach ($objs as $id) {
                 $body = ThemMail::get_mail_body($id);
                 // return $body;

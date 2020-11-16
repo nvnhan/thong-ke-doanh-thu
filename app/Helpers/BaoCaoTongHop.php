@@ -13,52 +13,6 @@ use stdClass;
 
 class BaoCaoTongHop
 {
-    /** 
-     * Tính muavao, banra
-     */
-    public static function tinh_cong_no(Request $request, &$muavao, &$banra)
-    {
-        $tu_ngay =  date('Y-m-01');
-        $den_ngay = date('Y-m-t');
-        if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
-            $tu_ngay = substr($request->bat_dau, 0, 10);
-            $den_ngay = substr($request->ket_thuc, 0, 10);
-        }
-        $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
-
-        $khachHang = KhachHang::ofUser($request->user())
-            ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
-            ->get();
-        foreach ($khachHang as $kh) {
-            $tmp = new stdClass;
-            $tmp->id = $kh->id;
-            $tmp->phan_loai = $kh->phan_loai;
-            $tmp->khach_hang = $kh->ma_khach_hang . ' - ' . $kh->ho_ten;
-
-            $tmp->dau_ky = $kh->so_du_ky_truoc + Report::TinhTongThanhToanBanRa($kh, $ngayTruoc) - Report::TinhTongGiaoDichBanRa($kh, $ngayTruoc);
-            $tmp->thanh_toan = Report::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
-            $tmp->giao_dich = Report::TinhTongGiaoDichBanRa($kh, $den_ngay, $tu_ngay);
-            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
-
-            $banra[] = $tmp;
-        }
-
-        $nhaCungCap = TaiKhoan::ofUser($request->user())->whereLoai(1)->get();
-        foreach ($nhaCungCap as $ncc) {
-            $tmp = new stdClass;
-            $tmp->id = $ncc->id;
-            $tmp->tai_khoan = $ncc->ky_hieu . ' - ' . $ncc->mo_ta;
-
-            $tmp->dau_ky = Report::TongThuTK($ncc, '', $ngayTruoc) - Report::TongChiTK($ncc, '', $ngayTruoc);
-            $tmp->thanh_toan = Report::TongThuTK($ncc, '', $den_ngay, $tu_ngay);
-            $tmp->giao_dich = Report::TongChiTK($ncc, '', $den_ngay, $tu_ngay);
-            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
-
-            $muavao[] = $tmp;
-            //TODO: Tính NƠI KHÁC..............
-        }
-    }
-
     public static function set_cell_style($sheet, string $cell)
     {
         $sheet->getStyle($cell)->getFont()->setBold(true);
@@ -70,7 +24,7 @@ class BaoCaoTongHop
     {
         $muavao = [];
         $banra  = [];
-        BaoCaoTongHop::tinh_cong_no($request, $muavao, $banra);
+        Report::tinh_cong_no($request, $muavao, $banra);
 
         // Bán ra
         $phan_loai = [];
@@ -141,5 +95,31 @@ class BaoCaoTongHop
         $sheet->setCellValue("E$row_index", array_reduce($muavao, fn ($carry, $item) => $carry + $item->thanh_toan));
         self::set_cell_style($sheet, "F$row_index");
         $sheet->setCellValue("F$row_index", array_reduce($muavao, fn ($carry, $item) => $carry + $item->giao_dich));
+    }
+
+    public static function export_tai_khoan(Request $request, $sheet)
+    {
+        $tai_khoan = Report::tinh_tai_khoan($request);
+        $row_index = 1;
+        $sheet->setCellValue("A$row_index", "Tài khoản");
+        $sheet->setCellValue("B$row_index", "Đầu kỳ");
+
+        $col = 4;
+        $cols = [];
+        foreach ($tai_khoan as $row) {
+            if ($row_index === 1)
+                foreach ($row as $key => $value)
+                    if ($key != 'id' && $key != 'tai_khoan' && $key != 'dau_ky' && $key != 'thu_chi') {
+                        $cols[$col] = $key;
+                        $sheet->setCellValueByColumnAndRow($col++, $row_index, $key);
+                    }
+
+            $row_index++;
+            $sheet->setCellValue("A$row_index", $row->tai_khoan);
+            $sheet->setCellValue("B$row_index", $row->dau_ky);
+            $sheet->setCellValue("C$row_index", $row->thu_chi ?? "");
+            foreach ($cols as $key => $value)
+                $sheet->setCellValueByColumnAndRow($key, $row_index, $row->$value ?? "");
+        }
     }
 }

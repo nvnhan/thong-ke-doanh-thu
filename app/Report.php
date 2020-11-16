@@ -7,7 +7,11 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Http\Request;
 use stdClass;
+use App\Helpers\Util;
+use App\KhachHang;
+use App\TaiKhoan;
 
 class Report
 {
@@ -252,11 +256,14 @@ class Report
         return $data;
     }
 
+    /**
+     * Công nợ chi tiết
+     */
     public static function maucongno($request, string $tu_ngay = "", string $den_ngay = "", $dat_ve = [], KhachHang $khach_hang = null)
     {
         $user = $request->user();
         // Prepare Excel File
-        $file = storage_path('app/reports') . "/cong-no.xlsx";
+        $file = storage_path('app/selfs') . "/cong-no.xlsx";
         $reader = IOFactory::createReader("Xlsx");
         $spreadSheet = $reader->load($file);
         $sheet = $spreadSheet->getSheet(0);
@@ -381,5 +388,138 @@ class Report
         $writer = IOFactory::createWriter($spreadSheet, "Xlsx");
         // Write file to output
         $writer->save('php://output');
+    }
+
+    /** 
+     * Tính muavao, banra
+     */
+    public static function tinh_cong_no(Request $request, &$muavao, &$banra)
+    {
+        $tu_ngay =  date('Y-m-01');
+        $den_ngay = date('Y-m-t');
+        if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
+            $tu_ngay = substr($request->bat_dau, 0, 10);
+            $den_ngay = substr($request->ket_thuc, 0, 10);
+        }
+        $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
+
+        $khachHang = KhachHang::ofUser($request->user())
+            ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
+            ->get();
+        foreach ($khachHang as $kh) {
+            $tmp = new stdClass;
+            $tmp->id = $kh->id;
+            $tmp->phan_loai = $kh->phan_loai;
+            $tmp->khach_hang = $kh->ma_khach_hang . ' - ' . $kh->ho_ten;
+
+            $tmp->dau_ky = $kh->so_du_ky_truoc + self::TinhTongThanhToanBanRa($kh, $ngayTruoc) - self::TinhTongGiaoDichBanRa($kh, $ngayTruoc);
+            $tmp->thanh_toan = self::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
+            $tmp->giao_dich = self::TinhTongGiaoDichBanRa($kh, $den_ngay, $tu_ngay);
+            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
+
+            $banra[] = $tmp;
+        }
+
+        $nhaCungCap = TaiKhoan::ofUser($request->user())->whereLoai(1)->get();
+        foreach ($nhaCungCap as $ncc) {
+            $tmp = new stdClass;
+            $tmp->id = $ncc->id;
+            $tmp->tai_khoan = $ncc->ky_hieu . ' - ' . $ncc->mo_ta;
+
+            $tmp->dau_ky = self::TongThuTK($ncc, '', $ngayTruoc) - self::TongChiTK($ncc, '', $ngayTruoc);
+            $tmp->thanh_toan = self::TongThuTK(
+                $ncc,
+                '',
+                $den_ngay,
+                $tu_ngay
+            );
+            $tmp->giao_dich = self::TongChiTK($ncc, '', $den_ngay, $tu_ngay);
+            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
+
+            $muavao[] = $tmp;
+            //TODO: Tính NƠI KHÁC..............
+        }
+    }
+
+    /**
+     * Chi tiết tài khoản
+     */
+    public static function tinh_tai_khoan(Request $request)
+    {
+        $tu_ngay =  date('Y-m-01');
+        $den_ngay = date('Y-m-t');
+        $result = [];
+
+        if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
+            $tu_ngay = substr($request->bat_dau, 0, 10);
+            $den_ngay = substr($request->ket_thuc, 0, 10);
+        }
+        $taiKhoan = TaiKhoan::ofUser($request->user())->where('loai', '!=', '-1')->where(function ($q) use ($den_ngay) {
+            return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
+        })->orderBy('loai')->get();
+
+        $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
+        $sum = 0;
+        // Thêm các tài khoản
+        foreach ($taiKhoan as $tk) {
+            $tmp = new stdClass;
+            $tmp1 = new stdClass;
+            $tmp->id = $tk->id;
+            $tmp1->id = $tk->id . 'a';
+            $tmp->tai_khoan = $tk->ky_hieu;
+
+            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
+            $sum += $duCuoiKy;
+            $tmp->dau_ky = Util::VNDFormater(Report::TongThuTK($tk, $ngayTruoc) - Report::TongChiTK($tk, $ngayTruoc));      // Đầu kỳ
+            $tmp1->tai_khoan = Util::VNDFormater($duCuoiKy);
+            $tmp1->dau_ky = '';
+            $tmp->thu_chi = "THU";
+            $tmp1->thu_chi = "CHI";
+
+            $coDuLieu = false;
+            // Thêm các cột tương ứng với giá trị thu theo từng ngày
+            for ($i = $tu_ngay; $i <= $den_ngay; $i++) {
+                $t = (new DateTime($i))->format('d/m/y');
+                $tmp->$t = Util::VNDFormater(Report::TongThuTK($tk, $i, $i));
+                $tmp1->$t = Util::VNDFormater(Report::TongChiTK($tk, $i, $i));
+                if ($tmp->$t != '0' || $tmp1->$t != '0')
+                    $coDuLieu = true;
+            }
+            if ($tmp->dau_ky != '0' || $tmp1->tai_khoan != '0' || $coDuLieu) {
+                $result[] = $tmp;
+                $result[] = $tmp1;
+            }
+        }
+        //TODO: Thêm Dư - Nợ
+        $duNo = 0;
+        $sum -= $duNo;
+        $tmp = new stdClass;
+        $tmp->id = -2;
+        $tmp->tai_khoan = "DƯ - NỢ";
+        $tmp->dau_ky = $duNo;
+        $result[] = $tmp;
+        // Thêm Lãi
+        $lai = Report::TinhLai($request, $tu_ngay, $den_ngay);
+        $tmp = new stdClass;
+        $tmp->id = -1;
+        $tmp->tai_khoan = "LÃI";
+        $tmp->dau_ky = Util::VNDFormater($lai);
+        $result[] = $tmp;
+        // Thêm tồn kho
+        $tonKho = Report::TinhTonKho($request, $den_ngay);
+        $sum += $tonKho;
+        $tmp = new stdClass;
+        $tmp->id = -4;
+        $tmp->tai_khoan = "TỒN KHO";
+        $tmp->dau_ky = Util::VNDFormater($tonKho);
+        $result[] = $tmp;
+        // Thêm tổng cộng
+        $tmp = new stdClass;
+        $tmp->id = -3;
+        $tmp->tai_khoan = "TỔNG CỘNG";
+        $tmp->dau_ky = Util::VNDFormater($sum);
+        $result[] = $tmp;
+
+        return $result;
     }
 }

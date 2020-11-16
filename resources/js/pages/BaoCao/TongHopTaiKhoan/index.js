@@ -1,8 +1,6 @@
-import { Select } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import exportToExcel from "../../../utils/exportToExcel";
-const { Option } = Select;
 
 const List = React.memo(props => {
     const [trangThai, setTrangThai] = useState({
@@ -10,17 +8,6 @@ const List = React.memo(props => {
         tableSize: 1000
     });
     const { columns, tableSize } = trangThai;
-
-    const [nhanVien, setNhanVien] = useState([]);
-
-    useEffect(() => {
-        axios
-            .get("/api/nhan-vien/all")
-            .then(response => {
-                if (response.data.success) setNhanVien(response.data.data);
-            })
-            .catch(error => console.log(error));
-    }, []);
 
     /**
      * Callback from ListForm to reload Thu Chi from server
@@ -42,7 +29,7 @@ const List = React.memo(props => {
                 });
             else if (key === "dau_ky")
                 cols.push({
-                    title: "Đầu / Cuối kỳ",
+                    title: "Đầu kỳ",
                     dataIndex: key,
                     width: 100
                 });
@@ -63,25 +50,6 @@ const List = React.memo(props => {
             columns: cols,
             tableSize: size
         });
-    };
-
-    const getOtherFilter = () => {
-        return [
-            // {
-            //     name: "user",
-            //     label: "Nhân viên",
-            //     render: (
-            //         <Select>
-            //             <Option value="">Tất cả</Option>
-            //             {nhanVien.map(nv => (
-            //                 <Option key={nv.username} value={nv.username}>
-            //                     {nv.username + " - " + nv.ho_ten}
-            //                 </Option>
-            //             ))}
-            //         </Select>
-            //     )
-            // }
-        ];
     };
 
     const exportDS = (data, selectedKeys) => {
@@ -111,8 +79,6 @@ const List = React.memo(props => {
             deleteable={false}
             selectable={false}
             filterBox
-            otherFilter={getOtherFilter()}
-            filterInitialValue={{ user: "" }}
             columns={columns}
             tableSize={{ x: tableSize }}
             otherButtons={otherButtons}

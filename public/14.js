@@ -50,11 +50,10 @@ var showWaiting = function showWaiting() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-/* harmony import */ var _utils_exportToExcel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/exportToExcel */ "./resources/js/utils/exportToExcel.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _utils_exportToExcel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/exportToExcel */ "./resources/js/utils/exportToExcel.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -76,12 +75,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option;
-var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
   var _React$createElement;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     columns: [],
     tableSize: 1000
   }),
@@ -91,19 +88,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
 
   var columns = trangThai.columns,
       tableSize = trangThai.tableSize;
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      nhanVien = _useState4[0],
-      setNhanVien = _useState4[1];
-
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    axios.get("/api/nhan-vien/all").then(function (response) {
-      if (response.data.success) setNhanVien(response.data.data);
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  }, []);
   /**
    * Callback from ListForm to reload Thu Chi from server
    */
@@ -123,7 +107,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
         fixed: "left",
         optFind: true
       });else if (key === "dau_ky") cols.push({
-        title: "Đầu / Cuối kỳ",
+        title: "Đầu kỳ",
         dataIndex: key,
         width: 100
       });else if (key === "thu_chi") cols.push({
@@ -143,24 +127,6 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     });
   };
 
-  var getOtherFilter = function getOtherFilter() {
-    return [// {
-      //     name: "user",
-      //     label: "Nhân viên",
-      //     render: (
-      //         <Select>
-      //             <Option value="">Tất cả</Option>
-      //             {nhanVien.map(nv => (
-      //                 <Option key={nv.username} value={nv.username}>
-      //                     {nv.username + " - " + nv.ho_ten}
-      //                 </Option>
-      //             ))}
-      //         </Select>
-      //     )
-      // }
-    ];
-  };
-
   var exportDS = function exportDS(data, selectedKeys) {
     var newData = data.map(function (p, index) {
       var t = _objectSpread({
@@ -170,7 +136,7 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
       delete t["id"];
       return t;
     });
-    Object(_utils_exportToExcel__WEBPACK_IMPORTED_MODULE_3__["default"])(newData, "tong-hop-tai-khoan.xlsx", false);
+    Object(_utils_exportToExcel__WEBPACK_IMPORTED_MODULE_2__["default"])(newData, "tong-hop-tai-khoan.xlsx", false);
   };
 
   var otherButtons = [{
@@ -179,15 +145,13 @@ var List = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
     title: "Xuất danh sách ra Excel",
     selectRequired: false
   }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_2__["default"], (_React$createElement = {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], (_React$createElement = {
     url: "tong-hop-tai-khoan",
     insertable: false,
     selectable: false,
     editable: false,
     deleteable: false
-  }, _defineProperty(_React$createElement, "selectable", false), _defineProperty(_React$createElement, "filterBox", true), _defineProperty(_React$createElement, "otherFilter", getOtherFilter()), _defineProperty(_React$createElement, "filterInitialValue", {
-    user: ""
-  }), _defineProperty(_React$createElement, "columns", columns), _defineProperty(_React$createElement, "tableSize", {
+  }, _defineProperty(_React$createElement, "selectable", false), _defineProperty(_React$createElement, "filterBox", true), _defineProperty(_React$createElement, "columns", columns), _defineProperty(_React$createElement, "tableSize", {
     x: tableSize
   }), _defineProperty(_React$createElement, "otherButtons", otherButtons), _defineProperty(_React$createElement, "onChangeData", onChangeData), _React$createElement));
 });

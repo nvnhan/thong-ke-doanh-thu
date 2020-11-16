@@ -1,5 +1,5 @@
-import { Modal, Progress } from "antd";
-import React from "react";
+import { Modal } from "antd";
+import showWaiting from "../components/Includes/ShowWaiting";
 
 /**
  * Download file từ url
@@ -21,22 +21,8 @@ const downloadFile = (url, name) => {
  * Tạo và download file từ url
  */
 export const downloadApi = (url, params, fileName) => {
-    Modal.info({
-        title: "Thông báo",
-        centered: true,
-        icon: null,
-        content: (
-            <div style={{ textAlign: "center" }}>
-                <Progress
-                    percent={100}
-                    status="active"
-                    showInfo={false}
-                    strokeColor="#6dc3a6"
-                />
-                <span>Đang tạo báo cáo...</span>
-            </div>
-        )
-    });
+    showWaiting("Đang tạo báo cáo...");
+
     axios
         .get(url, {
             params,

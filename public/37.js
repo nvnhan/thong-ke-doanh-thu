@@ -1,1 +1,95 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[37],{671:function(e,a,t){"use strict";t.r(a);var n=t(10),r=t(83),l=t(49),c=t(19),m=t(26),i=t(403),o=t(18),s=t(0),u=t.n(s);function p(e,a){return function(e){if(Array.isArray(e))return e}(e)||function(e,a){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return;var t=[],n=!0,r=!1,l=void 0;try{for(var c,m=e[Symbol.iterator]();!(n=(c=m.next()).done)&&(t.push(c.value),!a||t.length!==a);n=!0);}catch(e){r=!0,l=e}finally{try{n||null==m.return||m.return()}finally{if(r)throw l}}return t}(e,a)||function(e,a){if(!e)return;if("string"==typeof e)return d(e,a);var t=Object.prototype.toString.call(e).slice(8,-1);"Object"===t&&e.constructor&&(t=e.constructor.name);if("Map"===t||"Set"===t)return Array.from(t);if("Arguments"===t||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t))return d(e,a)}(e,a)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function d(e,a){(null==a||a>e.length)&&(a=e.length);for(var t=0,n=new Array(a);t<a;t++)n[t]=e[t];return n}a.default=u.a.memo((function(e){var a=p(n.a.useForm(),1)[0];Object(s.useEffect)((function(){axios.get("/api/cai-dat").then((function(e){e.data.success?a.setFieldsValue(e.data.data):r.a.warn(e.data.message)})).catch((function(e){return console.log(e)}))}),[]);return u.a.createElement("div",{className:"list-form"},u.a.createElement(n.a,{form:a,labelCol:{span:8},wrapperCol:{span:16},onFinish:function(){var e=a.getFieldsValue();axios.put("/api/cai-dat",e).then((function(e){e.data.success?r.a.success(e.data.message):r.a.warn(e.data.message)})).catch((function(e){return console.log(e)}))}},u.a.createElement(l.a,{gutter:[12,12],style:{borderBottom:"1px solid rgba(0,0,0,.1)",margin:"0 0 12px"}},u.a.createElement(c.a,{span:24,md:12},u.a.createElement(n.a.Item,{name:"cb_dai_han",label:"Chuyến bay dài HAN"},u.a.createElement(m.a,null))),u.a.createElement(c.a,{span:24,md:12},u.a.createElement(n.a.Item,{name:"cb_dai_sgn",label:"Chuyến bay dài SGN"},u.a.createElement(m.a,null))),u.a.createElement(c.a,{span:24,md:12},u.a.createElement(n.a.Item,{name:"sb_giam_phi",label:"SB giảm phí"},u.a.createElement(m.a,null))),u.a.createElement(c.a,{span:24,md:12},u.a.createElement(n.a.Item,{name:"phi_giam",label:"Phí giảm"},u.a.createElement(i.a,{style:{width:"100%"},min:1e3,step:1e3,formatter:function(e){return"".concat(e,"₫").replace(/(?=(\d{3})+(?!\d))\B/g,",")},parser:function(e){return e.replace(/\₫\s?|(,*)/g,"")}}))),u.a.createElement(c.a,{span:24,md:12},u.a.createElement(n.a.Item,{name:"so_ve_vn_mac_dinh",label:"Số vé VN mặc định"},u.a.createElement(m.a,null)))),u.a.createElement(l.a,{gutter:[12,12],style:{borderBottom:"1px solid rgba(0,0,0,.1)",margin:"0 0 12px"}},u.a.createElement(c.a,{span:24,md:12},u.a.createElement(n.a.Item,{name:"client_id",label:"Client ID"},u.a.createElement(m.a,null))),u.a.createElement(c.a,{span:24,md:12},u.a.createElement(n.a.Item,{name:"client_secret",label:"Client Secret"},u.a.createElement(m.a,null)))),u.a.createElement(l.a,{gutter:[12,12]},u.a.createElement(c.a,{span:24,md:12},u.a.createElement(n.a.Item,{wrapperCol:{md:{span:16,offset:8}}},u.a.createElement(o.a,{htmlType:"submit",type:"primary"},"Cập nhật"))))))}))}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[37],{
+
+/***/ "./resources/js/pages/VeMayBay/NoVe/index.js":
+/*!***************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/NoVe/index.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var _utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportDatVe */ "./resources/js/utils/exportDatVe.js");
+/* harmony import */ var _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../DatVe/columns */ "./resources/js/pages/VeMayBay/DatVe/columns.js");
+/* harmony import */ var _DatVe_expandedRow__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../DatVe/expandedRow */ "./resources/js/pages/VeMayBay/DatVe/expandedRow.js");
+
+
+
+
+
+
+
+
+
+var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
+  var getOtherFilter = function getOtherFilter() {
+    return [{
+      name: "den_ngay",
+      label: "Tính đến",
+      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        style: {
+          width: "100%"
+        },
+        locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
+        format: "DD/MM/YYYY",
+        allowClear: false
+      })
+    }];
+  };
+
+  var renderSummary = function renderSummary(data) {
+    if (!_.isEmpty(data)) {
+      var sumObj = data.reduce(function (previousValue, currentValue) {
+        return {
+          tong_tien: previousValue.tong_tien + currentValue.tong_tien,
+          tong_tien_thu_khach: previousValue.tong_tien_thu_khach + currentValue.tong_tien_thu_khach
+        };
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
+        colSpan: 10
+      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
+    }
+  };
+
+  var otherButtons = [{
+    key: "export",
+    onClick: function onClick(data, selectedRowKeys) {
+      return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__["default"])(data, selectedRowKeys, "no-ve.xlsx");
+    },
+    title: "Xuất danh sách ra Excel",
+    selectRequired: false
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    url: "no-ve",
+    insertable: false,
+    selectable: false,
+    editable: false,
+    deleteable: false,
+    filterBox: true,
+    tuNgayDenNgay: false,
+    otherFilter: getOtherFilter(),
+    filterInitialValue: {
+      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("DD/MM/YYYY")
+    },
+    columns: _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__["default"],
+    tableSize: {
+      x: 1800
+    },
+    otherButtons: otherButtons,
+    expandedRowRender: _DatVe_expandedRow__WEBPACK_IMPORTED_MODULE_8__["default"],
+    renderSummary: renderSummary
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (List);
+
+/***/ })
+
+}]);

@@ -1,5 +1,6 @@
-import { Form, message, Modal, Progress } from "antd";
+import { Form, message, Modal } from "antd";
 import React, { useEffect, useState } from "react";
+import showWaiting from "../../../components/Includes/ShowWaiting";
 import { useMergeState } from "../../../utils";
 import ModalPreviewDatVe from "../ModalPreviewDatVe";
 import FormItem from "./FormItem";
@@ -50,30 +51,6 @@ const index = props => {
                 console.log(error);
                 time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
             });
-    };
-
-    const showWaiting = () => {
-        Modal.info({
-            title: "Thông báo",
-            centered: true,
-            icon: null,
-            okButtonProps: { hidden: true },
-            content: (
-                <div style={{ textAlign: "center" }}>
-                    <Progress
-                        percent={100}
-                        status="active"
-                        showInfo={false}
-                        strokeColor="#6dc3a6"
-                    />
-                    <span>Đang xử lý dữ liệu...</span>
-                    <br />
-                    <small>
-                        <i>(Không thể hủy cho đến khi tiến trình kết thúc!)</i>
-                    </small>
-                </div>
-            )
-        });
     };
 
     const onFinish = () => {

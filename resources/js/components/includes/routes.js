@@ -37,6 +37,7 @@ const CongNoChiTiet = lazy(() => import("../../pages/BaoCao/CongNoChiTiet"));
 const DoiSoatTaiKhoan = lazy(() =>
     import("../../pages/BaoCao/DoiSoatTaiKhoan")
 );
+const BaoCaoTongHop = lazy(() => import("../../pages/BaoCao/BaoCaoTongHop"));
 
 const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
 const NhaCungCap = lazy(() => import("../../pages/ThongTin/NhaCungCap"));
@@ -224,6 +225,13 @@ const routes = [
         title: "Đối soát tài khoản",
         menu: menus.BC_DOI_SOAT_TAI_KHOAN,
         component: <DoiSoatTaiKhoan />
+    },
+    {
+        path: "/bao-cao-tong-hop",
+        exact: false,
+        title: "Báo cáo tổng hợp",
+        menu: menus.BC_BAO_CAO_TONG_HOP,
+        component: <BaoCaoTongHop />
     },
     {
         path: "/tai-khoan",

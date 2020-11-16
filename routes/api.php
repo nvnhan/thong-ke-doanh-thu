@@ -120,5 +120,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('tong-hop-cong-no', 'BaoCaoController@congno');
     Route::get('cong-no-chi-tiet', 'BaoCaoController@congnochitiet');
     Route::get('doi-soat-tai-khoan', 'BaoCaoController@doisoattaikhoan');
+    Route::get('bao-cao-tong-hop', 'BaoCaoController@baocaotonghop');
     
 });

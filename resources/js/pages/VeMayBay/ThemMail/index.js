@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { useMergeState } from "../../../utils";
 import FormItem from "./FormItem";
 import ModalPreviewDatVe from "../ModalPreviewDatVe";
+import showWaiting from "../../../components/Includes/ShowWaiting";
 
 const index = props => {
     const [form] = Form.useForm();
@@ -17,30 +18,6 @@ const index = props => {
         datve: ""
     });
     const { selectedRowKeys } = state;
-
-    const showWaiting = (des = "Đang xử lý dữ liệu...") => {
-        Modal.info({
-            title: "Thông báo",
-            centered: true,
-            icon: null,
-            okButtonProps: { hidden: true },
-            content: (
-                <div style={{ textAlign: "center" }}>
-                    <Progress
-                        percent={100}
-                        status="active"
-                        showInfo={false}
-                        strokeColor="#6dc3a6"
-                    />
-                    <span>{des}</span>
-                    <br />
-                    <small>
-                        <i>(Không thể hủy cho đến khi tiến trình kết thúc!)</i>
-                    </small>
-                </div>
-            )
-        });
-    };
 
     const getFormData = values => {
         if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {

@@ -177,6 +177,12 @@ const items = [
                 href: "/doi-soat-tai-khoan",
                 icon: <CaretRightOutlined />,
                 title: "Đối soát tài khoản"
+            },
+            {
+                key: SideMenus.BC_BAO_CAO_TONG_HOP,
+                href: "/bao-cao-tong-hop",
+                icon: <CaretRightOutlined />,
+                title: "Báo cáo tổng hợp"
             }
         ]
     },

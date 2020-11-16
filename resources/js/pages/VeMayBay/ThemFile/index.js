@@ -6,14 +6,14 @@ import {
     Form,
     message,
     Modal,
-    Progress,
     Row,
     Upload
 } from "antd";
 import React, { useEffect, useState } from "react";
+import showWaiting from "../../../components/Includes/ShowWaiting";
 import { useMergeState } from "../../../utils";
-import FormItem from "./FormItem";
 import ModalPreviewDatVe from "../ModalPreviewDatVe";
+import FormItem from "./FormItem";
 
 const index = props => {
     const [form] = Form.useForm();
@@ -87,30 +87,6 @@ const index = props => {
         delete cols.ngay_thanh_toan;
         delete cols.file;
         localStorage.setItem("cot_excel", JSON.stringify(cols));
-    };
-
-    const showWaiting = () => {
-        Modal.info({
-            title: "Thông báo",
-            centered: true,
-            icon: null,
-            okButtonProps: { hidden: true },
-            content: (
-                <div style={{ textAlign: "center" }}>
-                    <Progress
-                        percent={100}
-                        status="active"
-                        showInfo={false}
-                        strokeColor="#6dc3a6"
-                    />
-                    <span>Đang xử lý dữ liệu...</span>
-                    <br />
-                    <small>
-                        <i>(Không thể hủy cho đến khi tiến trình kết thúc!)</i>
-                    </small>
-                </div>
-            )
-        });
     };
 
     const getFormData = values => {

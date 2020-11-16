@@ -61,7 +61,6 @@ Ngày 08/11/2020:
 - Thu chi thêm từ file NGANHANG
 ???- khi tài khoản đại lý có 10 ngày thì tài khoản nhân viên khơi tạo ra max cũng chỉ 10 ngày thôi eah. 
 	Khi tk đại lý bị khoá thì tk nhân viên bên dưới của nó cũng bị khoá e a
-- Đặt vé: Chung code...
 - Biểu đồ
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\BaoCaoTongHop;
 use App\Helpers\Util;
 use App\KhachHang;
 use App\Report;
@@ -13,7 +14,9 @@ use stdClass;
 
 class BaoCaoController extends BaseController
 {
-    //
+    /**
+     * Get data to show in view
+     */
     public function taikhoan(Request $request)
     {
         $tu_ngay =  date('Y-m-01');
@@ -88,52 +91,17 @@ class BaoCaoController extends BaseController
 
     public function congno(Request $request)
     {
-        $tu_ngay =  date('Y-m-01');
-        $den_ngay = date('Y-m-t');
         $muavao = [];
         $banra = [];
-        if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
-            $tu_ngay = substr($request->bat_dau, 0, 10);
-            $den_ngay = substr($request->ket_thuc, 0, 10);
-        }
-        $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
-
-        $khachHang = KhachHang::ofUser($request->user())
-            ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
-            ->get();
-        foreach ($khachHang as $kh) {
-            $tmp = new stdClass;
-            $tmp->id = $kh->id;
-            $tmp->phan_loai = $kh->phan_loai;
-            $tmp->khach_hang = $kh->ma_khach_hang . ' - ' . $kh->ho_ten;
-
-            $tmp->dau_ky = $kh->so_du_ky_truoc + Report::TinhTongThanhToanBanRa($kh, $ngayTruoc) - Report::TinhTongGiaoDichBanRa($kh, $ngayTruoc);
-            $tmp->thanh_toan = Report::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
-            $tmp->giao_dich = Report::TinhTongGiaoDichBanRa($kh, $den_ngay, $tu_ngay);
-            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
-
-            $banra[] = $tmp;
-        }
-
-        $nhaCungCap = TaiKhoan::ofUser($request->user())->whereLoai(1)->get();
-        foreach ($nhaCungCap as $ncc) {
-            $tmp = new stdClass;
-            $tmp->id = $ncc->id;
-            $tmp->tai_khoan = $ncc->ky_hieu . ' - ' . $ncc->mo_ta;
-
-            $tmp->dau_ky = Report::TongThuTK($ncc, '', $ngayTruoc) - Report::TongChiTK($ncc, '', $ngayTruoc);
-            $tmp->thanh_toan = Report::TongThuTK($ncc, '', $den_ngay, $tu_ngay);
-            $tmp->giao_dich = Report::TongChiTK($ncc, '', $den_ngay, $tu_ngay);
-            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
-
-            $muavao[] = $tmp;
-            //TODO: Tính NƠI KHÁC..............
-        }
+        BaoCaoTongHop::tinh_cong_no($request, $muavao, $banra);
 
         $result = ['banra' => $banra, 'muavao' => $muavao];
         return $this->sendResponse((object) $result, "THCN retrieved successfully");
     }
 
+    /**
+     * Create and download file
+     */
     public function congnochitiet(Request $request)
     {
         $tu_ngay = date('Y-m-01');
@@ -211,57 +179,16 @@ class BaoCaoController extends BaseController
 
     public function baocaotonghop(Request $request)
     {
-        $tu_ngay =  date('Y-m-01');
-        $den_ngay = date('Y-m-t');
-        if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
-            $tu_ngay = substr($request->bat_dau, 0, 10);
-            $den_ngay = substr($request->ket_thuc, 0, 10);
-        }
-        $taiKhoan = TaiKhoan::find($request->id_tai_khoan);
-
         // Prepare Excel File
-        $file = storage_path('app/reports') . "/trich-xuat-thanh-toan.xlsx";
+        $file = storage_path('app/reports') . "/tong-hop-cong-no.xlsx";
         $reader = IOFactory::createReader("Xlsx");
         $spreadSheet = $reader->load($file);
+
+        #region Tổng hợp công nợ ==> Sheet 0
         $sheet = $spreadSheet->getSheet(0);
-        $sheet->setCellValue("A2", "Tài khoản: " . $taiKhoan->ky_hieu);
+        BaoCaoTongHop::export_cong_no($request, $sheet);
 
-        $data = Report::doi_soat_tai_khoan($taiKhoan, $tu_ngay, $den_ngay);
-        // Số hàng dữ liệu
-        $cnt = 0;
-        foreach ($data as $value) {
-            $cnt += max(count($value->thu_vao), count($value->chi_ra));
-        }
-        $sheet->insertNewRowBefore(8, $cnt);
-        $sheet->removeRow(6, 3);
-
-        $row_index = 6;
-        $sthu = 0;
-        $schi = 0;
-        foreach ($data as $ngay => $value) {
-            if (count($value->thu_vao) + count($value->chi_ra) > 0) {
-                $sheet->setCellValue("B" . $row_index, $ngay);
-                $tmp_index = $row_index;
-                foreach ($value->thu_vao as $tv) {
-                    $sheet->setCellValue("A" . $tmp_index, $tmp_index - 5);
-                    $sheet->setCellValue("C" . $tmp_index, $tv->hang_muc);
-                    $sheet->setCellValue("D" . $tmp_index, $tv->so_tien);
-                    $sthu += $tv->so_tien;
-                    $tmp_index++;
-                }
-                $tmp_index1 = $row_index;
-                foreach ($value->chi_ra as $tv) {
-                    $sheet->setCellValue("A" . $tmp_index1, $tmp_index1 - 5);
-                    $sheet->setCellValue("E" . $tmp_index1, $tv->hang_muc);
-                    $sheet->setCellValue("F" . $tmp_index1, $tv->so_tien);
-                    $schi += $tv->so_tien;
-                    $tmp_index1++;
-                }
-                $row_index = max($tmp_index, $tmp_index1);
-            }
-        }
-        $sheet->setCellValue("D" . $row_index, $sthu);
-        $sheet->setCellValue("F" . $row_index, $schi);
+        #endregion
 
         //set the header first, so the result will be treated as an xlsx file.
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

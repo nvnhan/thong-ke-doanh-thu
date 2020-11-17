@@ -1,5 +1,15 @@
-import { Checkbox, Col, Form, Input, InputNumber, Row, Select, Button } from "antd";
+import {
+    Button,
+    Checkbox,
+    Col,
+    Form,
+    Input,
+    InputNumber,
+    Row,
+    Select
+} from "antd";
 import React from "react";
+import { inputFormat, inputParse } from "../../../utils";
 const { Option, OptGroup } = Select;
 
 const form = React.memo(props => {
@@ -112,13 +122,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                         />
                     </Form.Item>
                 </Col>
@@ -128,13 +133,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                         />
                     </Form.Item>
                 </Col>
@@ -144,13 +144,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                         />
                     </Form.Item>
                 </Col>

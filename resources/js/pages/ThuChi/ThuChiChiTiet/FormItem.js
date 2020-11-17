@@ -1,5 +1,6 @@
 import { Form, InputNumber, Select } from "antd";
 import React from "react";
+import { inputFormat, inputParse } from "../../../utils";
 const { Option, OptGroup } = Select;
 
 const form = React.memo(props => {
@@ -67,10 +68,8 @@ const form = React.memo(props => {
                     min={0}
                     max={props.toiDa}
                     step={1000}
-                    formatter={value =>
-                        `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",")
-                    }
-                    parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                    formatter={inputFormat}
+                    parser={inputParse}
                 />
             </Form.Item>
         </React.Fragment>

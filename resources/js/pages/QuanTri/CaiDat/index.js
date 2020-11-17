@@ -1,5 +1,6 @@
 import { Button, Col, Form, Input, InputNumber, message, Row } from "antd";
 import React, { useEffect } from "react";
+import { inputFormat, inputParse } from "../../../utils";
 
 const index = props => {
     const [form] = Form.useForm();
@@ -64,15 +65,8 @@ const index = props => {
                                 style={{ width: "100%" }}
                                 min={1000}
                                 step={1000}
-                                formatter={value =>
-                                    `${value}₫`.replace(
-                                        /(?=(\d{3})+(?!\d))\B/g,
-                                        ","
-                                    )
-                                }
-                                parser={value =>
-                                    value.replace(/\₫\s?|(,*)/g, "")
-                                }
+                                formatter={inputFormat}
+                                parser={inputParse}
                             />
                         </Form.Item>
                     </Col>

@@ -1,6 +1,6 @@
 import { Checkbox, Col, Form, InputNumber, Select } from "antd";
 import React, { useEffect } from "react";
-import { useMergeState } from "../../../utils";
+import { inputFormat, inputParse, useMergeState } from "../../../utils";
 const { OptGroup, Option } = Select;
 
 const ThongTin = props => {
@@ -125,10 +125,8 @@ const ThongTin = props => {
                         style={{ width: "100%" }}
                         min={0}
                         step={1000}
-                        formatter={value =>
-                            `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",")
-                        }
-                        parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                        formatter={inputFormat}
+                        parser={inputParse}
                     />
                 </Form.Item>
             </Col>
@@ -138,10 +136,8 @@ const ThongTin = props => {
                         style={{ width: "100%" }}
                         min={0}
                         step={1000}
-                        formatter={value =>
-                            `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",")
-                        }
-                        parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                        formatter={inputFormat}
+                        parser={inputParse}
                     />
                 </Form.Item>
             </Col>
@@ -151,10 +147,8 @@ const ThongTin = props => {
                         style={{ width: "100%" }}
                         min={0}
                         step={1000}
-                        formatter={value =>
-                            `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",")
-                        }
-                        parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                        formatter={inputFormat}
+                        parser={inputParse}
                     />
                 </Form.Item>
             </Col>

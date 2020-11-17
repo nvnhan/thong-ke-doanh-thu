@@ -1,5 +1,6 @@
 import { Form, Input, InputNumber, Select } from "antd";
 import React from "react";
+import { inputFormat, inputParse } from "../../../utils";
 const { Option } = Select;
 
 const form = React.memo(() => {
@@ -26,10 +27,8 @@ const form = React.memo(() => {
                     style={{ width: "100%" }}
                     min={1000}
                     step={1000}
-                    formatter={value =>
-                        `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",")
-                    }
-                    parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                    formatter={inputFormat}
+                    parser={inputParse}
                 />
             </Form.Item>
             <Form.Item name="hang_bay" label="Hãng bay">

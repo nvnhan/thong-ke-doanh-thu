@@ -173,12 +173,8 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     },
     min: 0,
     step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
+    formatter: _utils__WEBPACK_IMPORTED_MODULE_4__["inputFormat"],
+    parser: _utils__WEBPACK_IMPORTED_MODULE_4__["inputParse"]
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     name: "so_luong",
     label: "S\u1ED1 l\u01B0\u1EE3ng",

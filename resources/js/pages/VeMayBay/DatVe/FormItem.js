@@ -11,7 +11,8 @@ import {
 import locale from "antd/es/date-picker/locale/vi_VN";
 import React, { useEffect } from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
-import { vndFormater } from "../../../utils";
+import { inputFormat, inputParse, vndFormater } from "../../../utils";
+
 const { Option, OptGroup } = Select;
 
 const form = React.memo(props => {
@@ -283,6 +284,7 @@ const form = React.memo(props => {
                     <Form.Item name="sb_di" label="HT chặng đi">
                         <Select
                             showSearch
+                            allowClear
                             filterOption={(input, option) => {
                                 if (!option.children) return false;
                                 return (
@@ -301,6 +303,7 @@ const form = React.memo(props => {
                     <Form.Item name="sb_di1" label="=====>" colon={false}>
                         <Select
                             showSearch
+                            allowClear
                             filterOption={(input, option) => {
                                 if (!option.children) return false;
                                 return (
@@ -336,6 +339,7 @@ const form = React.memo(props => {
                     <Form.Item name="sb_ve" label="HT chặng về">
                         <Select
                             showSearch
+                            allowClear
                             filterOption={(input, option) => {
                                 if (!option.children) return false;
                                 return (
@@ -354,6 +358,7 @@ const form = React.memo(props => {
                     <Form.Item name="sb_ve1" label="=====>" colon={false}>
                         <Select
                             showSearch
+                            allowClear
                             filterOption={(input, option) => {
                                 if (!option.children) return false;
                                 return (
@@ -383,13 +388,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                             onChange={onChangeDebounce}
                         />
                     </Form.Item>
@@ -398,12 +398,7 @@ const form = React.memo(props => {
                     <Form.Item name="vat" label="VAT">
                         <InputNumber
                             style={{ width: "100%" }}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
+                            formatter={inputFormat}
                             disabled
                         />
                     </Form.Item>
@@ -414,13 +409,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                             onChange={onChangeDebounce}
                         />
                     </Form.Item>
@@ -431,13 +421,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                             onChange={onChangeDebounce}
                         />
                     </Form.Item>
@@ -448,13 +433,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                             onChange={onChangeDebounce}
                         />
                     </Form.Item>
@@ -465,13 +445,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                             onChange={onChangeDebounce}
                         />
                     </Form.Item>
@@ -500,13 +475,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                             onChange={onChangeDebounce}
                         />
                     </Form.Item>
@@ -529,13 +499,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                         />
                     </Form.Item>
                 </Col>
@@ -554,13 +519,8 @@ const form = React.memo(props => {
                             style={{ width: "100%" }}
                             min={0}
                             step={1000}
-                            formatter={value =>
-                                `${value}₫`.replace(
-                                    /(?=(\d{3})+(?!\d))\B/g,
-                                    ","
-                                )
-                            }
-                            parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                            formatter={inputFormat}
+                            parser={inputParse}
                         />
                     </Form.Item>
                 </Col>

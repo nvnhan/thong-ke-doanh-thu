@@ -201,12 +201,8 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     },
     min: 0,
     step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
+    formatter: _utils__WEBPACK_IMPORTED_MODULE_4__["inputFormat"],
+    parser: _utils__WEBPACK_IMPORTED_MODULE_4__["inputParse"]
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     sm: 12
@@ -222,10 +218,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
       width: "100%"
     },
     min: 1,
-    step: 1,
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|\.(,*)/g, "");
-    }
+    step: 1
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     sm: 12
@@ -242,12 +235,8 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     },
     min: 0,
     step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
+    formatter: _utils__WEBPACK_IMPORTED_MODULE_4__["inputFormat"],
+    parser: _utils__WEBPACK_IMPORTED_MODULE_4__["inputParse"]
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     sm: 12

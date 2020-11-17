@@ -69,3 +69,8 @@ export const vndFormater = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND"
 });
+
+export const inputFormat = value =>
+    `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+
+export const inputParse = value => value.replace(/\₫\s?|(,*)/g, "");

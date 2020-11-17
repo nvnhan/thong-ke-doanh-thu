@@ -2,6 +2,7 @@ import { Col, Form, Input, InputNumber, Row, Select } from "antd";
 import locale from "antd/es/date-picker/locale/vi_VN";
 import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+import { inputFormat, inputParse } from "../../../utils";
 const { Option, OptGroup } = Select;
 
 const form = React.memo(props => {
@@ -79,10 +80,8 @@ const form = React.memo(props => {
                         style={{ width: "100%" }}
                         min={0}
                         step={1000}
-                        formatter={value =>
-                            `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",")
-                        }
-                        parser={value => value.replace(/\₫\s?|(,*)/g, "")}
+                        formatter={inputFormat}
+                        parser={inputParse}
                     />
                 </Form.Item>
             </Col>

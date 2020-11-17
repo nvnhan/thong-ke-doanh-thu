@@ -501,12 +501,8 @@ var ThongTin = function ThongTin(props) {
     },
     min: 0,
     step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
+    formatter: _utils__WEBPACK_IMPORTED_MODULE_2__["inputFormat"],
+    parser: _utils__WEBPACK_IMPORTED_MODULE_2__["inputParse"]
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
@@ -519,12 +515,8 @@ var ThongTin = function ThongTin(props) {
     },
     min: 0,
     step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
+    formatter: _utils__WEBPACK_IMPORTED_MODULE_2__["inputFormat"],
+    parser: _utils__WEBPACK_IMPORTED_MODULE_2__["inputParse"]
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6
@@ -537,12 +529,8 @@ var ThongTin = function ThongTin(props) {
     },
     min: 0,
     step: 1000,
-    formatter: function formatter(value) {
-      return "".concat(value, "\u20AB").replace(/(?=(\d{3})+(?!\d))\B/g, ",");
-    },
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|(,*)/g, "");
-    }
+    formatter: _utils__WEBPACK_IMPORTED_MODULE_2__["inputFormat"],
+    parser: _utils__WEBPACK_IMPORTED_MODULE_2__["inputParse"]
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12,
     md: 6

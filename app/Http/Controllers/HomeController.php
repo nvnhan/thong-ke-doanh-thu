@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DatVe;
+use App\Report;
 use App\SanBay;
+use App\TaiKhoan;
 use DateInterval;
 use DatePeriod;
 use DateTime;
@@ -22,11 +24,48 @@ class HomeController extends BaseController
     {
         $datve = self::DatVeTrongThang($request);
         $ttve = self::ThongTinVe($request);
+        $sum = 0;
+        $sodu = self::TinhSoDuCuoiKy($request, $sum);
         $result = [
             'datve' => $datve,
-            'thongtinve' => $ttve
+            'thongtinve' => $ttve,
+            'sodu' => $sodu,
+            'tong' => number_format($sum, 0)
         ];
         return $this->sendResponse((object) $result, "Home retrieved successfully");
+    }
+
+    public static function TinhSoDuCuoiKy(Request $request, &$sum)
+    {
+        $den_ngay = date('Y-m-t');
+        if (!empty($request->ket_thuc))
+            $den_ngay = substr($request->ket_thuc, 0, 10);
+
+        $taiKhoan = TaiKhoan::ofUser($request->user())->where('loai', '!=', '-1')->where(function ($q) use ($den_ngay) {
+            return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
+        })->orderBy('loai')->get();
+
+        $result = new stdClass;
+        $result->hang_muc = [];
+        $result->gia_tri = [];
+
+        // Thêm các tài khoản
+        $sum = 0;
+        foreach ($taiKhoan as $tk) {
+            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
+            $sum += $duCuoiKy;
+            if ($duCuoiKy != 0) {
+                $result->hang_muc[] = $tk->ky_hieu;
+                $result->gia_tri[] = round($duCuoiKy / 1000);
+            }
+        }
+        // Thêm tồn kho
+        $tonKho = Report::TinhTonKho($request, $den_ngay);
+        $sum += $tonKho;
+        $result->hang_muc[] = "Tồn kho";
+        $result->gia_tri[] = round($tonKho / 1000);
+
+        return $result;
     }
 
     public static function DatVeTrongThang(Request $request)

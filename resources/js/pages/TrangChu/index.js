@@ -10,7 +10,9 @@ const TrangChu = React.memo(props => {
     const [form] = Form.useForm();
     const [data, setData] = useState({
         datve: [],
-        thongtinve: []
+        thongtinve: [],
+        sodu: [],
+        tong: ""
     });
 
     useEffect(() => {
@@ -77,6 +79,18 @@ const TrangChu = React.memo(props => {
                 backgroundColor: "#AB4B64",
                 barPercentage: 0.5,
                 data: data.thongtinve.quoc_te
+            }
+        ]
+    };
+
+    const tkChartData = {
+        labels: data.sodu.hang_muc,
+        datasets: [
+            {
+                label: "Số dư",
+                stack: "Stack 0",
+                backgroundColor: "#4bab92",
+                data: data.sodu.gia_tri
             }
         ]
     };
@@ -218,6 +232,69 @@ const TrangChu = React.memo(props => {
                     </Col>
                 </Row>
             </Form>
+
+            <Row gutter={[16, 16]}>
+                <Col span={24}>
+                    <div className="chart-card">
+                        <Bar
+                            width={700}
+                            height={300}
+                            data={tkChartData}
+                            options={{
+                                legend: { display: false },
+                                title: {
+                                    display: true,
+                                    text:
+                                        "Số dư tài khoản (Tổng cộng " +
+                                        data.tong +
+                                        "₫)",
+                                    fontSize: 14
+                                },
+                                hover: {
+                                    animationDuration: 0
+                                },
+                                animation: {
+                                    duration: 1,
+                                    onComplete: function() {
+                                        var chartInstance = this.chart,
+                                            ctx = chartInstance.ctx;
+                                        ctx.font = Chart.helpers.fontString(
+                                            Chart.defaults.global
+                                                .defaultFontSize,
+                                            Chart.defaults.global
+                                                .defaultFontStyle,
+                                            Chart.defaults.global
+                                                .defaultFontFamily
+                                        );
+                                        ctx.textAlign = "center";
+                                        ctx.textBaseline = "bottom";
+
+                                        this.data.datasets.forEach(function(
+                                            dataset,
+                                            i
+                                        ) {
+                                            var meta = chartInstance.controller.getDatasetMeta(
+                                                i
+                                            );
+                                            meta.data.forEach(function(
+                                                bar,
+                                                index
+                                            ) {
+                                                var data = dataset.data[index];
+                                                ctx.fillText(
+                                                    data + "k",
+                                                    bar._model.x,
+                                                    bar._model.y - 5
+                                                );
+                                            });
+                                        });
+                                    }
+                                }
+                            }}
+                        />
+                    </div>
+                </Col>
+            </Row>
         </>
     );
 });

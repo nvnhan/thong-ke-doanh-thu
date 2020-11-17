@@ -444,7 +444,7 @@ class Report
     /**
      * Chi tiết tài khoản
      */
-    public static function tinh_tai_khoan(Request $request)
+    public static function tinh_tai_khoan(Request $request, $format_price = true)
     {
         $tu_ngay =  date('Y-m-01');
         $den_ngay = date('Y-m-t');
@@ -470,8 +470,14 @@ class Report
 
             $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
             $sum += $duCuoiKy;
-            $tmp->dau_ky = Util::VNDFormater(Report::TongThuTK($tk, $ngayTruoc) - Report::TongChiTK($tk, $ngayTruoc));      // Đầu kỳ
-            $tmp1->tai_khoan = Util::VNDFormater($duCuoiKy);
+            $dau_ky = Report::TongThuTK($tk, $ngayTruoc) - Report::TongChiTK($tk, $ngayTruoc);
+            if ($format_price) {
+                $tmp->dau_ky = Util::VNDFormater($dau_ky);      // Đầu kỳ
+                $tmp1->tai_khoan = Util::VNDFormater($duCuoiKy);
+            } else {
+                $tmp->dau_ky = $dau_ky;      // Đầu kỳ
+                $tmp1->tai_khoan = $duCuoiKy;
+            }
             $tmp1->dau_ky = '';
             $tmp->thu_chi = "THU";
             $tmp1->thu_chi = "CHI";
@@ -480,8 +486,13 @@ class Report
             // Thêm các cột tương ứng với giá trị thu theo từng ngày
             for ($i = $tu_ngay; $i <= $den_ngay; $i++) {
                 $t = (new DateTime($i))->format('d/m/y');
-                $tmp->$t = Util::VNDFormater(Report::TongThuTK($tk, $i, $i));
-                $tmp1->$t = Util::VNDFormater(Report::TongChiTK($tk, $i, $i));
+                if ($format_price) {
+                    $tmp->$t = Util::VNDFormater(Report::TongThuTK($tk, $i, $i));
+                    $tmp1->$t = Util::VNDFormater(Report::TongChiTK($tk, $i, $i));
+                } else {
+                    $tmp->$t = Report::TongThuTK($tk, $i, $i);
+                    $tmp1->$t = Report::TongChiTK($tk, $i, $i);
+                }
                 if ($tmp->$t != '0' || $tmp1->$t != '0')
                     $coDuLieu = true;
             }
@@ -503,7 +514,7 @@ class Report
         $tmp = new stdClass;
         $tmp->id = -1;
         $tmp->tai_khoan = "LÃI";
-        $tmp->dau_ky = Util::VNDFormater($lai);
+        $tmp->dau_ky = $format_price ? Util::VNDFormater($lai) : $lai;
         $result[] = $tmp;
         // Thêm tồn kho
         $tonKho = Report::TinhTonKho($request, $den_ngay);
@@ -511,13 +522,13 @@ class Report
         $tmp = new stdClass;
         $tmp->id = -4;
         $tmp->tai_khoan = "TỒN KHO";
-        $tmp->dau_ky = Util::VNDFormater($tonKho);
+        $tmp->dau_ky = $format_price ? Util::VNDFormater($tonKho) : $tonKho;
         $result[] = $tmp;
         // Thêm tổng cộng
         $tmp = new stdClass;
         $tmp->id = -3;
         $tmp->tai_khoan = "TỔNG CỘNG";
-        $tmp->dau_ky = Util::VNDFormater($sum);
+        $tmp->dau_ky = $format_price ? Util::VNDFormater($sum) : $sum;
         $result[] = $tmp;
 
         return $result;

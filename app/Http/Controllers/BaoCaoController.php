@@ -111,7 +111,7 @@ class BaoCaoController extends BaseController
     public function baocaotonghop(Request $request)
     {
         // Prepare Excel File
-        $file = storage_path('app/reports') . "/tong-hop-cong-no.xlsx";
+        $file = storage_path('app/reports') . "/bao-cao-tong-hop.xlsx";
         $reader = IOFactory::createReader("Xlsx");
         $spreadSheet = $reader->load($file);
 
@@ -122,8 +122,7 @@ class BaoCaoController extends BaseController
 
 
         
-        $sheet = $spreadSheet->createSheet();
-        $sheet->setTitle("Tổng hợp tài khoản");
+        $sheet = $spreadSheet->getSheet(5);
         BaoCaoTongHop::export_tai_khoan($request, $sheet);
 
         //set the header first, so the result will be treated as an xlsx file.

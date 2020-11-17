@@ -99,15 +99,15 @@ class BaoCaoTongHop
 
     public static function export_tai_khoan(Request $request, $sheet)
     {
-        $tai_khoan = Report::tinh_tai_khoan($request);
-        $row_index = 1;
-        $sheet->setCellValue("A$row_index", "Tài khoản");
-        $sheet->setCellValue("B$row_index", "Đầu kỳ");
+        $tai_khoan = Report::tinh_tai_khoan($request, false);
+        $row_index = 2;
+        $sheet->insertNewRowBefore($row_index + 3, count($tai_khoan));
+        $sheet->removeRow($row_index + 1, 3);
 
         $col = 4;
         $cols = [];
         foreach ($tai_khoan as $row) {
-            if ($row_index === 1)
+            if ($row_index === 2)
                 foreach ($row as $key => $value)
                     if ($key != 'id' && $key != 'tai_khoan' && $key != 'dau_ky' && $key != 'thu_chi') {
                         $cols[$col] = $key;
@@ -116,6 +116,8 @@ class BaoCaoTongHop
 
             $row_index++;
             $sheet->setCellValue("A$row_index", $row->tai_khoan);
+            if (!strpos($row->id, 'a'))
+                self::set_cell_style($sheet, "A$row_index");
             $sheet->setCellValue("B$row_index", $row->dau_ky);
             $sheet->setCellValue("C$row_index", $row->thu_chi ?? "");
             foreach ($cols as $key => $value)

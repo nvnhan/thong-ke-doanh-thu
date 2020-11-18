@@ -59,7 +59,8 @@ class AuthController extends BaseController
                 'username' => $user->username,
                 'hoten' => $user->ho_ten,
                 'songay' => $user->so_ngay_dang_nhap,
-                'token' => $token
+                'token' => $token,
+                'id' => $user->id
             ], 200);
         } else
             return $this->sendError("The account has run out of limited login attempts", [], 400);

@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/dat-ve/mat-ve/{u}/{id}', 'HomeController@matve')->where('u', '[0-9]+')->where('id', '[0-9]+');
+
 // Login routes for Gmail Authenticate
 Route::get('/oauth/login', 'GmailController@login');
 

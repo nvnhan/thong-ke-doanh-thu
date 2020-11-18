@@ -295,6 +295,6 @@ class BaoCaoDatVeController extends Controller
             return;
 
         $datVe = DatVe::ofUser($request->user())->whereIn('id', $objs)->get();
-        Report::maucongno('', '', $datVe);
+        Report::maucongno($request, '', '', $datVe);
     }
 }

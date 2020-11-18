@@ -19,6 +19,7 @@ function LoginForm(props) {
                     const { data } = response.data;
 
                     localStorage.setItem("token", data.token);
+                    localStorage.setItem("id", data.id);
                     message.success(response.data.message);
 
                     // Setup default config for axios

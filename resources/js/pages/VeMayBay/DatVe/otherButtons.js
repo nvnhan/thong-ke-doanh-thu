@@ -45,6 +45,19 @@ const codeVe = (data, selectedRowKeys) => {
 const veDienTu = (data, selectedRowKeys) =>
     downloadApi("/api/dat-ve/mau-ve", selectedRowKeys, "mat-ve-dien-tu.xlsx");
 /**
+ * Tạo mặt vé điện tử
+ */
+const veDienTuHTML = (data, selectedRowKeys) => {
+    var u = localStorage.getItem("id");
+    var id = selectedRowKeys[0];
+    const newWindow = window.open(
+        window.location.origin + `/dat-ve/mat-ve/${u}/${id}`,
+        "_blank",
+        "noopener,noreferrer"
+    );
+    if (newWindow) newWindow.opener = null;
+};
+/**
  * Thông tin lấy hóa đơn
  */
 const layHoaDon = (data, selectedRowKeys, type) =>
@@ -114,8 +127,19 @@ const otherButtons = props => [
             },
             {
                 key: "vedientu",
-                onClick: veDienTu,
-                title: "Tạo mặt vé điện tử"
+                title: "Tạo mặt vé điện tử",
+                childs: [
+                    {
+                        key: "matveexcel",
+                        onClick: veDienTu,
+                        title: "File Excel"
+                    },
+                    {
+                        key: "matvehtml",
+                        onClick: veDienTuHTML,
+                        title: "Xem trực tiếp"
+                    }
+                ]
             },
             {
                 key: "export",

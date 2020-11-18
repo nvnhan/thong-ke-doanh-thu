@@ -263,7 +263,7 @@ class Report
     {
         $user = $request->user();
         // Prepare Excel File
-        $file = storage_path('app/selfs') . "/cong-no.xlsx";
+        $file = storage_path('app/reports') . "/cong-no.xlsx";
         $reader = IOFactory::createReader("Xlsx");
         $spreadSheet = $reader->load($file);
         $sheet = $spreadSheet->getSheet(0);

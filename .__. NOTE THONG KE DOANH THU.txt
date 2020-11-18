@@ -37,7 +37,7 @@ Chức năng, tính năng còn:
 ////////////- Nhập từ excel: Thu chi...
 - 09/11/2020: Báo cáo tổng hộp còn: DS đặt vé, thu chi
 - Công nợ chi tiết: Tính ngày thanh toán, đối tượng khác
-- Tổng quan: tổng hợp công nợ
+////////////- Tổng quan: tổng hợp công nợ
 - Tổng hợp công nợ: Tính nơi khác
 - Tổng hợp tài khoản: Thiếu Dư - Nợ
 ////////////- Account: expire time, login 1 máy
@@ -45,7 +45,7 @@ Chức năng, tính năng còn:
 - Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select: Thu Chi, Đắt vé
 ////////////- Chọn hàng hóa -> tự đồng điền đơn giá (xem trong tour chi tiêt)
 - Thu chi đã có chi tiết có thể sửa ko?  // KO nên cho sửa
-- 09/11/2020: Mặt vé điện tử file excel ko mở đc trên đt, có nên chuyển sang HTML?
+////////////- 09/11/2020: Mặt vé điện tử file excel ko mở đc trên đt, có nên chuyển sang HTML?
 ////////////- Tìm kiếm ĐV theo từ khóa
 ////////////- Thêm khoảng thời gian ở Tổng quan, lọc dữ liệu trong Tổng quan
 
@@ -54,6 +54,7 @@ Chức năng, tính năng còn:
 
 ====
 Yêu cầu:
+Đổi Jetstar => Parcific Airlines
 
 Ngày 08/11/2020: 
 /////////////- Thêm từ file: Bỏ phần chọn Hãng bay vì trong 1 file có thể có nhiều hãng. Đọc file PTTK (Sổ chi tiết chi trả)
@@ -61,7 +62,7 @@ Ngày 08/11/2020:
 - Thu chi thêm từ file NGANHANG
 ???- khi tài khoản đại lý có 10 ngày thì tài khoản nhân viên khơi tạo ra max cũng chỉ 10 ngày thôi eah. 
 	Khi tk đại lý bị khoá thì tk nhân viên bên dưới của nó cũng bị khoá e a
-- Biểu đồ
+////////////- Biểu đồ
 
 
 

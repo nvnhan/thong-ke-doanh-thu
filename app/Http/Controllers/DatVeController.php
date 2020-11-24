@@ -374,11 +374,16 @@ class DatVeController extends BaseController
      */
     public function deletes(Request $request)
     {
-        $objs = explode('|', $request['objects']);
-        if (\is_array($objs)) {
-            $cnt = count($objs);
-            DatVe::destroy($objs);
-            return $this->sendResponse('', "Xóa thành công $cnt mục");
+        if ($request['objects']) {
+            $objs = explode('|', $request['objects']);
+            if (\is_array($objs)) {
+                $cnt = count($objs);
+                DatVe::destroy($objs);
+                return $this->sendResponse('', "Xóa thành công $cnt mục");
+            }
+        } else if ($request['dd']) {
+            $objs = DatVe::where('dinh_danh', $request['dd'])->delete();
+            return $this->sendResponse('', "Đã loại bỏ dữ liệu");
         }
 
         return $this->sendError('Không xóa được', []);

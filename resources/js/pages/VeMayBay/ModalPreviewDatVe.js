@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from "antd";
+import { Button, message, Modal, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { vndFormater } from "../../utils";
@@ -30,6 +30,22 @@ const ModalPreviewDatVe = props => {
             pathname: "/dat-ve",
             dd: ddDatVe
         });
+    };
+
+    const handleAbort = () => {
+        axios
+            .delete(`/api/dat-ve/deletes`, {
+                params: {
+                    dd: ddDatVe
+                }
+            })
+            .then(
+                response =>
+                    response.data.success &&
+                    message.success(response.data.message) &&
+                    handleCancel()
+            )
+            .catch(error => console.log(error));
     };
 
     const myColumns = [
@@ -102,6 +118,9 @@ const ModalPreviewDatVe = props => {
             footer={[
                 <Button key="back" onClick={handleCancel}>
                     Xử lý tiếp
+                </Button>,
+                <Button key="cancel" type="danger" onClick={handleAbort}>
+                    Loại bỏ
                 </Button>,
                 <Button key="submit" type="primary" onClick={handleOk}>
                     Xem chi tiết

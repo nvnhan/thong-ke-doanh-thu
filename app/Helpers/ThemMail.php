@@ -147,7 +147,7 @@ class ThemMail
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???
-            if ($obj->gia_net === 0 && $request->chung_code) {
+            if ($obj->gia_net == 0 && $request->chung_code) {
                 $obj->ten_khach = implode(", ", $hanh_khach);
                 $obj->save();
                 // $obj->refresh();        // Reload object from sql
@@ -247,7 +247,7 @@ class ThemMail
         #endregion
 
         // Ma giu cho
-        $tmp->ma_giu_cho = trim($content->find('td[width=132]', 0)->plaintext ?? "");
+        $tmp->ma_giu_cho = trim($content->find('td[id=pnr-value]', 0)->plaintext ?? "");
 
         $result = [];
         for ($j = 0; $j < count($hanh_khach); $j++) {
@@ -263,7 +263,7 @@ class ThemMail
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???
-            if ($obj->gia_net === 0 && $request->chung_code) {
+            if ($obj->gia_net == 0 && $request->chung_code) {
                 $obj->ten_khach = implode(", ", $hanh_khach);
                 $obj->save();
                 // $obj->refresh();        // Reload object from sql
@@ -350,7 +350,7 @@ class ThemMail
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???
-            if ($obj->gia_net === 0 && $request->chung_code) {
+            if ($obj->gia_net == 0 && $request->chung_code) {
                 $obj->ten_khach = implode(", ", $hanh_khach);
                 $obj->save();
                 // $obj->refresh();        // Reload object from sql
@@ -471,7 +471,7 @@ class ThemMail
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???
-            if ($obj->gia_net === 0 && $request->chung_code) {
+            if ($obj->gia_net == 0 && $request->chung_code) {
                 $obj->ten_khach = implode(", ", $hanh_khach);
                 $obj->save();
                 // $obj->refresh();        // Reload object from sql

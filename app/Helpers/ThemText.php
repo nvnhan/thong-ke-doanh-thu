@@ -106,7 +106,7 @@ class ThemText
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???
-            if ($obj->gia_net === 0 && $request->chung_code) {
+            if ($obj->gia_net == 0 && $request->chung_code) {
                 $obj->ten_khach = implode(", ", $hanh_khach);
                 $obj->save();
                 $obj->refresh();        // Reload object from sql
@@ -196,7 +196,7 @@ class ThemText
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???
-            if ($obj->gia_net === 0 && $request->chung_code) {
+            if ($obj->gia_net == 0 && $request->chung_code) {
                 $obj->ten_khach = implode(", ", $hanh_khach);
                 $obj->save();
                 $obj->refresh();        // Reload object from sql
@@ -347,7 +347,7 @@ class ThemText
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???
-            if ($obj->gia_net === 0 && $request->chung_code) {
+            if ($obj->gia_net == 0 && $request->chung_code) {
                 $obj->ten_khach = implode(", ", $hanh_khach);
                 $obj->save();
                 $obj->refresh();        // Reload object from sql
@@ -471,7 +471,7 @@ class ThemText
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???
-            if ($obj->gia_net === 0 && $request->chung_code) {
+            if ($obj->gia_net == 0 && $request->chung_code) {
                 $obj->ten_khach = implode(", ", $hanh_khach);
                 $obj->save();
                 $obj->refresh();        // Reload object from sql

@@ -205,6 +205,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     label: "N\u01A1i mua"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
     showSearch: true,
+    allowClear: true,
     placeholder: "Ch\u1ECDn n\u01A1i mua",
     filterOption: function filterOption(input, option) {
       if (!option.children) return false;
@@ -221,6 +222,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     label: "Kh\xE1ch h\xE0ng"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
     showSearch: true,
+    allowClear: true,
     placeholder: "Ch\u1ECDn kh\xE1ch h\xE0ng",
     filterOption: function filterOption(input, option) {
       if (!option.children) return false;
@@ -485,6 +487,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     label: "H\xE0nh l\xFD"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
     showSearch: true,
+    allowClear: true,
     filterOption: function filterOption(input, option) {
       if (!option.children) return false;
       return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
@@ -1336,13 +1339,10 @@ var tinhPhi = function tinhPhi(props) {
     var hl = phiHanhLy.filter(function (item) {
       return item.id === value;
     })[0];
-
-    if (hl) {
-      hanh_ly = hl.muc_phi;
-      Object.assign(record, {
-        hanh_ly: hanh_ly
-      });
-    }
+    hanh_ly = hl ? hl.muc_phi : 0;
+    Object.assign(record, {
+      hanh_ly: hanh_ly
+    });
   } // Tính phí nơi mua thu
 
 

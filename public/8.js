@@ -210,6 +210,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
 
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
     showSearch: true,
+    allowClear: true,
     placeholder: "Ch\u1ECDn t\xE0i kho\u1EA3n / nh\xE0 cung c\u1EA5p",
     filterOption: function filterOption(input, option) {
       if (!option.children) return false;

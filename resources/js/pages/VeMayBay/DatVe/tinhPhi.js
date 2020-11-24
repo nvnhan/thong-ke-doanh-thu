@@ -31,10 +31,8 @@ const tinhPhi = props => {
     // Chọn hành lý
     if (type === "hl") {
         const hl = phiHanhLy.filter(item => item.id === value)[0];
-        if (hl) {
-            hanh_ly = hl.muc_phi;
-            Object.assign(record, { hanh_ly });
-        }
+        hanh_ly = hl ? hl.muc_phi : 0;
+        Object.assign(record, { hanh_ly });
     }
     // Tính phí nơi mua thu
     if (type === "hb" || type === "tk" || type === "sb") {

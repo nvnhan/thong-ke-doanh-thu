@@ -180,6 +180,7 @@ const form = React.memo(props => {
                     <Form.Item name="id_tai_khoan_mua" label="Nơi mua">
                         <Select
                             showSearch
+                            allowClear
                             placeholder="Chọn nơi mua"
                             filterOption={(input, option) => {
                                 if (!option.children) return false;
@@ -199,6 +200,7 @@ const form = React.memo(props => {
                     <Form.Item name="id_khach_hang" label="Khách hàng">
                         <Select
                             showSearch
+                            allowClear
                             placeholder="Chọn khách hàng"
                             filterOption={(input, option) => {
                                 if (!option.children) return false;
@@ -455,6 +457,7 @@ const form = React.memo(props => {
                     <Form.Item name="id_phi_hanh_ly" label="Hành lý">
                         <Select
                             showSearch
+                            allowClear
                             filterOption={(input, option) => {
                                 if (!option.children) return false;
                                 return (

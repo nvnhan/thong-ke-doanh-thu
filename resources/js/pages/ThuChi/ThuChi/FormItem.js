@@ -116,7 +116,7 @@ const form = React.memo(props => {
                     // ]}
                 >
                     <Select
-                        showSearch
+                        showSearch allowClear
                         placeholder="Chọn tài khoản / nhà cung cấp"
                         filterOption={(input, option) => {
                             if (!option.children) return false;

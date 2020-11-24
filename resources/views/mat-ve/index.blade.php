@@ -21,7 +21,7 @@
 
         h2 {
             font-size: 1.1rem;
-            font-weight: normal;
+            font-weight: bold;
         }
 
         .table .thead-light th {
@@ -37,8 +37,9 @@
         }
 
         .ma-giu-cho {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
+            color: red;
         }
 
     </style>
@@ -70,7 +71,7 @@
 
         <div class="row mb-3">
             <div class="col">
-                <h2>1. Thông tin chuyến bay:</h2>
+                <h2>1. THÔNG TIN CHUYẾN BAY:</h2>
             </div>
         </div>
 
@@ -109,7 +110,7 @@
 
         <div class="row mb-3">
             <div class="col">
-                <h2>2. Thông tin dành cho khách hàng: Mã <span class="ma-giu-cho">{{$datve['ma_giu_cho']}}</span></h2>
+                <h2>2. THÔNG TIN DÀNH CHO KHÁCH HÀNG: Mã <span class="ma-giu-cho">{{$datve['ma_giu_cho']}}</span></h2>
             </div>
         </div>
 
@@ -138,7 +139,7 @@
 
         <div class="row mb-3">
             <div class="col">
-                <h2>3. Giá vé và lệ phí: Tổng cộng <span
+                <h2>3. GIÁ VÉ VÀ LỆ PHÍ: Tổng cộng <span
                         class="tong-tien">{{number_format($datve['tong_tien_thu_khach'], 0)}}₫</span></h2>
             </div>
         </div>

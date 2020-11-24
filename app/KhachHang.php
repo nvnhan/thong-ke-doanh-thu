@@ -23,7 +23,7 @@ class KhachHang extends Model
         'ma_khach_hang', 'ho_ten', 'phan_loai',
         'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb',
         'mst', 'dia_chi', 'email', 'sdt',
-        'so_du_ky_truoc', 'ngay_nhac', 'ma_dai_ly', 'ghi_chu'
+        'so_du_ky_truoc', 'ngay_nhac', 'ma_dai_ly', 'ghi_chu', 'ngay_tao'
     ];
 
     protected $appends = ['so_tien_thu_du'];
@@ -37,7 +37,6 @@ class KhachHang extends Model
         self::updating(function ($model) {
         });
         self::deleting(function ($model) {
-            //TODO: KhachHang onDelete
         });
     }
 

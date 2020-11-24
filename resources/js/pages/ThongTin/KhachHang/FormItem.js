@@ -140,6 +140,15 @@ const form = React.memo(props => {
                     </Form.Item>
                 </Col>
                 <Col span={12} md={8} sm={12}>
+                    <Form.Item name="ngay_tao" label="Ngày tạo">
+                        <MyDatePicker
+                            style={{ width: "100%" }}
+                            locale={locale}
+                            format="DD/MM/YYYY"
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={12} md={8} sm={12}>
                     <Form.Item name="ngay_nhac" label="Ngày nhắc">
                         <MyDatePicker
                             style={{ width: "100%" }}

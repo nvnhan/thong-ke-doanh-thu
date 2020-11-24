@@ -18,6 +18,27 @@ class ThemFile
         return (float) (trim($tt));
     }
 
+    public static function parse_date(string $t)
+    {
+        $s = '';
+        $t = strtoupper($t);
+        if (is_numeric($t)) {        // Excel date 
+            $linux_time = ($t - 25569) * 86400;
+            $s = date("Y-m-d", $linux_time);
+        } else if (preg_match("/(\d+)\/(\d+)\/(\d+)/", $t, $matches))
+            if (strpos($t, "AM") !== false || strpos($t, "PM") !== false)         // Jets: 4/17/2019 12:14:57 AM
+                $s = "$matches[3]-$matches[1]-$matches[2]";
+            else $s = "$matches[3]-$matches[2]-$matches[1]"; // 17/04/2019 Wed
+        else if (preg_match("/(\d+)-([A-Z]+)-(\d+)/", $t, $matches)) { //  03-Apr-2019	
+            $mon = array_search($matches[2], Util::$thang);
+            if ($mon !== false) {
+                $mon++;
+                $s = "$matches[3]-$mon-$matches[1]";
+            }
+        }
+        return $s;
+    }
+
     public static function insert_into_db($parse, Request $request)
     {
         // filter data 
@@ -138,20 +159,7 @@ class ThemFile
             // Ngày đặt
             if (!empty($request->cot_ngay_thang)) {
                 $t = trim($sheet->getCell($request->cot_ngay_thang . $ind)->getValue());
-                if (!empty($t)) {
-                    $t = strtoupper($t);
-                    if (preg_match("/(\d+)\/(\d+)\/(\d+)/", $t, $matches))
-                        if (strpos($t, "AM") !== false || strpos($t, "PM") !== false)         // Jets: 4/17/2019 12:14:57 AM
-                            $tmp->ngay_thang = "$matches[3]-$matches[1]-$matches[2] 0:0:0";
-                        else $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1] 0:0:0"; // 17/04/2019 Wed
-                    else if (preg_match("/(\d+)-([A-Z]+)-(\d+)/", $t, $matches)) { //  03-Apr-2019	
-                        $mon = array_search($matches[2], Util::$thang);
-                        if ($mon !== false) {
-                            $mon++;
-                            $tmp->ngay_thang = "$matches[3]-$mon-$matches[1]";
-                        }
-                    }
-                }
+                if (!empty($t))  $tmp->ngay_thang = self::parse_date($t);
             }
 
             // Tên khách

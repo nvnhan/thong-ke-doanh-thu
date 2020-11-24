@@ -56,6 +56,9 @@ class ThemMail
 
     public static function parse_bb(string $body, Request $request, $dinh_danh)
     {
+        $path = storage_path('app/upload/test.html');
+        file_put_contents($path, $body);
+
         $content = str_get_html($body);
 
         $tmp = new stdClass;
@@ -95,7 +98,7 @@ class ThemMail
         // Ngày giờ bay  đi
         $tmp->ngay_gio_di = "$matches[3]-$imonth-$matches[1] $matches1[1]:$matches1[2]:0";
 
-        preg_match_all("/\b([A-Z]{3})\b/", $line, $matches);
+        preg_match_all("/\(([A-Z]{3})\)/", $line, $matches);
         $tmp->sb_di = $matches[1][0];        // Dòng tiếp theo là mã sân bay đi
         $tmp->sb_di1 = $matches[1][1];
         preg_match("/bay: ([a-zA-Z0-9]+)/", $line, $matches);
@@ -114,7 +117,7 @@ class ThemMail
             // Ngày giờ bay  đi
             $tmp->ngay_gio_ve = "$matches[3]-$imonth-$matches[1] $matches1[1]:$matches1[2]:0";
 
-            preg_match_all("/\b([A-Z]{3})\b/", $line, $matches);
+            preg_match_all("/\(([A-Z]{3})\)/", $line, $matches);
             $tmp->sb_ve = $matches[1][0];        // Dòng tiếp theo là mã sân bay đi
             $tmp->sb_ve1 = $matches[1][1];
             preg_match("/bay: ([a-zA-Z0-9]+)/", $line, $matches);

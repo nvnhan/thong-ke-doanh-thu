@@ -41,7 +41,16 @@ const columns = [
         width: 120,
         sorter: (a, b) =>
             moment(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() -
-            moment(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix()
+            moment(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix(),
+        render: text => {
+            let date = moment(text, "HH:mm DD/MM/YYYY");
+            let diff = moment().diff(date, "days");
+            if (moment().diff(date) < 0 && diff == 0)
+                return <span style={{ color: "red" }}>{text}</span>;
+            else if (diff == -1)
+                return <span style={{ color: "#dbde00" }}>{text}</span>;
+            else return text;
+        }
     },
     {
         title: "Chặng đi",

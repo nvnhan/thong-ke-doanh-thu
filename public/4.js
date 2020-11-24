@@ -124,6 +124,19 @@ var columns = [{
   width: 120,
   sorter: function sorter(a, b) {
     return moment__WEBPACK_IMPORTED_MODULE_0___default()(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() - moment__WEBPACK_IMPORTED_MODULE_0___default()(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix();
+  },
+  render: function render(text) {
+    var date = moment__WEBPACK_IMPORTED_MODULE_0___default()(text, "HH:mm DD/MM/YYYY");
+    var diff = moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(date, "days");
+    if (moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(date) < 0 && diff == 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+      style: {
+        color: "red"
+      }
+    }, text);else if (diff == -1) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+      style: {
+        color: "#dbde00"
+      }
+    }, text);else return text;
   }
 }, {
   title: "Chặng đi",

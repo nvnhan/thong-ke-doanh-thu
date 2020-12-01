@@ -126,11 +126,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $cnt = 1; ?>
+                            @foreach ($dv as $item)
                             <tr>
-                                <th scope="row">1</th>
-                                <td>{{$datve['ten_khach']}}</td>
-                                <td>{{$datve['so_ve']}}</td>
+                                <th scope="row">{{$cnt++}}</th>
+                                <td>{{$item['ten_khach']}}</td>
+                                <td>{{$item['so_ve']}}</td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -140,7 +143,7 @@
         <div class="row mb-3">
             <div class="col">
                 <h2>3. GIÁ VÉ VÀ LỆ PHÍ: Tổng cộng <span
-                        class="tong-tien">{{number_format($datve['tong_tien_thu_khach'], 0)}}₫</span></h2>
+                        class="tong-tien">{{number_format($dv->sum('tong_tien_thu_khach'), 0)}}₫</span></h2>
             </div>
         </div>
         <hr>

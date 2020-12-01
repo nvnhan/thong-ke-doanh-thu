@@ -180,16 +180,7 @@ const index = props => {
                     }}
                 >
                     <Col span={12} md={6}>
-                        <Form.Item
-                            name="hang_bay"
-                            label="HB mặc định"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Nhập đầy đủ thông tin!"
-                                }
-                            ]}
-                        >
+                        <Form.Item name="hang_bay" label="HB mặc định">
                             <AutoComplete
                                 options={hbOptions}
                                 filterOption={(inputValue, option) =>

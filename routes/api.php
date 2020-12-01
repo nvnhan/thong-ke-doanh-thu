@@ -47,7 +47,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('chua-bay', 'DatVeController@chuabay');
 
     Route::put('dat-ve/updates', 'DatVeController@updates');
-    Route::put('dat-ve/them-text', 'DatVeController@themtext');
+    Route::post('dat-ve/them-text', 'DatVeController@themtext');
     Route::post('dat-ve/them-file', 'DatVeController@themfile');
     
     Route::post('dat-ve/get-mail', 'DatVeController@getmail');

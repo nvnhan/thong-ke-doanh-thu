@@ -48,10 +48,10 @@ const veDienTu = (data, selectedRowKeys) =>
  * Tạo mặt vé điện tử
  */
 const veDienTuHTML = (data, selectedRowKeys) => {
-    var u = localStorage.getItem("id");
-    var id = selectedRowKeys[0];
+    const u = localStorage.getItem("id");
+    const ids = selectedRowKeys.join(",");
     const newWindow = window.open(
-        window.location.origin + `/dat-ve/mat-ve/${u}/${id}`,
+        window.location.origin + `/dat-ve/mat-ve/${u}/${ids}`,
         "_blank",
         "noopener,noreferrer"
     );

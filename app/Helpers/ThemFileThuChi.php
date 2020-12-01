@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-use App\DatVe;
 use App\KhachHang;
 use App\TaiKhoan;
 use App\ThuChi;
@@ -73,10 +72,9 @@ class ThemFileThuChi
             $tmp->dinh_danh = $dinh_danh;
 
             // Ngày tháng
-            $t = $sheet->getCell($request->cot_ngay_thang . $ind)->getValue();
-            if (preg_match("/(\d+)\/(\d+)\/(\d{4})/", $t, $matches))               // Dạng dd/mm/yyyy
-                $tmp->ngay_thang = $matches[3] . "-" . $matches[2] . "-" . $matches[1];
-            else
+            $t = $sheet->getCell($request->cot_ngay_thang . $ind)->getValue() ?? "";
+            $tmp->ngay_thang = ThemFile::parse_date($t);
+            if ($tmp->ngay_thang === '')
                 break;
 
             // Mã Ngân hàng

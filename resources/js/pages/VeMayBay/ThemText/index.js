@@ -59,15 +59,7 @@ const index = props => {
 
         // Truyền lên server
         axios
-            .post(`/api/dat-ve/them-text`, data, {
-                headers: {
-                    "Content-Type":
-                        "multipart/form-data; charset=utf-8; boundary=" +
-                        Math.random()
-                            .toString()
-                            .substr(2)
-                }
-            })
+            .put(`/api/dat-ve/them-text`, data)
             .then(response => {
                 if (response.data.success) {
                     message.success(response.data.message);

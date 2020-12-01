@@ -456,11 +456,7 @@ var index = function index(props) {
     Object(_components_Includes_ShowWaiting__WEBPACK_IMPORTED_MODULE_2__["default"])();
     var data = form.getFieldsValue(); // Truyền lên server
 
-    axios.post("/api/dat-ve/them-text", data, {
-      headers: {
-        "Content-Type": "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
-      }
-    }).then(function (response) {
+    axios.put("/api/dat-ve/them-text", data).then(function (response) {
       if (response.data.success) {
         antd__WEBPACK_IMPORTED_MODULE_0__["message"].success(response.data.message);
         setModalDatVe({

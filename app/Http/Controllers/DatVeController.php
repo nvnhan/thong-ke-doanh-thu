@@ -87,7 +87,7 @@ class DatVeController extends BaseController
 
     public function hangbay()
     {
-        $objs = DatVe::all()->pluck('hang_bay');
+        $objs = DatVe::whereNotNull('hang_bay')->select('hang_bay')->distinct()->pluck('hang_bay');
 
         return $this->sendResponse($objs, "HangBay retrieved successfully");
     }

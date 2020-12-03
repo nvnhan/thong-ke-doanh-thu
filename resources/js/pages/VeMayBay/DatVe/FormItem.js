@@ -136,7 +136,7 @@ const form = React.memo(props => {
                         <AutoComplete
                             options={hbOptions}
                             filterOption={(inputValue, option) =>
-                                option.value
+                                (option.value || "")
                                     .toUpperCase()
                                     .indexOf(inputValue.toUpperCase()) !== -1
                             }

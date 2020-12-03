@@ -110,7 +110,7 @@
 
         <div class="row mb-3">
             <div class="col">
-                <h2>2. THÔNG TIN DÀNH CHO KHÁCH HÀNG: Mã <span class="ma-giu-cho">{{$datve['ma_giu_cho']}}</span></h2>
+                <h2>2. THÔNG TIN HÀNH KHÁCH: Mã <span class="ma-giu-cho">{{$datve['ma_giu_cho']}}</span></h2>
             </div>
         </div>
 

@@ -12,10 +12,7 @@ class ThemFile
 {
     public static function parse_money(string $tt)
     {
-        $tt = str_replace(',', '', $tt);
-        $tt = str_replace('.', '', $tt);
-        $tt = str_replace('-', '', $tt);
-        return (float) (trim($tt));
+        return (float) (trim(str_replace([',', '.', '-', '$'], '', $tt)));
     }
 
     public static function parse_date(string $t)
@@ -99,7 +96,7 @@ class ThemFile
 
                 if (!empty($request->khong_tinh_phi) && $request->khong_tinh_phi >= ($item->tong_tien + $request->phi_thu_khach))
                     $dv->tong_tien_thu_khach = 0;          // Ko tính phí Đại lý thu nữa
-                $dv->tong_tien_thu_khach += $item->tong_tien +  $request->phi_thu_khach;
+                $dv->tong_tien_thu_khach += $item->tong_tien + $request->phi_thu_khach;
             }
 
             try {
@@ -258,10 +255,16 @@ class ThemFile
     {
         $path = storage_path('app/upload') . "/$dinh_danh.$extension";
         $parse = [];
-        if ($request->hang_bay === "BB")
-            $parse = self::parse_html_bb($path, $dinh_danh, $request->user()->username);
-        if ($request->hang_bay === "VJ")
-            $parse = self::parse_html_vj($path, $dinh_danh, $request->user()->username);
+        $content = file_get_html($path);
+        $rows = $content->find('table.data-table tbody tr');
+        if (count($rows) > 0)
+            self::parse_html_bb($parse, $rows, $dinh_danh, $request->user()->username);
+        else {
+            $rows = $content->find('tr.GridPayDetsEven, tr.GridPayDetsOdd');
+
+            if (count($rows) > 0)
+                self::parse_html_vj($parse, $rows, $dinh_danh, $request->user()->username);
+        }
 
         // insert rows to db
         $cnt = self::insert_into_db($parse, $request);
@@ -269,12 +272,8 @@ class ThemFile
         return $cnt;
     }
 
-    public static function parse_html_bb(string $path, string $dinh_danh, $username)
+    public static function parse_html_bb(&$parse, $rows, string $dinh_danh, $username)
     {
-        $parse = [];
-        $content = file_get_html($path);
-        $rows = $content->find('table.data-table tbody tr');
-
         foreach ($rows as $row) {
             $tmp = new stdClass;
             $tmp->ngay_thang = date("Y-m-d");
@@ -288,14 +287,9 @@ class ThemFile
                 continue;
             $tmp->ma_giu_cho = $cols[4]->plaintext;
 
-            // Ngay dat
-            if (preg_match("/(\d+)-([a-zA-Z]+)-(\d+)/", $cols[0]->plaintext, $matches)) { //  03-Apr-2019	
-                $mon = array_search(strtoupper($matches[2]), Util::$thang);
-                if ($mon !== false) {
-                    $mon++;
-                    $tmp->ngay_thang = "$matches[3]-$mon-$matches[1]";
-                }
-            }
+            // Ngay dat            
+            $tmp->ngay_thang = self::parse_date($cols[0]->plaintext);
+
             $tmp->ma_dai_ly = $cols[3]->plaintext;
             $tmp->ten_khach = str_replace('/', ' ', $cols[7]->plaintext);
 
@@ -313,7 +307,7 @@ class ThemFile
                     break;
             }
             // tong Tien
-            $tmp->tong_tien = (float) (str_replace([',', '.'], '', $cols[15]->plaintext));
+            $tmp->tong_tien = self::parse_money($cols[15]->plaintext);
 
             // Hanh trinh, ngay bay, chuyen bay
             $hanh_trinh = $cols[23]->plaintext;
@@ -352,16 +346,10 @@ class ThemFile
 
             $parse[] = $tmp;
         }
-
-        return $parse;
     }
 
-    public static function parse_html_vj(string $path, string $dinh_danh, $username)
+    public static function parse_html_vj(&$parse, $rows, string $dinh_danh, $username)
     {
-        $parse = [];
-        $content = file_get_html($path);
-        $rows = $content->find('tr.GridPayDetsEven, tr.GridPayDetsOdd');
-
         foreach ($rows as $row) {
             $tmp = new stdClass;
             $tmp->ngay_thang = date("Y-m-d");
@@ -376,8 +364,7 @@ class ThemFile
                 continue;
 
             // Ngay dat
-            if (preg_match("/(\d+)\/(\d+)\/(\d+)/", $cols[3]->plaintext, $matches))
-                $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
+            $tmp->ngay_thang = self::parse_date($cols[3]->plaintext);
 
             $tmp->ma_dai_ly = $cols[6]->plaintext;
             $tmp->ten_khach = str_replace(',', '', $cols[2]->plaintext);
@@ -386,7 +373,7 @@ class ThemFile
             $tmp->loai_tuoi = 0;
 
             // tong Tien
-            $tmp->tong_tien = (float) (str_replace([',', '.', '$'], '', $cols[9]->plaintext)) / 100;
+            $tmp->tong_tien = self::parse_money($cols[9]->plaintext) / 100;
 
             // Hanh trinh, ngay bay, chuyen bay
             $hanh_trinh = $cols[4]->plaintext;
@@ -420,7 +407,5 @@ class ThemFile
 
             $parse[] = $tmp;
         }
-
-        return $parse;
     }
 }

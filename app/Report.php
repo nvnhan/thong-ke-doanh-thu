@@ -509,13 +509,21 @@ class Report
         $tmp->tai_khoan = "DƯ - NỢ";
         $tmp->dau_ky = $duNo;
         $result[] = $tmp;
+
         // Thêm Lãi
         $lai = Report::TinhLai($request, $tu_ngay, $den_ngay);
         $tmp = new stdClass;
         $tmp->id = -1;
         $tmp->tai_khoan = "LÃI";
         $tmp->dau_ky = $format_price ? Util::VNDFormater($lai) : $lai;
+        // Lãi từng ngày
+        for ($i = $tu_ngay; $i <= $den_ngay; $i++) {
+            $t = (new DateTime($i))->format('d/m/y');
+            $lai = Report::TinhLai($request, $i, $i);
+            $tmp->$t = $format_price ? Util::VNDFormater($lai) : $lai;
+        }
         $result[] = $tmp;
+
         // Thêm tồn kho
         $tonKho = Report::TinhTonKho($request, $den_ngay);
         $sum += $tonKho;
@@ -524,6 +532,7 @@ class Report
         $tmp->tai_khoan = "TỒN KHO";
         $tmp->dau_ky = $format_price ? Util::VNDFormater($tonKho) : $tonKho;
         $result[] = $tmp;
+
         // Thêm tổng cộng
         $tmp = new stdClass;
         $tmp->id = -3;

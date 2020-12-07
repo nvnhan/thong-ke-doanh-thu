@@ -1,91 +1,100 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[57],{
 
-/***/ "./resources/js/pages/VeMayBay/ChuaBay/index.js":
+/***/ "./resources/js/pages/VeMayBay/ThuePhi/FormItem.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/pages/VeMayBay/ThuePhi/FormItem.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return form; });
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
+
+
+
+function form() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "loai_phi",
+    label: "Lo\u1EA1i ph\xED",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    disabled: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "muc_phi",
+    label: "M\u1EE9c ph\xED",
+    rules: [{
+      required: true,
+      message: "Nhập đầy đủ thông tin!"
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
+    style: {
+      width: "100%"
+    },
+    min: 1000,
+    step: 1000,
+    formatter: _utils__WEBPACK_IMPORTED_MODULE_2__["inputFormat"],
+    parser: _utils__WEBPACK_IMPORTED_MODULE_2__["inputParse"]
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "ghi_chu",
+    label: "Ghi ch\xFA"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null)));
+}
+
+/***/ }),
+
+/***/ "./resources/js/pages/VeMayBay/ThuePhi/index.js":
 /*!******************************************************!*\
-  !*** ./resources/js/pages/VeMayBay/ChuaBay/index.js ***!
+  !*** ./resources/js/pages/VeMayBay/ThuePhi/index.js ***!
   \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/es/date-picker/locale/vi_VN */ "./node_modules/antd/es/date-picker/locale/vi_VN.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
-/* harmony import */ var _components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/ListForm/MyDatePicker */ "./resources/js/components/ListForm/MyDatePicker.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils */ "./resources/js/utils/index.js");
-/* harmony import */ var _utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/exportDatVe */ "./resources/js/utils/exportDatVe.js");
-/* harmony import */ var _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../DatVe/columns */ "./resources/js/pages/VeMayBay/DatVe/columns.js");
-/* harmony import */ var _DatVe_expandedRow__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../DatVe/expandedRow */ "./resources/js/pages/VeMayBay/DatVe/expandedRow.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_ListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ListForm */ "./resources/js/components/ListForm/index.js");
+/* harmony import */ var _FormItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormItem */ "./resources/js/pages/VeMayBay/ThuePhi/FormItem.js");
 
 
 
-
-
-
-
-
-
-var List = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
-  var getOtherFilter = function getOtherFilter() {
-    return [{
-      name: "den_ngay",
-      label: "Tính đến",
-      render: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm_MyDatePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        style: {
-          width: "100%"
-        },
-        locale: antd_es_date_picker_locale_vi_VN__WEBPACK_IMPORTED_MODULE_0__["default"],
-        format: "HH:mm DD/MM/YYYY",
-        allowClear: false
-      })
-    }];
-  };
-
-  var renderSummary = function renderSummary(data) {
-    if (!_.isEmpty(data)) {
-      var sumObj = data.reduce(function (previousValue, currentValue) {
-        return {
-          tong_tien: previousValue.tong_tien + currentValue.tong_tien,
-          tong_tien_thu_khach: previousValue.tong_tien_thu_khach + currentValue.tong_tien_thu_khach
-        };
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("th", {
-        colSpan: 10
-      }, "T\u1ED5ng c\u1ED9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, _utils__WEBPACK_IMPORTED_MODULE_5__["vndFormater"].format(sumObj.tong_tien_thu_khach - sumObj.tong_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null)));
-    }
-  };
-
-  var otherButtons = [{
-    key: "export",
-    onClick: function onClick(data, selectedRowKeys) {
-      return Object(_utils_exportDatVe__WEBPACK_IMPORTED_MODULE_6__["default"])(data, selectedRowKeys, "chua-bay.xlsx");
+var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
+  var columns = [{
+    title: "Loại phí",
+    dataIndex: "loai_phi",
+    optFind: true,
+    width: 150
+  }, {
+    title: "Mức phí",
+    dataIndex: "muc_phi",
+    render: function render(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      }).format(number);
     },
-    title: "Xuất danh sách ra Excel",
-    selectRequired: false
+    width: 80
+  }, {
+    title: "Ghi chú",
+    dataIndex: "ghi_chu",
+    ellipsis: true,
+    width: 100
   }];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    url: "chua-bay",
-    insertable: false,
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    url: "thue-phi",
+    columns: columns,
     selectable: false,
-    editable: false,
+    insertable: false,
     deleteable: false,
-    filterBox: true,
-    tuNgayDenNgay: false,
-    otherFilter: getOtherFilter(),
-    filterInitialValue: {
-      den_ngay: moment__WEBPACK_IMPORTED_MODULE_1___default()().format("HH:mm DD/MM/YYYY")
-    },
-    columns: _DatVe_columns__WEBPACK_IMPORTED_MODULE_7__["default"],
-    tableSize: {
-      x: 1800
-    },
-    otherButtons: otherButtons,
-    expandedRowRender: _DatVe_expandedRow__WEBPACK_IMPORTED_MODULE_8__["default"],
-    renderSummary: renderSummary
+    formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_2__["default"], null)
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (List);

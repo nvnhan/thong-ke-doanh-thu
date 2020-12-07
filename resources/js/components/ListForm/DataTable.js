@@ -55,6 +55,7 @@ const DataTable = React.memo(props => {
      * Create column for ant's table
      */
     const getColumn = (column, data) => {
+        if (data === undefined) return column;
         if (column.optFilter) {
             // Lọc dữ liệu và mô tả các cột dữ liệu
             const objs = [...new Set(data.map(x => x[column.dataIndex]))];

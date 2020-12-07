@@ -119,9 +119,18 @@ class BaoCaoController extends BaseController
         $sheet = $spreadSheet->getSheet(0);
         BaoCaoTongHop::export_cong_no($request, $sheet);
 
+        $sheet = $spreadSheet->getSheet(1);
+        BaoCaoTongHop::export_dat_ve($request, $sheet, 1);
 
+        $sheet = $spreadSheet->getSheet(2);
+        BaoCaoTongHop::export_dat_ve($request, $sheet, 2);
 
-        
+        $sheet = $spreadSheet->getSheet(3);
+        BaoCaoTongHop::export_dat_ve($request, $sheet, 3);
+
+        $sheet = $spreadSheet->getSheet(4);
+        BaoCaoTongHop::export_thu_chi($request, $sheet);
+
         $sheet = $spreadSheet->getSheet(5);
         BaoCaoTongHop::export_tai_khoan($request, $sheet);
 

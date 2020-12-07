@@ -18,7 +18,7 @@ const showWaiting = (s = "Đang xử lý dữ liệu...") => {
                 <span>{s}</span>
                 <br />
                 <small>
-                    <i>(Không thể hủy cho đến khi tiến trình kết thúc!)</i>
+                    <i>(Vui lòng chờ đến khi tiến trình kết thúc!)</i>
                 </small>
             </div>
         )

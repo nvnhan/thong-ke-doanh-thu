@@ -90,6 +90,7 @@ const TrangChu = React.memo(props => {
                 label: "Số dư",
                 stack: "Stack 0",
                 backgroundColor: "#4bab92",
+                barPercentage: 0.5,
                 data: data.sodu.gia_tri
             }
         ]
@@ -190,51 +191,8 @@ const TrangChu = React.memo(props => {
                 </Col>
             </Row>
 
-            <Form
-                form={form}
-                onFinish={onFinish}
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-            >
-                <Row gutter={[16, 16]}>
-                    <Col span={24} md={16} lg={12} xl={9}>
-                        <Form.Item
-                            name="thoiGian"
-                            label="Thời gian"
-                            labelCol={{ span: 4, xl: 6 }}
-                            wrapperCol={{ span: 20, xl: 18 }}
-                        >
-                            <RangePicker
-                                allowClear={false}
-                                locale={locale}
-                                style={{ width: "100%" }}
-                                ranges={{
-                                    "Hôm nay": [
-                                        moment().startOf("day"),
-                                        moment().endOf("day")
-                                    ],
-                                    "Tuần này": [
-                                        moment().startOf("week"),
-                                        moment().endOf("week")
-                                    ],
-                                    "Tháng này": [
-                                        moment().startOf("month"),
-                                        moment().endOf("month")
-                                    ]
-                                }}
-                                format="DD/MM/YYYY"
-                                placeholder={["Từ ngày", "đến ngày"]}
-                            />
-                        </Form.Item>
-                    </Col>
-                    <Col span={12} md={8} lg={6} xl={5}>
-                        <Button htmlType="submit">Lọc</Button>
-                    </Col>
-                </Row>
-            </Form>
-
             <Row gutter={[16, 16]}>
-                <Col span={24}>
+                <Col span={24} md={12}>
                     <div className="chart-card">
                         <Bar
                             width={700}
@@ -295,6 +253,49 @@ const TrangChu = React.memo(props => {
                     </div>
                 </Col>
             </Row>
+
+            <Form
+                form={form}
+                onFinish={onFinish}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+            >
+                <Row gutter={[16, 16]}>
+                    <Col span={24} md={16} lg={12} xl={9}>
+                        <Form.Item
+                            name="thoiGian"
+                            label="Thời gian"
+                            labelCol={{ span: 4, xl: 6 }}
+                            wrapperCol={{ span: 20, xl: 18 }}
+                        >
+                            <RangePicker
+                                allowClear={false}
+                                locale={locale}
+                                style={{ width: "100%" }}
+                                ranges={{
+                                    "Hôm nay": [
+                                        moment().startOf("day"),
+                                        moment().endOf("day")
+                                    ],
+                                    "Tuần này": [
+                                        moment().startOf("week"),
+                                        moment().endOf("week")
+                                    ],
+                                    "Tháng này": [
+                                        moment().startOf("month"),
+                                        moment().endOf("month")
+                                    ]
+                                }}
+                                format="DD/MM/YYYY"
+                                placeholder={["Từ ngày", "đến ngày"]}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12} md={8} lg={6} xl={5}>
+                        <Button htmlType="submit">Lọc</Button>
+                    </Col>
+                </Row>
+            </Form>
         </>
     );
 });

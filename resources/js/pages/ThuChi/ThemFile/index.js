@@ -2,6 +2,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Button, Col, Form, message, Modal, Progress, Row, Upload } from "antd";
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
+import { parseValues } from "../../../utils";
 import FormItem from "./FormItem";
 
 const index = props => {
@@ -50,17 +51,11 @@ const index = props => {
     };
 
     const getFormData = values => {
-        if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
-            Object.assign(values, {
-                bat_dau: values.thoiGian[0].format("YYYY-MM-DD"),
-                ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
-            });
-        }
+        values = parseValues(values, "YYYY-MM-DD");
 
         const data = new FormData();
         data.append("file", fileList[0]);
 
-        delete values.thoiGian;
         delete values.file;
         for (let key in values)
             if (values[key] !== undefined) data.append(key, values[key]);

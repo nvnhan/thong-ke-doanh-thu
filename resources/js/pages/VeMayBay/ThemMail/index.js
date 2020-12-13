@@ -3,7 +3,7 @@ import moment from "moment";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import showWaiting from "../../../components/Includes/ShowWaiting";
-import { parseTimePeriod, useMergeState } from "../../../utils";
+import { parseValues, useMergeState } from "../../../utils";
 import ModalPreviewDatVe from "../ModalPreviewDatVe";
 import FormItem from "./FormItem";
 
@@ -27,7 +27,7 @@ const index = props => {
 
         showWaiting();
         const values = form.getFieldsValue();
-        const data = parseTimePeriod(values);
+        const data = parseValues(values);
         Object.assign(data, {
             mails: selectedRowKeys.join("|")
         });
@@ -61,7 +61,7 @@ const index = props => {
     const onGetEmail = () => {
         showWaiting("Đang lấy thông tin email...");
         const values = form.getFieldsValue();
-        const data = parseTimePeriod(values);
+        const data = parseValues(values);
 
         // Get Email from GMAIL
         axios

@@ -1,11 +1,10 @@
 import { FileExcelOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Form, Select } from "antd";
-import locale from "antd/es/date-picker/locale/vi_VN";
+import { Button, Form, Select } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import { downloadApi } from "../../../utils/downloadFile";
+import MyRangePicker from "../../../components/ListForm/MyRangePicker";
 import { parseValues } from "../../../utils";
-const { RangePicker } = DatePicker;
+import { downloadApi } from "../../../utils/downloadFile";
 const { Option, OptGroup } = Select;
 
 const index = props => {
@@ -22,13 +21,6 @@ const index = props => {
 
     const onFinish = () => {
         let values = form.getFieldsValue();
-        if (values.hasOwnProperty("thoiGian")) {
-            values = Object.assign(values, {
-                bat_dau: values.thoiGian[0],
-                ket_thuc: values.thoiGian[1]
-            });
-            delete values.thoiGian;
-        }
         downloadApi(
             "/api/doi-soat-tai-khoan",
             parseValues(values),
@@ -72,27 +64,7 @@ const index = props => {
                             }
                         ]}
                     >
-                        <RangePicker
-                            allowClear={false}
-                            locale={locale}
-                            style={{ width: "100%" }}
-                            ranges={{
-                                "Hôm nay": [
-                                    moment().startOf("day"),
-                                    moment().endOf("day")
-                                ],
-                                "Tuần này": [
-                                    moment().startOf("week"),
-                                    moment().endOf("week")
-                                ],
-                                "Tháng này": [
-                                    moment().startOf("month"),
-                                    moment().endOf("month")
-                                ]
-                            }}
-                            format="DD/MM/YYYY"
-                            placeholder={["Từ ngày", "đến ngày"]}
-                        />
+                        <MyRangePicker />
                     </Form.Item>
                     <Form.Item
                         name="id_tai_khoan"

@@ -27,21 +27,20 @@ export const queryString = obj => {
 /**
  * Xử lý dữ liệu (ngày tháng) từ form nhập vào
  */
-export const parseValues = values => {
+export const parseValues = (values, format = "YYYY-MM-DD HH:mm:ss") => {
+    values = parseTimePeriod(values);
     for (let [key, value] of Object.entries(values)) {
         if (value !== null && value !== undefined)
             if (typeof value === "object")
                 // Convert từ moment (from DatePicker) về dạng string để backend xử lý
-                values[key] = value.format("YYYY-MM-DD HH:mm:ss");
+                values[key] = value.format(format);
             else if (typeof value === "string")
                 if (value.match(/(.*?):(.*?)\/(.*?)\//g))
                     values[key] = moment(value, "HH:mm DD/MM/YYYY").format(
-                        "YYYY-MM-DD HH:mm:ss"
+                        format
                     );
                 else if (value.match(/(.*?)\/(.*?)\//g))
-                    values[key] = moment(value, "DD/MM/YYYY").format(
-                        "YYYY-MM-DD HH:mm:ss"
-                    );
+                    values[key] = moment(value, "DD/MM/YYYY").format(format);
     }
     return values;
 };
@@ -75,13 +74,20 @@ export const inputFormat = value =>
 
 export const inputParse = value => value.replace(/\₫\s?|(,*)/g, "");
 
-export const parseTimePeriod = (values, format = "YYYY-MM-DD HH:mm:ss") => {
-    if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
-        Object.assign(values, {
-            bat_dau: values.thoiGian[0].format(format),
-            ket_thuc: values.thoiGian[1].format(format)
-        });
+export const parseTimePeriod = values => {
+    if (values.hasOwnProperty("thoiGian")) {
+        if (!_.isEmpty(values.thoiGian))
+            Object.assign(values, {
+                bat_dau: values.thoiGian[0],
+                ket_thuc: values.thoiGian[1]
+            });
         delete values.thoiGian;
     }
     return values;
 };
+
+export const momentRange = () => ({
+    "Hôm nay": [moment().startOf("day"), moment().endOf("day")],
+    "Tuần này": [moment().startOf("week"), moment().endOf("week")],
+    "Tháng này": [moment().startOf("month"), moment().endOf("month")]
+});

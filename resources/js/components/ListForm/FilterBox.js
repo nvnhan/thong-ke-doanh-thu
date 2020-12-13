@@ -1,11 +1,10 @@
-import { FilterOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, Form, Row } from "antd";
-import locale from "antd/es/date-picker/locale/vi_VN";
+import { FilterOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Col, Form, Row } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { parseValues } from "../../utils";
 import "./FilterBox.scss";
-const { RangePicker } = DatePicker;
+import MyRangePicker from "./MyRangePicker";
 
 const FilterBox = React.memo(props => {
     const { onFilter, tuNgayDenNgay, otherFilter, filterInitialValue } = props;
@@ -21,13 +20,6 @@ const FilterBox = React.memo(props => {
 
     const onFinish = () => {
         let values = form.getFieldsValue();
-        if (values.hasOwnProperty("thoiGian")) {
-            values = Object.assign(values, {
-                bat_dau: values.thoiGian[0],
-                ket_thuc: values.thoiGian[1]
-            });
-            delete values.thoiGian;
-        }
         onFilter(parseValues(values));
     };
 
@@ -48,27 +40,7 @@ const FilterBox = React.memo(props => {
                                 labelCol={{ span: 4, xl: 6 }}
                                 wrapperCol={{ span: 20, xl: 18 }}
                             >
-                                <RangePicker
-                                    allowClear={false}
-                                    locale={locale}
-                                    style={{ width: "100%" }}
-                                    ranges={{
-                                        "Hôm nay": [
-                                            moment().startOf("day"),
-                                            moment().endOf("day")
-                                        ],
-                                        "Tuần này": [
-                                            moment().startOf("week"),
-                                            moment().endOf("week")
-                                        ],
-                                        "Tháng này": [
-                                            moment().startOf("month"),
-                                            moment().endOf("month")
-                                        ]
-                                    }}
-                                    format="DD/MM/YYYY"
-                                    placeholder={["Từ ngày", "đến ngày"]}
-                                />
+                                <MyRangePicker allowClear={false} />
                             </Form.Item>
                         </Col>
                     )}
@@ -93,7 +65,8 @@ const FilterBox = React.memo(props => {
                     <Col span={12} md={8} lg={6} xl={5}>
                         {!_.isEmpty(otherFilter) && (
                             <Button
-                                onClick={() => setExpandFilter(!expandFilter)} type="dashed"
+                                onClick={() => setExpandFilter(!expandFilter)}
+                                type="dashed"
                             >
                                 {expandFilter ? (
                                     <MinusOutlined />

@@ -1,8 +1,6 @@
-import { Button, Col, DatePicker, Form, Input, Row } from "antd";
-import locale from "antd/es/date-picker/locale/vi_VN";
-import moment from "moment";
+import { Button, Col, Form, Input, Row } from "antd";
 import React from "react";
-const { RangePicker } = DatePicker;
+import MyRangePicker from "../../../components/ListForm/MyRangePicker";
 
 const form = React.memo(props => {
     return (
@@ -64,26 +62,7 @@ const form = React.memo(props => {
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 18 }}
                     >
-                        <RangePicker
-                            locale={locale}
-                            style={{ width: "100%" }}
-                            ranges={{
-                                "Hôm nay": [
-                                    moment().startOf("day"),
-                                    moment().endOf("day")
-                                ],
-                                "Tuần này": [
-                                    moment().startOf("week"),
-                                    moment().endOf("week")
-                                ],
-                                "Tháng này": [
-                                    moment().startOf("month"),
-                                    moment().endOf("month")
-                                ]
-                            }}
-                            format="DD/MM/YYYY"
-                            placeholder={["Nhập từ ngày", "đến ngày"]}
-                        />
+                        <MyRangePicker />
                     </Form.Item>
                 </Col>
             </Row>

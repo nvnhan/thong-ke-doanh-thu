@@ -11,7 +11,7 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import showWaiting from "../../../components/Includes/ShowWaiting";
-import { useMergeState } from "../../../utils";
+import { parseValues, useMergeState } from "../../../utils";
 import ModalPreviewDatVe from "../ModalPreviewDatVe";
 import FormItem from "./FormItem";
 
@@ -90,24 +90,11 @@ const index = props => {
     };
 
     const getFormData = values => {
-        if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
-            Object.assign(values, {
-                bat_dau: values.thoiGian[0].format("YYYY-MM-DD"),
-                ket_thuc: values.thoiGian[1].format("YYYY-MM-DD")
-            });
-        }
-        // if (
-        //     values.hasOwnProperty("ngay_thanh_toan") &&
-        //     !_.isEmpty(values.ngay_thanh_toan)
-        // ) {
-        //     Object.assign(values, {
-        //         ngay_thanh_toan: values.ngay_thanh_toan.format("YYYY-MM-DD")
-        //     });
-        // }
+        values = parseValues(values);
+
         const data = new FormData();
         data.append("file", fileList[0]);
 
-        delete values.thoiGian;
         delete values.file;
         for (let key in values)
             if (values[key] !== undefined) data.append(key, values[key]);

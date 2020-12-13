@@ -1,10 +1,9 @@
-import { Button, Col, DatePicker, Form, Row } from "antd";
-import locale from "antd/es/date-picker/locale/vi_VN";
+import { Button, Col, Form, Row } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
+import MyRangePicker from "../../components/ListForm/MyRangePicker";
 import { parseValues } from "../../utils";
-const { RangePicker } = DatePicker;
 
 const TrangChu = React.memo(props => {
     const [form] = Form.useForm();
@@ -29,13 +28,6 @@ const TrangChu = React.memo(props => {
 
     const onFinish = () => {
         let values = form.getFieldsValue();
-        if (values.hasOwnProperty("thoiGian")) {
-            values = Object.assign(values, {
-                bat_dau: values.thoiGian[0],
-                ket_thuc: values.thoiGian[1]
-            });
-            delete values.thoiGian;
-        }
         axios
             .get("/api/trang-chu", { params: parseValues(values) })
             .then(response => {
@@ -195,8 +187,8 @@ const TrangChu = React.memo(props => {
                 <Col span={24} md={12}>
                     <div className="chart-card">
                         <Bar
-                            width={700}
-                            height={300}
+                            width={400}
+                            height={250}
                             data={tkChartData}
                             options={{
                                 legend: { display: false },
@@ -268,27 +260,7 @@ const TrangChu = React.memo(props => {
                             labelCol={{ span: 4, xl: 6 }}
                             wrapperCol={{ span: 20, xl: 18 }}
                         >
-                            <RangePicker
-                                allowClear={false}
-                                locale={locale}
-                                style={{ width: "100%" }}
-                                ranges={{
-                                    "Hôm nay": [
-                                        moment().startOf("day"),
-                                        moment().endOf("day")
-                                    ],
-                                    "Tuần này": [
-                                        moment().startOf("week"),
-                                        moment().endOf("week")
-                                    ],
-                                    "Tháng này": [
-                                        moment().startOf("month"),
-                                        moment().endOf("month")
-                                    ]
-                                }}
-                                format="DD/MM/YYYY"
-                                placeholder={["Từ ngày", "đến ngày"]}
-                            />
+                            <MyRangePicker />
                         </Form.Item>
                     </Col>
                     <Col span={12} md={8} lg={6} xl={5}>

@@ -194,10 +194,7 @@ const TrangChu = React.memo(props => {
                                 legend: { display: false },
                                 title: {
                                     display: true,
-                                    text:
-                                        "Số dư tài khoản (Tổng cộng " +
-                                        data.tong +
-                                        "₫)",
+                                    text: `Số dư tài khoản (Tổng cộng ${data.tong}₫)`,
                                     fontSize: 14
                                 },
                                 hover: {

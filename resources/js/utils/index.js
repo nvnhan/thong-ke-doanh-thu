@@ -69,11 +69,23 @@ export const vndFormater = new Intl.NumberFormat("vi-VN", {
     currency: "VND"
 });
 
+/**
+ * Number to currency format
+ * @param {*} value
+ */
 export const inputFormat = value =>
-    `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",");
+    `${value}`.replace(/(?=(\d{3})+(?!\d))\B/g, ",");
 
+/**
+ * Input value to number
+ * @param {*} value
+ */
 export const inputParse = value => value.replace(/\₫\s?|(,*)/g, "");
 
+/**
+ * Thêm bắt đầu và kết thúc từ thoiGian (from RangePicker)
+ * @param {*} values
+ */
 export const parseTimePeriod = values => {
     if (values.hasOwnProperty("thoiGian")) {
         if (!_.isEmpty(values.thoiGian))

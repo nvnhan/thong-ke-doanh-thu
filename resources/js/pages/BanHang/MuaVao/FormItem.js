@@ -110,7 +110,7 @@ const form = React.memo(props => {
                     style={{ width: "100%" }}
                     min={1}
                     step={1}
-                    parser={value => value.replace(/\₫\s?|\.(,*)/g, "")}
+                    parser={inputParse}
                 />
             </Form.Item>
             <Form.Item name="ghi_chu" label="Ghi chú">

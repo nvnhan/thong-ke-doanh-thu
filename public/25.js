@@ -157,9 +157,7 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     },
     min: 1,
     step: 1,
-    parser: function parser(value) {
-      return value.replace(/\₫\s?|\.(,*)/g, "");
-    }
+    parser: _utils__WEBPACK_IMPORTED_MODULE_4__["inputParse"]
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {

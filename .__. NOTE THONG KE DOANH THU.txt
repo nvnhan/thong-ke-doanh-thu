@@ -14,7 +14,7 @@ Ngày 24/03/2020 Bắt đầu lại
 Ngày 04/04/2020 Xong phần danh mục thêm sửa xóa
 
 
-Chức năng, tính năng còn:
+Chức năng, tính năng chính:
 ////////////- Thu Chi
 ////////////- Đặt vé
 ////////////- Nợ vé, chưa bay
@@ -33,9 +33,11 @@ Chức năng, tính năng còn:
 - Backup / Restore
 
 
+==== 
+Còn tồn tại:
 - Thêm text: Còn jets, XXXmail...
 ////////////- Nhập từ excel: Thu chi...
-- 09/11/2020: Báo cáo tổng hộp còn: DS đặt vé, thu chi
+////////////- 09/11/2020: Báo cáo tổng hộp còn: DS đặt vé, thu chi
 - Công nợ chi tiết: Tính ngày thanh toán, đối tượng khác
 ////////////- Tổng quan: tổng hợp công nợ
 - Tổng hợp công nợ: Tính nơi khác
@@ -48,12 +50,22 @@ Chức năng, tính năng còn:
 ////////////- 09/11/2020: Mặt vé điện tử file excel ko mở đc trên đt, có nên chuyển sang HTML?
 ////////////- Tìm kiếm ĐV theo từ khóa
 ////////////- Thêm khoảng thời gian ở Tổng quan, lọc dữ liệu trong Tổng quan
+- Tách riêng phần load các danh mục để lưu vào redux
 
 
 
 
 ====
-Yêu cầu:
+Yêu cầu phát sinh mới: (+ là yc phát sinh mới, - là lỗi, cập nhật)
+Ngày 11/12/2020:
++ Đọc HTML từ Link
++ Đọc file Excel công nợ trực tiếp từ mail
+- Phần chọn đối tượng thu chi chi tiêt: Hiển thị dạng bảng, chọn nhiều đối tượng 1 lúc
+- Thay đổi gửi mail: Nhắc lịch bay gửi về mail của KHÁCH HÀNG chứ ko phải của nhân viên
++ Biểu đồ thể hiện Tổng thu khách và Phí dịch vụ (Lãi) theo từng ngày: Tính theo NGÀY THÁNG, có tích chọn xem theo ngày hay theo tháng
+- File docx ngày 9/12/2020
+
+
 Đổi Jetstar => Parcific Airlines
 
 Ngày 08/11/2020: 

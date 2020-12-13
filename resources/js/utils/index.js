@@ -74,3 +74,14 @@ export const inputFormat = value =>
     `${value}₫`.replace(/(?=(\d{3})+(?!\d))\B/g, ",");
 
 export const inputParse = value => value.replace(/\₫\s?|(,*)/g, "");
+
+export const parseTimePeriod = (values, format = "YYYY-MM-DD HH:mm:ss") => {
+    if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
+        Object.assign(values, {
+            bat_dau: values.thoiGian[0].format(format),
+            ket_thuc: values.thoiGian[1].format(format)
+        });
+        delete values.thoiGian;
+    }
+    return values;
+};

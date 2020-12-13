@@ -15,7 +15,7 @@ import ThongTin from "./ThongTin";
 const { RangePicker } = DatePicker;
 
 const form = React.memo(props => {
-    const { email, selectedRowKeys } = props.danhMuc;
+    const { mails, selectedRowKeys } = props.danhMuc;
     const { onChangeSelect } = props;
 
     const rowSelection = {
@@ -118,7 +118,7 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={24}>
                     <Table
-                        dataSource={email}
+                        dataSource={mails}
                         columns={columns}
                         rowKey={row => row["id"]}
                         rowSelection={rowSelection}

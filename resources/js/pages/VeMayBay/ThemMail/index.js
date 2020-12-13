@@ -1,34 +1,21 @@
-import { Form, message, Modal, Progress } from "antd";
+import { Form, message, Modal } from "antd";
 import moment from "moment";
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { useMergeState } from "../../../utils";
-import FormItem from "./FormItem";
-import ModalPreviewDatVe from "../ModalPreviewDatVe";
 import showWaiting from "../../../components/Includes/ShowWaiting";
+import { parseTimePeriod, useMergeState } from "../../../utils";
+import ModalPreviewDatVe from "../ModalPreviewDatVe";
+import FormItem from "./FormItem";
 
 const index = props => {
     const [form] = Form.useForm();
     const [state, setState] = useMergeState({
-        email: [],
-        selectedRowKeys: []
+        mails: [],
+        selectedRowKeys: [],
+        modalVisible: false,
+        ddDatVe: ""
     });
-    const [modalDatVe, setModalDatVe] = useMergeState({
-        visible: false,
-        datve: ""
-    });
-    const { selectedRowKeys } = state;
-
-    const getFormData = values => {
-        if (values.hasOwnProperty("thoiGian") && !_.isEmpty(values.thoiGian)) {
-            Object.assign(values, {
-                bat_dau: values.thoiGian[0].format("YYYY-MM-DD HH:mm:ss"),
-                ket_thuc: values.thoiGian[1].format("YYYY-MM-DD HH:mm:ss")
-            });
-        }
-        delete values.thoiGian;
-        return values;
-    };
+    const { selectedRowKeys, ddDatVe, modalVisible } = state;
 
     const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
@@ -40,7 +27,7 @@ const index = props => {
 
         showWaiting();
         const values = form.getFieldsValue();
-        const data = getFormData(values);
+        const data = parseTimePeriod(values);
         Object.assign(data, {
             mails: selectedRowKeys.join("|")
         });
@@ -52,9 +39,10 @@ const index = props => {
             .then(response => {
                 if (response.data.success) {
                     message.success(response.data.message);
-                    setModalDatVe({
-                        visible: true,
-                        datve: response.data.data
+                    setState({
+                        modalVisible: true,
+                        ddDatVe: response.data.data,
+                        selectedRowKeys: []
                     });
                 } else message.error(response.data.message);
             })
@@ -68,12 +56,12 @@ const index = props => {
     /**
      * Cancel Modal preview
      */
-    const handleCancel = () => setModalDatVe({ visible: false, datve: "" });
+    const handleCancel = () => setState({ modalVisible: false, ddDatVe: "" });
 
     const onGetEmail = () => {
         showWaiting("Đang lấy thông tin email...");
         const values = form.getFieldsValue();
-        const data = getFormData(values);
+        const data = parseTimePeriod(values);
 
         // Get Email from GMAIL
         axios
@@ -81,7 +69,7 @@ const index = props => {
             .then(response => {
                 if (response.data.success)
                     setState({
-                        email: response.data.data,
+                        mails: response.data.data,
                         selectedRowKeys: []
                     });
                 else message.error(response.data.message);
@@ -90,7 +78,7 @@ const index = props => {
                 message.error("Có lỗi xảy ra");
                 console.log(error);
                 setState({
-                    email: [],
+                    mails: [],
                     selectedRowKeys: []
                 });
             })
@@ -122,9 +110,9 @@ const index = props => {
                 />
             </Form>
             <ModalPreviewDatVe
-                ddDatVe={modalDatVe.datve}
+                ddDatVe={ddDatVe}
                 handleCancel={handleCancel}
-                modalVisible={modalDatVe.visible}
+                modalVisible={modalVisible}
             />
         </div>
     );

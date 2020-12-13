@@ -7,12 +7,16 @@ const expandedRow = record => (
         <li>
             Mã đặt chỗ: {record.ma_giu_cho}. Số vé: {record.so_ve}
         </li>
-        <li>Tên khách: {record.ten_khach}</li>
         <li>
-            Chuyến bay đi: {record.ngay_gio_di}, {record.cb_di}
+            Tên khách: <b>{record.ten_khach}</b>
         </li>
         <li>
-            Chuyến bay về: {record.ngay_gio_ve}, {record.cb_ve}
+            Chuyến bay đi: {record.ngay_gio_di}, {record.chang_di},{" "}
+            {record.cb_di}
+        </li>
+        <li>
+            Chuyến bay về: {record.ngay_gio_ve}, {record.chang_ve},{" "}
+            {record.cb_ve}
         </li>
         {/* <li>Loại tuổi: {record.ten_loai_tuoi}</li> */}
         {/* <li>
@@ -41,7 +45,7 @@ const expandedRow = record => (
             <li>Nhắc lịch bay: {record.ngay_nhac_lich}</li>
         )}
         <li>Ghi chú: {record.ghi_chu}</li>
-        <li>Người tạo: {record.username}</li>
+        {/* <li>Người tạo: {record.username}</li> */}
     </ul>
 );
 

@@ -85,8 +85,7 @@ const form = React.memo(props => {
                 <Col span={12} md={8} sm={12}>
                     <Form.Item name="so_du_ky_truoc" label="Số dư đầu">
                         <InputNumber
-                            style={{ width: "100%" }}
-                            min={0}
+                            style={{ width: "100%" }}                            
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -97,7 +96,6 @@ const form = React.memo(props => {
                     <Form.Item name="phi_vn" label="Phí VN">
                         <InputNumber
                             style={{ width: "100%" }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -108,7 +106,6 @@ const form = React.memo(props => {
                     <Form.Item name="phi_vj" label="Phí VJ">
                         <InputNumber
                             style={{ width: "100%" }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -119,7 +116,6 @@ const form = React.memo(props => {
                     <Form.Item name="phi_jets" label="Phí Jets">
                         <InputNumber
                             style={{ width: "100%" }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -130,7 +126,6 @@ const form = React.memo(props => {
                     <Form.Item name="phi_bb" label="Phí BB">
                         <InputNumber
                             style={{ width: "100%" }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}

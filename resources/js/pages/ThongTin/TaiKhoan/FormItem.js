@@ -24,7 +24,6 @@ function form() {
             <Form.Item name="so_du_ky_truoc" label="Số dư ban đầu">
                 <InputNumber
                     style={{ width: "100%" }}
-                    min={0}
                     step={1000}
                     formatter={inputFormat}
                     parser={inputParse}

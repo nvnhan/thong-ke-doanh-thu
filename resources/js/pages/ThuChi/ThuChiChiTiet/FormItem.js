@@ -65,7 +65,6 @@ const form = React.memo(props => {
             >
                 <InputNumber
                     style={{ width: "100%" }}
-                    min={0}
                     max={props.toiDa}
                     step={1000}
                     formatter={inputFormat}

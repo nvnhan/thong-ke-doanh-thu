@@ -78,7 +78,6 @@ const form = React.memo(props => {
                 <Form.Item name="so_tien" label="Số tiền">
                     <InputNumber
                         style={{ width: "100%" }}
-                        min={0}
                         step={1000}
                         formatter={inputFormat}
                         parser={inputParse}

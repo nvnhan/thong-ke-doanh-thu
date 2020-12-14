@@ -180,7 +180,6 @@ var form = react__WEBPACK_IMPORTED_MODULE_2___default.a.memo(function (props) {
     style: {
       width: "100%"
     },
-    min: 0,
     step: 1000,
     formatter: _utils__WEBPACK_IMPORTED_MODULE_4__["inputFormat"],
     parser: _utils__WEBPACK_IMPORTED_MODULE_4__["inputParse"]

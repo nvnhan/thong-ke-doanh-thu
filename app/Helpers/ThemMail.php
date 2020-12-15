@@ -85,7 +85,7 @@ class ThemMail
                 $so_ve[] = $matches[0];
         }
         // Hanh trinh
-        $node = $content->find('td[style=border-collapse: collapse;cursor:auto;color:#424853;font-family:trebuchet, sans-serif;font-size:12px;font-weight:normal;line-height:16px;]');
+        $node = $content->find('td[style=vertical-align:top;]');
 
         #region Chuyen bay dau tien
         $line = $node[0]->parent()->parent()->plaintext; // Lay ca table
@@ -464,7 +464,7 @@ class ThemMail
             $tmp->sb_ve1 = self::tim_san_bay_theo_tv($sb);
         }
         #endregion
-        
+
         $result = [];
         for ($j = 0; $j < count($hanh_khach); $j++) {
             $obj = new DatVe();

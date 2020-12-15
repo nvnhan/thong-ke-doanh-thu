@@ -117,16 +117,7 @@ const form = React.memo(props => {
                     </Form.Item>
                 </Col>
                 <Col span={12}>
-                    <Form.Item
-                        name="gia_net"
-                        label="Giá net"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Nhập đầy đủ thông tin!"
-                            }
-                        ]}
-                    >
+                    <Form.Item name="gia_net" label="Giá net">
                         <InputNumber
                             style={{ width: "100%" }}
                             min={0}

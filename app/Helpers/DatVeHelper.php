@@ -86,6 +86,7 @@ class DatVeHelper
     {
         if ($obj->gia_net && $obj->gia_net != 0 && $obj->gia_net != '')          //&& $obj->tong_tien === 0
             $obj->tong_tien = $obj->gia_net * 1.1 + $obj->phu_phi + $obj->phi_san_bay + $obj->phu_phi_san_bay;
+        else $obj->gia_net = 0;
     }
 
     /**

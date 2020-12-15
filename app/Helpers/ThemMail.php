@@ -131,7 +131,7 @@ class ThemMail
         $tmp->ma_giu_cho = trim($node[1]->plaintext);
 
         // Ngay dat
-        preg_match("/(\d{2}) (.+) (\d{4})/", str_replace("&nbsp;", ' ', $node[0]->plaintext), $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
+        preg_match("/(\d{1,2}) (.+) (\d{4})/", str_replace("&nbsp;", ' ', $node[0]->plaintext), $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
         $imonth = array_search($matches[2], Util::$thang_full) +
             array_search($matches[2], Util::$thang_full_viet) + 1;     // Bao cả tiếng Việt & Anh
         $tmp->ngay_thang = "$matches[3]-$imonth-$matches[1]";

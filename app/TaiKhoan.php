@@ -29,7 +29,7 @@ class TaiKhoan extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->ngay_tao = now(); //date("Y-m-d");
+            // $model->ngay_tao = now(); //date("Y-m-d");
             $model->loai = 0;
             // $model->username = xxx;
         });

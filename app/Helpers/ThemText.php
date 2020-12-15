@@ -295,9 +295,9 @@ class ThemText
             if ($thang !== false) $thang += 1;
             $nam = date('Y');
             // Giờ bay
-            preg_match('/\d{4}/', $line, $matches);
-            $gio = substr($matches[0], 0, 2);
-            $phut = substr($matches[0], 2, 2);
+            preg_match_all('/ (\d{4}) /', $line, $matches);         // Exclude: VN7578A 
+            $gio = substr($matches[1][0], 0, 2);
+            $phut = substr($matches[1][0], 2, 2);
             $tmp->ngay_gio_ve = "$nam-$thang-$ngay $gio:$phut:00";
 
             // Hành trình bay

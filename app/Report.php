@@ -458,6 +458,9 @@ class Report
             return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
         })->orderBy('loai')->get();
 
+        $interval = DateInterval::createFromDateString('1 day');
+        $period = new DatePeriod(new DateTime($tu_ngay), $interval, new DateTime($den_ngay));
+
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
         $sum = 0;
         // Thêm các tài khoản
@@ -484,8 +487,9 @@ class Report
 
             $coDuLieu = false;
             // Thêm các cột tương ứng với giá trị thu theo từng ngày
-            for ($i = $tu_ngay; $i <= $den_ngay; $i++) {
-                $t = (new DateTime($i))->format('d/m/y');
+            foreach ($period as $dt) {
+                $t = $dt->format('d/m/y');
+                $i = $dt->format("Y-m-d");
                 if ($format_price) {
                     $tmp->$t = Util::VNDFormater(Report::TongThuTK($tk, $i, $i));
                     $tmp1->$t = Util::VNDFormater(Report::TongChiTK($tk, $i, $i));
@@ -517,8 +521,9 @@ class Report
         $tmp->tai_khoan = "LÃI";
         $tmp->dau_ky = $format_price ? Util::VNDFormater($lai) : $lai;
         // Lãi từng ngày
-        for ($i = $tu_ngay; $i <= $den_ngay; $i++) {
-            $t = (new DateTime($i))->format('d/m/y');
+        foreach ($period as $dt) {
+            $t = $dt->format('d/m/y');
+            $i = $dt->format("Y-m-d");
             $lai = Report::TinhLai($request, $i, $i);
             $tmp->$t = $format_price ? Util::VNDFormater($lai) : $lai;
         }

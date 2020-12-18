@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class KhachHang extends Model
 {
+    use Notifiable;
+    
     //
     protected $table = "khach_hang";
     public $timestamps = false;

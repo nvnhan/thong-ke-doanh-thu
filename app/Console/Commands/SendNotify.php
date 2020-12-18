@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\User;
 use App\Helpers\NotifyMail;
+use App\KhachHang;
 
 class SendNotify extends Command
 {
@@ -40,9 +41,12 @@ class SendNotify extends Command
     public function handle()
     {
         $users = User::whereNotNull('email')->whereThongBao(true)->get();
+        $khach_hang = KhachHang::whereNotNull('email')->get();
         $cnt = 0;
         foreach ($users as $user)
-            if (NotifyMail::check($user)) $cnt++;
+            if (NotifyMail::checkUser($user)) $cnt++;
+        foreach ($khach_hang as $kh)
+            if (NotifyMail::checkCustomer($kh)) $cnt++;
 
         $this->info("$cnt emails sent");
     }

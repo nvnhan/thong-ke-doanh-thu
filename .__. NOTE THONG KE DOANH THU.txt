@@ -61,9 +61,9 @@ Ngày 11/12/2020:
 + Đọc HTML từ Link
 + Đọc file Excel công nợ trực tiếp từ mail
 - Phần chọn đối tượng thu chi chi tiêt: Hiển thị dạng bảng, chọn nhiều đối tượng 1 lúc
-- Thay đổi gửi mail: Nhắc lịch bay gửi về mail của KHÁCH HÀNG chứ ko phải của nhân viên
+//////////////- Thay đổi gửi mail: Nhắc lịch bay gửi về mail của KHÁCH HÀNG chứ ko phải của nhân viên
 + Biểu đồ thể hiện Tổng thu khách và Phí dịch vụ (Lãi) theo từng ngày: Tính theo NGÀY THÁNG, có tích chọn xem theo ngày hay theo tháng
-- File docx ngày 9/12/2020
+//////////////- File docx ngày 9/12/2020
 
 
 Đổi Jetstar => Parcific Airlines

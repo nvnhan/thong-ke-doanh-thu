@@ -63,6 +63,18 @@ class DatVe extends Model
         return $query->where('username', $user->username);
     }
 
+    /**
+     * Scope a query to only include record of a given user.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $user
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfCustomer($query, $khach_hang)
+    {
+        return $query->where('id_khach_hang', $khach_hang->id);
+    }
+
     public function khach_hang()
     {
         return $this->belongsTo('App\KhachHang', 'id_khach_hang');

@@ -11,17 +11,18 @@ class ThongBaoVe extends Notification
 {
     use Queueable;
 
-    public $notices;
+    public $notices, $plain;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($notices)
+    public function __construct($notices, $plain = false)
     {
         //
         $this->notices = $notices;
+        $this->plain = $plain;
     }
 
     /**
@@ -43,13 +44,18 @@ class ThongBaoVe extends Notification
      */
     public function toMail($notifiable)
     {
+        if ($this->plain)
+            return (new MailMessage)
+                ->view('plain-email', ['datve' => $this->notices])
+                ->subject('Nhắc nhở lịch bay!!!');
+
         $lines = '';
         foreach ($this->notices as $line) {
             $lines .= '- ' . $line . '\n';
         }
         return (new MailMessage)
             ->line($lines)
-            ->subject('Nhắc nhở thông tin vé máy bay - TIENVE.NET');
+            ->subject('Cảnh báo xuất vé máy bay!!! ' . config('app.name'));
     }
 
     /**

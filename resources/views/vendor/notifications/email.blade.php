@@ -1,6 +1,6 @@
 @component('mail::message')
 {{-- Greeting --}}
-# Thông báo vé máy bay
+# Cảnh báo xuất vé máy bay
 
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)

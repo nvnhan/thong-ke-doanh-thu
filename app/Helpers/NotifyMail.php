@@ -17,10 +17,10 @@ class NotifyMail
             ->whereChuaXuatVe(true)
             ->whereDate('canh_bao_xuat_ve', '=', $today)
             ->get()
-            ->map(fn ($ve) => 'Cảnh báo xuất vé :  Mã giữ chỗ ' . $ve->ma_giu_cho . ', Họ tên: ' . $ve->ten_khach . ' (Số vé: ' . $ve->so_ve . ')')->toArray();
+            ->map(fn ($ve) => 'Mã giữ chỗ ' . $ve->ma_giu_cho . ', Họ tên: ' . $ve->ten_khach . ' (Số vé: ' . $ve->so_ve . ')')->toArray();
 
         if (!empty($chuaxuat)) {
-            $user->notify(new ThongBaoVe($chuaxuat));
+            $user->notify(new ThongBaoVe($chuaxuat, false));
             return true;
         }
         return false;
@@ -34,10 +34,10 @@ class NotifyMail
         $sapbay = DatVe::ofCustomer($khach_hang)
             ->where(fn ($query) => $query->whereDate('ngay_gio_di', '=', $tomorrow)->orWhereDate('ngay_gio_ve', '=', $tomorrow))
             ->get()
-            ->map(fn ($ve) => 'Cảnh báo sắp bay :  Họ tên hành khách: ' . $ve->ten_khach . ' (Số vé: ' . $ve->so_ve . '), thời gian đi: ' . $ve->ngay_gio_di . ', thời gian về: ' . $ve->ngay_gio_ve)->toArray();
+            ->map(fn ($ve) => 'Họ tên hành khách: ' . $ve->ten_khach . ' (Số vé: ' . $ve->so_ve . '), thời gian đi: ' . $ve->ngay_gio_di . ', thời gian về: ' . $ve->ngay_gio_ve)->toArray();
 
         if (!empty($sapbay)) {
-            $khach_hang->notify(new ThongBaoVe($sapbay));
+            $khach_hang->notify(new ThongBaoVe($sapbay, true));
             return true;
         }
         return false;

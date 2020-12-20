@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\BanRa;
+use App\DatVe;
+use App\MuaVao;
 use App\ThuChi;
 use App\ThuChiChiTiet;
+use App\Tour;
+use App\TourChiTiet;
+use App\Visa;
 use DateTime;
 use Illuminate\Http\Request;
 use stdClass;
@@ -37,8 +43,8 @@ class ThuChiChiTietController extends BaseController
                 $tmp->id = "br_" . $br->id;
                 $tmp->phan_loai = "Bán ra";
                 $tmp->so_tien = $br->chua_thanh_toan;
-                $da = new DateTime($br->ngay_thang);
-                $tmp->noi_dung = "Ngày " . $da->format('d/m/Y') . ", hàng hóa: $br->ma_hang - $br->ten_hang, còn lại: " . number_format($br->chua_thanh_toan);
+                $tmp->ngay_thang = (new DateTime($br->ngay_thang))->format('d/m/Y');
+                $tmp->noi_dung = "$br->ma_hang - $br->ten_hang";
                 $result[] = $tmp;
             }
             $tours = $khachHang->tours()->whereNull('ngay_thanh_toan')->get();
@@ -47,8 +53,8 @@ class ThuChiChiTietController extends BaseController
                 $tmp->id = "to_" . $t->id;
                 $tmp->phan_loai = "Tour";
                 $tmp->so_tien = $t->chua_thanh_toan;
-                $da = new DateTime($t->ngay_thang);
-                $tmp->noi_dung = "Ngày " . $da->format('d/m/Y') . ", tour: $t->ma_tour - $t->ten_tour, còn lại: " . number_format($t->chua_thanh_toan);
+                $tmp->ngay_thang = (new DateTime($t->ngay_thang))->format('d/m/Y');
+                $tmp->noi_dung = "$t->ma_tour - $t->ten_tour";
                 $result[] = $tmp;
             }
             $datVes = $khachHang->dat_ves()->whereNull('ngay_thanh_toan')->get();
@@ -57,8 +63,8 @@ class ThuChiChiTietController extends BaseController
                 $tmp->id = "dv_" . $t->id;
                 $tmp->phan_loai = "Đặt vé";
                 $tmp->so_tien = $t->chua_thanh_toan;
-                $da = new DateTime($t->ngay_thang);
-                $tmp->noi_dung = "Ngày " . $da->format('d/m/Y') . ", đặt vé: $t->ma_giu_cho $t->so_ve, tên khách: $t->ten_khach, còn lại: " . number_format($t->chua_thanh_toan);
+                $tmp->ngay_thang = (new DateTime($t->ngay_thang))->format('d/m/Y');
+                $tmp->noi_dung =  "Mã $t->ma_giu_cho, $t->so_ve, $t->ten_khach";
                 $result[] = $tmp;
             }
             $visas = $khachHang->visas()->whereNull('ngay_thanh_toan')->get();
@@ -67,8 +73,8 @@ class ThuChiChiTietController extends BaseController
                 $tmp->id = "vs_" . $t->id;
                 $tmp->phan_loai = "Visa";
                 $tmp->so_tien = $t->chua_thanh_toan;
-                $da = new DateTime($t->ngay_thang);
-                $tmp->noi_dung = "Ngày " . $da->format('d/m/Y') . ", visa: $t->ma_visa, còn lại: " . number_format($t->chua_thanh_toan);
+                $tmp->ngay_thang = (new DateTime($t->ngay_thang))->format('d/m/Y');
+                $tmp->noi_dung =  "$t->ma_visa";
                 $result[] = $tmp;
             }
         } else {
@@ -79,8 +85,8 @@ class ThuChiChiTietController extends BaseController
                 $tmp->id = "mv_" . $t->id;
                 $tmp->phan_loai = "Mua vào";
                 $tmp->so_tien = $t->chua_thanh_toan;
-                $da = new DateTime($t->ngay_thang);
-                $tmp->noi_dung = "Ngày " . $da->format('d/m/Y') . ", hàng hóa: $t->ma_hang - $t->ten_hang, còn lại: " . number_format($t->chua_thanh_toan);
+                $tmp->ngay_thang = (new DateTime($t->ngay_thang))->format('d/m/Y');
+                $tmp->noi_dung = "$t->ma_hang - $t->ten_hang";
                 $result[] = $tmp;
             }
             $tct = $tkDen->tour_chi_tiets()->whereNull('ngay_thanh_toan')->get();
@@ -89,8 +95,8 @@ class ThuChiChiTietController extends BaseController
                 $tmp->id = "tct_" . $t->id;
                 $tmp->phan_loai = "Tour chi tiết";
                 $tmp->so_tien = $t->chua_thanh_toan;
-                $da = new DateTime($t->ngay_thang);
-                $tmp->noi_dung = "Ngày " . $da->format('d/m/Y') . ", tour: " . $t->tour()->first()->ma_tour . ", hàng hóa: $t->ma_hang - $t->ten_hang, còn lại: " . number_format($t->chua_thanh_toan);
+                $tmp->ngay_thang = (new DateTime($t->ngay_thang))->format('d/m/Y');
+                $tmp->noi_dung = $t->tour()->first()->ma_tour . ", Hàng: $t->ma_hang - $t->ten_hang";
                 $result[] = $tmp;
             }
         }
@@ -105,39 +111,59 @@ class ThuChiChiTietController extends BaseController
      */
     public function store(Request $request)
     {
-        $obj = new ThuChiChiTiet;
-        $obj->id_thu_chi = $request->id_thu_chi;
-        $obj->so_tien = $request->so_tien;
-        
-        $dt = explode("_", $request->doi_tuong);
-        switch ($dt[0]) {
-            case 'br':
-                $obj->loai_doi_tuong = "BR";
-                $obj->id_ban_ra = (int) $dt[1];
-                break;
-            case 'to':
-                $obj->loai_doi_tuong = "Tour";
-                $obj->id_tour = (int) $dt[1];
-                break;
-            case 'dv':
-                $obj->loai_doi_tuong = "ĐV";
-                $obj->id_dat_ve = (int) $dt[1];
-                break;
-            case 'vs':
-                $obj->loai_doi_tuong = "Visa";
-                $obj->id_visa = (int) $dt[1];
-                break;
-            case 'mv':
-                $obj->loai_doi_tuong = "MV";
-                $obj->id_mua_vao = (int) $dt[1];
-                break;
-            case 'tct':
-                $obj->loai_doi_tuong = "TCT";
-                $obj->id_tour_chi_tiet = (int) $dt[1];
-                break;
+        $objs = explode('|', $request['doi_tuong']);
+        $result = [];
+
+        $thu_chi = ThuChi::find($request->id_thu_chi);
+        $tien = $thu_chi->con_du;
+        foreach ($objs as $obj) {
+            $tmp = new ThuChiChiTiet;
+            $tmp->id_thu_chi = $request->id_thu_chi;
+
+            $dt = explode("_", $obj);
+            switch ($dt[0]) {
+                case 'br':
+                    $tmp->loai_doi_tuong = "BR";
+                    $tmp->id_ban_ra = (int) $dt[1];
+                    $tmp1 = BanRa::find($dt[1]);
+                    break;
+                case 'to':
+                    $tmp->loai_doi_tuong = "Tour";
+                    $tmp->id_tour = (int) $dt[1];
+                    $tmp1 = Tour::find($dt[1]);
+                    break;
+                case 'dv':
+                    $tmp->loai_doi_tuong = "ĐV";
+                    $tmp->id_dat_ve = (int) $dt[1];
+                    $tmp1 = DatVe::find($dt[1]);
+                    break;
+                case 'vs':
+                    $tmp->loai_doi_tuong = "Visa";
+                    $tmp->id_visa = (int) $dt[1];
+                    $tmp1 = Visa::find($dt[1]);
+                    break;
+                case 'mv':
+                    $tmp->loai_doi_tuong = "MV";
+                    $tmp->id_mua_vao = (int) $dt[1];
+                    $tmp1 = MuaVao::find($dt[1]);
+                    break;
+                case 'tct':
+                    $tmp->loai_doi_tuong = "TCT";
+                    $tmp->id_tour_chi_tiet = (int) $dt[1];
+                    $tmp1 = TourChiTiet::find($dt[1]);
+                    break;
+            }
+            $t = $tmp1->chua_thanh_toan;
+            if ($tien < $t)
+                $t = $tien;
+            $tmp->so_tien = $t;
+            $tmp->save();
+            $result[] = $tmp;
+
+            $tien -= $t;
+            if ($tien <= 0) break;
         }
-        $obj->save();
-        return $this->sendResponse($obj, "Thêm mới thành công");
+        return $this->sendResponse($result, "Thêm mới thành công");
     }
 
     /**

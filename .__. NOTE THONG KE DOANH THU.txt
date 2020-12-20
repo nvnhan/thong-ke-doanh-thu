@@ -57,10 +57,17 @@ Còn tồn tại:
 
 ====
 Yêu cầu phát sinh mới: (+ là yc phát sinh mới, - là lỗi, cập nhật)
+Ngày 19/12/2020:
+- Khi tk đại lý bị khoá tk nhân viên sẽ ko vào được
+- Tk nhân viên đang ko thấy được thông tin hàng hoá , khách hàng, tài khoản tk đại lý bên trên em ah. 
+	Tài khoản đại lý cũng ko thấy thông tin của tk nhân viên nhập vào
+- Nhóm tài khoản theo từng đại lý
+
+
 Ngày 11/12/2020:
 + Đọc HTML từ Link
 + Đọc file Excel công nợ trực tiếp từ mail
-- Phần chọn đối tượng thu chi chi tiêt: Hiển thị dạng bảng, chọn nhiều đối tượng 1 lúc
+//////////////- Phần chọn đối tượng thu chi chi tiêt: Hiển thị dạng bảng, chọn nhiều đối tượng 1 lúc
 //////////////- Thay đổi gửi mail: Nhắc lịch bay gửi về mail của KHÁCH HÀNG chứ ko phải của nhân viên
 + Biểu đồ thể hiện Tổng thu khách và Phí dịch vụ (Lãi) theo từng ngày: Tính theo NGÀY THÁNG, có tích chọn xem theo ngày hay theo tháng
 //////////////- File docx ngày 9/12/2020

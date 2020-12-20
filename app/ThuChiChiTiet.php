@@ -94,7 +94,7 @@ class ThuChiChiTiet extends Model
             $dv = $this->dat_ve()->first();
             return "Đối tượng: Đặt vé | Ngày tháng: " . (new DateTime($dv->ngay_thang))->format('d/m/Y') . " | " .
                 "Số vé: $dv->so_ve, Tên khách: $dv->ten_khach, Hãng bay: $dv->hang_bay | " .
-                "Nơi mua: $dv->noi_mua, Khách hàng: $dv->ten_khach_hang | " .
+                "Nơi mua: $dv->noi_mua, Khách hàng: $dv->ma_khach_hang | " .
                 "Giá net: " . number_format($dv->gia_net) . ", Tổng tiền: " . number_format($dv->tong_tien) . ", Thu khách: " . number_format($dv->tong_tien_thu_khach);
         }
         if ($this->tour()->first() != null) {
@@ -102,7 +102,7 @@ class ThuChiChiTiet extends Model
             return "Đối tượng: Tour | Ngày tháng: " . (new DateTime($t->ngay_thang))->format('d/m/Y') . " | " .
                 "Phân loại: $t->phan_loai, Mã tour: $t->ma_tour, Tên tour: $t->ten_tour | " .
                 "Bắt đầu: " . (new DateTime($t->bat_dau))->format('d/m/Y') . ", Kết thúc: " . (new DateTime($t->ket_thuc))->format('d/m/Y') . ", Số lượng: $t->so_luong | " .
-                "Tổng tiền bán: " . number_format($t->tong_tien_ban) . ", Khách hàng: " . $t->ten_khach_hang;
+                "Tổng tiền bán: " . number_format($t->tong_tien_ban) . ", Khách hàng: " . $t->ma_khach_hang;
         }
         if ($this->tour_chi_tiet()->first() != null) {
             $tct = $this->tour_chi_tiet()->first();
@@ -128,7 +128,7 @@ class ThuChiChiTiet extends Model
             $vs = $this->visa()->first();
             return "Đối tượng: Visa | Ngày tháng: " . (new DateTime($vs->ngay_thang))->format('d/m/Y') . ", Mã Visa: $vs->ma_visa, Loại Visa: $vs->phan_loai | " .
                 "Nhà cung cấp: $vs->nha_cung_cap, Ngày lấy nơi mua: " . (new DateTime($vs->ngay_mua))->format('d/m/Y') . ", Giá mua: " . number_format($vs->gia_mua) . " | " .
-                "Khách hàng: $vs->ten_khach_hang, Ngày trả khách: " . (new DateTime($vs->ngay_tra_khach))->format('d/m/Y') . ", Giá bán: " . number_format($vs->gia_ban);
+                "Khách hàng: $vs->ma_khach_hang, Ngày trả khách: " . (new DateTime($vs->ngay_tra_khach))->format('d/m/Y') . ", Giá bán: " . number_format($vs->gia_ban);
         }
 
         return "";

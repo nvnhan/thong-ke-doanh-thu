@@ -1,77 +1,56 @@
-import { Form, InputNumber, Select } from "antd";
+import { Table } from "antd";
 import React from "react";
-import { inputFormat, inputParse } from "../../../utils";
-const { Option, OptGroup } = Select;
+import { vndFormater } from "../../../utils";
 
 const form = React.memo(props => {
     const doiTuong = props.doiTuong || [];
-    const groupDoiTuong = Object.entries(_.groupBy(doiTuong, "phan_loai"));
-    const getDoiTuongDetail = () =>
-        groupDoiTuong.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(hh => (
-                    <Option value={hh.id} key={hh.id}>
-                        {hh.noi_dung}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    const { selectedRowKeys, onChangeSelect } = props;
 
-    /**
-     * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
-     */
-    const onChange = idHH => {
-        const hh = doiTuong.filter(item => item.id === idHH)[0];
-        if (hh) props.onChangeValue(hh.so_tien);
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: onChangeSelect,
+        hideDefaultSelections: true,
+        columnWidth: 43,
+        selections: [
+            {
+                key: "invert_all",
+                text: "Bỏ chọn tất cả",
+                onSelect: () => onChangeSelect([])
+            }
+        ]
     };
 
+    const myColumns = [
+        {
+            title: "Ngày tháng",
+            dataIndex: "ngay_thang",
+            width: 90
+        },
+        {
+            title: "Phân loại",
+            dataIndex: "phan_loai",
+            width: 90
+        },
+        {
+            title: "Nội dung",
+            dataIndex: "noi_dung",
+            width: 250
+        },
+        {
+            title: "Số tiền",
+            dataIndex: "so_tien",
+            render: number => vndFormater.format(number),
+            width: 110
+        }
+    ];
+
     return (
-        <React.Fragment>
-            <Form.Item
-                name="doi_tuong"
-                label="Đối tượng"
-                rules={[
-                    {
-                        required: true,
-                        message: "Nhập đầy đủ thông tin!"
-                    }
-                ]}
-            >
-                <Select
-                    showSearch
-                    placeholder="Chọn đối tượng thu chi"
-                    filterOption={(input, option) => {
-                        if (!option.children) return false;
-                        return (
-                            option.children
-                                .toLowerCase()
-                                .indexOf(input.toLowerCase()) >= 0
-                        );
-                    }}
-                    onChange={onChange}
-                >
-                    {getDoiTuongDetail()}
-                </Select>
-            </Form.Item>
-            <Form.Item
-                name="so_tien"
-                label="Số tiền"
-                rules={[
-                    {
-                        required: true,
-                        message: "Nhập đầy đủ thông tin!"
-                    }
-                ]}
-            >
-                <InputNumber
-                    style={{ width: "100%" }}
-                    max={props.toiDa}
-                    step={1000}
-                    formatter={inputFormat}
-                    parser={inputParse}
-                />
-            </Form.Item>
-        </React.Fragment>
+        <Table
+            rowSelection={rowSelection}
+            dataSource={doiTuong}
+            columns={myColumns}
+            rowKey={row => row["id"]}
+        />
     );
 });
 

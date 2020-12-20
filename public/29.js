@@ -16,69 +16,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Option = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].Option,
-    OptGroup = antd__WEBPACK_IMPORTED_MODULE_0__["Select"].OptGroup;
 var form = react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(function (props) {
   var doiTuong = props.doiTuong || [];
-  var groupDoiTuong = Object.entries(_.groupBy(doiTuong, "phan_loai"));
-
-  var getDoiTuongDetail = function getDoiTuongDetail() {
-    return groupDoiTuong.map(function (clist) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OptGroup, {
-        label: clist[0],
-        key: clist[0]
-      }, clist[1].map(function (hh) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
-          value: hh.id,
-          key: hh.id
-        }, hh.noi_dung);
-      }));
-    });
-  };
-  /**
-   * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
-   */
-
-
-  var onChange = function onChange(idHH) {
-    var hh = doiTuong.filter(function (item) {
-      return item.id === idHH;
-    })[0];
-    if (hh) props.onChangeValue(hh.so_tien);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "doi_tuong",
-    label: "\u0110\u1ED1i t\u01B0\u1EE3ng",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
+  var selectedRowKeys = props.selectedRowKeys,
+      onChangeSelect = props.onChangeSelect;
+  var rowSelection = {
+    selectedRowKeys: selectedRowKeys,
+    onChange: onChangeSelect,
+    hideDefaultSelections: true,
+    columnWidth: 43,
+    selections: [{
+      key: "invert_all",
+      text: "Bỏ chọn tất cả",
+      onSelect: function onSelect() {
+        return onChangeSelect([]);
+      }
     }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], {
-    showSearch: true,
-    placeholder: "Ch\u1ECDn \u0111\u1ED1i t\u01B0\u1EE3ng thu chi",
-    filterOption: function filterOption(input, option) {
-      if (!option.children) return false;
-      return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+  };
+  var myColumns = [{
+    title: "Ngày tháng",
+    dataIndex: "ngay_thang",
+    width: 90
+  }, {
+    title: "Phân loại",
+    dataIndex: "phan_loai",
+    width: 90
+  }, {
+    title: "Nội dung",
+    dataIndex: "noi_dung",
+    width: 250
+  }, {
+    title: "Số tiền",
+    dataIndex: "so_tien",
+    render: function render(number) {
+      return _utils__WEBPACK_IMPORTED_MODULE_2__["vndFormater"].format(number);
     },
-    onChange: onChange
-  }, getDoiTuongDetail())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "so_tien",
-    label: "S\u1ED1 ti\u1EC1n",
-    rules: [{
-      required: true,
-      message: "Nhập đầy đủ thông tin!"
-    }]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["InputNumber"], {
-    style: {
-      width: "100%"
-    },
-    min: 0,
-    max: props.toiDa,
-    step: 1000,
-    formatter: _utils__WEBPACK_IMPORTED_MODULE_2__["inputFormat"],
-    parser: _utils__WEBPACK_IMPORTED_MODULE_2__["inputParse"]
-  })));
+    width: 110
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Table"], {
+    rowSelection: rowSelection,
+    dataSource: doiTuong,
+    columns: myColumns,
+    rowKey: function rowKey(row) {
+      return row["id"];
+    }
+  });
 });
 /* harmony default export */ __webpack_exports__["default"] = (form);
 
@@ -117,24 +99,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+  var _useMergeState = Object(_utils__WEBPACK_IMPORTED_MODULE_3__["useMergeState"])({
     thuChi: props.location.tc,
     doiTuong: [],
-    toiDa: 0
+    toiDa: 0,
+    selectedRowKeys: []
   }),
-      _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
+      _useMergeState2 = _slicedToArray(_useMergeState, 2),
+      state = _useMergeState2[0],
+      setState = _useMergeState2[1];
 
   var thuChi = state.thuChi,
       doiTuong = state.doiTuong,
-      toiDa = state.toiDa;
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined),
-      _useState4 = _slicedToArray(_useState3, 2),
-      formValue = _useState4[0],
-      setFormValue = _useState4[1];
-
+      toiDa = state.toiDa,
+      selectedRowKeys = state.selectedRowKeys;
   if (thuChi === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
     to: "/"
   });
@@ -175,7 +153,8 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
         setState({
           thuChi: tc,
           doiTuong: response[1].data.data,
-          toiDa: td
+          toiDa: td,
+          selectedRowKeys: []
         });
         console.log("Retrieved Danh Muc Succcessfully");
       } else time = setTimeout(retrieveData, 2000);
@@ -243,29 +222,20 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
       }, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(sumObj.so_tien))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null)));
     }
   };
-  /**
-   * Callback from FOrmItem, trigger when select Hang Hoa
-   * => Change setFormValues to ListForm => FormEdit
-   */
-
-
-  var handleFormValue = function handleFormValue(so_tien) {
-    if (so_tien > toiDa) so_tien = toiDa;
-    setFormValue({
-      so_tien: so_tien,
-      resetFields: function resetFields() {
-        return setFormValue(undefined);
-      }
-    });
-  };
 
   var getDetail = function getDetail() {
-    if (thuChi.id_khach_hang !== null) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Kh\xE1ch h\xE0ng: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, thuChi.ten_khach_hang), ", s\u1ED1 d\u01B0: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(thuChi.so_du_khach_hang)));else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "T\xE0i kho\u1EA3n chi: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, thuChi.tai_khoan_di));
+    if (thuChi.id_khach_hang !== null) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Kh\xE1ch h\xE0ng: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, thuChi.ten_khach_hang), ", s\u1ED1 d\u01B0:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(thuChi.so_du_khach_hang)));else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "T\xE0i kho\u1EA3n chi: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, thuChi.tai_khoan_di));
+  };
+
+  var onChangeSelect = function onChangeSelect(selectedRowKeys) {
+    return setState({
+      selectedRowKeys: selectedRowKeys
+    });
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "filter-box"
-  }, "Ng\xE0y th\xE1ng: ", thuChi.ngay_thang, ". Thu chi: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", null, thuChi.hang_muc), ". S\u1ED1 ti\u1EC1n: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(thuChi.so_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "N\u01A1i nh\u1EADn: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, thuChi.tai_khoan_den), ". L\u1ECDc c\xE1c \u0111\u1ED1i t\u01B0\u1EE3ng theo: ", getDetail(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Gi\u1EDBi h\u1EA1n chi c\xF2n l\u1EA1i: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", {
+  }, "Ng\xE0y th\xE1ng: ", thuChi.ngay_thang, ". Thu chi:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", null, thuChi.hang_muc), ". S\u1ED1 ti\u1EC1n:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, _utils__WEBPACK_IMPORTED_MODULE_3__["vndFormater"].format(thuChi.so_tien)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "N\u01A1i nh\u1EADn: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, thuChi.tai_khoan_den), ". L\u1ECDc c\xE1c \u0111\u1ED1i t\u01B0\u1EE3ng theo:", " ", getDetail(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Gi\u1EDBi h\u1EA1n chi c\xF2n l\u1EA1i:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", {
     style: {
       color: "red"
     }
@@ -275,23 +245,20 @@ var List = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (props) {
       tc: thuChi.id
     },
     otherParams: {
-      id_thu_chi: thuChi.id
+      id_thu_chi: thuChi.id,
+      doi_tuong: selectedRowKeys.join("|")
     },
     insertable: toiDa > 0,
     editable: false,
     columns: columns,
     modalWidth: "800px",
     formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      onChangeValue: handleFormValue,
       doiTuong: doiTuong,
-      toiDa: toiDa
+      selectedRowKeys: selectedRowKeys,
+      onChangeSelect: onChangeSelect
     }),
-    formInitialValues: {
-      so_tien: 0
-    },
     expandedRowRender: expandedRowRender,
     renderSummary: renderSummary,
-    setFormValues: formValue,
     onChangeData: onChangeData
   }));
 });

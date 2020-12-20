@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
-import { vndFormater } from "../../../utils";
+import { useMergeState, vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
-    const [state, setState] = useState({
+    const [state, setState] = useMergeState({
         thuChi: props.location.tc,
         doiTuong: [],
-        toiDa: 0
+        toiDa: 0,
+        selectedRowKeys: []
     });
-    const { thuChi, doiTuong, toiDa } = state;
-    const [formValue, setFormValue] = useState(undefined);
+    const { thuChi, doiTuong, toiDa, selectedRowKeys } = state;
 
     if (thuChi === undefined) return <Redirect to="/" />;
 
@@ -28,9 +28,11 @@ const List = React.memo(props => {
      * Retriving data from server
      * If has error, auto recall after 1 second
      */
-    const retrieveData = (data) => {
+    const retrieveData = data => {
         const promise1 = axios.get("/api/thu-chi/" + thuChi.id);
-        const promise2 = axios.get("/api/thu-chi-chi-tiet/doi-tuong?tc=" + thuChi.id);
+        const promise2 = axios.get(
+            "/api/thu-chi-chi-tiet/doi-tuong?tc=" + thuChi.id
+        );
         console.log("Retrieving Danh Muc");
         Promise.all([promise1, promise2])
             .then(response => {
@@ -39,20 +41,28 @@ const List = React.memo(props => {
                     // Tổng cộng số tiền đã chi
                     let tien = 0;
                     if (!_.isEmpty(data)) {
-                        const sumObj = data.reduce((previousValue, currentValue) => {
-                            return {
-                                so_tien: previousValue.so_tien + currentValue.so_tien
-                            };
-                        });
+                        const sumObj = data.reduce(
+                            (previousValue, currentValue) => {
+                                return {
+                                    so_tien:
+                                        previousValue.so_tien +
+                                        currentValue.so_tien
+                                };
+                            }
+                        );
                         tien = sumObj.so_tien;
                     }
                     // Số dư khách hàng chính là kết quả cuối cùng sau khi đã trừ đi tổng số tiền đã chi
                     // do vậy ko phải trừ đi sumObj nữa
-                    const td = (tc.id_khach_hang !== null) ? tc.so_du_khach_hang : (tc.so_tien - tien)
+                    const td =
+                        tc.id_khach_hang !== null
+                            ? tc.so_du_khach_hang
+                            : tc.so_tien - tien;
                     setState({
                         thuChi: tc,
                         doiTuong: response[1].data.data,
-                        toiDa: td
+                        toiDa: td,
+                        selectedRowKeys: []
                     });
                     console.log("Retrieved Danh Muc Succcessfully");
                 } else time = setTimeout(retrieveData, 2000);
@@ -124,40 +134,43 @@ const List = React.memo(props => {
         }
     };
 
-    /**
-     * Callback from FOrmItem, trigger when select Hang Hoa
-     * => Change setFormValues to ListForm => FormEdit
-     */
-    const handleFormValue = so_tien => {
-        if (so_tien > toiDa) so_tien = toiDa;
-        setFormValue({
-            so_tien,
-            resetFields: () => setFormValue(undefined)
-        });
-    };
-
     const getDetail = () => {
         if (thuChi.id_khach_hang !== null)
             return (
                 <span>
-                    Khách hàng: <b>{thuChi.ten_khach_hang}</b>, số dư: <b>{vndFormater.format(thuChi.so_du_khach_hang)}</b>
+                    Khách hàng: <b>{thuChi.ten_khach_hang}</b>, số dư:{" "}
+                    <b>{vndFormater.format(thuChi.so_du_khach_hang)}</b>
                 </span>
-            )
-        else return <span>Tài khoản chi: <b>{thuChi.tai_khoan_di}</b></span>
-    }
+            );
+        else
+            return (
+                <span>
+                    Tài khoản chi: <b>{thuChi.tai_khoan_di}</b>
+                </span>
+            );
+    };
+
+    const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
     return (
         <React.Fragment>
             <div className="filter-box">
-                Ngày tháng: {thuChi.ngay_thang}. Thu chi: <i>{thuChi.hang_muc}</i>. Số tiền: <b>{vndFormater.format(thuChi.so_tien)}</b><br />
-                Nơi nhận: <b>{thuChi.tai_khoan_den}</b>. Lọc các đối tượng theo: {getDetail()}<br />
-                Giới hạn chi còn lại: <b style={{ color: "red" }}>{vndFormater.format(toiDa)}</b>
+                Ngày tháng: {thuChi.ngay_thang}. Thu chi:{" "}
+                <i>{thuChi.hang_muc}</i>. Số tiền:{" "}
+                <b>{vndFormater.format(thuChi.so_tien)}</b>
+                <br />
+                Nơi nhận: <b>{thuChi.tai_khoan_den}</b>. Lọc các đối tượng theo:{" "}
+                {getDetail()}
+                <br />
+                Giới hạn chi còn lại:{" "}
+                <b style={{ color: "red" }}>{vndFormater.format(toiDa)}</b>
             </div>
             <ListForm
                 url="thu-chi-chi-tiet"
                 filter={{ tc: thuChi.id }}
                 otherParams={{
-                    id_thu_chi: thuChi.id
+                    id_thu_chi: thuChi.id,
+                    doi_tuong: selectedRowKeys.join("|")
                 }}
                 insertable={toiDa > 0}
                 editable={false}
@@ -165,17 +178,13 @@ const List = React.memo(props => {
                 modalWidth="800px"
                 formTemplate={
                     <FormItem
-                        onChangeValue={handleFormValue}
                         doiTuong={doiTuong}
-                        toiDa={toiDa}
+                        selectedRowKeys={selectedRowKeys}
+                        onChangeSelect={onChangeSelect}
                     />
                 }
-                formInitialValues={{
-                    so_tien: 0
-                }}
                 expandedRowRender={expandedRowRender}
                 renderSummary={renderSummary}
-                setFormValues={formValue}
                 onChangeData={onChangeData}
             />
         </React.Fragment>

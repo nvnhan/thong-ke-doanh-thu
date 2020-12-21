@@ -18,11 +18,13 @@ class HomeController extends BaseController
     public function index(Request $request)
     {
         $datve = Dashboard::DatVeTrongThang($request);
+        $ds_nam = Dashboard::DoanhSoTrongNam($request);
         $ttve = Dashboard::ThongTinVe($request);
         $sum = 0;
         $sodu = Dashboard::TinhSoDuCuoiKy($request, $sum);
         $result = [
             'datve' => $datve,
+            'ds_nam' => $ds_nam,
             'thongtinve' => $ttve,
             'sodu' => $sodu,
             'tong' => number_format($sum, 0)
@@ -42,7 +44,7 @@ class HomeController extends BaseController
             else
                 $dv = $dv->where('so_ve', $dv[0]->so_ve);
 
-                // return $dv->sum('tong_tien_thu_khach');
+            // return $dv->sum('tong_tien_thu_khach');
             $datve = $dv[0];
             $sb_di = SanBay::where('ma_san_bay', $datve->sb_di)->first()->ten_san_bay ?? "";
             $sb_di1 = SanBay::where('ma_san_bay', $datve->sb_di1)->first()->ten_san_bay ?? "";

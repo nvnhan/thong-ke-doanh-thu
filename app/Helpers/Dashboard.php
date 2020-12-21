@@ -57,7 +57,7 @@ class Dashboard
             $ket_thuc = substr($request->ket_thuc, 0, 10);
         }
         $dv = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
-            ->select('ngay_thang', DB::raw('count(*) as dat_ve'))->get();
+            ->select('ngay_thang', DB::raw('count(*) as dat_ve, sum(tong_tien_thu_khach) as thu_khach, sum(lai) as lai'))->get();
         $tt = DatVe::ofUser($request->user())->whereBetween('ngay_thanh_toan', [$bat_dau, $ket_thuc])->groupBy('ngay_thanh_toan')
             ->select(DB::raw('ngay_thanh_toan as ngay_thang'), DB::raw('count(*) as thanh_toan'))->get();
 
@@ -72,6 +72,8 @@ class Dashboard
             $val = new stdClass;
             $val->dat_ve = 0;
             $val->thanh_toan = 0;
+            $val->thu_khach = 0;
+            $val->lai = 0;
             $tmp = $dt->format('d/m');
             $data[$tmp] = $val;
         }
@@ -80,6 +82,8 @@ class Dashboard
             $ngay = new DateTime($item->ngay_thang);
             $nt = trim($ngay->format('d/m'));
             $data[$nt]->dat_ve = $item->dat_ve;
+            $data[$nt]->thu_khach = $item->thu_khach;
+            $data[$nt]->lai = $item->lai;
         }
         // Fill ThanhToan
         foreach ($tt as $item) {
@@ -90,10 +94,14 @@ class Dashboard
         $result = new stdClass;
         $result->ngay_thangs = [];
         $result->dat_ves = [];
+        $result->thu_khachs = [];
+        $result->lais = [];
         $result->thanh_toans = [];
         foreach ($data as $key => $value) {
             $result->ngay_thangs[] = $key;
             $result->dat_ves[] = $value->dat_ve;
+            $result->thu_khachs[] = round($value->thu_khach / 1000);
+            $result->lais[] = round($value->lai / 1000);
             $result->thanh_toans[] = $value->thanh_toan;
         }
         return $result;
@@ -167,6 +175,31 @@ class Dashboard
         $result->quoc_te[] = $qtnove;
         $result->quoc_noi[] = $sumnove - $qtnove;
 
+        return $result;
+    }
+
+    public static function DoanhSoTrongNam(Request $request)
+    {
+        $dv = DatVe::ofUser($request->user())
+            ->whereYear('ngay_thang', date('Y'))
+            ->select(DB::raw('MONTH(ngay_thang) as thang, sum(tong_tien_thu_khach) as thu_khach, sum(lai) as lai'))
+            ->groupBy('thang')
+            ->get();
+
+        $result = new stdClass;
+        $result->thangs = [];
+        $result->thu_khachs = [];
+        $result->lais = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $result->thangs[] = "Tháng $i";
+            $result->thu_khachs[] = 0;
+            $result->lais[] = 0;
+        }
+
+        foreach ($dv as $item) {
+            $result->thu_khachs[$item->thang - 1] = round($item->thu_khach / 1000000, 2);
+            $result->lais[$item->thang - 1] = round($item->lai / 1000000, 2);
+        }
         return $result;
     }
 }

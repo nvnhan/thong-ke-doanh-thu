@@ -99,6 +99,17 @@ table tr th.ant-table-selection-column {
     padding: 16px 12px;
     border-radius: 10px;
     box-shadow: 1px 2px 8px rgba(40, 40, 40, 0.1);
+
+    text-align: center;
+
+    .ant-radio-group-solid {
+        margin: 5px auto;
+        padding: 3px;
+        border: 1px solid #d9d9d9;
+    }
+    .ant-radio-button-wrapper {
+        border-color: transparent;
+    }
 }
 
 // Sider

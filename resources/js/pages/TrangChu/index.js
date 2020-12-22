@@ -1,11 +1,14 @@
-import { Button, Col, Form, Radio, Row } from "antd";
+import { Button, Col, Form, Row } from "antd";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import React, { memo, useEffect, useState } from "react";
 import MyRangePicker from "../../components/ListForm/MyRangePicker";
 import { parseValues } from "../../utils";
+import DoanhSo from "./DoanhSo";
+import SoDuTaiKhoan from "./SoDuTaiKhoan";
+import ThongTinDatVe from "./ThongTinDatVe";
+import ThongTinVe from "./ThongTinVe";
 
-const TrangChu = React.memo(props => {
+const TrangChu = memo(props => {
     const [form] = Form.useForm();
     const [data, setData] = useState({
         datve: [],
@@ -14,122 +17,45 @@ const TrangChu = React.memo(props => {
         sodu: [],
         tong: ""
     });
-    const [doanhSo, setDoanhSo] = useState("thang");
 
     useEffect(() => {
         form.setFieldsValue({
             thoiGian: [moment().startOf("month"), moment().endOf("month")]
         });
-        axios
-            .get("/api/trang-chu")
-            .then(response => {
-                if (response.data.success) setData(response.data.data);
-            })
-            .catch(error => console.log(error));
+        retrieveData();
     }, []);
 
-    const onFinish = () => {
-        let values = form.getFieldsValue();
+    const retrieveData = (values = {}) => {
         axios
             .get("/api/trang-chu", { params: parseValues(values) })
             .then(response => {
-                if (response.data.success) setData(response.data.data);
+                if (response.data.success) {
+                    let da = response.data.data.thongtinve.reduce(
+                        (a, b) => [
+                            ...a,
+                            {
+                                hang_muc: b.hang_muc,
+                                type: "Quốc nội",
+                                value: b.quoc_noi
+                            },
+                            {
+                                hang_muc: b.hang_muc,
+                                type: "Quốc tế",
+                                value: b.quoc_te
+                            }
+                        ],
+                        []
+                    );
+                    response.data.data.thongtinve = da;
+                    setData(response.data.data);
+                }
             })
             .catch(error => console.log(error));
     };
 
-    const onChange = e => setDoanhSo(e.target.value);
-
-    const monthChartData = {
-        labels: data.datve.ngay_thangs,
-        datasets: [
-            {
-                label: "Thanh toán",
-                fill: false,
-                borderColor: "#4bab92",
-                backgroundColor: "#4bab92",
-                type: "line",
-                data: data.datve.thanh_toans
-            },
-            {
-                label: "Đặt vé",
-                backgroundColor: "#AB4B64",
-                data: data.datve.dat_ves
-            }
-        ]
-    };
-
-    const thuKhachChartData = {
-        labels: data.datve.ngay_thangs,
-        datasets: [
-            {
-                label: "Lợi nhuận",
-                fill: false,
-                borderColor: "#AB4B64",
-                backgroundColor: "#AB4B64",
-                type: "line",
-                data: data.datve.lais
-            },
-            {
-                label: "Doanh số",
-                backgroundColor: "#4bab92",
-                // barPercentage: 0.5,
-                data: data.datve.thu_khachs
-            }
-        ]
-    };
-
-    const dsNamChartData = {
-        labels: data.ds_nam.thangs,
-        datasets: [
-            {
-                label: "Lợi nhuận",
-                fill: false,
-                borderColor: "#AB4B64",
-                backgroundColor: "#AB4B64",
-                type: "line",
-                data: data.ds_nam.lais
-            },
-            {
-                label: "Doanh số",
-                backgroundColor: "#4bab92",
-                // barPercentage: 0.5,
-                data: data.ds_nam.thu_khachs
-            }
-        ]
-    };
-
-    const ttveChartData = {
-        labels: data.thongtinve.hang_muc,
-        datasets: [
-            {
-                label: "Quốc nội",
-                stack: "Stack 0",
-                backgroundColor: "#4bab92",
-                barPercentage: 0.5,
-                data: data.thongtinve.quoc_noi
-            },
-            {
-                label: "Quốc tế",
-                stack: "Stack 0",
-                backgroundColor: "#AB4B64",
-                barPercentage: 0.5,
-                data: data.thongtinve.quoc_te
-            }
-        ]
-    };
-
-    const tkChartData = {
-        labels: data.sodu.hang_muc,
-        datasets: [
-            {
-                label: "Số dư",
-                stack: "Stack 0",
-                backgroundColor: "#4bab92",
-                barPercentage: 0.5,
-                data: data.sodu.gia_tri
-            }
-        ]
+    const onFinish = () => {
+        const values = form.getFieldsValue();
+        retrieveData(values);
     };
 
     return (
@@ -137,92 +63,13 @@ const TrangChu = React.memo(props => {
             <Row gutter={[16, 16]}>
                 <Col span={24} md={12}>
                     <div className="chart-card">
-                        <Bar
-                            width={400}
-                            height={250}
-                            data={monthChartData}
-                            options={{
-                                legend: { position: "bottom" },
-                                title: {
-                                    display: true,
-                                    text: "Số lượng vé đặt / vé thanh toán",
-                                    fontSize: 14
-                                },
-                                tooltips: {
-                                    mode: "index",
-                                    intersect: false
-                                },
-                                scales: {
-                                    xAxes: [
-                                        {
-                                            gridLines: {
-                                                display: true,
-                                                drawBorder: true,
-                                                drawOnChartArea: false
-                                            }
-                                        }
-                                    ],
-                                    yAxes: [
-                                        {
-                                            gridLines: {
-                                                display: true,
-                                                drawBorder: true,
-                                                drawOnChartArea: false
-                                            },
-                                            ticks: {
-                                                stepSize: 1
-                                            }
-                                        }
-                                    ]
-                                }
-                            }}
-                        />
+                        <ThongTinDatVe data={data} />
                     </div>
                 </Col>
 
                 <Col span={24} md={12}>
                     <div className="chart-card">
-                        <Bar
-                            width={400}
-                            height={250}
-                            data={ttveChartData}
-                            options={{
-                                legend: { position: "bottom" },
-                                title: {
-                                    display: true,
-                                    text: "Thông tin vé",
-                                    fontSize: 14
-                                },
-                                tooltips: {
-                                    mode: "index",
-                                    intersect: false
-                                },
-                                scales: {
-                                    xAxes: [
-                                        {
-                                            gridLines: {
-                                                display: true,
-                                                drawBorder: true,
-                                                drawOnChartArea: false
-                                            }
-                                        }
-                                    ],
-                                    yAxes: [
-                                        {
-                                            stacked: true,
-                                            gridLines: {
-                                                display: true,
-                                                drawBorder: true,
-                                                drawOnChartArea: false
-                                            },
-                                            ticks: {
-                                                stepSize: 1
-                                            }
-                                        }
-                                    ]
-                                }
-                            }}
-                        />
+                        <ThongTinVe data={data} />
                     </div>
                 </Col>
             </Row>
@@ -230,137 +77,14 @@ const TrangChu = React.memo(props => {
             <Row gutter={[16, 16]}>
                 <Col span={24} md={12}>
                     <div className="chart-card">
-                        <Bar
-                            width={400}
-                            height={250}
-                            data={tkChartData}
-                            options={{
-                                legend: { display: false },
-                                title: {
-                                    display: true,
-                                    text: `Số dư tài khoản (Tổng cộng ${data.tong}₫)`,
-                                    fontSize: 14
-                                },
-                                hover: {
-                                    animationDuration: 0
-                                },
-                                animation: {
-                                    duration: 1,
-                                    onComplete: function() {
-                                        var chartInstance = this.chart,
-                                            ctx = chartInstance.ctx;
-                                        ctx.font = Chart.helpers.fontString(
-                                            10,
-                                            Chart.defaults.global
-                                                .defaultFontStyle,
-                                            Chart.defaults.global
-                                                .defaultFontFamily
-                                        );
-                                        ctx.textAlign = "center";
-                                        ctx.textBaseline = "bottom";
-
-                                        this.data.datasets.forEach(function(
-                                            dataset,
-                                            i
-                                        ) {
-                                            var meta = chartInstance.controller.getDatasetMeta(
-                                                i
-                                            );
-                                            meta.data.forEach(function(
-                                                bar,
-                                                index
-                                            ) {
-                                                var data = dataset.data[index];
-                                                ctx.fillText(
-                                                    data + "k",
-                                                    bar._model.x,
-                                                    bar._model.y - 5
-                                                );
-                                            });
-                                        });
-                                    }
-                                }
-                            }}
-                        />
+                        <h4>Số dư tài khoản (Tổng cộng {data.tong})</h4>
+                        <SoDuTaiKhoan data={data} />
                     </div>
                 </Col>
 
                 <Col span={24} md={12}>
                     <div className="chart-card">
-                        <Bar
-                            width={400}
-                            height={250}
-                            data={
-                                doanhSo === "thang"
-                                    ? thuKhachChartData
-                                    : dsNamChartData
-                            }
-                            options={{
-                                legend: { position: "bottom" },
-                                title: {
-                                    display: true,
-                                    text:
-                                        "Doanh số - Lợi nhuận " +
-                                        (doanhSo === "thang"
-                                            ? "(nghìn đ)"
-                                            : "(triệu đ)"),
-                                    fontSize: 14
-                                },
-                                tooltips: {
-                                    mode: "index",
-                                    intersect: false
-                                },
-                                hover: {
-                                    animationDuration: 0
-                                },
-                                animation: {
-                                    duration: 1,
-                                    onComplete: function() {
-                                        var chartInstance = this.chart,
-                                            ctx = chartInstance.ctx;
-                                        ctx.font = Chart.helpers.fontString(
-                                            10,
-                                            Chart.defaults.global
-                                                .defaultFontStyle,
-                                            Chart.defaults.global
-                                                .defaultFontFamily
-                                        );
-                                        ctx.textAlign = "center";
-                                        ctx.textBaseline = "bottom";
-
-                                        this.data.datasets.forEach(function(
-                                            dataset,
-                                            i
-                                        ) {
-                                            var meta = chartInstance.controller.getDatasetMeta(
-                                                i
-                                            );
-                                            meta.data.forEach(function(
-                                                bar,
-                                                index
-                                            ) {
-                                                var data = dataset.data[index];
-                                                if (data != 0)
-                                                    ctx.fillText(
-                                                        data,
-                                                        bar._model.x,
-                                                        bar._model.y - 5
-                                                    );
-                                            });
-                                        });
-                                    }
-                                }
-                            }}
-                        />
-
-                        <Radio.Group
-                            buttonStyle="solid"
-                            onChange={onChange}
-                            value={doanhSo}
-                        >
-                            <Radio.Button value="thang">Theo ngày</Radio.Button>
-                            <Radio.Button value="nam">Theo tháng</Radio.Button>
-                        </Radio.Group>
+                        <DoanhSo data={data} />
                     </div>
                 </Col>
             </Row>

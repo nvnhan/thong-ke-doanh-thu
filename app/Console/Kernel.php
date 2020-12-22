@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('passport:purge')->weekly();         // Bỏ những access token hết hạn hoặc đã thu hồi hàng ngayf
-        $schedule->command('notify:thongbaove')->dailyAt('7:00')->timezone(config('app.timezone'));         // Gửi mail thông báo tới user
+        $schedule->command('notify:thongbaove')->dailyAt('9:00')->timezone(config('app.timezone'));         // Gửi mail thông báo tới user
     }
 
     /**

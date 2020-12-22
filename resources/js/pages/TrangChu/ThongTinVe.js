@@ -11,7 +11,8 @@ const ThongTinVe = memo(props => {
         yField: "value",
         seriesField: "type",
         label: {
-            position: "middle"
+            position: "middle",
+            formatter: val => (val.value > 0 ? val.value : "")
         },
         legend: {
             position: "top-left"

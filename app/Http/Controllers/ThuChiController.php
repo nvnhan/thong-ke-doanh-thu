@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ThemFileThuChi;
 use App\ThuChi;
+use App\ThuChiChiTiet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -80,7 +81,10 @@ class ThuChiController extends BaseController
      */
     public function destroy($id)
     {
-        ThuChi::find($id)->delete();
+        $obj = ThuChi::find($id);
+        foreach ($obj->thu_chi_chi_tiets()->get() as $tiet)
+            $tiet->delete();
+        $obj->delete();
         return $this->sendResponse('', "Xóa thành công thu chi");
     }
 
@@ -95,7 +99,12 @@ class ThuChiController extends BaseController
         $objs = explode('|', $request['objects']);
         if (\is_array($objs)) {
             $cnt = count($objs);
-            ThuChi::destroy($objs);
+            foreach ($objs  as $id) {
+                $obj = ThuChi::find($id);
+                foreach ($obj->thu_chi_chi_tiets()->get() as $tiet)
+                    $tiet->delete();
+                $obj->delete();
+            }
             return $this->sendResponse('', "Xóa thành công $cnt mục");
         }
 

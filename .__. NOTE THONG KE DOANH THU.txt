@@ -58,7 +58,7 @@ Còn tồn tại:
 ====
 Yêu cầu phát sinh mới: (+ là yc phát sinh mới, - là lỗi, cập nhật)
 Ngày 21/12/2020:
-- Xóa ThuChi => Tính lại Ngày thanh toán
+//////////////- Xóa ThuChi => Tính lại Ngày thanh toán
 //////////////- Mua vào: Chọn hàng thêm Phân loại
 
 Ngày 19/12/2020:

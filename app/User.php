@@ -52,6 +52,11 @@ class User extends Authenticatable
 
     protected $appends = ['admin', 'quan_ly', 'quyen', 'chuc_nang'];
 
+    public function nguoi_tao()
+    {
+        return $this->belongsTo('App\User', 'id_nguoi_tao');
+    }
+
     public function getAdminAttribute()
     {
         return $this->phan_quyen === 9;
@@ -71,10 +76,10 @@ class User extends Authenticatable
     {
         switch ($this->phan_quyen) {
             case '9':
-                return 'Quản trị';
+                return 'Quản trị hệ thống';
                 break;
             case '1':
-                return 'Đại lý';
+                return 'Chủ đại lý';
                 break;
             default:
                 return 'Nhân viên';

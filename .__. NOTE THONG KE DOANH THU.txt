@@ -62,7 +62,7 @@ Ngày 21/12/2020:
 //////////////- Mua vào: Chọn hàng thêm Phân loại
 
 Ngày 19/12/2020:
-- Khi tk đại lý bị khoá tk nhân viên sẽ ko vào được
+//////////////- Khi tk đại lý bị khoá tk nhân viên sẽ ko vào được
 + Đại lý đc quản lý tất cả dữ liệu của các nhân viên. Thông tin chung: Dùng chung cho toàn bộ đại lý
 + Nhân viên chỉ đc phép thêm Khách hàng, Hàng hóa vào CSDL chung
 + Các dữ liệu khác: Của nhân viên nào thì nhân viên ấy biết

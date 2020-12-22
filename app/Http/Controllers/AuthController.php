@@ -77,29 +77,39 @@ class AuthController extends BaseController
             if (Hash::check($request->password, $user->password)) {
                 if ($user->actived) {
                     $today = date("Y-m-d");
-                    if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
-                        $user->ngay_dang_nhap = $today;
-                        if (!$user->admin)
-                            $user->so_ngay_dang_nhap--;
-                    }
-                    if ($user->so_ngay_dang_nhap >= 0) {
-                        $user->save();
-                        // Delete all previous Tokens
-                        $user->tokens()
-                            ->where('name', 'Web API login')
-                            ->delete();
+                    $nguoi_tao = $user->nguoi_tao()->first();
+                    if (
+                        $nguoi_tao === null ||
+                        ($nguoi_tao->actived &&
+                            ($nguoi_tao->so_ngay_dang_nhap > 0 ||
+                                (($nguoi_tao->so_ngay_dang_nhap === 0 &&
+                                    $nguoi_tao->ngay_dang_nhap === $today))))
+                    ) {
+                        if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {
+                            $user->ngay_dang_nhap = $today;
+                            if (!$user->admin)
+                                $user->so_ngay_dang_nhap--;
+                        }
+                        if ($user->so_ngay_dang_nhap >= 0) {
+                            $user->save();
+                            // Delete all previous Tokens
+                            $user->tokens()
+                                ->where('name', 'Web API login')
+                                ->delete();
 
-                        $response = $user->toArray();
-                        unset($response['khong_gioi_han_dang_nhap']);
-                        unset($response['so_ngay_dang_nhap']);
-                        unset($response['ngay_dang_nhap']);
+                            $response = $user->toArray();
+                            unset($response['khong_gioi_han_dang_nhap']);
+                            unset($response['so_ngay_dang_nhap']);
+                            unset($response['ngay_dang_nhap']);
 
-                        $token = $user->createToken('Web API login')->accessToken;
-                        $response['token'] = $token;
-                        $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
-                        return $this->sendResponse($response, 'Đăng nhập thành công');
+                            $token = $user->createToken('Web API login')->accessToken;
+                            $response['token'] = $token;
+                            $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
+                            return $this->sendResponse($response, 'Đăng nhập thành công');
+                        } else
+                            return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);
                     } else
-                        return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);
+                        return $this->sendError("Đại lý đã bị vô hiệu hóa", []);
                 } else
                     return $this->sendError("Tài khoản không hoạt động. Vui lòng liên hệ quản trị viên", []);
             } else

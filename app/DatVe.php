@@ -98,13 +98,13 @@ class DatVe extends Model
     ///////////////////////
     public function getChangDiAttribute()
     {
-        return $this->sb_di . '->' . $this->sb_di1;
+        return $this->sb_di . '→' . $this->sb_di1;
     }
 
     public function getChangVeAttribute()
     {
         if (!empty($this->sb_ve) && !empty($this->sb_ve1))
-            return $this->sb_ve . '->' . $this->sb_ve1;
+            return $this->sb_ve . '→' . $this->sb_ve1;
         return '';
     }
 

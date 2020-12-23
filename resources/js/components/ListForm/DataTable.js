@@ -17,7 +17,6 @@ const DataTable = React.memo(props => {
         selectable,
         editable,
         deleteable,
-        primaryKey,
         tableSize,
         handleDelete,
         handleEdit,
@@ -277,6 +276,11 @@ const DataTable = React.memo(props => {
             expandable={getExpanded()}
             footer={renderFooter ? () => renderFooter(data) : undefined}
             summary={renderSummary ? () => renderSummary(data) : undefined}
+            pagination={{
+                // defaultPageSize: 20,
+                showTotal: (total, range) =>
+                    `Hiển thị ${range[0]}-${range[1]} / ${total} mục`
+            }}
         />
     );
 });

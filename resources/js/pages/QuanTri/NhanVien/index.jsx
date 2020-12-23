@@ -1,4 +1,4 @@
-import { Checkbox } from "antd";
+import { Checkbox, Tag } from "antd";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import ListForm from "../../../components/ListForm";
@@ -39,7 +39,26 @@ class List extends PureComponent {
             title: "Phân quyền",
             dataIndex: "quyen",
             optFilter: true,
-            width: 80
+            width: 80,
+            render: text => {
+                let color = "";
+                switch (text) {
+                    case "Nhân viên":
+                        color = "gray";
+                        break;
+                    case "Quản lý đại lý":
+                        color = "green";
+                        break;
+                    case "Chủ đại lý":
+                        color = "geekblue";
+                        break;
+                    default:
+                        color = "volcano";
+                        break;
+                }
+
+                return <Tag color={color}>{text.toUpperCase()}</Tag>;
+            }
         },
         {
             title: "Tour - Visa",

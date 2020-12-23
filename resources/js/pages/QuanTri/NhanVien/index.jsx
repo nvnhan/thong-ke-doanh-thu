@@ -5,92 +5,88 @@ import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
 class List extends PureComponent {
-    render() {
-        const columns = [
-            {
-                title: "Tài khoản",
-                dataIndex: "username",
-                optFind: true,
-                width: 90
-            },
-            {
-                title: "Họ tên",
-                dataIndex: "ho_ten",
-                optFind: true,
-                width: 110
-            },
-            {
-                title: "Đại lý",
-                dataIndex: "dai_ly",
-                ellipsis: true,
-                width: 110
-            },
-            {
-                title: "SĐT",
-                dataIndex: "sdt",
-                width: 90
-            },
-            {
-                title: "Địa chỉ",
-                dataIndex: "dia_chi",
-                ellipsis: true,
-                width: 120
-            },
-            {
-                title: "Phân quyền",
-                dataIndex: "quyen",
-                optFilter: true,
-                width: 80
-            },
-            {
-                title: "Tour - Visa",
-                dataIndex: "tour_visa",
-                render: bol => <Checkbox checked={bol} />,
-                width: 70
-            },
-            {
-                title: "Bán hàng",
-                dataIndex: "ban_hang",
-                render: bol => <Checkbox checked={bol} />,
-                width: 70
-            },
-            {
-                title: "Hoạt động",
-                dataIndex: "actived",
-                render: bol => <Checkbox checked={bol} />,
-                width: 70
-            }
-        ];
+    columns = [
+        {
+            title: "Tài khoản",
+            dataIndex: "username",
+            optFind: true,
+            width: 90
+        },
+        {
+            title: "Họ tên",
+            dataIndex: "ho_ten",
+            optFind: true,
+            width: 110
+        },
+        {
+            title: "Đại lý",
+            dataIndex: "dai_ly",
+            ellipsis: true,
+            width: 110
+        },
+        {
+            title: "SĐT",
+            dataIndex: "sdt",
+            width: 90
+        },
+        {
+            title: "Địa chỉ",
+            dataIndex: "dia_chi",
+            ellipsis: true,
+            width: 120
+        },
+        {
+            title: "Phân quyền",
+            dataIndex: "quyen",
+            optFilter: true,
+            width: 80
+        },
+        {
+            title: "Tour - Visa",
+            dataIndex: "tour_visa",
+            render: bol => <Checkbox checked={bol} />,
+            width: 70
+        },
+        {
+            title: "Bán hàng",
+            dataIndex: "ban_hang",
+            render: bol => <Checkbox checked={bol} />,
+            width: 70
+        },
+        {
+            title: "Hoạt động",
+            dataIndex: "actived",
+            render: bol => <Checkbox checked={bol} />,
+            width: 70
+        }
+    ];
 
-        const expandedRowRender = record => (
-            <ul style={{ margin: 0 }}>
-                <li>Ngày đăng nhập cuối: {record.ngay_dang_nhap}</li>
-                <li>Số ngày đăng nhập còn lại: {record.so_ngay_dang_nhap}</li>
-                <li>Ngày tạo tài khoản: {record.created_at}</li>
-            </ul>
-        );
+    expandedRowRender = record => (
+        <ul style={{ margin: 0 }}>
+            <li>Ngày đăng nhập cuối: {record.ngay_dang_nhap}</li>
+            <li>Số ngày đăng nhập còn lại: {record.so_ngay_dang_nhap}</li>
+            <li>Ngày tạo tài khoản: {record.created_at}</li>
+        </ul>
+    );
+
+    render() {
+        const { authUser } = this.props;
 
         return (
             <ListForm
                 url="nhan-vien"
                 selectable={false}
-                columns={columns}
+                columns={this.columns}
                 tableSize={{ x: 1100 }}
                 modalWidth={800}
                 formTemplate={
                     <FormItem
-                        phanQuyen={this.props.authUser.admin}
-                        banHang={
-                            this.props.authUser.admin ||
-                            this.props.authUser.ban_hang
-                        }
-                        tourVisa={
-                            this.props.authUser.admin ||
-                            this.props.authUser.tour_visa
-                        }
+                        quanTri={authUser.admin}
+                        banHang={authUser.admin || authUser.ban_hang}
+                        tourVisa={authUser.admin || authUser.tour_visa}
                     />
                 }
-                expandedRowRender={expandedRowRender}
+                expandedRowRender={this.expandedRowRender}
                 formInitialValues={{
                     phan_quyen: 0,
                     actived: true,

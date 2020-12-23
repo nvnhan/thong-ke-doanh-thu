@@ -18,7 +18,7 @@ class UserController extends BaseController
         $user = $request->user();
         if ($user->admin)
             $objs = User::where('username', '!=', $user->username)->get();
-        else if ($user->quan_ly)
+        else if ($user->quan_tri)
             $objs = User::where('id_nguoi_tao', $user->id)->get();
         else $objs = [];
         return $this->sendResponse($objs, "User retrieved successfully");
@@ -29,7 +29,7 @@ class UserController extends BaseController
         $user = $request->user();
         if ($user->admin)
             $objs = User::query();
-        else if ($user->quan_ly)
+        else if ($user->quan_tri)
             $objs = User::where('id_nguoi_tao', $user->id);
         else
             $objs = User::where('username', $user->username);
@@ -52,6 +52,8 @@ class UserController extends BaseController
         $data = $request->all();
         $obj = new User();
         $obj->fill($data);
+        if (!$request->user()->admin && $obj->phan_quyen > 1)
+            $obj->phan_quyen = 0;
         $obj->id_nguoi_tao = $request->user()->id;
         $obj->password = Hash::make('123');
         $obj->save();
@@ -68,7 +70,10 @@ class UserController extends BaseController
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->fill($request->except('username', 'password'))->save();
+        $user->fill($request->except('username', 'password'));
+        if (!$request->user()->admin && $user->phan_quyen > 1)
+            $user->phan_quyen = 0;
+        $user->save();
         return $this->sendResponse($user, "Cập nhật thành công");
     }
 

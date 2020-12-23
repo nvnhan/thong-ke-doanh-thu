@@ -15,38 +15,33 @@ class MyHeader extends PureComponent {
         };
     }
 
-    showDrawer = () => {
+    showDrawer = () =>
         this.setState({
             drawerVisible: true
         });
-    };
 
-    onClose = () => {
+    onClose = () =>
         this.setState({
             drawerVisible: false
         });
-    };
 
-    getDrawerTitle = () => {
-        return (
-            <span>
-                <UserOutlined />
-                &nbsp;
-                {this.props.authUser.ho_ten}
-            </span>
-        );
-    };
+    getDrawerTitle = () => (
+        <span>
+            <UserOutlined />
+            &nbsp;
+            {this.props.authUser.ho_ten}
+        </span>
+    );
 
-    onLogout = () => {
-        this.props.onLogout();
-    };
+    onLogout = () => this.props.onLogout();
 
     render() {
+        const { authUser, title } = this.props;
         return (
             <PageHeader
                 className="my-header"
                 onBack={() => window.history.back()}
-                title={this.props.title}
+                title={title}
                 extra={
                     <React.Fragment>
                         <Menu
@@ -66,7 +61,7 @@ class MyHeader extends PureComponent {
                                         >
                                             Chào
                                         </span>
-                                        {this.props.authUser.ho_ten}
+                                        {authUser.ho_ten}
                                         <Avatar
                                             style={{
                                                 marginLeft: 8,
@@ -79,12 +74,12 @@ class MyHeader extends PureComponent {
                                 }
                             >
                                 <Menu.Item>
+                                    <span>Vai trò: {authUser.quyen}</span>
+                                </Menu.Item>
+                                <Menu.Item>
                                     <span>
                                         Số ngày đăng nhập còn lại:{" "}
-                                        {
-                                            this.props.authUser
-                                                .ngay_dang_nhap_con_lai
-                                        }
+                                        {authUser.ngay_dang_nhap_con_lai}
                                     </span>
                                 </Menu.Item>
                                 <Menu.Item key="profile">
@@ -124,12 +119,12 @@ class MyHeader extends PureComponent {
                                 onClick={this.onClose}
                             >
                                 <Menu.Item>
+                                    <span>Vai trò: {authUser.quyen}</span>
+                                </Menu.Item>
+                                <Menu.Item>
                                     <span>
                                         Số ngày đăng nhập còn lại:{" "}
-                                        {
-                                            this.props.authUser
-                                                .ngay_dang_nhap_con_lai
-                                        }
+                                        {authUser.ngay_dang_nhap_con_lai}
                                     </span>
                                 </Menu.Item>
                                 <Menu.Item key="profile">

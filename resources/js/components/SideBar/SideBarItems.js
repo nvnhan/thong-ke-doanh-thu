@@ -199,13 +199,15 @@ const items = [
                 key: SideMenus.TT_TAI_KHOAN,
                 href: "/tai-khoan",
                 icon: <CaretRightOutlined />,
-                title: "Tài khoản"
+                title: "Tài khoản",
+                role: "quan_ly"
             },
             {
                 key: SideMenus.TT_NHA_CUNG_CAP,
                 href: "/nha-cung-cap",
                 icon: <CaretRightOutlined />,
-                title: "Nhà cung cấp"
+                title: "Nhà cung cấp",
+                role: "quan_ly"
             },
             {
                 key: SideMenus.TT_KHACH_HANG,
@@ -225,7 +227,7 @@ const items = [
         key: "SUB_QT",
         icon: <ToolOutlined />,
         title: "Quản trị",
-        role: "quan_ly",
+        role: "quan_tri",
         childs: [
             {
                 key: SideMenus.QT_USER,

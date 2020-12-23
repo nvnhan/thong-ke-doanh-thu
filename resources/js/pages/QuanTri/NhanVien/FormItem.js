@@ -7,8 +7,13 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
         return (
             <>
                 <Option value={0}>Nhân viên</Option>
-                <Option value={1}>Đại lý</Option>
-                <Option value={9}>Quảntrị</Option>
+                <Option value={1}>Quản lý đại lý</Option>
+                {phanQuyen && (
+                    <>
+                        <Option value={2}>Chủ đại lý</Option>
+                        <Option value={9}>Quản trị hệ thống</Option>
+                    </>
+                )}
             </>
         );
     };
@@ -24,6 +29,11 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                     ]}
                 >
                     <Input />
+                </Form.Item>
+            </Col>
+            <Col span={12}>
+                <Form.Item name="phan_quyen" label="Phân quyền">
+                    <Select>{getRoleDetail()}</Select>
                 </Form.Item>
             </Col>
             <Col span={12}>
@@ -53,16 +63,6 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                     <Input />
                 </Form.Item>
             </Col>
-            {/* <Col span={12}>
-                <Form.Item name="sdt" label="SĐT">
-                    <Input />
-                </Form.Item>
-            </Col>
-            <Col span={12}>
-                <Form.Item name="dia_chi" label="Địa chỉ">
-                    <Input />
-                </Form.Item>
-            </Col> */}
             <Col span={12}>
                 <Form.Item name="so_ngay_dang_nhap" label="Số ngày ĐN">
                     <InputNumber
@@ -71,15 +71,6 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                         max={9999}
                         style={{ width: "100%" }}
                     />
-                </Form.Item>
-            </Col>
-            <Col span={12}>
-                <Form.Item
-                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
-                    name="actived"
-                    valuePropName="checked"
-                >
-                    <Checkbox>Kích hoạt tài khoản</Checkbox>
                 </Form.Item>
             </Col>
             {tourVisa && (
@@ -105,13 +96,15 @@ const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
                     </Form.Item>
                 </Col>
             )}
-            {phanQuyen && (
-                <Col span={12}>
-                    <Form.Item name="phan_quyen" label="Phân quyền">
-                        <Select>{getRoleDetail()}</Select>
-                    </Form.Item>
-                </Col>
-            )}
+            <Col span={12}>
+                <Form.Item
+                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                    name="actived"
+                    valuePropName="checked"
+                >
+                    <Checkbox>Kích hoạt tài khoản</Checkbox>
+                </Form.Item>
+            </Col>
         </Row>
     );
 };

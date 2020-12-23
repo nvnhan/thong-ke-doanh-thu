@@ -50,26 +50,36 @@ class User extends Authenticatable
         'updated_at' => 'datetime:H:i d/m/Y',
     ];
 
-    protected $appends = ['admin', 'quan_ly', 'quyen', 'chuc_nang'];
+    protected $appends = ['admin', 'quan_ly', 'quan_tri', 'quyen', 'chuc_nang'];
 
     public function nguoi_tao()
     {
         return $this->belongsTo('App\User', 'id_nguoi_tao');
     }
-
+    /**
+     * Quyền admin
+     */
     public function getAdminAttribute()
     {
         return $this->phan_quyen === 9;
     }
 
+    /**
+     * Quyền quản lý 
+     */
     public function getQuanLyAttribute()
     {
         return $this->phan_quyen >= 1;
     }
 
+    public function getQuanTriAttribute()
+    {
+        return $this->phan_quyen >= 2;
+    }
+
     public function getChucNangAttribute()
     {
-        return $this->phan_quyen <= 1;
+        return $this->phan_quyen < 9;
     }
 
     public function getQuyenAttribute()
@@ -78,8 +88,11 @@ class User extends Authenticatable
             case '9':
                 return 'Quản trị hệ thống';
                 break;
-            case '1':
+            case '2':
                 return 'Chủ đại lý';
+                break;
+            case '1':
+                return 'Quản lý đại lý';
                 break;
             default:
                 return 'Nhân viên';

@@ -29,9 +29,11 @@ var form = function form(_ref) {
       value: 0
     }, "Nh\xE2n vi\xEAn"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
       value: 1
-    }, "\u0110\u1EA1i l\xFD"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+    }, "Qu\u1EA3n l\xFD \u0111\u1EA1i l\xFD"), phanQuyen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
+      value: 2
+    }, "Ch\u1EE7 \u0111\u1EA1i l\xFD"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
       value: 9
-    }, "Qu\u1EA3ntr\u1ECB"));
+    }, "Qu\u1EA3n tr\u1ECB h\u1EC7 th\u1ED1ng")));
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
@@ -46,6 +48,11 @@ var form = function form(_ref) {
       message: "Nhập đầy đủ thông tin!"
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    name: "phan_quyen",
+    label: "Ph\xE2n quy\u1EC1n"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], null, getRoleDetail()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     name: "ho_ten",
@@ -80,18 +87,7 @@ var form = function form(_ref) {
     style: {
       width: "100%"
     }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
-    span: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    wrapperCol: {
-      sm: {
-        offset: 8,
-        span: 16
-      }
-    },
-    name: "actived",
-    valuePropName: "checked"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], null, "K\xEDch ho\u1EA1t t\xE0i kho\u1EA3n"))), tourVisa && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+  }))), tourVisa && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
     wrapperCol: {
@@ -113,12 +109,18 @@ var form = function form(_ref) {
     },
     name: "ban_hang",
     valuePropName: "checked"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], null, "Ch\u1EE9c n\u0103ng B\xE1n h\xE0ng"))), phanQuyen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], null, "Ch\u1EE9c n\u0103ng B\xE1n h\xE0ng"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
     span: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
-    name: "phan_quyen",
-    label: "Ph\xE2n quy\u1EC1n"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Select"], null, getRoleDetail()))));
+    wrapperCol: {
+      sm: {
+        offset: 8,
+        span: 16
+      }
+    },
+    name: "actived",
+    valuePropName: "checked"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], null, "K\xEDch ho\u1EA1t t\xE0i kho\u1EA3n"))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (form);
@@ -162,6 +164,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -174,94 +178,103 @@ var List = /*#__PURE__*/function (_PureComponent) {
   var _super = _createSuper(List);
 
   function List() {
+    var _this;
+
     _classCallCheck(this, List);
 
-    return _super.apply(this, arguments);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "columns", [{
+      title: "Tài khoản",
+      dataIndex: "username",
+      optFind: true,
+      width: 90
+    }, {
+      title: "Họ tên",
+      dataIndex: "ho_ten",
+      optFind: true,
+      width: 110
+    }, {
+      title: "Đại lý",
+      dataIndex: "dai_ly",
+      ellipsis: true,
+      width: 110
+    }, {
+      title: "SĐT",
+      dataIndex: "sdt",
+      width: 90
+    }, {
+      title: "Địa chỉ",
+      dataIndex: "dia_chi",
+      ellipsis: true,
+      width: 120
+    }, {
+      title: "Phân quyền",
+      dataIndex: "quyen",
+      optFilter: true,
+      width: 80
+    }, {
+      title: "Tour - Visa",
+      dataIndex: "tour_visa",
+      render: function render(bol) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], {
+          checked: bol
+        });
+      },
+      width: 70
+    }, {
+      title: "Bán hàng",
+      dataIndex: "ban_hang",
+      render: function render(bol) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], {
+          checked: bol
+        });
+      },
+      width: 70
+    }, {
+      title: "Hoạt động",
+      dataIndex: "actived",
+      render: function render(bol) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], {
+          checked: bol
+        });
+      },
+      width: 70
+    }]);
+
+    _defineProperty(_assertThisInitialized(_this), "expandedRowRender", function (record) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
+        style: {
+          margin: 0
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\xE0y \u0111\u0103ng nh\u1EADp cu\u1ED1i: ", record.ngay_dang_nhap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "S\u1ED1 ng\xE0y \u0111\u0103ng nh\u1EADp c\xF2n l\u1EA1i: ", record.so_ngay_dang_nhap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\xE0y t\u1EA1o t\xE0i kho\u1EA3n: ", record.created_at));
+    });
+
+    return _this;
   }
 
   _createClass(List, [{
     key: "render",
     value: function render() {
-      var columns = [{
-        title: "Tài khoản",
-        dataIndex: "username",
-        optFind: true,
-        width: 90
-      }, {
-        title: "Họ tên",
-        dataIndex: "ho_ten",
-        optFind: true,
-        width: 110
-      }, {
-        title: "Đại lý",
-        dataIndex: "dai_ly",
-        ellipsis: true,
-        width: 110
-      }, {
-        title: "SĐT",
-        dataIndex: "sdt",
-        width: 90
-      }, {
-        title: "Địa chỉ",
-        dataIndex: "dia_chi",
-        ellipsis: true,
-        width: 120
-      }, {
-        title: "Phân quyền",
-        dataIndex: "quyen",
-        optFilter: true,
-        width: 80
-      }, {
-        title: "Tour - Visa",
-        dataIndex: "tour_visa",
-        render: function render(bol) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], {
-            checked: bol
-          });
-        },
-        width: 70
-      }, {
-        title: "Bán hàng",
-        dataIndex: "ban_hang",
-        render: function render(bol) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], {
-            checked: bol
-          });
-        },
-        width: 70
-      }, {
-        title: "Hoạt động",
-        dataIndex: "actived",
-        render: function render(bol) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Checkbox"], {
-            checked: bol
-          });
-        },
-        width: 70
-      }];
-
-      var expandedRowRender = function expandedRowRender(record) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
-          style: {
-            margin: 0
-          }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\xE0y \u0111\u0103ng nh\u1EADp cu\u1ED1i: ", record.ngay_dang_nhap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "S\u1ED1 ng\xE0y \u0111\u0103ng nh\u1EADp c\xF2n l\u1EA1i: ", record.so_ngay_dang_nhap), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, "Ng\xE0y t\u1EA1o t\xE0i kho\u1EA3n: ", record.created_at));
-      };
-
+      var authUser = this.props.authUser;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_ListForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
         url: "nhan-vien",
         selectable: false,
-        columns: columns,
+        columns: this.columns,
         tableSize: {
           x: 1100
         },
         modalWidth: 800,
         formTemplate: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FormItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          phanQuyen: this.props.authUser.admin,
-          banHang: this.props.authUser.admin || this.props.authUser.ban_hang,
-          tourVisa: this.props.authUser.admin || this.props.authUser.tour_visa
+          quanTri: authUser.admin,
+          banHang: authUser.admin || authUser.ban_hang,
+          tourVisa: authUser.admin || authUser.tour_visa
         }),
-        expandedRowRender: expandedRowRender,
+        expandedRowRender: this.expandedRowRender,
         formInitialValues: {
           phan_quyen: 0,
           actived: true,

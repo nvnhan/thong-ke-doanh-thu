@@ -39,7 +39,7 @@ class List extends PureComponent {
             title: "Phân quyền",
             dataIndex: "quyen",
             optFilter: true,
-            width: 80,
+            width: 85,
             render: text => {
                 let color = "";
                 switch (text) {
@@ -105,7 +105,7 @@ class List extends PureComponent {
                         tourVisa={authUser.admin || authUser.tour_visa}
                     />
                 }
-                expandedRowRender={this.expandedRowRender}
+                // expandedRowRender={this.expandedRowRender}
                 formInitialValues={{
                     phan_quyen: 0,
                     actived: true,

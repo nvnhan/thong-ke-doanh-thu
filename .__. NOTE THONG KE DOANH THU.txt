@@ -67,7 +67,7 @@ Ngày 19/12/2020:
 //////////////+ Nhân viên chỉ đc phép thêm Khách hàng, Hàng hóa vào CSDL chung
 //////////////+ Các dữ liệu khác: Của nhân viên nào thì nhân viên ấy biết
 //////////////+ Thêm quyền: admin trong đại lý => Thấy toàn bộ dữ liệu của đại lý giống chủ đại lý
-+ Admin: Nhóm tài khoản theo từng đại lý
+//////////////+ Admin: Nhóm tài khoản theo từng đại lý
 
 
 Ngày 11/12/2020:

@@ -16,9 +16,15 @@ class UserController extends BaseController
     public function index(Request $request)
     {
         $user = $request->user();
-        if ($user->admin)
-            $objs = User::where('username', '!=', $user->username)->get();
-        else if ($user->quan_tri)
+        if ($user->admin) {
+            $objs = User::where('username', '!=', $user->username)
+                ->where(function ($query) use ($user) {
+                    return $query->where('phan_quyen', '>=', 2)->orWhere('id_nguoi_tao', $user->id);
+                })->get();
+            foreach ($objs as $obj) {
+                $obj->children = $obj->tao_ra()->get();
+            }
+        } else if ($user->quan_tri)
             $objs = User::where('id_nguoi_tao', $user->id)->get();
         else $objs = [];
         return $this->sendResponse($objs, "User retrieved successfully");

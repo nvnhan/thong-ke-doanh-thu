@@ -56,6 +56,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\User', 'id_nguoi_tao');
     }
+
+    public function tao_ra()
+    {
+        return $this->hasMany('App\User', 'id_nguoi_tao');
+    }
     /**
      * Quyền admin
      */

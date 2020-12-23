@@ -127,6 +127,7 @@ const List = React.memo(props => {
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                 </>
             );
@@ -179,13 +180,13 @@ const List = React.memo(props => {
             dataIndex: "ten_khach_hang",
             width: 120,
             optFilter: true
+        },
+        {
+            title: "Người nhập",
+            dataIndex: "username",
+            width: 90,
+            optFilter: true
         }
-        // {
-        //     title: "Người nhập",
-        //     dataIndex: "username",
-        //     width: 120,
-        //     optFilter: true
-        // }
     ];
 
     return (

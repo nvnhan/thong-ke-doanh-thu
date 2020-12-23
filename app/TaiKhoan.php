@@ -49,7 +49,12 @@ class TaiKhoan extends Model
      */
     public function scopeOfUser($query, $user)
     {
-        return $query->where('username', $user->username);
+        // Tài khoản và NCC:   Chỉ Chủ ĐL và quẢN lý đc tạo
+        // Nhân viên đc xem hết
+        if ($user->phan_quyen < 2) // Nếu lá Quản lý đại lý
+            $user = $user->nguoi_tao()->first();      // Chủ đại lý
+        $users = $user->tao_ra()->pluck('username')->push($user->username);
+        return $query->whereIn('username', $users);
     }
 
     public function hang_hoas()

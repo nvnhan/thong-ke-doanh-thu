@@ -7,6 +7,7 @@ use App\Helpers\ThemFile;
 use App\Helpers\ThemMail;
 use App\Helpers\ThemText;
 use App\SanBay;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -20,11 +21,13 @@ class DatVeController extends BaseController
      */
     public function index(Request $request)
     {
+        $user = $request->user();
+
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
+            $objs = DatVe::ofUser($user)->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else if (empty($request->dd))
-            $objs = DatVe::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
-        else $objs = DatVe::ofUser($request->user());        // Co Dinh Danh thi ko xet tu ngay den ngay
+            $objs = DatVe::ofUser($user)->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
+        else $objs = DatVe::ofUser($user);        // Co Dinh Danh thi ko xet tu ngay den ngay
 
         // Lọc theosân bay
         if ($request->sb) {

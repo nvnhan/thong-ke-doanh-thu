@@ -107,6 +107,12 @@ const columns = [
         title: "Thanh toán",
         dataIndex: "ngay_thanh_toan",
         width: 90
+    },
+    {
+        title: "Người nhập",
+        dataIndex: "username",
+        width: 90,
+        optFilter: true
     }
 ];
 

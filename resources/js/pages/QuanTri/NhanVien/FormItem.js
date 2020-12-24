@@ -2,13 +2,13 @@ import { Checkbox, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import React from "react";
 const { Option } = Select;
 
-const form = ({ phanQuyen = false, banHang = false, tourVisa = false }) => {
+const form = ({ quanTri = false, banHang = false, tourVisa = false }) => {
     const getRoleDetail = () => {
         return (
             <>
                 <Option value={0}>Nhân viên</Option>
                 <Option value={1}>Quản lý đại lý</Option>
-                {phanQuyen && (
+                {quanTri && (
                     <>
                         <Option value={2}>Chủ đại lý</Option>
                         <Option value={9}>Quản trị hệ thống</Option>

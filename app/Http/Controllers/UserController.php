@@ -22,7 +22,9 @@ class UserController extends BaseController
                     return $query->where('phan_quyen', '>=', 2)->orWhere('id_nguoi_tao', $user->id);
                 })->get();
             foreach ($objs as $obj) {
-                $obj->children = $obj->tao_ra()->get();
+                $childs = $obj->tao_ra()->get();
+                if (count($childs) > 0)
+                    $obj->children = $childs;
             }
         } else if ($user->quan_tri)
             $objs = User::where('id_nguoi_tao', $user->id)->get();

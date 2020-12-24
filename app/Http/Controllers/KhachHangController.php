@@ -20,7 +20,7 @@ class KhachHangController extends BaseController
 
     public function all(Request $request)
     {
-        $objs = KhachHang::ofUser($request->user())->get(['id', 'ma_khach_hang', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
+        $objs = KhachHang::allowUser($request->user())->get(['id', 'ma_khach_hang', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
         return $this->sendResponse($objs, "KhachHang retrieved successfully");
     }
 

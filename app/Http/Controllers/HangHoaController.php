@@ -23,7 +23,7 @@ class HangHoaController extends BaseController
 
     public function all(Request $request)
     {
-        $objs = HangHoa::ofUser($request->user())->get();
+        $objs = HangHoa::allowUser($request->user())->get();
         foreach ($objs as $value)
             $value->setHidden(['id_tai_khoan', 'ten_hang', 'don_vi', 'ghi_chu', 'username', 'created_at', 'updated_at']);
 

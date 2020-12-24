@@ -115,7 +115,7 @@ const ListForm = props => {
         // Tắt loading & modal
         setState({
             formSubmiting: false,
-            modalVisible: false
+            // modalVisible: false
         });
     };
 

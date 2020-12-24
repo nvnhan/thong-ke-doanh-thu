@@ -68,9 +68,6 @@ class DatVeController extends BaseController
         $objs = DatVe::ofUser($request->user())->whereNull('ngay_thanh_toan')
             ->orWhere('ngay_thanh_toan', '>', $den_ngay);
 
-        if (!$request->user()->admin)
-            $objs = $objs->where('username', $request->user()->username);
-
         return $this->sendResponse($objs->get(), "NoVe retrieved successfully");
     }
 
@@ -81,9 +78,6 @@ class DatVeController extends BaseController
             $den_ngay = $request->den_ngay;
         $objs = DatVe::ofUser($request->user())->where('ngay_gio_di', ">", $den_ngay)
             ->orWhere('ngay_gio_ve', '>', $den_ngay);
-
-        if (!$request->user()->admin)
-            $objs = $objs->where('username', $request->user()->username);
 
         return $this->sendResponse($objs->get(), "ChuaBay retrieved successfully");
     }
@@ -108,6 +102,7 @@ class DatVeController extends BaseController
             $obj = DatVe::create($data);
             $obj->username = $request->user()->username;
             $obj->save();
+            $obj->refresh();
             return $this->sendResponse($obj, "Thêm mới thành công");
         } catch (\Exception $e) {
             return $this->sendError("Error");

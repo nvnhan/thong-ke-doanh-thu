@@ -8,6 +8,13 @@ const DoanhSo = memo(props => {
 
     const onChange = e => setDoanhSo(e.target.value);
 
+    const maxDatVe = !_.isEmpty(data.datve)
+        ? Math.max(...data.datve.map(o => o.thu_khach))
+        : 0;
+    const maxNam = !_.isEmpty(data.ds_nam)
+        ? Math.max(...data.ds_nam.map(o => o.thu_khach))
+        : 0;
+
     const dSoNamConfig = {
         data:
             doanhSo === "thang"
@@ -42,14 +49,14 @@ const DoanhSo = memo(props => {
         yAxis: {
             thu_khach: {
                 label: {
-                    formatter: val =>
-                        doanhSo === "thang" ? val + "k" : val + "m"
+                    formatter: val => (val + (doanhSo === "thang" ? "k" : "m"))
                 }
             },
             lai: {
+                max: doanhSo === "thang" ? maxDatVe : maxNam,
                 label: {
-                    formatter: val =>
-                        doanhSo === "thang" ? val + "k" : val + "m"
+                    autoHide: true,
+                    formatter: val => ""
                 }
             }
         }

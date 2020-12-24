@@ -135,6 +135,9 @@ const items = [
                 title: "Hoàn đổi"
             },
             {
+                key: "divider"
+            },
+            {
                 key: SideMenus.BH_TON_KHO,
                 href: "/ton-kho",
                 icon: <DatabaseOutlined />,
@@ -145,6 +148,12 @@ const items = [
                 href: "/tong-hop-hang",
                 icon: <CalculatorOutlined />,
                 title: "Tổng hợp hàng"
+            },
+            {
+                key: SideMenus.TT_HANG_HOA,
+                href: "/hang-hoa",
+                icon: <CaretRightOutlined />,
+                title: "Hàng hóa"
             }
         ]
     },
@@ -214,12 +223,6 @@ const items = [
                 href: "/khach-hang",
                 icon: <CaretRightOutlined />,
                 title: "Khách hàng"
-            },
-            {
-                key: SideMenus.TT_HANG_HOA,
-                href: "/hang-hoa",
-                icon: <CaretRightOutlined />,
-                title: "Hàng hóa"
             }
         ]
     },

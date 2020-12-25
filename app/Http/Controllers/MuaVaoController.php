@@ -34,6 +34,7 @@ class MuaVaoController extends BaseController
         $obj = MuaVao::create($data);
         $obj->username = $request->user()->username;
         $obj->save();
+        $obj->refresh();
         return $this->sendResponse($obj, "Thêm mới thành công");
     }
 

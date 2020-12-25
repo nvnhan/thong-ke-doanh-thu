@@ -15,6 +15,13 @@ const DoanhSo = memo(props => {
         ? Math.max(...data.ds_nam.map(o => o.thu_khach))
         : 0;
 
+    const minDatVe = !_.isEmpty(data.datve)
+        ? Math.min(...data.datve.map(o => o.thu_khach))
+        : 0;
+    const minNam = !_.isEmpty(data.ds_nam)
+        ? Math.min(...data.ds_nam.map(o => o.thu_khach))
+        : 0;
+
     const dSoNamConfig = {
         data:
             doanhSo === "thang"
@@ -48,8 +55,9 @@ const DoanhSo = memo(props => {
         },
         yAxis: {
             thu_khach: {
+                min: doanhSo === "thang" ? minDatVe : minNam,
                 label: {
-                    formatter: val => (val + (doanhSo === "thang" ? "k" : "m"))
+                    formatter: val => val + (doanhSo === "thang" ? "k" : "m")
                 }
             },
             lai: {

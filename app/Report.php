@@ -426,19 +426,27 @@ class Report
             $tmp->id = $ncc->id;
             $tmp->tai_khoan = $ncc->ky_hieu . ' - ' . $ncc->mo_ta;
 
-            $tmp->dau_ky = self::TongThuTK($ncc, '', $ngayTruoc) - self::TongChiTK($ncc, '', $ngayTruoc);
-            $tmp->thanh_toan = self::TongThuTK(
-                $ncc,
-                '',
-                $den_ngay,
-                $tu_ngay
-            );
-            $tmp->giao_dich = self::TongChiTK($ncc, '', $den_ngay, $tu_ngay);
+            $tmp->dau_ky = self::TongThuTK($ncc, $ngayTruoc) - self::TongChiTK($ncc, $ngayTruoc);
+            $tmp->thanh_toan = self::TongThuTK($ncc, $den_ngay, $tu_ngay);
+            $tmp->giao_dich = self::TongChiTK($ncc, $den_ngay, $tu_ngay);
             $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
 
             $muavao[] = $tmp;
-            //TODO: Tính NƠI KHÁC..............
         }
+        // Tính NƠI KHÁC..............
+        $idNhaCungCap = $nhaCungCap->pluck('id')->toArray();
+        $gdKhacF1 = DatVe::ofUser($request->user())
+            ->where('ngay_thang', '>=', $tu_ngay)->where('ngay_thang', '<=', $den_ngay)
+            ->where(fn ($query) => $query->whereNull('id_tai_khoan_mua')->orWhereNotIn('id_tai_khoan_mua', $idNhaCungCap))
+            ->sum('tong_tien');
+        $muavao[] = (object)[
+            'id' => -1,
+            'tai_khoan' => "Nơi khác",
+            'dau_ky' => 0,
+            'thanh_toan' => 0,
+            'cuoi_ky' => 0,
+            'giao_dich' => round($gdKhacF1)
+        ];
     }
 
     /**

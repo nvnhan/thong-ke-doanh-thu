@@ -40,7 +40,7 @@ Còn tồn tại:
 ////////////- 09/11/2020: Báo cáo tổng hộp còn: DS đặt vé, thu chi
 - Công nợ chi tiết: Tính ngày thanh toán, đối tượng khác
 ////////////- Tổng quan: tổng hợp công nợ
-- Tổng hợp công nợ: Tính nơi khác
+////////////- Tổng hợp công nợ: Tính nơi khác
 - Tổng hợp tài khoản: Thiếu Dư - Nợ
 ////////////- Account: expire time, login 1 máy
 - Đặt vé: tính phí giảm VN, sân bay chặng dài
@@ -50,13 +50,19 @@ Còn tồn tại:
 ////////////- 09/11/2020: Mặt vé điện tử file excel ko mở đc trên đt, có nên chuyển sang HTML?
 ////////////- Tìm kiếm ĐV theo từ khóa
 ////////////- Thêm khoảng thời gian ở Tổng quan, lọc dữ liệu trong Tổng quan
-- Tách riêng phần load các danh mục để lưu vào redux
+- Tách riêng phần load các danh mục để lưu vào redux + Ko load danh mục trong index nữa, khi nào insert or update mới load
+- React router: Authorization
+- Lưu id users trong đại lý vào cookie or session or db để tránh duyệt lại mỗi lần request
 
 
 
 
 ====
 Yêu cầu phát sinh mới: (+ là yc phát sinh mới, - là lỗi, cập nhật)
+
+Ngày 27/12/2020:
+//////////////+ Xóa user -> xóa toàn bộ dữ liệu
+
 Ngày 21/12/2020:
 //////////////- Xóa ThuChi => Tính lại Ngày thanh toán
 //////////////- Mua vào: Chọn hàng thêm Phân loại

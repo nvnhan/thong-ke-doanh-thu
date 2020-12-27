@@ -39,7 +39,6 @@ class ThuChiChiTiet extends Model
         self::updating(function ($model) {
         });
         self::deleting(function ($model) {
-            \Log::debug('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
             if ($model->dat_ve != null) $model->dat_ve()->update(['ngay_thanh_toan' => null]);
             if ($model->ban_ra != null) $model->ban_ra()->update(['ngay_thanh_toan' => null]);
             if ($model->mua_vao != null) $model->mua_vao()->update(['ngay_thanh_toan' => null]);

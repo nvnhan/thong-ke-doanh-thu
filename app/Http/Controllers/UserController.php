@@ -2,7 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\BanRa;
+use App\DatVe;
+use App\HangHoa;
+use App\KhachHang;
+use App\MuaVao;
+use App\TaiKhoan;
+use App\ThuChi;
+use App\Tour;
 use App\User;
+use App\Visa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -93,7 +102,29 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
+        $user = User::find($id);
+        $objs = ThuChi::where('username', $user->username)->get();
+        foreach ($objs as $obj) {
+            foreach ($obj->thu_chi_chi_tiets()->get() as $tiet)
+                $tiet->delete();
+            $obj->delete();
+        }
+        BanRa::where('username', $user->username)->delete();
+        MuaVao::where('username', $user->username)->delete();
+        DatVe::where('username', $user->username)->delete();
+        $objs = Tour::where('username', $user->username)->get();
+        foreach ($objs as $obj) {
+            foreach ($obj->tour_chi_tiets()->get() as $tiet)
+                $tiet->delete();
+            $obj->delete();
+        }
+        Visa::where('username', $user->username)->delete();
+
+        HangHoa::where('username', $user->username)->delete();
+        KhachHang::where('username', $user->username)->delete();
+        TaiKhoan::where('username', $user->username)->delete();
+
+        $user->delete();
         return $this->sendResponse('', "Xóa thành công nhân viên");
     }
 }

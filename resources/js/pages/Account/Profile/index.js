@@ -1,7 +1,7 @@
 import { Button, Checkbox, Col, Form, Input, message, Modal, Row } from "antd";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
-const Profile = React.memo(props => {
+const Profile = memo(props => {
     const [form] = Form.useForm();
     const [formLogin] = Form.useForm();
     const [user, setUser] = useState(() => {

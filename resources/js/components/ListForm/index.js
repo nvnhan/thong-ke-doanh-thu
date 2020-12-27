@@ -31,7 +31,6 @@ const ListForm = props => {
         isLoading: true,
         modalVisible: false,
         modalDeleteVisible: false,
-        formSubmiting: false,
         selectedRowKeys: [],
         currentRecord: undefined
     });
@@ -40,7 +39,6 @@ const ListForm = props => {
         isLoading,
         modalVisible,
         modalDeleteVisible,
-        formSubmiting,
         selectedRowKeys,
         currentRecord
     } = state;
@@ -103,20 +101,12 @@ const ListForm = props => {
     /**
      * Show modal Thêm mới, Sửa
      */
-    const handleOk = values => {
-        setState({ formSubmiting: true });
-        // Thêm mới
+    const handleOk = (values, callback = null) => {
         if (currentRecord === undefined) {
-            onAdd(values);
-        } else if (isChangeData(currentRecord, values)) {
-            // Chỉnh sửa
-            onUpdate(values);
+            onAdd(values, callback); // Thêm mới
+        } else if (isChangeData(values, currentRecord)) {
+            onUpdate(values, callback); // Chỉnh sửa
         }
-        // Tắt loading & modal
-        setState({
-            formSubmiting: false,
-            // modalVisible: false
-        });
     };
 
     const handleCancel = () =>
@@ -157,7 +147,7 @@ const ListForm = props => {
     //#region  Thực thi các sự kiện
     const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
-    const doInsertRow = response => {
+    const doInsertRow = (response, callback = null) => {
         if (response.data.success) {
             let newData = [];
             // Thêm object vào list lấy từ state
@@ -169,20 +159,21 @@ const ListForm = props => {
                 data: newData
             });
             message.info(response.data.message);
-            if (onChangeData) onChangeData(newData);
+            callback && callback(); // Callback from ModalConfirm to change loading button state
+            onChangeData && onChangeData(newData); // Callback from main form to recalc data
         } else message.error(response.data.message);
     };
 
-    const onAdd = value => {
+    const onAdd = (value, callback) => {
         if (otherParams !== undefined)
             value = Object.assign(value, otherParams);
         axios
             .post(`/api/${url}`, value)
-            .then(response => doInsertRow(response))
+            .then(response => doInsertRow(response, callback))
             .catch(error => console.log(error));
     };
 
-    const onUpdate = value => {
+    const onUpdate = (value, callback) => {
         axios
             .put(`/api/${url}/${currentRecord[primaryKey]}`, value)
             .then(response => {
@@ -199,8 +190,9 @@ const ListForm = props => {
                     setState({
                         data: newData
                     });
-                    if (onChangeData) onChangeData(newData);
                     message.info(response.data.message);
+                    callback && callback(); // Callback from ModalConfirm to change loading button state
+                    onChangeData && onChangeData(newData); // Callback from main form to recalc data
                 }
             })
             .catch(error => console.log(error));
@@ -289,7 +281,6 @@ const ListForm = props => {
                     {...props}
                     form={form}
                     modalVisible={modalVisible}
-                    formSubmiting={formSubmiting}
                     currentRecord={currentRecord}
                     handleOk={handleOk}
                     handleCancel={handleCancel}

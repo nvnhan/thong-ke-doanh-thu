@@ -53,6 +53,7 @@ Còn tồn tại:
 - Tách riêng phần load các danh mục để lưu vào redux + Ko load danh mục trong index nữa, khi nào insert or update mới load
 - React router: Authorization
 - Lưu id users trong đại lý vào cookie or session or db để tránh duyệt lại mỗi lần request
+- Cài đặt số kết quả hiển thị trong user
 
 
 

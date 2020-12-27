@@ -1,10 +1,9 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message } from "antd";
-import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Link } from "react-router-dom";
 
-function LoginForm(props) {
+const LoginForm = memo(props => {
     const [form] = Form.useForm();
     const [formSubmiting, setSubmiting] = useState(false);
 
@@ -39,13 +38,10 @@ function LoginForm(props) {
                     props.onSetAuth(data);
                 } else message.warn(response.data.message);
             })
-            .catch(error => console.log(error));
-        setSubmiting(false);
+            .catch(error => console.log(error) & setSubmiting(false));
     };
 
-    const contactAdmin = () => {
-        message.info("Liên hệ quản trị viên hệ thống");
-    };
+    const contactAdmin = () => message.info("Liên hệ quản trị viên hệ thống");
 
     return (
         <Form
@@ -114,11 +110,6 @@ function LoginForm(props) {
             </Form.Item>
         </Form>
     );
-}
-
-LoginForm.propTypes = {
-    onSetAuth: PropTypes.func.isRequired,
-    onRegister: PropTypes.func.isRequired
-};
+});
 
 export default LoginForm;

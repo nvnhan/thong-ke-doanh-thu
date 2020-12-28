@@ -1,4 +1,4 @@
-import { UploadOutlined } from "@ant-design/icons";
+import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import {
     AutoComplete,
     Button,

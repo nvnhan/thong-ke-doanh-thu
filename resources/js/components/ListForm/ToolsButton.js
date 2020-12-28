@@ -1,5 +1,5 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Menu, Divider } from "antd";
+import DownOutlined from "@ant-design/icons/DownOutlined";
+import { Button, Divider, Dropdown, Menu } from "antd";
 import React from "react";
 import "./ToolsButton.scss";
 

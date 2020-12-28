@@ -1,9 +1,7 @@
-import {
-    DeleteOutlined,
-    EditOutlined,
-    MenuOutlined,
-    SearchOutlined
-} from "@ant-design/icons";
+import DeleteOutlined from "@ant-design/icons/DeleteFilled";
+import EditOutlined from "@ant-design/icons/EditOutlined";
+import MenuOutlined from "@ant-design/icons/MenuOutlined";
+import SearchOutlined from "@ant-design/icons/SearchOutlined";
 import { Button, Dropdown, Input, Menu, Table } from "antd";
 import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";

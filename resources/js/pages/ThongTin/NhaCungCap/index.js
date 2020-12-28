@@ -1,4 +1,4 @@
-import { AppstoreAddOutlined } from "@ant-design/icons";
+import AppstoreAddOutlined from "@ant-design/icons/AppstoreAddOutlined";
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";

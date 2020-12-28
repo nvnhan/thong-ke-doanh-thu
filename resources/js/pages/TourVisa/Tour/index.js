@@ -1,10 +1,10 @@
-import { AppstoreAddOutlined } from "@ant-design/icons";
+import AppstoreAddOutlined from "@ant-design/icons/AppstoreAddOutlined";
+import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import exportToExcel from "../../../utils/exportToExcel";
-import isEmpty from "lodash/isEmpty";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {

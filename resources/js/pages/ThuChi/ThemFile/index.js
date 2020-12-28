@@ -1,4 +1,4 @@
-import { UploadOutlined } from "@ant-design/icons";
+import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import { Button, Col, Form, message, Modal, Progress, Row, Upload } from "antd";
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";

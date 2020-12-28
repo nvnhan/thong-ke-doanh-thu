@@ -1,4 +1,5 @@
-import { MenuOutlined, UserOutlined } from "@ant-design/icons";
+import MenuOutlined from "@ant-design/icons/MenuOutlined";
+import UserOutlined from "@ant-design/icons/UserOutlined";
 import { Avatar, Button, Drawer, Menu, PageHeader } from "antd";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";

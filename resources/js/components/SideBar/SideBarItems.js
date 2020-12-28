@@ -1,26 +1,23 @@
+import AppstoreOutlined from "@ant-design/icons/AppstoreOutlined";
+import BarsOutlined from "@ant-design/icons/BarsOutlined";
+import BookOutlined from "@ant-design/icons/BookOutlined";
+import CalculatorOutlined from "@ant-design/icons/CalculatorOutlined";
+import CaretRightOutlined from "@ant-design/icons/CaretRightOutlined";
+import CarOutlined from "@ant-design/icons/CarOutlined";
+import DashboardOutlined from "@ant-design/icons/DashboardOutlined";
+import DatabaseOutlined from "@ant-design/icons/DatabaseOutlined";
+import ExportOutlined from "@ant-design/icons/ExportOutlined";
+import FundOutlined from "@ant-design/icons/FundOutlined";
+import GlobalOutlined from "@ant-design/icons/GlobalOutlined";
+import ImportOutlined from "@ant-design/icons/ImportOutlined";
+import PieChartOutlined from "@ant-design/icons/PieChartOutlined";
+import RollbackOutlined from "@ant-design/icons/RollbackOutlined";
+import SettingOutlined from "@ant-design/icons/SettingOutlined";
+import ShoppingCartOutlined from "@ant-design/icons/ShoppingCartOutlined";
+import TeamOutlined from "@ant-design/icons/TeamOutlined";
+import ToolOutlined from "@ant-design/icons/ToolOutlined";
+import WalletOutlined from "@ant-design/icons/WalletOutlined";
 import React from "react";
-import {
-    ToolOutlined,
-    BarsOutlined,
-    WalletOutlined,
-    BookOutlined,
-    PieChartOutlined,
-    DashboardOutlined,
-    CaretRightOutlined,
-    SettingOutlined,
-    AppstoreOutlined,
-    CarOutlined,
-    GlobalOutlined,
-    ShoppingCartOutlined,
-    ExportOutlined,
-    ImportOutlined,
-    RollbackOutlined,
-    DatabaseOutlined,
-    CalculatorOutlined,
-    TeamOutlined,
-    FundOutlined
-} from "@ant-design/icons";
-
 import * as SideMenus from "../../constants/SideMenus";
 
 const items = [

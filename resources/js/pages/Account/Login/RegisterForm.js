@@ -1,4 +1,5 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import LockOutlined from "@ant-design/icons/LockOutlined";
+import UserOutlined from "@ant-design/icons/UserOutlined";
 import { Button, Form, Input, message } from "antd";
 import PropTypes from "prop-types";
 import React, { useState } from "react";

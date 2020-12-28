@@ -1,5 +1,6 @@
-import { UserAddOutlined } from "@ant-design/icons";
+import UserAddOutlined from "@ant-design/icons/UserAddOutlined";
 import { Button, Form, message, Modal } from "antd";
+import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useRef, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
@@ -10,7 +11,6 @@ import FormItem from "./FormItem";
 import otherButtons from "./otherButtons";
 import otherFilters from "./otherFilters";
 import tinhPhi from "./tinhPhi";
-import isEmpty from "lodash/isEmpty";
 import UpdateLayout from "./UpdateLayout";
 
 const List = props => {

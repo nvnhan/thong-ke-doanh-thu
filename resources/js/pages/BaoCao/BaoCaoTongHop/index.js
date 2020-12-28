@@ -1,4 +1,4 @@
-import { FileExcelOutlined } from "@ant-design/icons";
+import FileExcelOutlined from "@ant-design/icons/FileExcelOutlined";
 import { Button, Form } from "antd";
 import React from "react";
 import MyRangePicker from "../../../components/ListForm/MyRangePicker";

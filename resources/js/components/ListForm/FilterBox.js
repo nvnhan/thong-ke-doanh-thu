@@ -1,10 +1,12 @@
-import { FilterOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import FilterOutlined from "@ant-design/icons/FilterOutlined";
+import MinusOutlined from "@ant-design/icons/MinusOutlined";
+import PlusOutlined from "@ant-design/icons/PlusOutlined";
 import { Button, Col, Form, Row } from "antd";
+import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import { parseValues } from "../../utils";
 import "./FilterBox.scss";
 import MyRangePicker from "./MyRangePicker";
-import isEmpty from "lodash/isEmpty";
 
 const FilterBox = React.memo(props => {
     const { onFilter, tuNgayDenNgay, otherFilter, filterInitialValue } = props;

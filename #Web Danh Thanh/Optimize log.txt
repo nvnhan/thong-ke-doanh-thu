@@ -1,0 +1,20 @@
+###############################################
+Kích thước các phần tử trước và sau optimize
+#### (Kích thước ở local and production) #####
+
+Lodash      770kb       135,65kb
+=>          240,2kb     42kb
+
+Moment      544kb       95,3kb
+=>          150,77kb    33,31kb
+
+@ant-design 2.83mb      240,32kb
+=>          555.34kb    54,12kb (bao gồm cả chart và linh tinh)
+
+antd        1,4mb       187,7kb
+@antv       4,31mb      787kb
+
+    app.js  15,56mb     2,51mb
+Sau lodash  15mb        2,18mb      tổng 2,44mb
+Sau moment  14,59mb     2,12mb      2,38mb
+Sau icon    11,8mb      1,91mb        2,18mb

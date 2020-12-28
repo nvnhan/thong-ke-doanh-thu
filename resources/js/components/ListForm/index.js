@@ -1,5 +1,6 @@
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import ExclamationCircleOutlined from "@ant-design/icons/ExclamationCircleOutlined";
 import { Form, message, Modal } from "antd";
+import isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import React, { useEffect, useImperativeHandle, useState } from "react";
 import { isChangeData, queryString, useMergeState } from "../../utils";
@@ -8,7 +9,6 @@ import FilterBox from "./FilterBox";
 import ModalConfirm from "./ModalConfirm";
 import ToolsButton from "./ToolsButton";
 const { confirm } = Modal;
-import isEmpty from "lodash/isEmpty";
 
 /**
  * Form base for other components

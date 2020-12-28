@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
+import isEmpty from "lodash/isEmpty";
 import exportToExcel from "../../../utils/exportToExcel";
 import FormItem from "./FormItem";
 
@@ -110,7 +111,7 @@ const List = React.memo(props => {
     ];
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     so_tien: previousValue.so_tien + currentValue.so_tien,

@@ -2,6 +2,7 @@ import { Checkbox, Col, Form, InputNumber, Select } from "antd";
 import React, { useEffect } from "react";
 import { inputFormat, inputParse, useMergeState } from "../../../utils";
 const { OptGroup, Option } = Select;
+import groupBy from "lodash/groupBy";
 
 const ThongTin = props => {
     const [state, setState] = useMergeState({
@@ -48,7 +49,7 @@ const ThongTin = props => {
     };
 
     const getKhachHangDetail = () =>
-        Object.entries(_.groupBy(khachHang, "phan_loai")).map(clist => (
+        Object.entries(groupBy(khachHang, "phan_loai")).map(clist => (
             <OptGroup label={clist[0]} key={clist[0]}>
                 {clist[1].map(ncc => (
                     <Option value={ncc.id} key={ncc.id}>
@@ -59,7 +60,7 @@ const ThongTin = props => {
         ));
 
     const getTaiKhoanDetail = () =>
-        Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(clist => (
+        Object.entries(groupBy(taiKhoan, "phan_loai")).map(clist => (
             <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
                 {clist[1].map(ncc => (
                     <Option value={ncc.id} key={ncc.id}>

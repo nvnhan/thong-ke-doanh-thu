@@ -4,6 +4,7 @@ import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
 import exportToExcel from "../../../utils/exportToExcel";
+import isEmpty from "lodash/isEmpty";
 
 const List = React.memo(props => {
     const [hangHoa, setHangHoa] = useState([]);
@@ -93,7 +94,7 @@ const List = React.memo(props => {
     ];
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     thanh_tien:

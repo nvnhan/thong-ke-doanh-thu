@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import isEmpty from "lodash/isEmpty";
 import ListForm from "../../../components/ListForm";
 import exportToExcel from "../../../utils/exportToExcel";
 
@@ -13,7 +14,7 @@ const List = React.memo(props => {
      * Callback from ListForm to reload Thu Chi from server
      */
     const onChangeData = data => {
-        if (_.isEmpty(data)) return;
+        if (isEmpty(data)) return;
         const entry = data[0];
         let cols = [];
         let size = 0;

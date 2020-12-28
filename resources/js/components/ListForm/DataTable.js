@@ -5,6 +5,7 @@ import {
     SearchOutlined
 } from "@ant-design/icons";
 import { Button, Dropdown, Input, Menu, Table } from "antd";
+import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import Highlighter from "react-highlight-words";
 
@@ -36,7 +37,7 @@ const DataTable = React.memo(props => {
     // + set filter
     // Ko áp dụng khi thêm mới hoặc chỉnh sửa data => Phần Lọc dữ liệu cột KHÔNG ĐƯỢC TÍNH LẠI
     useEffect(() => {
-        // if (!_.isEmpty(data))
+        // if (!isEmpty(data))
         setMyColumns(calColumns());
     }, [isLoading]);
 
@@ -45,7 +46,7 @@ const DataTable = React.memo(props => {
      */
     const calColumns = () => {
         let cols = columns.map(column => getColumn(column, data));
-        if (editable || deleteable || !_.isEmpty(otherActions))
+        if (editable || deleteable || !isEmpty(otherActions))
             cols.push(addActionColumn());
         return cols;
     };
@@ -101,7 +102,7 @@ const DataTable = React.memo(props => {
 
     const layAction = record => (
         <Menu>
-            {!_.isEmpty(otherActions) &&
+            {!isEmpty(otherActions) &&
                 otherActions.map(act => (
                     <Menu.Item
                         key={act.key}

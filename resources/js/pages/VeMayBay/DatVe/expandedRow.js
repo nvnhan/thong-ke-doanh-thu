@@ -1,4 +1,5 @@
 import { vndFormater } from "../../../utils";
+import isEmpty from "lodash/isEmpty";
 import React from "react";
 
 const expandedRow = record => (
@@ -41,7 +42,7 @@ const expandedRow = record => (
         ) : (
             <li>✔ Đã xuất vé</li>
         )}
-        {!_.isEmpty(record.ngay_nhac_lich) && (
+        {!isEmpty(record.ngay_nhac_lich) && (
             <li>Nhắc lịch bay: {record.ngay_nhac_lich}</li>
         )}
         <li>Ghi chú: {record.ghi_chu}</li>

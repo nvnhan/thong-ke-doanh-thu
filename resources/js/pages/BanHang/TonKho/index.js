@@ -4,6 +4,7 @@ import React from "react";
 import ListForm from "../../../components/ListForm";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { vndFormater } from "../../../utils";
+import isEmpty from "lodash/isEmpty";
 import exportToExcel from "../../../utils/exportToExcel";
 
 const List = React.memo(props => {
@@ -54,7 +55,7 @@ const List = React.memo(props => {
     ];
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     thanh_tien_ton_kho:

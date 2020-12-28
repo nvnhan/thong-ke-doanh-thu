@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import exportToExcel from "../../../utils/exportToExcel";
+import isEmpty from "lodash/isEmpty";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
@@ -36,7 +37,7 @@ const List = React.memo(props => {
     };
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     gia_tour: previousValue.gia_tour + currentValue.gia_tour,

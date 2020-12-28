@@ -9,6 +9,7 @@ import DataTable from "../../../components/ListForm/DataTable";
 import FilterBox from "../../../components/ListForm/FilterBox";
 import ToolsButton from "../../../components/ListForm/ToolsButton";
 import { Tabs } from "antd";
+import isEmpty from "lodash/isEmpty";
 import { ExportMultiSheet } from "../../../utils/exportToExcel";
 
 const List = props => {
@@ -26,7 +27,7 @@ const List = props => {
     useEffect(() => {
         isComponentMounted = true;
         // Không Có filter hoặc có filter và đã load xong
-        if (ownFilter === undefined || !_.isEmpty(ownFilter)) {
+        if (ownFilter === undefined || !isEmpty(ownFilter)) {
             // Set lại data và loading cho các Component con
             setState({ data: [], isLoading: true });
 
@@ -57,7 +58,7 @@ const List = props => {
     };
 
     const renderSummaryBanRa = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     dau_ky: previousValue.dau_ky + currentValue.dau_ky,
@@ -82,7 +83,7 @@ const List = props => {
     };
 
     const renderSummaryMuaVao = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     dau_ky: previousValue.dau_ky + currentValue.dau_ky,

@@ -1,4 +1,4 @@
-import XLSX from "xlsx";
+import XLSX from "xlsx/xlsx.mini";
 import download from "./downloadFile";
 
 function Workbook() {

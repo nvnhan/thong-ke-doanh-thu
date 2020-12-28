@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { useMergeState, vndFormater } from "../../../utils";
+import isEmpty from "lodash/isEmpty";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
@@ -40,7 +41,7 @@ const List = React.memo(props => {
                     const tc = response[0].data.data;
                     // Tổng cộng số tiền đã chi
                     let tien = 0;
-                    if (!_.isEmpty(data)) {
+                    if (!isEmpty(data)) {
                         const sumObj = data.reduce(
                             (previousValue, currentValue) => {
                                 return {
@@ -111,7 +112,7 @@ const List = React.memo(props => {
     ];
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     so_tien: previousValue.so_tien + currentValue.so_tien

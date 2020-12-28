@@ -2,6 +2,7 @@ import { AutoComplete, Col, Form, InputNumber, Row, Select } from "antd";
 import React from "react";
 import { inputFormat, inputParse } from "../../../utils";
 const { Option, OptGroup } = Select;
+import groupBy from "lodash/groupBy";
 
 const form = React.memo(props => {
     const { taiKhoan, khachHang, hangBay } = props.danhMuc;
@@ -9,7 +10,7 @@ const form = React.memo(props => {
     const hbOptions = hangBay.map(pl => ({ value: pl }));
 
     const getKhachHangDetail = () =>
-        Object.entries(_.groupBy(khachHang, "phan_loai")).map(clist => (
+        Object.entries(groupBy(khachHang, "phan_loai")).map(clist => (
             <OptGroup label={clist[0]} key={clist[0]}>
                 {clist[1].map(ncc => (
                     <Option value={ncc.id} key={ncc.id}>
@@ -20,7 +21,7 @@ const form = React.memo(props => {
         ));
 
     const getTaiKhoanDetail = () =>
-        Object.entries(_.groupBy(taiKhoan, "phan_loai")).map(clist => (
+        Object.entries(groupBy(taiKhoan, "phan_loai")).map(clist => (
             <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
                 {clist[1].map(ncc => (
                     <Option value={ncc.id} key={ncc.id}>

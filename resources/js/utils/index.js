@@ -1,4 +1,5 @@
 import moment from "moment";
+import isEmpty from "lodash/isEmpty";
 import { useState } from "react";
 
 /**
@@ -88,7 +89,7 @@ export const inputParse = value => value.replace(/\₫\s?|(,*)/g, "");
  */
 export const parseTimePeriod = values => {
     if (values.hasOwnProperty("thoiGian")) {
-        if (!_.isEmpty(values.thoiGian))
+        if (!isEmpty(values.thoiGian))
             Object.assign(values, {
                 bat_dau: values.thoiGian[0],
                 ket_thuc: values.thoiGian[1]

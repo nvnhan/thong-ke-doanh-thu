@@ -1,3 +1,5 @@
+import isEmpty from "lodash/isEmpty";
+
 /**
  * Tính phí cho đặt vé
  *
@@ -49,7 +51,7 @@ const tinhPhi = props => {
                 case "BB":
                     phu_phi = tk.phi_bb || 0;
             }
-            if (!_.isEmpty(sb_ve)) phu_phi *= 2;
+            if (!isEmpty(sb_ve)) phu_phi *= 2;
             Object.assign(record, { phu_phi });
         }
     }
@@ -110,7 +112,7 @@ const tinhPhiSB = (state, san_bay, hang_bay, loai_tuoi) => {
         thue = thue.filter(
             item => item.loai_phi.toLowerCase().indexOf(hang_bay) > 0
         );
-        if (!_.isEmpty(thue)) return thue[0].muc_phi;
+        if (!isEmpty(thue)) return thue[0].muc_phi;
     }
     return 0;
 };
@@ -131,6 +133,6 @@ const tinhPhuPhiSB = (state, san_bay, san_bay1, hang_bay) => {
         item => item.loai_phi.toLowerCase().indexOf(hang_bay) > 0
     );
     //TODO: Với VN còn loại SB dài, ngắn
-    if (!_.isEmpty(thue)) return thue[0].muc_phi;
+    if (!isEmpty(thue)) return thue[0].muc_phi;
     return 0;
 };

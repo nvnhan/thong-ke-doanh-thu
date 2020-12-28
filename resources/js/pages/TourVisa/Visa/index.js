@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import exportToExcel from "../../../utils/exportToExcel";
+import isEmpty from "lodash/isEmpty";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
@@ -37,7 +38,7 @@ const List = React.memo(props => {
     };
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     lai: previousValue.lai + currentValue.lai

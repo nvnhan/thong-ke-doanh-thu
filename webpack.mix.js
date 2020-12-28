@@ -1,4 +1,6 @@
 const mix = require("laravel-mix");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+    .BundleAnalyzerPlugin;
 
 /*
  |--------------------------------------------------------------------------
@@ -14,7 +16,8 @@ const mix = require("laravel-mix");
 mix.webpackConfig({
     output: {
         chunkFilename: "js/[name].js"
-    }
+    },
+    plugins: [new BundleAnalyzerPlugin()]
 })
     .react("resources/js/app.js", "public/js")
     .sass("resources/sass/app.scss", "public/css");

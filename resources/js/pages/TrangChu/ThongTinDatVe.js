@@ -1,13 +1,14 @@
 import { DualAxes } from "@ant-design/charts";
+import isEmpty from "lodash/isEmpty";
 import React, { memo } from "react";
 
 const ThongTinDatVe = memo(props => {
     const { data } = props;
 
-    const maxDatVe = !_.isEmpty(data.datve)
+    const maxDatVe = !isEmpty(data.datve)
         ? Math.max(...data.datve.map(o => o.dat_ve))
         : 0;
-    const maxThanhToan = !_.isEmpty(data.datve)
+    const maxThanhToan = !isEmpty(data.datve)
         ? Math.max(...data.datve.map(o => o.thanh_toan))
         : 0;
     const maxData = Math.max(maxDatVe, maxThanhToan);

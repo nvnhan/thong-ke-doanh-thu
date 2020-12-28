@@ -11,6 +11,7 @@ import FormItem from "./FormItem";
 import otherButtons from "./otherButtons";
 import otherFilters from "./otherFilters";
 import tinhPhi from "./tinhPhi";
+import isEmpty from "lodash/isEmpty";
 import UpdateLayout from "./UpdateLayout";
 
 const List = props => {
@@ -144,7 +145,7 @@ const List = props => {
     ];
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     tong_tien: previousValue.tong_tien + currentValue.tong_tien,
@@ -191,7 +192,7 @@ const List = props => {
      * Thực hiện Cập nhật
      */
     const handleOk = () => {
-        if (_.isEmpty(selectedKeys)) return;
+        if (isEmpty(selectedKeys)) return;
         updateForm
             .validateFields()
             .then(values => {

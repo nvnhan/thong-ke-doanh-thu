@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { parseValues } from "../../utils";
 import "./FilterBox.scss";
 import MyRangePicker from "./MyRangePicker";
+import isEmpty from "lodash/isEmpty";
 
 const FilterBox = React.memo(props => {
     const { onFilter, tuNgayDenNgay, otherFilter, filterInitialValue } = props;
@@ -44,7 +45,7 @@ const FilterBox = React.memo(props => {
                             </Form.Item>
                         </Col>
                     )}
-                    {!_.isEmpty(otherFilter) &&
+                    {!isEmpty(otherFilter) &&
                         expandFilter &&
                         otherFilter.map(filter => (
                             <Col
@@ -63,7 +64,7 @@ const FilterBox = React.memo(props => {
                             </Col>
                         ))}
                     <Col span={12} md={8} lg={6} xl={5}>
-                        {!_.isEmpty(otherFilter) && (
+                        {!isEmpty(otherFilter) && (
                             <Button
                                 onClick={() => setExpandFilter(!expandFilter)}
                                 type="dashed"

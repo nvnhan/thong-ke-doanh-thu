@@ -1,5 +1,6 @@
 import { DualAxes } from "@ant-design/charts";
 import { Radio } from "antd";
+import isEmpty from "lodash/isEmpty";
 import React, { memo, useState } from "react";
 
 const DoanhSo = memo(props => {
@@ -8,17 +9,17 @@ const DoanhSo = memo(props => {
 
     const onChange = e => setDoanhSo(e.target.value);
 
-    const maxDatVe = !_.isEmpty(data.datve)
+    const maxDatVe = !isEmpty(data.datve)
         ? Math.max(...data.datve.map(o => o.thu_khach))
         : 0;
-    const maxNam = !_.isEmpty(data.ds_nam)
+    const maxNam = !isEmpty(data.ds_nam)
         ? Math.max(...data.ds_nam.map(o => o.thu_khach))
         : 0;
 
-    const minDatVe = !_.isEmpty(data.datve)
+    const minDatVe = !isEmpty(data.datve)
         ? Math.min(...data.datve.map(o => o.thu_khach))
         : 0;
-    const minNam = !_.isEmpty(data.ds_nam)
+    const minNam = !isEmpty(data.ds_nam)
         ? Math.min(...data.ds_nam.map(o => o.thu_khach))
         : 0;
 

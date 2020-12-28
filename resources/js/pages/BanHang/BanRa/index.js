@@ -4,6 +4,7 @@ import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import exportDS from "../../../utils/exportBanRa";
 import FormItem from "./FormItem";
+import isEmpty from "lodash/isEmpty";
 
 const List = React.memo(props => {
     const [state, setState] = useState({
@@ -114,7 +115,7 @@ const List = React.memo(props => {
     ];
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     lai: previousValue.lai + currentValue.lai,

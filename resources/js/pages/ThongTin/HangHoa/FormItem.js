@@ -2,6 +2,7 @@ import { AutoComplete, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import React from "react";
 import { inputFormat, inputParse } from "../../../utils";
 const { Option, OptGroup } = Select;
+import groupBy from "lodash/groupBy";
 
 const form = React.memo(props => {
     const phanLoai = props.phanLoai || [];
@@ -14,7 +15,7 @@ const form = React.memo(props => {
      *      ['yyyyy', [{}, {}, {}, {}, {}]]
      * ]
      */
-    const groupNhaCungCap = Object.entries(_.groupBy(nhaCungCap, "phan_loai"));
+    const groupNhaCungCap = Object.entries(groupBy(nhaCungCap, "phan_loai"));
     const getNhaCungCapDetail = () =>
         groupNhaCungCap.map(clist => (
             <OptGroup label={clist[0]} key={clist[0]}>

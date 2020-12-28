@@ -8,6 +8,7 @@ import FilterBox from "./FilterBox";
 import ModalConfirm from "./ModalConfirm";
 import ToolsButton from "./ToolsButton";
 const { confirm } = Modal;
+import isEmpty from "lodash/isEmpty";
 
 /**
  * Form base for other components
@@ -53,7 +54,7 @@ const ListForm = props => {
     useEffect(() => {
         isComponentMounted = true;
         // Không Có filter hoặc có filter và đã load xong
-        if (finalFilter === undefined || !_.isEmpty(finalFilter)) {
+        if (finalFilter === undefined || !isEmpty(finalFilter)) {
             console.log("Load data from server in ListForm", finalFilter);
             // Set lại data và loading cho các Component con
             setState({ data: [], isLoading: true });

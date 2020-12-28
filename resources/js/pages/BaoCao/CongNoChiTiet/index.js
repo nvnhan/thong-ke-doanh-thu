@@ -6,6 +6,7 @@ import MyRangePicker from "../../../components/ListForm/MyRangePicker";
 import { parseValues } from "../../../utils";
 import { downloadApi } from "../../../utils/downloadFile";
 const { Option, OptGroup } = Select;
+import groupBy from "lodash/groupBy";
 
 const index = props => {
     const [form] = Form.useForm();
@@ -33,7 +34,7 @@ const index = props => {
     };
 
     const getKhachHangDetail = () =>
-        Object.entries(_.groupBy(khachHang, "phan_loai")).map(clist => (
+        Object.entries(groupBy(khachHang, "phan_loai")).map(clist => (
             <OptGroup label={clist[0]} key={clist[0]}>
                 {clist[1].map(ncc => (
                     <Option value={ncc.id} key={ncc.id}>

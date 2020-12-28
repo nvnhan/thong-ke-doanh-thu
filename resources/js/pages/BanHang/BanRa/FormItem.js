@@ -4,6 +4,7 @@ import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { inputFormat, inputParse, vndFormater } from "../../../utils";
 const { Option, OptGroup } = Select;
+import groupBy from "lodash/groupBy";
 
 const form = React.memo(props => {
     const khachHang = props.khachHang || [];
@@ -13,7 +14,7 @@ const form = React.memo(props => {
      *      ['yyyyy', [{}, {}, {}, {}, {}]]
      * ]
      */
-    const groupKhachHang = Object.entries(_.groupBy(khachHang, "phan_loai"));
+    const groupKhachHang = Object.entries(groupBy(khachHang, "phan_loai"));
     const getKhachHangDetail = () =>
         groupKhachHang.map(clist => (
             <OptGroup label={clist[0]} key={clist[0]}>
@@ -25,7 +26,7 @@ const form = React.memo(props => {
             </OptGroup>
         ));
     const hangHoa = props.hangHoa || [];
-    const groupHangHoa = Object.entries(_.groupBy(hangHoa, "nha_cung_cap"));
+    const groupHangHoa = Object.entries(groupBy(hangHoa, "nha_cung_cap"));
     const getHangHoaDetail = () =>
         groupHangHoa.map(clist => (
             <OptGroup label={clist[0]} key={clist[0]}>

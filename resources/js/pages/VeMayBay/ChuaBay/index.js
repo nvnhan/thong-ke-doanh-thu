@@ -6,6 +6,7 @@ import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { vndFormater } from "../../../utils";
 import exportDS from "../../../utils/exportDatVe";
 import columns from "../DatVe/columns";
+import isEmpty from "lodash/isEmpty";
 import expandedRow from "../DatVe/expandedRow";
 
 const List = React.memo(props => {
@@ -29,7 +30,7 @@ const List = React.memo(props => {
     };
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     tong_tien: previousValue.tong_tien + currentValue.tong_tien,

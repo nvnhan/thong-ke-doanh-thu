@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
+import isEmpty from "lodash/isEmpty";
 import { vndFormater } from "../../../utils";
 
 const List = React.memo(props => {
@@ -92,7 +93,7 @@ const List = React.memo(props => {
     ];
 
     const renderSummary = data => {
-        if (!_.isEmpty(data)) {
+        if (!isEmpty(data)) {
             const sumObj = data.reduce((previousValue, currentValue) => {
                 return {
                     thanh_tien:

@@ -1,5 +1,4 @@
 import { Button, Col, Form, Row } from "antd";
-import moment from "moment";
 import React, { memo, useEffect, useState } from "react";
 import MyRangePicker from "../../components/ListForm/MyRangePicker";
 import { parseValues } from "../../utils";

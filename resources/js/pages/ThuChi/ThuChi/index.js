@@ -1,7 +1,6 @@
-import { AppstoreAddOutlined } from "@ant-design/icons";
-import moment from "moment";
+import  AppstoreAddOutlined  from "@ant-design/icons/AppstoreAddOutlined";
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import  withRouter from "react-router-dom/withRouter";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import isEmpty from "lodash/isEmpty";

@@ -1,5 +1,4 @@
 import { DatePicker } from "antd";
-import locale from "antd/es/date-picker/locale/vi_VN";
 import React from "react";
 import { momentRange } from "../../utils";
 const { RangePicker } = DatePicker;

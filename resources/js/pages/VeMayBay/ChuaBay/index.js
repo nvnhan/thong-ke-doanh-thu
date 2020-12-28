@@ -1,5 +1,3 @@
-import locale from "antd/es/date-picker/locale/vi_VN";
-import moment from "moment";
 import React from "react";
 import ListForm from "../../../components/ListForm";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";

@@ -10,6 +10,12 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+const moment = require("moment");
+// Set tiếng Việt cho moment toàn app
+require("moment/locale/vi");
+moment.locale("vi");
+window.moment = moment;
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

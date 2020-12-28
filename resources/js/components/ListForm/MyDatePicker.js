@@ -1,6 +1,5 @@
 import React from "react";
 import { DatePicker } from "antd";
-import moment from "moment";
 
 const MyDatePicker = (props) => {
     if (props.value && typeof props.value == "string") {

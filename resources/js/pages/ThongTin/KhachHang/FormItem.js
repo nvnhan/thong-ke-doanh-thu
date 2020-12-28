@@ -1,5 +1,4 @@
 import { AutoComplete, Col, Form, Input, InputNumber, Row } from "antd";
-import locale from "antd/es/date-picker/locale/vi_VN";
 import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { inputFormat, inputParse } from "../../../utils";

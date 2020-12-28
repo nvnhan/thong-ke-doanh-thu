@@ -1,6 +1,5 @@
 import { FilterOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Row } from "antd";
-import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { parseValues } from "../../utils";
 import "./FilterBox.scss";

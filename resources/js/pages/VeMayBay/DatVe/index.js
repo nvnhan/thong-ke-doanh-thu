@@ -1,6 +1,5 @@
 import { UserAddOutlined } from "@ant-design/icons";
 import { Button, Form, message, Modal } from "antd";
-import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";

@@ -1,4 +1,3 @@
-import moment from "moment";
 import React, { useEffect, useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";

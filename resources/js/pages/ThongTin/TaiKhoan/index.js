@@ -1,7 +1,6 @@
 import React from "react";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
-import moment from "moment";
 
 const List = React.memo(() => {
     const columns = [

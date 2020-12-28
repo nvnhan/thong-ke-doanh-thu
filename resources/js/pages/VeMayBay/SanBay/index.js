@@ -1,4 +1,4 @@
-import { Checkbox } from "antd";
+import Checkbox from "antd/lib/checkbox/index";
 import React from "react";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";

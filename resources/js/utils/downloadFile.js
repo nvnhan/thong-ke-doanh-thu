@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import Modal from "antd/lib/modal/index";
 import showWaiting from "../components/Includes/ShowWaiting";
 
 /**

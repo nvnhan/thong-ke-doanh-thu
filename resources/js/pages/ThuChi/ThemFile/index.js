@@ -1,5 +1,12 @@
 import UploadOutlined from "@ant-design/icons/UploadOutlined";
-import { Button, Col, Form, message, Modal, Progress, Row, Upload } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import message from "antd/lib/message/index";
+import Modal from "antd/lib/modal/index";
+import Progress from "antd/lib/progress/index";
+import Upload from "antd/lib/upload/index";
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { parseValues } from "../../../utils";

@@ -1,8 +1,9 @@
+import Layout from "antd/lib/layout/index";
+import Menu from "antd/lib/menu/index";
 import React, { PureComponent } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import items from "./SideBarItems";
-import { Layout, Menu } from "antd";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 

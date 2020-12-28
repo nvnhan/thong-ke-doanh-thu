@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import Card from "antd/lib/card/index";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
@@ -20,10 +20,9 @@ class Login extends PureComponent {
     }
 
     onChangeForm = () => {
-        const { login } = this.state
-        this.setState({login : !login });
-    }
-    
+        const { login } = this.state;
+        this.setState({ login: !login });
+    };
 
     /**
      * Hàm render
@@ -31,9 +30,15 @@ class Login extends PureComponent {
     render() {
         const { login } = this.state;
         return (
-            <Card className="card-login" title={<img src="/images/intro.png" />}>
+            <Card
+                className="card-login"
+                title={<img src="/images/intro.png" />}
+            >
                 {login ? (
-                    <LoginForm onSetAuth={this.props.onSetAuth} onRegister={this.onChangeForm} />
+                    <LoginForm
+                        onSetAuth={this.props.onSetAuth}
+                        onRegister={this.onChangeForm}
+                    />
                 ) : (
                     <RegisterForm onLogin={this.onChangeForm} />
                 )}

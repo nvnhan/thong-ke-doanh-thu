@@ -1,14 +1,12 @@
 import UploadOutlined from "@ant-design/icons/UploadOutlined";
-import {
-    AutoComplete,
-    Button,
-    Col,
-    Form,
-    message,
-    Modal,
-    Row,
-    Upload
-} from "antd";
+import AutoComplete from "antd/lib/auto-complete/index";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import message from "antd/lib/message/index";
+import Modal from "antd/lib/modal/index";
+import Upload from "antd/lib/upload/index";
 import React, { useEffect, useState } from "react";
 import showWaiting from "../../../components/Includes/ShowWaiting";
 import { parseValues, useMergeState } from "../../../utils";

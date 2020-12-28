@@ -1,4 +1,6 @@
-import { Form, Input, Select } from "antd";
+import Form from "antd/lib/form/index";
+import Input from "antd/lib/input/index";
+import Select from "antd/lib/select/index";
 import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 const { Option } = Select;
@@ -24,18 +26,10 @@ const form = React.memo(props => {
                     }
                 ]}
             >
-                <MyDatePicker
-                    style={{ width: "100%" }}
-                    locale={locale}
-                    format="DD/MM/YYYY"
-                />
+                <MyDatePicker format="DD/MM/YYYY" />
             </Form.Item>
             <Form.Item name="ngay_thanh_toan_hoan_doi" label="Thanh toán">
-                <MyDatePicker
-                    style={{ width: "100%" }}
-                    locale={locale}
-                    format="DD/MM/YYYY"
-                />
+                <MyDatePicker format="DD/MM/YYYY" />
             </Form.Item>
             <Form.Item name="id_tai_khoan_tra_hoan_doi" label="TK trả">
                 <Select placeholder="Chọn tài khoản">
@@ -44,11 +38,7 @@ const form = React.memo(props => {
             </Form.Item>
 
             <Form.Item name="ngay_hoan_doi_xong" label="Hoàn đổi xong">
-                <MyDatePicker
-                    style={{ width: "100%" }}
-                    locale={locale}
-                    format="DD/MM/YYYY"
-                />
+                <MyDatePicker format="DD/MM/YYYY" />
             </Form.Item>
 
             <Form.Item name="ghi_chu" label="Ghi chú">

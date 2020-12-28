@@ -1,5 +1,8 @@
+import Checkbox from "antd/lib/checkbox/index";
+import Form from "antd/lib/form/index";
+import Input from "antd/lib/input/index";
+import Select from "antd/lib/select/index";
 import React from "react";
-import { Form, Input, Checkbox, Select } from "antd";
 
 const { Option } = Select;
 

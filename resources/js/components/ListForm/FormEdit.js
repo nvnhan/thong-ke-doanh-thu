@@ -1,4 +1,4 @@
-import { Form } from "antd";
+import Form from "antd/lib/form/index";
 import React, { useLayoutEffect } from "react";
 
 const FormEdit = React.memo(props => {

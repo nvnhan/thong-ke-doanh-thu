@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import Button from "antd/lib/button/index";
 import React from "react";
 import { Link } from "react-router-dom";
 

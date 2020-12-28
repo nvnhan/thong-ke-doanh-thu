@@ -1,4 +1,4 @@
-import { message } from "antd";
+import message from "antd/lib/message/index";
 import * as types from "../constants/ActionTypes";
 
 var initialState = {

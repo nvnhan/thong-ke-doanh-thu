@@ -1,5 +1,5 @@
 import { DualAxes } from "@ant-design/charts";
-import { Radio } from "antd";
+import Radio from "antd/lib/radio/index";
 import isEmpty from "lodash/isEmpty";
 import React, { memo, useState } from "react";
 

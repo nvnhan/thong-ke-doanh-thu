@@ -1,4 +1,5 @@
-import { Select, Input } from "antd";
+import Input from "antd/lib/input/index";
+import Select from "antd/lib/select/index";
 import React from "react";
 const { Option } = Select;
 

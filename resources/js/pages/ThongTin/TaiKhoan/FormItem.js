@@ -1,4 +1,6 @@
-import { Form, Input, InputNumber } from "antd";
+import Form from "antd/lib/form/index";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
 import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { inputFormat, inputParse } from "../../../utils";
@@ -29,11 +31,7 @@ function form() {
                 />
             </Form.Item>
             <Form.Item name="ngay_tao" label="Ngày tạo">
-                <MyDatePicker
-                    style={{ width: "100%" }}
-                    locale={locale}
-                    format="DD/MM/YYYY"
-                />
+                <MyDatePicker format="DD/MM/YYYY" />
             </Form.Item>
             <Form.Item name="ghi_chu" label="Ghi chú">
                 <Input />

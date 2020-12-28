@@ -1,4 +1,7 @@
-import { Form, Input, InputNumber, Select } from "antd";
+import Form from "antd/lib/form/index";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
+import Select from "antd/lib/select/index";
 import React from "react";
 import { inputFormat, inputParse } from "../../../utils";
 const { Option } = Select;

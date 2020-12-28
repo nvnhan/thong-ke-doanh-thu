@@ -1,4 +1,7 @@
-import { Button, message, Modal, Table } from "antd";
+import Button from "antd/lib/button/index";
+import message from "antd/lib/message/index";
+import Modal from "antd/lib/modal/index";
+import Table from "antd/lib/table/index";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { vndFormater } from "../../utils";

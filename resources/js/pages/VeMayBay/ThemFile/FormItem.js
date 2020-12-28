@@ -1,9 +1,15 @@
-import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
+import Select from "antd/lib/select/index";
+import groupBy from "lodash/groupBy";
 import React from "react";
 import MyRangePicker from "../../../components/ListForm/MyRangePicker";
 import { inputFormat, inputParse } from "../../../utils";
 const { Option, OptGroup } = Select;
-import groupBy from "lodash/groupBy";
 
 const form = React.memo(props => {
     const { taiKhoan, khachHang } = props.danhMuc;
@@ -116,6 +122,7 @@ const form = React.memo(props => {
                     >
                         <MyRangePicker
                             placeholder={["Nhập từ ngày", "đến ngày"]}
+                            allowClear
                         />
                     </Form.Item>
                 </Col>
@@ -191,11 +198,7 @@ const form = React.memo(props => {
                 </Col>
                 {/* <Col span={12} md={6}>
                     <Form.Item name="ngay_thanh_toan" label="Ngày thanh toán">
-                        <MyDatePicker
-                            style={{ width: "100%" }}
-                            locale={locale}
-                            format="DD/MM/YYYY"
-                        />
+                        <MyDatePicker format="DD/MM/YYYY" />
                     </Form.Item>
                 </Col> */}
             </Row>

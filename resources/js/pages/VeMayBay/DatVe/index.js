@@ -1,5 +1,8 @@
 import UserAddOutlined from "@ant-design/icons/UserAddOutlined";
-import { Button, Form, message, Modal } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import message from "antd/lib/message/index";
+import Modal from "antd/lib/modal/index";
 import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useRef, useState } from "react";
 import { withRouter } from "react-router-dom";

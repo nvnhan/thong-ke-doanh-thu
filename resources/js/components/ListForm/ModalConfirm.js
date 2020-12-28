@@ -1,4 +1,6 @@
-import { Button, Modal, Switch } from "antd";
+import Button from "antd/lib/button/index";
+import Modal from "antd/lib/modal/index";
+import Switch from "antd/lib/switch/index";
 import React, { useState } from "react";
 import { parseValues } from "../../utils";
 import FormEdit from "./FormEdit";

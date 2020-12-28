@@ -1,10 +1,13 @@
 import FileExcelOutlined from "@ant-design/icons/FileExcelOutlined";
-import { Button, Form, Select } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Select from "antd/lib/select/index";
 import groupBy from "lodash/groupBy";
 import React, { useState } from "react";
 import MyRangePicker from "../../../components/ListForm/MyRangePicker";
 import { parseValues } from "../../../utils";
 import { downloadApi } from "../../../utils/downloadFile";
+
 const { Option, OptGroup } = Select;
 
 const index = props => {

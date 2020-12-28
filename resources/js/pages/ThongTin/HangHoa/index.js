@@ -1,8 +1,8 @@
+import Button from "antd/lib/button/index";
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
-import { Button } from "antd";
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
@@ -91,7 +91,7 @@ const List = React.memo(props => {
             dataIndex: "ghi_chu",
             ellipsis: true,
             width: 150
-        },
+        }
         // {
         //     title: "Người tạo",
         //     dataIndex: "username",

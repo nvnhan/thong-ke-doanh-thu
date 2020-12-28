@@ -1,4 +1,10 @@
-import { Button, Col, Form, Input, InputNumber, message, Row } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
+import message from "antd/lib/message/index";
 import React, { useEffect } from "react";
 import { inputFormat, inputParse } from "../../../utils";
 

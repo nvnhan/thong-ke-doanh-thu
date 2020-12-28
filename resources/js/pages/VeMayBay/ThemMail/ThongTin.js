@@ -1,8 +1,12 @@
-import { Checkbox, Col, Form, InputNumber, Select } from "antd";
+import Checkbox from "antd/lib/checkbox/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import InputNumber from "antd/lib/input-number/index";
+import Select from "antd/lib/select/index";
+import groupBy from "lodash/groupBy";
 import React, { useEffect } from "react";
 import { inputFormat, inputParse, useMergeState } from "../../../utils";
 const { OptGroup, Option } = Select;
-import groupBy from "lodash/groupBy";
 
 const ThongTin = props => {
     const [state, setState] = useMergeState({

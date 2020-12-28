@@ -1,9 +1,12 @@
-import { Form, Input, InputNumber, Select } from "antd";
+import Form from "antd/lib/form/index";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
+import Select from "antd/lib/select/index";
+import groupBy from "lodash/groupBy";
 import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { inputFormat, inputParse, vndFormater } from "../../../utils";
 const { Option, OptGroup } = Select;
-import groupBy from "lodash/groupBy";
 
 const form = React.memo(props => {
     const hangHoa = props.hangHoa || [];
@@ -46,11 +49,7 @@ const form = React.memo(props => {
                     }
                 ]}
             >
-                <MyDatePicker
-                    style={{ width: "100%" }}
-                    locale={locale}
-                    format="DD/MM/YYYY"
-                />
+                <MyDatePicker format="DD/MM/YYYY" />
             </Form.Item>
             <Form.Item
                 name="id_hang_hoa"

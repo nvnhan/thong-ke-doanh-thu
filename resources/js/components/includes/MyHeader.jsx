@@ -1,10 +1,15 @@
 import MenuOutlined from "@ant-design/icons/MenuOutlined";
 import UserOutlined from "@ant-design/icons/UserOutlined";
-import { Avatar, Button, Drawer, Menu, PageHeader } from "antd";
+import Avatar from "antd/lib/avatar/index";
+import Button from "antd/lib/button/index";
+import Drawer from "antd/lib/drawer/index";
+import Menu from "antd/lib/menu/index";
+import PageHeader from "antd/lib/page-header/index";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../actions";
+
 const { SubMenu } = Menu;
 
 class MyHeader extends PureComponent {

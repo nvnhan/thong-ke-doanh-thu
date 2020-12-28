@@ -1,5 +1,5 @@
 import React from "react";
-import { Spin } from "antd";
+import Spin from "antd/lib/spin/index";
 
 export default function Loader(props) {
     let s = "Đang tải dữ liệu ứng dụng...";

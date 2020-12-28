@@ -1,4 +1,6 @@
-import { Form, Input, InputNumber } from "antd";
+import Form from "antd/lib/form/index";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
 import React from "react";
 import { inputFormat, inputParse } from "../../../utils";
 

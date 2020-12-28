@@ -15,11 +15,8 @@ const List = React.memo(props => {
                 label: "Tính đến",
                 render: (
                     <MyDatePicker
-                        style={{
-                            width: "100%"
-                        }}
-                        locale={locale}
                         format="HH:mm DD/MM/YYYY"
+                        showTime
                         allowClear={false}
                     />
                 )

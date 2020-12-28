@@ -1,17 +1,15 @@
-import {
-    AutoComplete,
-    Checkbox,
-    Col,
-    Form,
-    Input,
-    InputNumber,
-    Row,
-    Select
-} from "antd";
+import AutoComplete from "antd/lib/auto-complete/index";
+import Checkbox from "antd/lib/checkbox/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
+import Select from "antd/lib/select/index";
+import groupBy from "lodash/groupBy";
 import React, { useEffect } from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { inputFormat, inputParse, vndFormater } from "../../../utils";
-import groupBy from "lodash/groupBy";
 
 const { Option, OptGroup } = Select;
 
@@ -96,11 +94,7 @@ const form = React.memo(props => {
                             }
                         ]}
                     >
-                        <MyDatePicker
-                            style={{ width: "100%" }}
-                            locale={locale}
-                            format="DD/MM/YYYY"
-                        />
+                        <MyDatePicker format="DD/MM/YYYY" />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
@@ -218,8 +212,6 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="ngay_nhac_lich" label="Nhắc lịch bay">
                         <MyDatePicker
-                            style={{ width: "100%" }}
-                            locale={locale}
                             format="HH:mm DD/MM/YYYY"
                             placeholder="(Không nhắc)"
                             showTime
@@ -230,8 +222,6 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="canh_bao_xuat_ve" label="Báo xuất vé">
                         <MyDatePicker
-                            style={{ width: "100%" }}
-                            locale={locale}
                             format="HH:mm DD/MM/YYYY"
                             placeholder="(Không cảnh báo)"
                             showTime
@@ -269,8 +259,6 @@ const form = React.memo(props => {
                         ]}
                     >
                         <MyDatePicker
-                            style={{ width: "100%" }}
-                            locale={locale}
                             format="HH:mm DD/MM/YYYY"
                             showTime
                             showSeconds={false}
@@ -324,8 +312,6 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="ngay_gio_ve" label="Ngày giờ về">
                         <MyDatePicker
-                            style={{ width: "100%" }}
-                            locale={locale}
                             format="HH:mm DD/MM/YYYY"
                             showTime
                             showSeconds={false}

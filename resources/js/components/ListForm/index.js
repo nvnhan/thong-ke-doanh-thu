@@ -1,5 +1,7 @@
 import ExclamationCircleOutlined from "@ant-design/icons/ExclamationCircleOutlined";
-import { Form, message, Modal } from "antd";
+import Form from "antd/lib/form/index";
+import message from "antd/lib/message/index";
+import Modal from "antd/lib/modal/index";
 import isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import React, { useEffect, useImperativeHandle, useState } from "react";
@@ -8,6 +10,7 @@ import DataTable from "./DataTable";
 import FilterBox from "./FilterBox";
 import ModalConfirm from "./ModalConfirm";
 import ToolsButton from "./ToolsButton";
+
 const { confirm } = Modal;
 
 /**

@@ -1,5 +1,6 @@
-import { Modal, Progress } from "antd";
-import React from 'react'
+import Modal from "antd/lib/modal/index";
+import Progress from "antd/lib/progress/index";
+import React from 'react';
 
 const showWaiting = (s = "Đang xử lý dữ liệu...") => {
     Modal.info({

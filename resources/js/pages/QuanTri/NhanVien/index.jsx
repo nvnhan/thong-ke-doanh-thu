@@ -1,4 +1,5 @@
-import { Checkbox, Tag } from "antd";
+import Checkbox from "antd/lib/checkbox/index";
+import Tag from "antd/lib/tag/index";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import ListForm from "../../../components/ListForm";

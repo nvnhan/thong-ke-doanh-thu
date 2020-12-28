@@ -1,4 +1,5 @@
-import { Layout, message } from "antd";
+import Layout from "antd/lib/layout/index";
+import message from "antd/lib/message/index";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";

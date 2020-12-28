@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from "antd";
+import Layout from "antd/lib/layout/index";
 
 export default function MyFooter() {
     return (

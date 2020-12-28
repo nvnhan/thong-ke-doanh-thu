@@ -1,6 +1,9 @@
 import LockOutlined from "@ant-design/icons/LockOutlined";
 import UserOutlined from "@ant-design/icons/UserOutlined";
-import { Button, Form, Input, message } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Input from "antd/lib/input/index";
+import message from "antd/lib/message/index";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";

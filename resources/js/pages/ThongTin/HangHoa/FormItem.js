@@ -1,8 +1,15 @@
-import { AutoComplete, Col, Form, Input, InputNumber, Row, Select } from "antd";
+import AutoComplete from "antd/lib/auto-complete/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
+import Select from "antd/lib/select/index";
+import groupBy from "lodash/groupBy";
 import React from "react";
 import { inputFormat, inputParse } from "../../../utils";
+
 const { Option, OptGroup } = Select;
-import groupBy from "lodash/groupBy";
 
 const form = React.memo(props => {
     const phanLoai = props.phanLoai || [];

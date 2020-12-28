@@ -1,4 +1,9 @@
-import { AutoComplete, Col, Form, Input, InputNumber, Row } from "antd";
+import AutoComplete from "antd/lib/auto-complete/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
 import React from "react";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
 import { inputFormat, inputParse } from "../../../utils";
@@ -84,7 +89,7 @@ const form = React.memo(props => {
                 <Col span={12} md={8} sm={12}>
                     <Form.Item name="so_du_ky_truoc" label="Số dư đầu">
                         <InputNumber
-                            style={{ width: "100%" }}                            
+                            style={{ width: "100%" }}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -134,11 +139,7 @@ const form = React.memo(props => {
 
                 <Col span={24} md={8} sm={12}>
                     <Form.Item name="ngay_tao" label="Ngày tạo">
-                        <MyDatePicker
-                            style={{ width: "100%" }}
-                            locale={locale}
-                            format="DD/MM/YYYY"
-                        />
+                        <MyDatePicker format="DD/MM/YYYY" />
                     </Form.Item>
                 </Col>
                 <Col span={24} md={8} sm={12}>

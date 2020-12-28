@@ -13,16 +13,7 @@ const List = React.memo(props => {
             {
                 name: "den_ngay",
                 label: "Tính đến",
-                render: (
-                    <MyDatePicker
-                        style={{
-                            width: "100%"
-                        }}
-                        locale={locale}
-                        format="DD/MM/YYYY"
-                        allowClear={false}
-                    />
-                )
+                render: <MyDatePicker format="DD/MM/YYYY" allowClear={false} />
             }
         ];
     };

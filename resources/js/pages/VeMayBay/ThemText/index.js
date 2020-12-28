@@ -1,4 +1,6 @@
-import { Form, message, Modal } from "antd";
+import Form from "antd/lib/form/index";
+import message from "antd/lib/message/index";
+import Modal from "antd/lib/modal/index";
 import React, { useEffect, useState } from "react";
 import showWaiting from "../../../components/Includes/ShowWaiting";
 import { useMergeState } from "../../../utils";

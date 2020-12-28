@@ -1,4 +1,10 @@
-import { Button, Col, Form, Input, InputNumber, Row, Table } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import InputNumber from "antd/lib/input-number/index";
+import Input from "antd/lib/input/index";
+import Table from "antd/lib/table/index";
 import React from "react";
 import MyRangePicker from "../../../components/ListForm/MyRangePicker";
 import ThongTin from "./ThongTin";

@@ -1,7 +1,10 @@
 import FilterOutlined from "@ant-design/icons/FilterOutlined";
 import MinusOutlined from "@ant-design/icons/MinusOutlined";
 import PlusOutlined from "@ant-design/icons/PlusOutlined";
-import { Button, Col, Form, Row } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
 import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import { parseValues } from "../../utils";

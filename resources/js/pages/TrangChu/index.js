@@ -1,4 +1,7 @@
-import { Button, Col, Form, Row } from "antd";
+import Button from "antd/lib/button/index";
+import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
 import React, { memo, useEffect, useState } from "react";
 import MyRangePicker from "../../components/ListForm/MyRangePicker";
 import { parseValues } from "../../utils";

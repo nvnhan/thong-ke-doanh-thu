@@ -1,4 +1,5 @@
-import { Input, Modal } from "antd";
+import Input from "antd/lib/input/index";
+import Modal from "antd/lib/modal/index";
 import React from "react";
 import { downloadApi as createReport } from "../../../utils/downloadFile";
 import exportDS from "../../../utils/exportDatVe";

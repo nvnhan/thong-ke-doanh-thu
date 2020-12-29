@@ -1,6 +1,6 @@
 ###############################################
 Kích thước các phần tử trước và sau optimize
-#### (Kích thước ở local and production) #####
+#### (Size parse and gzip) #####
 
 Lodash      770kb       135,65kb
 =>          240,2kb     42kb

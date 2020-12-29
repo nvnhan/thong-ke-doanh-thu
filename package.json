@@ -6,9 +6,10 @@
         "watch": "npm run development -- --watch",
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
+        "prod": "npm run production && npm run compress",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "wp": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "wp": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "compress": "bread-compressor -s public/js/*.js"
     },
     "devDependencies": {
         "@babel/core": "^7.9.0",
@@ -16,6 +17,7 @@
         "@babel/preset-env": "^7.9.0",
         "@babel/preset-react": "^7.9.4",
         "axios": "^0.19",
+        "bread-compressor-cli": "^1.1.0",
         "cross-env": "^5.1",
         "laravel-mix": "^5.0.4",
         "less": "^3.11.1",

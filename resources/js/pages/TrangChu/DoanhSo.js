@@ -1,6 +1,5 @@
-import { DualAxes } from "@ant-design/charts";
 import Radio from "antd/lib/radio/index";
-import isEmpty from "lodash/isEmpty";
+import Chart from "react-apexcharts";
 import React, { memo, useState } from "react";
 
 const DoanhSo = memo(props => {
@@ -9,71 +8,105 @@ const DoanhSo = memo(props => {
 
     const onChange = e => setDoanhSo(e.target.value);
 
-    const maxDatVe = !isEmpty(data.datve)
-        ? Math.max(...data.datve.map(o => o.thu_khach))
-        : 0;
-    const maxNam = !isEmpty(data.ds_nam)
-        ? Math.max(...data.ds_nam.map(o => o.thu_khach))
-        : 0;
-
-    const minDatVe = !isEmpty(data.datve)
-        ? Math.min(...data.datve.map(o => o.thu_khach))
-        : 0;
-    const minNam = !isEmpty(data.ds_nam)
-        ? Math.min(...data.ds_nam.map(o => o.thu_khach))
-        : 0;
-
-    const dSoNamConfig = {
-        data:
-            doanhSo === "thang"
-                ? [data.datve, data.datve]
-                : [data.ds_nam, data.ds_nam],
-        xField: "thang",
-        yField: ["thu_khach", "lai"],
-        geometryOptions: [
+    const options = {
+        chart: {
+            id: "doanh-so"
+        },
+        title: {
+            text: "Doanh số - Lợi nhuận",
+            align: "left",
+            style: {
+                fontSize: "14px",
+                fontWeight: "bold"
+            }
+        },
+        plotOptions: {
+            bar: {
+                columnWidth: "50%"
+            }
+        },
+        responsive: [
             {
-                geometry: "column",
-                color: "#4bab92",
-                label: {
-                    position: "top",
-                    style: {
-                        fill: "#000000",
-                        opacity: 0.6
-                    },
-                    formatter: val => (val.thu_khach > 0 ? val.thu_khach : "")
+                breakpoint: 480,
+                options: {
+                    xaxis: {
+                        tickAmount: 5
+                    }
                 }
-            },
-            {
-                geometry: "line",
-                color: "#AB4B64",
-                smooth: true,
-                lineStyle: { lineWidth: 3 }
             }
         ],
-        meta: {
-            thu_khach: { alias: "Doanh số" },
-            lai: { alias: "Lợi nhuận" }
+        dataLabels: {
+            enabled: false
         },
-        yAxis: {
-            thu_khach: {
-                min: doanhSo === "thang" ? minDatVe : minNam,
-                label: {
-                    formatter: val => val + (doanhSo === "thang" ? "k" : "m")
-                }
+        stroke: {
+            width: [0, 4]
+        },
+        fill: {
+            opacity: [0.85, 0.25],
+            type: ["solid", "gradient"],
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [0, 90, 100]
+            }
+        },
+        yaxis: {
+            tickAmount: 5
+        },
+        xaxis: {
+            type: "category",
+            categories:
+                doanhSo === "thang"
+                    ? data.datve.ngay_thangs
+                    : data.ds_nam.thangs,
+            labels: {
+                rotate: 0,
+                hideOverlappingLabels: true,
+                showDuplicates: false
             },
-            lai: {
-                max: doanhSo === "thang" ? maxDatVe : maxNam,
-                label: {
-                    autoHide: true,
-                    formatter: val => ""
-                }
+            tickPlacement: "on",
+            tooltip: {
+                enabled: false
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: val =>
+                    val + (doanhSo === "thang" ? " nghìn" : " triệu")
             }
         }
     };
 
+    const series = [
+        {
+            name: "Doanh số",
+            type: "column",
+            data:
+                doanhSo === "thang"
+                    ? data.datve.thu_khachs || []
+                    : data.ds_nam.thu_khachs || [],
+            color: "#4bab92"
+        },
+        {
+            name: "Lợi nhuận",
+            type: "area",
+            data:
+                doanhSo === "thang"
+                    ? data.datve.lais || []
+                    : data.ds_nam.lais || [],
+            color: "#AB4B64"
+        }
+    ];
+
     return (
         <>
-            <DualAxes {...dSoNamConfig} />
+            <Chart
+                options={options}
+                series={series}
+                type="area"
+                height="350px"
+            />
 
             <Radio.Group
                 buttonStyle="solid"

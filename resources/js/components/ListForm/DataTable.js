@@ -1,4 +1,4 @@
-import DeleteOutlined from "@ant-design/icons/DeleteFilled";
+import DeleteOutlined from "@ant-design/icons/DeleteOutlined";
 import EditOutlined from "@ant-design/icons/EditOutlined";
 import MenuOutlined from "@ant-design/icons/MenuOutlined";
 import SearchOutlined from "@ant-design/icons/SearchOutlined";

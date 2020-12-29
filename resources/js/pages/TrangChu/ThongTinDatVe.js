@@ -1,61 +1,96 @@
-import { DualAxes } from "@ant-design/charts";
-import isEmpty from "lodash/isEmpty";
 import React, { memo } from "react";
+import Chart from "react-apexcharts";
 
 const ThongTinDatVe = memo(props => {
     const { data } = props;
 
-    const maxDatVe = !isEmpty(data.datve)
-        ? Math.max(...data.datve.map(o => o.dat_ve))
-        : 0;
-    const maxThanhToan = !isEmpty(data.datve)
-        ? Math.max(...data.datve.map(o => o.thanh_toan))
-        : 0;
-    const maxData = Math.max(maxDatVe, maxThanhToan);
-
-    const datVeConfig = {
-        data: [data.datve, data.datve],
-        xField: "thang",
-        yField: ["dat_ve", "thanh_toan"],
-        geometryOptions: [
+    const options = {
+        chart: {
+            id: "thong-tin-dat-ve"
+        },
+        title: {
+            text: "Thông tin đặt vé",
+            align: "left",
+            style: {
+                fontSize: "14px",
+                fontWeight: "bold"
+            }
+        },
+        plotOptions: {
+            bar: {
+                columnWidth: "50%"
+            }
+        },
+        responsive: [
             {
-                geometry: "column",
-                color: "#4bab92",
-                label: {
-                    position: "top",
-                    style: {
-                        fill: "#000000",
-                        opacity: 0.6
-                    },
-                    formatter: val => (val.dat_ve > 0 ? val.dat_ve : "")
+                breakpoint: 480,
+                options: {
+                    xaxis: {
+                        tickAmount: 5
+                    }
                 }
-            },
-            {
-                geometry: "line",
-                color: "#AB4B64",
-                smooth: true,
-                lineStyle: { lineWidth: 3 }
             }
         ],
-        meta: {
-            dat_ve: { alias: "Lượng đặt vé" },
-            thanh_toan: { alias: "Thanh toán" }
+        dataLabels: {
+            enabled: false
         },
-        yAxis: {
-            dat_ve: {
-                max: maxData
+        stroke: {
+            width: [3, 0]
+        },
+        fill: {
+            opacity: [0.25, 0.85],
+            type: ["gradient", "solid"],
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [0, 90, 100]
+            }
+        },
+        markers: {
+            size: 4,
+            strokeWidth: 2,
+            fillOpacity: 0,
+            strokeOpacity: 0,
+            hover: {
+                size: 6
+            }
+        },
+        yaxis: {
+            tickAmount: 5
+        },
+        xaxis: {
+            type: "category",
+            categories: data.datve.ngay_thangs,
+            labels: {
+                rotate: 0,
+                hideOverlappingLabels: true,
+                showDuplicates: false
             },
-            thanh_toan: {
-                max: maxData,
-                label: {
-                    autoHide: true,
-                    formatter: val => ""
-                }
+            tickPlacement: "on",
+            tooltip: {
+                enabled: false
             }
         }
     };
+    const series = [
+        {
+            name: "Thanh toán",
+            type: "area",
+            data: data.datve.thanh_toans || [],
+            color: "#AB4B64"
+        },
+        {
+            name: "Đặt vé",
+            type: "column",
+            data: data.datve.dat_ves || [],
+            color: "#4bab92"
+        }
+    ];
 
-    return <DualAxes {...datVeConfig} />;
+    return (
+        <Chart options={options} series={series} type="area" height="350px" />
+    );
 });
 
 export default ThongTinDatVe;

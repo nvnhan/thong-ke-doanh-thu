@@ -1,35 +1,81 @@
-import { Column } from "@ant-design/charts";
+import Chart from "react-apexcharts";
 import React, { memo } from "react";
 
 const SoDuTaiKhoan = memo(props => {
     const { data } = props;
 
-    const soDuConfig = {
-        data: data.sodu,
-        xField: "hang_muc",
-        yField: "gia_tri",
-        label: {
-            position: "top",
+    const options = {
+        chart: {
+            id: "so-du"
+        },
+        title: {
+            text: "Số dư tài khoản",
+            align: "left",
             style: {
-                fill: "#000000",
-                opacity: 0.6
+                fontSize: "14px",
+                fontWeight: "bold"
             }
         },
-        color: "#4bab92",
-        meta: {
-            gia_tri: { alias: "Số dư" }
-        },
-        yAxis: {
-            label: {
-                formatter: val => val + "m"
+        subtitle: {
+            text: "Tổng cộng " + data.tong + "đ",
+            align: "left",
+            margin: 10,
+            style: {
+                fontSize: "12px"
             }
         },
-        slider: {
-            start: 0,
-            end: 0.5
+        responsive: [
+            {
+                breakpoint: 480,
+                options: {
+                    dataLabels: {
+                        enabled: false
+                    },
+                    xaxis: {
+                        tickAmount: 5
+                    }
+                }
+            }
+        ],
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    position: "top"
+                },
+                horizontal: false,
+                columnWidth: "50%"
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            offsetY: -20,
+            style: {
+                fontSize: "12px",
+                fontWeight: "normal",
+                colors: ["#777"]
+            }
+        },
+        xaxis: {
+            categories: data.sodu.hang_muc || []
+        },
+        tooltip: {
+            y: {
+                formatter: val => val + " nghìn"
+            }
         }
     };
-    return <Column {...soDuConfig} />;
+
+    const series = [
+        {
+            name: "Số dư",
+            data: data.sodu.gia_tri || [],
+            color: "#4bab92"
+        }
+    ];
+
+    return (
+        <Chart options={options} series={series} type="bar" height="350px" />
+    );
 });
 
 export default SoDuTaiKhoan;

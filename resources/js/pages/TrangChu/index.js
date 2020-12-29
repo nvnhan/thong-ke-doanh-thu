@@ -30,28 +30,9 @@ const TrangChu = memo(props => {
     const retrieveData = (values = {}) => {
         axios
             .get("/api/trang-chu", { params: parseValues(values) })
-            .then(response => {
-                if (response.data.success) {
-                    let da = response.data.data.thongtinve.reduce(
-                        (a, b) => [
-                            ...a,
-                            {
-                                hang_muc: b.hang_muc,
-                                type: "Quốc nội",
-                                value: b.quoc_noi
-                            },
-                            {
-                                hang_muc: b.hang_muc,
-                                type: "Quốc tế",
-                                value: b.quoc_te
-                            }
-                        ],
-                        []
-                    );
-                    response.data.data.thongtinve = da;
-                    setData(response.data.data);
-                }
-            })
+            .then(
+                response => response.data.success && setData(response.data.data)
+            )
             .catch(error => console.log(error));
     };
 
@@ -79,7 +60,6 @@ const TrangChu = memo(props => {
             <Row gutter={[16, 16]}>
                 <Col span={24} md={12}>
                     <div className="chart-card">
-                        <h4>Số dư tài khoản (Tổng cộng {data.tong})</h4>
                         <SoDuTaiKhoan data={data} />
                     </div>
                 </Col>

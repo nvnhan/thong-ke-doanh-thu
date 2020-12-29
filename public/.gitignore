@@ -1,2 +1,4 @@
 *.js
 *LICENSE.txt
+/css/app.css
+/js/*

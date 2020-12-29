@@ -25,7 +25,9 @@ class Dashboard
             return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
         })->orderBy('loai')->get();
 
-        $result = [];
+        $result = new stdClass;
+        $result->hang_muc = [];
+        $result->gia_tri = [];
 
         // Thêm các tài khoản
         $sum = 0;
@@ -33,19 +35,15 @@ class Dashboard
             $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
             $sum += $duCuoiKy;
             if ($duCuoiKy != 0) {
-                $tmp = new stdClass;
-                $tmp->hang_muc = $tk->ky_hieu;
-                $tmp->gia_tri = round($duCuoiKy / 1000000, 2);
-                $result[] = $tmp;
+                $result->hang_muc[] = $tk->ky_hieu;
+                $result->gia_tri[] = round($duCuoiKy / 1000);
             }
         }
         // Thêm tồn kho
         $tonKho = Report::TinhTonKho($request, $den_ngay);
         $sum += $tonKho;
-        $tmp = new stdClass;
-        $tmp->hang_muc = "Tồn kho";
-        $tmp->gia_tri = round($tonKho / 1000000, 2);
-        $result[] = $tmp;
+        $result->hang_muc[] = "Tồn kho";
+        $result->gia_tri[] = round($tonKho / 1000);
 
         return $result;
     }
@@ -77,7 +75,6 @@ class Dashboard
             $val->thu_khach = 0;
             $val->lai = 0;
             $tmp = $dt->format('d/m');
-            $val->thang = $tmp;
             $data[$tmp] = $val;
         }
         // Fill Datve
@@ -85,8 +82,8 @@ class Dashboard
             $ngay = new DateTime($item->ngay_thang);
             $nt = trim($ngay->format('d/m'));
             $data[$nt]->dat_ve = $item->dat_ve;
-            $data[$nt]->thu_khach = round($item->thu_khach / 1000);
-            $data[$nt]->lai = round($item->lai / 1000);
+            $data[$nt]->thu_khach = $item->thu_khach;
+            $data[$nt]->lai = $item->lai;
         }
         // Fill ThanhToan
         foreach ($tt as $item) {
@@ -94,7 +91,20 @@ class Dashboard
             $nt = trim($ngay->format('d/m'));
             $data[$nt]->thanh_toan = $item->thanh_toan;
         }
-        return array_values($data);
+        $result = new stdClass;
+        $result->ngay_thangs = [];
+        $result->dat_ves = [];
+        $result->thu_khachs = [];
+        $result->lais = [];
+        $result->thanh_toans = [];
+        foreach ($data as $key => $value) {
+            $result->ngay_thangs[] = $key;
+            $result->dat_ves[] = $value->dat_ve;
+            $result->thu_khachs[] = round($value->thu_khach / 1000);
+            $result->lais[] = round($value->lai / 1000);
+            $result->thanh_toans[] = $value->thanh_toan;
+        }
+        return $result;
     }
 
     public static function ThongTinVe($request)
@@ -116,31 +126,27 @@ class Dashboard
                 ->orWhereIn('sb_ve1', $sbqt);
         });
 
-        $result = [];
+        $result = new stdClass;
+        $result->hang_muc = [];
+        $result->quoc_noi = [];
+        $result->quoc_te = [];
 
         $sum = $objs->count();
         $qt = $quocte->count();
-        $tmp = new stdClass;
-        $tmp->hang_muc = 'Tổng số vé';
-        $tmp->quoc_te = $qt;
-        $tmp->quoc_noi = $sum - $qt;
-        $result[] = $tmp;
+        $result->hang_muc[] = 'Tổng số vé';
+        $result->quoc_te[] = $qt;
+        $result->quoc_noi[] = $sum - $qt;
 
         $objs1 = clone $objs;
         $quocte1 = clone $quocte;
         $sumdaxuat = $objs1->where('chua_xuat_ve', false)->count();
         $qtdaxuat = $quocte1->where('chua_xuat_ve', false)->count();
-
-        $tmp = new stdClass;
-        $tmp->hang_muc = 'Đã xuất vé';
-        $tmp->quoc_te = $qtdaxuat;
-        $tmp->quoc_noi = $sumdaxuat - $qtdaxuat;
-        $result[] = $tmp;
-        $tmp = new stdClass;
-        $tmp->hang_muc = 'Chưa xuất vé';
-        $tmp->quoc_te = $qt - $qtdaxuat;
-        $tmp->quoc_noi = $sum - $qt - $sumdaxuat + $qtdaxuat;
-        $result[] = $tmp;
+        $result->hang_muc[] = 'Đã xuất vé';
+        $result->quoc_te[] = $qtdaxuat;
+        $result->quoc_noi[] = $sumdaxuat - $qtdaxuat;
+        $result->hang_muc[] = 'Chưa xuất vé';
+        $result->quoc_te[] = $qt - $qtdaxuat;
+        $result->quoc_noi[] = $sum - $qt - $sumdaxuat + $qtdaxuat;
 
         $den_ngay = date('Y-m-d H:i:s'); // Chưa bay, nợ vé tính đến hôm nay
         $objs1 = clone $objs;
@@ -153,11 +159,9 @@ class Dashboard
             return $query->where('ngay_gio_di', ">", $den_ngay)
                 ->orWhere('ngay_gio_ve', '>', $den_ngay);
         })->count();
-        $tmp = new stdClass;
-        $tmp->hang_muc = 'Số vé chưa bay';
-        $tmp->quoc_te = $qtchuabay;
-        $tmp->quoc_noi = $sumchuabay - $qtchuabay;
-        $result[] = $tmp;
+        $result->hang_muc[] = 'Số vé chưa bay';
+        $result->quoc_te[] = $qtchuabay;
+        $result->quoc_noi[] = $sumchuabay - $qtchuabay;
 
         $sumnove = $objs->where(function ($query) use ($den_ngay) {
             return $query->whereNull('ngay_thanh_toan')
@@ -167,11 +171,9 @@ class Dashboard
             return $query->whereNull('ngay_thanh_toan')
                 ->orWhere('ngay_thanh_toan', '>', $den_ngay);
         })->count();
-        $tmp = new stdClass;
-        $tmp->hang_muc = 'Số vé còn nợ';
-        $tmp->quoc_te = $qtnove;
-        $tmp->quoc_noi = $sumnove - $qtnove;
-        $result[] = $tmp;
+        $result->hang_muc[] = 'Số vé còn nợ';
+        $result->quoc_te[] = $qtnove;
+        $result->quoc_noi[] = $sumnove - $qtnove;
 
         return $result;
     }
@@ -184,18 +186,19 @@ class Dashboard
             ->groupBy('thang')
             ->get();
 
-        $result = [];
+        $result = new stdClass;
+        $result->thangs = [];
+        $result->thu_khachs = [];
+        $result->lais = [];
         for ($i = 1; $i <= 12; $i++) {
-            $tmp = new stdClass;
-            $tmp->thang = "Tháng $i";
-            $tmp->thu_khach = 0;
-            $tmp->lai = 0;
-            $result[] = $tmp;
+            $result->thangs[] = "Tháng $i";
+            $result->thu_khachs[] = 0;
+            $result->lais[] = 0;
         }
 
         foreach ($dv as $item) {
-            $result[$item->thang - 1]->thu_khach = round($item->thu_khach / 1000000, 2);
-            $result[$item->thang - 1]->lai = round($item->lai / 1000000, 2);
+            $result->thu_khachs[$item->thang - 1] = round($item->thu_khach / 1000000, 2);
+            $result->lais[$item->thang - 1] = round($item->lai / 1000000, 2);
         }
         return $result;
     }

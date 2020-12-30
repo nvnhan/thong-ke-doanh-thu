@@ -57,25 +57,8 @@ const ListForm = props => {
     useEffect(() => {
         isComponentMounted = true;
         // Không Có filter hoặc có filter và đã load xong
-        if (finalFilter === undefined || !isEmpty(finalFilter)) {
-            console.log("Load data from server in ListForm", finalFilter);
-            // Set lại data và loading cho các Component con
-            setState({ data: [], isLoading: true });
-
-            axios
-                .get(`/api/${url}?` + queryString(finalFilter))
-                .then(response => {
-                    if (isComponentMounted && response.data.success) {
-                        //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
-                        if (onChangeData) onChangeData(response.data.data);
-                        setState({
-                            data: response.data.data,
-                            isLoading: false
-                        });
-                    }
-                })
-                .catch(error => console.log(error));
-        }
+        if (finalFilter === undefined || !isEmpty(finalFilter))
+            fetchData(finalFilter);
         return () => {
             // When Unmount component
             isComponentMounted = false;
@@ -149,6 +132,26 @@ const ListForm = props => {
     //#endregion
 
     //#region  Thực thi các sự kiện
+    const fetchData = query => {
+        console.log("Load data from server in ListForm", query);
+        // Set lại data và loading cho các Component con
+        setState({ data: [], isLoading: true });
+
+        axios
+            .get(`/api/${url}?` + queryString(query))
+            .then(response => {
+                if (isComponentMounted && response.data.success) {
+                    setState({
+                        data: response.data.data,
+                        isLoading: false
+                    });
+                    //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
+                    if (onChangeData) onChangeData(response.data.data);
+                }
+            })
+            .catch(error => console.log(error));
+    };
+
     const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
     const doInsertRow = (response, callback = null) => {

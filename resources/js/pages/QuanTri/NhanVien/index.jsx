@@ -6,7 +6,6 @@ import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
 const List = memo(props => {
-    const { authUser } = props;
     const authUser = useSelector(state => state.authUser);
 
     const columns = [

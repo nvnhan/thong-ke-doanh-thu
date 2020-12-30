@@ -6,15 +6,29 @@ import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
 import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSanBayList } from "../../../actions";
 import MyDatePicker from "../../../components/ListForm/MyDatePicker";
-import { inputFormat, inputParse, vndFormater } from "../../../utils";
+import { inputFormat, inputParse } from "../../../utils";
+import {
+    getKhachHangDetail,
+    getPhiHanhLyDetail,
+    getSanBayDetail,
+    getTaiKhoanDetail,
+    hbOptions
+} from "../../../utils/formatFormData";
 
-const { Option, OptGroup } = Select;
+const { Option } = Select;
 
 const form = React.memo(props => {
-    const { sanBay, phiHanhLy, taiKhoan, khachHang, hangBay } = props.danhMuc;
+    const dispatch = useDispatch();
+    const sanBayList = useSelector(state => state.sanBay.list);
+    const sanBayStatus = useSelector(state => state.sanBay.status);
+    if (sanBayStatus === "idle") dispatch(fetchSanBayList());
+    //TODO: Mutil fetch => mutil render??
+    // Loading status avoid lost user data typing?
+
     let time = null;
 
     useEffect(() => {
@@ -22,48 +36,6 @@ const form = React.memo(props => {
             if (time) clearTimeout(time);
         };
     }, []);
-
-    const hbOptions = hangBay.map(pl => ({ value: pl }));
-
-    const getKhachHangDetail = () =>
-        Object.entries(groupBy(khachHang, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
-
-    const getTaiKhoanDetail = () =>
-        Object.entries(groupBy(taiKhoan, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
-
-    const getSanBayDetail = () =>
-        Object.entries(groupBy(sanBay, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.ma_san_bay} key={ncc.id}>
-                        {ncc.ten_san_bay}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
-
-    const getPhiHanhLyDetail = () =>
-        phiHanhLy.map(ncc => (
-            <Option value={ncc.id} key={ncc.id}>
-                {ncc.hanh_ly + " - " + vndFormater.format(ncc.muc_phi)}
-            </Option>
-        ));
 
     const onChange = (value, type = "") => {
         props.onChangeValue({ value, type });
@@ -128,7 +100,7 @@ const form = React.memo(props => {
                         ]}
                     >
                         <AutoComplete
-                            options={hbOptions}
+                            options={hbOptions([])}
                             filterOption={(inputValue, option) =>
                                 (option.value || "")
                                     .toUpperCase()
@@ -186,7 +158,7 @@ const form = React.memo(props => {
                             }}
                             onChange={value => onChange(value, "tk")}
                         >
-                            {getTaiKhoanDetail()}
+                            {getTaiKhoanDetail([])}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -205,7 +177,7 @@ const form = React.memo(props => {
                                 );
                             }}
                         >
-                            {getKhachHangDetail()}
+                            {getKhachHangDetail([])}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -285,7 +257,7 @@ const form = React.memo(props => {
                             }}
                             onChange={value => onChange(value, "sb")}
                         >
-                            {getSanBayDetail()}
+                            {getSanBayDetail(sanBayList)}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -304,7 +276,7 @@ const form = React.memo(props => {
                             }}
                             onChange={value => onChange(value, "sb")}
                         >
-                            {getSanBayDetail()}
+                            {getSanBayDetail(sanBayList)}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -338,7 +310,7 @@ const form = React.memo(props => {
                             }}
                             onChange={value => onChange(value, "sb")}
                         >
-                            {getSanBayDetail()}
+                            {getSanBayDetail(sanBayList)}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -357,7 +329,7 @@ const form = React.memo(props => {
                             }}
                             onChange={value => onChange(value, "sb")}
                         >
-                            {getSanBayDetail()}
+                            {getSanBayDetail(sanBayList)}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -454,7 +426,7 @@ const form = React.memo(props => {
                             }}
                             onChange={value => onChange(value, "hl")}
                         >
-                            {getPhiHanhLyDetail()}
+                            {getPhiHanhLyDetail([])}
                         </Select>
                     </Form.Item>
                 </Col>

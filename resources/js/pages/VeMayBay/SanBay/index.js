@@ -1,9 +1,13 @@
 import Checkbox from "antd/lib/checkbox/index";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setSanBayList } from "../../../actions";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
 const List = React.memo(() => {
+    const dispatch = useDispatch();
+
     const columns = [
         {
             title: "Mã sân bay",
@@ -31,8 +35,16 @@ const List = React.memo(() => {
         }
     ];
 
+    // Update store when change data
+    const onChangeData = data => dispatch(setSanBayList(data));
+
     return (
-        <ListForm url="san-bay" columns={columns} formTemplate={<FormItem />} />
+        <ListForm
+            url="san-bay"
+            columns={columns}
+            formTemplate={<FormItem />}
+            onChangeData={onChangeData}
+        />
     );
 });
 

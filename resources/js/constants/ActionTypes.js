@@ -3,3 +3,7 @@ export const CHANGE_MENU_ACTIVE = "CHANGE_MENU_ACTIVE";
 
 export const LOGOUT = "LOGOUT";
 export const SET_AUTH = "SET_AUTH";
+
+export const LOADING_SAN_BAY_LIST = "LOADING_SAN_BAY_LIST";
+export const SET_SAN_BAY_LIST = "SET_SAN_BAY_LIST";
+export const ERROR_SAN_BAY_LIST = "ERROR_SAN_BAY_LIST";

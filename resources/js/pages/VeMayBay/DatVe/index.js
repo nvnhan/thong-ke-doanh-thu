@@ -41,7 +41,7 @@ const List = props => {
 
     useEffect(() => {
         isComponentMounted = true;
-        retrieveData();
+        // retrieveData();
         return () => {
             // When Unmount component
             isComponentMounted = false;
@@ -247,7 +247,7 @@ const List = props => {
                 tableSize={{ x: 1500 }}
                 modalWidth="1200px"
                 formTemplate={
-                    <FormItem danhMuc={state} onChangeValue={handleFormValue} />
+                    <FormItem onChangeValue={handleFormValue} />
                 }
                 formInitialValues={{
                     ngay_thang: moment().format("DD/MM/YYYY"),

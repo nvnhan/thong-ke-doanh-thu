@@ -40,11 +40,12 @@ class Dashboard
             }
         }
         // Thêm tồn kho
-        $tonKho = Report::TinhTonKho($request, $den_ngay);
-        $sum += $tonKho;
-        $result->hang_muc[] = "Tồn kho";
-        $result->gia_tri[] = round($tonKho / 1000);
-
+        if ($request->user()->ban_hang) {
+            $tonKho = Report::TinhTonKho($request, $den_ngay);
+            $sum += $tonKho;
+            $result->hang_muc[] = "Tồn kho";
+            $result->gia_tri[] = round($tonKho / 1000);
+        }
         return $result;
     }
 

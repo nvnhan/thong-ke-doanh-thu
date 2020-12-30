@@ -538,13 +538,15 @@ class Report
         $result[] = $tmp;
 
         // Thêm tồn kho
-        $tonKho = Report::TinhTonKho($request, $den_ngay);
-        $sum += $tonKho;
-        $tmp = new stdClass;
-        $tmp->id = -4;
-        $tmp->tai_khoan = "TỒN KHO";
-        $tmp->dau_ky = $format_price ? Util::VNDFormater($tonKho) : $tonKho;
-        $result[] = $tmp;
+        if ($request->user()->ban_hang) {
+            $tonKho = Report::TinhTonKho($request, $den_ngay);
+            $sum += $tonKho;
+            $tmp = new stdClass;
+            $tmp->id = -4;
+            $tmp->tai_khoan = "TỒN KHO";
+            $tmp->dau_ky = $format_price ? Util::VNDFormater($tonKho) : $tonKho;
+            $result[] = $tmp;
+        }
 
         // Thêm tổng cộng
         $tmp = new stdClass;

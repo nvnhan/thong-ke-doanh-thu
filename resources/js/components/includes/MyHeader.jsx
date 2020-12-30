@@ -6,18 +6,21 @@ import Drawer from "antd/lib/drawer/index";
 import Menu from "antd/lib/menu/index";
 import PageHeader from "antd/lib/page-header/index";
 import React, { memo, useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../actions";
 
 const { SubMenu } = Menu;
 
 const MyHeader = memo(props => {
-    const { authUser, title, onLogout } = props;
     const [drawerVisible, setDrawerVisible] = useState(false);
+    const dispatch = useDispatch();
+
+    const title = useSelector(state => state.pageTitle);
+    const authUser = useSelector(state => state.authUser);
+    const logout = () => dispatch(actions.logout());
 
     const showDrawer = () => setDrawerVisible(true);
-
     const onClose = () => setDrawerVisible(false);
 
     const getDrawerTitle = () => (
@@ -85,7 +88,7 @@ const MyHeader = memo(props => {
                             <Menu.Item
                                 key="SignOut"
                                 className="color-danger"
-                                onClick={onLogout}
+                                onClick={logout}
                             >
                                 Đăng xuất
                             </Menu.Item>
@@ -130,7 +133,7 @@ const MyHeader = memo(props => {
                             <Menu.Item
                                 key="SignOut"
                                 className="color-danger"
-                                onClick={onLogout}
+                                onClick={logout}
                             >
                                 Đăng xuất
                             </Menu.Item>
@@ -142,28 +145,4 @@ const MyHeader = memo(props => {
     );
 });
 
-/**
- * Store trả state về thông qua connect
- * Connect dùng hàm này để map các state => props cho component
- */
-const mapStatetoProps = state => {
-    return {
-        title: state.pageTitle,
-        authUser: state.authUser
-    };
-};
-/**
- * Map dispatch ==> Props
- * Gọi hàm ở  props + biến => dispatch 1 action nào đó
- */
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        onLogout: () => {
-            dispatch(actions.logout());
-        }
-    };
-};
-/**
- * Connect của react-redux sẽ giao tiếp giữa store và component
- */
-export default connect(mapStatetoProps, mapDispatchToProps)(MyHeader);
+export default MyHeader;

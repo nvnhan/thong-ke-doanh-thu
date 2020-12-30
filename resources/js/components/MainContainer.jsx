@@ -1,7 +1,7 @@
 import Layout from "antd/lib/layout/index";
 import message from "antd/lib/message/index";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../actions";
 import Login from "../pages/Account/Login";
 import Content from "./includes/Content";
@@ -9,8 +9,15 @@ import Loader from "./includes/Loader";
 import MyHeader from "./includes/MyHeader";
 import SideBar from "./SideBar";
 
-const MainContainer = props => {
+const MainContainer = () => {
+    const authUser = useSelector(state => state.authUser);
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
+
+    const setAuth = auth => dispatch(actions.setAuth(auth));
+    const logout = () => dispatch(actions.logout());
+
+    const isAuthenticate = () => authUser.username !== "";
 
     useEffect(() => {
         // Get token from localStorage
@@ -30,11 +37,11 @@ const MainContainer = props => {
                                 message.warn(
                                     "Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại"
                                 );
-                                setTimeout(() => props.onLogout(), 2000);
+                                setTimeout(logout, 2000);
                             }
                             return Promise.reject(error);
                         });
-                        props.onSetAuth(response.data.data);
+                        setAuth(response.data.data);
                     } else {
                         localStorage.removeItem("token");
                         message.warn(response.data.message);
@@ -46,14 +53,12 @@ const MainContainer = props => {
                         message.warn(
                             "Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại"
                         );
-                        setTimeout(() => this.props.onLogout(), 2000);
+                        setTimeout(logout, 2000);
                     } else console.log(error);
                 })
                 .then(() => setIsLoading(false));
         } else setIsLoading(false); // Chuyển tới Login page
     }, []);
-
-    const isAuthenticate = () => props.authUser.username !== "";
 
     if (isLoading) return <Loader />;
     if (isAuthenticate())
@@ -69,30 +74,4 @@ const MainContainer = props => {
     else return <Login />;
 };
 
-/**
- * Store trả state về thông qua connect
- * Connect dùng hàm này để map các state => props cho component
- */
-const mapStatetoProps = state => {
-    return {
-        authUser: state.authUser
-    };
-};
-/**
- * Map dispatch ==> Props
- * Gọi hàm ở  props + biến => dispatch 1 action nào đó
- */
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        onSetAuth: auth => {
-            dispatch(actions.setAuth(auth));
-        },
-        onLogout: () => {
-            dispatch(actions.logout());
-        }
-    };
-};
-/**
- * Connect của react-redux sẽ giao tiếp giữa store và component
- */
-export default connect(mapStatetoProps, mapDispatchToProps)(MainContainer);
+export default MainContainer;

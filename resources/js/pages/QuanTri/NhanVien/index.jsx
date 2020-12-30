@@ -1,12 +1,13 @@
 import Checkbox from "antd/lib/checkbox/index";
 import Tag from "antd/lib/tag/index";
 import React, { memo } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
 const List = memo(props => {
     const { authUser } = props;
+    const authUser = useSelector(state => state.authUser);
 
     const columns = [
         {
@@ -83,13 +84,13 @@ const List = memo(props => {
         }
     ];
 
-    const expandedRowRender = record => (
-        <ul style={{ margin: 0 }}>
-            <li>Ngày đăng nhập cuối: {record.ngay_dang_nhap}</li>
-            <li>Số ngày đăng nhập còn lại: {record.so_ngay_dang_nhap}</li>
-            <li>Ngày tạo tài khoản: {record.created_at}</li>
-        </ul>
-    );
+    // const expandedRowRender = record => (
+    //     <ul style={{ margin: 0 }}>
+    //         <li>Ngày đăng nhập cuối: {record.ngay_dang_nhap}</li>
+    //         <li>Số ngày đăng nhập còn lại: {record.so_ngay_dang_nhap}</li>
+    //         <li>Ngày tạo tài khoản: {record.created_at}</li>
+    //     </ul>
+    // );
 
     return (
         <ListForm
@@ -115,16 +116,4 @@ const List = memo(props => {
     );
 });
 
-/**
- * Store trả state về thông qua connect
- * Connect dùng hàm này để map các state => props cho component
- */
-const mapStatetoProps = state => {
-    return {
-        authUser: state.authUser
-    };
-};
-/**
- * Connect của react-redux sẽ giao tiếp giữa store và component
- */
-export default connect(mapStatetoProps, null)(List);
+export default List;

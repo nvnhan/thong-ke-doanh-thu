@@ -1,21 +1,21 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { createStore } from "redux";
 import { myReducer } from "../reducers";
 import MainContainer from "./MainContainer";
-import { BrowserRouter } from "react-router-dom";
 // import 'antd/dist/antd.css';
 
-export default class App extends PureComponent {
-    render() {
-        return (
-            <BrowserRouter>
-                <MainContainer />
-            </BrowserRouter>
-        );
-    }
-}
+const App = () => {
+    return (
+        <BrowserRouter>
+            <MainContainer />
+        </BrowserRouter>
+    );
+};
+
+export default App;
 
 /**
  * Tạo 1 store cho cả APP

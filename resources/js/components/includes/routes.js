@@ -54,7 +54,7 @@ const routes = [
     {
         path: "/",
         exact: true,
-        title: "Trang chủ",
+        title: "Tổng quan",
         menu: menus.HOME,
         component: <TrangChu />
     },

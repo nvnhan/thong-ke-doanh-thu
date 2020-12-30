@@ -5,8 +5,8 @@ import Loader from "./Loader";
 import routes from "./routes";
 
 function Content() {
-    const getRoute = routes => {
-        return routes.map((route, index) => {
+    const getRoute = routes =>
+        routes.map((route, index) => {
             return (
                 <Route
                     key={index}
@@ -22,7 +22,6 @@ function Content() {
                 />
             );
         });
-    };
 
     return (
         <div className="content">

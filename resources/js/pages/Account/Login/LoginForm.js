@@ -38,11 +38,12 @@ const LoginForm = memo(props => {
                         }
                         return Promise.reject(error);
                     });
-
                     props.onSetAuth(data);
+                    return true;
                 } else message.warn(response.data.message);
             })
-            .catch(error => console.log(error) & setSubmiting(false));
+            .catch(error => console.log(error))
+            .then(isSuccess => !isSuccess && setSubmiting(false));
     };
 
     const contactAdmin = () => message.info("Liên hệ quản trị viên hệ thống");

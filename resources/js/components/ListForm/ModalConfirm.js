@@ -22,7 +22,8 @@ const ModalConfirm = React.memo(props => {
                     if (props.currentRecord === undefined) form.resetFields();
                 } else props.handleCancel();
             })
-            .catch(info => console.log("Validate Failed: ", info));
+            .catch(info => console.log("Validate Failed: ", info))
+            .then(() => setFormSubmitting(false));
     };
 
     const onChange = checked => setInsertMore(checked);

@@ -1,6 +1,6 @@
 import Layout from "antd/lib/layout/index";
 import message from "antd/lib/message/index";
-import React, { PureComponent } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import Login from "../pages/Account/Login";
@@ -9,16 +9,10 @@ import Loader from "./includes/Loader";
 import MyHeader from "./includes/MyHeader";
 import SideBar from "./SideBar";
 
-class MainContainer extends PureComponent {
-    constructor(props) {
-        super(props);
+const MainContainer = props => {
+    const [isLoading, setIsLoading] = useState(true);
 
-        this.state = {
-            isLoading: true
-        };
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         // Get token from localStorage
         let token = localStorage.token;
         if (token !== undefined) {
@@ -36,11 +30,11 @@ class MainContainer extends PureComponent {
                                 message.warn(
                                     "Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại"
                                 );
-                                setTimeout(() => this.props.onLogout(), 2000);
+                                setTimeout(() => props.onLogout(), 2000);
                             }
                             return Promise.reject(error);
                         });
-                        this.props.onSetAuth(response.data.data);
+                        props.onSetAuth(response.data.data);
                     } else {
                         localStorage.removeItem("token");
                         message.warn(response.data.message);
@@ -55,30 +49,25 @@ class MainContainer extends PureComponent {
                         setTimeout(() => this.props.onLogout(), 2000);
                     } else console.log(error);
                 })
-                .then(() => this.setState({ isLoading: false }));
-        } else this.setState({ isLoading: false }); // Chuyển tới Login page
-    }
+                .then(() => setIsLoading(false));
+        } else setIsLoading(false); // Chuyển tới Login page
+    }, []);
 
-    isAuthenticate = () => {
-        return this.props.authUser.username !== "";
-    };
+    const isAuthenticate = () => props.authUser.username !== "";
 
-    render() {
-        const { isLoading } = this.state;
-        if (isLoading) return <Loader />;
-        if (this.isAuthenticate())
-            return (
+    if (isLoading) return <Loader />;
+    if (isAuthenticate())
+        return (
+            <Layout>
+                <SideBar />
                 <Layout>
-                    <SideBar />
-                    <Layout>
-                        <MyHeader />
-                        <Content />
-                    </Layout>
+                    <MyHeader />
+                    <Content />
                 </Layout>
-            );
-        else return <Login />;
-    }
-}
+            </Layout>
+        );
+    else return <Login />;
+};
 
 /**
  * Store trả state về thông qua connect

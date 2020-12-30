@@ -1,51 +1,36 @@
 import Card from "antd/lib/card/index";
-import React, { PureComponent } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import "./login.scss";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-class Login extends PureComponent {
-    constructor(props) {
-        super(props);
+const Login = props => {
+    const [login, setLogin] = useState(true);
 
-        this.state = {
-            login: true
-        };
-    }
+    useEffect(() => {
+        props.onChangeTitle("Đăng nhập");
+    }, []);
 
-    componentDidMount() {
-        this.props.onChangeTitle("Đăng nhập");
-    }
-
-    onChangeForm = () => {
-        const { login } = this.state;
-        this.setState({ login: !login });
-    };
+    const onChangeForm = () => setLogin(!login);
 
     /**
      * Hàm render
      */
-    render() {
-        const { login } = this.state;
-        return (
-            <Card
-                className="card-login"
-                title={<img src="/images/intro.png" />}
-            >
-                {login ? (
-                    <LoginForm
-                        onSetAuth={this.props.onSetAuth}
-                        onRegister={this.onChangeForm}
-                    />
-                ) : (
-                    <RegisterForm onLogin={this.onChangeForm} />
-                )}
-            </Card>
-        );
-    }
-}
+    return (
+        <Card className="card-login" title={<img src="/images/intro.png" />}>
+            {login ? (
+                <LoginForm
+                    onSetAuth={props.onSetAuth}
+                    onRegister={onChangeForm}
+                />
+            ) : (
+                <RegisterForm onLogin={onChangeForm} />
+            )}
+        </Card>
+    );
+};
 
 /**
  * Store trả state về thông qua connect

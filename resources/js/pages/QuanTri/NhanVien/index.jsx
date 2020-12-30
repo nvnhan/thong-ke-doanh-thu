@@ -1,12 +1,14 @@
 import Checkbox from "antd/lib/checkbox/index";
 import Tag from "antd/lib/tag/index";
-import React, { PureComponent } from "react";
+import React, { memo } from "react";
 import { connect } from "react-redux";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
-class List extends PureComponent {
-    columns = [
+const List = memo(props => {
+    const { authUser } = props;
+
+    const columns = [
         {
             title: "Tài khoản",
             dataIndex: "username",
@@ -81,7 +83,7 @@ class List extends PureComponent {
         }
     ];
 
-    expandedRowRender = record => (
+    const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
             <li>Ngày đăng nhập cuối: {record.ngay_dang_nhap}</li>
             <li>Số ngày đăng nhập còn lại: {record.so_ngay_dang_nhap}</li>
@@ -89,33 +91,29 @@ class List extends PureComponent {
         </ul>
     );
 
-    render() {
-        const { authUser } = this.props;
-
-        return (
-            <ListForm
-                url="nhan-vien"
-                selectable={false}
-                columns={this.columns}
-                tableSize={{ x: 1100 }}
-                modalWidth={800}
-                formTemplate={
-                    <FormItem
-                        quanTri={authUser.admin}
-                        banHang={authUser.admin || authUser.ban_hang}
-                        tourVisa={authUser.admin || authUser.tour_visa}
-                    />
-                }
-                // expandedRowRender={this.expandedRowRender}
-                formInitialValues={{
-                    phan_quyen: 0,
-                    actived: true,
-                    so_ngay_dang_nhap: 10
-                }}
-            />
-        );
-    }
-}
+    return (
+        <ListForm
+            url="nhan-vien"
+            selectable={false}
+            columns={columns}
+            tableSize={{ x: 1100 }}
+            modalWidth={800}
+            formTemplate={
+                <FormItem
+                    quanTri={authUser.admin}
+                    banHang={authUser.admin || authUser.ban_hang}
+                    tourVisa={authUser.admin || authUser.tour_visa}
+                />
+            }
+            // expandedRowRender={expandedRowRender}
+            formInitialValues={{
+                phan_quyen: 0,
+                actived: true,
+                so_ngay_dang_nhap: 10
+            }}
+        />
+    );
+});
 
 /**
  * Store trả state về thông qua connect

@@ -53,7 +53,8 @@ class DatVeController extends BaseController
             $objs = $objs->where('dinh_danh', $request->dd);
 
         if ($request->q)
-            $objs = $objs->where(fn ($query) => $query->where('ma_giu_cho', 'LIKE', "%$request->q%")
+            $objs = $objs->where(fn ($query) => $query
+                ->where('ma_giu_cho', 'LIKE', "%$request->q%")
                 ->orWhere('so_ve', 'LIKE', "%$request->q%")
                 ->orWhere('ten_khach', 'LIKE', "%$request->q%"));
 
@@ -65,8 +66,10 @@ class DatVeController extends BaseController
         $den_ngay = date('Y-m-d');
         if (!empty($request->den_ngay))
             $den_ngay = $request->den_ngay;
-        $objs = DatVe::ofUser($request->user())->whereNull('ngay_thanh_toan')
-            ->orWhere('ngay_thanh_toan', '>', $den_ngay);
+        $objs = DatVe::ofUser($request->user())
+            ->where(fn ($query) => $query
+                ->whereNull('ngay_thanh_toan')
+                ->orWhere('ngay_thanh_toan', '>', $den_ngay));
 
         return $this->sendResponse($objs->get(), "NoVe retrieved successfully");
     }
@@ -76,8 +79,10 @@ class DatVeController extends BaseController
         $den_ngay = date('Y-m-d H:i:s');
         if (!empty($request->den_ngay))
             $den_ngay = $request->den_ngay;
-        $objs = DatVe::ofUser($request->user())->where('ngay_gio_di', ">", $den_ngay)
-            ->orWhere('ngay_gio_ve', '>', $den_ngay);
+        $objs = DatVe::ofUser($request->user())
+            ->where(fn ($query) => $query
+                ->where('ngay_gio_di', ">", $den_ngay)
+                ->orWhere('ngay_gio_ve', '>', $den_ngay));
 
         return $this->sendResponse($objs->get(), "ChuaBay retrieved successfully");
     }

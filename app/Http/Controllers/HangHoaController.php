@@ -123,11 +123,11 @@ class HangHoaController extends BaseController
         $hang_hoa = HangHoa::ofUser($request->user())
             ->where(function ($q) use ($bat_dau, $ket_thuc) {
                 return $q->whereHas('mua_vaos', function ($query) use ($bat_dau, $ket_thuc) {
-                    $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+                    return $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
                 })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
-                    $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+                    return $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
                 })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
-                    $query->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
+                    return $query->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
                 });
             })->get();
 

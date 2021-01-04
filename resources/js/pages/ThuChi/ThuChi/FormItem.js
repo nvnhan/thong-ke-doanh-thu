@@ -4,38 +4,30 @@ import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
 import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
-import React from "react";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchKhachHangList } from "../../../actions/actKhachHang";
+import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
+import MyDatePicker from "../../../components/Controls/MyDatePicker";
+import MySelect from "../../../components/Controls/MySelect";
 import { inputFormat, inputParse } from "../../../utils";
-const { Option, OptGroup } = Select;
+import {
+    getKhachHangDetail,
+    getTaiKhoanDetail
+} from "../../../utils/formatFormData";
+const { Option } = Select;
 
 const form = React.memo(props => {
-    const { khachHang, taiKhoan } = props.danhMuc;
+    const dispatch = useDispatch();
+    const khachHang = useSelector(state => state.khachHang.list);
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
+    const khachHangStatus = useSelector(state => state.khachHang.status);
+    const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
 
-    const groupKhachHang = Object.entries(groupBy(khachHang, "phan_loai"));
-    const getKhachHangDetail = () =>
-        groupKhachHang.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
-
-    const groupTaiKhoan = Object.entries(groupBy(taiKhoan, "phan_loai"));
-    const getTaiKhoanDetail = () =>
-        groupTaiKhoan.map(clist => (
-            <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    useEffect(() => {
+        khachHangStatus === "idle" && dispatch(fetchKhachHangList());
+        taiKhoanStatus === "idle" && dispatch(fetchTaiKhoanList());
+    }, []);
 
     const nganHang = taiKhoan.filter(item => item.loai === 0);
     const getNganHangDetail = () =>
@@ -87,68 +79,29 @@ const form = React.memo(props => {
             </Col>
             <Col span={12}>
                 <Form.Item name="id_tai_khoan_di" label="Tài khoản chi">
-                    <Select
-                        showSearch
-                        allowClear
+                    <MySelect
                         placeholder="Chọn tài khoản"
-                        filterOption={(input, option) => {
-                            if (!option.children) return false;
-                            return (
-                                option.children
-                                    .toLowerCase()
-                                    .indexOf(input.toLowerCase()) >= 0
-                            );
-                        }}
-                    >
-                        {getNganHangDetail()}
-                    </Select>
+                        options={getNganHangDetail()}
+                        onChange={null}
+                    />
                 </Form.Item>
             </Col>
             <Col span={12}>
-                <Form.Item
-                    name="id_tai_khoan_den"
-                    label="Nơi nhận"
-                    // rules={[
-                    //     {
-                    //         required: true,
-                    //         message: "Nhập đầy đủ thông tin!"
-                    //     }
-                    // ]}
-                >
-                    <Select
-                        showSearch
-                        allowClear
+                <Form.Item name="id_tai_khoan_den" label="Nơi nhận">
+                    <MySelect
                         placeholder="Chọn tài khoản / nhà cung cấp"
-                        filterOption={(input, option) => {
-                            if (!option.children) return false;
-                            return (
-                                option.children
-                                    .toLowerCase()
-                                    .indexOf(input.toLowerCase()) >= 0
-                            );
-                        }}
-                    >
-                        {getTaiKhoanDetail()}
-                    </Select>
+                        options={getTaiKhoanDetail(taiKhoan)}
+                        onChange={null}
+                    />
                 </Form.Item>
             </Col>
             <Col span={12}>
                 <Form.Item name="id_khach_hang" label="Khách hàng">
-                    <Select
-                        showSearch
-                        allowClear
+                    <MySelect
                         placeholder="Chọn khách hàng"
-                        filterOption={(input, option) => {
-                            if (!option.children) return false;
-                            return (
-                                option.children
-                                    .toLowerCase()
-                                    .indexOf(input.toLowerCase()) >= 0
-                            );
-                        }}
-                    >
-                        {getKhachHangDetail()}
-                    </Select>
+                        options={getKhachHangDetail(khachHang)}
+                        onChange={null}
+                    />
                 </Form.Item>
             </Col>
         </Row>

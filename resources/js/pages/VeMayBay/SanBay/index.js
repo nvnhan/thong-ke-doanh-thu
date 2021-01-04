@@ -1,7 +1,7 @@
 import Checkbox from "antd/lib/checkbox/index";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setSanBayList } from "../../../actions";
+import { setSanBayList } from "../../../actions/actSanBay";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 

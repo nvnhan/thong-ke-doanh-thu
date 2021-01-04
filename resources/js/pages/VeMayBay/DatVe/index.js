@@ -4,7 +4,8 @@ import Form from "antd/lib/form/index";
 import message from "antd/lib/message/index";
 import Modal from "antd/lib/modal/index";
 import isEmpty from "lodash/isEmpty";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { useMergeState, vndFormater } from "../../../utils";
@@ -27,82 +28,12 @@ const List = props => {
     const { selectedKeys, modalVisible } = update;
     const [updateForm] = Form.useForm();
 
-    const [state, setState] = useMergeState({
-        sanBay: [],
-        thuePhi: [],
-        phiHanhLy: [],
-        taiKhoan: [],
-        khachHang: [],
-        hangBay: []
-    });
     const childRef = useRef();
-    let isComponentMounted = false;
-    let time = null;
 
-    useEffect(() => {
-        isComponentMounted = true;
-        // retrieveData();
-        return () => {
-            // When Unmount component
-            isComponentMounted = false;
-            if (time) clearTimeout(time);
-        };
-    }, []);
-
-    /**
-     * Retriving data from server
-     * If has error, auto recall after 1 second
-     */
-    const retrieveData = () => {
-        const promise1 = axios.get("/api/san-bay");
-        const promise2 = axios.get("/api/thue-phi/all");
-        const promise3 = axios.get("/api/phi-hanh-ly/all");
-        const promise4 = axios.get("/api/tai-khoan/all");
-        const promise5 = axios.get("/api/khach-hang/all");
-        const promise6 = axios.get("/api/dat-ve/hang-bay");
-        console.log("Retrieving Danh Muc");
-        Promise.all([
-            promise1,
-            promise2,
-            promise3,
-            promise4,
-            promise5,
-            promise6
-        ])
-            .then(response => {
-                if (isComponentMounted)
-                    if (
-                        response[0].data.success &&
-                        response[1].data.success &&
-                        response[2].data.success &&
-                        response[3].data.success &&
-                        response[4].data.success &&
-                        response[5].data.success
-                    ) {
-                        setState({
-                            sanBay: response[0].data.data,
-                            thuePhi: response[1].data.data,
-                            phiHanhLy: response[2].data.data,
-                            taiKhoan: response[3].data.data,
-                            khachHang: response[4].data.data,
-                            hangBay: [
-                                ...new Set([
-                                    ...response[5].data.data,
-                                    "VN",
-                                    "VJ",
-                                    "Jets",
-                                    "BB"
-                                ])
-                            ]
-                        });
-                        console.log("Retrieved Danh Muc Succcessfully");
-                    } else time = setTimeout(retrieveData, 2000);
-            })
-            .catch(error => {
-                console.log(error);
-                time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
-            });
-    };
+    const sanBay = useSelector(state => state.sanBay.list);
+    const phiHanhLy = useSelector(state => state.phiHanhLy.list);
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
+    const thuePhi = useSelector(state => state.thuePhi.list);
 
     /**
      * Callback from FormItem, trigger when select Hang Hoa
@@ -110,7 +41,12 @@ const List = props => {
      */
     const handleFormValue = props => {
         const record = tinhPhi({
-            state,
+            state: {
+                phiHanhLy,
+                taiKhoan,
+                sanBay,
+                thuePhi
+            },
             ...childRef.current.getFormInstance().getFieldsValue(),
             ...props
         });
@@ -148,14 +84,12 @@ const List = props => {
 
     const renderSummary = data => {
         if (!isEmpty(data)) {
-            const sumObj = data.reduce((previousValue, currentValue) => {
-                return {
-                    tong_tien: previousValue.tong_tien + currentValue.tong_tien,
-                    tong_tien_thu_khach:
-                        previousValue.tong_tien_thu_khach +
-                        currentValue.tong_tien_thu_khach
-                };
-            });
+            const sumObj = { tong_tien: 0, tong_tien_thu_khach: 0 };
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                sumObj.tong_tien += element.tong_tien;
+                sumObj.tong_tien_thu_khach += element.tong_tien_thu_khach;
+            }
             return (
                 <>
                     <tr>
@@ -219,12 +153,11 @@ const List = props => {
             .catch(info => console.log("Validate Failed: ", info));
     };
 
-    const handleCancel = () => {
+    const handleCancel = () =>
         setUpdate({
             selectedKeys: [],
             modalVisible: false
         });
-    };
 
     return (
         <React.Fragment>
@@ -246,9 +179,7 @@ const List = props => {
                 columns={columns}
                 tableSize={{ x: 1500 }}
                 modalWidth="1200px"
-                formTemplate={
-                    <FormItem onChangeValue={handleFormValue} />
-                }
+                formTemplate={<FormItem onChangeValue={handleFormValue} />}
                 formInitialValues={{
                     ngay_thang: moment().format("DD/MM/YYYY"),
                     loai_tuoi: 0,
@@ -294,7 +225,7 @@ const List = props => {
                         tong_tien_thu_khach: 0
                     }}
                 >
-                    <UpdateLayout danhMuc={state} />
+                    <UpdateLayout />
                 </Form>
             </Modal>
         </React.Fragment>

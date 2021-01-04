@@ -8,8 +8,14 @@ import Input from "antd/lib/input/index";
 import Select from "antd/lib/select/index";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSanBayList } from "../../../actions";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+import { fetchHangBayList } from "../../../actions/actHangBay";
+import { fetchKhachHangList } from "../../../actions/actKhachHang";
+import { fetchPhiHanhLyList } from "../../../actions/actPhiHanhLy";
+import { fetchSanBayList } from "../../../actions/actSanBay";
+import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
+import { fetchThuePhiList } from "../../../actions/actThuePhi";
+import MyDatePicker from "../../../components/Controls/MyDatePicker";
+import MySelect from "../../../components/Controls/MySelect";
 import { inputFormat, inputParse } from "../../../utils";
 import {
     getKhachHangDetail,
@@ -23,19 +29,41 @@ const { Option } = Select;
 
 const form = React.memo(props => {
     const dispatch = useDispatch();
-    const sanBayList = useSelector(state => state.sanBay.list);
+
     const sanBayStatus = useSelector(state => state.sanBay.status);
-    if (sanBayStatus === "idle") dispatch(fetchSanBayList());
-    //TODO: Mutil fetch => mutil render??
-    // Loading status avoid lost user data typing?
+    const phiHanhLyStatus = useSelector(state => state.phiHanhLy.status);
+    const khachHangStatus = useSelector(state => state.khachHang.status);
+    const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
+    const hangBayStatus = useSelector(state => state.hangBay.status);
+    const thuePhiStatus = useSelector(state => state.thuePhi.status);
+
+    const sanBay = useSelector(state => state.sanBay.list);
+    const phiHanhLy = useSelector(state => state.phiHanhLy.list);
+    const khachHang = useSelector(state => state.khachHang.list);
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
+    const hangBay = useSelector(state => state.hangBay.list);
 
     let time = null;
 
     useEffect(() => {
+        retrieveData();
         return () => {
             if (time) clearTimeout(time);
         };
     }, []);
+
+    /**
+     * Retriving data from server
+     * If has error, auto recall after 1 second
+     */
+    const retrieveData = () => {
+        sanBayStatus === "idle" && dispatch(fetchSanBayList());
+        phiHanhLyStatus === "idle" && dispatch(fetchPhiHanhLyList());
+        khachHangStatus === "idle" && dispatch(fetchKhachHangList());
+        taiKhoanStatus === "idle" && dispatch(fetchTaiKhoanList());
+        hangBayStatus === "idle" && dispatch(fetchHangBayList());
+        thuePhiStatus === "idle" && dispatch(fetchThuePhiList());
+    };
 
     const onChange = (value, type = "") => {
         props.onChangeValue({ value, type });
@@ -100,7 +128,7 @@ const form = React.memo(props => {
                         ]}
                     >
                         <AutoComplete
-                            options={hbOptions([])}
+                            options={hbOptions(hangBay)}
                             filterOption={(inputValue, option) =>
                                 (option.value || "")
                                     .toUpperCase()
@@ -144,66 +172,46 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="id_tai_khoan_mua" label="Nơi mua">
-                        <Select
-                            showSearch
-                            allowClear
+                        <MySelect
                             placeholder="Chọn nơi mua"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
+                            options={getTaiKhoanDetail(taiKhoan)}
                             onChange={value => onChange(value, "tk")}
-                        >
-                            {getTaiKhoanDetail([])}
-                        </Select>
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="id_khach_hang" label="Khách hàng">
-                        <Select
-                            showSearch
-                            allowClear
+                        <MySelect
                             placeholder="Chọn khách hàng"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getKhachHangDetail([])}
-                        </Select>
+                            options={getKhachHangDetail(khachHang)}
+                            onChange={null}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="ngay_nhac_lich" label="Nhắc lịch bay">
                         <MyDatePicker
-                            format="HH:mm DD/MM/YYYY"
+                            format="DD/MM/YYYY"
                             placeholder="(Không nhắc)"
-                            showTime
-                            showSeconds={false}
                         />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="canh_bao_xuat_ve" label="Báo xuất vé">
                         <MyDatePicker
-                            format="HH:mm DD/MM/YYYY"
+                            format="DD/MM/YYYY"
                             placeholder="(Không cảnh báo)"
-                            showTime
-                            showSeconds={false}
                         />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item
-                        wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                        wrapperCol={{
+                            sm: {
+                                offset: 8,
+                                span: 16
+                            }
+                        }}
                         name="chua_xuat_ve"
                         valuePropName="checked"
                     >
@@ -244,40 +252,20 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="sb_di" label="HT chặng đi">
-                        <Select
-                            showSearch
-                            allowClear
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
+                        <MySelect
+                            placeholder="Chọn sân bay"
+                            options={getSanBayDetail(sanBay)}
                             onChange={value => onChange(value, "sb")}
-                        >
-                            {getSanBayDetail(sanBayList)}
-                        </Select>
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="sb_di1" label="=====>" colon={false}>
-                        <Select
-                            showSearch
-                            allowClear
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
+                        <MySelect
+                            placeholder="Chọn sân bay"
+                            options={getSanBayDetail(sanBay)}
                             onChange={value => onChange(value, "sb")}
-                        >
-                            {getSanBayDetail(sanBayList)}
-                        </Select>
+                        />
                     </Form.Item>
                 </Col>
 
@@ -297,40 +285,20 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="sb_ve" label="HT chặng về">
-                        <Select
-                            showSearch
-                            allowClear
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
+                        <MySelect
+                            placeholder="Chọn sân bay"
+                            options={getSanBayDetail(sanBay)}
                             onChange={value => onChange(value, "sb")}
-                        >
-                            {getSanBayDetail(sanBayList)}
-                        </Select>
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="sb_ve1" label="=====>" colon={false}>
-                        <Select
-                            showSearch
-                            allowClear
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
+                        <MySelect
+                            placeholder="Chọn sân bay"
+                            options={getSanBayDetail(sanBay)}
                             onChange={value => onChange(value, "sb")}
-                        >
-                            {getSanBayDetail(sanBayList)}
-                        </Select>
+                        />
                     </Form.Item>
                 </Col>
             </Row>
@@ -345,7 +313,9 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="gia_net" label="Giá net">
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             min={0}
                             step={1000}
                             formatter={inputFormat}
@@ -357,7 +327,9 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="vat" label="VAT">
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             formatter={inputFormat}
                             disabled
                         />
@@ -366,7 +338,9 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="phi_san_bay" label="Phí soi chiếu">
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             min={0}
                             step={1000}
                             formatter={inputFormat}
@@ -378,7 +352,9 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="phu_phi_san_bay" label="Phí quản trị">
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             min={0}
                             step={1000}
                             formatter={inputFormat}
@@ -390,7 +366,9 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="phu_phi" label="Nơi mua thu">
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             min={0}
                             step={1000}
                             formatter={inputFormat}
@@ -402,7 +380,9 @@ const form = React.memo(props => {
                 <Col span={12} md={6}>
                     <Form.Item name="hoa_hong" label="Hoa hồng">
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             min={0}
                             step={1000}
                             formatter={inputFormat}
@@ -413,27 +393,19 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="id_phi_hanh_ly" label="Hành lý">
-                        <Select
-                            showSearch
-                            allowClear
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
+                        <MySelect
+                            placeholder="Chọn loại hành lý"
+                            options={getPhiHanhLyDetail(phiHanhLy)}
                             onChange={value => onChange(value, "hl")}
-                        >
-                            {getPhiHanhLyDetail([])}
-                        </Select>
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
                     <Form.Item name="hanh_ly" label="Phí hành lý">
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             min={0}
                             step={1000}
                             formatter={inputFormat}
@@ -457,7 +429,9 @@ const form = React.memo(props => {
                         ]}
                     >
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             min={0}
                             step={1000}
                             formatter={inputFormat}
@@ -477,7 +451,9 @@ const form = React.memo(props => {
                         ]}
                     >
                         <InputNumber
-                            style={{ width: "100%" }}
+                            style={{
+                                width: "100%"
+                            }}
                             min={0}
                             step={1000}
                             formatter={inputFormat}
@@ -489,8 +465,12 @@ const form = React.memo(props => {
                     <Form.Item
                         name="ghi_chu"
                         label="Ghi chú"
-                        labelCol={{ sm: { span: 4 } }}
-                        wrapperCol={{ sm: { span: 20 } }}
+                        labelCol={{
+                            sm: { span: 4 }
+                        }}
+                        wrapperCol={{
+                            sm: { span: 20 }
+                        }}
                     >
                         <Input />
                     </Form.Item>

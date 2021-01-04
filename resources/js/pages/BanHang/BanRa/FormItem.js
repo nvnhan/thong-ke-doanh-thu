@@ -3,51 +3,29 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
-import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
-import React from "react";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
-import { inputFormat, inputParse, vndFormater } from "../../../utils";
-
-const { Option, OptGroup } = Select;
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHangHoaList } from "../../../actions/actHangHoa";
+import { fetchKhachHangList } from "../../../actions/actKhachHang";
+import MyDatePicker from "../../../components/Controls/MyDatePicker";
+import MySelect from "../../../components/Controls/MySelect";
+import { inputFormat, inputParse } from "../../../utils";
+import {
+    getHangHoaDetail,
+    getKhachHangDetail
+} from "../../../utils/formatFormData";
 
 const form = React.memo(props => {
-    const khachHang = props.khachHang || [];
-    /**
-     * [
-     *      ['xxx', [{}, {}, {}],
-     *      ['yyyyy', [{}, {}, {}, {}, {}]]
-     * ]
-     */
-    const groupKhachHang = Object.entries(groupBy(khachHang, "phan_loai"));
-    const getKhachHangDetail = () =>
-        groupKhachHang.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
-    const hangHoa = props.hangHoa || [];
-    const groupHangHoa = Object.entries(groupBy(hangHoa, "nha_cung_cap"));
-    const getHangHoaDetail = () =>
-        groupHangHoa.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(hh => (
-                    <Option value={hh.id} key={hh.id}>
-                        {hh.phan_loai +
-                            " - " +
-                            hh.ma_hang +
-                            " (" +
-                            vndFormater.format(hh.don_gia) +
-                            ")"}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    const dispatch = useDispatch();
+    const khachHangStatus = useSelector(state => state.khachHang.status);
+    const hangHoaStatus = useSelector(state => state.hangHoa.status);
+    const khachHang = useSelector(state => state.khachHang.list);
+    const hangHoa = useSelector(state => state.hangHoa.list);
 
+    useEffect(() => {
+        khachHangStatus === "idle" && dispatch(fetchKhachHangList());
+        hangHoaStatus === "idle" && dispatch(fetchHangHoaList());
+    }, []);
     /**
      * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
      */
@@ -84,21 +62,11 @@ const form = React.memo(props => {
                             }
                         ]}
                     >
-                        <Select
-                            showSearch
+                        <MySelect
                             placeholder="Chọn hàng hóa"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
+                            options={getHangHoaDetail(hangHoa)}
                             onChange={onChange}
-                        >
-                            {getHangHoaDetail()}
-                        </Select>
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} sm={12}>
@@ -161,20 +129,11 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={12} sm={12}>
                     <Form.Item name="id_khach_hang" label="Khách hàng">
-                        <Select
-                            showSearch
+                        <MySelect
                             placeholder="Chọn khách hàng"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getKhachHangDetail()}
-                        </Select>
+                            options={getKhachHangDetail(khachHang)}
+                            onChange={null}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} sm={12}>

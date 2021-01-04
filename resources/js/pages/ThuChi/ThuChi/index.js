@@ -1,50 +1,14 @@
 import AppstoreAddOutlined from "@ant-design/icons/AppstoreAddOutlined";
-import React, { useEffect, useState } from "react";
+import isEmpty from "lodash/isEmpty";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
-import isEmpty from "lodash/isEmpty";
 import exportToExcel from "../../../utils/exportToExcel";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
     const dinh_danh = props.location.dd;
-    const [state, setState] = useState({
-        khachHang: [],
-        taiKhoan: []
-    });
-    let time = null;
-
-    useEffect(() => {
-        retrieveData();
-        return () => {
-            if (time) clearTimeout(time);
-        };
-    }, []);
-
-    /**
-     * Retriving data from server
-     * If has error, auto recall after 1 second
-     */
-    const retrieveData = () => {
-        const promise1 = axios.get("/api/tai-khoan/all");
-        const promise2 = axios.get("/api/khach-hang/all");
-        console.log("Retrieving Danh Muc");
-        Promise.all([promise1, promise2])
-            .then(response => {
-                if (response[0].data.success && response[1].data.success) {
-                    setState({
-                        taiKhoan: response[0].data.data,
-                        khachHang: response[1].data.data
-                    });
-                    console.log("Retrieved Danh Muc Succcessfully");
-                } else time = setTimeout(retrieveData, 2000);
-            })
-            .catch(error => {
-                console.log(error);
-                time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
-            });
-    };
 
     /**
      * Redirect to Tour Chi Tiet with addition params
@@ -206,7 +170,7 @@ const List = React.memo(props => {
                 columns={columns}
                 tableSize={{ x: 1000 }}
                 modalWidth="800px"
-                formTemplate={<FormItem danhMuc={state} />}
+                formTemplate={<FormItem />}
                 formInitialValues={{
                     so_tien: 100000,
                     ngay_thang: moment().format("DD/MM/YYYY")

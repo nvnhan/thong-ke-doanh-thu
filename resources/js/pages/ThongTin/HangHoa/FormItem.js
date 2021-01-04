@@ -4,35 +4,29 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
-import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
+import MySelect from "../../../components/Controls/MySelect";
 import { inputFormat, inputParse } from "../../../utils";
-
-const { Option, OptGroup } = Select;
+import { getTaiKhoanDetail } from "../../../utils/formatFormData";
 
 const form = React.memo(props => {
+    const ncc = props.nhaCungCap;
+    const dispatch = useDispatch();
     const phanLoai = props.phanLoai || [];
     const options = phanLoai.map(pl => ({ value: pl }));
 
-    const nhaCungCap = props.nhaCungCap || [];
-    /**
-     * [
-     *      ['xxx', [{}, {}, {}],
-     *      ['yyyyy', [{}, {}, {}, {}, {}]]
-     * ]
-     */
-    const groupNhaCungCap = Object.entries(groupBy(nhaCungCap, "phan_loai"));
-    const getNhaCungCapDetail = () =>
-        groupNhaCungCap.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
+    const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
+    const nhaCungCap =
+        ncc !== undefined ? [...ncc] : taiKhoan.filter(i => i.loai === 1);
+
+    useEffect(() => {
+        ncc === undefined &&
+            taiKhoanStatus === "idle" &&
+            dispatch(fetchTaiKhoanList());
+    }, [ncc]);
 
     return (
         <React.Fragment>
@@ -76,20 +70,11 @@ const form = React.memo(props => {
                             }
                         ]}
                     >
-                        <Select
-                            showSearch
+                        <MySelect
                             placeholder="Chọn nhà cung cấp"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getNhaCungCapDetail()}
-                        </Select>
+                            options={getTaiKhoanDetail(nhaCungCap)}
+                            onChange={null}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={24} md={12}>

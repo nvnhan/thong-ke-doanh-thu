@@ -1,26 +1,24 @@
 import FileExcelOutlined from "@ant-design/icons/FileExcelOutlined";
 import Button from "antd/lib/button/index";
 import Form from "antd/lib/form/index";
-import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
-import React, { useState } from "react";
-import MyRangePicker from "../../../components/ListForm/MyRangePicker";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
+import MyRangePicker from "../../../components/Controls/MyRangePicker";
+import MySelect from "../../../components/Controls/MySelect";
 import { parseValues } from "../../../utils";
 import { downloadApi } from "../../../utils/downloadFile";
-
-const { Option, OptGroup } = Select;
+import { getTaiKhoanDetail } from "../../../utils/formatFormData";
 
 const index = props => {
     const [form] = Form.useForm();
+    const dispatch = useDispatch();
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
+    const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
 
-    const [taiKhoan, setTaiKhoan] = useState(() => {
-        axios
-            .get("/api/tai-khoan/all")
-            .then(response => {
-                if (response.data.success) setTaiKhoan(response.data.data);
-            })
-            .catch(error => console.log(error));
-    });
+    useEffect(() => {
+        taiKhoanStatus === "idle" && dispatch(fetchTaiKhoanList());
+    }, []);
 
     const onFinish = () => {
         let values = form.getFieldsValue();
@@ -30,17 +28,6 @@ const index = props => {
             "doi-soat-tai-khoan.xlsx"
         );
     };
-
-    const getTaiKhoanDetail = () =>
-        Object.entries(groupBy(taiKhoan, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
 
     return (
         <div className="list-form">
@@ -79,20 +66,11 @@ const index = props => {
                             }
                         ]}
                     >
-                        <Select
-                            showSearch
+                        <MySelect
                             placeholder="Chọn tài khoản / nhà cung cấp"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getTaiKhoanDetail()}
-                        </Select>
+                            options={getTaiKhoanDetail(taiKhoan)}
+                            onChange={null}
+                        />
                     </Form.Item>
                     <Form.Item wrapperCol={{ md: { span: 16, offset: 8 } }}>
                         <Button htmlType="submit" type="primary">

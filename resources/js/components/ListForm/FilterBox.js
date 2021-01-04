@@ -8,8 +8,8 @@ import Row from "antd/lib/grid/row";
 import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import { parseValues } from "../../utils";
+import MyRangePicker from "../Controls/MyRangePicker";
 import "./FilterBox.scss";
-import MyRangePicker from "./MyRangePicker";
 
 const FilterBox = React.memo(props => {
     const { onFilter, tuNgayDenNgay, otherFilter, filterInitialValue } = props;

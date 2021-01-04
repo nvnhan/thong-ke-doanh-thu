@@ -4,7 +4,7 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import Input from "antd/lib/input/index";
 import React from "react";
-import MyRangePicker from "../../../components/ListForm/MyRangePicker";
+import MyRangePicker from "../../../components/Controls/MyRangePicker";
 
 const form = React.memo(props => {
     return (

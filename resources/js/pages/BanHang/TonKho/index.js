@@ -1,6 +1,6 @@
 import React from "react";
 import ListForm from "../../../components/ListForm";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+import MyDatePicker from "../../../components/Controls/MyDatePicker";
 import { vndFormater } from "../../../utils";
 import isEmpty from "lodash/isEmpty";
 import exportToExcel from "../../../utils/exportToExcel";

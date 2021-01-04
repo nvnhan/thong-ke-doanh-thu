@@ -20,11 +20,11 @@ class NhaCungCapController extends BaseController
         return $this->sendResponse($objs->get(), "NhaCungCap retrieved successfully");
     }
 
-    public function all(Request $request)
-    {
-        $objs = TaiKhoan::ofUser($request->user())->whereLoai('1')->get(['id', 'ky_hieu', 'phan_loai']);
-        return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
-    }
+    // public function all(Request $request)
+    // {
+    //     $objs = TaiKhoan::ofUser($request->user())->whereLoai('1')->get(['id', 'ky_hieu', 'phan_loai']);
+    //     return $this->sendResponse($objs, "TaiKhoan retrieved successfully");
+    // }
 
     /**
      * Store a newly created resource in storage.

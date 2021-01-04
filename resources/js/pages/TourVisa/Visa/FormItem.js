@@ -4,48 +4,34 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
-import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
-import React from "react";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchKhachHangList } from "../../../actions/actKhachHang";
+import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
+import MyDatePicker from "../../../components/Controls/MyDatePicker";
+import MySelect from "../../../components/Controls/MySelect";
 import { inputFormat, inputParse } from "../../../utils";
-const { Option, OptGroup } = Select;
+import {
+    getKhachHangDetail,
+    getTaiKhoanDetail
+} from "../../../utils/formatFormData";
 
 const form = React.memo(props => {
     const phanLoai = props.phanLoai || [];
     const options = phanLoai.map(pl => ({ value: pl }));
 
-    const nhaCungCap = props.nhaCungCap || [];
-    /**
-     * [
-     *      ['xxx', [{}, {}, {}],
-     *      ['yyyyy', [{}, {}, {}, {}, {}]]
-     * ]
-     */
-    const groupNhaCungCap = Object.entries(groupBy(nhaCungCap, "phan_loai"));
-    const getNhaCungCapDetail = () =>
-        groupNhaCungCap.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    const dispatch = useDispatch();
+    const khachHangStatus = useSelector(state => state.khachHang.status);
+    const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
+    const khachHang = useSelector(state => state.khachHang.list);
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
 
-    const khachHang = props.khachHang || [];
-    const groupKhachHang = Object.entries(groupBy(khachHang, "phan_loai"));
-    const getKhachHangDetail = () =>
-        groupKhachHang.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    const nhaCungCap = taiKhoan.filter(item => item.loai === 1);
+
+    useEffect(() => {
+        khachHangStatus === "idle" && dispatch(fetchKhachHangList());
+        taiKhoanStatus === "idle" && dispatch(fetchTaiKhoanList());
+    }, []);
 
     return (
         <React.Fragment>
@@ -106,21 +92,11 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={12} md={8} sm={12}>
                     <Form.Item name="id_nha_cung_cap" label="Nhà CC">
-                        <Select
-                            showSearch
-                            allowClear
+                        <MySelect
                             placeholder="Chọn nhà cung cấp"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getNhaCungCapDetail()}
-                        </Select>
+                            options={getTaiKhoanDetail(nhaCungCap)}
+                            onChange={null}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={8} sm={12}>
@@ -130,21 +106,11 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={12} md={8} sm={12}>
                     <Form.Item name="id_khach_hang" label="Khách hàng">
-                        <Select
-                            showSearch
-                            allowClear
+                        <MySelect
                             placeholder="Chọn khách hàng"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getKhachHangDetail()}
-                        </Select>
+                            options={getKhachHangDetail(khachHang)}
+                            onChange={null}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={8} sm={12}>

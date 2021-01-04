@@ -1,6 +1,6 @@
 import AppstoreAddOutlined from "@ant-design/icons/AppstoreAddOutlined";
 import isEmpty from "lodash/isEmpty";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
@@ -9,16 +9,6 @@ import FormItem from "./FormItem";
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
-    const [khachHang, setKhachHang] = useState([]);
-
-    useEffect(() => {
-        axios
-            .get("/api/khach-hang/all")
-            .then(response => {
-                if (response.data.success) setKhachHang(response.data.data);
-            })
-            .catch(error => console.log(error));
-    }, []);
 
     /**
      * Callback from ListForm to get PhanLoai from data
@@ -37,13 +27,13 @@ const List = React.memo(props => {
 
     const renderSummary = data => {
         if (!isEmpty(data)) {
-            const sumObj = data.reduce((previousValue, currentValue) => {
-                return {
-                    gia_tour: previousValue.gia_tour + currentValue.gia_tour,
-                    gia_ban: previousValue.gia_ban + currentValue.gia_ban,
-                    lai: previousValue.lai + currentValue.lai
-                };
-            });
+            const sumObj = { gia_tour: 0, gia_ban: 0, lai: 0 };
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                sumObj.gia_ban += element.gia_ban;
+                sumObj.gia_tour += element.gia_tour;
+                sumObj.lai += element.lai;
+            }
             return (
                 <>
                     <tr>
@@ -225,9 +215,7 @@ const List = React.memo(props => {
             columns={columns}
             tableSize={{ x: 1200 }}
             modalWidth="1100px"
-            formTemplate={
-                <FormItem phanLoai={phanLoai} khachHang={khachHang} />
-            }
+            formTemplate={<FormItem phanLoai={phanLoai} />}
             formInitialValues={{
                 so_luong: 1,
                 ngay_thang: moment().format("DD/MM/YYYY"),

@@ -6,7 +6,7 @@ import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
 import Table from "antd/lib/table/index";
 import React from "react";
-import MyRangePicker from "../../../components/ListForm/MyRangePicker";
+import MyRangePicker from "../../../components/Controls/MyRangePicker";
 import ThongTin from "./ThongTin";
 
 const form = React.memo(props => {
@@ -100,6 +100,7 @@ const form = React.memo(props => {
                         columns={columns}
                         rowKey={row => row["id"]}
                         rowSelection={rowSelection}
+                        scroll={{ x: 500 }}
                         locale={{
                             filterConfirm: "Lọc",
                             filterReset: "Hủy",

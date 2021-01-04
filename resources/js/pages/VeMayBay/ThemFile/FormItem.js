@@ -4,37 +4,29 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
-import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
-import React from "react";
-import MyRangePicker from "../../../components/ListForm/MyRangePicker";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchKhachHangList } from "../../../actions/actKhachHang";
+import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
+import MyRangePicker from "../../../components/Controls/MyRangePicker";
+import MySelect from "../../../components/Controls/MySelect";
 import { inputFormat, inputParse } from "../../../utils";
-const { Option, OptGroup } = Select;
+import {
+    getKhachHangDetail,
+    getTaiKhoanDetail
+} from "../../../utils/formatFormData";
 
 const form = React.memo(props => {
-    const { taiKhoan, khachHang } = props.danhMuc;
+    const dispatch = useDispatch();
+    const khachHangStatus = useSelector(state => state.khachHang.status);
+    const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
+    const khachHang = useSelector(state => state.khachHang.list);
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
 
-    const getKhachHangDetail = () =>
-        Object.entries(groupBy(khachHang, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
-
-    const getTaiKhoanDetail = () =>
-        Object.entries(groupBy(taiKhoan, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    useEffect(() => {
+        khachHangStatus === "idle" && dispatch(fetchKhachHangList());
+        taiKhoanStatus === "idle" && dispatch(fetchTaiKhoanList());
+    }, []);
 
     return (
         <>
@@ -133,21 +125,11 @@ const form = React.memo(props => {
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 18 }}
                     >
-                        <Select
-                            showSearch
-                            allowClear
+                        <MySelect
                             placeholder="Chọn tài khoản / nhà cung cấp"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getTaiKhoanDetail()}
-                        </Select>
+                            options={getTaiKhoanDetail(taiKhoan)}
+                            onChange={null}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={24} md={12}>
@@ -157,21 +139,11 @@ const form = React.memo(props => {
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 18 }}
                     >
-                        <Select
-                            showSearch
-                            allowClear
+                        <MySelect
                             placeholder="Khách hàng mặc định"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getKhachHangDetail()}
-                        </Select>
+                            options={getKhachHangDetail(khachHang)}
+                            onChange={null}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>

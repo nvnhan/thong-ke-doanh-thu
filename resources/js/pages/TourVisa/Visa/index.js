@@ -1,31 +1,12 @@
-import React, { useEffect, useState } from "react";
+import isEmpty from "lodash/isEmpty";
+import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import exportToExcel from "../../../utils/exportToExcel";
-import isEmpty from "lodash/isEmpty";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
     const [phanLoai, setPhanLoai] = useState([]);
-    const [state, setState] = useState({
-        nhaCungCap: [],
-        khachHang: []
-    });
-    const { nhaCungCap, khachHang } = state;
-
-    useEffect(() => {
-        // Chuyển từ Component khác tới. Cụ thể ở đây là từ Nhà cung cấp
-        const promise1 = axios.get("/api/nha-cung-cap/all");
-        const promise2 = axios.get("/api/khach-hang/all");
-
-        Promise.all([promise1, promise2]).then(response => {
-            if (response[0].data.success && response[1].data.success)
-                setState({
-                    nhaCungCap: response[0].data.data,
-                    khachHang: response[1].data.data
-                });
-        });
-    }, []);
 
     /**
      * Callback from ListForm to get PhanLoai from data
@@ -191,13 +172,7 @@ const List = React.memo(props => {
             columns={columns}
             tableSize={{ x: 800 }}
             modalWidth="1100px"
-            formTemplate={
-                <FormItem
-                    phanLoai={phanLoai}
-                    nhaCungCap={nhaCungCap}
-                    khachHang={khachHang}
-                />
-            }
+            formTemplate={<FormItem phanLoai={phanLoai} />}
             formInitialValues={{
                 gia_mua: 0,
                 gia_ban: 0,

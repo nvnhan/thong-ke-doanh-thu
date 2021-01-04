@@ -45,3 +45,15 @@ export const getPhiHanhLyDetail = phiHanhLyList =>
             {ncc.hanh_ly + " - " + vndFormater.format(ncc.muc_phi)}
         </Option>
     ));
+
+export const getHangHoaDetail = hangHoa =>
+    Object.entries(groupBy(hangHoa, "nha_cung_cap")).map(clist => (
+        <OptGroup label={clist[0]} key={clist[0]}>
+            {clist[1].map(hh => (
+                <Option value={hh.id} key={hh.id}>
+                    {hh.phan_loai} - {hh.ma_hang} (
+                    {vndFormater.format(hh.don_gia)})
+                </Option>
+            ))}
+        </OptGroup>
+    ));

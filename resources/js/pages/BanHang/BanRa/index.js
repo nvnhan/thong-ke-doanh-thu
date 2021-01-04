@@ -1,30 +1,12 @@
-import React, { useEffect, useState } from "react";
+import isEmpty from "lodash/isEmpty";
+import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import exportDS from "../../../utils/exportBanRa";
 import FormItem from "./FormItem";
-import isEmpty from "lodash/isEmpty";
 
 const List = React.memo(props => {
-    const [state, setState] = useState({
-        hangHoa: [],
-        khachHang: []
-    });
-    const { hangHoa, khachHang } = state;
     const [formValue, setFormValue] = useState(undefined);
-
-    useEffect(() => {
-        const promise1 = axios.get("/api/hang-hoa/all");
-        const promise2 = axios.get("/api/khach-hang/all");
-
-        Promise.all([promise1, promise2]).then(response => {
-            if (response[0].data.success && response[1].data.success)
-                setState({
-                    hangHoa: response[0].data.data,
-                    khachHang: response[1].data.data
-                });
-        });
-    }, []);
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
@@ -168,13 +150,7 @@ const List = React.memo(props => {
             columns={columns}
             tableSize={{ x: 1000 }}
             modalWidth="800px"
-            formTemplate={
-                <FormItem
-                    hangHoa={hangHoa}
-                    khachHang={khachHang}
-                    onChangeValue={handleFormValue}
-                />
-            }
+            formTemplate={<FormItem onChangeValue={handleFormValue} />}
             formInitialValues={{
                 so_luong: 1,
                 don_gia_mua: 0,

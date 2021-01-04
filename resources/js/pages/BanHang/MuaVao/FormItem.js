@@ -1,33 +1,22 @@
 import Form from "antd/lib/form/index";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
-import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
-import React from "react";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
-import { inputFormat, inputParse, vndFormater } from "../../../utils";
-const { Option, OptGroup } = Select;
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHangHoaList } from "../../../actions/actHangHoa";
+import MyDatePicker from "../../../components/Controls/MyDatePicker";
+import MySelect from "../../../components/Controls/MySelect";
+import { inputFormat, inputParse } from "../../../utils";
+import { getHangHoaDetail } from "../../../utils/formatFormData";
 
 const form = React.memo(props => {
-    const hangHoa = props.hangHoa || [];
-    /**
-     * [
-     *      ['xxx', [{}, {}, {}],
-     *      ['yyyyy', [{}, {}, {}, {}, {}]]
-     * ]
-     */
-    const groupHangHoa = Object.entries(groupBy(hangHoa, "nha_cung_cap"));
-    const getHangHoaDetail = () =>
-        groupHangHoa.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(hh => (
-                    <Option value={hh.id} key={hh.id}>
-                        {hh.phan_loai} - {hh.ma_hang} (
-                        {vndFormater.format(hh.don_gia)})
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    const dispatch = useDispatch();
+    const hangHoa = useSelector(state => state.hangHoa.list);
+    const hangHoaStatus = useSelector(state => state.hangHoa.status);
+
+    useEffect(() => {
+        hangHoaStatus === "idle" && dispatch(fetchHangHoaList());
+    }, []);
 
     /**
      * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
@@ -61,21 +50,11 @@ const form = React.memo(props => {
                     }
                 ]}
             >
-                <Select
-                    showSearch
+                <MySelect
                     placeholder="Chọn hàng hóa"
-                    filterOption={(input, option) => {
-                        if (!option.children) return false;
-                        return (
-                            option.children
-                                .toLowerCase()
-                                .indexOf(input.toLowerCase()) >= 0
-                        );
-                    }}
+                    options={getHangHoaDetail(hangHoa)}
                     onChange={onChange}
-                >
-                    {getHangHoaDetail()}
-                </Select>
+                />
             </Form.Item>
             <Form.Item
                 name="don_gia"

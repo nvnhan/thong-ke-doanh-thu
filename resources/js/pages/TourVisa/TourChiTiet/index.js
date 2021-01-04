@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from "react";
+import isEmpty from "lodash/isEmpty";
+import React, { useState } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
-import FormItem from "./FormItem";
-import isEmpty from "lodash/isEmpty";
 import { vndFormater } from "../../../utils";
+import FormItem from "./FormItem";
 
 const List = React.memo(props => {
     const tour = props.location.tour;
-    const [hangHoa, setHangHoa] = useState([]);
     const [formValue, setFormValue] = useState(undefined);
 
     if (tour === undefined) return <Redirect to="/" />;
-
-    useEffect(() => {
-        // Chuyển từ Component khác tới. Cụ thể ở đây là từ Tour
-        if (tour !== undefined)
-            axios
-                .get("/api/hang-hoa/all")
-                .then(response => {
-                    if (response.data.success) setHangHoa(response.data.data);
-                })
-                .catch(error => console.log(error));
-    }, []);
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
@@ -139,12 +127,7 @@ const List = React.memo(props => {
                 otherParams={{ id_tour: tour.id }}
                 columns={columns}
                 modalWidth="800px"
-                formTemplate={
-                    <FormItem
-                        hangHoa={hangHoa}
-                        onChangeValue={handleFormValue}
-                    />
-                }
+                formTemplate={<FormItem onChangeValue={handleFormValue} />}
                 formInitialValues={{
                     so_luong: 1,
                     ngay_thang: moment().format("DD/MM/YYYY"),

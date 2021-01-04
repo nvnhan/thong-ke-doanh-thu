@@ -5,35 +5,25 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
-import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
-import React from "react";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchKhachHangList } from "../../../actions/actKhachHang";
+import MyDatePicker from "../../../components/Controls/MyDatePicker";
+import MySelect from "../../../components/Controls/MySelect";
 import { inputFormat, inputParse } from "../../../utils";
-const { Option, OptGroup } = Select;
+import { getKhachHangDetail } from "../../../utils/formatFormData";
 
 const form = React.memo(props => {
+    const dispatch = useDispatch();
+    const khachHang = useSelector(state => state.khachHang.list);
+    const khachHangStatus = useSelector(state => state.khachHang.status);
+
     const phanLoai = props.phanLoai || [];
     const options = phanLoai.map(pl => ({ value: pl }));
 
-    const khachHang = props.khachHang || [];
-    /**
-     * [
-     *      ['xxx', [{}, {}, {}],
-     *      ['yyyyy', [{}, {}, {}, {}, {}]]
-     * ]
-     */
-    const groupKhachHang = Object.entries(groupBy(khachHang, "phan_loai"));
-    const getKhachHangDetail = () =>
-        groupKhachHang.map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    useEffect(() => {
+        khachHangStatus === "idle" && dispatch(fetchKhachHangList());
+    }, []);
 
     return (
         <React.Fragment>
@@ -143,20 +133,11 @@ const form = React.memo(props => {
                 </Col>
                 <Col span={24} md={8} sm={12}>
                     <Form.Item name="id_khach_hang" label="Khách hàng">
-                        <Select
-                            showSearch
+                        <MySelect
                             placeholder="Chọn khách hàng"
-                            filterOption={(input, option) => {
-                                if (!option.children) return false;
-                                return (
-                                    option.children
-                                        .toLowerCase()
-                                        .indexOf(input.toLowerCase()) >= 0
-                                );
-                            }}
-                        >
-                            {getKhachHangDetail()}
-                        </Select>
+                            options={getKhachHangDetail(khachHang)}
+                            onChange={null}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={24} md={16} sm={12}>

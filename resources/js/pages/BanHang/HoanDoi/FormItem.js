@@ -1,18 +1,20 @@
 import Form from "antd/lib/form/index";
 import Input from "antd/lib/input/index";
-import Select from "antd/lib/select/index";
-import React from "react";
-import MyDatePicker from "../../../components/ListForm/MyDatePicker";
-const { Option } = Select;
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
+import MyDatePicker from "../../../components/Controls/MyDatePicker";
+import MySelect from "../../../components/Controls/MySelect";
+import { getTaiKhoanDetail } from "../../../utils/formatFormData";
 
 const form = React.memo(props => {
-    const taiKhoan = props.taiKhoan || [];
-    const getTaiKhoanDetail = () =>
-        taiKhoan.map(tk => (
-            <Option value={tk.id} key={tk.id}>
-                {tk.ky_hieu}
-            </Option>
-        ));
+    const dispatch = useDispatch();
+    const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
+
+    useEffect(() => {
+        taiKhoanStatus === "idle" && dispatch(fetchTaiKhoanList());
+    }, []);
 
     return (
         <React.Fragment>
@@ -32,9 +34,11 @@ const form = React.memo(props => {
                 <MyDatePicker format="DD/MM/YYYY" />
             </Form.Item>
             <Form.Item name="id_tai_khoan_tra_hoan_doi" label="TK trả">
-                <Select placeholder="Chọn tài khoản">
-                    {getTaiKhoanDetail()}
-                </Select>
+                <MySelect
+                    placeholder="Chọn tài khoản"
+                    options={getTaiKhoanDetail(taiKhoan)}
+                    onChange={null}
+                />
             </Form.Item>
 
             <Form.Item name="ngay_hoan_doi_xong" label="Hoàn đổi xong">

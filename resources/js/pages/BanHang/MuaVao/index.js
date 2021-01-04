@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
+import isEmpty from "lodash/isEmpty";
+import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
-import FormItem from "./FormItem";
 import exportToExcel from "../../../utils/exportToExcel";
-import isEmpty from "lodash/isEmpty";
+import FormItem from "./FormItem";
 
 const List = React.memo(props => {
-    const [hangHoa, setHangHoa] = useState([]);
     const [formValue, setFormValue] = useState(undefined);
-
-    useEffect(() => {
-        axios
-            .get("/api/hang-hoa/all")
-            .then(response => {
-                if (response.data.success) setHangHoa(response.data.data);
-            })
-            .catch(error => console.log(error));
-    }, []);
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
@@ -94,17 +84,16 @@ const List = React.memo(props => {
 
     const renderSummary = data => {
         if (!isEmpty(data)) {
-            const sumObj = data.reduce((previousValue, currentValue) => {
-                return {
-                    thanh_tien:
-                        previousValue.thanh_tien + currentValue.thanh_tien
-                };
-            });
+            let thanh_tien = 0;
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                thanh_tien += element.thanh_tien;
+            }
             return (
                 <>
                     <tr>
                         <th colSpan={8}>Tổng cộng</th>
-                        <td>{vndFormater.format(sumObj.thanh_tien)}</td>
+                        <td>{vndFormater.format(thanh_tien)}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -118,12 +107,11 @@ const List = React.memo(props => {
      * Callback from FOrmItem, trigger when select Hang Hoa
      * => Change setFormValues to ListForm => FormEdit
      */
-    const handleFormValue = don_gia => {
+    const handleFormValue = don_gia =>
         setFormValue({
             don_gia,
             resetFields: () => setFormValue(undefined)
         });
-    };
 
     const exportDS = (data, selectedRowKeys) => {
         const filtered = data.filter(p => selectedRowKeys.indexOf(p.id) !== -1);
@@ -170,9 +158,7 @@ const List = React.memo(props => {
             filterBox
             columns={columns}
             tableSize={{ x: 800 }}
-            formTemplate={
-                <FormItem hangHoa={hangHoa} onChangeValue={handleFormValue} />
-            }
+            formTemplate={<FormItem onChangeValue={handleFormValue} />}
             formInitialValues={{
                 so_luong: 1,
                 ngay_thang: moment().format("DD/MM/YYYY")

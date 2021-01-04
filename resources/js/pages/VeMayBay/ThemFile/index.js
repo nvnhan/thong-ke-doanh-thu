@@ -7,18 +7,15 @@ import Row from "antd/lib/grid/row";
 import message from "antd/lib/message/index";
 import Modal from "antd/lib/modal/index";
 import Upload from "antd/lib/upload/index";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import showWaiting from "../../../components/Includes/ShowWaiting";
-import { parseValues, useMergeState } from "../../../utils";
+import { parseValues } from "../../../utils";
 import ModalPreviewDatVe from "../ModalPreviewDatVe";
 import FormItem from "./FormItem";
 
 const index = props => {
     const [form] = Form.useForm();
-    const [state, setState] = useMergeState({
-        taiKhoan: [],
-        khachHang: []
-    });
+
     const [columns, setColumns] = useState(() => {
         // Get data from localStorage
         let cols = {
@@ -35,43 +32,6 @@ const index = props => {
         visible: false,
         datve: ""
     });
-    let isComponentMounted = false;
-    let time = null;
-
-    useEffect(() => {
-        isComponentMounted = true;
-        retrieveData();
-        return () => {
-            // When Unmount component
-            isComponentMounted = false;
-            if (time) clearTimeout(time);
-        };
-    }, []);
-
-    /**
-     * Retriving data from server
-     * If has error, auto recall after 1 second
-     */
-    const retrieveData = () => {
-        const promise1 = axios.get("/api/tai-khoan/all");
-        const promise2 = axios.get("/api/khach-hang/all");
-        console.log("Retrieving Danh Muc");
-        Promise.all([promise1, promise2])
-            .then(response => {
-                if (isComponentMounted)
-                    if (response[0].data.success && response[1].data.success) {
-                        setState({
-                            taiKhoan: response[0].data.data,
-                            khachHang: response[1].data.data
-                        });
-                        console.log("Retrieved Danh Muc Succcessfully");
-                    } else time = setTimeout(retrieveData, 2000);
-            })
-            .catch(error => {
-                console.log(error);
-                time = setTimeout(retrieveData, 1000); // Nếu lỗi thì sau 1 giây load lại dữ liệu
-            });
-    };
 
     /**
      * Lưu thông tin cột vào localStorage

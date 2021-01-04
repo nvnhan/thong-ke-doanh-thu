@@ -3,7 +3,7 @@ import Form from "antd/lib/form/index";
 import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import React, { memo, useEffect, useState } from "react";
-import MyRangePicker from "../../components/ListForm/MyRangePicker";
+import MyRangePicker from "../../components/Controls/MyRangePicker";
 import { parseValues } from "../../utils";
 import DoanhSo from "./DoanhSo";
 import SoDuTaiKhoan from "./SoDuTaiKhoan";

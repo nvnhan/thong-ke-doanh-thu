@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
-import FormItem from "./FormItem";
 import exportDS from "../../../utils/exportBanRa";
+import FormItem from "./FormItem";
 
 const List = React.memo(props => {
-    const [taiKhoan, setTaiKhoan] = useState([]);
-
-    useEffect(() => {
-        axios
-            .get("/api/tai-khoan")
-            .then(response => {
-                if (response.data.success) setTaiKhoan(response.data.data);
-            })
-            .catch(error => console.log(error));
-    }, []);
-
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
             <li>
@@ -117,7 +106,7 @@ const List = React.memo(props => {
             deleteable={false}
             columns={columns}
             tableSize={{ x: 1200 }}
-            formTemplate={<FormItem taiKhoan={taiKhoan} />}
+            formTemplate={<FormItem />}
             expandedRowRender={expandedRowRender}
             otherButtons={otherButtons}
         />

@@ -4,44 +4,28 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Select from "antd/lib/select/index";
-import groupBy from "lodash/groupBy";
 import React from "react";
+import { useSelector } from "react-redux";
+import MySelect from "../../../components/Controls/MySelect";
 import { inputFormat, inputParse } from "../../../utils";
-const { Option, OptGroup } = Select;
+import {
+    getKhachHangDetail,
+    getTaiKhoanDetail,
+    hbOptions
+} from "../../../utils/formatFormData";
+const { Option } = Select;
 
 const form = React.memo(props => {
-    const { taiKhoan, khachHang, hangBay } = props.danhMuc;
-
-    const hbOptions = hangBay.map(pl => ({ value: pl }));
-
-    const getKhachHangDetail = () =>
-        Object.entries(groupBy(khachHang, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0]} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ma_khach_hang}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
-
-    const getTaiKhoanDetail = () =>
-        Object.entries(groupBy(taiKhoan, "phan_loai")).map(clist => (
-            <OptGroup label={clist[0] || "Tài khoản ngân hàng"} key={clist[0]}>
-                {clist[1].map(ncc => (
-                    <Option value={ncc.id} key={ncc.id}>
-                        {ncc.ky_hieu}
-                    </Option>
-                ))}
-            </OptGroup>
-        ));
+    const khachHang = useSelector(state => state.khachHang.list);
+    const taiKhoan = useSelector(state => state.taiKhoan.list);
+    const hangBay = useSelector(state => state.hangBay.list);
 
     return (
         <Row gutter={[5, 5]}>
             <Col span={12}>
                 <Form.Item name="hang_bay" label="Hãng bay">
                     <AutoComplete
-                        options={hbOptions}
+                        options={hbOptions(hangBay)}
                         filterOption={(inputValue, option) =>
                             option.value
                                 .toUpperCase()
@@ -53,40 +37,20 @@ const form = React.memo(props => {
             </Col>
             <Col span={12}>
                 <Form.Item name="id_tai_khoan_mua" label="Nơi mua">
-                    <Select
-                        allowClear
-                        showSearch
+                    <MySelect
                         placeholder="(Không thay đổi)"
-                        filterOption={(input, option) => {
-                            if (!option.children) return false;
-                            return (
-                                option.children
-                                    .toLowerCase()
-                                    .indexOf(input.toLowerCase()) >= 0
-                            );
-                        }}
-                    >
-                        {getTaiKhoanDetail()}
-                    </Select>
+                        options={getTaiKhoanDetail(taiKhoan)}
+                        onChange={null}
+                    />
                 </Form.Item>
             </Col>
             <Col span={12}>
                 <Form.Item name="id_khach_hang" label="Khách hàng">
-                    <Select
-                        allowClear
-                        showSearch
+                    <MySelect
                         placeholder="(Không thay đổi)"
-                        filterOption={(input, option) => {
-                            if (!option.children) return false;
-                            return (
-                                option.children
-                                    .toLowerCase()
-                                    .indexOf(input.toLowerCase()) >= 0
-                            );
-                        }}
-                    >
-                        {getKhachHangDetail()}
-                    </Select>
+                        options={getKhachHangDetail(khachHang)}
+                        onChange={null}
+                    />
                 </Form.Item>
             </Col>
             <Col span={12}>

@@ -29,14 +29,19 @@ class DatVeHelper
      */
     public static function add_gia(DatVe &$obj)
     {
-        if (!empty($obj->id_tai_khoan_mua)) self::phu_phi_noi_mua($obj);
+        if (!empty($obj->id_tai_khoan_mua))
+            self::phu_phi_noi_mua($obj);
         // Tinh phi & Tinh gia
         self::tinh_phi($obj);
         self::tinh_gia($obj);
     }
 
+
     /**
-     * Tính phí sân bay & phụ phí sân bay
+     * Tính các loại phí sân bay
+     *
+     * @param  mixed $obj
+     * @return void
      */
     public static function tinh_phi(DatVe &$obj)
     {
@@ -79,8 +84,12 @@ class DatVeHelper
         return 0;
     }
 
+
     /**
-     * Tính lại tổng tiền
+     * Tính lại tổng tiền cho ĐV
+     *
+     * @param  mixed $obj
+     * @return void
      */
     public static function tinh_gia(DatVe &$obj)
     {
@@ -94,7 +103,7 @@ class DatVeHelper
      */
     public static function phu_phi_noi_mua(DatVe &$obj)
     {
-        $tk = TaiKhoan::find($obj->id_tai_khoan_mua)->first();
+        $tk = TaiKhoan::where('id', $obj->id_tai_khoan_mua)->first();
         if ($tk) {
             switch ($obj->hang_bay) {
                 case 'VN':

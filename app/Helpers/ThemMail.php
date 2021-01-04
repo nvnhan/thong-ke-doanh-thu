@@ -147,7 +147,7 @@ class ThemMail
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
-            DatVeHelper::add_gia($obj, $request);
+            DatVeHelper::add_gia($obj);
 
             // Chung code???
             if ($obj->gia_net == 0 && $request->chung_code) {
@@ -263,7 +263,7 @@ class ThemMail
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
-            DatVeHelper::add_gia($obj, $request);
+            DatVeHelper::add_gia($obj);
 
             // Chung code???
             if ($obj->gia_net == 0 && $request->chung_code) {
@@ -350,7 +350,7 @@ class ThemMail
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
-            DatVeHelper::add_gia($obj, $request);
+            DatVeHelper::add_gia($obj);
 
             // Chung code???
             if ($obj->gia_net == 0 && $request->chung_code) {
@@ -471,7 +471,7 @@ class ThemMail
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
-            DatVeHelper::add_gia($obj, $request);
+            DatVeHelper::add_gia($obj);
 
             // Chung code???
             if ($obj->gia_net == 0 && $request->chung_code) {

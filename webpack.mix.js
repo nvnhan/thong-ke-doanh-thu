@@ -3,6 +3,7 @@ const webpack = require("webpack");
 
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
+require("laravel-mix-merge-manifest");
 
 /*
  |--------------------------------------------------------------------------
@@ -17,10 +18,14 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 
 mix.webpackConfig({
     output: {
-        chunkFilename: "js/[name].js"
+        chunkFilename: "js/[name].js",
     },
+    // output: {
+    //     chunkFilename: "js/[name].[contenthash].js",
+    //     filename: "[name].[contenthash].js"
+    // },
     plugins: [
-        // new Bundle AnalyzerPlugin(),
+        new BundleAnalyzerPlugin(),
         new webpack.ContextReplacementPlugin(
             /moment[\/\\]locale/,
             // A regular expression matching files that should be included
@@ -29,7 +34,8 @@ mix.webpackConfig({
     ]
 })
     .react("resources/js/app.js", "public/js")
-    .sass("resources/sass/app.scss", "public/css");
+    .sass("resources/sass/app.scss", "public/css")
+    .mergeManifest();
 // .less("node_modules/antd/dist/antd.less", "public/css/antd.mod.css", {
 //     modifyVars: {
 //         "primary-color": "#4bab92",

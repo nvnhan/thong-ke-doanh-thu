@@ -41,7 +41,7 @@ Còn tồn tại:
 - Công nợ chi tiết: Tính ngày thanh toán, đối tượng khác
 ////////////- Tổng quan: tổng hợp công nợ
 ////////////- Tổng hợp công nợ: Tính nơi khác
-- Tổng hợp tài khoản: Thiếu Dư - Nợ
+////////////- Tổng hợp tài khoản: Thiếu Dư - Nợ
 ////////////- Account: expire time, login 1 máy
 - Đặt vé: tính phí giảm VN, sân bay chặng dài
 - Thêm đối tượng (khách hàng) trực tiếp bên cạnh phần select: Thu Chi, Đắt vé

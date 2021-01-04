@@ -130,6 +130,12 @@ class Report
         return (float) $schi;
     }
 
+    /**
+     * TinhNoiDungXuatCongNo
+     *
+     * @param  mixed $dat_ves
+     * @return void
+     */
     public static function TinhNoiDungXuatCongNo($dat_ves)
     {
         $s = '';
@@ -143,6 +149,27 @@ class Report
         $s .= $ve->sb_di . $ve->sb_di1 . $ve->sb_ve1;
         $s .= ' ' . $ve->ngay_gio_di . ' ' . $ve->cb_di . ' ' . $ve->ngay_gio_ve . ' ' . $ve->cb_ve;
         return $s;
+    }
+
+    /**
+     * TinhDuNo
+     * Công thức lấy từ bên Tổng hợp công nợ
+     * @param  mixed $den_ngay
+     * @return void
+     */
+    public static function TinhDuNo(Request $request, $den_ngay)
+    {
+        $sum = 0;
+        $khachHang = KhachHang::ofUser($request->user())
+            ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
+            ->get();
+
+        foreach ($khachHang as $kh) {
+            $sum += $kh->so_du_ky_truoc
+                + self::TinhTongThanhToanBanRa($kh, $den_ngay)
+                - self::TinhTongGiaoDichBanRa($kh, $den_ngay);
+        }
+        return $sum;
     }
 
     /**
@@ -462,9 +489,13 @@ class Report
             $tu_ngay = substr($request->bat_dau, 0, 10);
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
-        $taiKhoan = TaiKhoan::ofUser($request->user())->where('loai', '!=', '-1')->where(function ($q) use ($den_ngay) {
-            return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
-        })->orderBy('loai')->get();
+        $taiKhoan = TaiKhoan::ofUser($request->user())
+            ->where('loai', '!=', '-1')
+            ->where(function ($q) use ($den_ngay) {
+                return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
+            })
+            ->orderBy('loai')
+            ->get();
 
         $interval = DateInterval::createFromDateString('1 day');
         $period = new DatePeriod(new DateTime($tu_ngay), $interval, new DateTime($den_ngay));
@@ -513,13 +544,12 @@ class Report
                 $result[] = $tmp1;
             }
         }
-        //TODO: Thêm Dư - Nợ
-        $duNo = 0;
+        $duNo = self::TinhDuNo($request, $den_ngay);
         $sum -= $duNo;
         $tmp = new stdClass;
         $tmp->id = -2;
         $tmp->tai_khoan = "DƯ - NỢ";
-        $tmp->dau_ky = $duNo;
+        $tmp->dau_ky = $format_price ? Util::VNDFormater($duNo) : $duNo;
         $result[] = $tmp;
 
         // Thêm Lãi

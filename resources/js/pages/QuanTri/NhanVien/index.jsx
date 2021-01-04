@@ -80,6 +80,11 @@ const List = memo(props => {
             dataIndex: "actived",
             render: bol => <Checkbox checked={bol} />,
             width: 70
+        },
+        {
+            title: "Ngày tạo",
+            dataIndex: "created_at",
+            width: 80
         }
     ];
 

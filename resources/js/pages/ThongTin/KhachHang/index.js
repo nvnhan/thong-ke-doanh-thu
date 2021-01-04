@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 import { vndFormater } from "../../../utils";
+import { useDispatch } from "react-redux";
+import { setKhachHangList } from "../../../actions/actKhachHang";
 
 const List = React.memo(() => {
+    const dispatch = useDispatch();
     const [phanLoai, setPhanLoai] = useState([]);
 
     const onChangeData = data => {
+        dispatch(setKhachHangList(data));
         let phanLoai = [
             "Thu Chi ngoài",
             ...new Set([...data.map(x => x.phan_loai)])

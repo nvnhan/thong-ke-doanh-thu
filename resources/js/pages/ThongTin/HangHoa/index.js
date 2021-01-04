@@ -1,10 +1,13 @@
 import Button from "antd/lib/button/index";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { setHangHoaList } from "../../../actions/actHangHoa";
 import ListForm from "../../../components/ListForm";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
+    const dispatch = useDispatch();
     const [phanLoai, setPhanLoai] = useState([]);
     const [ncc, setNcc] = useState(props.location.ncc);
 
@@ -14,7 +17,7 @@ const List = React.memo(props => {
      * Callback from ListForm to get PhanLoai from data
      */
     const onChangeData = data => {
-        //TODO: With filtered HangHoa => Phan Loai Has less than normal
+        dispatch(setHangHoaList(data));
         let phanLoai = [...new Set(data.map(x => x.phan_loai))];
         setPhanLoai(phanLoai);
     };

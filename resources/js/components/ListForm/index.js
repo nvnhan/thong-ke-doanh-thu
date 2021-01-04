@@ -133,7 +133,7 @@ const ListForm = props => {
 
     //#region  Thực thi các sự kiện
     const fetchData = query => {
-        console.log("Load data from server in ListForm", query);
+        console.log("♦ Load data from server in ListForm, query: ", query);
         // Set lại data và loading cho các Component con
         setState({ data: [], isLoading: true });
 
@@ -141,12 +141,12 @@ const ListForm = props => {
             .get(`/api/${url}?` + queryString(query))
             .then(response => {
                 if (isComponentMounted && response.data.success) {
+                    //  Tính lại AutoComplete (nhúng trong Modal form) & columns cho 1 số form
+                    onChangeData && onChangeData(response.data.data);
                     setState({
                         data: response.data.data,
                         isLoading: false
                     });
-                    //  Tính lại AutoComplete (nhúng trong Modal form) cho 1 số form
-                    if (onChangeData) onChangeData(response.data.data);
                 }
             })
             .catch(error => console.log(error));

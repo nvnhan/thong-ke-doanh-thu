@@ -20,7 +20,7 @@ mix.webpackConfig({
         chunkFilename: "js/[name].js"
     },
     plugins: [
-        // new BundleAnalyzerPlugin(),
+        // new Bundle AnalyzerPlugin(),
         new webpack.ContextReplacementPlugin(
             /moment[\/\\]locale/,
             // A regular expression matching files that should be included

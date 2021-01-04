@@ -157,7 +157,7 @@ const index = props => {
                         </Form.Item>
                     </Col>
                 </Row>
-                <FormItem danhMuc={state} />
+                <FormItem />
             </Form>
             <ModalPreviewDatVe
                 ddDatVe={modalDatVe.datve}

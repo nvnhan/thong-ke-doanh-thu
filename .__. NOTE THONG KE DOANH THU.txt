@@ -56,6 +56,7 @@ Còn tồn tại:
 - Lưu id users trong đại lý vào cookie or session or db để tránh duyệt lại mỗi lần request
 - Cài đặt số kết quả hiển thị trong user
 - Login, getUser cho vào redux async?
+- Clear properties dont update
 
 
 

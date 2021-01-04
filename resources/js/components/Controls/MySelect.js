@@ -13,6 +13,7 @@ const MySelect = React.memo(props => (
         }}
         placeholder={props.placeholder}
         onChange={props.onChange}
+        value={props.value}
     >
         {props.options}
     </Select>

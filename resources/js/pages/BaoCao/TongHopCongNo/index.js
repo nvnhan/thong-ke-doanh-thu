@@ -1,4 +1,5 @@
 import Tabs from "antd/lib/tabs/index";
+import groupBy from "lodash/groupBy";
 import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import DataTable from "../../../components/ListForm/DataTable";
@@ -49,6 +50,35 @@ const List = props => {
         };
     }, [JSON.stringify(ownFilter)]); // Chỉ chạy 1 lần khi mount đến khi ownFilter thay đổi
 
+    const convertBanRa = data => {
+        const group = Object.entries(groupBy(data, "phan_loai"));
+        let objs = [];
+        for (let index = 0; index < group.length; index++) {
+            const element = group[index];
+            let dau_ky = 0;
+            let cuoi_ky = 0;
+            let giao_dich = 0;
+            let thanh_toan = 0;
+            for (let j = 0; j < element[1].length; j++) {
+                // element[1][j].phan_loai = "";
+                dau_ky += element[1][j].dau_ky;
+                cuoi_ky += element[1][j].cuoi_ky;
+                giao_dich += element[1][j].giao_dich;
+                thanh_toan += element[1][j].thanh_toan;
+            }
+            let obj = {
+                id: -index,
+                phan_loai: element[0],
+                children: element[1],
+                dau_ky,
+                cuoi_ky,
+                thanh_toan,
+                giao_dich
+            };
+            objs.push(obj);
+        }
+        return objs;
+    };
     /**
      * Click Lọc từ filter Box => set lại ownfilter => load lại data từ useEffect
      */
@@ -249,7 +279,7 @@ const List = props => {
                 <Tabs.TabPane tab="Tổng hợp bán ra" key={1}>
                     <DataTable
                         tableSize={{ x: 800 }}
-                        data={data.banra}
+                        data={convertBanRa(data.banra)}
                         columns={columnsBanRa}
                         isLoading={isLoading}
                         deleteable={false}

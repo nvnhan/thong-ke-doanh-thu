@@ -25,7 +25,7 @@ mix.webpackConfig({
     //     filename: "[name].[contenthash].js"
     // },
     plugins: [
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
         new webpack.ContextReplacementPlugin(
             /moment[\/\\]locale/,
             // A regular expression matching files that should be included

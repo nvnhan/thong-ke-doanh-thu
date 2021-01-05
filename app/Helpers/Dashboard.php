@@ -36,7 +36,7 @@ class Dashboard
         // Thêm các tài khoản
         $sum = 0;
         foreach ($taiKhoan as $tk) {
-            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
+            $duCuoiKy = Report::TongThuTK($request, $tk, $den_ngay) - Report::TongChiTK($request, $tk, $den_ngay);
             $sum += $duCuoiKy;
             if ($duCuoiKy != 0) {
                 $result->hang_muc[] = $tk->ky_hieu;

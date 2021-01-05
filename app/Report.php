@@ -188,7 +188,7 @@ class Report
     public static function TinhDuNo(Request $request, $den_ngay)
     {
         $sum = 0;
-        $khachHang = KhachHang::ofUser($request->user())
+        $khachHang = KhachHang::allowUser($request->user())
             ->whereRaw("UPPER('phan_loai') != 'THU CHI NGOÀI'")
             ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
             ->get();
@@ -461,7 +461,7 @@ class Report
         }
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
 
-        $khachHang = KhachHang::ofUser($request->user())
+        $khachHang = KhachHang::allowUser($request->user())
             ->whereRaw("UPPER('phan_loai') != 'THU CHI NGOÀI'")
             ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
             ->get();

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import ListForm from "../../../components/ListForm";
-import FormItem from "./FormItem";
-import { vndFormater } from "../../../utils";
 import { useDispatch } from "react-redux";
 import { setKhachHangList } from "../../../actions/actKhachHang";
+import ListForm from "../../../components/ListForm";
+import { vndFormater } from "../../../utils";
+import FormItem from "./FormItem";
 
 const List = React.memo(() => {
     const dispatch = useDispatch();
@@ -31,7 +31,13 @@ const List = React.memo(() => {
 
     const columns = [
         {
-            title: "Mã khách hàng",
+            title: "Phân loại",
+            dataIndex: "phan_loai",
+            width: 120,
+            optFilter: true
+        },
+        {
+            title: "Mã KH",
             dataIndex: "ma_khach_hang",
             width: 120,
             optFind: true
@@ -41,12 +47,6 @@ const List = React.memo(() => {
             dataIndex: "ho_ten",
             width: 150,
             optFind: true
-        },
-        {
-            title: "Phân loại",
-            dataIndex: "phan_loai",
-            width: 120,
-            optFilter: true
         },
         {
             title: "MST",
@@ -127,16 +127,16 @@ const List = React.memo(() => {
         //         }).format(number),
         //     width: 120
         // },
-        {
-            title: "Ngày nhắc",
-            dataIndex: "ngay_nhac",
-            width: 120
-        },
         // {
-        //     title: "Ngày tạo",
-        //     dataIndex: "ngay_tao",
+        //     title: "Ngày nhắc",
+        //     dataIndex: "ngay_nhac",
         //     width: 120
         // },
+        {
+            title: "Ngày tạo",
+            dataIndex: "ngay_tao",
+            width: 100
+        },
         {
             title: "Ghi chú",
             dataIndex: "ghi_chu",
@@ -160,7 +160,7 @@ const List = React.memo(() => {
                 phi_bb: 0
             }}
             onChangeData={onChangeData}
-            expandedRowRender={expandedRowRender}
+            // expandedRowRender={expandedRowRender}
         />
     );
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\KhachHang;
 use Illuminate\Http\Request;
+use stdClass;
 
 class KhachHangController extends BaseController
 {
@@ -14,8 +15,18 @@ class KhachHangController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = KhachHang::ofUser($request->user())->get();
-        return $this->sendResponse($objs, "KhachHang retrieved successfully");
+        $objs = KhachHang::ofUser($request->user())->get()->groupBy('phan_loai');
+        $result = [];
+        $i = -1;
+        foreach ($objs as $pl => $value) {
+            $tmp = new stdClass;
+            $tmp->id = $i--;
+            $tmp->phan_loai = $pl;
+            $tmp->children = $value;
+            $result[] = $tmp;
+        }
+
+        return $this->sendResponse($result, "KhachHang retrieved successfully");
     }
 
     public function all(Request $request)
@@ -48,7 +59,7 @@ class KhachHangController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $data =$request->all();
+        $data = $request->all();
         $model = KhachHang::find($id);
         $model->fill($data);
         $model->save();
@@ -76,13 +87,12 @@ class KhachHangController extends BaseController
     public function deletes(Request $request)
     {
         $objs = explode('|', $request['objects']);
-        if (\is_array($objs))
-        {
+        if (\is_array($objs)) {
             $cnt = count($objs);
             KhachHang::destroy($objs);
             return $this->sendResponse('', "Xóa thành công $cnt mục");
         }
-        
+
         return $this->sendError('Không xóa được', []);
     }
 }

@@ -21,9 +21,13 @@ class Dashboard
         if (!empty($request->ket_thuc))
             $den_ngay = substr($request->ket_thuc, 0, 10);
 
-        $taiKhoan = TaiKhoan::ofUser($request->user())->where('loai', '!=', '-1')->where(function ($q) use ($den_ngay) {
-            return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
-        })->orderBy('loai')->get();
+        $taiKhoan = TaiKhoan::ofUser($request->user())
+            ->where('loai', '!=', '-1')
+            ->where(function ($q) use ($den_ngay) {
+                return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
+            })
+            ->orderBy('loai')
+            ->get();
 
         $result = new stdClass;
         $result->hang_muc = [];
@@ -39,6 +43,12 @@ class Dashboard
                 $result->gia_tri[] = round($duCuoiKy / 1000);
             }
         }
+        // Thêm dư Nợ
+        $duNo = Report::TinhDuNo($request, $den_ngay);
+        $sum -= $duNo;
+        $result->hang_muc[] = "Dư - Nợ";
+        $result->gia_tri[] = -round($duNo / 1000);
+
         // Thêm tồn kho
         if ($request->user()->ban_hang) {
             $tonKho = Report::TinhTonKho($request, $den_ngay);

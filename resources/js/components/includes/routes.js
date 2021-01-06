@@ -63,217 +63,248 @@ const routes = [
         exact: true,
         title: "Thu chi",
         menu: menus.THU_CHI,
-        component: <ThuChi />
+        component: <ThuChi />,
+        role: "chuc_nang"
     },
     {
         path: "/thu-chi/them-file",
         exact: false,
         title: "Thêm Thu chi từ Excel",
         menu: "",
-        component: <ThemFileThuChi />
+        component: <ThemFileThuChi />,
+        role: "chuc_nang"
     },
     {
         path: "/thu-chi-chi-tiet",
         exact: false,
         title: "Thu chi chi tiết",
         menu: "",
-        component: <ThuChiChiTiet />
+        component: <ThuChiChiTiet />,
+        role: "chuc_nang"
     },
     {
         path: "/dat-ve",
         exact: true,
         title: "Đặt vé",
         menu: menus.VMB_DAT_VE,
-        component: <DatVe />
+        component: <DatVe />,
+        role: "chuc_nang"
     },
     {
         path: "/dat-ve/them-text",
         exact: false,
         title: "Thêm từ kết quả đặt vé",
         menu: "",
-        component: <ThemText />
+        component: <ThemText />,
+        role: "chuc_nang"
     },
     {
         path: "/dat-ve/them-file",
         exact: false,
         title: "Thêm Đặt vé từ file",
         menu: "",
-        component: <ThemFile />
+        component: <ThemFile />,
+        role: "chuc_nang"
     },
     {
         path: "/dat-ve/them-mail",
         exact: false,
         title: "Thêm Đặt vé từ mail",
         menu: "",
-        component: <ThemMail />
+        component: <ThemMail />,
+        role: "chuc_nang"
     },
     {
         path: "/no-ve",
         exact: false,
         title: "Nợ vé",
         menu: menus.VMB_NO_VE,
-        component: <NoVe />
+        component: <NoVe />,
+        role: "chuc_nang"
     },
     {
         path: "/chua-bay",
         exact: false,
         title: "Chưa bay",
         menu: menus.VMB_CHUA_BAY,
-        component: <ChuaBay />
+        component: <ChuaBay />,
+        role: "chuc_nang"
     },
     {
         path: "/san-bay",
         exact: false,
         title: "Sân bay",
         menu: menus.VMB_SAN_BAY,
-        component: <SanBay />
+        component: <SanBay />,
+        role: "admin"
     },
     {
         path: "/thue-phi",
         exact: false,
         title: "Thuế phí",
         menu: menus.VMB_THUE_PHI,
-        component: <ThuePhi />
+        component: <ThuePhi />,
+        role: "admin"
     },
     {
         path: "/phi-hanh-ly",
         exact: false,
         title: "Phí hành lý",
         menu: menus.VMB_HANH_LY,
-        component: <PhiHanhLy />
+        component: <PhiHanhLy />,
+        role: "admin"
     },
     {
         path: "/tour",
         exact: false,
         title: "Quản lý Tour",
         menu: menus.TV_TOUR,
-        component: <Tour />
+        component: <Tour />,
+        role: "tour_visa"
     },
     {
         path: "/tour-chi-tiet",
         exact: false,
         title: "Tour chi tiết",
         menu: "",
-        component: <TourChiTiet />
+        component: <TourChiTiet />,
+        role: "tour_visa"
     },
     {
         path: "/visa",
         exact: false,
         title: "Visa",
         menu: menus.TV_VISA,
-        component: <Visa />
+        component: <Visa />,
+        role: "tour_visa"
     },
     {
         path: "/mua-vao",
         exact: false,
         title: "Mua vào",
         menu: menus.BH_MUA_VAO,
-        component: <MuaVao />
+        component: <MuaVao />,
+        role: "ban_hang"
     },
     {
         path: "/ban-ra",
         exact: false,
         title: "Bán ra",
         menu: menus.BH_BAN_RA,
-        component: <BanRa />
+        component: <BanRa />,
+        role: "ban_hang"
     },
     {
         path: "/hoan-doi",
         exact: false,
         title: "Hoàn đổi",
         menu: menus.BH_HOAN_DOI,
-        component: <HoanDoi />
+        component: <HoanDoi />,
+        role: "ban_hang"
     },
     {
         path: "/ton-kho",
         exact: false,
         title: "Tồn kho",
         menu: menus.BH_TON_KHO,
-        component: <TonKho />
+        component: <TonKho />,
+        role: "ban_hang"
     },
     {
         path: "/tong-hop-hang",
         exact: false,
         title: "Tổng hợp hàng",
         menu: menus.BH_TONG_HOP,
-        component: <TongHop />
+        component: <TongHop />,
+        role: "ban_hang"
     },
     {
         path: "/tong-hop-tai-khoan",
         exact: false,
         title: "Tổng hợp tài khoản",
         menu: menus.BC_TONG_HOP_TAI_KHOAN,
-        component: <TongHopTaiKhoan />
+        component: <TongHopTaiKhoan />,
+        role: "chuc_nang"
     },
     {
         path: "/tong-hop-cong-no",
         exact: false,
         title: "Tổng hợp công nợ",
         menu: menus.BC_TONG_HOP_CONG_NO,
-        component: <TongHopCongNo />
+        component: <TongHopCongNo />,
+        role: "chuc_nang"
     },
     {
         path: "/cong-no-chi-tiet",
         exact: false,
         title: "Công nợ chi tiết",
         menu: menus.BC_CONG_NO_CHI_TIET,
-        component: <CongNoChiTiet />
+        component: <CongNoChiTiet />,
+        role: "chuc_nang"
     },
     {
         path: "/doi-soat-tai-khoan",
         exact: false,
         title: "Đối soát tài khoản",
         menu: menus.BC_DOI_SOAT_TAI_KHOAN,
-        component: <DoiSoatTaiKhoan />
+        component: <DoiSoatTaiKhoan />,
+        role: "chuc_nang"
     },
     {
         path: "/bao-cao-tong-hop",
         exact: false,
         title: "Báo cáo tổng hợp",
         menu: menus.BC_BAO_CAO_TONG_HOP,
-        component: <BaoCaoTongHop />
+        component: <BaoCaoTongHop />,
+        role: "chuc_nang"
     },
     {
         path: "/tai-khoan",
         exact: false,
         title: "Tài khoản",
         menu: menus.TT_TAI_KHOAN,
-        component: <TaiKhoan />
+        component: <TaiKhoan />,
+        role: "quan_ly"
     },
     {
         path: "/nha-cung-cap",
         exact: false,
         title: "Nhà cung cấp",
         menu: menus.TT_NHA_CUNG_CAP,
-        component: <NhaCungCap />
+        component: <NhaCungCap />,
+        role: "quan_ly"
     },
     {
         path: "/khach-hang",
         exact: false,
         title: "Khách hàng",
         menu: menus.TT_KHACH_HANG,
-        component: <KhachHang />
+        component: <KhachHang />,
+        role: "chuc_nang"
     },
     {
         path: "/hang-hoa",
         exact: false,
         title: "Hàng hóa",
         menu: menus.TT_HANG_HOA,
-        component: <HangHoa />
+        component: <HangHoa />,
+        role: "ban_hang"
     },
     {
         path: "/nhan-vien",
         exact: false,
         title: "Nhân viên",
         menu: menus.QT_USER,
-        component: <NhanVien />
+        component: <NhanVien />,
+        role: "quan_tri"
     },
     {
         path: "/cai-dat",
         exact: false,
         title: "Cài đặt",
         menu: menus.QT_CAI_DAT,
-        component: <CaiDat />
+        component: <CaiDat />,
+        role: "admin"
     },
     {
         path: "/cai-dat-ca-nhan",

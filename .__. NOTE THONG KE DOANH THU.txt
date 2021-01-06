@@ -51,7 +51,7 @@ Còn tồn tại:
 ////////////- Tìm kiếm ĐV theo từ khóa
 ////////////- Thêm khoảng thời gian ở Tổng quan, lọc dữ liệu trong Tổng quan
 ////////////- Tách riêng phần load các danh mục để lưu vào redux + Ko load danh mục trong index nữa, khi nào insert or update mới load
-- React router: Authorization
+////////////- React router: Authorization
 - API route Authorization
 - Lưu id users trong đại lý vào cookie or session or db để tránh duyệt lại mỗi lần request
 - Cài đặt số kết quả hiển thị trong user

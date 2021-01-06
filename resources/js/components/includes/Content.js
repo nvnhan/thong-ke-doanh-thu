@@ -15,6 +15,7 @@ function Content() {
                     component={() => (
                         <Container
                             component={route.component}
+                            role={route.role}
                             title={route.title}
                             menu={route.menu}
                         />

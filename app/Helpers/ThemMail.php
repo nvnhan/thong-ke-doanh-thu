@@ -56,8 +56,8 @@ class ThemMail
 
     public static function parse_bb(string $body, Request $request, $dinh_danh)
     {
-        $path = storage_path('app/upload/test.html');
-        file_put_contents($path, $body);
+        // $path = storage_path('app/upload/test.html');
+        // file_put_contents($path, $body);
 
         $content = str_get_html($body);
 
@@ -168,6 +168,9 @@ class ThemMail
 
     public static function parse_vn(string $body, Request $request, $dinh_danh)
     {
+        // $path = storage_path('app/upload/test.html');
+        // file_put_contents($path, $body);
+
         $content = str_get_html($body);
 
         $tmp = new stdClass;
@@ -240,7 +243,7 @@ class ThemMail
             else
                 $imonth = array_search(strtoupper(substr($thang, 0, 3)), Util::$thang) + 1;     // Bao cả tiếng Việt & Anh
 
-            preg_match("/(\d+):(\d+)/", $khoi_hanh[0]->parent()->plaintext, $matches);
+            preg_match("/(\d+):(\d+)/", $khoi_hanh[1]->parent()->plaintext, $matches);
             // Ngày giờ bay  đi
             $tmp->ngay_gio_ve = date('Y') . "-$imonth-$idate $matches[1]:$matches[2]:0";
 

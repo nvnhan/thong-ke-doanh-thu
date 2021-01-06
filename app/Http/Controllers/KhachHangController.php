@@ -15,18 +15,8 @@ class KhachHangController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = KhachHang::ofUser($request->user())->get()->groupBy('phan_loai');
-        $result = [];
-        $i = -1;
-        foreach ($objs as $pl => $value) {
-            $tmp = new stdClass;
-            $tmp->id = $i--;
-            $tmp->phan_loai = $pl;
-            $tmp->children = $value;
-            $result[] = $tmp;
-        }
-
-        return $this->sendResponse($result, "KhachHang retrieved successfully");
+        $objs = KhachHang::ofUser($request->user())->get();
+        return $this->sendResponse($objs, "KhachHang retrieved successfully");
     }
 
     public function all(Request $request)

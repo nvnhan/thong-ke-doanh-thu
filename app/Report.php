@@ -189,7 +189,7 @@ class Report
     {
         $sum = 0;
         $khachHang = KhachHang::allowUser($request->user())
-            ->whereRaw("UPPER('phan_loai') != 'THU CHI NGOÀI'")
+            ->whereRaw("UPPER(phan_loai) != 'THU CHI NGOÀI'")
             ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
             ->get();
 
@@ -462,7 +462,7 @@ class Report
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
 
         $khachHang = KhachHang::allowUser($request->user())
-            ->whereRaw("UPPER('phan_loai') != 'THU CHI NGOÀI'")
+            // ->whereRaw("UPPER(phan_loai) != 'THU CHI NGOÀI'")
             ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
             ->get();
         foreach ($khachHang as $kh) {
@@ -471,10 +471,18 @@ class Report
             $tmp->phan_loai = $kh->phan_loai;
             $tmp->khach_hang = $kh->ma_khach_hang . ' - ' . $kh->ho_ten;
 
-            $tmp->dau_ky = $kh->so_du_ky_truoc + self::TinhTongThanhToanBanRa($request, $kh, $ngayTruoc) - self::TinhTongGiaoDichBanRa($request, $kh, $ngayTruoc);
-            $tmp->thanh_toan = self::TinhTongThanhToanBanRa($request, $kh, $den_ngay, $tu_ngay);
-            $tmp->giao_dich = self::TinhTongGiaoDichBanRa($request, $kh, $den_ngay, $tu_ngay);
-            $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
+            $phan_loai = strtoupper($tmp->phan_loai);
+            if ($phan_loai !== "THU CHI NGOÀI") {
+                $tmp->dau_ky = $kh->so_du_ky_truoc + self::TinhTongThanhToanBanRa($request, $kh, $ngayTruoc) - self::TinhTongGiaoDichBanRa($request, $kh, $ngayTruoc);
+                $tmp->thanh_toan = self::TinhTongThanhToanBanRa($request, $kh, $den_ngay, $tu_ngay);
+                $tmp->giao_dich = self::TinhTongGiaoDichBanRa($request, $kh, $den_ngay, $tu_ngay);
+                $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
+            } else {
+                $tmp->dau_ky = 0;
+                $tmp->thanh_toan = 0;
+                $tmp->giao_dich = self::TinhTongGiaoDichBanRa($request, $kh, $den_ngay, $tu_ngay);
+                $tmp->cuoi_ky = 0;
+            }
 
             $banra[] = $tmp;
         }

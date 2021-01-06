@@ -60,7 +60,6 @@ const ThongTin = props => {
                 <Form.Item name="gia_net" label="Giá net">
                     <InputNumber
                         style={{ width: "100%" }}
-                        min={0}
                         step={1000}
                         formatter={inputFormat}
                         parser={inputParse}
@@ -71,7 +70,6 @@ const ThongTin = props => {
                 <Form.Item name="tong_tien" label="Tổng tiền">
                     <InputNumber
                         style={{ width: "100%" }}
-                        min={0}
                         step={1000}
                         formatter={inputFormat}
                         parser={inputParse}
@@ -82,7 +80,6 @@ const ThongTin = props => {
                 <Form.Item name="tong_tien_thu_khach" label="Thu khách">
                     <InputNumber
                         style={{ width: "100%" }}
-                        min={0}
                         step={1000}
                         formatter={inputFormat}
                         parser={inputParse}

@@ -3,7 +3,6 @@ const webpack = require("webpack");
 
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
-require("laravel-mix-merge-manifest");
 
 /*
  |--------------------------------------------------------------------------
@@ -35,7 +34,6 @@ mix.webpackConfig({
 })
     .react("resources/js/app.js", "public/js")
     .sass("resources/sass/app.scss", "public/css")
-    .mergeManifest();
 // .less("node_modules/antd/dist/antd.less", "public/css/antd.mod.css", {
 //     modifyVars: {
 //         "primary-color": "#4bab92",

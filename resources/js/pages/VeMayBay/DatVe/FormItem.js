@@ -316,7 +316,6 @@ const form = React.memo(props => {
                             style={{
                                 width: "100%"
                             }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -341,7 +340,6 @@ const form = React.memo(props => {
                             style={{
                                 width: "100%"
                             }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -355,7 +353,6 @@ const form = React.memo(props => {
                             style={{
                                 width: "100%"
                             }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -369,7 +366,6 @@ const form = React.memo(props => {
                             style={{
                                 width: "100%"
                             }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -383,7 +379,6 @@ const form = React.memo(props => {
                             style={{
                                 width: "100%"
                             }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -406,7 +401,6 @@ const form = React.memo(props => {
                             style={{
                                 width: "100%"
                             }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -432,7 +426,6 @@ const form = React.memo(props => {
                             style={{
                                 width: "100%"
                             }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}
@@ -454,7 +447,6 @@ const form = React.memo(props => {
                             style={{
                                 width: "100%"
                             }}
-                            min={0}
                             step={1000}
                             formatter={inputFormat}
                             parser={inputParse}

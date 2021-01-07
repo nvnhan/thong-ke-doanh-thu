@@ -84,7 +84,7 @@ table tr th.ant-table-selection-column {
 
 // Main content
 .content {
-    margin: 24px 16px 0;
+    margin: 24px 16px 10px;
     min-width: 270px;
     .list-form {
         padding: 16px 0;
@@ -153,47 +153,54 @@ table tr th.ant-table-selection-column {
     width: 30px;
 }
 
-//  My Header & Drawer
+//  My Header
 .my-header {
     background: white;
     // background: rgb(20,20,20);      // For dark mode
-    padding-bottom: 0;
     padding-right: 16px;
     min-width: 320px;
+    box-shadow: 0px 10px 10px -12px rgba(0, 0, 0, 0.1);
 
-    .btn-drawer {
-        display: none;
+    .user-text {
+        margin-right: 8px;
     }
-    .nav-user {
-        .ant-menu-submenu-title {
-            padding-right: 0;
-        }
+    .user-logo {
+        font-size: 18px;
+        vertical-align: top;
+        background: rgb(34, 193, 195);
+        background: linear-gradient(
+            0deg,
+            rgba(34, 193, 195, 1) 0%,
+            rgba(253, 187, 45, 1) 100%
+        );
+        color: white;
+
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        padding: 5px;
+        margin-top: -5px;
+        margin-left: 0px !important;
+    }
+    .btn-user {
+        border: none;
+        box-shadow: none;
+        padding: 4px;
     }
     @include sm {
-        padding-bottom: 16px;
-        .menu-account {
-            display: none;
-        }
-        .btn-drawer {
-            display: block;
-            // color: rgba(0, 0, 0, 0.85);
-        }
         .ant-page-header-heading-extra {
             padding-top: 0;
             float: right;
             clear: none;
             width: auto;
         }
+        .user-text {
+            display: none;
+        }
     }
 }
 
-.drawer-account {
-    .ant-drawer-body {
-        padding: 8px 0;
-        ul {
-            border: none;
-        }
-    }
+.ant-dropdown-menu span.mute-text {
+    color: #b5b5b5;
 }
 
 //  Loading screen ban đâu

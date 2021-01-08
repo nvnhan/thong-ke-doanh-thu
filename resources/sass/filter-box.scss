@@ -1,0 +1,19 @@
+/* Filter Box */
+.filter-box {
+    padding: 5px 10px 10px;
+    border-bottom: 1px solid rgba(232, 232, 232, 0.72);
+
+    @include xs {
+        button {
+            margin-top: 32px;
+        }
+    }
+
+    .ant-form-item {
+        margin: 0;
+    }
+
+    .ant-btn:not(:last-child) {
+        margin-right: 5px;
+    }
+}

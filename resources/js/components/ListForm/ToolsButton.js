@@ -1,10 +1,10 @@
 import DownOutlined from "@ant-design/icons/DownOutlined";
+import PlusCircleFilled from "@ant-design/icons/PlusCircleFilled";
 import Button from "antd/lib/button/index";
 import Divider from "antd/lib/divider/index";
 import Dropdown from "antd/lib/dropdown/index";
 import Menu from "antd/lib/menu/index";
 import React from "react";
-import "./ToolsButton.scss";
 
 /**
  * Dùng React.memo để lưu lại Component, ko bị load lại trừ trường hợp cần thiết
@@ -98,7 +98,7 @@ const ToolsButton = React.memo(props => {
         <div className="tools-button">
             {insertable && (
                 <Button type="primary" onClick={handleAddNew}>
-                    Thêm mới
+                    <PlusCircleFilled /> Mới
                 </Button>
             )}
             {otherButtons !== undefined && renderButtons()}

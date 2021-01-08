@@ -92,7 +92,7 @@ const DataTable = React.memo(props => {
         key: "action",
         fixed: "right",
         align: "center",
-        width: 72,
+        width: 60,
         render: (text, record) => (
             <Dropdown overlay={layAction(record)}>
                 <Button>
@@ -238,7 +238,7 @@ const DataTable = React.memo(props => {
         selectedRowKeys,
         onChange: onChangeSelect,
         hideDefaultSelections: true,
-        columnWidth: 43,
+        columnWidth: 42,
         selections: [
             Table.SELECTION_ALL,
             Table.SELECTION_INVERT,

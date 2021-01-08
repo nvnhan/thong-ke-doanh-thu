@@ -18,10 +18,10 @@ const MyHeader = memo(props => {
     const menu = (
         <Menu>
             <Menu.Item>
-                <span className="mute-text">Vai trò: {authUser.quyen}</span>
+                <span className="muted-text">Vai trò: {authUser.quyen}</span>
             </Menu.Item>
             <Menu.Item>
-                <span className="mute-text">
+                <span className="muted-text">
                     Số ngày đăng nhập còn lại: {authUser.ngay_dang_nhap_con_lai}
                 </span>
             </Menu.Item>
@@ -43,7 +43,7 @@ const MyHeader = memo(props => {
         <Dropdown key="more" overlay={menu}>
             <Button className="btn-user"
             >
-                <span class="user-text">Chào {authUser.ho_ten} </span>
+                <span className="user-text">Chào {authUser.ho_ten} </span>
                 <UserOutlined className="user-logo" />
             </Button>
         </Dropdown>

@@ -76,9 +76,10 @@ const TrangChu = memo(props => {
                 onFinish={onFinish}
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
+                className="form-footer"
             >
                 <Row gutter={[16, 16]}>
-                    <Col span={24} md={16} lg={12} xl={9}>
+                    <Col span={18} md={12} lg={9} >
                         <Form.Item
                             name="thoiGian"
                             label="Thời gian"
@@ -88,7 +89,7 @@ const TrangChu = memo(props => {
                             <MyRangePicker />
                         </Form.Item>
                     </Col>
-                    <Col span={12} md={8} lg={6} xl={5}>
+                    <Col span={6} md={4} lg={3}>
                         <Button htmlType="submit">Lọc</Button>
                     </Col>
                 </Row>

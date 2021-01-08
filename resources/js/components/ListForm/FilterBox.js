@@ -9,7 +9,6 @@ import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import { parseValues } from "../../utils";
 import MyRangePicker from "../Controls/MyRangePicker";
-import "./FilterBox.scss";
 
 const FilterBox = React.memo(props => {
     const { onFilter, tuNgayDenNgay, otherFilter, filterInitialValue } = props;
@@ -80,7 +79,6 @@ const FilterBox = React.memo(props => {
                                 )}
                             </Button>
                         )}
-                        &nbsp;
                         <Button htmlType="submit">
                             <FilterOutlined />
                             Lọc

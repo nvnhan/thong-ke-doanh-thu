@@ -2,7 +2,6 @@ import Card from "antd/lib/card/index";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as actions from "../../../actions";
-import "./login.scss";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 

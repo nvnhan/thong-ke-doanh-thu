@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../actions";
 import Login from "../pages/Account/Login";
+import ButtonToogle from "./Includes/ButtonToggle";
 import Content from "./includes/Content";
 import Loader from "./includes/Loader";
 import MyHeader from "./includes/MyHeader";
@@ -60,14 +61,16 @@ const MainContainer = () => {
         } else setIsLoading(false); // Chuyển tới Login page
     }, []);
 
-    if (isLoading) return <Loader />;
+    if (isLoading) return <Loader tip="Lấy thông tin người dùng" />;
+
     if (isAuthenticate())
         return (
-            <Layout>
+            <Layout className="has-sidebar">
                 <SideBar />
                 <Layout>
                     <MyHeader />
                     <Content />
+                    <ButtonToogle />
                 </Layout>
             </Layout>
         );

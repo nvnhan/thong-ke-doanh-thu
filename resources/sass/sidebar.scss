@@ -1,0 +1,78 @@
+.has-sidebar {
+    flex-direction: row;
+
+    .ant-layout,
+    .ant-layout-content {
+        overflow-x: hidden;
+    }
+}
+
+.pro-sidebar {
+    z-index: 109;
+
+    .pro-sidebar-inner {
+        min-height: 100vh;
+    }
+
+    .pro-menu {
+        .pro-menu-item {
+            font-size: 14px;
+
+            &.active {
+                border-right: 7px solid $secondary-color;
+                font-weight: 700;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+// Logo
+.logo {
+    margin: 0;
+    padding: 16px;
+    line-height: 32px;
+    text-align: center;
+    color: $background-color;
+
+    @at-root .collapsed & span {
+        display: none;
+    }
+
+    // Nested property
+    font : {
+        size: 16px;
+        weight: bold;
+    }
+    img {
+        height: 28px;
+        margin: 0 10px;
+    }
+}
+
+.btn-toggle {
+    display: none;
+    position: fixed;
+
+    bottom: 40px;
+    right: 50px;
+    height: 45px;
+    width: 45px;
+
+    color: #fff;
+    line-height: 45px;
+    text-align: center;
+
+    border-radius: 30px;
+    background-color: $secondary-color;
+    box-shadow: 1px 2px 7px $secondary-color;
+
+    span {
+        font-size: 20px;
+        filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.2));
+    }
+
+    @include md {
+        display: block;
+    }
+}

@@ -4,7 +4,7 @@ import Container from "./Container";
 import Loader from "./Loader";
 import routes from "./routes";
 
-function Content() {
+const Content = React.memo(() => {
     const getRoute = routes =>
         routes.map((route, index) => {
             return (
@@ -31,6 +31,6 @@ function Content() {
             </Suspense>
         </div>
     );
-}
+});
 
 export default Content;

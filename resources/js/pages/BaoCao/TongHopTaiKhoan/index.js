@@ -19,12 +19,12 @@ const List = React.memo(props => {
         let cols = [];
         let size = 0;
         for (let key in entry) {
-            size += 110;
+            size += 90;
             if (key === "tai_khoan")
                 cols.push({
                     title: "Tài khoản",
                     dataIndex: key,
-                    width: 120,
+                    width: 110,
                     fixed: "left",
                     optFind: true
                 });
@@ -32,19 +32,19 @@ const List = React.memo(props => {
                 cols.push({
                     title: "Đầu kỳ",
                     dataIndex: key,
-                    width: 100
+                    width: 90
                 });
             else if (key === "thu_chi")
                 cols.push({
                     title: "",
                     dataIndex: key,
-                    width: 80
+                    width: 40
                 });
             else if (key !== "id")
                 cols.push({
                     title: key,
                     dataIndex: key,
-                    width: 100
+                    width: 90
                 });
         }
         setTrangThai({

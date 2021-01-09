@@ -24,3 +24,4 @@ Sau moment  14,59mb     2,12mb      2,38mb
 Sau icon    11,8mb      1,91mb      2,18mb
 Sau antd    9,79mb      1,62mb      2,06mb
 Sau Apex    4,02mb      749,71kb    1,16mb
+Sau sidebar 4,01mb      755,15kb    1,17mb

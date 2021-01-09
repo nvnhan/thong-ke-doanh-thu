@@ -19,7 +19,7 @@ const columns = [
     {
         title: "Số vé",
         dataIndex: "so_ve",
-        width: 130,
+        width: 120,
         optFind: true
     },
     {
@@ -32,12 +32,13 @@ const columns = [
         title: "Tên khách",
         dataIndex: "ten_khach",
         width: 140,
-        optFind: true
+        optFind: true,
+        ellipsis: true
     },
     {
         title: "TG đi",
         dataIndex: "ngay_gio_di",
-        width: 120,
+        width: 125,
         sorter: (a, b) =>
             moment(a.ngay_gio_di, "HH:mm DD/MM/YYYY").unix() -
             moment(b.ngay_gio_di, "HH:mm DD/MM/YYYY").unix(),
@@ -59,7 +60,7 @@ const columns = [
     {
         title: "TG về",
         dataIndex: "ngay_gio_ve",
-        width: 120,
+        width: 125,
         sorter: (a, b) =>
             moment(a.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix() -
             moment(b.ngay_gio_ve, "HH:mm DD/MM/YYYY").unix()
@@ -93,14 +94,16 @@ const columns = [
     {
         title: "Nơi mua",
         dataIndex: "noi_mua",
-        width: 110,
-        optFilter: true
+        width: 100,
+        optFilter: true,
+        ellipsis: true
     },
     {
         title: "Khách hàng",
         dataIndex: "ma_khach_hang",
-        width: 110,
-        optFilter: true
+        width: 100,
+        optFilter: true,
+        ellipsis: true
     },
     {
         title: "Thanh toán",

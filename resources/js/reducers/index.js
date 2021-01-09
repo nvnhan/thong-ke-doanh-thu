@@ -9,6 +9,7 @@ import phiHanhLy from "./phiHanhLy";
 import sanBay from "./sanBay";
 import taiKhoan from "./taiKhoan";
 import thuePhi from "./thuePhi";
+import sideBar from "./sideBar";
 
 export const myReducer = combineReducers({
     menuActive,
@@ -20,5 +21,6 @@ export const myReducer = combineReducers({
     phiHanhLy,
     taiKhoan,
     thuePhi,
-    hangHoa
+    hangHoa,
+    sideBar
 });

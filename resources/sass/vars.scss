@@ -7,7 +7,16 @@ $md: 992px;
 $lg: 1200px;
 
 $primary-color: #6dc3a6;
+$secondary-color: #ab4b64;
 $background-color: #fff;
+
+// Pro sidebar
+$sidebar-width: 230px !default;
+$sidebar-collapsed-width: 75px !default;
+$icon-bg-color: hsla(0, 0%, 100%, 0.05) !default;
+$submenu-bg-color: hsla(0, 0%, 100%, 0.05) !default;
+$submenu-bg-color-collapsed: rgba(21, 39, 37, 0.9) !default;
+$highlight-color: #eee !default;
 
 @mixin xs {
     @media (max-width: #{$xs - 1px}) {

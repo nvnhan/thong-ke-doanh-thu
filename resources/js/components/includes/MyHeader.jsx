@@ -1,4 +1,6 @@
 import UserOutlined from "@ant-design/icons/UserOutlined";
+import MenuFoldOutlined from "@ant-design/icons/MenuFoldOutlined";
+import MenuUnfoldOutlined from "@ant-design/icons/MenuUnfoldOutlined";
 import Button from "antd/lib/button/index";
 import Dropdown from "antd/lib/dropdown/index";
 import Menu from "antd/lib/menu/index";
@@ -13,9 +15,13 @@ const MyHeader = memo(props => {
 
     const title = useSelector(state => state.pageTitle);
     const authUser = useSelector(state => state.authUser);
+    const sideBarCollapsed = useSelector(state => state.sideBar.collapsed);
+
     const logout = () => dispatch(actions.logout());
 
-    const menu = (
+    const onBack = () => dispatch(actions.collapseSidebar(!sideBarCollapsed));
+
+    const menu = () => (
         <Menu>
             <Menu.Item>
                 <span className="muted-text">Vai trò: {authUser.quyen}</span>
@@ -40,9 +46,8 @@ const MyHeader = memo(props => {
     );
 
     const DropdownMenu = () => (
-        <Dropdown key="more" overlay={menu}>
-            <Button className="btn-user"
-            >
+        <Dropdown key="more" overlay={menu()}>
+            <Button className="btn-user">
                 <span className="user-text">Chào {authUser.ho_ten} </span>
                 <UserOutlined className="user-logo" />
             </Button>
@@ -52,7 +57,10 @@ const MyHeader = memo(props => {
     return (
         <PageHeader
             className="my-header"
-            onBack={() => window.history.back()}
+            onBack={onBack}
+            backIcon={
+                sideBarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+            }
             title={title}
             extra={<DropdownMenu />}
         />

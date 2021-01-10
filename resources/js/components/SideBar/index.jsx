@@ -24,9 +24,9 @@ const SideBar = memo(props => {
 
     const selectedSubMenu = () => "SUB_" + menuActive.split("_")[0];
 
-    const genLinkMenuItem = (item, index) => {
-        if (item.role && authUser[item.role] !== true) return "";
-        if (item.key === "divider") return "";
+    const genMenuItem = (item, index) => {
+        if (item.role && authUser[item.role] !== true)
+            return <React.Fragment key={item.key}></React.Fragment>;
 
         return (
             <MenuItem
@@ -40,28 +40,28 @@ const SideBar = memo(props => {
         );
     };
 
-    const genSiderMenu = items =>
-        items.map((item, index) => {
-            if (item.role && authUser[item.role] !== true) return "";
+    const genMenu = (item, index) => {
+        if (item.role && authUser[item.role] !== true)
+            return <React.Fragment key={item.key}></React.Fragment>;
 
-            if (item.childs) {
-                // Has childs
-                return (
-                    <SubMenu
-                        key={item.key}
-                        icon={item.icon}
-                        title={item.title}
-                        defaultOpen={item.key === selectedSubMenu()}
-                    >
-                        {item.childs.map((subItem, index) =>
-                            genLinkMenuItem(subItem, index)
-                        )}
-                    </SubMenu>
-                );
-            } else {
-                return genLinkMenuItem(item, index);
-            }
-        });
+        if (item.childs) {
+            // Has childs
+            return (
+                <SubMenu
+                    key={item.key}
+                    icon={item.icon}
+                    title={item.title}
+                    defaultOpen={item.key === selectedSubMenu()}
+                >
+                    {item.childs.map(genMenuItem)}
+                </SubMenu>
+            );
+        } else {
+            return genMenuItem(item, index);
+        }
+    };
+
+    const genSiderMenu = items => items.map(genMenu);
 
     return (
         <ProSidebar

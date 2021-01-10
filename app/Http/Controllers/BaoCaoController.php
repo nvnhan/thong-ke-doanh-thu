@@ -47,6 +47,7 @@ class BaoCaoController extends BaseController
 
     public function doisoattaikhoan(Request $request)
     {
+        $user = $request->user();
         $tu_ngay =  date('Y-m-01');
         $den_ngay = date('Y-m-t');
         if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
@@ -62,7 +63,7 @@ class BaoCaoController extends BaseController
         $sheet = $spreadSheet->getSheet(0);
         $sheet->setCellValue("A2", "Tài khoản: " . $taiKhoan->ky_hieu);
 
-        $data = Report::doi_soat_tai_khoan($taiKhoan, $tu_ngay, $den_ngay);
+        $data = Report::doi_soat_tai_khoan($user, $taiKhoan, $tu_ngay, $den_ngay);
         // Số hàng dữ liệu
         $cnt = 0;
         foreach ($data as $value) {

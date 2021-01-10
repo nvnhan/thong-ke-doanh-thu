@@ -19,7 +19,7 @@ class ThemFileThuChi
         return (float) (trim($tt));
     }
 
-    public static function insert_into_db($parse, Request $request)
+    public static function insert_into_db($parse, User $user)
     {
         // filter data 
         // Lọc từ ngày đến ngày
@@ -30,13 +30,13 @@ class ThemFileThuChi
         foreach ($parse as $item) {
             $tc = new ThuChi((array) $item);
 
-            $tk = TaiKhoan::ofUser($request->user())->where('ky_hieu', $item->ngan_hang)->first();
+            $tk = TaiKhoan::ofUser($user)->where('ky_hieu', $item->ngan_hang)->first();
             if (empty($tk)) continue;
 
             if ($item->thu_chi === "+") $tc->id_tai_khoan_den = $tk->id;
             else $tc->id_tai_khoan_di = $tk->id;
 
-            $kh = KhachHang::ofUser($request->user())->where('ma_khach_hang', $item->khach_hang)->first();
+            $kh = KhachHang::ofUser($user)->where('ma_khach_hang', $item->khach_hang)->first();
             if ($kh) $tc->id_khach_hang = $kh->id;
 
             try {
@@ -63,12 +63,13 @@ class ThemFileThuChi
         $spreadSheet = $reader->load($path);
         $sheet = $spreadSheet->getSheet(0);
 
+        $user = $request->user();
         $ind = $request->xu_ly_tu_hang;
         $parse = [];
         // Parse data from file
         while (true) {
             $tmp = new stdClass;
-            $tmp->username = $request->user()->username;
+            $tmp->username = $user->username;
             $tmp->dinh_danh = $dinh_danh;
 
             // Ngày tháng
@@ -99,7 +100,7 @@ class ThemFileThuChi
         }
 
         // insert rows to db
-        $cnt = self::insert_into_db($parse, $request);
+        $cnt = self::insert_into_db($parse, $user);
 
         return $cnt;
     }

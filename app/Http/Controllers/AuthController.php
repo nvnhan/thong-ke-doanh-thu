@@ -30,13 +30,13 @@ class AuthController extends BaseController
     /**
      * Login = app & tool
      */
-    public function getApiLogin(Request $req)
+    public function getApiLogin(Request $request)
     {
-        $user = User::where('username', $req->username)->first();
+        $user = $request->user();
         if (!$user)
             return $this->sendError('Account does not exist', [], 400);
         // Kiểm tra đăng nhập
-        if (!Hash::check($req->password, $user->password))
+        if (!Hash::check($request->password, $user->password))
             return $this->sendError('Username and Password mismatch', [], 400);
         if (!$user->actived)
             return $this->sendError('Account inactived', [], 400);
@@ -101,10 +101,13 @@ class AuthController extends BaseController
                             unset($response['khong_gioi_han_dang_nhap']);
                             unset($response['so_ngay_dang_nhap']);
                             unset($response['ngay_dang_nhap']);
+                            unset($response['id']);
+                            unset($response['phan_quyen']);
 
                             $token = $user->createToken('Web API login')->accessToken;
                             $response['token'] = $token;
                             $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
+                            $response['user_zone'] = $user->user_zone;
                             return $this->sendResponse($response, 'Đăng nhập thành công');
                         } else
                             return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);
@@ -137,8 +140,11 @@ class AuthController extends BaseController
                 unset($response['khong_gioi_han_dang_nhap']);
                 unset($response['so_ngay_dang_nhap']);
                 unset($response['ngay_dang_nhap']);
+                unset($response['id']);
+                unset($response['phan_quyen']);
 
                 $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
+                $response['user_zone'] = $user->user_zone;
                 return $this->sendResponse($response, 'Get user successfully');
             } else
                 return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);

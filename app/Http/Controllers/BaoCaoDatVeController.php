@@ -27,8 +27,8 @@ class BaoCaoDatVeController extends Controller
         $spreadSheet = $reader->load($file);
 
         // Get data from SQL
-        $vnbb = DatVe::ofUser($request->user())->whereIn('id', $objs)->whereIn('hang_bay', ['VN', 'BB'])->get()->groupBy('ma_giu_cho');
-        $vjjets = DatVe::ofUser($request->user())->whereIn('id', $objs)->whereIn('hang_bay', ['VJ', 'Jets'])->get()->groupBy('so_ve');
+        $vnbb = DatVe::ofUser($user)->whereIn('id', $objs)->whereIn('hang_bay', ['VN', 'BB'])->get()->groupBy('ma_giu_cho');
+        $vjjets = DatVe::ofUser($user)->whereIn('id', $objs)->whereIn('hang_bay', ['VJ', 'Jets'])->get()->groupBy('so_ve');
 
         foreach ($vnbb as $mgc => $ves) {
             $sheet = clone $spreadSheet->getSheet(0);
@@ -148,7 +148,7 @@ class BaoCaoDatVeController extends Controller
         $spreadSheet = $reader->load($file);
         $sheet = $spreadSheet->getSheet(0);
 
-        $datVe = DatVe::ofUser($request->user())->whereIn('id', $objs)->get();
+        $datVe = DatVe::ofUser($user)->whereIn('id', $objs)->get();
         // Thông tin nơi mua
         $noiMua = $datVe[0]->tai_khoan_mua;
         if ($noiMua != null) {
@@ -220,7 +220,7 @@ class BaoCaoDatVeController extends Controller
         $sheet->setCellValue("A2", "MST: " . $user->ct_mst);
         $sheet->setCellValue("A3", "Địa chỉ: " . $user->ct_dia_chi);
 
-        $datVe = DatVe::ofUser($request->user())->whereIn('id', $objs)->get();
+        $datVe = DatVe::ofUser($user)->whereIn('id', $objs)->get();
 
         // Thông tin khách hàng
         $khachHang = $datVe[0]->khach_hang;

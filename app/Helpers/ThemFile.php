@@ -124,12 +124,13 @@ class ThemFile
         $sheet = $spreadSheet->getSheet(0);
 
         $ind = $request->xu_ly_tu_hang;
+        $user = $request->user();
         $parse = [];
         // Parse data from file
         while (true) {
             $tmp = new stdClass;
             $tmp->ngay_thang = date("Y-m-d");
-            $tmp->username = $request->user()->username;
+            $tmp->username = $user->username;
             $tmp->hang_bay = $request->hang_bay;
             $tmp->dinh_danh = $dinh_danh;
 

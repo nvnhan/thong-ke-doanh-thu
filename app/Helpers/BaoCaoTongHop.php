@@ -137,20 +137,20 @@ class BaoCaoTongHop
             $tu_ngay = substr($request->bat_dau, 0, 10);
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
-
+        $user = $request->user();
         switch ($type) {
             case 1:
                 $dat_ve =
-                    DatVe::ofUser($request->user())->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+                    DatVe::ofUser($user)->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
                 break;
             case 2:
                 $dat_ve =
-                    DatVe::ofUser($request->user())->whereNull('ngay_thanh_toan')
+                    DatVe::ofUser($user)->whereNull('ngay_thanh_toan')
                     ->orWhere('ngay_thanh_toan', '>', $den_ngay)->get();
                 break;
             case 3:
                 $dat_ve =
-                    DatVe::ofUser($request->user())->where('ngay_gio_di', ">", $den_ngay)
+                    DatVe::ofUser($user)->where('ngay_gio_di', ">", $den_ngay)
                     ->orWhere('ngay_gio_ve', '>', $den_ngay)->get();
                 break;
         }
@@ -188,6 +188,7 @@ class BaoCaoTongHop
 
     public static function export_thu_chi(Request $request, $sheet)
     {
+        $user = $request->user();
         $tu_ngay =  date('Y-m-01');
         $den_ngay = date('Y-m-t');
 
@@ -196,7 +197,7 @@ class BaoCaoTongHop
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
 
-        $objs = ThuChi::ofUser($request->user())->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+        $objs = ThuChi::ofUser($user)->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
 
         $row_index = 4;
         $sheet->insertNewRowBefore($row_index + 3, count($objs));

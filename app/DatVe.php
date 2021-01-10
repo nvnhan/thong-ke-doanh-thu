@@ -60,6 +60,7 @@ class DatVe extends Model
      */
     public function scopeOfUser($query, $user)
     {
+        return $query->whereIn('username', $user->user_zone);
         if ($user->phan_quyen === 1) // Nếu lá Quản lý đại lý
             $user = $user->nguoi_tao()->first();      // Người tạo:  admin hoặc chủ đl
 

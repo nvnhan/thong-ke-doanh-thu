@@ -105,6 +105,20 @@ class User extends Authenticatable
         }
     }
 
+    public function getUserZoneAttribute()
+    {
+        \Log::debug('Calling getUserZoneAttribute');
+        $user = $this;
+        if ($user->phan_quyen === 1) // Nếu lá Quản lý đại lý
+            $user = $user->nguoi_tao()->first();      // Người tạo:  admin hoặc chủ đl
+
+        if ($user->phan_quyen === 0 || $user->phan_quyen === 9)      // Nhân viên & admin
+            return [$user->username];
+
+        $users = $user->tao_ra()->pluck('username')->push($user->username);
+        return  $users;
+    }
+
 
     /**
      * Find the user instance for the given username.

@@ -12,13 +12,14 @@
         &.ant-table-cell-fix-right {
             padding: 8px 6px;
         }
+        @at-root .ant-table .ant-table-selection-column,
+            &.ant-table-selection-column {
+            padding-right: 13px;
+        }
     }
 
     .ant-table-column-sorters {
         padding: 0 6px;
-    }
-    .ant-table-selection-column {
-        padding-right: 13px;
     }
 
     tfoot > tr {

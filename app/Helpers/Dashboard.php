@@ -165,9 +165,8 @@ class Dashboard
         $sumchuabay = $objs1->filter(function ($item) use ($den_ngay) {
             return $item->ngay_gio_di > $den_ngay || $item->ngay_gio_ve > $den_ngay;
         })->count();
-        $qtchuabay = $quocte1->where(function ($query) use ($den_ngay) {
-            return $query->where('ngay_gio_di', ">", $den_ngay)
-                ->orWhere('ngay_gio_ve', '>', $den_ngay);
+        $qtchuabay = $quocte1->filter(function ($item) use ($den_ngay) {
+            return $item->ngay_gio_di > $den_ngay || $item->ngay_gio_ve > $den_ngay;
         })->count();
         $result->hang_muc[] = 'Số vé chưa bay';
         $result->quoc_te[] = $qtchuabay;

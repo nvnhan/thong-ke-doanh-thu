@@ -1,5 +1,6 @@
 import Button from "antd/lib/button/index";
 import Checkbox from "antd/lib/checkbox/index";
+import Select from "antd/lib/select/index";
 import Form from "antd/lib/form/index";
 import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
@@ -11,6 +12,7 @@ import React, { memo, useState } from "react";
 const Profile = memo(props => {
     const [form] = Form.useForm();
     const [formLogin] = Form.useForm();
+
     const [user, setUser] = useState(() => {
         // Check it in server
         axios
@@ -125,15 +127,6 @@ const Profile = memo(props => {
                                 <Input />
                             </Form.Item>
                         </Col>
-                        <Col span={24} md={12}>
-                            <Form.Item
-                                wrapperCol={{ sm: { offset: 8, span: 16 } }}
-                                name="thong_bao"
-                                valuePropName="checked"
-                            >
-                                <Checkbox>Nhận thông báo qua Email</Checkbox>
-                            </Form.Item>
-                        </Col>
                     </Row>
 
                     <Row
@@ -175,6 +168,34 @@ const Profile = memo(props => {
                                 label="Địa chỉ công ty"
                             >
                                 <Input />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    <Row
+                        gutter={[12, 12]}
+                        style={{
+                            borderBottom: "1px solid rgba(0,0,0,.1)",
+                            margin: "0 0 12px"
+                        }}
+                    >
+                        <Col span={24} md={12}>
+                            <Form.Item name="so_ket_qua" label="Số KQ hiển thị">
+                                <Select>
+                                    <Select.Option value="10">10</Select.Option>
+                                    <Select.Option value="20">20</Select.Option>
+                                    <Select.Option value="50">50</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24} md={12}>
+                            <Form.Item
+                                wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                                name="thong_bao"
+                                valuePropName="checked"
+                            >
+                                <Checkbox>Nhận thông báo qua Email</Checkbox>
                             </Form.Item>
                         </Col>
                     </Row>

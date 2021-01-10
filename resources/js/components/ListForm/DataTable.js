@@ -10,6 +10,7 @@ import Table from "antd/lib/table/index";
 import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import Highlighter from "react-highlight-words";
+import { useSelector } from "react-redux";
 
 const DataTable = React.memo(props => {
     const {
@@ -30,6 +31,8 @@ const DataTable = React.memo(props => {
         renderSummary
     } = props;
     const [myColumns, setMyColumns] = useState([]);
+    const authUser = useSelector(state => state.authUser);
+
     let searchText = "";
     let searchedColumn = "";
     let searchInput;
@@ -280,7 +283,7 @@ const DataTable = React.memo(props => {
             footer={renderFooter ? () => renderFooter(data) : undefined}
             summary={renderSummary ? () => renderSummary(data) : undefined}
             pagination={{
-                // defaultPageSize: 20,
+                defaultPageSize: authUser.so_ket_qua,
                 showTotal: (total, range) =>
                     `Hiển thị ${range[0]}-${range[1]} / ${total} mục`
             }}

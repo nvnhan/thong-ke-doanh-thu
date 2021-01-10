@@ -66,12 +66,15 @@ class UserController extends BaseController
         if ($u)
             return $this->sendError("Trùng tên tài khoản");
 
+        $user = $request->user();
         $data = $request->all();
         $obj = new User();
         $obj->fill($data);
-        if (!$request->user()->admin && $obj->phan_quyen > 1)
+        if (!$user->admin && $obj->phan_quyen > 1)
             $obj->phan_quyen = 0;
-        $obj->id_nguoi_tao = $request->user()->id;
+            
+        $obj->username = strtolower($obj->username);
+        $obj->id_nguoi_tao = $user->id;
         $obj->password = Hash::make('123');
         $obj->save();
         return $this->sendResponse($obj, "Thêm mới thành công, mật khẩu: 123");

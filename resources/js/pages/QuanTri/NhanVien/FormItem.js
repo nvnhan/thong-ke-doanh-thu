@@ -29,9 +29,15 @@ const form = ({ quanTri = false, banHang = false, tourVisa = false }) => {
             <Col span={12}>
                 <Form.Item
                     name="username"
-                    label="Tài khoản (ko sửa)"
+                    label="Tài khoản"
+                    tooltip="Không thể thay đổi sau khi thêm mới"
                     rules={[
-                        { required: true, message: "Nhập đầy đủ thông tin!" }
+                        {
+                            required: true,
+                            pattern: new RegExp(/^[a-z0-9\._]+$/g),
+                            message:
+                                "Tài khoản bao gồm chữ cái thường, số, ký tự . và _"
+                        }
                     ]}
                 >
                     <Input />
@@ -65,7 +71,16 @@ const form = ({ quanTri = false, banHang = false, tourVisa = false }) => {
                 </Form.Item>
             </Col>
             <Col span={12}>
-                <Form.Item name="email" label="Email">
+                <Form.Item
+                    name="email"
+                    label="Email"
+                    rules={[
+                        {
+                            type: "email",
+                            message: "Không đúng định dạng E-mail!"
+                        }
+                    ]}
+                >
                     <Input />
                 </Form.Item>
             </Col>

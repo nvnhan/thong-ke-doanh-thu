@@ -52,7 +52,6 @@ Còn tồn tại:
 ////////////- Thêm khoảng thời gian ở Tổng quan, lọc dữ liệu trong Tổng quan
 ////////////- Tách riêng phần load các danh mục để lưu vào redux + Ko load danh mục trong index nữa, khi nào insert or update mới load
 ////////////- React router: Authorization
-- API route Authorization
 ////////////- Lưu id users trong đại lý vào User table để tránh duyệt lại mỗi lần request
 ////////////- Cài đặt số kết quả hiển thị trong user
 - Login, getUser cho vào redux async?

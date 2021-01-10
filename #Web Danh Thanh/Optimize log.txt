@@ -18,10 +18,13 @@ antd        1,4mb       187,7kb
 => React Apex chart
             459,74kb    118,14kb
 
-    app.js  15,56mb     2,51mb
-Sau lodash  15mb        2,18mb      tổng 2,44mb
-Sau moment  14,59mb     2,12mb      2,38mb
-Sau icon    11,8mb      1,91mb      2,18mb
-Sau antd    9,79mb      1,62mb      2,06mb
-Sau Apex    4,02mb      749,71kb    1,16mb
-Sau sidebar 4,01mb      755,15kb    1,17mb
+In development mode
+                app.js      app gzip    All gzip
+    app.js      15,56mb     2,51mb
+Sau lodash      15mb        2,18mb      tổng 2,44mb
+Sau moment      14,59mb     2,12mb      2,38mb
+Sau icon        11,8mb      1,91mb      2,18mb
+Sau antd        9,79mb      1,62mb      2,06mb
+Sau Apex        4,02mb      749,71kb    1,16mb
+Sau Pro sidebar 4,01mb      755,15kb    1,17mb
+Sau antd 4.10   4,2.83mb    797,27kb    1,29mb

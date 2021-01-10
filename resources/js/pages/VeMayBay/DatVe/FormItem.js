@@ -197,7 +197,11 @@ const form = React.memo(props => {
                     </Form.Item>
                 </Col>
                 <Col span={12} md={6}>
-                    <Form.Item name="canh_bao_xuat_ve" label="Báo xuất vé">
+                    <Form.Item
+                        name="canh_bao_xuat_ve"
+                        label="Báo xuất vé"
+                        tooltip="Thời gian cảnh báo xuất vé cho khách"
+                    >
                         <MyDatePicker
                             format="DD/MM/YYYY"
                             placeholder="(Không cảnh báo)"

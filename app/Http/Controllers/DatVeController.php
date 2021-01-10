@@ -257,6 +257,7 @@ class DatVeController extends BaseController
         $objs = explode('|', $request['objects']);
         if (\is_array($objs)) {
             $cnt = count($objs);
+            $result = array();
             foreach ($objs as $id) {
                 $model = DatVe::find($id);
                 if (!empty($request['hang_bay'])) $model->hang_bay = $request['hang_bay'];
@@ -272,9 +273,11 @@ class DatVeController extends BaseController
                     $model->tong_tien_thu_khach = $request['tong_tien_thu_khach'];
 
                 $model->save();
+                $model->refresh();
+                $result[] = $model;
             }
 
-            return $this->sendResponse('', "Cập nhật thành công $cnt mục. Tải lại trang để thấy thay đổi");
+            return $this->sendResponse($result, "Cập nhật thành công $cnt mục");
         }
         return $this->sendError('Không sửa được', []);
     }

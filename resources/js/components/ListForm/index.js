@@ -3,6 +3,7 @@ import Form from "antd/lib/form/index";
 import message from "antd/lib/message/index";
 import Modal from "antd/lib/modal/index";
 import isEmpty from "lodash/isEmpty";
+import unionBy from "lodash/unionBy";
 import PropTypes from "prop-types";
 import React, { useEffect, useImperativeHandle, useState } from "react";
 import { isChangeData, queryString, useMergeState } from "../../utils";
@@ -46,11 +47,12 @@ const ListForm = props => {
         selectedRowKeys,
         currentRecord
     } = state;
-
+    // Filter của filter-box
     const [ownFilter, setOwnFilter] = useState(filter);
+
     let isComponentMounted = false;
     // Final filter: Filter <= props, OwnFilter <= FilterBox
-    const finalFilter = filter !== undefined ? filter : ownFilter;
+    const finalFilter = filter || ownFilter;
     //#endregion
 
     //#region  Sự kiện, hooks
@@ -74,9 +76,9 @@ const ListForm = props => {
          */
         triggerAddNew: () => handleAddNew(),
         /**
-         * Kích hoạt chức năng thêm 1 hàng mới vào table
+         * Kích hoạt chức năng thêm hoặc chỉnh sửa 1 hoặc nhiều hàng
          */
-        // triggerInsertFromText: response => doInsertRow(response),
+        triggerUpdate: response => doInsertRow(response),
         /**
          * Trả form instance về form khác (form cha)
          */
@@ -156,12 +158,8 @@ const ListForm = props => {
 
     const doInsertRow = (response, callback = null) => {
         if (response.data.success) {
-            let newData = [];
             // Thêm object vào list lấy từ state
-            if (Array.isArray(response.data.data))
-                newData = [...data, ...response.data.data];
-            else newData = [...data, response.data.data];
-            console.log("doInsertRow -> newData: ", newData);
+            const newData = unionBy(response.data.data, data, primaryKey);
             setState({
                 data: newData
             });

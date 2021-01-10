@@ -117,12 +117,11 @@ const List = props => {
     /**
      * Show modal cập nhật
      */
-    const showUpdates = (data, selectedRowKeys) => {
+    const showUpdates = (data, selectedRowKeys) =>
         setUpdate({
             selectedKeys: selectedRowKeys,
             modalVisible: true
         });
-    };
 
     /**
      * Thực hiện Cập nhật
@@ -139,14 +138,10 @@ const List = props => {
                 axios
                     .put(`/api/dat-ve/updates`, values)
                     .then(response => {
-                        if (response.data.success) {
-                            // Set lại data cho ListForm ????
-                            // Ko thì thôi
-                            message.info(response.data.message);
-                            // Tắt loading & modal
-                            handleCancel();
-                            updateForm.resetFields();
-                        }
+                        childRef.current.triggerUpdate(response);
+                        // Tắt loading & modal
+                        handleCancel();
+                        updateForm.resetFields();
                     })
                     .catch(error => console.log(error));
             })

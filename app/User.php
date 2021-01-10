@@ -105,9 +105,9 @@ class User extends Authenticatable
         }
     }
 
-    public function getUserZoneAttribute()
+    public function getUserZone()
     {
-        \Log::debug('Calling getUserZoneAttribute');
+        \Log::debug('Calling getUserZone');
         $user = $this;
         if ($user->phan_quyen === 1) // Nếu lá Quản lý đại lý
             $user = $user->nguoi_tao()->first();      // Người tạo:  admin hoặc chủ đl

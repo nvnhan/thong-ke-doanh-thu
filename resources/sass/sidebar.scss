@@ -1,5 +1,6 @@
 .has-sidebar {
     flex-direction: row;
+    align-items: stretch;
 
     .ant-layout,
     .ant-layout-content {
@@ -9,6 +10,11 @@
 
 .pro-sidebar {
     z-index: 109;
+    height: inherit;
+
+    @include md {
+        height: 100%;
+    }
 
     .pro-sidebar-inner {
         min-height: 100vh;

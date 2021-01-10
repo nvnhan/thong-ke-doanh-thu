@@ -45,16 +45,11 @@ class ThuChi extends Model
      * @param  mixed  $user
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOfUser($query, $user)
+    public function scopeOfUser($query, $user, $user_zone = [])
     {
-        if ($user->phan_quyen === 1) // Nếu lá Quản lý đại lý
-            $user = $user->nguoi_tao()->first();      // Người tạo:  admin hoặc chủ đl
-
-        if ($user->phan_quyen === 0 || $user->phan_quyen === 9)      // Nhân viên & admin
-            return $query->where('username', $user->username);
-
-        $users = $user->tao_ra()->pluck('username')->push($user->username);
-        return $query->whereIn('username', $users);
+        if (!empty($user_zone))
+            return $query->whereIn('username', $user_zone);
+        return $query->whereIn('username', $user->getUserZone());
     }
 
     public function khach_hang()

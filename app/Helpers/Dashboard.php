@@ -17,7 +17,7 @@ class Dashboard
 {
     public static function TinhSoDuCuoiKy(Request $request, &$sum)
     {
-        $user = $request->user();
+        $user = $request->user();       // Execute: select * from users
         $den_ngay = date('Y-m-t');
         if (!empty($request->ket_thuc))
             $den_ngay = substr($request->ket_thuc, 0, 10);
@@ -129,15 +129,12 @@ class Dashboard
             $bat_dau = substr($request->bat_dau, 0, 10);
             $ket_thuc = substr($request->ket_thuc, 0, 10);
         }
-        $objs = DatVe::ofUser($user)->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+        $objs = DatVe::ofUser($user)->whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->get();
 
-        $sbqt = SanBay::where('phan_loai', '!=', 'Việt Nam')->pluck('ma_san_bay');
+        $sbqt = SanBay::where('phan_loai', '!=', 'Việt Nam')->pluck('ma_san_bay')->toArray();
         $quocte = clone $objs;
-        $quocte = $quocte->where(function ($query) use ($sbqt) {
-            return $query->whereIn('sb_di', $sbqt)
-                ->orWhereIn('sb_di1', $sbqt)
-                ->orWhereIn('sb_ve', $sbqt)
-                ->orWhereIn('sb_ve1', $sbqt);
+        $quocte = $quocte->filter(function ($item) use ($sbqt) {
+            return in_array($item->sb_di, $sbqt) || in_array($item->sb_di1, $sbqt) || in_array($item->sb_ve, $sbqt) || in_array($item->sb_ve1, $sbqt);
         });
 
         $result = new stdClass;
@@ -165,9 +162,8 @@ class Dashboard
         $den_ngay = date('Y-m-d H:i:s'); // Chưa bay, nợ vé tính đến hôm nay
         $objs1 = clone $objs;
         $quocte1 = clone $quocte;
-        $sumchuabay = $objs1->where(function ($query) use ($den_ngay) {
-            return $query->where('ngay_gio_di', ">", $den_ngay)
-                ->orWhere('ngay_gio_ve', '>', $den_ngay);
+        $sumchuabay = $objs1->filter(function ($item) use ($den_ngay) {
+            return $item->ngay_gio_di > $den_ngay || $item->ngay_gio_ve > $den_ngay;
         })->count();
         $qtchuabay = $quocte1->where(function ($query) use ($den_ngay) {
             return $query->where('ngay_gio_di', ">", $den_ngay)
@@ -177,13 +173,11 @@ class Dashboard
         $result->quoc_te[] = $qtchuabay;
         $result->quoc_noi[] = $sumchuabay - $qtchuabay;
 
-        $sumnove = $objs->where(function ($query) use ($den_ngay) {
-            return $query->whereNull('ngay_thanh_toan')
-                ->orWhere('ngay_thanh_toan', '>', $den_ngay);
+        $sumnove = $objs->filter(function ($item) use ($den_ngay) {
+            return $item->ngay_thanh_toan == null || $item->ngay_thanh_toan > $den_ngay;
         })->count();
-        $qtnove = $quocte->where(function ($query) use ($den_ngay) {
-            return $query->whereNull('ngay_thanh_toan')
-                ->orWhere('ngay_thanh_toan', '>', $den_ngay);
+        $qtnove = $quocte->filter(function ($item) use ($den_ngay) {
+            return $item->ngay_thanh_toan == null || $item->ngay_thanh_toan > $den_ngay;
         })->count();
         $result->hang_muc[] = 'Số vé còn nợ';
         $result->quoc_te[] = $qtnove;

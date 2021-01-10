@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'id_nguoi_tao'
+        'password', 'id_nguoi_tao', 'user_zone'
     ];
 
     /**
@@ -48,6 +48,7 @@ class User extends Authenticatable
         'ngay_dang_nhap' => 'datetime:d/m/Y',
         'created_at' => 'datetime:d/m/Y',
         'updated_at' => 'datetime:H:i d/m/Y',
+        'user_zone' => 'array'
     ];
 
     protected $appends = ['admin', 'quan_ly', 'quan_tri', 'quyen', 'chuc_nang'];
@@ -107,16 +108,21 @@ class User extends Authenticatable
 
     public function getUserZone()
     {
-        \Log::debug('Calling getUserZone');
+        return $this->user_zone;
+    }
+
+    public function setUserZone()
+    {
         $user = $this;
+        $users = [];
         if ($user->phan_quyen === 1) // Nếu lá Quản lý đại lý
             $user = $user->nguoi_tao()->first();      // Người tạo:  admin hoặc chủ đl
 
         if ($user->phan_quyen === 0 || $user->phan_quyen === 9)      // Nhân viên & admin
-            return [$user->username];
-
-        $users = $user->tao_ra()->pluck('username')->push($user->username);
-        return  $users;
+            $users = [$user->username];
+        else
+            $users = $user->tao_ra()->pluck('username')->push($user->username);
+        $this->user_zone = $users;
     }
 
 

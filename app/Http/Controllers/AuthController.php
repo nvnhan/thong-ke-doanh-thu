@@ -91,6 +91,7 @@ class AuthController extends BaseController
                                 $user->so_ngay_dang_nhap--;
                         }
                         if ($user->so_ngay_dang_nhap >= 0) {
+                            $user->setUserZone();
                             $user->save();
                             // Delete all previous Tokens
                             $user->tokens()
@@ -134,6 +135,7 @@ class AuthController extends BaseController
                 $user->so_ngay_dang_nhap--;
             }
             if ($user->so_ngay_dang_nhap >= 0) {
+                $user->setUserZone();
                 $user->save();
 
                 $response = $user->toArray();

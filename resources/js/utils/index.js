@@ -25,6 +25,19 @@ export const queryString = obj => {
 };
 
 /**
+ * Chuyển datetime về dạng lưu ở SQL
+ */
+export const convertToSQLDateTime = value => {
+    const format = "YYYY-MM-DD HH:mm:ss";
+    if (typeof value === "string")
+        if (value.match(/(.*?):(.*?)\/(.*?)\//g))
+            value = moment(value, "HH:mm DD/MM/YYYY").format(format);
+        else if (value.match(/(.*?)\/(.*?)\//g))
+            value = moment(value, "DD/MM/YYYY").format(format);
+    return value;
+};
+
+/**
  * Xử lý dữ liệu (ngày tháng) từ form nhập vào
  */
 export const parseValues = (values, format = "YYYY-MM-DD HH:mm:ss") => {
@@ -34,13 +47,7 @@ export const parseValues = (values, format = "YYYY-MM-DD HH:mm:ss") => {
             if (typeof value === "object")
                 // Convert từ moment (from DatePicker) về dạng string để backend xử lý
                 values[key] = value.format(format);
-            else if (typeof value === "string")
-                if (value.match(/(.*?):(.*?)\/(.*?)\//g))
-                    values[key] = moment(value, "HH:mm DD/MM/YYYY").format(
-                        format
-                    );
-                else if (value.match(/(.*?)\/(.*?)\//g))
-                    values[key] = moment(value, "DD/MM/YYYY").format(format);
+            else values[key] = convertToSQLDateTime(value);
     }
     return values;
 };
@@ -51,14 +58,15 @@ export const parseValues = (values, format = "YYYY-MM-DD HH:mm:ss") => {
 export const isChangeData = (record, data) => {
     if (record === undefined || data === undefined) return true;
     let isChanged = false;
+
     for (var k in record) {
-        if (
-            record.hasOwnProperty(k) &&
-            data.hasOwnProperty(k) &&
-            record[k] !== data[k]
-        ) {
-            isChanged = true;
-            break;
+        if (record.hasOwnProperty(k) && data.hasOwnProperty(k)) {
+            const tmp = convertToSQLDateTime(data[k]);
+
+            if (record[k] !== tmp) {
+                isChanged = true;
+                break;
+            }
         }
     }
     return isChanged;

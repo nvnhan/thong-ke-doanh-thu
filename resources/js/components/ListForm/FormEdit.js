@@ -21,12 +21,7 @@ const FormEdit = React.memo(props => {
         }
         // tắt mdoal đi thì reset lại
         else {
-            form.resetFields();
-            if (
-                setFormValues !== undefined &&
-                setFormValues.resetFields !== undefined
-            )
-                setFormValues.resetFields();
+            console.log("render form edit invisible");
         }
     }); // Always run while render
 

@@ -78,7 +78,7 @@ const ListForm = props => {
         /**
          * Kích hoạt chức năng thêm hoặc chỉnh sửa 1 hoặc nhiều hàng
          */
-        triggerUpdate: response => doInsertRow(response),
+        triggerUpdate: response => doInsertOrUpdateRows(response),
         /**
          * Trả form instance về form khác (form cha)
          */
@@ -156,16 +156,20 @@ const ListForm = props => {
 
     const onChangeSelect = selectedRowKeys => setState({ selectedRowKeys });
 
-    const doInsertRow = (response, callback = null) => {
+    const doInsertOrUpdateRows = (response, callback = null) => {
         if (response.data.success) {
             // Thêm object vào list lấy từ state
-            const newData = unionBy(response.data.data, data, primaryKey);
+            const newData = Array.isArray(response.data.data)
+                ? response.data.data
+                : [response.data.data];
+            const mergedData = unionBy(newData, data, primaryKey);      // New data is first line
             setState({
-                data: newData
+                data: mergedData,
+                selectedRowKeys: []
             });
             message.info(response.data.message);
             callback && callback(); // Callback from ModalConfirm to change loading button state
-            onChangeData && onChangeData(newData); // Callback from main form to recalc data
+            onChangeData && onChangeData(mergedData); // Callback from main form to recalc data
         } else message.error(response.data.message);
     };
 
@@ -174,32 +178,14 @@ const ListForm = props => {
             value = Object.assign(value, otherParams);
         axios
             .post(`/api/${url}`, value)
-            .then(response => doInsertRow(response, callback))
+            .then(response => doInsertOrUpdateRows(response, callback))
             .catch(error => console.log(error));
     };
 
     const onUpdate = (value, callback) => {
         axios
             .put(`/api/${url}/${currentRecord[primaryKey]}`, value)
-            .then(response => {
-                if (response.data.success) {
-                    let newData = [];
-                    Object.assign(
-                        newData,
-                        data.map(el =>
-                            el[primaryKey] === currentRecord[primaryKey]
-                                ? response.data.data
-                                : el
-                        )
-                    );
-                    setState({
-                        data: newData
-                    });
-                    message.info(response.data.message);
-                    callback && callback(); // Callback from ModalConfirm to change loading button state
-                    onChangeData && onChangeData(newData); // Callback from main form to recalc data
-                }
-            })
+            .then(response => doInsertOrUpdateRows(response, callback))
             .catch(error => console.log(error));
     };
 
@@ -224,8 +210,30 @@ const ListForm = props => {
                 .catch(error => console.log(error));
     };
 
+    const doDeletes = () => {
+        axios
+            .delete(`/api/${url}/deletes`, {
+                params: {
+                    objects: selectedRowKeys.join("|")
+                }
+            })
+            .then(response => {
+                if (response.data.success) {
+                    const newData = data.filter(
+                        item => selectedRowKeys.indexOf(item[primaryKey]) === -1
+                    );
+                    setState({
+                        data: newData,
+                        selectedRowKeys: []
+                    });
+                    onChangeData && onChangeData(newData);
+                    message.info(response.data.message);
+                }
+            })
+            .catch(error => console.log(error));
+    };
+
     const onMultiDelete = () => {
-        console.log("before delete", state);
         confirm({
             title: "Bạn muốn xóa những mục này?",
             icon: <ExclamationCircleOutlined />,
@@ -233,31 +241,7 @@ const ListForm = props => {
             okText: "Đồng ý",
             okType: "danger",
             cancelText: "Không",
-            onOk: () => {
-                axios
-                    .delete(`/api/${url}/deletes`, {
-                        params: {
-                            objects: selectedRowKeys.join("|")
-                        }
-                    })
-                    .then(response => {
-                        if (response.data.success) {
-                            const newData = data.filter(
-                                item =>
-                                    selectedRowKeys.indexOf(
-                                        item[primaryKey]
-                                    ) === -1
-                            );
-                            setState({
-                                data: newData,
-                                selectedRowKeys: []
-                            });
-                            if (onChangeData) onChangeData(newData);
-                            message.info(response.data.message);
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
+            onOk: doDeletes
         });
     };
     //#endregion

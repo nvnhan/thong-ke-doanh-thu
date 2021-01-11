@@ -6,35 +6,52 @@ import { parseValues } from "../../utils";
 import FormEdit from "./FormEdit";
 
 const ModalConfirm = React.memo(props => {
-    const { form } = props;
+    const {
+        form,
+        currentRecord,
+        setFormValues,
+        modalVisible,
+        handleCancel,
+        handleOk,
+        modalWidth
+    } = props;
     const [formSubmitting, setFormSubmitting] = useState(false);
     const [insertMore, setInsertMore] = useState(false);
 
-    const handleOk = () => {
+    const onOk = () => {
         setFormSubmitting(true);
         form.validateFields()
             .then(value => {
-                props.handleOk(parseValues(value), () =>
-                    setFormSubmitting(false)
-                );
-                if (insertMore) {
+                handleOk(parseValues(value), () => setFormSubmitting(false));
+                if (insertMore && currentRecord === undefined) {
                     // Nếu form thêm mới thì reset field để thêm record mới
-                    if (props.currentRecord === undefined) form.resetFields();
-                } else props.handleCancel();
+                    form.resetFields();
+                } else onCancel();
             })
             .catch(info => console.log("Validate Failed: ", info))
             .then(() => setFormSubmitting(false));
+    };
+
+    const onCancel = () => {
+        //  Xóa trắng form
+        form.resetFields();
+        if (
+            setFormValues !== undefined &&
+            setFormValues.resetFields !== undefined
+        )
+            setFormValues.resetFields();
+        handleCancel(); // Tắt modal
     };
 
     const onChange = checked => setInsertMore(checked);
 
     return (
         <Modal
-            width={props.modalWidth}
-            visible={props.modalVisible}
-            title={props.currentRecord !== undefined ? "Chỉnh sửa" : "Thêm mới"}
-            onOk={handleOk}
-            onCancel={props.handleCancel}
+            width={modalWidth}
+            visible={modalVisible}
+            title={currentRecord !== undefined ? "Chỉnh sửa" : "Thêm mới"}
+            onOk={onOk}
+            onCancel={onCancel}
             footer={[
                 <React.Fragment key="insert-more">
                     <Switch
@@ -44,14 +61,14 @@ const ModalConfirm = React.memo(props => {
                     />
                     &nbsp;Thêm nữa
                 </React.Fragment>,
-                <Button key="back" onClick={props.handleCancel}>
+                <Button key="back" onClick={onCancel}>
                     Hủy
                 </Button>,
                 <Button
                     key="submit"
                     type="primary"
                     loading={formSubmitting}
-                    onClick={handleOk}
+                    onClick={onOk}
                 >
                     Đồng ý
                 </Button>

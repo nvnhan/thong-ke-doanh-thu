@@ -463,7 +463,6 @@ class Report
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
 
         $khachHang = KhachHang::ofUser($user)
-            ->whereRaw("UPPER(phan_loai) != 'THU CHI NGOÀI'")
             ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
             ->get();
         foreach ($khachHang as $kh) {
@@ -473,7 +472,7 @@ class Report
             $tmp->khach_hang = $kh->ma_khach_hang . ' - ' . $kh->ho_ten;
 
             $phan_loai = strtoupper($tmp->phan_loai);
-            if ($phan_loai !== "THU CHI NGOÀI") {
+            if ($phan_loai != "THU CHI NGOàI") {
                 $tmp->dau_ky = $kh->so_du_ky_truoc + self::TinhTongThanhToanBanRa($user, $kh, $ngayTruoc) - self::TinhTongGiaoDichBanRa($user, $kh, $ngayTruoc);
                 $tmp->thanh_toan = self::TinhTongThanhToanBanRa($user, $kh, $den_ngay, $tu_ngay);
                 $tmp->giao_dich = self::TinhTongGiaoDichBanRa($user, $kh, $den_ngay, $tu_ngay);

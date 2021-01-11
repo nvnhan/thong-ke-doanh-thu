@@ -57,7 +57,6 @@ Còn tồn tại:
 - Login, getUser cho vào redux async?
 - Clear properties dont update
 - Optimize request of dashboard and reports (too much db request)
-- Nhân viên có đc dùng KH và HH của NV khác (scope allow User)?
 
 
 

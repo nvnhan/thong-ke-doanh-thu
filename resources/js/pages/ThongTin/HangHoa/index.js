@@ -1,6 +1,7 @@
 import Button from "antd/lib/button/index";
+import unionBy from "lodash/unionBy";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { setHangHoaList } from "../../../actions/actHangHoa";
 import ListForm from "../../../components/ListForm";
@@ -8,6 +9,8 @@ import FormItem from "./FormItem";
 
 const List = React.memo(props => {
     const dispatch = useDispatch();
+    const hangHoaList = useSelector(state => state.hangHoa.list);
+
     const [phanLoai, setPhanLoai] = useState([]);
     const [ncc, setNcc] = useState(props.location.ncc);
 
@@ -17,7 +20,7 @@ const List = React.memo(props => {
      * Callback from ListForm to get PhanLoai from data
      */
     const onChangeData = data => {
-        dispatch(setHangHoaList(data));
+        dispatch(setHangHoaList(unionBy(data, hangHoaList, "id")));
         let phanLoai = [...new Set(data.map(x => x.phan_loai))];
         setPhanLoai(phanLoai);
     };

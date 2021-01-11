@@ -6,6 +6,7 @@ import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchHangHoaList } from "../../../actions/actHangHoa";
 import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
 import MySelect from "../../../components/Controls/MySelect";
 import { inputFormat, inputParse } from "../../../utils";
@@ -19,13 +20,16 @@ const form = React.memo(props => {
 
     const taiKhoan = useSelector(state => state.taiKhoan.list);
     const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
+    const hangHoaStatus = useSelector(state => state.hangHoa.status);
+
     const nhaCungCap =
         ncc !== undefined ? [...ncc] : taiKhoan.filter(i => i.loai === 1);
 
     useEffect(() => {
-        ncc === undefined &&
-            taiKhoanStatus === "idle" &&
-            dispatch(fetchTaiKhoanList());
+        if (ncc === undefined) {
+            taiKhoanStatus === "idle" && dispatch(fetchTaiKhoanList());
+            hangHoaStatus === "idle" && dispatch(fetchHangHoaList());
+        }
     }, [ncc]);
 
     return (

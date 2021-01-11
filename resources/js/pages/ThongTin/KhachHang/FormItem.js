@@ -4,13 +4,23 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchKhachHangList } from "../../../actions/actKhachHang";
 import MyDatePicker from "../../../components/Controls/MyDatePicker";
 import { inputFormat, inputParse } from "../../../utils";
 
 const form = React.memo(props => {
+    const dispatch = useDispatch();
+    const khachHangStatus = useSelector(state => state.khachHang.status);
+
     const phanLoai = props.phanLoai || [];
     const options = phanLoai.map(pl => ({ value: pl }));
+
+    useEffect(() => {
+        khachHangStatus === "idle" && dispatch(fetchKhachHangList());
+    }, []);
+
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>

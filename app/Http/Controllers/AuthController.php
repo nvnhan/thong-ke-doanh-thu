@@ -102,8 +102,6 @@ class AuthController extends BaseController
                             unset($response['khong_gioi_han_dang_nhap']);
                             unset($response['so_ngay_dang_nhap']);
                             unset($response['ngay_dang_nhap']);
-                            unset($response['id']);
-                            unset($response['phan_quyen']);
 
                             $token = $user->createToken('Web API login')->accessToken;
                             $response['token'] = $token;
@@ -142,8 +140,6 @@ class AuthController extends BaseController
                 unset($response['khong_gioi_han_dang_nhap']);
                 unset($response['so_ngay_dang_nhap']);
                 unset($response['ngay_dang_nhap']);
-                unset($response['id']);
-                unset($response['phan_quyen']);
 
                 $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
                 $response['user_zone'] = $user->user_zone;

@@ -15,7 +15,7 @@ class AddUserZone extends Migration
     {
         //
         Schema::table('users', function (Blueprint $table) {
-            $table->text('user_zone')->default("");
+            $table->text('user_zone')->nullable();
             $table->integer('so_ket_qua')->default(10);
         });
     }

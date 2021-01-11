@@ -99,14 +99,13 @@ class AuthController extends BaseController
                                 ->delete();
 
                             $response = $user->toArray();
+                            $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
                             unset($response['khong_gioi_han_dang_nhap']);
                             unset($response['so_ngay_dang_nhap']);
                             unset($response['ngay_dang_nhap']);
 
                             $token = $user->createToken('Web API login')->accessToken;
                             $response['token'] = $token;
-                            $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
-                            $response['user_zone'] = $user->user_zone;
                             return $this->sendResponse($response, 'Đăng nhập thành công');
                         } else
                             return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);
@@ -142,7 +141,6 @@ class AuthController extends BaseController
                 unset($response['ngay_dang_nhap']);
 
                 $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
-                $response['user_zone'] = $user->user_zone;
                 return $this->sendResponse($response, 'Get user successfully');
             } else
                 return $this->sendError("Tài khoản đã dùng hết số lượt đăng nhập giới hạn", []);
@@ -162,7 +160,14 @@ class AuthController extends BaseController
         $user = $request->user();
         if ($user) {
             $user->fill($request->except('username', 'password', 'ngay_het_han'))->save();
-            return $this->sendResponse($user, 'Cập nhật thành công');
+
+            $response = $user->toArray();
+            unset($response['khong_gioi_han_dang_nhap']);
+            unset($response['so_ngay_dang_nhap']);
+            unset($response['ngay_dang_nhap']);
+
+            $response['ngay_dang_nhap_con_lai'] = $user->so_ngay_dang_nhap;
+            return $this->sendResponse($response, 'Cập nhật thành công');
         } else
             return $this->sendError('Invalid token or is Revoked', []);
     }

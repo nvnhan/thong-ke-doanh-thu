@@ -8,8 +8,11 @@ import Input from "antd/lib/input/index";
 import message from "antd/lib/message/index";
 import Modal from "antd/lib/modal/index";
 import React, { memo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setAuth } from "../../../actions";
 
 const Profile = memo(props => {
+    const dispatch = useDispatch();
     const [form] = Form.useForm();
     const [formLogin] = Form.useForm();
 
@@ -20,8 +23,8 @@ const Profile = memo(props => {
             .then(response => {
                 if (response.data.success) {
                     const { data } = response.data;
-                    setUser(data);
                     form.setFieldsValue(data);
+                    return data;
                 } else message.warn(response.data.message);
             })
             .catch(error => console.log(error));
@@ -34,9 +37,10 @@ const Profile = memo(props => {
         axios
             .put(`/api/profile`, values)
             .then(response => {
-                if (response.data.success)
+                if (response.data.success) {
                     message.success(response.data.message);
-                else message.warn(response.data.message);
+                    dispatch(setAuth(response.data.data));
+                } else message.warn(response.data.message);
             })
             .catch(error => console.log(error));
     };
@@ -180,7 +184,11 @@ const Profile = memo(props => {
                         }}
                     >
                         <Col span={24} md={12}>
-                            <Form.Item name="so_ket_qua" label="Số KQ hiển thị">
+                            <Form.Item
+                                name="so_ket_qua"
+                                label="Số kết quả"
+                                tooltip="Số dòng hiển thị mặc định trên 1 trang"
+                            >
                                 <Select>
                                     <Select.Option value="10">10</Select.Option>
                                     <Select.Option value="20">20</Select.Option>

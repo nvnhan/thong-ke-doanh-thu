@@ -58,7 +58,7 @@ class DatVeController extends BaseController
                 ->orWhere('so_ve', 'LIKE', "%$request->q%")
                 ->orWhere('ten_khach', 'LIKE', "%$request->q%"));
 
-        return $this->sendResponse($objs->get(), "DatVe retrieved successfully");
+        return $this->sendResponse($objs->with(['khach_hang', 'tai_khoan_mua', 'phi_hanh_ly', 'thu_chi_chi_tiets'])->get(), "DatVe retrieved successfully");
     }
 
     public function nove(Request $request)
@@ -71,7 +71,7 @@ class DatVeController extends BaseController
                 ->whereNull('ngay_thanh_toan')
                 ->orWhere('ngay_thanh_toan', '>', $den_ngay));
 
-        return $this->sendResponse($objs->get(), "NoVe retrieved successfully");
+        return $this->sendResponse($objs->with(['khach_hang', 'tai_khoan_mua', 'phi_hanh_ly', 'thu_chi_chi_tiets'])->get(), "NoVe retrieved successfully");
     }
 
     public function chuabay(Request $request)
@@ -84,7 +84,7 @@ class DatVeController extends BaseController
                 ->where('ngay_gio_di', ">", $den_ngay)
                 ->orWhere('ngay_gio_ve', '>', $den_ngay));
 
-        return $this->sendResponse($objs->get(), "ChuaBay retrieved successfully");
+        return $this->sendResponse($objs->with(['khach_hang', 'tai_khoan_mua', 'phi_hanh_ly', 'thu_chi_chi_tiets'])->get(), "ChuaBay retrieved successfully");
     }
 
     public function hangbay()
@@ -287,8 +287,8 @@ class DatVeController extends BaseController
         $objs = explode('|', $request['objects']);
         if (\is_array($objs)) {
             $code = "";
-            $vnbb = DatVe::whereIn('id', $objs)->whereIn('hang_bay', ['VN', 'BB'])->get()->groupBy('ma_giu_cho');
-            $khac = DatVe::whereIn('id', $objs)->whereNotIn('hang_bay', ['VN', 'BB'])->get()->groupBy('so_ve');
+            $vnbb = DatVe::findMany($objs)->whereIn('hang_bay', ['VN', 'BB'])->get()->groupBy('ma_giu_cho');
+            $khac = DatVe::findMany($objs)->whereNotIn('hang_bay', ['VN', 'BB'])->get()->groupBy('so_ve');
 
             foreach ($khac as $sove => $values) {
                 $tmp = "";

@@ -28,7 +28,8 @@ class ThuChi extends Model
         'tai_khoan_di', 'tai_khoan_den'
     ];
 
-    protected $hidden = ['khach_hang', 'tai_khoan_dens', 'tai_khoan_dis', 'dinh_danh'];
+    // Tránh vòng lặp vô hạn khi sử dụng chung với 'with' trong eager load
+    protected $hidden = ['khach_hang', 'tai_khoan_dens', 'tai_khoan_dis', 'thu_chi_chi_tiets', 'dinh_danh'];
 
     public static function boot()
     {
@@ -98,6 +99,6 @@ class ThuChi extends Model
 
     public function getConDuAttribute()
     {
-        return $this->so_tien - $this->thu_chi_chi_tiets()->sum('so_tien');
+        return $this->so_tien - $this->thu_chi_chi_tiets->sum('so_tien');
     }
 }

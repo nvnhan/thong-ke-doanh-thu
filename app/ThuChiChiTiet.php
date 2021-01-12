@@ -22,6 +22,8 @@ class ThuChiChiTiet extends Model
     ];
 
     protected $appends = ['ngay_thang', 'chi_tiet'];
+    // Tránh vòng lặp vô hạn khi sử dụng chung với 'with' trong eager load
+    protected $hidden = ['thu_chi', 'ban_ra', 'mua_vao', 'dat_ve', 'tour', 'tour_chi_tiet', 'visa'];
 
     public static function boot()
     {

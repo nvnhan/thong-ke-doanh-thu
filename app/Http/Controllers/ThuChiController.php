@@ -24,7 +24,7 @@ class ThuChiController extends BaseController
         else
             $objs = ThuChi::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
 
-        return $this->sendResponse($objs->with(['tai_khoan_dens', 'tai_khoan_dis', 'khach_hang'])->get(), "ThuChi retrieved successfully");
+        return $this->sendResponse($objs->with(['tai_khoan_dens', 'tai_khoan_dis', 'khach_hang', 'thu_chi_chi_tiets'])->get(), "ThuChi retrieved successfully");
     }
 
     /**

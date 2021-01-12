@@ -49,7 +49,8 @@ class DatVe extends Model
         'ten_loai_tuoi', 'chua_thanh_toan'
     ];
 
-    protected $hidden = ['dinh_danh'];
+    // Tránh vòng lặp vô hạn khi sử dụng chung với 'with' trong eager load
+    protected $hidden = ['dinh_danh', 'khach_hang', 'tai_khoan_mua', 'phi_hanh_ly', 'thu_chi_chi_tiets'];
 
     /**
      * Scope a query to only include record of a given user.
@@ -112,22 +113,22 @@ class DatVe extends Model
 
     public function getMaKhachHangAttribute()
     {
-        return optional($this->khach_hang()->first())->ma_khach_hang;
+        return optional($this->khach_hang)->ma_khach_hang;
     }
 
     public function getNoiMuaAttribute()
     {
-        return optional($this->tai_khoan_mua()->first())->ky_hieu;
+        return optional($this->tai_khoan_mua)->ky_hieu;
     }
 
     public function getLoaiHanhLyAttribute()
     {
-        return optional($this->phi_hanh_ly()->first())->hanh_ly;
+        return optional($this->phi_hanh_ly)->hanh_ly;
     }
 
     public function getDaThanhToanAttribute()
     {
-        return $this->thu_chi_chi_tiets()->sum('so_tien');
+        return $this->thu_chi_chi_tiets->sum('so_tien');
     }
 
     public function getChuaThanhToanAttribute()

@@ -18,15 +18,13 @@ class ThuChiController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = ThuChi::ofUser($request->user())->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
-        else if (empty($request->dd))
-            $objs = ThuChi::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
-        else $objs = ThuChi::ofUser($request->user());
+            $objs = ThuChi::ofUser($request->user())->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
+        else if (!empty($request->dd))
+            $objs = ThuChi::ofUser($request->user())->where('dinh_danh', $request->dd);
+        else
+            $objs = ThuChi::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
 
-        if ($request->dd)
-            $objs = $objs->where('dinh_danh', $request->dd);
-
-        return $this->sendResponse($objs, "ThuChi retrieved successfully");
+        return $this->sendResponse($objs->with(['tai_khoan_dens', 'tai_khoan_dis', 'khach_hang'])->get(), "ThuChi retrieved successfully");
     }
 
     /**
@@ -54,6 +52,7 @@ class ThuChiController extends BaseController
     public function show($id)
     {
         $model = ThuChi::find($id);
+        $model->append('so_du_khach_hang');
         return $this->sendResponse($model, "ThuChi retrieved successfully");
     }
 
@@ -82,7 +81,7 @@ class ThuChiController extends BaseController
     public function destroy($id)
     {
         $obj = ThuChi::find($id);
-        foreach ($obj->thu_chi_chi_tiets()->get() as $tiet)
+        foreach ($obj->thu_chi_chi_tiets as $tiet)
             $tiet->delete();
         $obj->delete();
         return $this->sendResponse('', "Xóa thành công thu chi");
@@ -101,7 +100,7 @@ class ThuChiController extends BaseController
             $cnt = count($objs);
             foreach ($objs  as $id) {
                 $obj = ThuChi::find($id);
-                foreach ($obj->thu_chi_chi_tiets()->get() as $tiet)
+                foreach ($obj->thu_chi_chi_tiets as $tiet)
                     $tiet->delete();
                 $obj->delete();
             }

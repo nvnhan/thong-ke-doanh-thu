@@ -35,7 +35,7 @@ class ThuChiChiTietController extends BaseController
         if ($thuChi == null) return $this->sendError("Error", []);
         $result = [];
         // Có khách hàng
-        $khachHang = $thuChi->khach_hang()->first();
+        $khachHang = $thuChi->khach_hang;
         if ($khachHang != null) {
             $banRas = $khachHang->ban_ras()->whereNull('ngay_thanh_toan')->get();
             foreach ($banRas as $br) {
@@ -78,7 +78,7 @@ class ThuChiChiTietController extends BaseController
                 $result[] = $tmp;
             }
         } else {
-            $tkDen = $thuChi->tai_khoan_den()->first();
+            $tkDen = $thuChi->tai_khoan_dens;
             $muaVaos = $tkDen->mua_vaos()->whereNull('ngay_thanh_toan')->get();
             foreach ($muaVaos as $t) {
                 $tmp = new stdClass;
@@ -96,7 +96,7 @@ class ThuChiChiTietController extends BaseController
                 $tmp->phan_loai = "Tour chi tiết";
                 $tmp->so_tien = $t->chua_thanh_toan;
                 $tmp->ngay_thang = (new DateTime($t->ngay_thang))->format('d/m/Y');
-                $tmp->noi_dung = $t->tour()->first()->ma_tour . ", Hàng: $t->ma_hang - $t->ten_hang";
+                $tmp->noi_dung = $t->tour->ma_tour . ", Hàng: $t->ma_hang - $t->ten_hang";
                 $result[] = $tmp;
             }
         }

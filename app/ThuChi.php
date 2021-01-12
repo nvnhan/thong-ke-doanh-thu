@@ -23,9 +23,12 @@ class ThuChi extends Model
     ];
 
     protected $appends = [
-        'con_du', 'ten_khach_hang', 'so_du_khach_hang',
+        'con_du',
+        'ten_khach_hang',
         'tai_khoan_di', 'tai_khoan_den'
     ];
+
+    protected $hidden = ['khach_hang', 'tai_khoan_dens', 'tai_khoan_dis', 'dinh_danh'];
 
     public static function boot()
     {
@@ -57,12 +60,12 @@ class ThuChi extends Model
         return $this->belongsTo('App\KhachHang', 'id_khach_hang');
     }
 
-    public function tai_khoan_den()
+    public function tai_khoan_dens()
     {
         return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_den');
     }
 
-    public function tai_khoan_di()
+    public function tai_khoan_dis()
     {
         return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan_di');
     }
@@ -75,22 +78,22 @@ class ThuChi extends Model
     /////////////////
     public function getTaiKhoanDiAttribute()
     {
-        return optional($this->tai_khoan_di()->first())->ky_hieu;
+        return optional($this->tai_khoan_dis)->ky_hieu;
     }
 
     public function getTaiKhoanDenAttribute()
     {
-        return optional($this->tai_khoan_den()->first())->ky_hieu;
+        return optional($this->tai_khoan_dens)->ky_hieu;
     }
 
     public function getSoDuKhachHangAttribute()
     {
-        return optional($this->khach_hang()->first())->so_tien_thu_du;
+        return optional($this->khach_hang)->so_tien_thu_du;
     }
 
     public function getTenKhachHangAttribute()
     {
-        return optional($this->khach_hang()->first())->ma_khach_hang;
+        return optional($this->khach_hang)->ma_khach_hang;
     }
 
     public function getConDuAttribute()

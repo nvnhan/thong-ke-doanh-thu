@@ -36,7 +36,7 @@ class ThemFileThuChi
             if ($item->thu_chi === "+") $tc->id_tai_khoan_den = $tk->id;
             else $tc->id_tai_khoan_di = $tk->id;
 
-            $kh = KhachHang::ofUser($user)->where('ma_khach_hang', $item->khach_hang)->first();
+            $kh = KhachHang::where('ma_khach_hang', $item->khach_hang)->first();
             if ($kh) $tc->id_khach_hang = $kh->id;
 
             try {

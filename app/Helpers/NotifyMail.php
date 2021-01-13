@@ -13,8 +13,7 @@ class NotifyMail
         $today = date('Y-m-d');
 
         // Check ve may bay
-        $chuaxuat = DatVe::ofUser($user)
-            ->whereChuaXuatVe(true)
+        $chuaxuat = DatVe::whereChuaXuatVe(true)
             ->whereDate('canh_bao_xuat_ve', '=', $today)
             ->get()
             ->map(fn ($ve) => 'Mã giữ chỗ ' . $ve->ma_giu_cho . ', Họ tên: ' . $ve->ten_khach . ' (Số vé: ' . $ve->so_ve . ')')->toArray();

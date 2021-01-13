@@ -18,11 +18,11 @@ class ThuChiController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = ThuChi::ofUser($request->user())->whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
+            $objs = ThuChi::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else if (!empty($request->dd))
-            $objs = ThuChi::ofUser($request->user())->where('dinh_danh', $request->dd);
+            $objs = ThuChi::where('dinh_danh', $request->dd);
         else
-            $objs = ThuChi::ofUser($request->user())->whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
+            $objs = ThuChi::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
 
         return $this->sendResponse($objs->with(['tai_khoan_dens', 'tai_khoan_dis', 'khach_hang', 'thu_chi_chi_tiets'])->get(), "ThuChi retrieved successfully");
     }

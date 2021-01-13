@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\OfUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class DatVe extends Model
@@ -51,6 +52,16 @@ class DatVe extends Model
 
     // Tránh vòng lặp vô hạn khi sử dụng chung với 'with' trong eager load
     protected $hidden = ['dinh_danh', 'khach_hang', 'tai_khoan_mua', 'phi_hanh_ly', 'thu_chi_chi_tiets'];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new OfUserScope);
+    }
 
     /**
      * Scope a query to only include record of a given user.

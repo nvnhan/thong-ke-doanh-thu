@@ -15,9 +15,9 @@ class HoanDoiController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = BanRa::ofUser($request->user())->whereBetween('ngay_hoan_doi', [$request->bat_dau, $request->ket_thuc])->get();
+            $objs = BanRa::whereBetween('ngay_hoan_doi', [$request->bat_dau, $request->ket_thuc])->get();
         else
-            $objs = BanRa::ofUser($request->user())->whereBetween('ngay_hoan_doi', [date('Y-m-01'), date('Y-m-t')])->get();
+            $objs = BanRa::whereBetween('ngay_hoan_doi', [date('Y-m-01'), date('Y-m-t')])->get();
 
         return $this->sendResponse($objs, "HoanDoi retrieved successfully");
     }

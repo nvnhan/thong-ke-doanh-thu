@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\KhachHang;
+use App\Scopes\OfUserScope;
 use Illuminate\Http\Request;
 use stdClass;
 
@@ -15,13 +16,15 @@ class KhachHangController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = KhachHang::ofUser($request->user())->get();
+        $objs = KhachHang::all();
         return $this->sendResponse($objs, "KhachHang retrieved successfully");
     }
 
     public function all(Request $request)
     {
-        $objs = KhachHang::allowUser($request->user())->get(['id', 'ma_khach_hang', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
+        $objs = KhachHang::withoutGlobalScope(OfUserScope::class)
+            ->allowUser($request->user())
+            ->get(['id', 'ma_khach_hang', 'phan_loai', 'phi_vn', 'phi_vj', 'phi_jets', 'phi_bb']);
         return $this->sendResponse($objs, "KhachHang retrieved successfully");
     }
 

@@ -18,7 +18,7 @@ class HomeController extends BaseController
     public function index(Request $request)
     {
         $datve = Dashboard::DatVeTrongThang($request);
-        $ds_nam = Dashboard::DoanhSoTrongNam($request);
+        $ds_nam = Dashboard::DoanhSoTrongNam();
         $ttve = Dashboard::ThongTinVe($request);
         $sum = 0;
         $sodu = Dashboard::TinhSoDuCuoiKy($request, $sum);
@@ -37,7 +37,7 @@ class HomeController extends BaseController
         $user = User::find($u);
         $objs = explode(',', $ids);
         if (\is_array($objs)) {
-            $datves = DatVe::ofUser($user)->whereIn('id', $objs)->get();
+            $datves = DatVe::whereIn('id', $objs)->get();
             $dv = $datves->where('hang_bay', $datves[0]->hang_bay);
             if ($dv[0]->hang_bay === 'VN' || $dv[0]->hang_bay === 'BB')
                 $dv = $dv->where('ma_giu_cho', $dv[0]->ma_giu_cho);

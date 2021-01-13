@@ -25,14 +25,14 @@ class Report
      * @param  mixed $date1
      * @return void
      */
-    public  static function TinhTongThanhToanBanRa(User $user, KhachHang $khachHang, $date2, $date1 = '')
+    public  static function TinhTongThanhToanBanRa(KhachHang $khachHang, $date2, $date1 = '')
     {
         if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
             $date1 = $khachHang->ngay_tao;
         if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
             return 0;
 
-        $sum = $khachHang->thu_chis()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
+        $sum = $khachHang->thu_chis()->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
         return (float) $sum;
     }
 
@@ -46,20 +46,20 @@ class Report
      * @param  mixed $date1
      * @return void
      */
-    public  static function TinhTongGiaoDichBanRa(User $user, KhachHang $khachHang, $date2, $date1 = '')
+    public  static function TinhTongGiaoDichBanRa(KhachHang $khachHang, $date2, $date1 = '')
     {
         if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
             $date1 = $khachHang->ngay_tao;
         if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
             return 0;
 
-        $sum = $khachHang->dat_ves()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
+        $sum = $khachHang->dat_ves()->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
 
-        $sum += $khachHang->ban_ras()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
+        $sum += $khachHang->ban_ras()->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
 
-        $sum += $khachHang->visas()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
+        $sum += $khachHang->visas()->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
 
-        $sum += $khachHang->tours()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_ban');
+        $sum += $khachHang->tours()->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_ban');
 
         return (float) $sum;
     }
@@ -72,37 +72,37 @@ class Report
      * @param  mixed $date2
      * @return void
      */
-    public  static function TinhLai(User $user, $date1, $date2)
+    public  static function TinhLai($date1, $date2)
     {
         $lai = 0;
-        $q = DatVe::ofUser($user)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = DatVe::whereBetween('ngay_thang', [$date1, $date2]);
         $lai += $q->sum('lai');
 
-        $q = BanRa::ofUser($user)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = BanRa::whereBetween('ngay_thang', [$date1, $date2]);
         $lai += $q->get()->sum('lai');
 
-        $q = Tour::ofUser($user)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = Tour::whereBetween('ngay_thang', [$date1, $date2]);
         $lai += $q->get()->sum('lai');
 
-        $q = Visa::ofUser($user)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = Visa::whereBetween('ngay_thang', [$date1, $date2]);
         $lai += $q->sum('lai');
 
         return (float) $lai;
     }
 
     // Tổng tồn kho cho Tổng hợp tài khoản
-    public  static function TinhTonKho(User $user, $date2)
+    public  static function TinhTonKho(string $date2)
     {
         $tonKho = 0;
-        $hh = HangHoa::ofUser($user)->get();
+        $hh = HangHoa::all();
         foreach ($hh as $h) {
-            $q = $h->mua_vaos()->ofUser($user)->where('ngay_thang', '<=', $date2);
+            $q = $h->mua_vaos()->where('ngay_thang', '<=', $date2);
             $sl = $q->sum('so_luong');
 
-            $q = $h->ban_ras()->ofUser($user)->where('ngay_thang', '<=', $date2);
+            $q = $h->ban_ras()->where('ngay_thang', '<=', $date2);
             $sl -= $q->sum('so_luong');
 
-            $q = $h->ban_ras()->ofUser($user)->where('ngay_hoan_doi_xong', '<=', $date2);
+            $q = $h->ban_ras()->where('ngay_hoan_doi_xong', '<=', $date2);
             $sl += $q->sum('so_luong');
 
             if ($sl > 0)
@@ -112,14 +112,14 @@ class Report
     }
 
     // Tổng thu của tài khoản từ ngày đến ngày
-    public  static function TongThuTK(User $user, TaiKhoan $taiKhoan, $date2, $date1 = '')
+    public  static function TongThuTK(TaiKhoan $taiKhoan, string $date2, string $date1 = '')
     {
         if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
             $date1 = $taiKhoan->ngay_tao;
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao > $date2)
             return 0;
 
-        $q = $taiKhoan->thu_chi_dens()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $taiKhoan->thu_chi_dens()->whereBetween('ngay_thang', [$date1, $date2]);
         $sthu = $q->sum('so_tien');
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao <= $date2 && $taiKhoan->ngay_tao >= $date1)
             $sthu += $taiKhoan->so_du_ky_truoc;
@@ -127,32 +127,32 @@ class Report
     }
 
     // Tổng chi của tài khoản từ ngày đến ngày
-    public  static function TongChiTK(User $user, TaiKhoan $taiKhoan, $date2, $date1 = '')
+    public  static function TongChiTK(TaiKhoan $taiKhoan, $date2, $date1 = '')
     {
         if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
             $date1 = $taiKhoan->ngay_tao;
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao > $date2)
             return 0;
 
-        $q = $taiKhoan->thu_chi_dis()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $taiKhoan->thu_chi_dis()->whereBetween('ngay_thang', [$date1, $date2]);
         $schi = $q->sum('so_tien');
 
-        $q = $taiKhoan->dat_ves()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $taiKhoan->dat_ves()->whereBetween('ngay_thang', [$date1, $date2]);
         $schi += $q->sum('tong_tien');
 
-        $q = $taiKhoan->ban_ra_hoa_dois()->ofUser($user)->whereBetween('ngay_thanh_toan_hoan_doi', [$date1, $date2]);
+        $q = $taiKhoan->ban_ra_hoa_dois()->whereBetween('ngay_thanh_toan_hoan_doi', [$date1, $date2]);
         $schi += $q->sum('thanh_tien_ban');
 
-        $q = $taiKhoan->visas()->ofUser($user)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $taiKhoan->visas()->whereBetween('ngay_thang', [$date1, $date2]);
         $schi += $q->sum('gia_ban');
 
         // Do Have Many Through ko dùng scope đc nên mới phải làm thủ công
-        $idHH = $taiKhoan->hang_hoas()->ofUser($user)->pluck('id')->toArray();
-        $idTour = Tour::ofUser($user)->pluck('id')->toArray();
-        $q = TourChiTiet::whereIn('id_tour', $idTour)->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
+        $idHH = $taiKhoan->hang_hoas()->pluck('id')->toArray();
+        $idTour = Tour::all()->pluck('id')->toArray();
+        $q = TourChiTiet::whereIn('id_tour', $idTour)->whereBetween('ngay_thang', [$date1, $date2]);
         $schi += $q->sum('thanh_tien');
 
-        $q = MuaVao::ofUser($user)->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = MuaVao::whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
         $schi += $q->sum('thanh_tien');
 
         return (float) $schi;
@@ -185,18 +185,17 @@ class Report
      * @param  mixed $den_ngay
      * @return void
      */
-    public static function TinhDuNo(User $user, $den_ngay)
+    public static function TinhDuNo($den_ngay)
     {
         $sum = 0;
-        $khachHang = KhachHang::ofUser($user)
-            ->whereRaw("UPPER(phan_loai) != 'THU CHI NGOÀI'")
+        $khachHang = KhachHang::whereRaw("UPPER(phan_loai) != 'THU CHI NGOÀI'")
             ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
             ->get();
 
         foreach ($khachHang as $kh) {
             $sum += $kh->so_du_ky_truoc
-                + self::TinhTongThanhToanBanRa($user,  $kh, $den_ngay)
-                - self::TinhTongGiaoDichBanRa($user,  $kh, $den_ngay);
+                + self::TinhTongThanhToanBanRa($kh, $den_ngay)
+                - self::TinhTongGiaoDichBanRa($kh, $den_ngay);
         }
         return $sum;
     }
@@ -210,7 +209,7 @@ class Report
      * 
      * @return Array Array of data
      */
-    public static function doi_soat_tai_khoan(User $user, TaiKhoan $taiKhoan, string $tu_ngay, string $den_ngay)
+    public static function doi_soat_tai_khoan(TaiKhoan $taiKhoan, string $tu_ngay, string $den_ngay)
     {
         $data = [];
         $interval = DateInterval::createFromDateString('1 day');
@@ -224,7 +223,7 @@ class Report
             $data[$tmp] = $val;
         }
         // Tài khoản thu vào: chỉ từ thu chi
-        $thuVao = $taiKhoan->thu_chi_dens()->ofUser($user)->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+        $thuVao = $taiKhoan->thu_chi_dens()->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
             return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
         });
         foreach ($thuVao as $nt => $items) {
@@ -237,7 +236,7 @@ class Report
         }
 
         // Các mục chi ra của tài khoản
-        $q = $taiKhoan->thu_chi_dis()->ofUser($user)->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+        $q = $taiKhoan->thu_chi_dis()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
             return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
         });
         foreach ($q as $nt => $items) {
@@ -249,7 +248,7 @@ class Report
             }
         }
 
-        $q = $taiKhoan->dat_ves()->ofUser($user)->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+        $q = $taiKhoan->dat_ves()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
             return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
         });
         foreach ($q as $nt => $items) {
@@ -261,7 +260,7 @@ class Report
             }
         }
 
-        $q = $taiKhoan->ban_ra_hoa_dois()->ofUser($user)->whereBetween('ngay_thanh_toan_hoan_doi', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+        $q = $taiKhoan->ban_ra_hoa_dois()->whereBetween('ngay_thanh_toan_hoan_doi', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
             return Carbon::parse($ob->ngay_thanh_toan_hoan_doi)->format('d/m/Y');
         });
         foreach ($q as $nt => $items) {
@@ -273,11 +272,13 @@ class Report
             }
         }
 
-        $idHH = $taiKhoan->hang_hoas()->ofUser($user)->pluck('id')->toArray();
-        $idTour = Tour::ofUser($user)->pluck('id')->toArray();
-        $q = TourChiTiet::whereIn('id_tour', $idTour)->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
-            return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
-        });
+        $idHH = $taiKhoan->hang_hoas()->pluck('id')->toArray();
+        $idTour = Tour::all()->pluck('id')->toArray();
+        $q = TourChiTiet::whereIn('id_tour', $idTour)->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])
+            ->get()
+            ->groupBy(function ($ob) {
+                return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
+            });
         foreach ($q as $nt => $items) {
             foreach ($items as $tc) {
                 $val = new stdClass;
@@ -287,7 +288,7 @@ class Report
             }
         }
 
-        $q = $taiKhoan->visas()->ofUser($user)->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+        $q = $taiKhoan->visas()->wherebetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
             return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
         });
         foreach ($q as $nt => $items) {
@@ -299,7 +300,7 @@ class Report
             }
         }
 
-        $q = MuaVao::ofUser($user)->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
+        $q = MuaVao::whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get()->groupBy(function ($ob) {
             return Carbon::parse($ob->ngay_thang)->format('d/m/Y');
         });
         foreach ($q as $nt => $items) {
@@ -355,7 +356,7 @@ class Report
         if ($khach_hang != null) {
             $sheet->setCellValue("A7", "Kính gửi (To):    $khach_hang->ho_ten");
             $sheet->setCellValue("A8", "Tên giao dịch (Name):   $khach_hang->ho_ten - Tel: $khach_hang->sdt - Email: $khach_hang->email");
-            $no_dau_ky = $khach_hang->so_du_ky_truoc + self::TinhTongThanhToanBanRa($user, $khach_hang, $ngayTruoc) - self::TinhTongGiaoDichBanRa($user, $khach_hang, $ngayTruoc);
+            $no_dau_ky = $khach_hang->so_du_ky_truoc + self::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc) - self::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
             $sheet->setCellValue("M8", $no_dau_ky);
         }
 
@@ -462,8 +463,7 @@ class Report
         }
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
 
-        $khachHang = KhachHang::ofUser($user)
-            ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
+        $khachHang = KhachHang::where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
             ->get();
         foreach ($khachHang as $kh) {
             $tmp = new stdClass;
@@ -473,14 +473,14 @@ class Report
 
             $phan_loai = strtoupper($tmp->phan_loai);
             if ($phan_loai != "THU CHI NGOàI") {
-                $tmp->dau_ky = $kh->so_du_ky_truoc + self::TinhTongThanhToanBanRa($user, $kh, $ngayTruoc) - self::TinhTongGiaoDichBanRa($user, $kh, $ngayTruoc);
-                $tmp->thanh_toan = self::TinhTongThanhToanBanRa($user, $kh, $den_ngay, $tu_ngay);
-                $tmp->giao_dich = self::TinhTongGiaoDichBanRa($user, $kh, $den_ngay, $tu_ngay);
+                $tmp->dau_ky = $kh->so_du_ky_truoc + self::TinhTongThanhToanBanRa($kh, $ngayTruoc) - self::TinhTongGiaoDichBanRa($kh, $ngayTruoc);
+                $tmp->thanh_toan = self::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
+                $tmp->giao_dich = self::TinhTongGiaoDichBanRa($kh, $den_ngay, $tu_ngay);
                 $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
             } else {
                 $tmp->dau_ky = 0;
-                $tmp->thanh_toan = 0;
-                $tmp->giao_dich = self::TinhTongGiaoDichBanRa($user, $kh, $den_ngay, $tu_ngay);
+                $tmp->thanh_toan = self::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
+                $tmp->giao_dich = 0;
                 $tmp->cuoi_ky = 0;
             }
 
@@ -493,17 +493,16 @@ class Report
             $tmp->id = $ncc->id;
             $tmp->tai_khoan = $ncc->ky_hieu . ' - ' . $ncc->mo_ta;
 
-            $tmp->dau_ky = self::TongThuTK($user, $ncc, $ngayTruoc) - self::TongChiTK($user, $ncc, $ngayTruoc);
-            $tmp->thanh_toan = self::TongThuTK($user, $ncc, $den_ngay, $tu_ngay);
-            $tmp->giao_dich = self::TongChiTK($user, $ncc, $den_ngay, $tu_ngay);
+            $tmp->dau_ky = self::TongThuTK($ncc, $ngayTruoc) - self::TongChiTK($ncc, $ngayTruoc);
+            $tmp->thanh_toan = self::TongThuTK($ncc, $den_ngay, $tu_ngay);
+            $tmp->giao_dich = self::TongChiTK($ncc, $den_ngay, $tu_ngay);
             $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
 
             $muavao[] = $tmp;
         }
         // Tính NƠI KHÁC..............
         $idNhaCungCap = $nhaCungCap->pluck('id')->toArray();
-        $gdKhacF1 = DatVe::ofUser($user)
-            ->where('ngay_thang', '>=', $tu_ngay)->where('ngay_thang', '<=', $den_ngay)
+        $gdKhacF1 = DatVe::where('ngay_thang', '>=', $tu_ngay)->where('ngay_thang', '<=', $den_ngay)
             ->where(fn ($query) => $query->whereNull('id_tai_khoan_mua')->orWhereNotIn('id_tai_khoan_mua', $idNhaCungCap))
             ->sum('tong_tien');
         $muavao[] = (object)[
@@ -551,9 +550,9 @@ class Report
             $tmp1->id = $tk->id . 'a';
             $tmp->tai_khoan = $tk->ky_hieu;
 
-            $duCuoiKy = Report::TongThuTK($user, $tk, $den_ngay) - Report::TongChiTK($user, $tk, $den_ngay);
+            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
             $sum += $duCuoiKy;
-            $dau_ky = Report::TongThuTK($user, $tk, $ngayTruoc) - Report::TongChiTK($user, $tk, $ngayTruoc);
+            $dau_ky = Report::TongThuTK($tk, $ngayTruoc) - Report::TongChiTK($tk, $ngayTruoc);
             if ($format_price) {
                 $tmp->dau_ky = Util::VNDFormater($dau_ky);      // Đầu kỳ
                 $tmp1->tai_khoan = Util::VNDFormater($duCuoiKy);
@@ -571,11 +570,11 @@ class Report
                 $t = $dt->format('d/m/y');
                 $i = $dt->format("Y-m-d");
                 if ($format_price) {
-                    $tmp->$t = Util::VNDFormater(Report::TongThuTK($user, $tk, $i, $i));
-                    $tmp1->$t = Util::VNDFormater(Report::TongChiTK($user, $tk, $i, $i));
+                    $tmp->$t = Util::VNDFormater(Report::TongThuTK($tk, $i, $i));
+                    $tmp1->$t = Util::VNDFormater(Report::TongChiTK($tk, $i, $i));
                 } else {
-                    $tmp->$t = Report::TongThuTK($user, $tk, $i, $i);
-                    $tmp1->$t = Report::TongChiTK($user, $tk, $i, $i);
+                    $tmp->$t = Report::TongThuTK($tk, $i, $i);
+                    $tmp1->$t = Report::TongChiTK($tk, $i, $i);
                 }
                 if ($tmp->$t != '0' || $tmp1->$t != '0')
                     $coDuLieu = true;
@@ -585,7 +584,7 @@ class Report
                 $result[] = $tmp1;
             }
         }
-        $duNo = self::TinhDuNo($user, $den_ngay);
+        $duNo = self::TinhDuNo($den_ngay);
         $sum -= $duNo;
         $tmp = new stdClass;
         $tmp->id = -2;
@@ -594,7 +593,7 @@ class Report
         $result[] = $tmp;
 
         // Thêm Lãi
-        $lai = Report::TinhLai($user, $tu_ngay, $den_ngay);
+        $lai = Report::TinhLai($tu_ngay, $den_ngay);
         $tmp = new stdClass;
         $tmp->id = -1;
         $tmp->tai_khoan = "LÃI";
@@ -603,14 +602,14 @@ class Report
         foreach ($period as $dt) {
             $t = $dt->format('d/m/y');
             $i = $dt->format("Y-m-d");
-            $lai = Report::TinhLai($user, $i, $i);
+            $lai = Report::TinhLai($i, $i);
             $tmp->$t = $format_price ? Util::VNDFormater($lai) : $lai;
         }
         $result[] = $tmp;
 
         // Thêm tồn kho
         if ($user->ban_hang) {
-            $tonKho = Report::TinhTonKho($user, $den_ngay);
+            $tonKho = Report::TinhTonKho($den_ngay);
             $sum += $tonKho;
             $tmp = new stdClass;
             $tmp->id = -4;

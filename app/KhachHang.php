@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\OfUserScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -41,6 +42,16 @@ class KhachHang extends Model
         });
         self::deleting(function ($model) {
         });
+    }
+    
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new OfUserScope);
     }
 
     /**

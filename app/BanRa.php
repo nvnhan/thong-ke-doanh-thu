@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\OfUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class BanRa extends Model
@@ -31,6 +32,16 @@ class BanRa extends Model
         'lai', 'da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap',
         'tai_khoan_tra_hoan_doi', 'ma_khach_hang', 'chua_thanh_toan'
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new OfUserScope);
+    }
 
     /**
      * Scope a query to only include record of a given user.

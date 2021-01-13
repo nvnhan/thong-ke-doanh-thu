@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\OfUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Visa extends Model
@@ -33,6 +34,16 @@ class Visa extends Model
         });
         self::deleting(function ($model) {
         });
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new OfUserScope);
     }
 
     /**

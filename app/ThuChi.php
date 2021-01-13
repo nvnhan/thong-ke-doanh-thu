@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\OfUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class ThuChi extends Model
@@ -40,6 +41,16 @@ class ThuChi extends Model
         });
         self::deleting(function ($model) {
         });
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new OfUserScope);
     }
 
     /**

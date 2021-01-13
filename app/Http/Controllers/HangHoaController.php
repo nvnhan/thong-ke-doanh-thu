@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\HangHoa;
+use App\Scopes\OfUserScope;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent;
 
 class HangHoaController extends BaseController
 {
@@ -15,7 +15,7 @@ class HangHoaController extends BaseController
      */
     public function index(Request $request)
     {
-        $objs = HangHoa::ofUser($request->user());
+        $objs = HangHoa::query();
         if (!empty($request->ncc) && $request->ncc != -1)
             $objs = $objs->where('id_tai_khoan', $request->ncc);
         return $this->sendResponse($objs->get(), "HangHoa retrieved successfully");
@@ -23,7 +23,7 @@ class HangHoaController extends BaseController
 
     public function all(Request $request)
     {
-        $objs = HangHoa::allowUser($request->user())->get();
+        $objs = HangHoa::withoutGlobalScope(OfUserScope::class)->allowUser($request->user())->get();
         foreach ($objs as $value)
             $value->setHidden(['id_tai_khoan', 'ten_hang', 'don_vi', 'ghi_chu', 'username', 'created_at', 'updated_at']);
 
@@ -97,7 +97,7 @@ class HangHoaController extends BaseController
         if (!empty($request->den_ngay))
             $date = $request->den_ngay;
 
-        $hang_hoa = HangHoa::ofUser($request->user())->whereHas('mua_vaos', function ($query) use ($date) {
+        $hang_hoa = HangHoa::whereHas('mua_vaos', function ($query) use ($date) {
             $query->where('ngay_thang', "<=", $date);
         })->get();
         foreach ($hang_hoa as $value) {
@@ -120,16 +120,15 @@ class HangHoaController extends BaseController
             $ket_thuc = $request->ket_thuc;
         }
 
-        $hang_hoa = HangHoa::ofUser($request->user())
-            ->where(function ($q) use ($bat_dau, $ket_thuc) {
-                return $q->whereHas('mua_vaos', function ($query) use ($bat_dau, $ket_thuc) {
-                    return $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
-                })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
-                    return $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
-                })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
-                    return $query->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
-                });
-            })->get();
+        $hang_hoa = HangHoa::where(function ($q) use ($bat_dau, $ket_thuc) {
+            return $q->whereHas('mua_vaos', function ($query) use ($bat_dau, $ket_thuc) {
+                return $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+            })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
+                return $query->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+            })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
+                return $query->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
+            });
+        })->get();
 
         foreach ($hang_hoa as $value) {
             // Mua vào trong khoảng

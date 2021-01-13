@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\OfUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Tour extends Model
@@ -34,6 +35,16 @@ class Tour extends Model
         self::deleting(function ($model) {
             $model->tour_chi_tiets()->delete();
         });
+    }
+    
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new OfUserScope);
     }
 
     /**

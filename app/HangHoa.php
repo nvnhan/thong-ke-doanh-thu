@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\OfUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class HangHoa extends Model
@@ -31,7 +32,17 @@ class HangHoa extends Model
             $model->ban_ras()->delete();
         });
     }
-    
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new OfUserScope);
+    }
+
     /**
      * Scope a query to only include record of a given user.
      *

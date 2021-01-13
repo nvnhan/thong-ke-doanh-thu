@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\OfUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class MuaVao extends Model
@@ -24,14 +25,22 @@ class MuaVao extends Model
     public static function boot()
     {
         parent::boot();
-        self::creating(function($model) {
+        self::creating(function ($model) {
         });
-        self::updating(function($model) {
+        self::updating(function ($model) {
+        });
+        self::deleting(function ($model) {
+        });
+    }
 
-        });
-        self::deleting(function($model) {
-
-        });
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new OfUserScope);
     }
 
     /**
@@ -48,16 +57,19 @@ class MuaVao extends Model
         return $query->whereIn('username', $user->getUserZone());
     }
 
-    public function hang_hoa() {
+    public function hang_hoa()
+    {
         return $this->belongsTo('App\HangHoa', 'id_hang_hoa');
     }
 
-    public function thu_chi_chi_tiets() {
+    public function thu_chi_chi_tiets()
+    {
         return $this->hasMany('App\ThuChiChiTiet', 'id_mua_vao');
     }
 
     ////////
-    public function getMaHangAttribute() {
+    public function getMaHangAttribute()
+    {
         return $this->hang_hoa()->first()->ma_hang;
     }
 
@@ -75,7 +87,8 @@ class MuaVao extends Model
         return $this->hang_hoa()->first()->nha_cung_cap;
     }
 
-    public function getDaThanhToanAttribute() {
+    public function getDaThanhToanAttribute()
+    {
         return $this->thu_chi_chi_tiets()->sum('so_tien');
     }
 

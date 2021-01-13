@@ -37,7 +37,7 @@ class Dashboard
         // Thêm các tài khoản
         $sum = 0;
         foreach ($taiKhoan as $tk) {
-            $duCuoiKy = Report::TongThuTK($user, $tk, $den_ngay) - Report::TongChiTK($user, $tk, $den_ngay);
+            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
             $sum += $duCuoiKy;
             if ($duCuoiKy != 0) {
                 $result->hang_muc[] = $tk->ky_hieu;
@@ -45,14 +45,14 @@ class Dashboard
             }
         }
         // Thêm dư Nợ
-        $duNo = Report::TinhDuNo($user, $den_ngay);
+        $duNo = Report::TinhDuNo($den_ngay);
         $sum -= $duNo;
         $result->hang_muc[] = "Dư - Nợ";
         $result->gia_tri[] = -round($duNo / 1000);
 
         // Thêm tồn kho
         if ($user->ban_hang) {
-            $tonKho = Report::TinhTonKho($user, $den_ngay);
+            $tonKho = Report::TinhTonKho($den_ngay);
             $sum += $tonKho;
             $result->hang_muc[] = "Tồn kho";
             $result->gia_tri[] = round($tonKho / 1000);
@@ -62,16 +62,15 @@ class Dashboard
 
     public static function DatVeTrongThang(Request $request)
     {
-        $user = $request->user();
         $bat_dau = date('Y-m-01');
         $ket_thuc = date('Y-m-t');
         if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
             $bat_dau = substr($request->bat_dau, 0, 10);
             $ket_thuc = substr($request->ket_thuc, 0, 10);
         }
-        $dv = DatVe::ofUser($user)->whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
+        $dv = DatVe::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
             ->select('ngay_thang', DB::raw('count(*) as dat_ve, sum(tong_tien_thu_khach) as thu_khach, sum(lai) as lai'))->get();
-        $tt = DatVe::ofUser($user)->whereBetween('ngay_thanh_toan', [$bat_dau, $ket_thuc])->groupBy('ngay_thanh_toan')
+        $tt = DatVe::whereBetween('ngay_thanh_toan', [$bat_dau, $ket_thuc])->groupBy('ngay_thanh_toan')
             ->select(DB::raw('ngay_thanh_toan as ngay_thang'), DB::raw('count(*) as thanh_toan'))->get();
 
         $data = [];
@@ -122,14 +121,13 @@ class Dashboard
 
     public static function ThongTinVe(Request $request)
     {
-        $user = $request->user();
         $bat_dau = date('Y-m-01');
         $ket_thuc = date('Y-m-t');
         if (!empty($request->bat_dau) && !empty($request->ket_thuc)) {
             $bat_dau = substr($request->bat_dau, 0, 10);
             $ket_thuc = substr($request->ket_thuc, 0, 10);
         }
-        $objs = DatVe::ofUser($user)->whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->get();
+        $objs = DatVe::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->get();
 
         $sbqt = SanBay::where('phan_loai', '!=', 'Việt Nam')->pluck('ma_san_bay')->toArray();
         $quocte = clone $objs;
@@ -185,11 +183,9 @@ class Dashboard
         return $result;
     }
 
-    public static function DoanhSoTrongNam(Request $request)
+    public static function DoanhSoTrongNam()
     {
-        $user = $request->user();
-        $dv = DatVe::ofUser($user)
-            ->whereYear('ngay_thang', date('Y'))
+        $dv = DatVe::whereYear('ngay_thang', date('Y'))
             ->select(DB::raw('MONTH(ngay_thang) as thang, sum(tong_tien_thu_khach) as thu_khach, sum(lai) as lai'))
             ->groupBy('thang')
             ->get();

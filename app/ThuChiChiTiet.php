@@ -92,42 +92,42 @@ class ThuChiChiTiet extends Model
 
     public function getChiTietAttribute()
     {
-        if ($this->dat_ve()->first() != null) {
-            $dv = $this->dat_ve()->first();
+        if ($this->dat_ve != null) {
+            $dv = $this->dat_ve;
             return "Đối tượng: Đặt vé | Ngày tháng: " . (new DateTime($dv->ngay_thang))->format('d/m/Y') . " | " .
                 "Số vé: $dv->so_ve, Tên khách: $dv->ten_khach, Hãng bay: $dv->hang_bay | " .
                 "Nơi mua: $dv->noi_mua, Khách hàng: $dv->ma_khach_hang | " .
                 "Giá net: " . number_format($dv->gia_net) . ", Tổng tiền: " . number_format($dv->tong_tien) . ", Thu khách: " . number_format($dv->tong_tien_thu_khach);
         }
-        if ($this->tour()->first() != null) {
-            $t = $this->tour()->first();
+        if ($this->tour != null) {
+            $t = $this->tour;
             return "Đối tượng: Tour | Ngày tháng: " . (new DateTime($t->ngay_thang))->format('d/m/Y') . " | " .
                 "Phân loại: $t->phan_loai, Mã tour: $t->ma_tour, Tên tour: $t->ten_tour | " .
                 "Bắt đầu: " . (new DateTime($t->bat_dau))->format('d/m/Y') . ", Kết thúc: " . (new DateTime($t->ket_thuc))->format('d/m/Y') . ", Số lượng: $t->so_luong | " .
-                "Tổng tiền bán: " . number_format($t->tong_tien_ban) . ", Khách hàng: " . $t->ma_khach_hang;
+                "Tổng tiền bán: " . number_format($t->tong_tien_ban) . ", Khách hàng: " . $t->ten_khach_hang;
         }
-        if ($this->tour_chi_tiet()->first() != null) {
-            $tct = $this->tour_chi_tiet()->first();
-            $t = $tct->tour()->first();
+        if ($this->tour_chi_tiet != null) {
+            $tct = $this->tour_chi_tiet;
+            $t = $tct->tour;
             return "Đối tượng: Chi tiết tour | Mã tour: $t->ma_tour; Tên tour: $t->ten_tour | " .
                 "Phân loại hàng hóa: $tct->phan_loai, Tên hàng: $tct->ten_hang, Số lượng: $tct->so_luong | " .
                 "Nhà cung cấp: $tct->nha_cung_cap, Thành tiền: " . number_format($tct->thanh_tien);
         }
-        if ($this->mua_vao()->first() != null) {
-            $mv = $this->mua_vao()->first();
+        if ($this->mua_vao != null) {
+            $mv = $this->mua_vao;
             return "Đối tượng: Hàng hóa Mua vào | Ngày tháng: " . (new DateTime($mv->ngay_thang))->format('d/m/Y') . ", Mã hàng: $mv->ma_hang, Tên hàng: $mv->ten_hang | " .
                 "Nhà cung cấp: $mv->nha_cung_cap, Thành tiền: " . number_format($mv->thanh_tien);
         }
-        if ($this->ban_ra()->first() != null) {
-            $br = $this->ban_ra()->first();
+        if ($this->ban_ra != null) {
+            $br = $this->ban_ra;
             $tmp =  "Đối tượng: Bán ra | Ngày tháng: " . (new DateTime($br->ngay_thang))->format('d/m/Y') . ", Mã hàng: $br->ma_hang, Tên hàng: $br->ten_hang | " .
                 "Khách hàng: $br->ma_khach_hang, Thành tiền bán: " . number_format($br->thanh_tien_ban);
             if ($br->ngay_hoan_doi != null)
                 $tmp .= " | Hoàn đổi ngày: " . (new DateTime($br->ngay_hoan_doi))->format('d/m/Y');
             return $tmp;
         }
-        if ($this->visa()->first() != null) {
-            $vs = $this->visa()->first();
+        if ($this->visa != null) {
+            $vs = $this->visa;
             return "Đối tượng: Visa | Ngày tháng: " . (new DateTime($vs->ngay_thang))->format('d/m/Y') . ", Mã Visa: $vs->ma_visa, Loại Visa: $vs->phan_loai | " .
                 "Nhà cung cấp: $vs->nha_cung_cap, Ngày lấy nơi mua: " . (new DateTime($vs->ngay_mua))->format('d/m/Y') . ", Giá mua: " . number_format($vs->gia_mua) . " | " .
                 "Khách hàng: $vs->ma_khach_hang, Ngày trả khách: " . (new DateTime($vs->ngay_tra_khach))->format('d/m/Y') . ", Giá bán: " . number_format($vs->gia_ban);

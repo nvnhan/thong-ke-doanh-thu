@@ -24,7 +24,7 @@ class ThuChiChiTietController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->tc)) {
-            $objs = ThuChiChiTiet::where('id_thu_chi', $request->tc)->get();
+            $objs = ThuChiChiTiet::where('id_thu_chi', $request->tc)->with(['ban_ra', 'mua_vao', 'dat_ve', 'tour', 'tour_chi_tiet', 'visa'])->get();
             return $this->sendResponse($objs, "ThuChiChiTiet retrieved successfully");
         } else return $this->sendError("Error", []);
     }

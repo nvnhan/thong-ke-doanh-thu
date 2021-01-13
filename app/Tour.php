@@ -47,20 +47,6 @@ class Tour extends Model
         static::addGlobalScope(new OfUserScope);
     }
 
-    /**
-     * Scope a query to only include record of a given user.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  mixed  $user
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOfUser($query, $user, $user_zone = [])
-    {
-        if (!empty($user_zone))
-            return $query->whereIn('username', $user_zone);
-        return $query->whereIn('username', $user->getUserZone());
-    }
-
     public function tour_chi_tiets()
     {
         return $this->hasMany('App\TourChiTiet', 'id_tour');

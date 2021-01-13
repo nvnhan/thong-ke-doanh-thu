@@ -70,20 +70,6 @@ class DatVe extends Model
      * @param  mixed  $user
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOfUser($query, $user, $user_zone = [])
-    {
-        if (!empty($user_zone))
-            return $query->whereIn('username', $user_zone);
-        return $query->whereIn('username', $user->getUserZone());
-    }
-
-    /**
-     * Scope a query to only include record of a given user.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  mixed  $user
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function scopeOfCustomer($query, $khach_hang)
     {
         return $query->where('id_khach_hang', $khach_hang->id);

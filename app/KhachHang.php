@@ -43,7 +43,7 @@ class KhachHang extends Model
         self::deleting(function ($model) {
         });
     }
-    
+
     /**
      * The "booted" method of the model.
      *
@@ -52,20 +52,6 @@ class KhachHang extends Model
     protected static function booted()
     {
         static::addGlobalScope(new OfUserScope);
-    }
-
-    /**
-     * Scope a query to only include record of a given user.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  mixed  $user
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOfUser($query, $user, $user_zone = [])
-    {
-        if (!empty($user_zone))
-            return $query->whereIn('username', $user_zone);
-        return $query->whereIn('username', $user->getUserZone());
     }
 
     public function scopeAllowUser($query, $user)

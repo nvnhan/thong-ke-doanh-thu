@@ -29,9 +29,13 @@ class BanRa extends Model
     ];
 
     protected $appends = [
-        'lai', 'da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap',
-        'tai_khoan_tra_hoan_doi', 'ma_khach_hang', 'chua_thanh_toan'
+        'lai', 'da_thanh_toan', 'chua_thanh_toan',
+        'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap',
+        'ma_khach_hang',
+        'tai_khoan_tra_hoan_doi',
     ];
+
+    protected $hidden = ['hang_hoa', 'khach_hang', 'tai_khoan_doi_tra', 'thu_chi_chi_tiets'];
 
     /**
      * The "booted" method of the model.
@@ -72,36 +76,36 @@ class BanRa extends Model
 
     public function getTaiKhoanTraHoanDoiAttribute()
     {
-        return optional($this->tai_khoan_doi_tra()->first())->ky_hieu;
+        return optional($this->tai_khoan_doi_tra)->ky_hieu;
     }
 
     public function getMaKhachHangAttribute()
     {
-        return optional($this->khach_hang()->first())->ma_khach_hang;
+        return optional($this->khach_hang)->ma_khach_hang;
     }
 
     public function getMaHangAttribute()
     {
-        return $this->hang_hoa()->first()->ma_hang;
+        return $this->hang_hoa->ma_hang;
     }
 
     public function getTenHangAttribute()
     {
-        return $this->hang_hoa()->first()->ten_hang;
+        return $this->hang_hoa->ten_hang;
     }
     public function getPhanLoaiAttribute()
     {
-        return $this->hang_hoa()->first()->phan_loai;
+        return $this->hang_hoa->phan_loai;
     }
 
     public function getNhaCungCapAttribute()
     {
-        return $this->hang_hoa()->first()->nha_cung_cap;
+        return $this->hang_hoa->nha_cung_cap;
     }
 
     public function getDaThanhToanAttribute()
     {
-        return $this->thu_chi_chi_tiets()->sum('so_tien');
+        return $this->thu_chi_chi_tiets->sum('so_tien');
     }
 
     public function getChuaThanhToanAttribute()

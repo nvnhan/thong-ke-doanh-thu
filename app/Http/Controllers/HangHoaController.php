@@ -18,7 +18,7 @@ class HangHoaController extends BaseController
         $objs = HangHoa::query();
         if (!empty($request->ncc) && $request->ncc != -1)
             $objs = $objs->where('id_tai_khoan', $request->ncc);
-        return $this->sendResponse($objs->get(), "HangHoa retrieved successfully");
+        return $this->sendResponse($objs->with('tai_khoan')->get(), "HangHoa retrieved successfully");
     }
 
     public function all(Request $request)
@@ -99,11 +99,11 @@ class HangHoaController extends BaseController
 
         $hang_hoa = HangHoa::whereHas('mua_vaos', function ($query) use ($date) {
             $query->where('ngay_thang', "<=", $date);
-        })->get();
+        })->with(['tai_khoan', 'mua_vaos', 'ban_ras'])->get();
         foreach ($hang_hoa as $value) {
-            $mv = $value->mua_vaos()->where('ngay_thang', "<=", $date)->sum('so_luong');
-            $br = $value->ban_ras()->where('ngay_thang', "<=", $date)->sum('so_luong');
-            $hd = $value->ban_ras()->where('ngay_hoan_doi_xong', "<=", $date)->sum('so_luong');
+            $mv = $value->mua_vaos->where('ngay_thang', "<=", $date)->sum('so_luong');
+            $br = $value->ban_ras->where('ngay_thang', "<=", $date)->sum('so_luong');
+            $hd = $value->ban_ras->where('ngay_hoan_doi_xong', "<=", $date)->sum('so_luong');
             $value->so_luong_ton_kho = $mv - $br + $hd;
             $value->setAppends(['so_luong_ton_kho', 'thanh_tien_ton_kho', 'nha_cung_cap']);
         }
@@ -128,28 +128,28 @@ class HangHoaController extends BaseController
             })->orWhereHas('ban_ras', function ($query) use ($bat_dau, $ket_thuc) {
                 return $query->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
             });
-        })->get();
+        })->with(['tai_khoan', 'mua_vaos', 'ban_ras'])->get();
 
         foreach ($hang_hoa as $value) {
             // Mua vào trong khoảng
-            $mv = $value->mua_vaos()->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+            $mv = $value->mua_vaos->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
             $value->so_luong_mua_vao = $mv->sum('so_luong');
             $value->thanh_tien_mua_vao = $mv->sum('thanh_tien');
 
             // bán ra trong khoảng
-            $br = $value->ban_ras()->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
+            $br = $value->ban_ras->whereBetween('ngay_thang', [$bat_dau, $ket_thuc]);
             $value->so_luong_ban_ra = $br->sum('so_luong');
             $value->thanh_tien_ban_ra = $br->sum('thanh_tien_ban');
 
             // Hoàn đổi trong khoảng
-            $br = $value->ban_ras()->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
+            $br = $value->ban_ras->whereBetween('ngay_hoan_doi_xong', [$bat_dau, $ket_thuc]);
             $value->so_luong_hoan_doi = $br->sum('so_luong');
             $value->thanh_tien_hoan_doi = $br->sum('thanh_tien_ban');
 
             // Tồn kho đến cuối kỳ
-            $mv = $value->mua_vaos()->where('ngay_thang', "<=", $ket_thuc)->sum('so_luong');
-            $br = $value->ban_ras()->where('ngay_thang', "<=", $ket_thuc)->sum('so_luong');
-            $hd = $value->ban_ras()->where('ngay_hoan_doi_xong', "<=", $ket_thuc)->sum('so_luong');
+            $mv = $value->mua_vaos->where('ngay_thang', "<=", $ket_thuc)->sum('so_luong');
+            $br = $value->ban_ras->where('ngay_thang', "<=", $ket_thuc)->sum('so_luong');
+            $hd = $value->ban_ras->where('ngay_hoan_doi_xong', "<=", $ket_thuc)->sum('so_luong');
             $value->so_luong_ton_kho = $mv - $br + $hd;
 
             $value->setAppends([

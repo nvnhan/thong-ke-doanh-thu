@@ -19,6 +19,8 @@ class HangHoa extends Model
 
     protected $appends = ['nha_cung_cap'];
 
+    protected $hidden = ['tai_khoan', 'tour_chi_tiets', 'mua_vaos', 'ban_ras'];
+
     public static function boot()
     {
         parent::boot();

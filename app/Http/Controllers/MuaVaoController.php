@@ -15,11 +15,11 @@ class MuaVaoController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = MuaVao::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
+            $objs = MuaVao::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else
-            $objs = MuaVao::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
+            $objs = MuaVao::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
 
-        return $this->sendResponse($objs, "MuaVao retrieved successfully");
+        return $this->sendResponse($objs->with(['hang_hoa', 'hang_hoa.tai_khoan', 'thu_chi_chi_tiets'])->get(), "MuaVao retrieved successfully");
     }
 
     /**

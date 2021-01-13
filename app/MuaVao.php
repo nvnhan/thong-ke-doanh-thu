@@ -22,6 +22,8 @@ class MuaVao extends Model
 
     protected $appends = ['da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap', 'chua_thanh_toan'];
 
+    protected $hidden = ['hang_hoa', 'thu_chi_chi_tiets'];
+
     public static function boot()
     {
         parent::boot();
@@ -56,26 +58,26 @@ class MuaVao extends Model
     ////////
     public function getMaHangAttribute()
     {
-        return $this->hang_hoa()->first()->ma_hang;
+        return $this->hang_hoa->ma_hang;
     }
 
     public function getTenHangAttribute()
     {
-        return $this->hang_hoa()->first()->ten_hang;
+        return $this->hang_hoa->ten_hang;
     }
     public function getPhanLoaiAttribute()
     {
-        return $this->hang_hoa()->first()->phan_loai;
+        return $this->hang_hoa->phan_loai;
     }
 
     public function getNhaCungCapAttribute()
     {
-        return $this->hang_hoa()->first()->nha_cung_cap;
+        return $this->hang_hoa->nha_cung_cap;
     }
 
     public function getDaThanhToanAttribute()
     {
-        return $this->thu_chi_chi_tiets()->sum('so_tien');
+        return $this->thu_chi_chi_tiets->sum('so_tien');
     }
 
     public function getChuaThanhToanAttribute()

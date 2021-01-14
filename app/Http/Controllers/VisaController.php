@@ -15,13 +15,14 @@ class VisaController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = Visa::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
+            $objs = Visa::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else
-            $objs = Visa::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
+            $objs = Visa::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
+
         // if (!empty($request->tinh_trang))
         //     $objs = array_values($objs->where('tinh_trang', $request->tinh_trang)->toArray());
 
-        return $this->sendResponse($objs, "Visa retrieved successfully");
+        return $this->sendResponse($objs->with(['khach_hang', 'nha_cung_cap', 'thu_chi_chi_tiets'])->get(), "Visa retrieved successfully");
     }
 
     /**

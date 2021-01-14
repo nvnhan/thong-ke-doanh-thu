@@ -17,7 +17,7 @@ class TourChiTietController extends BaseController
         $objs = TourChiTiet::query();
         if (!empty($request->tour))
             $objs = $objs->where('id_tour', $request->tour);
-        return $this->sendResponse($objs->get(), "TourChiTiet retrieved successfully");
+        return $this->sendResponse($objs->with(['hang_hoa', 'hang_hoa.tai_khoan', 'thu_chi_chi_tiets'])->get(), "TourChiTiet retrieved successfully");
     }
 
     /**

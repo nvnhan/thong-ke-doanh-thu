@@ -16,13 +16,14 @@ class TourController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $objs = Tour::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc])->get();
+            $objs = Tour::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
         else
-            $objs = Tour::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')])->get();
+            $objs = Tour::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
+
         // if (!empty($request->tinh_trang))
         //     $objs = array_values($objs->where('tinh_trang', $request->tinh_trang)->toArray());
-            
-        return $this->sendResponse($objs, "Tour retrieved successfully");
+
+        return $this->sendResponse($objs->with(['tour_chi_tiets', 'khach_hang', 'thu_chi_chi_tiets'])->get(), "Tour retrieved successfully");
     }
 
     /**

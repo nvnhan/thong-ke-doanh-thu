@@ -28,7 +28,6 @@ const List = React.memo(props => {
                 thanh toán: {record.ngay_thanh_toan}
             </li>
             <li>Ghi chú: {record.ghi_chu}</li>
-            <li>Người tạo: {record.username}</li>
         </ul>
     );
 

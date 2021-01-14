@@ -22,6 +22,8 @@ class TourChiTiet extends Model
 
     protected $appends = ['ten_hang', 'ma_hang', 'phan_loai', 'nha_cung_cap', 'da_thanh_toan', 'chua_thanh_toan'];
 
+    protected $hidden = ['tour', 'hang_hoa', 'thu_chi_chi_tiets'];
+
     public static function boot()
     {
         parent::boot();
@@ -50,7 +52,7 @@ class TourChiTiet extends Model
 
     public function getDaThanhToanAttribute()
     {
-        return $this->thu_chi_chi_tiets()->sum('so_tien');
+        return $this->thu_chi_chi_tiets->sum('so_tien');
     }
 
     public function getMaTourAttribute()
@@ -65,21 +67,21 @@ class TourChiTiet extends Model
 
     public function getPhanLoaiAttribute()
     {
-        return $this->hang_hoa()->first()->phan_loai;
+        return $this->hang_hoa->phan_loai;
     }
 
     public function getTenHangAttribute()
     {
-        return $this->hang_hoa()->first()->ten_hang;
+        return $this->hang_hoa->ten_hang;
     }
 
     public function getMaHangAttribute()
     {
-        return $this->hang_hoa()->first()->ma_hang;
+        return $this->hang_hoa->ma_hang;
     }
 
     public function getNhaCungCapAttribute()
     {
-        return $this->hang_hoa()->first()->tai_khoan()->first()->ky_hieu;
+        return $this->hang_hoa->tai_khoan->ky_hieu;
     }
 }

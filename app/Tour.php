@@ -21,9 +21,16 @@ class Tour extends Model
         'tong_tien_ban' => 'double'
     ];
 
-    protected $fillable = ['ngay_thang', 'ma_tour', 'ten_tour', 'phan_loai', 'bat_dau', 'ket_thuc', 'so_luong', 'gia_ban', 'id_khach_hang', 'hoan_thanh', 'ghi_chu'];
+    protected $fillable = [
+        'ngay_thang', 'ma_tour', 'ten_tour', 'phan_loai',
+        'bat_dau', 'ket_thuc',
+        'so_luong', 'gia_ban',
+        'id_khach_hang', 'hoan_thanh', 'ghi_chu'
+    ];
 
     protected $appends = ['ten_khach_hang', 'gia_tour', 'lai', 'da_thanh_toan', 'tinh_trang', 'chua_thanh_toan'];
+
+    protected $hidden = ['tour_chi_tiets', 'khach_hang', 'thu_chi_chi_tiets'];
 
     public static function boot()
     {
@@ -36,7 +43,7 @@ class Tour extends Model
             $model->tour_chi_tiets()->delete();
         });
     }
-    
+
     /**
      * The "booted" method of the model.
      *
@@ -57,20 +64,20 @@ class Tour extends Model
         return $this->belongsTo('App\KhachHang', 'id_khach_hang');
     }
 
-    public function getTenKhachHangAttribute()
-    {
-        return optional($this->khach_hang()->first())->ma_khach_hang;
-    }
-
     public function thu_chi_chi_tiets()
     {
         return $this->hasMany('App\ThuChiChiTiet', 'id_tour');
     }
 
+    public function getTenKhachHangAttribute()
+    {
+        return optional($this->khach_hang)->ma_khach_hang;
+    }
+
     // Trường tính toán
     public function getGiaTourAttribute()
     {
-        return $this->tour_chi_tiets()->get()->sum('thanh_tien');
+        return $this->tour_chi_tiets->sum('thanh_tien');
     }
 
     public function getLaiAttribute()
@@ -80,7 +87,7 @@ class Tour extends Model
 
     public function getDaThanhToanAttribute()
     {
-        return $this->thu_chi_chi_tiets()->sum('so_tien');
+        return $this->thu_chi_chi_tiets->sum('so_tien');
     }
 
     public function getChuaThanhToanAttribute()

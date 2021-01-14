@@ -3,9 +3,12 @@
 namespace App\Helpers;
 
 use App\DatVe;
+use App\MuaVao;
 use App\Report;
 use App\SanBay;
 use App\TaiKhoan;
+use App\Tour;
+use App\TourChiTiet;
 use DateInterval;
 use DatePeriod;
 use DateTime;
@@ -28,16 +31,22 @@ class Dashboard
                 return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
             })
             ->orderBy('loai')
+            ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
             ->get();
 
         $result = new stdClass;
         $result->hang_muc = [];
         $result->gia_tri = [];
 
+        // Lấy các tour chi tiết và mua vào của user hiện tại
+        $tours = Tour::pluck('id');
+        $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
+        $mua_vaos = MuaVao::all();
+
         // Thêm các tài khoản
         $sum = 0;
         foreach ($taiKhoan as $tk) {
-            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
+            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $tour_chi_tiets, $mua_vaos, $den_ngay);
             $sum += $duCuoiKy;
             if ($duCuoiKy != 0) {
                 $result->hang_muc[] = $tk->ky_hieu;

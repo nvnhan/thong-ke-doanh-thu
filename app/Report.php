@@ -11,6 +11,7 @@ use stdClass;
 use App\Helpers\Util;
 use App\KhachHang;
 use App\TaiKhoan;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class Report
@@ -25,14 +26,14 @@ class Report
      * @param  mixed $date1
      * @return void
      */
-    public  static function TinhTongThanhToanBanRa(KhachHang $khachHang, $date2, $date1 = '')
+    public  static function TinhTongThanhToanBanRa(KhachHang $khachHang, string $date2, string $date1 = '')
     {
         if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
             $date1 = $khachHang->ngay_tao;
         if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
             return 0;
 
-        $sum = $khachHang->thu_chis()->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
+        $sum = $khachHang->thu_chis->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
         return (float) $sum;
     }
 
@@ -46,20 +47,20 @@ class Report
      * @param  mixed $date1
      * @return void
      */
-    public  static function TinhTongGiaoDichBanRa(KhachHang $khachHang, $date2, $date1 = '')
+    public  static function TinhTongGiaoDichBanRa(KhachHang $khachHang, string $date2, string $date1 = '')
     {
         if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
             $date1 = $khachHang->ngay_tao;
         if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
             return 0;
 
-        $sum = $khachHang->dat_ves()->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
+        $sum = $khachHang->dat_ves->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
 
-        $sum += $khachHang->ban_ras()->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
+        $sum += $khachHang->ban_ras->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
 
-        $sum += $khachHang->visas()->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
+        $sum += $khachHang->visas->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
 
-        $sum += $khachHang->tours()->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_ban');
+        $sum += $khachHang->tours->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_ban');
 
         return (float) $sum;
     }
@@ -72,7 +73,7 @@ class Report
      * @param  mixed $date2
      * @return void
      */
-    public  static function TinhLai($date1, $date2)
+    public  static function TinhLai(string $date1, string $date2)
     {
         $lai = 0;
         $q = DatVe::whereBetween('ngay_thang', [$date1, $date2]);
@@ -94,15 +95,15 @@ class Report
     public  static function TinhTonKho(string $date2)
     {
         $tonKho = 0;
-        $hh = HangHoa::all();
+        $hh = HangHoa::with(['mua_vaos', 'ban_ras'])->get();
         foreach ($hh as $h) {
-            $q = $h->mua_vaos()->where('ngay_thang', '<=', $date2);
+            $q = $h->mua_vaos->where('ngay_thang', '<=', $date2);
             $sl = $q->sum('so_luong');
 
-            $q = $h->ban_ras()->where('ngay_thang', '<=', $date2);
+            $q = $h->ban_ras->where('ngay_thang', '<=', $date2);
             $sl -= $q->sum('so_luong');
 
-            $q = $h->ban_ras()->where('ngay_hoan_doi_xong', '<=', $date2);
+            $q = $h->ban_ras->where('ngay_hoan_doi_xong', '<=', $date2);
             $sl += $q->sum('so_luong');
 
             if ($sl > 0)
@@ -119,7 +120,7 @@ class Report
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao > $date2)
             return 0;
 
-        $q = $taiKhoan->thu_chi_dens()->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $taiKhoan->thu_chi_dens->whereBetween('ngay_thang', [$date1, $date2]);
         $sthu = $q->sum('so_tien');
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao <= $date2 && $taiKhoan->ngay_tao >= $date1)
             $sthu += $taiKhoan->so_du_ky_truoc;
@@ -127,32 +128,31 @@ class Report
     }
 
     // Tổng chi của tài khoản từ ngày đến ngày
-    public  static function TongChiTK(TaiKhoan $taiKhoan, $date2, $date1 = '')
+    public  static function TongChiTK(TaiKhoan $taiKhoan, Collection $tour_chi_tiets, Collection $mua_vaos, string $date2, string $date1 = '')
     {
         if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
             $date1 = $taiKhoan->ngay_tao;
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao > $date2)
             return 0;
 
-        $q = $taiKhoan->thu_chi_dis()->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $taiKhoan->thu_chi_dis->whereBetween('ngay_thang', [$date1, $date2]);
         $schi = $q->sum('so_tien');
 
-        $q = $taiKhoan->dat_ves()->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $taiKhoan->dat_ves->whereBetween('ngay_thang', [$date1, $date2]);
         $schi += $q->sum('tong_tien');
 
-        $q = $taiKhoan->ban_ra_hoa_dois()->whereBetween('ngay_thanh_toan_hoan_doi', [$date1, $date2]);
+        $q = $taiKhoan->ban_ra_hoa_dois->whereBetween('ngay_thanh_toan_hoan_doi', [$date1, $date2]);
         $schi += $q->sum('thanh_tien_ban');
 
-        $q = $taiKhoan->visas()->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $taiKhoan->visas->whereBetween('ngay_thang', [$date1, $date2]);
         $schi += $q->sum('gia_ban');
 
         // Do Have Many Through ko dùng scope đc nên mới phải làm thủ công
-        $idHH = $taiKhoan->hang_hoas()->pluck('id')->toArray();
-        $idTour = Tour::all()->pluck('id')->toArray();
-        $q = TourChiTiet::whereIn('id_tour', $idTour)->whereBetween('ngay_thang', [$date1, $date2]);
+        $idHH = $taiKhoan->hang_hoas->pluck('id');
+        $q = $tour_chi_tiets->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
         $schi += $q->sum('thanh_tien');
 
-        $q = MuaVao::whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
+        $q = $mua_vaos->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
         $schi += $q->sum('thanh_tien');
 
         return (float) $schi;
@@ -164,7 +164,7 @@ class Report
      * @param  mixed $dat_ves
      * @return void
      */
-    public static function TinhNoiDungXuatCongNo($dat_ves)
+    public static function TinhNoiDungXuatCongNo(Collection $dat_ves)
     {
         $s = '';
         $dv = $dat_ves[0];
@@ -185,11 +185,12 @@ class Report
      * @param  mixed $den_ngay
      * @return void
      */
-    public static function TinhDuNo($den_ngay)
+    public static function TinhDuNo(string $den_ngay)
     {
         $sum = 0;
         $khachHang = KhachHang::whereRaw("UPPER(phan_loai) != 'THU CHI NGOÀI'")
             ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
+            ->with(['thu_chis', 'dat_ves', 'ban_ras', 'tours', 'visas'])
             ->get();
 
         foreach ($khachHang as $kh) {

@@ -54,7 +54,6 @@ Còn tồn tại:
 ////////////- React router: Authorization
 ////////////- Lưu id users trong đại lý vào User table để tránh duyệt lại mỗi lần request
 ////////////- Cài đặt số kết quả hiển thị trong user
-- Login, getUser cho vào redux async?
 - Clear properties dont update
 - Optimize request of dashboard and reports (too much db request)
 

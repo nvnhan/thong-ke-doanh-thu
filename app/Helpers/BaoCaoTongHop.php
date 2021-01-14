@@ -3,15 +3,9 @@
 namespace App\Helpers;
 
 use App\DatVe;
-use App\Helpers\Util;
-use App\KhachHang;
 use App\Report;
-use App\TaiKhoan;
 use App\ThuChi;
-use DateTime;
 use Illuminate\Http\Request;
-use PhpOffice\PhpSpreadsheet\Worksheet;
-use stdClass;
 
 class BaoCaoTongHop
 {

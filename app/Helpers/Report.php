@@ -1,7 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Helpers;
 
+use App\BanRa;
+use App\DatVe;
 use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
@@ -10,196 +12,15 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use stdClass;
 use App\Helpers\Util;
 use App\KhachHang;
+use App\MuaVao;
 use App\TaiKhoan;
-use Illuminate\Database\Eloquent\Collection;
+use App\Tour;
+use App\TourChiTiet;
+use App\Visa;
 use Illuminate\Http\Request;
 
 class Report
 {
-    /**
-     * Tổng thanh toán bán ra
-     * Là số tiền KHÁCH HÀNG ĐÃ THANH TOÁN === MÌNH THU CỦA KH
-     *
-     * @param  mixed $request
-     * @param  mixed $khachHang
-     * @param  mixed $date2
-     * @param  mixed $date1
-     * @return void
-     */
-    public  static function TinhTongThanhToanBanRa(KhachHang $khachHang, string $date2, string $date1 = '')
-    {
-        if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
-            $date1 = $khachHang->ngay_tao;
-        if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
-            return 0;
-
-        $sum = $khachHang->thu_chis->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
-        return (float) $sum;
-    }
-
-    /**
-     * Tổng giao dịch bán ra
-     * Là số tiền Khách hàng phát sinh từ các đối tượng, cần PHẢI THANH TOÁN CHO MÌNH
-     *
-     * @param  mixed $request
-     * @param  mixed $khachHang
-     * @param  mixed $date2
-     * @param  mixed $date1
-     * @return void
-     */
-    public  static function TinhTongGiaoDichBanRa(KhachHang $khachHang, string $date2, string $date1 = '')
-    {
-        if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
-            $date1 = $khachHang->ngay_tao;
-        if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
-            return 0;
-
-        $sum = $khachHang->dat_ves->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
-
-        $sum += $khachHang->ban_ras->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
-
-        $sum += $khachHang->visas->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
-
-        $sum += $khachHang->tours->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_ban');
-
-        return (float) $sum;
-    }
-
-    /**
-     * Tổng lãi cho tổng hợp tài khoản
-     *
-     * @param  mixed $request
-     * @param  mixed $date1
-     * @param  mixed $date2
-     * @return void
-     */
-    public  static function TinhLai(string $date1, string $date2)
-    {
-        $lai = 0;
-        $q = DatVe::whereBetween('ngay_thang', [$date1, $date2]);
-        $lai += $q->sum('lai');
-
-        $q = BanRa::whereBetween('ngay_thang', [$date1, $date2]);
-        $lai += $q->get()->sum('lai');
-
-        $q = Tour::whereBetween('ngay_thang', [$date1, $date2]);
-        $lai += $q->get()->sum('lai');
-
-        $q = Visa::whereBetween('ngay_thang', [$date1, $date2]);
-        $lai += $q->sum('lai');
-
-        return (float) $lai;
-    }
-
-    // Tổng tồn kho cho Tổng hợp tài khoản
-    public  static function TinhTonKho(string $date2)
-    {
-        $tonKho = 0;
-        $hh = HangHoa::with(['mua_vaos', 'ban_ras'])->get();
-        foreach ($hh as $h) {
-            $q = $h->mua_vaos->where('ngay_thang', '<=', $date2);
-            $sl = $q->sum('so_luong');
-
-            $q = $h->ban_ras->where('ngay_thang', '<=', $date2);
-            $sl -= $q->sum('so_luong');
-
-            $q = $h->ban_ras->where('ngay_hoan_doi_xong', '<=', $date2);
-            $sl += $q->sum('so_luong');
-
-            if ($sl > 0)
-                $tonKho += $sl * $h->don_gia;
-        }
-        return (float) $tonKho;
-    }
-
-    // Tổng thu của tài khoản từ ngày đến ngày
-    public  static function TongThuTK(TaiKhoan $taiKhoan, string $date2, string $date1 = '')
-    {
-        if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
-            $date1 = $taiKhoan->ngay_tao;
-        if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao > $date2)
-            return 0;
-
-        $q = $taiKhoan->thu_chi_dens->whereBetween('ngay_thang', [$date1, $date2]);
-        $sthu = $q->sum('so_tien');
-        if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao <= $date2 && $taiKhoan->ngay_tao >= $date1)
-            $sthu += $taiKhoan->so_du_ky_truoc;
-        return (float) $sthu;
-    }
-
-    // Tổng chi của tài khoản từ ngày đến ngày
-    public  static function TongChiTK(TaiKhoan $taiKhoan, Collection $tour_chi_tiets, Collection $mua_vaos, string $date2, string $date1 = '')
-    {
-        if ($taiKhoan->ngay_tao != null && ($date1 == '' || $date1 < $taiKhoan->ngay_tao))
-            $date1 = $taiKhoan->ngay_tao;
-        if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao > $date2)
-            return 0;
-
-        $q = $taiKhoan->thu_chi_dis->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi = $q->sum('so_tien');
-
-        $q = $taiKhoan->dat_ves->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi += $q->sum('tong_tien');
-
-        $q = $taiKhoan->ban_ra_hoa_dois->whereBetween('ngay_thanh_toan_hoan_doi', [$date1, $date2]);
-        $schi += $q->sum('thanh_tien_ban');
-
-        $q = $taiKhoan->visas->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi += $q->sum('gia_ban');
-
-        // Do Have Many Through ko dùng scope đc nên mới phải làm thủ công
-        $idHH = $taiKhoan->hang_hoas->pluck('id');
-        $q = $tour_chi_tiets->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi += $q->sum('thanh_tien');
-
-        $q = $mua_vaos->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi += $q->sum('thanh_tien');
-
-        return (float) $schi;
-    }
-
-    /**
-     * TinhNoiDungXuatCongNo
-     *
-     * @param  mixed $dat_ves
-     * @return void
-     */
-    public static function TinhNoiDungXuatCongNo(Collection $dat_ves)
-    {
-        $s = '';
-        $dv = $dat_ves[0];
-        $s = ($dv->hang_bay == "VN" || $dv->hang_bay == "BB") ? $dv->ma_giu_cho : $dv->so_ve;
-        $s .= ' - ';
-
-        foreach ($dat_ves as $ve)
-            $s .= $ve->ten_khach . '/' . $ve->tong_tien_thu_khach . ' ';
-
-        $s .= $ve->sb_di . $ve->sb_di1 . $ve->sb_ve1;
-        $s .= ' ' . $ve->ngay_gio_di . ' ' . $ve->cb_di . ' ' . $ve->ngay_gio_ve . ' ' . $ve->cb_ve;
-        return $s;
-    }
-
-    /**
-     * TinhDuNo
-     * Công thức lấy từ bên Tổng hợp công nợ
-     * @param  mixed $den_ngay
-     * @return void
-     */
-    public static function TinhDuNo(string $den_ngay)
-    {
-        $sum = 0;
-        $khachHang = KhachHang::whereRaw("UPPER(phan_loai) != 'THU CHI NGOÀI'")
-            ->where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
-            ->with(['thu_chis', 'dat_ves', 'ban_ras', 'tours', 'visas'])
-            ->get();
-
-        foreach ($khachHang as $kh) {
-            $sum += $kh->so_du_ky_truoc
-                + self::TinhTongThanhToanBanRa($kh, $den_ngay)
-                - self::TinhTongGiaoDichBanRa($kh, $den_ngay);
-        }
-        return $sum;
-    }
 
     /**
      * Chi tiết đối soát tài khoản
@@ -516,8 +337,13 @@ class Report
         ];
     }
 
+
     /**
-     * Chi tiết tài khoản
+     * Tổng hợp tài khoản
+     *
+     * @param  mixed $request
+     * @param  mixed $format_price
+     * @return void
      */
     public static function tinh_tai_khoan(Request $request, $format_price = true)
     {
@@ -530,30 +356,40 @@ class Report
             $tu_ngay = substr($request->bat_dau, 0, 10);
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
+        // Ngân hàng và nhà cung cấp
         $taiKhoan = TaiKhoan::ofUser($user)
             ->where('loai', '!=', '-1')
             ->where(function ($q) use ($den_ngay) {
                 return $q->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay);
             })
             ->orderBy('loai')
+            ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
             ->get();
 
+        // Lấy các tour chi tiết và mua vào của user hiện tại
+        $tours = Tour::pluck('id');
+        $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
+        $mua_vaos = MuaVao::all();
+
+        $begin = new DateTime($tu_ngay);
+        $end = new DateTime($den_ngay);
+        $end->modify('+1 day');
         $interval = DateInterval::createFromDateString('1 day');
-        $period = new DatePeriod(new DateTime($tu_ngay), $interval, new DateTime($den_ngay));
+        $period = new DatePeriod($begin, $interval, $end);
 
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
         $sum = 0;
         // Thêm các tài khoản
         foreach ($taiKhoan as $tk) {
             $tmp = new stdClass;
-            $tmp1 = new stdClass;
+            $tmp1 = new stdClass;       // Thêm 2 hàng 1 lúc
             $tmp->id = $tk->id;
             $tmp1->id = $tk->id . 'a';
             $tmp->tai_khoan = $tk->ky_hieu;
 
-            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $den_ngay);
+            $duCuoiKy = BaoCaoHelper::TongThuTK($tk, $den_ngay) - BaoCaoHelper::TongChiTK($tk, $tour_chi_tiets, $mua_vaos, $den_ngay);
             $sum += $duCuoiKy;
-            $dau_ky = Report::TongThuTK($tk, $ngayTruoc) - Report::TongChiTK($tk, $ngayTruoc);
+            $dau_ky = BaoCaoHelper::TongThuTK($tk, $ngayTruoc) - BaoCaoHelper::TongChiTK($tk, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
             if ($format_price) {
                 $tmp->dau_ky = Util::VNDFormater($dau_ky);      // Đầu kỳ
                 $tmp1->tai_khoan = Util::VNDFormater($duCuoiKy);
@@ -568,24 +404,26 @@ class Report
             $coDuLieu = false;
             // Thêm các cột tương ứng với giá trị thu theo từng ngày
             foreach ($period as $dt) {
-                $t = $dt->format('d/m/y');
-                $i = $dt->format("Y-m-d");
+                $t = $dt->format('d/m/y');  // Format ngày tháng hiển thị web
+                $i = $dt->format("Y-m-d");  // Format ngày tháng SQL
+
+                //TODO: 1 hàm xử lý toàn bộ => nhóm dữ liệu theo ngày giống thông tin vé bên Dashboard
                 if ($format_price) {
-                    $tmp->$t = Util::VNDFormater(Report::TongThuTK($tk, $i, $i));
-                    $tmp1->$t = Util::VNDFormater(Report::TongChiTK($tk, $i, $i));
+                    $tmp->$t = Util::VNDFormater(BaoCaoHelper::TongThuTK($tk, $i, $i));
+                    $tmp1->$t = Util::VNDFormater(BaoCaoHelper::TongChiTK($tk, $tour_chi_tiets, $mua_vaos, $i, $i));
                 } else {
-                    $tmp->$t = Report::TongThuTK($tk, $i, $i);
-                    $tmp1->$t = Report::TongChiTK($tk, $i, $i);
+                    $tmp->$t = BaoCaoHelper::TongThuTK($tk, $i, $i);
+                    $tmp1->$t = BaoCaoHelper::TongChiTK($tk, $tour_chi_tiets, $mua_vaos, $i, $i);
                 }
-                if ($tmp->$t != '0' || $tmp1->$t != '0')
-                    $coDuLieu = true;
+                $coDuLieu = ($tmp->$t != '0' || $tmp1->$t != '0');
             }
             if ($tmp->dau_ky != '0' || $tmp1->tai_khoan != '0' || $coDuLieu) {
                 $result[] = $tmp;
                 $result[] = $tmp1;
             }
         }
-        $duNo = self::TinhDuNo($den_ngay);
+        // Dư Nợ của khách hàng
+        $duNo = BaoCaoHelper::TinhDuNo($den_ngay);
         $sum -= $duNo;
         $tmp = new stdClass;
         $tmp->id = -2;
@@ -594,7 +432,11 @@ class Report
         $result[] = $tmp;
 
         // Thêm Lãi
-        $lai = Report::TinhLai($tu_ngay, $den_ngay);
+        $datVe = DatVe::all();
+        $banRa = BanRa::all();
+        $tour = Tour::all();
+        $visa = Visa::all();
+        $lai = BaoCaoHelper::TinhLai($datVe, $banRa, $tour, $visa, $tu_ngay, $den_ngay);
         $tmp = new stdClass;
         $tmp->id = -1;
         $tmp->tai_khoan = "LÃI";
@@ -603,14 +445,14 @@ class Report
         foreach ($period as $dt) {
             $t = $dt->format('d/m/y');
             $i = $dt->format("Y-m-d");
-            $lai = Report::TinhLai($i, $i);
+            $lai = BaoCaoHelper::TinhLai($datVe, $banRa, $tour, $visa, $i, $i);
             $tmp->$t = $format_price ? Util::VNDFormater($lai) : $lai;
         }
         $result[] = $tmp;
 
         // Thêm tồn kho
         if ($user->ban_hang) {
-            $tonKho = Report::TinhTonKho($den_ngay);
+            $tonKho = BaoCaoHelper::TinhTonKho($den_ngay);
             $sum += $tonKho;
             $tmp = new stdClass;
             $tmp->id = -4;

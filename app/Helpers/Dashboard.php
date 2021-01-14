@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use App\DatVe;
 use App\MuaVao;
-use App\Report;
+use App\Helpers\BaoCaoHelper;
 use App\SanBay;
 use App\TaiKhoan;
 use App\Tour;
@@ -46,7 +46,7 @@ class Dashboard
         // Thêm các tài khoản
         $sum = 0;
         foreach ($taiKhoan as $tk) {
-            $duCuoiKy = Report::TongThuTK($tk, $den_ngay) - Report::TongChiTK($tk, $tour_chi_tiets, $mua_vaos, $den_ngay);
+            $duCuoiKy = BaoCaoHelper::TongThuTK($tk, $den_ngay) - BaoCaoHelper::TongChiTK($tk, $tour_chi_tiets, $mua_vaos, $den_ngay);
             $sum += $duCuoiKy;
             if ($duCuoiKy != 0) {
                 $result->hang_muc[] = $tk->ky_hieu;
@@ -54,14 +54,14 @@ class Dashboard
             }
         }
         // Thêm dư Nợ
-        $duNo = Report::TinhDuNo($den_ngay);
+        $duNo = BaoCaoHelper::TinhDuNo($den_ngay);
         $sum -= $duNo;
         $result->hang_muc[] = "Dư - Nợ";
         $result->gia_tri[] = -round($duNo / 1000);
 
         // Thêm tồn kho
         if ($user->ban_hang) {
-            $tonKho = Report::TinhTonKho($den_ngay);
+            $tonKho = BaoCaoHelper::TinhTonKho($den_ngay);
             $sum += $tonKho;
             $result->hang_muc[] = "Tồn kho";
             $result->gia_tri[] = round($tonKho / 1000);

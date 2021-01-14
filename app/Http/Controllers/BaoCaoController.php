@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\BaoCaoTongHop;
+use App\Helpers\Report;
 use App\KhachHang;
-use App\Report;
 use App\TaiKhoan;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;

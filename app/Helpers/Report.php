@@ -350,13 +350,12 @@ class Report
         ];
     }
 
-
     /**
      * Tổng hợp tài khoản
      *
      * @param  mixed $request
      * @param  mixed $format_price
-     * @return void
+     * @return array
      */
     public static function tinh_tai_khoan(Request $request, $format_price = true)
     {

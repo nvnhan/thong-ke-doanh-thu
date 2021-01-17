@@ -3,7 +3,6 @@
 namespace App\Helpers;
 
 use App\DatVe;
-use App\Report;
 use App\ThuChi;
 use Illuminate\Http\Request;
 
@@ -134,19 +133,21 @@ class BaoCaoTongHop
         switch ($type) {
             case 1:
                 $dat_ve =
-                    DatVe::whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+                    DatVe::whereBetween('ngay_thang', [$tu_ngay, $den_ngay]);
                 break;
             case 2:
                 $dat_ve =
                     DatVe::whereNull('ngay_thanh_toan')
-                    ->orWhere('ngay_thanh_toan', '>', $den_ngay)->get();
+                    ->orWhere('ngay_thanh_toan', '>', $den_ngay);
                 break;
             case 3:
                 $dat_ve =
                     DatVe::where('ngay_gio_di', ">", $den_ngay)
-                    ->orWhere('ngay_gio_ve', '>', $den_ngay)->get();
+                    ->orWhere('ngay_gio_ve', '>', $den_ngay);
                 break;
         }
+
+        $dat_ve = $dat_ve->with(['khach_hang', 'tai_khoan_mua', 'thu_chi_chi_tiets'])->get();
 
         $row_index = 4;
         $sheet->insertNewRowBefore($row_index + 3, count($dat_ve));
@@ -189,7 +190,9 @@ class BaoCaoTongHop
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
 
-        $objs = ThuChi::whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+        $objs = ThuChi::whereBetween('ngay_thang', [$tu_ngay, $den_ngay])
+            ->with(['tai_khoan_dis', 'tai_khoan_dens', 'khach_hang', 'thu_chi_chi_tiets'])
+            ->get();
 
         $row_index = 4;
         $sheet->insertNewRowBefore($row_index + 3, count($objs));

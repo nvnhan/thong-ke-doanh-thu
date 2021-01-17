@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends BaseController
@@ -32,7 +31,7 @@ class AuthController extends BaseController
      */
     public function getApiLogin(Request $request)
     {
-        $user = $request->user();
+        $user = User::where('username', $request->username)->first();
         if (!$user)
             return $this->sendError('Account does not exist', [], 400);
         // Kiểm tra đăng nhập

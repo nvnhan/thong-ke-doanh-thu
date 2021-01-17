@@ -111,3 +111,26 @@ export const momentRange = () => ({
     "Tuần này": [moment().startOf("week"), moment().endOf("week")],
     "Tháng này": [moment().startOf("month"), moment().endOf("month")]
 });
+
+export const unionDataBy = (target, source, key = "id") => {
+    const newData = Array.isArray(source) ? source : [source];
+    const targetLength = target.length;
+
+    for (let index = 0; index < newData.length; index++) {
+        const element = newData[index];
+        let existingElement = false;
+
+        // Duyệt các phần tử của mảng cũ
+        for (let j = 0; j < targetLength; j++) {
+            const element1 = target[j];
+            // Nếu trùng key
+            if (element[key] === element1[key]) {
+                existingElement = true;
+                target[j] = element; // Thì cập nhật phần tử
+                break;
+            }
+        }
+        if (!existingElement) target.push(element); //  Thêm mới
+    }
+    return target;
+};

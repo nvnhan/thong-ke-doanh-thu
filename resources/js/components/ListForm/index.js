@@ -3,10 +3,14 @@ import Form from "antd/lib/form/index";
 import message from "antd/lib/message/index";
 import Modal from "antd/lib/modal/index";
 import isEmpty from "lodash/isEmpty";
-import unionBy from "lodash/unionBy";
 import PropTypes from "prop-types";
 import React, { useEffect, useImperativeHandle, useState } from "react";
-import { isChangeData, queryString, useMergeState } from "../../utils";
+import {
+    isChangeData,
+    queryString,
+    unionDataBy,
+    useMergeState
+} from "../../utils";
 import DataTable from "./DataTable";
 import FilterBox from "./FilterBox";
 import ModalConfirm from "./ModalConfirm";
@@ -159,10 +163,7 @@ const ListForm = props => {
     const doInsertOrUpdateRows = (response, callback = null) => {
         if (response.data.success) {
             // Thêm object vào list lấy từ state
-            const newData = Array.isArray(response.data.data)
-                ? response.data.data
-                : [response.data.data];
-            const mergedData = unionBy(newData, data, primaryKey);      // New data is first line
+            const mergedData = unionDataBy([...data], response.data.data);
             setState({
                 data: mergedData,
                 selectedRowKeys: []

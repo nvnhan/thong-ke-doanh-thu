@@ -1,9 +1,8 @@
-import unionBy from "lodash/unionBy";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setKhachHangList } from "../../../actions/actKhachHang";
 import ListForm from "../../../components/ListForm";
-import { vndFormater } from "../../../utils";
+import { unionDataBy, vndFormater } from "../../../utils";
 import FormItem from "./FormItem";
 
 const List = React.memo(() => {
@@ -12,7 +11,7 @@ const List = React.memo(() => {
     const [phanLoai, setPhanLoai] = useState([]);
 
     const onChangeData = data => {
-        dispatch(setKhachHangList(unionBy(data, khachHangList, "id")));
+        dispatch(setKhachHangList(unionDataBy(khachHangList, data)));
         let phanLoai = [
             "Thu Chi ngoài",
             ...new Set([...data.map(x => x.phan_loai)])

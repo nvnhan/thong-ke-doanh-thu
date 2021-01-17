@@ -1,5 +1,7 @@
 // Ant table & pagination
 .ant-table {
+    color: rgba(0, 0, 0, 0.9);
+
     thead > tr > th,
     tfoot > tr > td,
     tfoot > tr > th {
@@ -83,6 +85,6 @@
     min-height: 100vh;
 }
 
-.ant-pagination-prev{
+.ant-pagination-prev {
     min-width: inherit;
 }

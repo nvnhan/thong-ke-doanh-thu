@@ -7,7 +7,7 @@ import Row from "antd/lib/grid/row";
 import Input from "antd/lib/input/index";
 import message from "antd/lib/message/index";
 import Modal from "antd/lib/modal/index";
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../../../actions";
 
@@ -15,22 +15,20 @@ const Profile = memo(props => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const [formLogin] = Form.useForm();
+    const [modalVisible, setModalVisible] = useState(false);
 
-    const [user, setUser] = useState(() => {
-        // Check it in server
+    useEffect(() => {
         axios
             .get(`/api/get-user`)
             .then(response => {
                 if (response.data.success) {
                     const { data } = response.data;
                     form.setFieldsValue(data);
-                    return data;
+                    formLogin.setFieldsValue(data);
                 } else message.warn(response.data.message);
             })
             .catch(error => console.log(error));
-        return {};
-    });
-    const [modalVisible, setModalVisible] = useState(false);
+    }, []);
 
     const onFinish = () => {
         let values = form.getFieldValue();
@@ -248,9 +246,6 @@ const Profile = memo(props => {
                     labelCol={{ span: 8 }}
                     wrapperCol={{
                         span: 16
-                    }}
-                    initialValues={{
-                        username: user.username
                     }}
                 >
                     <Form.Item

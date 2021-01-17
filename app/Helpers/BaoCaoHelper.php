@@ -26,6 +26,7 @@ class BaoCaoHelper
         if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
             return 0;
 
+        $date2 = date('Y-m-d', strtotime($date2 . ' +1 days'));
         $sum = $khachHang->thu_chis->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
         return (float) $sum;
     }
@@ -47,6 +48,7 @@ class BaoCaoHelper
         if ($khachHang->ngay_tao != null && $khachHang->ngay_tao > $date2)
             return 0;
 
+        $date2 = date('Y-m-d', strtotime($date2 . ' +1 days'));
         $sum = $khachHang->dat_ves->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
 
         $sum += $khachHang->ban_ras->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
@@ -72,8 +74,9 @@ class BaoCaoHelper
     public static function TinhLai(Collection $datVe, Collection $banRa, Collection $tour, Collection $visa, string $date1, string $date2)
     {
         $lai = 0;
-        
-        //TODO: whereBetween ở DB và Collection khác nhau?
+        // whereBetween ở DB và Collection khác nhau : a <= x < b
+        $date2 = date('Y-m-d', strtotime($date2 . ' +1 days'));
+
         $lai += $datVe->whereBetween('ngay_thang', [$date1, $date2])->sum('lai');
 
         $lai += $banRa->whereBetween('ngay_thang', [$date1, $date2])->sum('lai');
@@ -126,6 +129,7 @@ class BaoCaoHelper
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao > $date2)
             return 0;
 
+        $date2 = date('Y-m-d', strtotime($date2 . ' +1 days'));
         $q = $taiKhoan->thu_chi_dens->whereBetween('ngay_thang', [$date1, $date2]);
         $sthu = $q->sum('so_tien');
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao <= $date2 && $taiKhoan->ngay_tao >= $date1)
@@ -150,25 +154,20 @@ class BaoCaoHelper
         if ($taiKhoan->ngay_tao != null && $taiKhoan->ngay_tao > $date2)
             return 0;
 
-        $q = $taiKhoan->thu_chi_dis->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi = $q->sum('so_tien');
+        $date2 = date('Y-m-d', strtotime($date2 . ' +1 days'));
+        $schi = $taiKhoan->thu_chi_dis->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
 
-        $q = $taiKhoan->dat_ves->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi += $q->sum('tong_tien');
+        $schi += $taiKhoan->dat_ves->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien');
 
-        $q = $taiKhoan->ban_ra_hoa_dois->whereBetween('ngay_thanh_toan_hoan_doi', [$date1, $date2]);
-        $schi += $q->sum('thanh_tien_ban');
+        $schi += $taiKhoan->ban_ra_hoa_dois->whereBetween('ngay_thanh_toan_hoan_doi', [$date1, $date2])->sum('thanh_tien_ban');
 
-        $q = $taiKhoan->visas->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi += $q->sum('gia_ban');
+        $schi += $taiKhoan->visas->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
 
         // Do Have Many Through ko dùng scope đc nên mới phải làm thủ công
         $idHH = $taiKhoan->hang_hoas->pluck('id');
-        $q = $tour_chi_tiets->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi += $q->sum('thanh_tien');
+        $schi += $tour_chi_tiets->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien');
 
-        $q = $mua_vaos->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2]);
-        $schi += $q->sum('thanh_tien');
+        $schi += $mua_vaos->whereIn('id_hang_hoa', $idHH)->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien');
 
         return (float) $schi;
     }

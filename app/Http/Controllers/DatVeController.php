@@ -285,8 +285,8 @@ class DatVeController extends BaseController
         $objs = explode('|', $request['objects']);
         if (\is_array($objs)) {
             $code = "";
-            $vnbb = DatVe::findMany($objs)->whereIn('hang_bay', ['VN', 'BB'])->get()->groupBy('ma_giu_cho');
-            $khac = DatVe::findMany($objs)->whereNotIn('hang_bay', ['VN', 'BB'])->get()->groupBy('so_ve');
+            $vnbb = DatVe::findMany($objs)->whereIn('hang_bay', ['VN', 'BB'])->groupBy('ma_giu_cho');
+            $khac = DatVe::findMany($objs)->whereNotIn('hang_bay', ['VN', 'BB'])->groupBy('so_ve');
 
             foreach ($khac as $sove => $values) {
                 $tmp = "";

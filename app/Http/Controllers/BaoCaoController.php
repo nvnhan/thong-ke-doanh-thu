@@ -41,6 +41,7 @@ class BaoCaoController extends BaseController
             $tu_ngay = substr($request->bat_dau, 0, 10);
             $den_ngay = substr($request->ket_thuc, 0, 10);
         }
+        
         $khach_hang = KhachHang::find($request->id_khach_hang);
         Report::maucongno($request, $tu_ngay, $den_ngay, [], $khach_hang);
     }

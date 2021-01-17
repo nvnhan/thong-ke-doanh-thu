@@ -17,6 +17,6 @@ class OfUserScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->whereIn('username', \Auth::user()->user_zone);
+        $builder->whereIn('username', optional(\Auth::user())->user_zone);
     }
 }

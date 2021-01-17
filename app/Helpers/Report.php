@@ -165,20 +165,24 @@ class Report
         // Chỉ có khách hàng === Xuất phát từ Công nợ chi tiết ==> Tính toàn bộ theo khách hàng
         if ($dat_ve == []) {
             // Đặt vé phát sinh trong khoảng thời gian của khách hàng tương ứng
-            $dat_ve = $khach_hang->dat_ves()->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+            $den_ngay = date('Y-m-d', strtotime($den_ngay . ' +1 days'));
+            $dat_ve = $khach_hang->dat_ves->whereBetween('ngay_thang', [$tu_ngay, $den_ngay]);
             // All thu chi of this Customer
-            $thu_chi = $khach_hang->thu_chis()->whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+            $thu_chi = $khach_hang->thu_chis->whereBetween('ngay_thang', [$tu_ngay, $den_ngay]);
 
             //TODO: Other object: Tour, Visa...
         } else if ($khach_hang == null)
-            $khach_hang = $dat_ve[0]->khach_hang;
+            $khach_hang = $dat_ve[0]->khach_hang->load(['dat_ves', 'thu_chis', 'ban_ras', 'visas', 'tours']);
+
         // Fill Customer Info
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
         $no_dau_ky = 0;
         if ($khach_hang != null) {
             $sheet->setCellValue("A7", "Kính gửi (To):    $khach_hang->ho_ten");
             $sheet->setCellValue("A8", "Tên giao dịch (Name):   $khach_hang->ho_ten - Tel: $khach_hang->sdt - Email: $khach_hang->email");
-            $no_dau_ky = $khach_hang->so_du_ky_truoc + self::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc) - self::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
+            $no_dau_ky = $khach_hang->so_du_ky_truoc
+                + BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc)
+                - BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
             $sheet->setCellValue("M8", $no_dau_ky);
         }
 
@@ -205,7 +209,7 @@ class Report
                 $obj->ngay_thang = $ngay;
                 $obj->chung_tu = $sove;
                 $obj->no = $ves1->sum('tong_tien_thu_khach');
-                $obj->noi_dung = self::TinhNoiDungXuatCongNo($ves1);
+                $obj->noi_dung = BaoCaoHelper::TinhNoiDungXuatCongNo($ves1);
                 $obj->dich_vu = $ves1->sum('lai');
                 $obj->tong_tien = $ves1->sum('tong_tien');
                 $obj->loai_tuoi = $ves1[0]->ten_loai_tuoi;
@@ -286,6 +290,7 @@ class Report
         $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
 
         $khachHang = KhachHang::where(fn ($query) => $query->whereNull('ngay_tao')->orWhere('ngay_tao', "<=", $den_ngay))
+            ->with(['thu_chis', 'dat_ves', 'ban_ras', 'tours', 'visas'])
             ->get();
         foreach ($khachHang as $kh) {
             $tmp = new stdClass;
@@ -295,13 +300,13 @@ class Report
 
             $phan_loai = strtoupper($tmp->phan_loai);
             if ($phan_loai != "THU CHI NGOàI") {
-                $tmp->dau_ky = $kh->so_du_ky_truoc + self::TinhTongThanhToanBanRa($kh, $ngayTruoc) - self::TinhTongGiaoDichBanRa($kh, $ngayTruoc);
-                $tmp->thanh_toan = self::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
-                $tmp->giao_dich = self::TinhTongGiaoDichBanRa($kh, $den_ngay, $tu_ngay);
+                $tmp->dau_ky = $kh->so_du_ky_truoc + BaoCaoHelper::TinhTongThanhToanBanRa($kh, $ngayTruoc) - BaoCaoHelper::TinhTongGiaoDichBanRa($kh, $ngayTruoc);
+                $tmp->thanh_toan = BaoCaoHelper::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
+                $tmp->giao_dich = BaoCaoHelper::TinhTongGiaoDichBanRa($kh, $den_ngay, $tu_ngay);
                 $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
             } else {
                 $tmp->dau_ky = 0;
-                $tmp->thanh_toan = self::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
+                $tmp->thanh_toan = BaoCaoHelper::TinhTongThanhToanBanRa($kh, $den_ngay, $tu_ngay);
                 $tmp->giao_dich = 0;
                 $tmp->cuoi_ky = 0;
             }
@@ -309,15 +314,23 @@ class Report
             $banra[] = $tmp;
         }
 
-        $nhaCungCap = TaiKhoan::ofUser($user)->whereLoai(1)->get();
+        $nhaCungCap = TaiKhoan::ofUser($user)->whereLoai(1)
+            ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
+            ->get();
+
+        // Lấy các tour chi tiết và mua vào của user hiện tại
+        $tours = Tour::pluck('id');
+        $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
+        $mua_vaos = MuaVao::all();
+
         foreach ($nhaCungCap as $ncc) {
             $tmp = new stdClass;
             $tmp->id = $ncc->id;
             $tmp->tai_khoan = $ncc->ky_hieu . ' - ' . $ncc->mo_ta;
 
-            $tmp->dau_ky = self::TongThuTK($ncc, $ngayTruoc) - self::TongChiTK($ncc, $ngayTruoc);
-            $tmp->thanh_toan = self::TongThuTK($ncc, $den_ngay, $tu_ngay);
-            $tmp->giao_dich = self::TongChiTK($ncc, $den_ngay, $tu_ngay);
+            $tmp->dau_ky = BaoCaoHelper::TongThuTK($ncc, $ngayTruoc) - BaoCaoHelper::TongChiTK($ncc, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
+            $tmp->thanh_toan = BaoCaoHelper::TongThuTK($ncc, $den_ngay, $tu_ngay);
+            $tmp->giao_dich = BaoCaoHelper::TongChiTK($ncc, $tour_chi_tiets, $mua_vaos, $den_ngay, $tu_ngay);
             $tmp->cuoi_ky = $tmp->dau_ky + $tmp->thanh_toan - $tmp->giao_dich;
 
             $muavao[] = $tmp;
@@ -431,16 +444,18 @@ class Report
         $tmp->dau_ky = $format_price ? Util::VNDFormater($duNo) : $duNo;
         $result[] = $tmp;
 
+        $datVe = DatVe::whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+        $banRa = BanRa::whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+        $tour = Tour::whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+        $visa = Visa::whereBetween('ngay_thang', [$tu_ngay, $den_ngay])->get();
+
         // Thêm Lãi
-        $datVe = DatVe::all();
-        $banRa = BanRa::all();
-        $tour = Tour::all();
-        $visa = Visa::all();
         $lai = BaoCaoHelper::TinhLai($datVe, $banRa, $tour, $visa, $tu_ngay, $den_ngay);
         $tmp = new stdClass;
         $tmp->id = -1;
         $tmp->tai_khoan = "LÃI";
         $tmp->dau_ky = $format_price ? Util::VNDFormater($lai) : $lai;
+
         // Lãi từng ngày
         foreach ($period as $dt) {
             $t = $dt->format('d/m/y');

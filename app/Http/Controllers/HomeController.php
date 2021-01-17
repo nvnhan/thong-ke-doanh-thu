@@ -7,6 +7,7 @@ use App\Helpers\Dashboard;
 use App\User;
 use App\DatVe;
 use App\SanBay;
+use App\Scopes\OfUserScope;
 
 class HomeController extends BaseController
 {
@@ -37,7 +38,7 @@ class HomeController extends BaseController
         $user = User::find($u);
         $objs = explode(',', $ids);
         if (\is_array($objs)) {
-            $datves = DatVe::whereIn('id', $objs)->get();
+            $datves = DatVe::withoutGlobalScope(OfUserScope::class)->where('username', $user->username)->whereIn('id', $objs)->get();
             $dv = $datves->where('hang_bay', $datves[0]->hang_bay);
             if ($dv[0]->hang_bay === 'VN' || $dv[0]->hang_bay === 'BB')
                 $dv = $dv->where('ma_giu_cho', $dv[0]->ma_giu_cho);

@@ -20,7 +20,7 @@ class User extends Authenticatable
         'dai_ly', 'sdt', 'dia_chi', 'email', 'thong_bao',
         'ct_ten', 'ct_sdt', 'ct_fax', 'ct_email', 'ct_dia_chi', 'ct_mst',
         'ngay_het_han', 'actived', 'phan_quyen',
-        'tour_visa', 'ban_hang',
+        'tour_visa', 'ban_hang', 'extension',
         'khong_gioi_han_dang_nhap', 'so_ngay_dang_nhap',
         'so_ket_qua'
     ];
@@ -31,7 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'id_nguoi_tao', 'user_zone'
+        'password', 'id_nguoi_tao', 'user_zone', 'nguoi_tao', 'tao_ra'
     ];
 
     /**
@@ -43,6 +43,7 @@ class User extends Authenticatable
         'actived' => "boolean",
         'tour_visa' => "boolean",
         'ban_hang' => "boolean",
+        'extension' => "boolean",
         'thong_bao' => "boolean",
         'khong_gioi_han_dang_nhap' => "boolean",
         'ngay_het_han' => 'datetime:d/m/Y',
@@ -52,7 +53,7 @@ class User extends Authenticatable
         'user_zone' => 'array'
     ];
 
-    protected $appends = ['admin', 'quan_ly', 'quan_tri', 'quyen', 'chuc_nang'];
+    protected $appends = ['admin', 'quan_ly', 'quan_tri', 'quyen', 'chuc_nang', 'tags'];
 
     public function nguoi_tao()
     {
@@ -124,6 +125,15 @@ class User extends Authenticatable
         else
             $users = $user->tao_ra()->pluck('username')->push($user->username);
         $this->user_zone = $users;
+    }
+
+    public function getTagsAttribute()
+    {
+        $tags = [];
+        if ($this->tour_visa) $tags[] = "Tour - Visa";
+        if ($this->ban_hang) $tags[] = "Bán hàng";
+        if ($this->extension) $tags[] = "Tool";
+        return $tags;
     }
 
 

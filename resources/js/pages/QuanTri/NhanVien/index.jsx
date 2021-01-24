@@ -42,39 +42,65 @@ const List = memo(props => {
             title: "Phân quyền",
             dataIndex: "quyen",
             optFilter: true,
-            width: 85,
-            render: text => {
-                let color = "";
-                switch (text) {
-                    case "Nhân viên":
-                        color = "gray";
-                        break;
-                    case "Quản lý đại lý":
-                        color = "green";
-                        break;
-                    case "Chủ đại lý":
-                        color = "geekblue";
-                        break;
-                    default:
-                        color = "volcano";
-                        break;
-                }
+            width: 80
+            // render: text => {
+            //     let color = "";
+            //     switch (text) {
+            //         case "Nhân viên":
+            //             color = "gray";
+            //             break;
+            //         case "Quản lý đại lý":
+            //             color = "green";
+            //             break;
+            //         case "Chủ đại lý":
+            //             color = "geekblue";
+            //             break;
+            //         default:
+            //             color = "volcano";
+            //             break;
+            //     }
 
-                return <Tag color={color}>{text.toUpperCase()}</Tag>;
-            }
+            //     return <b color={color}>{text}</b>;
+            // }
         },
         {
-            title: "Tour - Visa",
-            dataIndex: "tour_visa",
-            render: bol => <Checkbox checked={bol} />,
-            width: 70
+            title: "Chức năng",
+            key: "tags",
+            dataIndex: "tags",
+            width: 90,
+            render: tags => (
+                <>
+                    {tags.map(tag => {
+                        let color = tag.length > 8 ? "geekblue" : "green";
+                        tag === "Tool" && (color = "volcano");
+
+                        return (
+                            <Tag color={color} key={tag}>
+                                {tag.toLowerCase()}
+                            </Tag>
+                        );
+                    })}
+                </>
+            )
         },
-        {
-            title: "Bán hàng",
-            dataIndex: "ban_hang",
-            render: bol => <Checkbox checked={bol} />,
-            width: 70
-        },
+        // {
+        //     title: "Tour - Visa",
+        //     dataIndex: "tour_visa",
+        //     render: bol => <Checkbox checked={bol} />,
+        //     width: 70
+        // },
+        // {
+        //     title: "Bán hàng",
+        //     dataIndex: "ban_hang",
+        //     render: bol => <Checkbox checked={bol} />,
+        //     width: 70
+        // },
+        // {
+        //     title: "Extension",
+        //     dataIndex: "extension",
+        //     render: bol => <Checkbox checked={bol} />,
+        //     width: 70
+        // },
         {
             title: "Hoạt động",
             dataIndex: "actived",
@@ -108,6 +134,7 @@ const List = memo(props => {
                     quanTri={authUser.admin}
                     banHang={authUser.admin || authUser.ban_hang}
                     tourVisa={authUser.admin || authUser.tour_visa}
+                    extension={authUser.admin || authUser.extension}
                 />
             }
             // expandedRowRender={expandedRowRender}

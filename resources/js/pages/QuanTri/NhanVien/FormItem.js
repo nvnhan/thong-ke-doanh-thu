@@ -8,7 +8,12 @@ import Select from "antd/lib/select/index";
 import React from "react";
 const { Option } = Select;
 
-const form = ({ quanTri = false, banHang = false, tourVisa = false }) => {
+const form = ({
+    quanTri = false,
+    banHang = false,
+    tourVisa = false,
+    extension = false
+}) => {
     const getRoleDetail = () => {
         return (
             <>
@@ -114,6 +119,18 @@ const form = ({ quanTri = false, banHang = false, tourVisa = false }) => {
                         valuePropName="checked"
                     >
                         <Checkbox>Chức năng Bán hàng</Checkbox>
+                    </Form.Item>
+                </Col>
+            )}
+
+            {extension && (
+                <Col span={12}>
+                    <Form.Item
+                        wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                        name="extension"
+                        valuePropName="checked"
+                    >
+                        <Checkbox>Tool đặt vé</Checkbox>
                     </Form.Item>
                 </Col>
             )}

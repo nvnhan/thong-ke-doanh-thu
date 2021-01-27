@@ -39,6 +39,8 @@ class AuthController extends BaseController
             return $this->sendError('Username and Password mismatch', [], 400);
         if (!$user->actived)
             return $this->sendError('Account inactived', [], 400);
+        if (!$user->extension)
+            return $this->sendError('Account is not allowed', [], 400);
 
         $today = date("Y-m-d");
         if (empty($user->ngay_dang_nhap) || $today > $user->ngay_dang_nhap) {

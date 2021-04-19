@@ -18,7 +18,9 @@ class Tour extends Model
         'ngay_thanh_toan' => 'date:d/m/Y',
         'hoan_thanh' => 'boolean',
         'gia_ban' => 'double',
-        'tong_tien_ban' => 'double'
+        'tong_tien_ban' => 'double',
+        'id_khach_hang' => 'integer',
+        'so_luong' => 'integer'
     ];
 
     protected $fillable = [

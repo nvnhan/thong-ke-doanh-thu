@@ -14,7 +14,10 @@ class ThuChi extends Model
     protected $casts = [
         'ngay_thang' => 'date:d/m/Y',
         'so_tien' => 'float',
-        'con_du' => 'float'
+        'con_du' => 'float',
+        'id_tai_khoan_di' => 'integer',
+        'id_tai_khoan_den' => 'integer',
+        'id_khach_hang' => 'integer'
     ];
 
     protected $fillable = [

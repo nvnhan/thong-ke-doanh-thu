@@ -16,6 +16,7 @@ class TaiKhoan extends Model
         'phi_vj' => 'float',
         'phi_jets' => 'float',
         'phi_bb' => 'float',
+        'loai' => 'integer'
     ];
 
     protected $fillable = [

@@ -50,7 +50,11 @@ class User extends Authenticatable
         'ngay_dang_nhap' => 'datetime:d/m/Y',
         'created_at' => 'datetime:d/m/Y',
         'updated_at' => 'datetime:H:i d/m/Y',
-        'user_zone' => 'array'
+        'user_zone' => 'array',
+        'phan_quyen' => 'integer',
+        'id_nguoi_tao' => 'integer',
+        'so_ngay_dang_nhap' => 'integer',
+        'so_ket_qua' => 'integer'
     ];
 
     protected $appends = ['admin', 'quan_ly', 'quan_tri', 'quyen', 'chuc_nang', 'tags'];

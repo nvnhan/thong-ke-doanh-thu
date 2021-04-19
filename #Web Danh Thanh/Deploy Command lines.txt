@@ -1,3 +1,8 @@
+/home/admin/web/tienve.net
+
 cd /home/admin/web/tienve.net
 rm -f public_html/js/*
 unzip thong-ke-doanh-thu.zip
+
+Show folder size: 
+sudo du -shc /var/*

@@ -12,7 +12,8 @@ class HangHoa extends Model
     public $timestamps = true;
     // protected $dateFormat = 'd/m/Y';
     protected $casts = [
-        'don_gia' => 'float'
+        'don_gia' => 'float',
+        'id_tai_khoan' => 'integer'
     ];
 
     protected $fillable = ['id_tai_khoan', 'ma_hang', 'ten_hang', 'phan_loai', 'don_vi', 'don_gia', 'ghi_chu'];

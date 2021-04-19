@@ -21,6 +21,10 @@ class BanRa extends Model
         'thanh_tien_ban' => 'double',
         'don_gia_mua' => 'double',
         'don_gia_ban' => 'double',
+        'id_hang_hoa' => 'integer',
+        'so_luong' => 'integer',
+        'id_khach_hang' => 'integer',
+        'id_tai_khoan_tra_hoan_doi' => 'integer',
     ];
 
     protected $fillable = [

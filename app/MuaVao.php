@@ -16,6 +16,8 @@ class MuaVao extends Model
         'ngay_thanh_toan' => 'date:d/m/Y',
         'thanh_tien' => 'double',
         'don_gia' => 'double',
+        'id_hang_hoa' => 'integer',
+        'so_luong' => 'integer'
     ];
 
     protected $fillable = ['ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia', 'ghi_chu'];

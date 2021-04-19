@@ -29,6 +29,10 @@ class DatVe extends Model
         'phu_phi' => 'float',
         'hoa_hong' => 'float',
         'vat' => 'float',
+        'loai_tuoi' => 'integer',
+        'id_phi_hanh_ly' => 'integer',
+        'id_tai_khoan_mua' => 'integer',
+        'id_khach_hang' => 'integer',
     ];
 
     protected $fillable = [

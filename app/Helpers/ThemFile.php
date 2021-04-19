@@ -143,7 +143,10 @@ class ThemFile
                 $ss = substr($tmp->so_ve, 0, 3);
                 if ($ss === "VJA" || $ss === "VJC" || $ss === "550")
                     $tmp->so_ve = substr($tmp->so_ve, 3);
-            } else continue;
+            } else {
+                $ind++;
+                continue;
+            }
 
             // Loại tuổi
             if (!empty($request->cot_loai_tuoi)) {
@@ -161,8 +164,10 @@ class ThemFile
             }
 
             // Tên khách
-            if (!empty($request->cot_ten_khach))
-                $tmp->ten_khach = trim(str_replace([',', '/'], ['', ' '], $sheet->getCell($request->cot_ten_khach . $ind)->getValue()));
+            if (!empty($request->cot_ten_khach)) {
+                $array = explode('-', $sheet->getCell($request->cot_ten_khach . $ind)->getValue());
+                $tmp->ten_khach = trim(str_replace([',', '/'], ['', ' '], $array[0]));
+            }
             // Mã đại lý
             if (!empty($request->cot_ma_dai_ly))
                 $tmp->ma_dai_ly = trim($sheet->getCell($request->cot_ma_dai_ly . $ind)->getValue());

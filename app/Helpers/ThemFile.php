@@ -66,6 +66,7 @@ class ThemFile
 
             // Nếu trong file không có tổng tiền thu khách
             if (empty($item->tong_tien_thu_khach)) {
+                \Log::debug("tinh tong tien thu khach:". $item->tong_tien_thu_khach);
                 $kh = null;
                 // Find KhachHang has Ma Dai Ly
                 if (!empty($item->ma_dai_ly))
@@ -174,10 +175,10 @@ class ThemFile
 
             // Tổng tiền
             if (!empty($request->cot_so_tien))
-                $tmp->tong_tien = self::parse_money($sheet->getCell($request->cot_so_tien . $ind)->getValue());
+                $tmp->tong_tien = self::parse_money($sheet->getCell($request->cot_so_tien . $ind)->getCalculatedValue());
             // thu khách
             if (!empty($request->cot_thu_khach))
-                $tmp->tong_tien_thu_khach = self::parse_money($sheet->getCell($request->cot_thu_khach . $ind)->getValue());
+                $tmp->tong_tien_thu_khach = self::parse_money($sheet->getCell($request->cot_thu_khach . $ind)->getCalculatedValue());
             // Hoa hồng
             if (!empty($request->cot_hoa_hong))
                 $tmp->hoa_hong = self::parse_money($sheet->getCell($request->cot_hoa_hong . $ind)->getValue());
@@ -200,18 +201,18 @@ class ThemFile
                         $tmp->sb_ve = $tmp->sb_di1;
                         $tmp->sb_ve1 = substr($matches[0], 6, 3);
                     }
-                } else if (preg_match_all("/\b([A-Z]{3})\b/", $ht, $matches)) {        // 3 hãng còn lại có dạng HAN - SGN hoặc HAN-SGN
-                    if (count($matches[0]) >= 4) {
-                        $tmp->sb_di = $matches[0][0];
-                        $tmp->sb_di1 = $matches[0][1];
-                        if (count($matches[0]) >= 4) {      // Có lượt về
-                            $tmp->sb_ve = $matches[0][2];
-                            $tmp->sb_ve1 = $matches[0][3];
+                } else if (preg_match_all("/\b([A-Z]{3})\b/", $ht, $matches1)) {        // 3 hãng còn lại có dạng HAN - SGN hoặc HAN-SGN
+                    if (count($matches1[0]) >= 2) {
+                        $tmp->sb_di = $matches1[0][0];
+                        $tmp->sb_di1 = $matches1[0][1];
+                        if (count($matches1[0]) >= 4) {      // Có lượt về
+                            $tmp->sb_ve = $matches1[0][2];
+                            $tmp->sb_ve1 = $matches1[0][3];
                         }
 
-                        if (preg_match_all("/QH [0-9\-A-Z]+/", $ht, $matches)) {       // Đối với BamBoo trong hành trình có cả mã chuyến bay ví dụ QH 208-R
-                            $tmp->cb_di = $matches[0][0];
-                            if (count($matches[0]) > 1) $tmp->cb_ve = $matches[0][1];
+                        if (preg_match_all("/QH [0-9\-A-Z]+/", $ht, $matches2)) {       // Đối với BamBoo trong hành trình có cả mã chuyến bay ví dụ QH 208-R
+                            $tmp->cb_di = $matches2[0][0];
+                            if (count($matches2[0]) > 1) $tmp->cb_ve = $matches2[0][1];
                         }
                     }
                 }
@@ -224,21 +225,22 @@ class ThemFile
                 // Jets là  11/05/2019
 
                 $t = trim($sheet->getCell($request->cot_ngay_bay . $ind)->getValue());
-                if (preg_match_all("/(\d+)\/(\d+)\/(\d{4})/", $t, $matches)) {              // Dạng dd/mm/yyyy
-                    $tmp->ngay_gio_di = $matches[3][0] . "-" . $matches[2][0] . "-" . $matches[1][0];
-                    if (count($matches[0]) > 1)
-                        $tmp->ngay_gio_ve = $matches[3][1] . "-" . $matches[2][1] . "-" . $matches[1][1];
-                } else if (preg_match_all("/([a-zA-Z]{3}) (\d+), (\d{4})/", $t, $matches)) {              // Dạng mmm dd, yyyy
-                    $mon = array_search(strtoupper($matches[2][0]), Util::$thang);
+                if (preg_match_all("/(\d+)\/(\d+)\/(\d{4})/", $t, $matches3)) {              // Dạng dd/mm/yyyy
+                    $tmp->ngay_gio_di = $matches3[3][0] . "-" . $matches3[2][0] . "-" . $matches3[1][0];
+                    if (count($matches3[0]) > 1)
+                        $tmp->ngay_gio_ve = $matches3[3][1] . "-" . $matches3[2][1] . "-" . $matches3[1][1];
+                } else if (preg_match_all("/([a-zA-Z]{3}) (\d+), (\d{4})/", $t, $matches4)) {              // Dạng mmm dd, yyyy
+                    $mon = array_search(strtoupper($matches4[1][0]), Util::$thang);
                     if ($mon !== false) {
                         $mon++;
-                        $tmp->ngay_gio_di = $matches[3][0] . "-" . $mon . "-" . $matches[1][0];
+                        $tmp->ngay_gio_di = $matches4[3][0] . "-" . $mon . "-" . $matches4[2][0];
                     }
-                    if (count($matches[0]) > 1) {
-                        $mon = array_search(strtoupper($matches[2][1]), Util::$thang);
+                    // Ngay ve
+                    if (count($matches4[0]) > 1) { 
+                        $mon = array_search(strtoupper($matches4[1][1]), Util::$thang);
                         if ($mon !== false) {
                             $mon++;
-                            $tmp->ngay_gio_ve = $matches[3][1] . "-" . $mon . "-" . $matches[1][1];
+                            $tmp->ngay_gio_ve = $matches4[3][1] . "-" . $mon . "-" . $matches4[2][1];
                         }
                     }
                 }

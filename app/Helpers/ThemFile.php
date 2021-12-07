@@ -66,7 +66,6 @@ class ThemFile
 
             // Nếu trong file không có tổng tiền thu khách
             if (empty($item->tong_tien_thu_khach)) {
-                \Log::debug("tinh tong tien thu khach:". $item->tong_tien_thu_khach);
                 $kh = null;
                 // Find KhachHang has Ma Dai Ly
                 if (!empty($item->ma_dai_ly))

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\KhachHang;
 use App\Scopes\OfUserScope;
 use Illuminate\Http\Request;
-use stdClass;
 
 class KhachHangController extends BaseController
 {

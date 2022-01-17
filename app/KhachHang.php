@@ -36,7 +36,7 @@ class KhachHang extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->ngay_tao = now();
+            // $model->ngay_tao = now();
         });
         self::updating(function ($model) {
         });

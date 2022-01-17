@@ -272,7 +272,7 @@ const DataTable = React.memo(props => {
                 filterConfirm: "Lọc",
                 filterReset: "Hủy",
                 emptyText: "Không có dữ liệu",
-                cancelSort: "CLick để Bỏ sắp xếp",
+                cancelSort: "Click để Bỏ sắp xếp",
                 triggerAsc: "Click để Sắp xếp tăng dần",
                 triggerDesc: "Click để Sắp xếp giảm dần",
                 selectionAll: "Chọn tất cả dữ liệu",

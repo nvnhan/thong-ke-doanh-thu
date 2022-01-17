@@ -56,7 +56,7 @@ class DatVeController extends BaseController
                 ->orWhere('so_ve', 'LIKE', "%$request->q%")
                 ->orWhere('ten_khach', 'LIKE', "%$request->q%"));
 
-        return $this->sendResponse($objs->with(['khach_hang', 'tai_khoan_mua', 'phi_hanh_ly', 'thu_chi_chi_tiets'])->get(), "DatVe retrieved successfully");
+        return $this->sendResponse($objs->with(['khach_hang', 'tai_khoan_mua', 'phi_hanh_ly', 'thu_chi_chi_tiets'])->orderBy('ngay_thang', 'desc')->get(), "DatVe retrieved successfully");
     }
 
     public function nove(Request $request)

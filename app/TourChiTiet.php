@@ -82,6 +82,6 @@ class TourChiTiet extends Model
 
     public function getNhaCungCapAttribute()
     {
-        return $this->hang_hoa->tai_khoan->ky_hieu;
+        return $this->hang_hoa->tai_khoan->mo_ta;
     }
 }

@@ -167,13 +167,10 @@ class Dashboard
         $result->quoc_noi[] = $sum - $qt - $sumdaxuat + $qtdaxuat;
 
         $den_ngay = date('Y-m-d H:i:s'); // Chưa bay, nợ vé tính đến hôm nay
-        $objs1 = clone $objs;
-        $quocte1 = clone $quocte;
-        $sumchuabay = $objs1->filter(function ($item) use ($den_ngay) {
-            return $item->ngay_gio_di > $den_ngay || $item->ngay_gio_ve > $den_ngay;
-        })->count();
-        $qtchuabay = $quocte1->filter(function ($item) use ($den_ngay) {
-            return $item->ngay_gio_di > $den_ngay || $item->ngay_gio_ve > $den_ngay;
+        $objs1 = DatVe::whereDate('ngay_gio_di', '>', $den_ngay)->orWhereDate('ngay_gio_ve', '>', $den_ngay)->get();
+        $sumchuabay = $objs1->count();
+        $qtchuabay = $objs1->filter(function ($item) use ($sbqt) {
+            return in_array($item->sb_di, $sbqt) || in_array($item->sb_di1, $sbqt) || in_array($item->sb_ve, $sbqt) || in_array($item->sb_ve1, $sbqt);
         })->count();
         $result->hang_muc[] = 'Số vé chưa bay';
         $result->quoc_te[] = $qtchuabay;

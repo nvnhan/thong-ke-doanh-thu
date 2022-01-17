@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ThemFileThuChi;
 use App\ThuChi;
-use App\ThuChiChiTiet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -66,7 +65,9 @@ class ThuChiController extends BaseController
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        // \Log::debug($data);
         $model = ThuChi::find($id);
+        $model->id_khach_hang = $model->id_tai_khoan_di = $model->id_tai_khoan_den = null;
         $model->fill($data);
         $model->save();
         return $this->sendResponse($model, "Cập nhật thành công");

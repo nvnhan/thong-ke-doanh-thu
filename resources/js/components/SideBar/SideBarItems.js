@@ -75,7 +75,7 @@ const items = [
             {
                 key: SideMenus.TV_TOUR,
                 href: "/tour",
-                title: "Quản lý Tour"
+                title: "Tour - Combo"
             },
             {
                 key: SideMenus.TV_VISA,

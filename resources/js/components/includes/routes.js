@@ -157,7 +157,7 @@ const routes = [
     {
         path: "/tour",
         exact: false,
-        title: "Quản lý Tour",
+        title: "Tour - Combo",
         menu: menus.TV_TOUR,
         component: <Tour />,
         role: "tour_visa"

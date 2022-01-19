@@ -7,9 +7,10 @@ const MySelect = React.memo(props => (
         allowClear
         filterOption={(input, option) => {
             if (!option.children) return false;
-            return (
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            );
+            let child = Array.isArray(option.children)
+                ? option.children.join("")
+                : option.children;
+            return child.toLowerCase().indexOf(input.toLowerCase()) >= 0;
         }}
         placeholder={props.placeholder}
         onChange={props.onChange}

@@ -23,7 +23,7 @@ const form = React.memo(props => {
     const hangHoaStatus = useSelector(state => state.hangHoa.status);
 
     const nhaCungCap =
-        ncc !== undefined ? [...ncc] : taiKhoan.filter(i => i.loai === 1);
+        ncc !== undefined ? [...[], ncc] : taiKhoan.filter(i => i.loai === 1);
 
     useEffect(() => {
         if (ncc === undefined) {

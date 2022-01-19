@@ -54,6 +54,7 @@ class TourController extends BaseController
         $model = Tour::find($id);
         $model->fill($data);
         $model->save();
+        $model->refresh();
         return $this->sendResponse($model, "Cập nhật thành công");
     }
 

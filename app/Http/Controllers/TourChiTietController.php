@@ -30,8 +30,8 @@ class TourChiTietController extends BaseController
     {
         $data = $request->all();
         $obj = TourChiTiet::create($data);
-        // $obj->username = $request->user()->username;
-        // $obj->save();
+        
+        $obj->refresh();
         return $this->sendResponse($obj, "Thêm mới thành công");
     }
 

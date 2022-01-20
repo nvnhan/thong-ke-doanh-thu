@@ -81,6 +81,7 @@ Route::middleware('auth:api')->group(function () {
     // Tour - Visa
     Route::delete('tour/deletes', 'TourController@deletes');
     Route::resource('tour', 'TourController')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('tour/xuat-excel', 'TourController@xuatExcel');
     Route::delete('tour-chi-tiet/deletes', 'TourChiTietController@deletes');
     Route::resource('tour-chi-tiet', 'TourChiTietController')->only(['index', 'store', 'update', 'destroy']);
 

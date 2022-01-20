@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Report;
 use App\Tour;
-use App\HangHoa;
 use Illuminate\Http\Request;
 
 class TourController extends BaseController
@@ -86,5 +86,10 @@ class TourController extends BaseController
         }
 
         return $this->sendError('Không xóa được', []);
+    }
+
+    public function xuatExcel(Request $request)
+    {
+        Report::export_tour($request);
     }
 }

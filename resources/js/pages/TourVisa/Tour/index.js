@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
+import { downloadApi } from "../../../utils/downloadFile";
 import exportToExcel from "../../../utils/exportToExcel";
 import FormItem from "./FormItem";
 
@@ -200,10 +201,20 @@ const List = React.memo(props => {
         exportToExcel(dataExport, "tour.xlsx");
     };
 
+    const exportTour = (data, selectedRowKeys) => {
+        downloadApi(
+            "/api/tour/xuat-excel",
+            {
+                objects: selectedRowKeys.join("|")
+            },
+            "danh-sach-tour.xlsx"
+        );
+    };
+
     const otherButtons = [
         {
             key: "export",
-            onClick: exportDS,
+            onClick: exportTour,
             title: "Xuất danh sách ra Excel"
         }
     ];

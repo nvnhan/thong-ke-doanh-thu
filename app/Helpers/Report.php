@@ -21,6 +21,83 @@ use Illuminate\Http\Request;
 
 class Report
 {
+    /**
+     * Trích xuất Tour & Tour chi tiết
+     */
+    public static function export_tour(Request $request)
+    {
+        $objs = explode('|', $request['objects']);
+        if (!\is_array($objs))
+            return;
+
+        // Prepare Excel File
+        $file = storage_path('app/reports') . "/trich-xuat-tour.xlsx";
+        $reader = IOFactory::createReader("Xlsx");
+        $spreadSheet = $reader->load($file);
+        $sheet = $spreadSheet->getSheet(0);
+
+        // Get number rows of tour and tour chi tiet
+        $tours = Tour::whereIn('id', $objs)->orderBy('ngay_thang')->get();
+        $row_count = 0;
+        foreach ($tours as $tour) {
+            $row_count++;
+            $row_count += $tour->tour_chi_tiets()->count();
+        }
+        $sheet->insertNewRowBefore(6, $row_count);
+        $sheet->removeRow(4, 3);
+        $row_index = 4;
+        // Fill in the excel file
+        foreach ($tours as $index => $tour) {
+            // Set style for cells: Font bold, background is #dcf0dc
+            BaoCaoTongHop::set_cell_style($sheet, "A$row_index");
+            BaoCaoTongHop::set_cell_style($sheet, "B$row_index");
+            BaoCaoTongHop::set_cell_style($sheet, "C$row_index");
+
+            $sheet->setCellValue("A$row_index", $index + 1);        // STT
+            $sheet->setCellValue("B$row_index", (new DateTime($tour->ngay_thang))->format('d/m/Y'));
+            $sheet->setCellValue("C$row_index", $tour->ma_tour . ' - ' . $tour->ten_tour);
+            $sheet->setCellValue("D$row_index", $tour->phan_loai);
+            $sheet->setCellValue("E$row_index", (new DateTime($tour->bat_dau))->format('d/m/Y') . ' → ' . (new DateTime($tour->ket_thuc))->format('d/m/Y'));
+
+            $sheet->setCellValue("F$row_index", $tour->so_luong);
+            $sheet->setCellValue("G$row_index", $tour->gia_tour);
+            $sheet->setCellValue("H$row_index", $tour->gia_ban);
+            $sheet->setCellValue("I$row_index", $tour->lai);
+            $sheet->setCellValue("J$row_index", $tour->ten_khach_hang);
+
+            $sheet->setCellValue("K$row_index", $tour->da_thanh_toan);
+            $sheet->setCellValue("L$row_index", $tour->tinh_trang);
+            $sheet->setCellValue("M$row_index", $tour->username);
+            $sheet->setCellValue("N$row_index", $tour->ghi_chu);
+
+            $row_index++;
+
+            // Fill in all tour chi tiet
+            $tour_chi_tiets = $tour->tour_chi_tiets()->get();
+            foreach ($tour_chi_tiets as $index1 => $tour_chi_tiet) {
+                $sheet->setCellValue("A$row_index", ($index + 1) . '.' . ($index1 + 1));        // STT
+                $sheet->setCellValue("B$row_index", (new DateTime($tour_chi_tiet->ngay_thang))->format('d/m/Y'));
+                $sheet->setCellValue("C$row_index", $tour_chi_tiet->ma_hang . ' - ' . $tour_chi_tiet->ten_hang . "\nNCC: " . $tour_chi_tiet->nha_cung_cap);
+                $sheet->setCellValue("D$row_index", $tour_chi_tiet->phan_loai);
+                $sheet->setCellValue("E$row_index", (new DateTime($tour_chi_tiet->bat_dau))->format('d/m/Y') . ' → ' . (new DateTime($tour_chi_tiet->ket_thuc))->format('d/m/Y'));
+
+                $sheet->setCellValue("F$row_index", $tour_chi_tiet->so_luong);
+                $sheet->setCellValue("G$row_index", $tour_chi_tiet->don_gia);
+
+                $sheet->setCellValue("K$row_index", $tour_chi_tiet->da_thanh_toan);
+                $sheet->setCellValue("N$row_index", $tour_chi_tiet->ghi_chu);
+                $row_index++;
+            }
+        }
+
+        //set the header first, so the result will be treated as an xlsx file.
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        //make it an attachment so we can define filename
+        header('Content-Disposition: attachment;filename="result.xlsx"');
+        $writer = IOFactory::createWriter($spreadSheet, "Xlsx");
+        // Write file to output
+        $writer->save('php://output');
+    }
 
     /**
      * Chi tiết đối soát tài khoản

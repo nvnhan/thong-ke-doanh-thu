@@ -373,14 +373,14 @@ class ThemFile
             // Ngay dat
             $tmp->ngay_thang = self::parse_date($cols[3]->plaintext);
 
-            $tmp->ma_dai_ly = $cols[6]->plaintext;
+            $tmp->ma_dai_ly = $cols[5]->plaintext;
             $tmp->ten_khach = str_replace(',', '', $cols[2]->plaintext);
 
             // Loai tuoi
             $tmp->loai_tuoi = 0;
 
             // tong Tien
-            $tmp->tong_tien = self::parse_money($cols[9]->plaintext) / 100;
+            $tmp->tong_tien = self::parse_money($cols[6]->plaintext) / 100;
 
             // Hanh trinh, ngay bay, chuyen bay
             $hanh_trinh = $cols[4]->plaintext;

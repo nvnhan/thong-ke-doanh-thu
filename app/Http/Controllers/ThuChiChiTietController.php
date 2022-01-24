@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BanRa;
 use App\DatVe;
 use App\MuaVao;
+use App\Scopes\OfUserScope;
 use App\ThuChi;
 use App\ThuChiChiTiet;
 use App\Tour;
@@ -24,7 +25,7 @@ class ThuChiChiTietController extends BaseController
     public function index(Request $request)
     {
         if (!empty($request->tc)) {
-            $objs = ThuChiChiTiet::where('id_thu_chi', $request->tc)->with(['ban_ra', 'mua_vao', 'dat_ve', 'tour', 'tour_chi_tiet', 'visa'])->get();
+            $objs = ThuChiChiTiet::where('id_thu_chi', $request->tc)->get();
             return $this->sendResponse($objs, "ThuChiChiTiet retrieved successfully");
         } else return $this->sendError("Error", []);
     }
@@ -79,7 +80,11 @@ class ThuChiChiTietController extends BaseController
             }
         } else {
             $tkDen = $thuChi->tai_khoan_dens;
-            $muaVaos = $tkDen->mua_vaos()->whereNull('ngay_thanh_toan')->get();
+            // Mua vào của user ứng với hàng hóa của nhà cung cấp tkDen
+            $muaVaos = $tkDen->mua_vaos()
+                ->withoutGlobalScope(OfUserScope::class)
+                ->whereIn('mua_vao.username', optional(\Auth::user())->user_zone)
+                ->whereNull('ngay_thanh_toan')->get();
             foreach ($muaVaos as $t) {
                 $tmp = new stdClass;
                 $tmp->id = "mv_" . $t->id;
@@ -89,14 +94,19 @@ class ThuChiChiTietController extends BaseController
                 $tmp->noi_dung = "$t->ma_hang - $t->ten_hang";
                 $result[] = $tmp;
             }
-            $tct = $tkDen->tour_chi_tiets()->whereNull('ngay_thanh_toan')->get();
+            // Các tour chi tiết của user ứng với hàng hóa của nhà cung cấp tkDen
+            // Lấy các tour của user hiện tại
+            $tours = Tour::pluck('id');
+            $tct = $tkDen->tour_chi_tiets()
+                ->whereIn('id_tour', $tours)
+                ->whereNull('ngay_thanh_toan')->get();
             foreach ($tct as $t) {
                 $tmp = new stdClass;
                 $tmp->id = "tct_" . $t->id;
                 $tmp->phan_loai = "Tour chi tiết";
                 $tmp->so_tien = $t->chua_thanh_toan;
                 $tmp->ngay_thang = (new DateTime($t->ngay_thang))->format('d/m/Y');
-                $tmp->noi_dung = $t->tour->ma_tour . ", Hàng: $t->ma_hang - $t->ten_hang";
+                $tmp->noi_dung = $t->ma_tour . ", Hàng: $t->ma_hang - $t->ten_hang";
                 $result[] = $tmp;
             }
         }

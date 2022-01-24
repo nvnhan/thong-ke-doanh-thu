@@ -220,6 +220,10 @@ class Report
     public static function maucongno(Request $request, string $tu_ngay = "", string $den_ngay = "", $dat_ve = [], KhachHang $khach_hang = null)
     {
         $user = $request->user();
+        $thu_chi = [];
+        $tours = [];
+        $visas = [];
+        $ban_ras = [];
         // Prepare Excel File
         $file = storage_path('app/reports') . "/cong-no.xlsx";
         $reader = IOFactory::createReader("Xlsx");
@@ -238,7 +242,6 @@ class Report
         $sheet->setCellValue("G3", "From date: " . (new DateTime($tu_ngay))->format('d/m/Y'));
         $sheet->setCellValue("G4", "To date: " . (new DateTime($den_ngay))->format('d/m/Y'));
 
-        $thu_chi = [];
         // Chỉ có khách hàng === Xuất phát từ Công nợ chi tiết ==> Tính toàn bộ theo khách hàng
         if ($dat_ve == []) {
             // Đặt vé phát sinh trong khoảng thời gian của khách hàng tương ứng
@@ -247,21 +250,11 @@ class Report
             // All thu chi of this Customer
             $thu_chi = $khach_hang->thu_chis->whereBetween('ngay_thang', [$tu_ngay, $den_ngay]);
 
-            //TODO: Other object: Tour, Visa...
+            $tours = $khach_hang->tours->whereBetween('ngay_thang', [$tu_ngay, $den_ngay]);
+            $visas = $khach_hang->visas->whereBetween('ngay_thang', [$tu_ngay, $den_ngay]);
+            $ban_ras = $khach_hang->ban_ras->whereBetween('ngay_thang', [$tu_ngay, $den_ngay]);
         } else if ($khach_hang == null)
             $khach_hang = $dat_ve[0]->khach_hang->load(['dat_ves', 'thu_chis', 'ban_ras', 'visas', 'tours']);
-
-        // Fill Customer Info
-        $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
-        $no_dau_ky = 0;
-        if ($khach_hang != null) {
-            $sheet->setCellValue("A7", "Kính gửi (To):    $khach_hang->ho_ten");
-            $sheet->setCellValue("A8", "Tên giao dịch (Name):   $khach_hang->ho_ten - Tel: $khach_hang->sdt - Email: $khach_hang->email");
-            $no_dau_ky = $khach_hang->so_du_ky_truoc
-                + BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc)
-                - BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
-            $sheet->setCellValue("M8", $no_dau_ky);
-        }
 
         $data = [];
         $interval = DateInterval::createFromDateString('1 day');
@@ -298,43 +291,86 @@ class Report
                 $row_count++;
             }
         }
-
         foreach ($thu_chi as $tc) {
             $ngay = (new DateTime($tc->ngay_thang))->format('d/m/Y');
             $obj = new stdClass;
             $obj->ngay_thang = $ngay;
-            $obj->chung_tu = "";
-            $obj->no = 0;
             $obj->noi_dung = "$tc->tai_khoan_di => $tc->tai_khoan_den - $tc->hang_muc";
-            $obj->dich_vu = '';
-            $obj->tong_tien = '';
-            $obj->loai_tuoi = '';
             $obj->co = $tc->so_tien;
 
             $sco += $obj->co;
             $data[$ngay][] = $obj;
             $row_count++;
         }
+        foreach ($tours as $tc) {
+            $ngay = (new DateTime($tc->ngay_thang))->format('d/m/Y');
+            $obj = new stdClass;
+            $obj->ngay_thang = $ngay;
+            $obj->chung_tu = $tc->ma_tour;
+            $obj->no = $tc->tong_tien_ban;
+            $obj->noi_dung = "$tc->ten_tour | $tc->phan_loai";
+
+            $sno += $obj->no;
+            $data[$ngay][] = $obj;
+            $row_count++;
+        }
+        foreach ($visas as $tc) {
+            $ngay = (new DateTime($tc->ngay_thang))->format('d/m/Y');
+            $obj = new stdClass;
+            $obj->ngay_thang = $ngay;
+            $obj->chung_tu = $tc->ma_visa;
+            $obj->no = $tc->gia_ban;
+            $obj->noi_dung = "$tc->quoc_gia | $tc->phan_loai";
+
+            $sno += $obj->no;
+            $data[$ngay][] = $obj;
+            $row_count++;
+        }
+        foreach ($ban_ras as $tc) {
+            $ngay = (new DateTime($tc->ngay_thang))->format('d/m/Y');
+            $obj = new stdClass;
+            $obj->ngay_thang = $ngay;
+            $obj->chung_tu = $tc->ma_hang;
+            $obj->no = $tc->thanh_tien_ban;
+            $obj->noi_dung = "$tc->ten_hang | $tc->so_luong | $tc->phan_loai | $tc->nha_cung_cap";
+
+            $sno += $obj->no;
+            $data[$ngay][] = $obj;
+            $row_count++;
+        }
+
+        // Fill Customer Info
+        $ngayTruoc = date('Y-m-d', strtotime($tu_ngay . ' - 1 days'));
+        $no_dau_ky = 0;
+        if ($khach_hang != null) {
+            $sheet->setCellValue("A7", "Kính gửi (To):    $khach_hang->ho_ten");
+            $sheet->setCellValue("A8", "Tên giao dịch (Name):   $khach_hang->ho_ten - Tel: $khach_hang->sdt - Email: $khach_hang->email");
+            $no_dau_ky = $khach_hang->so_du_ky_truoc
+                + BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc)
+                - BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
+            $sheet->setCellValue("M8", $no_dau_ky);
+        }
         // No Cuoi Ky
         $sheet->setCellValue("M17", $no_dau_ky + $sco - $sno);
 
-        $sheet->insertNewRowBefore(15, $row_count);
+        if ($row_count > 0)
+            $sheet->insertNewRowBefore(15, $row_count);
         $sheet->removeRow(13, 2);
         $row_index = 13;
         foreach ($data as $ngay => $values) {
             foreach ($values as $value) {
                 $sheet->setCellValue("A$row_index", $row_index - 12);
                 $sheet->setCellValue("B$row_index", $ngay);
-                $sheet->setCellValue("C$row_index", $value->chung_tu);
+                $sheet->setCellValue("C$row_index", optional($value)->chung_tu);
                 $sheet->setCellValue("E$row_index", $value->noi_dung);
 
-                $sheet->setCellValue("G$row_index", $value->loai_tuoi);
-                $sheet->setCellValue("H$row_index", $value->tong_tien);
-                $sheet->setCellValue("I$row_index", $value->dich_vu);
+                $sheet->setCellValue("G$row_index", optional($value)->loai_tuoi);
+                $sheet->setCellValue("H$row_index", optional($value)->tong_tien);
+                $sheet->setCellValue("I$row_index", optional($value)->dich_vu);
 
-                $sheet->setCellValue("L$row_index", $value->no);
-                $sheet->setCellValue("M$row_index", $value->co);
-                $no_dau_ky += $value->co - $value->no;
+                $sheet->setCellValue("L$row_index", optional($value)->no);
+                $sheet->setCellValue("M$row_index", optional($value)->co);
+                $no_dau_ky += optional($value)->co - optional($value)->no;
                 $sheet->setCellValue("N$row_index", $no_dau_ky);
                 $row_index++;
             }

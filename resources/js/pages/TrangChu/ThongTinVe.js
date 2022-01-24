@@ -41,6 +41,11 @@ const ThongTinVe = memo(props => {
         },
         xaxis: {
             categories: data.thongtinve.hang_muc || []
+        },
+        tooltip: {
+            y: {
+                formatter: val => val + " vé"
+            }
         }
     };
 

@@ -73,7 +73,9 @@ const DoanhSo = memo(props => {
         tooltip: {
             y: {
                 formatter: val =>
-                    val + (doanhSo === "thang" ? " nghìn" : " triệu")
+                    val < 1000
+                        ? val + " nghìn"
+                        : Math.round(val / 100) / 10 + " triệu"
             }
         }
     };

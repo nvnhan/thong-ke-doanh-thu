@@ -71,11 +71,16 @@ const ThongTinDatVe = memo(props => {
             tooltip: {
                 enabled: false
             }
+        },
+        tooltip: {
+            y: {
+                formatter: val => val + " vé"
+            }
         }
     };
     const series = [
         {
-            name: "Thanh toán",
+            name: "Vé thanh toán",
             type: "area",
             data: data.datve.thanh_toans || [],
             color: "#AB4B64"

@@ -50,7 +50,7 @@ const SoDuTaiKhoan = memo(props => {
             enabled: true,
             offsetY: -20,
             style: {
-                fontSize: "12px",
+                fontSize: "10px",
                 fontWeight: "normal",
                 colors: ["#777"]
             }
@@ -60,7 +60,10 @@ const SoDuTaiKhoan = memo(props => {
         },
         tooltip: {
             y: {
-                formatter: val => val + " nghìn"
+                formatter: val =>
+                    val < 1000
+                        ? val + " nghìn"
+                        : Math.round(val / 100) / 10 + " triệu"
             }
         }
     };

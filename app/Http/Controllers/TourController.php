@@ -38,6 +38,7 @@ class TourController extends BaseController
         $obj = Tour::create($data);
         $obj->username = $request->user()->username;
         $obj->save();
+        $obj->refresh();
         return $this->sendResponse($obj, "Thêm mới thành công");
     }
 

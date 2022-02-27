@@ -72,7 +72,7 @@ class UserController extends BaseController
         $obj->fill($data);
         if (!$user->admin && $obj->phan_quyen > 1)
             $obj->phan_quyen = 0;
-            
+
         $obj->username = strtolower($obj->username);
         $obj->id_nguoi_tao = $user->id;
         $obj->password = Hash::make('123');
@@ -129,5 +129,23 @@ class UserController extends BaseController
 
         $user->delete();
         return $this->sendResponse('', "Xóa thành công nhân viên");
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $model
+     * @return \Illuminate\Http\Response
+     */
+    public function reset(Request $request, $id)
+    {
+        $auth = User::where('username', $request->user()->username)->first();
+        if (Hash::check($request->password, $auth->password)) {
+            $user = User::find($id);
+            $user->password = Hash::make('123');
+            $user->save();
+            return $this->sendResponse($user, "Khôi phục thành công thành công");
+        } else return $this->sendError("Không đúng mật khẩu quản trị viên");
     }
 }

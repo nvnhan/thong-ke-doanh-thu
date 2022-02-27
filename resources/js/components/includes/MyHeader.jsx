@@ -24,13 +24,17 @@ const MyHeader = memo(props => {
     const menu = () => (
         <Menu>
             <Menu.Item>
-                <span className="muted-text">Vai trò: {authUser.quyen}</span>
+                <span className="muted-text">Vai trò: </span>
+                <b>{authUser.quyen}</b>
             </Menu.Item>
-            <Menu.Item>
-                <span className="muted-text">
-                    Số ngày đăng nhập còn lại: {authUser.ngay_dang_nhap_con_lai}
-                </span>
-            </Menu.Item>
+            {!authUser.admin && (
+                <Menu.Item>
+                    <span className="muted-text">
+                        Số ngày đăng nhập còn lại:{" "}
+                        {authUser.ngay_dang_nhap_con_lai}
+                    </span>
+                </Menu.Item>
+            )}
             <Menu.Divider />
             <Menu.Item key="profile">
                 <Link to="/cai-dat-ca-nhan">Cài đặt cá nhân</Link>

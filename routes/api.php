@@ -103,6 +103,7 @@ Route::middleware('auth:api')->group(function () {
     Route::middleware('checkadmin')->group(function () {
         Route::get('cai-dat', 'SettingController@index');
         Route::put('cai-dat', 'SettingController@update');
+        Route::put('reset/{id}', 'UserController@reset');
     });
 
     Route::get('nhan-vien/all', 'UserController@all');

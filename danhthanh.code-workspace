@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "..\\..\\2022\\bao-luu-dinh-danh"
 		}
 	],
 	"settings": {}

@@ -102,48 +102,57 @@ class Dashboard
             $data[$tmp] = $val;
         }
         // Calculate data
-        $dv = DatVe::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
-            ->select('ngay_thang', DB::raw('count(*) as dat_ve, sum(tong_tien_thu_khach) as thu_khach, sum(lai) as lai'))->get();
-        $tt = DatVe::whereBetween('ngay_thanh_toan', [$bat_dau, $ket_thuc])->groupBy('ngay_thanh_toan')
-            ->select(DB::raw('ngay_thanh_toan as ngay_thang'), DB::raw('count(*) as thanh_toan'))->get();
+        if ($request->user()->dat_ve) {
+            $dv = DatVe::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
+                ->select('ngay_thang', DB::raw('count(*) as dat_ve, sum(tong_tien_thu_khach) as thu_khach, sum(lai) as lai'))->get();
+            $tt = DatVe::whereBetween('ngay_thanh_toan', [$bat_dau, $ket_thuc])->groupBy('ngay_thanh_toan')
+                ->select(DB::raw('ngay_thanh_toan as ngay_thang'), DB::raw('count(*) as thanh_toan'))->get();
 
-        $to = Tour::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->get();
-        $vs = Visa::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
-            ->select('ngay_thang', DB::raw('sum(gia_ban) as gia_ban, sum(lai) as lai'))->get();
-        $br = BanRa::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
-            ->select('ngay_thang', DB::raw('sum(thanh_tien_ban) as thanh_tien_ban, sum(thanh_tien_ban-thanh_tien_mua) as lai'))->get();
+            // Fill Datve
+            foreach ($dv as $item) {
+                $ngay = new DateTime($item->ngay_thang);
+                $nt = trim($ngay->format('d/m'));
+                $data[$nt]->dat_ve += $item->dat_ve;
+                $data[$nt]->thu_khach += $item->thu_khach;
+                $data[$nt]->lai += $item->lai;
+            }
+            // Fill number of ThanhToan of DatVe
+            foreach ($tt as $item) {
+                $ngay = new DateTime($item->ngay_thang);
+                $nt = trim($ngay->format('d/m'));
+                $data[$nt]->thanh_toan += $item->thanh_toan;
+            }
+        }
 
-        // Fill Datve
-        foreach ($dv as $item) {
-            $ngay = new DateTime($item->ngay_thang);
-            $nt = trim($ngay->format('d/m'));
-            $data[$nt]->dat_ve = $item->dat_ve;
-            $data[$nt]->thu_khach = $item->thu_khach;
-            $data[$nt]->lai = $item->lai;
+        if ($request->user()->tour_visa) {
+            $to = Tour::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->get();
+            $vs = Visa::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
+                ->select('ngay_thang', DB::raw('sum(gia_ban) as gia_ban, sum(lai) as lai'))->get();
+
+            foreach ($to as $item) {
+                $ngay = new DateTime($item->ngay_thang);
+                $nt = trim($ngay->format('d/m'));
+                $data[$nt]->thu_khach += $item->tong_tien_ban;
+                $data[$nt]->lai += $item->lai;
+            }
+            foreach ($vs as $item) {
+                $ngay = new DateTime($item->ngay_thang);
+                $nt = trim($ngay->format('d/m'));
+                $data[$nt]->thu_khach += $item->gia_ban;
+                $data[$nt]->lai += $item->lai;
+            }
         }
-        // Fill number of ThanhToan of DatVe
-        foreach ($tt as $item) {
-            $ngay = new DateTime($item->ngay_thang);
-            $nt = trim($ngay->format('d/m'));
-            $data[$nt]->thanh_toan = $item->thanh_toan;
-        }
-        foreach ($to as $item) {
-            $ngay = new DateTime($item->ngay_thang);
-            $nt = trim($ngay->format('d/m'));
-            $data[$nt]->thu_khach += $item->tong_tien_ban;
-            $data[$nt]->lai += $item->lai;
-        }
-        foreach ($vs as $item) {
-            $ngay = new DateTime($item->ngay_thang);
-            $nt = trim($ngay->format('d/m'));
-            $data[$nt]->thu_khach += $item->gia_ban;
-            $data[$nt]->lai += $item->lai;
-        }
-        foreach ($br as $item) {
-            $ngay = new DateTime($item->ngay_thang);
-            $nt = trim($ngay->format('d/m'));
-            $data[$nt]->thu_khach += $item->thanh_tien_ban;
-            $data[$nt]->lai += $item->lai;
+
+        if ($request->user()->ban_hang) {
+            $br = BanRa::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
+                ->select('ngay_thang', DB::raw('sum(thanh_tien_ban) as thanh_tien_ban, sum(thanh_tien_ban-thanh_tien_mua) as lai'))->get();
+
+            foreach ($br as $item) {
+                $ngay = new DateTime($item->ngay_thang);
+                $nt = trim($ngay->format('d/m'));
+                $data[$nt]->thu_khach += $item->thanh_tien_ban;
+                $data[$nt]->lai += $item->lai;
+            }
         }
         // Generate Result
         $result = new stdClass;

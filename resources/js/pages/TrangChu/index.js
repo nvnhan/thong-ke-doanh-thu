@@ -3,6 +3,7 @@ import Form from "antd/lib/form/index";
 import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import React, { memo, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import MyRangePicker from "../../components/Controls/MyRangePicker";
 import { parseValues } from "../../utils";
 import DoanhSo from "./DoanhSo";
@@ -12,6 +13,7 @@ import ThongTinVe from "./ThongTinVe";
 
 const TrangChu = memo(props => {
     const [form] = Form.useForm();
+    const authUser = useSelector(state => state.authUser);
     const [data, setData] = useState({
         datve: [],
         ds_nam: [],
@@ -43,19 +45,21 @@ const TrangChu = memo(props => {
 
     return (
         <>
-            <Row gutter={[16, 16]}>
-                <Col span={24} md={12}>
-                    <div className="chart-card">
-                        <ThongTinDatVe data={data} />
-                    </div>
-                </Col>
+            {authUser.dat_ve && (
+                <Row gutter={[16, 16]}>
+                    <Col span={24} md={12}>
+                        <div className="chart-card">
+                            <ThongTinDatVe data={data} />
+                        </div>
+                    </Col>
 
-                <Col span={24} md={12}>
-                    <div className="chart-card">
-                        <ThongTinVe data={data} />
-                    </div>
-                </Col>
-            </Row>
+                    <Col span={24} md={12}>
+                        <div className="chart-card">
+                            <ThongTinVe data={data} />
+                        </div>
+                    </Col>
+                </Row>
+            )}
 
             <Row gutter={[16, 16]}>
                 <Col span={24} md={12}>
@@ -79,7 +83,7 @@ const TrangChu = memo(props => {
                 className="form-footer"
             >
                 <Row gutter={[16, 16]}>
-                    <Col span={18} md={12} lg={9} >
+                    <Col span={18} md={12} lg={9}>
                         <Form.Item
                             name="thoiGian"
                             label="Thời gian"

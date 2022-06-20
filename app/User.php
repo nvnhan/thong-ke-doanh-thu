@@ -20,7 +20,7 @@ class User extends Authenticatable
         'dai_ly', 'sdt', 'dia_chi', 'email', 'thong_bao',
         'ct_ten', 'ct_sdt', 'ct_fax', 'ct_email', 'ct_dia_chi', 'ct_mst',
         'ngay_het_han', 'actived', 'phan_quyen',
-        'tour_visa', 'ban_hang', 'extension',
+        'dat_ve', 'tour_visa', 'ban_hang', 'extension',
         'khong_gioi_han_dang_nhap', 'so_ngay_dang_nhap',
         'so_ket_qua'
     ];
@@ -41,6 +41,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'actived' => "boolean",
+        'dat_ve' => "boolean",
         'tour_visa' => "boolean",
         'ban_hang' => "boolean",
         'extension' => "boolean",
@@ -134,6 +135,7 @@ class User extends Authenticatable
     public function getTagsAttribute()
     {
         $tags = [];
+        if ($this->dat_ve) $tags[] = "Đặt vé";
         if ($this->tour_visa) $tags[] = "Tour - Visa";
         if ($this->ban_hang) $tags[] = "Bán hàng";
         if ($this->extension) $tags[] = "Tool";

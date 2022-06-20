@@ -27,6 +27,7 @@ const items = [
         key: "SUB_VMB",
         icon: <BookOutlined />,
         title: "Vé máy bay",
+        role: "dat_ve",
         childs: [
             {
                 key: SideMenus.VMB_DAT_VE,

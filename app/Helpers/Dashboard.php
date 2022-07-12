@@ -145,13 +145,13 @@ class Dashboard
 
         if ($request->user()->ban_hang) {
             $br = BanRa::whereBetween('ngay_thang', [$bat_dau, $ket_thuc])->groupBy('ngay_thang')
-                ->select('ngay_thang', DB::raw('sum(thanh_tien_ban) as thanh_tien_ban, sum(thanh_tien_ban-thanh_tien_mua) as lai'))->get();
+                ->select('ngay_thang', DB::raw('sum(thanh_tien_ban) as thanh_tien_ban, sum(thanh_tien_mua) as thanh_tien_mua'))->get();
 
             foreach ($br as $item) {
                 $ngay = new DateTime($item->ngay_thang);
                 $nt = trim($ngay->format('d/m'));
                 $data[$nt]->thu_khach += $item->thanh_tien_ban;
-                $data[$nt]->lai += $item->lai;
+                $data[$nt]->lai += $item->thanh_tien_ban - $item->thanh_tien_mua;
             }
         }
         // Generate Result
@@ -252,7 +252,7 @@ class Dashboard
             ->groupBy('thang')
             ->get();
         $br = BanRa::whereYear('ngay_thang', date('Y'))
-            ->select(DB::raw('MONTH(ngay_thang) as thang, sum(thanh_tien_ban) as thanh_tien_ban, sum(thanh_tien_ban-thanh_tien_mua) as lai'))
+            ->select(DB::raw('MONTH(ngay_thang) as thang, sum(thanh_tien_ban) as thanh_tien_ban, sum(thanh_tien_mua) as thanh_tien_mua'))
             ->groupBy('thang')
             ->get();
 
@@ -283,7 +283,7 @@ class Dashboard
         }
         foreach ($br as $item) {
             $result->thu_khachs[$item->thang - 1] += round($item->thanh_tien_ban / 1000);
-            $result->lais[$item->thang - 1] += round($item->lai / 1000);
+            $result->lais[$item->thang - 1] += round(($item->thanh_tien_ban - $item->thanh_tien_mua) / 1000);
         }
         return $result;
     }

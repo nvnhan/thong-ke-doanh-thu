@@ -201,9 +201,9 @@ const DataTable = React.memo(props => {
         ),
         onFilter: (value, record) =>
             record[dataIndex]
-                .toString()
-                .toLowerCase()
-                .includes(value.toLowerCase()),
+                ?.toString()
+                ?.toLowerCase()
+                ?.includes(value.toLowerCase()),
         onFilterDropdownVisibleChange: visible => {
             if (visible) {
                 setTimeout(() => searchInput.select());
@@ -218,7 +218,7 @@ const DataTable = React.memo(props => {
                     }}
                     searchWords={[searchText]}
                     autoEscape
-                    textToHighlight={text.toString()}
+                    textToHighlight={text?.toString()}
                 />
             ) : (
                 text

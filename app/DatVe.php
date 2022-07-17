@@ -81,7 +81,7 @@ class DatVe extends Model
 
     public function khach_hang()
     {
-        return $this->belongsTo('App\KhachHang', 'id_khach_hang');
+        return $this->belongsTo('App\KhachHang', 'id_khach_hang')->withoutGlobalScopes();
     }
 
     public function tai_khoan_mua()

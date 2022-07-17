@@ -67,7 +67,7 @@ class HangHoa extends Model
 
     public function getNhaCungCapAttribute()
     {
-        return $this->tai_khoan->mo_ta;
+        return $this->tai_khoan->ky_hieu ?? '';
     }
 
     public function tour_chi_tiets()

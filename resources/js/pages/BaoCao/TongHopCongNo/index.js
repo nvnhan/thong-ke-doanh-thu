@@ -204,7 +204,7 @@ const List = props => {
         {
             title: "Khách hàng",
             dataIndex: "khach_hang",
-            optFind: true,
+            // optFind: true,
             width: 170
         },
         {

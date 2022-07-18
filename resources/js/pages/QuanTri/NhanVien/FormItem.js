@@ -10,6 +10,7 @@ const { Option } = Select;
 
 const form = ({
     quanTri = false,
+    datVe = false,
     banHang = false,
     tourVisa = false,
     extension = false
@@ -99,6 +100,18 @@ const form = ({
                     />
                 </Form.Item>
             </Col>
+            {datVe && (
+                <Col span={12}>
+                    <Form.Item
+                        wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                        name="dat_ve"
+                        valuePropName="checked"
+                    >
+                        <Checkbox>Chức năng Đặt vé</Checkbox>
+                    </Form.Item>
+                </Col>
+            )}
+
             {tourVisa && (
                 <Col span={12}>
                     <Form.Item

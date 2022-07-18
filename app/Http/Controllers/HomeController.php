@@ -18,15 +18,17 @@ class HomeController extends BaseController
      */
     public function index(Request $request)
     {
+        if ($request->user()->dat_ve) {
+            $ttve = Dashboard::ThongTinVe($request);
+        }
         $datve = Dashboard::DatVeTrongThang($request);
         $ds_nam = Dashboard::DoanhSoTrongNam();
-        $ttve = Dashboard::ThongTinVe($request);
         $sum = 0;
         $sodu = Dashboard::TinhSoDuCuoiKy($request, $sum);
         $result = [
-            'datve' => $datve,
+            'datve' => $datve ?? [],
+            'thongtinve' => $ttve ?? [],
             'ds_nam' => $ds_nam,
-            'thongtinve' => $ttve,
             'sodu' => $sodu,
             'tong' => number_format($sum, 0)
         ];

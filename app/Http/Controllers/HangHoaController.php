@@ -93,7 +93,7 @@ class HangHoaController extends BaseController
 
     public function tonkho(Request $request)
     {
-        $date = date('Y-m-d');
+        $date = date('Y-m-d 0:0:0');
         if (!empty($request->den_ngay))
             $date = $request->den_ngay;
 
@@ -103,7 +103,7 @@ class HangHoaController extends BaseController
         foreach ($hang_hoa as $value) {
             $mv = $value->mua_vaos->where('ngay_thang', "<=", $date)->sum('so_luong');
             $br = $value->ban_ras->where('ngay_thang', "<=", $date)->sum('so_luong');
-            $hd = $value->ban_ras->where('ngay_hoan_doi_xong', "<=", $date)->sum('so_luong');
+            $hd = $value->ban_ras->whereNotNull('ngay_hoan_doi_xong')->where('ngay_hoan_doi_xong', "<=", $date)->sum('so_luong');
             $value->so_luong_ton_kho = $mv - $br + $hd;
             $value->setAppends(['so_luong_ton_kho', 'thanh_tien_ton_kho', 'nha_cung_cap']);
         }
@@ -149,7 +149,7 @@ class HangHoaController extends BaseController
             // Tồn kho đến cuối kỳ
             $mv = $value->mua_vaos->where('ngay_thang', "<=", $ket_thuc)->sum('so_luong');
             $br = $value->ban_ras->where('ngay_thang', "<=", $ket_thuc)->sum('so_luong');
-            $hd = $value->ban_ras->where('ngay_hoan_doi_xong', "<=", $ket_thuc)->sum('so_luong');
+            $hd = $value->ban_ras->whereNotNull('ngay_hoan_doi_xong')->where('ngay_hoan_doi_xong', "<=", $ket_thuc)->sum('so_luong');
             $value->so_luong_ton_kho = $mv - $br + $hd;
 
             $value->setAppends([

@@ -77,7 +77,7 @@ class DatVeController extends BaseController
         $den_ngay = date('Y-m-d H:i:s');
         if (!empty($request->den_ngay))
             $den_ngay = $request->den_ngay;
-            
+
         $objs = DatVe::where(fn ($query) => $query
             ->where('ngay_gio_di', ">", $den_ngay)
             ->orWhere('ngay_gio_ve', '>', $den_ngay));
@@ -159,6 +159,7 @@ class DatVeController extends BaseController
     public function themfile(Request $request)
     {
         $cnt = 0;
+        \Log::debug($request->all());
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $ext = strtolower($file->getClientOriginalExtension());

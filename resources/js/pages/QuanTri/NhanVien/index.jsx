@@ -167,6 +167,7 @@ const List = memo(props => {
                 formTemplate={
                     <FormItem
                         quanTri={authUser.admin}
+                        datVe={authUser.admin || authUser.dat_ve}
                         banHang={authUser.admin || authUser.ban_hang}
                         tourVisa={authUser.admin || authUser.tour_visa}
                         extension={authUser.admin || authUser.extension}

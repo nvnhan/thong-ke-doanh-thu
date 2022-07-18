@@ -97,16 +97,11 @@ class BaoCaoHelper
     public static function TinhTonKho(string $date2)
     {
         $tonKho = 0;
-        $hh = HangHoa::with(['mua_vaos', 'ban_ras'])->get();
-        foreach ($hh as $h) {
-            $q = $h->mua_vaos->where('ngay_thang', '<=', $date2);
-            $sl = $q->sum('so_luong');
-
-            $q = $h->ban_ras->where('ngay_thang', '<=', $date2);
-            $sl -= $q->sum('so_luong');
-
-            $q = $h->ban_ras->where('ngay_hoan_doi_xong', '<=', $date2);
-            $sl += $q->sum('so_luong');
+        $hang_hoa = HangHoa::whereHas('mua_vaos', fn ($query) => $query->where('ngay_thang', "<=", $date2))->with(['mua_vaos', 'ban_ras'])->get();
+        foreach ($hang_hoa as $h) {
+            $sl = $h->mua_vaos->where('ngay_thang', '<=', $date2)->sum('so_luong');
+            $sl -= $h->ban_ras->where('ngay_thang', '<=', $date2)->sum('so_luong');
+            $sl += $h->ban_ras->whereNotNull('ngay_hoan_doi_xong')->where('ngay_hoan_doi_xong', "<=", $date2)->sum('so_luong');
 
             if ($sl > 0)
                 $tonKho += $sl * $h->don_gia;

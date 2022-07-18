@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\HangHoa;
+use App\Helpers\ThemFileHangHoa;
 use App\Scopes\OfUserScope;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HangHoaController extends BaseController
 {
@@ -18,6 +20,8 @@ class HangHoaController extends BaseController
         $objs = HangHoa::query();
         if (!empty($request->ncc) && $request->ncc != -1)
             $objs = $objs->where('id_tai_khoan', $request->ncc);
+        if (!empty($request->dd))
+            $objs = $objs->where('dinh_danh', $request->dd);
         return $this->sendResponse($objs->with('tai_khoan')->get(), "HangHoa retrieved successfully");
     }
 
@@ -162,5 +166,31 @@ class HangHoaController extends BaseController
         }
 
         return $this->sendResponse($hang_hoa, "HangHoa retrieved successfully");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function themfile(Request $request)
+    {
+        $cnt = 0;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $ext = strtolower($file->getClientOriginalExtension());
+            $dinh_danh = $file->getClientOriginalName() . time();
+            $file->storeAs('upload', "$dinh_danh.$ext"); // Upload file to storage/app/upload
+
+            if ($ext === 'xls' || $ext === 'xlsx')
+                $cnt = ThemFileHangHoa::parse_excel($request, $dinh_danh, $ext);
+
+            Storage::delete("upload/$dinh_danh.$ext");
+        }
+
+        if ($cnt > 0)
+            return $this->sendResponse($dinh_danh, "Thêm mới thành công $cnt mục");
+        else return $this->sendError("Không xử lý được");
     }
 }

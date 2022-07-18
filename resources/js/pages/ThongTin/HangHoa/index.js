@@ -6,6 +6,7 @@ import { setHangHoaList } from "../../../actions/actHangHoa";
 import ListForm from "../../../components/ListForm";
 import { unionDataBy } from "../../../utils";
 import FormItem from "./FormItem";
+import exportToExcel from "../../../utils/exportToExcel";
 
 const List = React.memo(props => {
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const List = React.memo(props => {
 
     const [phanLoai, setPhanLoai] = useState([]);
     const [ncc, setNcc] = useState(props.location.ncc);
+    const dinh_danh = props.location.dd;
 
     const onClickAll = () => setNcc(undefined);
 
@@ -90,15 +92,75 @@ const List = React.memo(props => {
         </div>
     );
 
+    const exportDS = (data, selectedRowKeys) => {
+        const filtered = data.filter(p => selectedRowKeys.indexOf(p.id) !== -1);
+        const newData = filtered.map((p, index) => ({
+            stt: index + 1,
+            ma_hang: p.ma_hang,
+            ten_hang: p.ten_hang,
+            nha_cung_cap: p.nha_cung_cap,
+            phan_loai: p.phan_loai,
+            don_vi: p.don_vi,
+            don_gia: p.don_gia,
+            ghi_chu: p.ghi_chu,
+            username: p.username
+        }));
+        const dataExport = [
+            {
+                stt: "STT",
+                ma_hang: "Mã hàng",
+                ten_hang: "Tên hàng",
+                nha_cung_cap: "Nhà cung cấp",
+                phan_loai: "Phân loại",
+                don_vi: "Đơn vị tính",
+                don_gia: "Đơn giá",
+                ghi_chu: "Ghi chú",
+                username: "Người nhập"
+            },
+            ...newData
+        ];
+        exportToExcel(dataExport, "hang-hoa.xlsx");
+    };
+
+    const otherButtons = [
+        {
+            key: "them-tu-file",
+            onClick: () =>
+                props.history.push({ pathname: "/hang-hoa/them-file" }),
+            title: "Thêm từ file",
+            selectRequired: false
+        },
+        {
+            key: "export",
+            onClick: exportDS,
+            title: "Xuất danh sách ra Excel"
+        }
+    ];
+
     return (
         <React.Fragment>
             {ncc !== undefined && getNhaCungCapDetail()}
+            {dinh_danh !== undefined && (
+                <div
+                    style={{ padding: "16px 20px 0", backgroundColor: "#fff" }}
+                >
+                    <b>Dữ liệu xử lý được:</b>
+                </div>
+            )}
             <ListForm
                 url="hang-hoa"
-                filter={ncc !== undefined ? { ncc: ncc.id } : undefined}
+                filter={
+                    ncc !== undefined
+                        ? { ncc: ncc.id }
+                        : dinh_danh
+                        ? { dd: dinh_danh }
+                        : undefined
+                }
                 columns={columns}
+                insertable={dinh_danh === undefined}
                 tableSize={{ x: 800 }}
                 modalWidth="800px"
+                otherButtons={otherButtons}
                 onChangeData={onChangeData}
                 formTemplate={<FormItem phanLoai={phanLoai} nhaCungCap={ncc} />}
                 formInitialValues={{ don_gia: 0 }}

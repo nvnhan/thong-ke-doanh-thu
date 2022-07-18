@@ -5,12 +5,10 @@ import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
 import message from "antd/lib/message/index";
 import Modal from "antd/lib/modal/index";
-import Progress from "antd/lib/progress/index";
 import Upload from "antd/lib/upload/index";
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import showWaiting from "../../../components/Includes/ShowWaiting";
-import { parseValues } from "../../../utils";
+import showWaiting from "../../../../components/Includes/ShowWaiting";
 import FormItem from "./FormItem";
 
 const index = props => {
@@ -18,7 +16,7 @@ const index = props => {
     const [columns, setColumns] = useState(() => {
         // Get data from localStorage
         let cols = {};
-        const cot = localStorage.getItem("cot_thu_chi");
+        const cot = localStorage.getItem("cot_hang_hoa");
         if (cot !== undefined) Object.assign(cols, JSON.parse(cot));
         //
         return cols;
@@ -29,14 +27,11 @@ const index = props => {
      * Lưu thông tin cột vào localStorage
      */
     const saveColumns = cols => {
-        delete cols.thoiGian;
         delete cols.file;
-        localStorage.setItem("cot_thu_chi", JSON.stringify(cols));
+        localStorage.setItem("cot_hang_hoa", JSON.stringify(cols));
     };
 
     const getFormData = values => {
-        values = parseValues(values, "YYYY-MM-DD");
-
         const data = new FormData();
         data.append("file", fileList[0]);
 
@@ -58,7 +53,7 @@ const index = props => {
 
         // Truyền lên server
         axios
-            .post(`/api/thu-chi/them-file`, data, {
+            .post(`/api/hang-hoa/them-file`, data, {
                 headers: {
                     "Content-Type":
                         "multipart/form-data; charset=utf-8; boundary=" +
@@ -71,7 +66,7 @@ const index = props => {
                 if (response.data.success) {
                     message.success(response.data.message);
                     props.history.push({
-                        pathname: "/thu-chi",
+                        pathname: "/hang-hoa",
                         dd: response.data.data
                     });
                 } else message.error(response.data.message);

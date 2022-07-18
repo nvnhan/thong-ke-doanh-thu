@@ -24,7 +24,7 @@ class ThemFileThuChi
         // filter data 
         // Lọc từ ngày đến ngày
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
-            $parse = array_filter($parse, fn ($item) => $item->ngay_thang >= $request->bat_dau && $item->ngay_thang <= $request->ket_thucS);
+            $parse = array_filter($parse, fn ($item) => $item->ngay_thang >= $request->bat_dau && $item->ngay_thang <= $request->ket_thuc);
 
         $cnt = 0;
         foreach ($parse as $item) {

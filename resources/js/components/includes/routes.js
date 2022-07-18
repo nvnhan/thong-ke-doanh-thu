@@ -43,6 +43,9 @@ const TaiKhoan = lazy(() => import("../../pages/ThongTin/TaiKhoan"));
 const NhaCungCap = lazy(() => import("../../pages/ThongTin/NhaCungCap"));
 const KhachHang = lazy(() => import("../../pages/ThongTin/KhachHang"));
 const HangHoa = lazy(() => import("../../pages/ThongTin/HangHoa"));
+const ThemFileHangHoa = lazy(() =>
+    import("../../pages/ThongTin/HangHoa/ThemFile")
+);
 
 const Profile = lazy(() => import("../../pages/Account/Profile"));
 const Password = lazy(() => import("../../pages/Account/Password"));
@@ -284,10 +287,18 @@ const routes = [
     },
     {
         path: "/hang-hoa",
-        exact: false,
+        exact: true,
         title: "Hàng hóa",
         menu: menus.TT_HANG_HOA,
         component: <HangHoa />,
+        role: "ban_hang"
+    },
+    {
+        path: "/hang-hoa/them-file",
+        exact: false,
+        title: "Thêm Hàng hóa từ Excel",
+        menu: "",
+        component: <ThemFileHangHoa />,
         role: "ban_hang"
     },
     {

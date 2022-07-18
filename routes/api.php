@@ -76,6 +76,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('hang-hoa/get-hang-hoa', 'HangHoaController@all');
     Route::delete('hang-hoa/deletes', 'HangHoaController@deletes');
+    Route::post('hang-hoa/them-file', 'HangHoaController@themfile');
     Route::resource('hang-hoa', 'HangHoaController')->only(['index', 'store', 'update', 'destroy']);
 
     // Tour - Visa

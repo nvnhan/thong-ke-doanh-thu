@@ -1,3 +1,7 @@
+import ArrowLeftOutlined from "@ant-design/icons/ArrowLeftOutlined";
+import ContainerOutlined from "@ant-design/icons/ContainerOutlined";
+import Button from "antd/lib/button";
+import { withRouter } from "react-router-dom";
 import isEmpty from "lodash/isEmpty";
 import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
@@ -7,6 +11,7 @@ import FormItem from "./FormItem";
 
 const List = React.memo(props => {
     const [formValue, setFormValue] = useState(undefined);
+    const [hoaDon, setHoaDon] = useState(undefined);
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
@@ -33,16 +38,32 @@ const List = React.memo(props => {
                 moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
         {
+            title: "Số hóa đơn",
+            dataIndex: "so_hoa_don",
+            width: 100,
+            align: "center",
+            render: (text, record) =>
+                text && (
+                    <Button
+                        size="small"
+                        type="link"
+                        onClick={() => setHoaDon(text)}
+                    >
+                        {(text + "").padStart(4, "0")}
+                    </Button>
+                )
+        },
+        {
             title: "Mã hàng",
             dataIndex: "ma_hang",
             optFind: true,
-            width: 120
+            width: 140
         },
         {
             title: "Tên hàng",
             dataIndex: "ten_hang",
             optFind: true,
-            width: 140
+            width: 200
         },
         {
             title: "Nhà cung cấp",
@@ -55,24 +76,30 @@ const List = React.memo(props => {
             dataIndex: "don_gia",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.don_gia - b.don_gia,
-            width: 120
+            width: 120,
+            align: "right"
         },
         {
             title: "Số lượng",
             dataIndex: "so_luong",
-            width: 120
+            width: 80,
+            align: "center"
         },
         {
             title: "Thành tiền",
             dataIndex: "thanh_tien",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.thanh_tien - b.thanh_tien,
-            width: 120
+            width: 120,
+            align: "right"
         },
         {
             title: "Thanh toán",
             dataIndex: "ngay_thanh_toan",
-            width: 120
+            width: 120,
+            sorter: (a, b) =>
+                moment(a.ngay_thang, "DD/MM/YYYY").unix() -
+                moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
         {
             title: "Ghi chú",
@@ -92,8 +119,8 @@ const List = React.memo(props => {
             return (
                 <>
                     <tr>
-                        <th colSpan={8}>Tổng cộng</th>
-                        <td>{vndFormater.format(thanh_tien)}</td>
+                        <th colSpan={9}>Tổng cộng</th>
+                        <td align="right">{vndFormater.format(thanh_tien)}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -153,22 +180,44 @@ const List = React.memo(props => {
     ];
 
     return (
-        <ListForm
-            url="mua-vao"
-            filterBox
-            columns={columns}
-            tableSize={{ x: 800 }}
-            formTemplate={<FormItem onChangeValue={handleFormValue} />}
-            formInitialValues={{
-                so_luong: 1,
-                ngay_thang: moment().format("DD/MM/YYYY")
-            }}
-            expandedRowRender={expandedRowRender}
-            setFormValues={formValue}
-            renderSummary={renderSummary}
-            otherButtons={otherButtons}
-        />
+        <>
+            {hoaDon !== undefined && (
+                <div
+                    style={{ padding: "16px 20px 0", backgroundColor: "#fff" }}
+                >
+                    <Button
+                        onClick={() => setHoaDon(undefined)}
+                        icon={<ArrowLeftOutlined />}
+                        type="link"
+                    />{" "}
+                    <b>Hóa đơn nhập hàng số: {hoaDon}</b>
+                </div>
+            )}
+            <ListForm
+                url="mua-vao"
+                filterBox={!hoaDon}
+                columns={columns}
+                tableSize={{ x: 800 }}
+                filter={hoaDon ? { hoa_don: hoaDon } : undefined}
+                formTemplate={
+                    <FormItem
+                        onChangeValue={handleFormValue}
+                        hasHoaDon={hoaDon !== undefined}
+                    />
+                }
+                otherParams={hoaDon ? { so_hoa_don: hoaDon } : undefined}
+                formInitialValues={{
+                    so_luong: 1,
+                    ngay_thang: moment().format("DD/MM/YYYY"),
+                    tao_hoa_don: true
+                }}
+                expandedRowRender={expandedRowRender}
+                setFormValues={formValue}
+                renderSummary={renderSummary}
+                otherButtons={otherButtons}
+            />
+        </>
     );
 });
 
-export default List;
+export default withRouter(List);

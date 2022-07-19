@@ -29,7 +29,8 @@ class BanRa extends Model
 
     protected $fillable = [
         'ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia_mua', 'don_gia_ban', 'id_khach_hang', 'ngay_hoan_doi',
-        'ngay_thanh_toan_hoan_doi', 'id_tai_khoan_tra_hoan_doi', 'ngay_hoan_doi_xong', 'ghi_chu'
+        'ngay_thanh_toan_hoan_doi', 'id_tai_khoan_tra_hoan_doi', 'ngay_hoan_doi_xong', 'ghi_chu',
+        'so_hoa_don'
     ];
 
     protected $appends = [
@@ -53,12 +54,12 @@ class BanRa extends Model
 
     public function hang_hoa()
     {
-        return $this->belongsTo('App\HangHoa', 'id_hang_hoa');
+        return $this->belongsTo('App\HangHoa', 'id_hang_hoa')->withoutGlobalScopes();
     }
 
     public function khach_hang()
     {
-        return $this->belongsTo('App\KhachHang', 'id_khach_hang');
+        return $this->belongsTo('App\KhachHang', 'id_khach_hang')->withoutGlobalScopes();
     }
 
     public function tai_khoan_doi_tra()
@@ -90,21 +91,21 @@ class BanRa extends Model
 
     public function getMaHangAttribute()
     {
-        return $this->hang_hoa->ma_hang;
+        return $this->hang_hoa->ma_hang ?? '';
     }
 
     public function getTenHangAttribute()
     {
-        return $this->hang_hoa->ten_hang;
+        return $this->hang_hoa->ten_hang ?? '';
     }
     public function getPhanLoaiAttribute()
     {
-        return $this->hang_hoa->phan_loai;
+        return $this->hang_hoa->phan_loai ?? '';
     }
 
     public function getNhaCungCapAttribute()
     {
-        return $this->hang_hoa->nha_cung_cap;
+        return $this->hang_hoa->nha_cung_cap ?? '';
     }
 
     public function getDaThanhToanAttribute()

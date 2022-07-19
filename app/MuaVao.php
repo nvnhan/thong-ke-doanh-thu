@@ -20,7 +20,7 @@ class MuaVao extends Model
         'so_luong' => 'integer'
     ];
 
-    protected $fillable = ['ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia', 'ghi_chu'];
+    protected $fillable = ['ngay_thang', 'id_hang_hoa', 'so_luong', 'don_gia', 'ghi_chu', 'so_hoa_don'];
 
     protected $appends = ['da_thanh_toan', 'ma_hang', 'ten_hang', 'phan_loai', 'nha_cung_cap', 'chua_thanh_toan'];
 
@@ -49,7 +49,7 @@ class MuaVao extends Model
 
     public function hang_hoa()
     {
-        return $this->belongsTo('App\HangHoa', 'id_hang_hoa');
+        return $this->belongsTo('App\HangHoa', 'id_hang_hoa')->withoutGlobalScopes();
     }
 
     public function thu_chi_chi_tiets()

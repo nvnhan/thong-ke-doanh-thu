@@ -1,3 +1,4 @@
+import Checkbox from "antd/lib/checkbox";
 import Form from "antd/lib/form/index";
 import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
@@ -28,6 +29,15 @@ const form = React.memo(props => {
 
     return (
         <React.Fragment>
+            {!props.hasHoaDon && (
+                <Form.Item
+                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
+                    name="tao_hoa_don"
+                    valuePropName="checked"
+                >
+                    <Checkbox>Tự động thêm vào hóa đơn nhập hàng</Checkbox>
+                </Form.Item>
+            )}
             <Form.Item
                 name="ngay_thang"
                 label="Ngày tháng"

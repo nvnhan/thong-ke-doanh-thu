@@ -85,8 +85,12 @@ const List = React.memo(props => {
                 <>
                     <tr>
                         <th colSpan={3}>Tổng cộng</th>
-                        <td>{vndFormater.format(sumObj.so_tien)}</td>
-                        <td>{vndFormater.format(sumObj.con_du)}</td>
+                        <td align="right">
+                            {vndFormater.format(sumObj.so_tien)}
+                        </td>
+                        <td align="right">
+                            {vndFormater.format(sumObj.con_du)}
+                        </td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -111,21 +115,23 @@ const List = React.memo(props => {
             title: "Nội dung",
             dataIndex: "hang_muc",
             optFind: true,
-            width: 140
+            width: 200
         },
         {
             title: "Số tiền",
             dataIndex: "so_tien",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.so_tien - b.so_tien,
-            width: 120
+            width: 120,
+            align: "right"
         },
         {
             title: "Còn dư",
             dataIndex: "con_du",
             render: number => vndFormater.format(number),
             sorter: (a, b) => a.con_du - b.con_du,
-            width: 120
+            width: 120,
+            align: "right"
         },
         {
             title: "TK chi",

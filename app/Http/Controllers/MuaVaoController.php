@@ -16,6 +16,8 @@ class MuaVaoController extends BaseController
     {
         if (!empty($request->bat_dau) && !empty($request->ket_thuc))
             $objs = MuaVao::whereBetween('ngay_thang', [$request->bat_dau, $request->ket_thuc]);
+        else if (!empty($request->hoa_don))
+            $objs = MuaVao::where('so_hoa_don', $request->hoa_don);
         else
             $objs = MuaVao::whereBetween('ngay_thang', [date('Y-m-01'), date('Y-m-t')]);
 
@@ -33,6 +35,10 @@ class MuaVaoController extends BaseController
         $data = $request->all();
         $obj = MuaVao::create($data);
         $obj->username = $request->user()->username;
+        if ($request->tao_hoa_don) {
+            $hoa_don = MuaVao::max('so_hoa_don') ?? 0;
+            $obj->so_hoa_don = $hoa_don + 1;
+        }
         $obj->save();
         $obj->refresh();
         return $this->sendResponse($obj, "Thêm mới thành công");

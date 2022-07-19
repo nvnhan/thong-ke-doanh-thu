@@ -25,28 +25,30 @@ const ToolsButton = React.memo(props => {
 
     const renderButtons = () => {
         return otherButtons.map(btn => {
-            if (
-                btn.childs === undefined &&
-                (btn.selectRequired === false || isSelected)
-            )
-                return (
-                    <Button
-                        type="default"
-                        key={btn.key}
-                        icon={btn.icon}
-                        onClick={() => btn.onClick(data, selectedRowKeys)}
-                    >
-                        {btn.title}
-                    </Button>
-                );
-            else if (btn.selectRequired === false || isSelected)
-                return (
-                    <Dropdown key={btn.key} overlay={layButtons(btn.childs)}>
-                        <Button icon={btn.icon}>
-                            {btn.title} <DownOutlined />
+            if (btn.hide) return "";
+            if (btn.selectRequired === false || isSelected)
+                if (btn.childs === undefined)
+                    return (
+                        <Button
+                            type="default"
+                            key={btn.key}
+                            icon={btn.icon}
+                            onClick={() => btn.onClick(data, selectedRowKeys)}
+                        >
+                            {btn.title}
                         </Button>
-                    </Dropdown>
-                );
+                    );
+                else
+                    return (
+                        <Dropdown
+                            key={btn.key}
+                            overlay={layButtons(btn.childs)}
+                        >
+                            <Button icon={btn.icon}>
+                                {btn.title} <DownOutlined />
+                            </Button>
+                        </Dropdown>
+                    );
             return "";
         });
     };

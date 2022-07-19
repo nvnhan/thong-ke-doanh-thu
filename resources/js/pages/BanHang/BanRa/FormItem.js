@@ -1,3 +1,4 @@
+import Checkbox from "antd/lib/checkbox";
 import Form from "antd/lib/form/index";
 import Col from "antd/lib/grid/col";
 import Row from "antd/lib/grid/row";
@@ -37,7 +38,20 @@ const form = React.memo(props => {
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>
-                <Col span={24} sm={12}>
+                {!props.hasHoaDon && (
+                    <Col span={24}>
+                        <Form.Item
+                            wrapperCol={{ sm: { offset: 4, span: 20 } }}
+                            name="tao_hoa_don"
+                            valuePropName="checked"
+                        >
+                            <Checkbox>
+                                Tự động thêm vào hóa đơn bán hàng
+                            </Checkbox>
+                        </Form.Item>
+                    </Col>
+                )}
+                <Col span={12}>
                     <Form.Item
                         name="ngay_thang"
                         label="Ngày tháng"
@@ -51,7 +65,7 @@ const form = React.memo(props => {
                         <MyDatePicker format="DD/MM/YYYY" />
                     </Form.Item>
                 </Col>
-                <Col span={12} sm={12}>
+                <Col span={12}>
                     <Form.Item
                         name="id_hang_hoa"
                         label="Hàng hóa"
@@ -69,7 +83,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={12} sm={12}>
+                <Col span={12}>
                     <Form.Item
                         name="don_gia_mua"
                         label="Giá mua"
@@ -89,7 +103,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={12} sm={12}>
+                <Col span={12}>
                     <Form.Item
                         name="so_luong"
                         label="Số lượng"
@@ -107,7 +121,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={12} sm={12}>
+                <Col span={12}>
                     <Form.Item
                         name="don_gia_ban"
                         label="Giá bán"
@@ -127,7 +141,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={12} sm={12}>
+                <Col span={12}>
                     <Form.Item name="id_khach_hang" label="Khách hàng">
                         <MySelect
                             placeholder="Chọn khách hàng"
@@ -136,7 +150,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={12} sm={12}>
+                <Col span={12}>
                     <Form.Item name="ngay_hoan_doi" label="Hoàn đổi">
                         <MyDatePicker
                             format="DD/MM/YYYY"
@@ -144,8 +158,13 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={24} sm={12}>
-                    <Form.Item name="ghi_chu" label="Ghi chú">
+                <Col span={24}>
+                    <Form.Item
+                        name="ghi_chu"
+                        label="Ghi chú"
+                        labelCol={{ sm: { span: 4 } }}
+                        wrapperCol={{ sm: { span: 20 } }}
+                    >
                         <Input />
                     </Form.Item>
                 </Col>

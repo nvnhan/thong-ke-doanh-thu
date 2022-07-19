@@ -94,20 +94,21 @@ const List = React.memo(props => {
         {
             title: "Loại đối tượng",
             dataIndex: "loai_doi_tuong",
-            width: 80
+            width: 70,
+            align: "center"
         },
         {
             title: "Số tiền",
             dataIndex: "so_tien",
             render: number => vndFormater.format(number),
             width: 110,
-            sorter: (a, b) => a.so_tien - b.so_tien
+            sorter: (a, b) => a.so_tien - b.so_tien,
+            align: "right"
         },
         {
             title: "Chi tiết",
             dataIndex: "chi_tiet",
-            ellipsis: true,
-            width: 300
+            width: 400
         }
     ];
 
@@ -122,7 +123,7 @@ const List = React.memo(props => {
                 <>
                     <tr>
                         <th colSpan={3}>Tổng cộng</th>
-                        <td>
+                        <td align="right">
                             <span style={toiDa <= 0 ? { color: "red" } : {}}>
                                 {vndFormater.format(sumObj.so_tien)}
                             </span>
@@ -155,7 +156,7 @@ const List = React.memo(props => {
 
     return (
         <React.Fragment>
-            <div className="filter-box">
+            <div style={{ padding: "16px 20px 0", backgroundColor: "#fff" }}>
                 Ngày tháng: {thuChi.ngay_thang}. Thu chi:{" "}
                 <i>{thuChi.hang_muc}</i>. Số tiền:{" "}
                 <b>{vndFormater.format(thuChi.so_tien)}</b>
@@ -176,7 +177,7 @@ const List = React.memo(props => {
                 insertable={toiDa > 0}
                 editable={false}
                 columns={columns}
-                modalWidth="800px"
+                modalWidth={800}
                 formTemplate={
                     <FormItem
                         doiTuong={doiTuong}

@@ -35,7 +35,7 @@ class MuaVaoController extends BaseController
         $data = $request->all();
         $obj = MuaVao::create($data);
         $obj->username = $request->user()->username;
-        if ($request->tao_hoa_don) {
+        if (empty($request->so_hoa_don)) {
             $hoa_don = MuaVao::max('so_hoa_don') ?? 0;
             $obj->so_hoa_don = $hoa_don + 1;
         }

@@ -1,9 +1,9 @@
 import ArrowLeftOutlined from "@ant-design/icons/ArrowLeftOutlined";
 import ContainerOutlined from "@ant-design/icons/ContainerOutlined";
 import Button from "antd/lib/button";
-import { withRouter } from "react-router-dom";
 import isEmpty from "lodash/isEmpty";
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import exportToExcel from "../../../utils/exportToExcel";
@@ -11,7 +11,7 @@ import FormItem from "./FormItem";
 
 const List = React.memo(props => {
     const [formValue, setFormValue] = useState(undefined);
-    const [hoaDon, setHoaDon] = useState(undefined);
+    const [record, setRecord] = useState(undefined);
 
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
@@ -42,16 +42,11 @@ const List = React.memo(props => {
             dataIndex: "so_hoa_don",
             width: 100,
             align: "center",
-            render: (text, record) =>
-                text && (
-                    <Button
-                        size="small"
-                        type="link"
-                        onClick={() => setHoaDon(text)}
-                    >
-                        {(text + "").padStart(4, "0")}
-                    </Button>
-                )
+            optFind: true,
+            onCell: record => ({
+                onClick: () => setRecord(record),
+                style: { cursor: "pointer" }
+            })
         },
         {
             title: "Mã hàng",
@@ -153,6 +148,7 @@ const List = React.memo(props => {
             {
                 stt: "STT",
                 ngay_thang: "Ngày tháng",
+                so_hoa_don: "Số hóa đơn",
                 ma_hang: "Mã hàng",
                 ten_hang: "Tên hàng",
                 phan_loai: "Phân loại",
@@ -173,48 +169,82 @@ const List = React.memo(props => {
 
     const otherButtons = [
         {
+            key: "hoa_don",
+            // onClick: (data, selectedRowKeys) =>
+            //     exportDS(data, selectedRowKeys, "ban-ra.xlsx"),
+            title: "Xuất hóa đơn",
+            hide: !record || !record.so_hoa_don,
+            selectRequired: false,
+            icon: <ContainerOutlined />,
+            childs: [
+                {
+                    key: "hd_view",
+                    title: "Xem trực tiếp",
+                    selectRequired: false
+                },
+                {
+                    key: "hd_export",
+                    title: "Xuất file Excel",
+                    selectRequired: false
+                }
+            ]
+        },
+        {
             key: "export",
             onClick: exportDS,
             title: "Xuất danh sách ra Excel"
         }
     ];
 
+    const onChangeData = (data, newData) => {
+        if (newData && newData[0].so_hoa_don) setRecord(newData[0]);
+    };
+
     return (
         <>
-            {hoaDon !== undefined && (
+            {record?.so_hoa_don && (
                 <div
                     style={{ padding: "16px 20px 0", backgroundColor: "#fff" }}
                 >
                     <Button
-                        onClick={() => setHoaDon(undefined)}
+                        onClick={() => setRecord(undefined)}
                         icon={<ArrowLeftOutlined />}
                         type="link"
                     />{" "}
-                    <b>Hóa đơn nhập hàng số: {hoaDon}</b>
+                    <b>Hóa đơn nhập hàng số: {record.so_hoa_don}</b>
                 </div>
             )}
             <ListForm
                 url="mua-vao"
-                filterBox={!hoaDon}
+                filterBox={!record?.so_hoa_don}
                 columns={columns}
                 tableSize={{ x: 800 }}
-                filter={hoaDon ? { hoa_don: hoaDon } : undefined}
+                filter={
+                    record?.so_hoa_don
+                        ? { hoa_don: record.so_hoa_don }
+                        : undefined
+                }
                 formTemplate={
                     <FormItem
                         onChangeValue={handleFormValue}
-                        hasHoaDon={hoaDon !== undefined}
+                        hoaDon={record?.so_hoa_don}
                     />
                 }
-                otherParams={hoaDon ? { so_hoa_don: hoaDon } : undefined}
+                otherParams={
+                    record ? { so_hoa_don: record.so_hoa_don } : undefined
+                }
                 formInitialValues={{
                     so_luong: 1,
-                    ngay_thang: moment().format("DD/MM/YYYY"),
-                    tao_hoa_don: true
+                    ngay_thang: record
+                        ? record.ngay_thang
+                        : moment().format("DD/MM/YYYY"),
+                    so_hoa_don: record?.so_hoa_don
                 }}
                 expandedRowRender={expandedRowRender}
                 setFormValues={formValue}
                 renderSummary={renderSummary}
                 otherButtons={otherButtons}
+                onChangeData={onChangeData}
             />
         </>
     );

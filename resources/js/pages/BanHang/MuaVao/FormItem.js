@@ -29,15 +29,12 @@ const form = React.memo(props => {
 
     return (
         <React.Fragment>
-            {!props.hasHoaDon && (
-                <Form.Item
-                    wrapperCol={{ sm: { offset: 8, span: 16 } }}
-                    name="tao_hoa_don"
-                    valuePropName="checked"
-                >
-                    <Checkbox>Tự động thêm vào hóa đơn nhập hàng</Checkbox>
-                </Form.Item>
-            )}
+            <Form.Item name="so_hoa_don" label="Số hóa đơn">
+                <Input
+                    placeholder="Tự động thêm vào hóa đơn nhập hàng"
+                    disabled
+                />
+            </Form.Item>
             <Form.Item
                 name="ngay_thang"
                 label="Ngày tháng"
@@ -48,7 +45,10 @@ const form = React.memo(props => {
                     }
                 ]}
             >
-                <MyDatePicker format="DD/MM/YYYY" />
+                <MyDatePicker
+                    format="DD/MM/YYYY"
+                    disabled={props.hoaDon !== undefined}
+                />
             </Form.Item>
             <Form.Item
                 name="id_hang_hoa"

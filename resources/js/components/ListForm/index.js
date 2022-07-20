@@ -169,7 +169,7 @@ const ListForm = props => {
             });
             message.info(response.data.message);
             callback && callback(); // Callback from ModalConfirm to change loading button state
-            onChangeData && onChangeData(mergedData); // Callback from main form to recalc data
+            onChangeData && onChangeData(mergedData, newData); // Callback from main form to recalc data
         } else message.error(response.data.message);
     };
 

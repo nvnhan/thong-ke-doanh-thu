@@ -18,6 +18,7 @@ const FormEdit = React.memo(props => {
             // Khi mở modal render record khác
             else if (currentRecord !== undefined)
                 form.setFieldsValue(currentRecord);
+            else form.setFieldsValue(formInitialValues);
         }
         // tắt mdoal đi thì reset lại
         else {
@@ -26,12 +27,7 @@ const FormEdit = React.memo(props => {
     }); // Always run while render
 
     return (
-        <Form
-            form={form}
-            initialValues={formInitialValues}
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-        >
+        <Form form={form} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
             {formTemplate}
         </Form>
     );

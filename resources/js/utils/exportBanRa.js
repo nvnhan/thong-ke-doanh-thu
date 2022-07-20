@@ -15,6 +15,7 @@ const exportDS = (data, selectedRowKeys, name) => {
         {
             stt: "STT",
             ngay_thang: "Ngày tháng",
+            so_hoa_don: "Số hóa đơn",
             ma_hang: "Mã hàng",
             ten_hang: "Tên hàng",
             phan_loai: "Phân loại",

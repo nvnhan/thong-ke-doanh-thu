@@ -38,19 +38,19 @@ const form = React.memo(props => {
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>
-                {!props.hasHoaDon && (
-                    <Col span={24}>
-                        <Form.Item
-                            wrapperCol={{ sm: { offset: 4, span: 20 } }}
-                            name="tao_hoa_don"
-                            valuePropName="checked"
-                        >
-                            <Checkbox>
-                                Tự động thêm vào hóa đơn bán hàng
-                            </Checkbox>
-                        </Form.Item>
-                    </Col>
-                )}
+                <Col span={24}>
+                    <Form.Item
+                        name="so_hoa_don"
+                        label="Số hóa đơn"
+                        labelCol={{ sm: { span: 4 } }}
+                        wrapperCol={{ sm: { span: 20 } }}
+                    >
+                        <Input
+                            placeholder="Tự động thêm vào hóa đơn bán hàng"
+                            disabled
+                        />
+                    </Form.Item>
+                </Col>
                 <Col span={12}>
                     <Form.Item
                         name="ngay_thang"
@@ -62,7 +62,10 @@ const form = React.memo(props => {
                             }
                         ]}
                     >
-                        <MyDatePicker format="DD/MM/YYYY" />
+                        <MyDatePicker
+                            format="DD/MM/YYYY"
+                            disabled={props.hoaDon !== undefined}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -147,6 +150,7 @@ const form = React.memo(props => {
                             placeholder="Chọn khách hàng"
                             options={getKhachHangDetail(khachHang)}
                             onChange={null}
+                            disabled={props.hoaDon !== undefined}
                         />
                     </Form.Item>
                 </Col>

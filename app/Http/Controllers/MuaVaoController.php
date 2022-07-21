@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\BaoCaoHelper;
 use App\MuaVao;
+use App\TaiKhoan;
+use App\Tour;
+use App\TourChiTiet;
+use DateTime;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class MuaVaoController extends BaseController
 {
@@ -88,5 +94,71 @@ class MuaVaoController extends BaseController
         }
 
         return $this->sendError('Không xóa được', []);
+    }
+
+    public function hoadon(Request $request)
+    {
+        $hoa_don = $request['hoa_don'];
+        if (empty($hoa_don))
+            return;
+
+        $user = $request->user();
+        // Prepare Excel File
+        $file = storage_path('app/reports') . "/hoa-don-nhap-hang.xlsx";
+        $reader = IOFactory::createReader("Xlsx");
+        $spreadSheet = $reader->load($file);
+        $sheet = $spreadSheet->getSheet(0);
+
+        // Get data from SQL
+        $mua_vaos = MuaVao::where('so_hoa_don', $hoa_don)->with('hang_hoa')->get();
+        $nhaCungCap = TaiKhoan::where('id', $mua_vaos[0]->hang_hoa->tai_khoan->id)
+            ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
+            ->get()[0];
+
+        $sheet->setCellValue("A1", $user->ct_ten);
+        $sheet->setCellValue("A2", "Địa chỉ: " . $user->ct_dia_chi);
+        $sheet->setCellValue("A3", "Hotline: " . $user->ct_sdt);
+        $sheet->setCellValue("A7", "Số HĐ: " . str_pad($mua_vaos[0]->so_hoa_don, 4, '0', STR_PAD_LEFT));
+        $ngay = new DateTime($mua_vaos[0]->ngay_thang);
+        $sheet->setCellValue("A8", "Ngày " . $ngay->format('d') . " tháng " . $ngay->format('m') . " năm " . $ngay->format('Y'));
+        $sheet->setCellValue("B9", "$nhaCungCap->mo_ta ($nhaCungCap->ky_hieu)");
+        $sheet->setCellValue("B10", $nhaCungCap->sdt);
+        $sheet->setCellValue("B11", $nhaCungCap->dia_chi);
+
+        $rowIndex = 14;
+        if (count($mua_vaos) > 1) {
+            $sheet->insertNewRowBefore($rowIndex + 1, count($mua_vaos));
+            $sheet->removeRow($rowIndex + 1, 3);
+        }
+
+        $sum = 0;
+        foreach ($mua_vaos as $index => $mv) {
+            $sheet->setCellValue("A" . $rowIndex, $index + 1);            // STT
+            $sheet->setCellValue("B" . $rowIndex, $mv->hang_hoa->ten_hang ?? '');      // 
+            $sheet->setCellValue("C" . $rowIndex, $mv->so_luong ?? '');      // 
+            $sheet->setCellValue("D" . $rowIndex, $mv->don_gia ?? '');      // 
+            $sheet->setCellValue("E" . $rowIndex, $mv->thanh_tien ?? '');      // 
+            $sum += $mv->thanh_tien ?? 0;
+            $rowIndex++;
+        }
+
+        // Lấy các tour chi tiết và mua vào của user hiện tại
+        $tours = Tour::pluck('id');
+        $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
+        $mua_vaos = MuaVao::all();
+
+        $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
+        $dau_ky = BaoCaoHelper::TongThuTK($nhaCungCap, $ngayTruoc) - BaoCaoHelper::TongChiTK($nhaCungCap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
+        $rowIndex += 1;
+        $sheet->setCellValue("E" . $rowIndex, $dau_ky);
+        $rowIndex += 1;
+        $sheet->setCellValue("E" . $rowIndex, $sum);
+        //set the header first, so the result will be treated as an xlsx file.
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        //make it an attachment so we can define filename
+        header('Content-Disposition: attachment;filename="result.xlsx"');
+        $writer = IOFactory::createWriter($spreadSheet, "Xlsx");
+        // Write file to output
+        $writer->save('php://output');
     }
 }

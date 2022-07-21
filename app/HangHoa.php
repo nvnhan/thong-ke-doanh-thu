@@ -62,7 +62,7 @@ class HangHoa extends Model
 
     public function tai_khoan()
     {
-        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan');
+        return $this->belongsTo('App\TaiKhoan', 'id_tai_khoan')->withoutGlobalScopes();
     }
 
     public function getNhaCungCapAttribute()

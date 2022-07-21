@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\BanRa;
+use App\Helpers\BaoCaoHelper;
+use App\KhachHang;
+use DateTime;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class BanRaController extends BaseController
 {
@@ -88,5 +92,66 @@ class BanRaController extends BaseController
         }
 
         return $this->sendError('Không xóa được', []);
+    }
+
+    public function hoadon(Request $request)
+    {
+        $hoa_don = $request['hoa_don'];
+        if (empty($hoa_don))
+            return;
+
+        $user = $request->user();
+        // Prepare Excel File
+        $file = storage_path('app/reports') . "/hoa-don-ban-hang.xlsx";
+        $reader = IOFactory::createReader("Xlsx");
+        $spreadSheet = $reader->load($file);
+        $sheet = $spreadSheet->getSheet(0);
+
+        // Get data from SQL
+        $ban_ras = BanRa::where('so_hoa_don', $hoa_don)->with(['hang_hoa', 'khach_hang'])->get();
+        $khach_hang = KhachHang::where('id', $ban_ras[0]->id_khach_hang)
+            ->with(['thu_chis', 'dat_ves', 'ban_ras', 'tours', 'visas'])
+            ->get()[0];
+
+        $sheet->setCellValue("A1", $user->ct_ten);
+        $sheet->setCellValue("A2", "Địa chỉ: " . $user->ct_dia_chi);
+        $sheet->setCellValue("A3", "Hotline: " . $user->ct_sdt);
+        $sheet->setCellValue("A7", "Số HĐ: " . str_pad($ban_ras[0]->so_hoa_don, 4, '0', STR_PAD_LEFT));
+        $ngay = new DateTime($ban_ras[0]->ngay_thang);
+        $sheet->setCellValue("A8", "Ngày " . $ngay->format('d') . " tháng " . $ngay->format('m') . " năm " . $ngay->format('Y'));
+        $sheet->setCellValue("B9", "$khach_hang->ho_ten ($khach_hang->ma_khach_hang)");
+        $sheet->setCellValue("B10", $khach_hang->sdt);
+        $sheet->setCellValue("B11", $khach_hang->dia_chi);
+
+        $rowIndex = 14;
+        if (count($ban_ras) > 1) {
+            $sheet->insertNewRowBefore($rowIndex + 1, count($ban_ras));
+            $sheet->removeRow($rowIndex + 1, 3);
+        }
+
+        $sum = 0;
+        foreach ($ban_ras as $index => $br) {
+            $sheet->setCellValue("A" . $rowIndex, $index + 1);            // STT
+            $sheet->setCellValue("B" . $rowIndex, $br->hang_hoa->ten_hang ?? '');      // 
+            $sheet->setCellValue("C" . $rowIndex, $br->so_luong ?? '');      // 
+            $sheet->setCellValue("D" . $rowIndex, $br->don_gia_ban ?? '');      // 
+            $sheet->setCellValue("E" . $rowIndex, $br->thanh_tien_ban ?? '');      // 
+            $sum += $br->thanh_tien_ban ?? 0;
+            $rowIndex++;
+        }
+
+        $ngayTruoc = date('Y-m-d', strtotime($ban_ras[0]->ngay_thang . ' - 1 days'));
+        $dau_ky = $khach_hang->so_du_ky_truoc + BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc) - BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
+        $rowIndex += 1;
+        $sheet->setCellValue("E" . $rowIndex, $dau_ky);
+        $rowIndex += 1;
+        $sheet->setCellValue("E" . $rowIndex, $sum);
+        //set the header first, so the result will be treated as an xlsx file.
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        //make it an attachment so we can define filename
+        header('Content-Disposition: attachment;filename="result.xlsx"');
+        $writer = IOFactory::createWriter($spreadSheet, "Xlsx");
+        // Write file to output
+        $writer->save('php://output');
     }
 }

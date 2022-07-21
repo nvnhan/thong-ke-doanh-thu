@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
+import { downloadApi } from "../../../utils/downloadFile";
 import exportToExcel from "../../../utils/exportToExcel";
 import FormItem from "./FormItem";
 
@@ -170,8 +171,6 @@ const List = React.memo(props => {
     const otherButtons = [
         {
             key: "hoa_don",
-            // onClick: (data, selectedRowKeys) =>
-            //     exportDS(data, selectedRowKeys, "ban-ra.xlsx"),
             title: "Xuất hóa đơn",
             hide: !record || !record.so_hoa_don,
             selectRequired: false,
@@ -185,7 +184,13 @@ const List = React.memo(props => {
                 {
                     key: "hd_export",
                     title: "Xuất file Excel",
-                    selectRequired: false
+                    selectRequired: false,
+                    onClick: () =>
+                        downloadApi(
+                            "/api/mua-vao/xuat-hoa-don",
+                            { hoa_don: record.so_hoa_don },
+                            `Hóa đơn nhập hàng ${record.so_hoa_don}.xlsx`
+                        )
                 }
             ]
         },

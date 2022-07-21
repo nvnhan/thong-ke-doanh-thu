@@ -91,10 +91,12 @@ Route::middleware('auth:api')->group(function () {
 
     // Ban Hang
     Route::delete('ban-ra/deletes', 'BanRaController@deletes');
+    Route::get('ban-ra/xuat-hoa-don', 'BanRaController@hoadon');
     Route::resource('ban-ra', 'BanRaController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('hoan-doi', 'HoanDoiController')->only(['index', 'update']);
 
     Route::delete('mua-vao/deletes', 'MuaVaoController@deletes');
+    Route::get('mua-vao/xuat-hoa-don', 'MuaVaoController@hoadon');
     Route::resource('mua-vao', 'MuaVaoController')->only(['index', 'store', 'update', 'destroy']);
 
     Route::get('ton-kho', 'HangHoaController@tonkho');

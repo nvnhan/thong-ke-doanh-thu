@@ -129,6 +129,7 @@ class ThemText
     public static function parse_vj($lines, Request $request, $dinh_danh)
     {
         $hanh_khach = [];
+        $em_be = [];
         $i = 0;
         $line = "";
         $tmp = new stdClass;
@@ -139,51 +140,50 @@ class ThemText
         $tmp->ngay_thang = date('Y-m-d');
         $tmp->dinh_danh  = $dinh_danh;
 
-        for ($i = 0; $i < count($lines); $i++) {
-            preg_match("/(\d+)\/(\d+)\/(\d+)/", $lines[$i], $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
-            if (count($matches) > 0) {
-                $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
-                break;
-            }
-        }
-        for (; $i < 10; $i++) {
+        // Mẫu ngày 20/07/2022: Không có ngày tháng đặt vé
+
+        for ($i = 1; $i < 10; $i++) {
             $line = trim($lines[$i]);
-            if (strpos($line, "Tên hành khách") !== false || strpos($line, "Passenger Name") !== false)
+            if (strpos($line, "Chặng 1") !== false)
                 break;
         }
-        $i++;
-        for (; $i < count($lines); $i += 2) {
-            preg_match("/^[A-Z ,]+$/", $lines[$i], $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
-            if (count($matches) > 0)
-                $hanh_khach[] = trim(str_replace(',', '', $lines[$i]));
-            else
-                break;
-        }
-        $i += 2;
-
         // Chiều đi
-        $line = $lines[$i++];
-        $tmp->cb_di = explode(' ', str_replace("\t", ' ', $line))[0];
+        $line = $lines[$i];
+        preg_match("/([A-Z]{3})-([A-Z]{3})([A-Z0-9]+)$/", $line, $matches);
+        $tmp->cb_di = $matches[3];
+        $tmp->sb_di = $matches[1];
+        $tmp->sb_di1 = $matches[2];
 
-        preg_match("/(\d+)\/(\d+)\/(\d+)/", $line, $matches);
-        preg_match("/(\d+):(\d+)/", $line, $matches1);
+        $i += 2;
+        preg_match("/(\d+)\/(\d+)\/(\d{4})/", $lines[$i], $matches);
+        preg_match("/(\d+):(\d+)/", $lines[$i], $matches1);
         $tmp->ngay_gio_di = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
-        preg_match_all("/\(([A-Z]{3})\)/", $line, $matches);
-        $tmp->sb_di = $matches[1][0];
-        $tmp->sb_di1 = $matches[1][1];
+
+        $i += 2;
+        for (; $i < count($lines); $i += 2) {
+            preg_match("/([A-Z]+[A-Z, ]+)$/", $lines[$i], $matches); // Họ tên hành khách 
+            if (count($matches) > 0) {
+                $hanh_khach[] = trim(str_replace(',', '', $matches[1]));
+                if (strpos($lines[$i], 'Em bé') !== false) $em_be[] = true;
+                else $em_be[] = false;
+            } else
+                break;
+        }
 
         // // Chuyến về tương tự
-        if (count($lines) > $i) {
-            $line = $lines[$i];
-            $tmp->cb_ve = explode(' ', str_replace("\t", ' ', $line))[0];
-
-            preg_match("/(\d+)\/(\d+)\/(\d+)/", $line, $matches);
-            preg_match("/(\d+):(\d+)/", $line, $matches1);
-            if (count($matches) > 0 && count($matches1) > 0) {
+        for (; $i < count($lines); $i++) {
+            $line = trim($lines[$i]);
+            if (strpos($line, "Chặng 2") !== false) {
+                $line = $lines[$i];
+                preg_match("/([A-Z]{3})-([A-Z]{3})([A-Z0-9]+)$/", $line, $matches);
+                $tmp->cb_ve = $matches[3];
+                $tmp->sb_ve = $matches[1];
+                $tmp->sb_ve1 = $matches[2];
+                $i += 2;
+                preg_match("/(\d+)\/(\d+)\/(\d{4})/", $lines[$i], $matches);
+                preg_match("/(\d+):(\d+)/", $lines[$i], $matches1);
                 $tmp->ngay_gio_ve = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
-                preg_match_all("/\(([A-Z]{3})\)/", $line, $matches);
-                $tmp->sb_ve = $matches[1][0];
-                $tmp->sb_ve1 = $matches[1][1];
+                break;
             }
         }
 
@@ -193,6 +193,7 @@ class ThemText
 
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            if ($em_be[$j]) $obj->loai_tuoi = 2;
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???

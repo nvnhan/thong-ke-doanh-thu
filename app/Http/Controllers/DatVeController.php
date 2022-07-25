@@ -133,7 +133,7 @@ class DatVeController extends BaseController
         //     parseJetsMail();
         else if (strpos($text, "VIETNAM AIRLINES") !== false)
             $data = ThemText::parse_vn_mail($lines, $request, $dinh_danh);
-        else if (strlen(trim($lines[0])) === 8 || strpos($text, "Thông tin chuyến bay") !== false || strpos($text, "Flight Information") !== false)
+        else if (strlen(trim($lines[0])) === 8 || strpos($text, "Thông tin hành khách") !== false || strpos($text, "Flight Information") !== false)
             $data = ThemText::parse_vj($lines, $request, $dinh_danh);
         else if (count($lines) > 1 && strpos($lines[1], '1.1') !== false)
             $data = ThemText::parse_vn($lines, $request, $dinh_danh);

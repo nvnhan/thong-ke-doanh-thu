@@ -159,6 +159,7 @@ const form = React.memo(props => {
                         <MyDatePicker
                             format="DD/MM/YYYY"
                             placeholder="(không hoàn đổi)"
+                            allowClear
                         />
                     </Form.Item>
                 </Col>

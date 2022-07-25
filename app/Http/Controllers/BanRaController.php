@@ -124,7 +124,7 @@ class BanRaController extends BaseController
         $sheet->setCellValue("B11", $khach_hang->dia_chi);
 
         $rowIndex = 14;
-        if (count($ban_ras) > 1) {
+        if (count($ban_ras) >= 1) {
             $sheet->insertNewRowBefore($rowIndex + 1, count($ban_ras));
             $sheet->removeRow($rowIndex + 1, 3);
         }

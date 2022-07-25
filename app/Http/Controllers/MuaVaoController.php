@@ -126,7 +126,7 @@ class MuaVaoController extends BaseController
         $sheet->setCellValue("B11", $nhaCungCap->dia_chi);
 
         $rowIndex = 14;
-        if (count($mua_vaos) > 1) {
+        if (count($mua_vaos) >= 1) {
             $sheet->insertNewRowBefore($rowIndex + 1, count($mua_vaos));
             $sheet->removeRow($rowIndex + 1, 3);
         }

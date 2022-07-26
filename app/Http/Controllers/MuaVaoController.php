@@ -118,6 +118,7 @@ class MuaVaoController extends BaseController
         $sheet->setCellValue("A1", $user->ct_ten);
         $sheet->setCellValue("A2", "Địa chỉ: " . $user->ct_dia_chi);
         $sheet->setCellValue("A3", "Hotline: " . $user->ct_sdt);
+        $sheet->setCellValue("A4", "STK: " . $user->ct_mst);
         $sheet->setCellValue("A7", "Số HĐ: " . str_pad($mua_vaos[0]->so_hoa_don, 4, '0', STR_PAD_LEFT));
         $ngay = new DateTime($mua_vaos[0]->ngay_thang);
         $sheet->setCellValue("A8", "Ngày " . $ngay->format('d') . " tháng " . $ngay->format('m') . " năm " . $ngay->format('Y'));

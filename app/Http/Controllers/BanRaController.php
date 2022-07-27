@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BanRa;
 use App\Helpers\BaoCaoHelper;
 use App\KhachHang;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -94,7 +95,28 @@ class BanRaController extends BaseController
         return $this->sendError('Không xóa được', []);
     }
 
-    public function hoadon(Request $request)
+    public function hoadon(Request $request, $u, $id)
+    {
+        $user = User::find($u);
+        $objs = BanRa::withoutGlobalScopes()->allowUser($user)->where('so_hoa_don', $id)->get();
+        if (count($objs) >= 1) {
+            $khach_hang = KhachHang::withoutGlobalScopes()->where('id', $objs[0]->id_khach_hang)->get()[0];
+            // ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
+            // ->get()[0];
+
+            // Lấy các tour chi tiết và mua vào của user hiện tại
+            // $tours = Tour::pluck('id');
+            // $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
+            // $mua_vaos = MuaVao::all();
+
+            // $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
+            $dau_ky = 0; //BaoCaoHelper::TongThuTK($khach_hang, $ngayTruoc) - BaoCaoHelper::TongChiTK($khach_hang, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
+
+            return view('hoa-don.ban-ra', compact('user', 'objs', 'khach_hang', 'dau_ky'));
+        } else return redirect('/');
+    }
+
+    public function xuathoadon(Request $request)
     {
         $hoa_don = $request['hoa_don'];
         if (empty($hoa_don))

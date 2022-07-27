@@ -162,6 +162,17 @@ const List = React.memo(props => {
         });
     };
 
+    const xemHoaDon = (data, selectedRowKeys) => {
+        const u = localStorage.getItem("id");
+        const newWindow = window.open(
+            window.location.origin +
+                `/ban-ra/hoa-don/${u}/${record.so_hoa_don}`,
+            "_blank",
+            "noopener,noreferrer"
+        );
+        if (newWindow) newWindow.opener = null;
+    };
+
     const otherButtons = [
         {
             key: "hoa_don",
@@ -173,7 +184,8 @@ const List = React.memo(props => {
                 {
                     key: "hd_view",
                     title: "Xem trực tiếp",
-                    selectRequired: false
+                    selectRequired: false,
+                    onClick: xemHoaDon
                 },
                 {
                     key: "hd_export",

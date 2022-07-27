@@ -7,6 +7,7 @@ use App\MuaVao;
 use App\TaiKhoan;
 use App\Tour;
 use App\TourChiTiet;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -96,7 +97,28 @@ class MuaVaoController extends BaseController
         return $this->sendError('Không xóa được', []);
     }
 
-    public function hoadon(Request $request)
+    public function hoadon(Request $request, $u, $id)
+    {
+        $user = User::find($u);
+        $objs = MuaVao::withoutGlobalScopes()->allowUser($user)->where('so_hoa_don', $id)->get();
+        if (count($objs) >= 1) {
+            $nha_cung_cap = TaiKhoan::where('id', $objs[0]->hang_hoa->tai_khoan->id)->get()[0];
+            // ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
+            // ->get()[0];
+
+            // Lấy các tour chi tiết và mua vào của user hiện tại
+            // $tours = Tour::pluck('id');
+            // $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
+            // $mua_vaos = MuaVao::all();
+
+            // $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
+            $dau_ky = 0; //BaoCaoHelper::TongThuTK($nha_cung_cap, $ngayTruoc) - BaoCaoHelper::TongChiTK($nha_cung_cap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
+
+            return view('hoa-don.mua-vao', compact('user', 'objs', 'nha_cung_cap', 'dau_ky'));
+        } else return redirect('/');
+    }
+
+    public function xuathoadon(Request $request)
     {
         $hoa_don = $request['hoa_don'];
         if (empty($hoa_don))

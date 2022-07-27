@@ -47,6 +47,19 @@ class MuaVao extends Model
         static::addGlobalScope(new OfUserScope);
     }
 
+    public function scopeAllowUser($query, $user)
+    {
+        // Nhân viên đc xem hết
+        if ($user->phan_quyen < 2) // Nếu lá Quản lý đại lý
+            $user = $user->nguoi_tao()->first();      // Chủ đại lý
+
+        if ($user->phan_quyen === 9)      // admin
+            return $query->where('username', $user->username);
+
+        $users = $user->tao_ra()->pluck('username')->push($user->username);
+        return $query->whereIn('username', $users);
+    }
+
     public function hang_hoa()
     {
         return $this->belongsTo('App\HangHoa', 'id_hang_hoa')->withoutGlobalScopes();

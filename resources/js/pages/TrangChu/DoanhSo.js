@@ -4,9 +4,11 @@ import React, { memo, useState } from "react";
 
 const DoanhSo = memo(props => {
     const { data } = props;
-    const [doanhSo, setDoanhSo] = useState("thang");
+    const [doanhSo, setDoanhSo] = useState("datve");
+    const [phamVi, setPhamVi] = useState("tong");
 
     const onChange = e => setDoanhSo(e.target.value);
+    const onChangePhamVi = e => setPhamVi(e.target.value);
 
     const options = {
         chart: {
@@ -57,7 +59,7 @@ const DoanhSo = memo(props => {
         xaxis: {
             type: "category",
             categories:
-                doanhSo === "thang"
+                doanhSo === "datve"
                     ? data.datve.ngay_thangs
                     : data.ds_nam.thangs,
             labels: {
@@ -84,19 +86,13 @@ const DoanhSo = memo(props => {
         {
             name: "Doanh số",
             type: "column",
-            data:
-                doanhSo === "thang"
-                    ? data.datve.thu_khachs || []
-                    : data.ds_nam.thu_khachs || [],
+            data: data[doanhSo][phamVi]?.thu_khachs || [],
             color: "#4bab92"
         },
         {
             name: "Lợi nhuận",
             type: "area",
-            data:
-                doanhSo === "thang"
-                    ? data.datve.lais || []
-                    : data.ds_nam.lais || [],
+            data: data[doanhSo][phamVi]?.lais || [],
             color: "#AB4B64"
         }
     ];
@@ -111,12 +107,22 @@ const DoanhSo = memo(props => {
             />
 
             <Radio.Group
+                onChange={onChangePhamVi}
+                value={phamVi}
+                style={{ marginBottom: "10px" }}
+            >
+                <Radio value="tong">Tổng</Radio>
+                <Radio value="ve">Đặt vé</Radio>
+                <Radio value="khac">Khác</Radio>
+            </Radio.Group>
+
+            <Radio.Group
                 buttonStyle="solid"
                 onChange={onChange}
                 value={doanhSo}
             >
-                <Radio.Button value="thang">Theo ngày</Radio.Button>
-                <Radio.Button value="nam">Theo tháng</Radio.Button>
+                <Radio.Button value="datve">Theo ngày</Radio.Button>
+                <Radio.Button value="ds_nam">Theo tháng</Radio.Button>
             </Radio.Group>
         </>
     );

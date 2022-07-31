@@ -92,12 +92,19 @@ class Dashboard
         $end->modify('+1 day');
         $interval = DateInterval::createFromDateString('1 day');
         $period = new DatePeriod($begin, $interval, $end);
+        // Each day
         foreach ($period as $dt) {
             $val = new stdClass;
             $val->dat_ve = 0;
             $val->thanh_toan = 0;
-            $val->thu_khach = 0;
-            $val->lai = 0;
+
+            $val->thu_khach_ve = 0;
+            $val->lai_ve = 0;
+            $val->thu_khach_khac = 0;
+            $val->lai_khac = 0;
+            $val->thu_khach_tong = 0;
+            $val->lai_tong = 0;
+
             $tmp = $dt->format('d/m');
             $data[$tmp] = $val;
         }
@@ -113,8 +120,11 @@ class Dashboard
                 $ngay = new DateTime($item->ngay_thang);
                 $nt = trim($ngay->format('d/m'));
                 $data[$nt]->dat_ve += $item->dat_ve;
-                $data[$nt]->thu_khach += $item->thu_khach;
-                $data[$nt]->lai += $item->lai;
+
+                $data[$nt]->thu_khach_ve += $item->thu_khach;
+                $data[$nt]->lai_ve += $item->lai;
+                $data[$nt]->thu_khach_tong += $item->thu_khach;
+                $data[$nt]->lai_tong += $item->lai;
             }
             // Fill number of ThanhToan of DatVe
             foreach ($tt as $item) {
@@ -132,14 +142,18 @@ class Dashboard
             foreach ($to as $item) {
                 $ngay = new DateTime($item->ngay_thang);
                 $nt = trim($ngay->format('d/m'));
-                $data[$nt]->thu_khach += $item->tong_tien_ban;
-                $data[$nt]->lai += $item->lai;
+                $data[$nt]->thu_khach_khac += $item->tong_tien_ban;
+                $data[$nt]->lai_khac += $item->lai;
+                $data[$nt]->thu_khach_tong += $item->tong_tien_ban;
+                $data[$nt]->lai_tong += $item->lai;
             }
             foreach ($vs as $item) {
                 $ngay = new DateTime($item->ngay_thang);
                 $nt = trim($ngay->format('d/m'));
-                $data[$nt]->thu_khach += $item->gia_ban;
-                $data[$nt]->lai += $item->lai;
+                $data[$nt]->thu_khach_khac += $item->gia_ban;
+                $data[$nt]->lai_khac += $item->lai;
+                $data[$nt]->thu_khach_tong += $item->gia_ban;
+                $data[$nt]->lai_tong += $item->lai;
             }
         }
 
@@ -150,25 +164,33 @@ class Dashboard
             foreach ($br as $item) {
                 $ngay = new DateTime($item->ngay_thang);
                 $nt = trim($ngay->format('d/m'));
-                $data[$nt]->thu_khach += $item->thanh_tien_ban;
-                $data[$nt]->lai += $item->thanh_tien_ban - $item->thanh_tien_mua;
+                $data[$nt]->thu_khach_khac += $item->thanh_tien_ban;
+                $data[$nt]->lai_khac += $item->thanh_tien_ban - $item->thanh_tien_mua;
+                $data[$nt]->thu_khach_tong += $item->thanh_tien_ban;
+                $data[$nt]->lai_tong += $item->thanh_tien_ban - $item->thanh_tien_mua;
             }
         }
         // Generate Result
         $result = new stdClass;
         $result->ngay_thangs = [];
         $result->dat_ves = [];
-        $result->thu_khachs = [];
-        $result->lais = [];
         $result->thanh_toans = [];
+
+        $result->ve = new stdClass;
+        $result->khac = new stdClass;
+        $result->tong = new stdClass;
         foreach ($data as $key => $value) {
             $result->ngay_thangs[] = $key;
             // Thong tin Dat Ve
             $result->dat_ves[] = $value->dat_ve;
             $result->thanh_toans[] = $value->thanh_toan;
 
-            $result->thu_khachs[] = round($value->thu_khach / 1000);
-            $result->lais[] = round($value->lai / 1000);
+            $result->ve->thu_khachs[] = round($value->thu_khach_ve / 1000);
+            $result->ve->lais[] = round($value->lai_ve / 1000);
+            $result->khac->thu_khachs[] = round($value->thu_khach_khac / 1000);
+            $result->khac->lais[] = round($value->lai_khac / 1000);
+            $result->tong->thu_khachs[] = round($value->thu_khach_tong / 1000);
+            $result->tong->lais[] = round($value->lai_tong / 1000);
         }
         return $result;
     }
@@ -259,31 +281,44 @@ class Dashboard
         // Fill 12 months list
         $result = new stdClass;
         $result->thangs = [];
-        $result->thu_khachs = [];
-        $result->lais = [];
+        $result->ve = new stdClass;
+        $result->khac = new stdClass;
+        $result->tong = new stdClass;
         for ($i = 1; $i <= 12; $i++) {
             $result->thangs[] = "Tháng $i";
-            $result->thu_khachs[] = 0;
-            $result->lais[] = 0;
+            $result->ve->thu_khachs[] = 0;
+            $result->ve->lais[] = 0;
+            $result->khac->thu_khachs[] = 0;
+            $result->khac->lais[] = 0;
+            $result->tong->thu_khachs[] = 0;
+            $result->tong->lais[] = 0;
         }
 
         foreach ($dv as $item) {
-            $result->thu_khachs[$item->thang - 1] += round($item->thu_khach / 1000);
-            $result->lais[$item->thang - 1] += round($item->lai / 1000);
+            $result->ve->thu_khachs[$item->thang - 1] += round($item->thu_khach / 1000);
+            $result->ve->lais[$item->thang - 1] += round($item->lai / 1000);
+            $result->tong->thu_khachs[$item->thang - 1] += round($item->thu_khach / 1000);
+            $result->tong->lais[$item->thang - 1] += round($item->lai / 1000);
         }
         foreach ($to as $item) {
             $ngay = new DateTime($item->ngay_thang);
             $nt = trim($ngay->format('m'));
-            $result->thu_khachs[$nt - 1] += round($item->tong_tien_ban / 1000);
-            $result->lais[$nt - 1] += round($item->lai / 1000);
+            $result->khac->thu_khachs[$nt - 1] += round($item->tong_tien_ban / 1000);
+            $result->khac->lais[$nt - 1] += round($item->lai / 1000);
+            $result->tong->thu_khachs[$nt - 1] += round($item->tong_tien_ban / 1000);
+            $result->tong->lais[$nt - 1] += round($item->lai / 1000);
         }
         foreach ($vs as $item) {
-            $result->thu_khachs[$item->thang - 1] += round($item->gia_ban / 1000);
-            $result->lais[$item->thang - 1] += round($item->lai / 1000);
+            $result->khac->thu_khachs[$item->thang - 1] += round($item->gia_ban / 1000);
+            $result->khac->lais[$item->thang - 1] += round($item->lai / 1000);
+            $result->tong->thu_khachs[$item->thang - 1] += round($item->gia_ban / 1000);
+            $result->tong->lais[$item->thang - 1] += round($item->lai / 1000);
         }
         foreach ($br as $item) {
-            $result->thu_khachs[$item->thang - 1] += round($item->thanh_tien_ban / 1000);
-            $result->lais[$item->thang - 1] += round(($item->thanh_tien_ban - $item->thanh_tien_mua) / 1000);
+            $result->khac->thu_khachs[$item->thang - 1] += round($item->thanh_tien_ban / 1000);
+            $result->khac->lais[$item->thang - 1] += round(($item->thanh_tien_ban - $item->thanh_tien_mua) / 1000);
+            $result->tong->thu_khachs[$item->thang - 1] += round($item->thanh_tien_ban / 1000);
+            $result->tong->lais[$item->thang - 1] += round(($item->thanh_tien_ban - $item->thanh_tien_mua) / 1000);
         }
         return $result;
     }

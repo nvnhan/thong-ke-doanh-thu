@@ -1,53 +1,153 @@
+import Checkbox from "antd/lib/checkbox";
 import Form from "antd/lib/form/index";
+import Col from "antd/lib/grid/col";
+import Row from "antd/lib/grid/row";
+import InputNumber from "antd/lib/input-number/index";
 import Input from "antd/lib/input/index";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTaiKhoanList } from "../../../actions/actTaiKhoan";
+import { fetchHangHoaList } from "../../../actions/actHangHoa";
+import { fetchKhachHangList } from "../../../actions/actKhachHang";
 import MyDatePicker from "../../../components/Controls/MyDatePicker";
 import MySelect from "../../../components/Controls/MySelect";
-import { getTaiKhoanDetail } from "../../../utils/formatFormData";
+import { inputFormat, inputParse } from "../../../utils";
+import {
+    getHangHoaDetail,
+    getKhachHangDetail
+} from "../../../utils/formatFormData";
 
 const form = React.memo(props => {
     const dispatch = useDispatch();
-    const taiKhoanStatus = useSelector(state => state.taiKhoan.status);
-    const taiKhoan = useSelector(state => state.taiKhoan.list);
+    const khachHangStatus = useSelector(state => state.khachHang.status);
+    const hangHoaStatus = useSelector(state => state.hangHoa.status);
+    const khachHang = useSelector(state => state.khachHang.list);
+    const hangHoa = useSelector(state => state.hangHoa.list);
 
     useEffect(() => {
-        taiKhoanStatus === "idle" && dispatch(fetchTaiKhoanList());
+        khachHangStatus === "idle" && dispatch(fetchKhachHangList());
+        hangHoaStatus === "idle" && dispatch(fetchHangHoaList());
     }, []);
+    /**
+     * When change select Hang Hoa => Call trigger change FormValue in TourChiTiet => ListForm => FormEdit
+     */
+    const onChange = idHH => {
+        const hh = hangHoa.filter(item => item.id === idHH)[0];
+        if (hh) props.onChangeValue(hh.don_gia);
+    };
 
     return (
         <React.Fragment>
-            <Form.Item
-                name="ngay_hoan_doi"
-                label="Ngày tháng"
-                rules={[
-                    {
-                        required: true,
-                        message: "Nhập đầy đủ thông tin!"
-                    }
-                ]}
-            >
-                <MyDatePicker format="DD/MM/YYYY" />
-            </Form.Item>
-            <Form.Item name="ngay_thanh_toan_hoan_doi" label="Thanh toán">
-                <MyDatePicker format="DD/MM/YYYY" />
-            </Form.Item>
-            <Form.Item name="id_tai_khoan_tra_hoan_doi" label="TK trả">
-                <MySelect
-                    placeholder="Chọn tài khoản"
-                    options={getTaiKhoanDetail(taiKhoan)}
-                    onChange={null}
-                />
-            </Form.Item>
+            <Row gutter={[5, 5]}>
+                <Col span={12}>
+                    <Form.Item
+                        name="ngay_hoan_doi"
+                        label="Ngày hoàn đổi"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <MyDatePicker
+                            format="DD/MM/YYYY"
+                            disabled={props.hoaDon !== undefined}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item
+                        name="id_hang_hoa"
+                        label="Hàng hóa"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <MySelect
+                            placeholder="Chọn hàng hóa"
+                            options={getHangHoaDetail(hangHoa)}
+                            onChange={onChange}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item
+                        name="don_gia_mua"
+                        label="Giá mua"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <InputNumber
+                            style={{ width: "100%" }}
+                            min={0}
+                            step={1000}
+                            formatter={inputFormat}
+                            parser={inputParse}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item
+                        name="so_luong"
+                        label="Số lượng"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Nhập đầy đủ thông tin!"
+                            }
+                        ]}
+                    >
+                        <InputNumber
+                            style={{ width: "100%" }}
+                            min={1}
+                            step={1}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item name="id_khach_hang" label="Khách hàng">
+                        <MySelect
+                            placeholder="Chọn khách hàng"
+                            options={getKhachHangDetail(khachHang)}
+                            onChange={null}
+                            disabled={props.hoaDon !== undefined}
+                        />
+                    </Form.Item>
+                </Col>
+                {/* <Form.Item name="ngay_thanh_toan_hoan_doi" label="Thanh toán">
+                    <MyDatePicker format="DD/MM/YYYY" />
+                </Form.Item>
+                <Form.Item name="id_tai_khoan_tra_hoan_doi" label="TK trả">
+                    <MySelect
+                        placeholder="Chọn tài khoản"
+                        options={getTaiKhoanDetail(taiKhoan)}
+                        onChange={null}
+                    />
+                </Form.Item> */}
 
-            <Form.Item name="ngay_hoan_doi_xong" label="Hoàn đổi xong">
-                <MyDatePicker format="DD/MM/YYYY" />
-            </Form.Item>
-
-            <Form.Item name="ghi_chu" label="Ghi chú">
-                <Input />
-            </Form.Item>
+                <Col span={12}>
+                    <Form.Item name="ngay_hoan_doi_xong" label="Hoàn đổi xong">
+                        <MyDatePicker format="DD/MM/YYYY" />
+                    </Form.Item>
+                </Col>
+                <Col span={24}>
+                    <Form.Item
+                        name="ghi_chu"
+                        label="Ghi chú"
+                        labelCol={{ sm: { span: 4 } }}
+                        wrapperCol={{ sm: { span: 20 } }}
+                    >
+                        <Input />
+                    </Form.Item>
+                </Col>
+            </Row>
         </React.Fragment>
     );
 });

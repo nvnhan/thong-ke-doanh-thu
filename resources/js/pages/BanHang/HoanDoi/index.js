@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ListForm from "../../../components/ListForm";
 import { vndFormater } from "../../../utils";
 import exportDS from "../../../utils/exportBanRa";
 import FormItem from "./FormItem";
 
 const List = React.memo(props => {
+    const [formValue, setFormValue] = useState(undefined);
+
     const expandedRowRender = record => (
         <ul style={{ margin: 0 }}>
             <li>
@@ -28,7 +30,7 @@ const List = React.memo(props => {
 
     const columns = [
         {
-            title: "Ngày tháng",
+            title: "Ngày hoàn đổi",
             dataIndex: "ngay_hoan_doi",
             width: 120,
             sorter: (a, b) =>
@@ -52,33 +54,33 @@ const List = React.memo(props => {
             dataIndex: "so_luong",
             width: 90
         },
-        {
-            title: "Tổng tiền bán",
-            dataIndex: "thanh_tien_ban",
-            render: number => vndFormater.format(number),
-            sorter: (a, b) => a.thanh_tien_ban - b.thanh_tien_ban,
-            width: 120
-        },
+        // {
+        //     title: "Tổng tiền bán",
+        //     dataIndex: "thanh_tien_ban",
+        //     render: number => vndFormater.format(number),
+        //     sorter: (a, b) => a.thanh_tien_ban - b.thanh_tien_ban,
+        //     width: 120
+        // },
         {
             title: "Khách hàng",
             dataIndex: "ma_khach_hang",
             optFilter: true,
             width: 120
         },
-        {
-            title: "TT hoàn đổi",
-            dataIndex: "ngay_thanh_toan_hoan_doi",
-            width: 120
-        },
-        {
-            title: "TK trả hoàn đổi",
-            dataIndex: "tai_khoan_tra_hoan_doi",
-            width: 120,
-            optFilter: true
-        },
+        // {
+        //     title: "Thanh toán",
+        //     dataIndex: "ngay_thanh_toan_hoan_doi",
+        //     width: 120
+        // },
+        // {
+        //     title: "TK trả hoàn đổi",
+        //     dataIndex: "tai_khoan_tra_hoan_doi",
+        //     width: 120,
+        //     optFilter: true
+        // },
         {
             title: "Hoàn đổi xong",
-            dataIndex: "ngay_hoan_doi xong",
+            dataIndex: "ngay_hoan_doi_xong",
             width: 120
         },
         {
@@ -98,17 +100,63 @@ const List = React.memo(props => {
         }
     ];
 
+    // const renderSummary = data => {
+    //     if (!isEmpty(data)) {
+    //         const sumObj = data.reduce((previousValue, currentValue) => {
+    //             return {
+    //                 lai: previousValue.lai + currentValue.lai,
+    //                 thanh_tien_ban:
+    //                     previousValue.thanh_tien_ban +
+    //                     currentValue.thanh_tien_ban
+    //             };
+    //         });
+    //         return (
+    //             <>
+    //                 <tr>
+    //                     <th colSpan={7}>Tổng cộng</th>
+    //                     <td align="right">
+    //                         {vndFormater.format(sumObj.thanh_tien_ban)}
+    //                     </td>
+    //                     <td align="right">{vndFormater.format(sumObj.lai)}</td>
+    //                     <td></td>
+    //                     <td></td>
+    //                     <td></td>
+    //                     <td></td>
+    //                     <td></td>
+    //                 </tr>
+    //             </>
+    //         );
+    //     }
+    // };
+
+    /**
+     * Callback from FOrmItem, trigger when select Hang Hoa
+     * => Change setFormValues to ListForm => FormEdit
+     */
+    const handleFormValue = don_gia => {
+        setFormValue({
+            don_gia_mua: don_gia,
+            don_gia_ban: don_gia,
+            resetFields: () => setFormValue(undefined)
+        });
+    };
+
     return (
         <ListForm
             url="hoan-doi"
             filterBox
-            insertable={false}
-            deleteable={false}
             columns={columns}
             tableSize={{ x: 1200 }}
-            formTemplate={<FormItem />}
+            modalWidth={800}
+            formTemplate={<FormItem onChangeValue={handleFormValue} />}
+            formInitialValues={{
+                so_luong: 1,
+                ngay_hoan_doi: moment().format("DD/MM/YYYY")
+            }}
             expandedRowRender={expandedRowRender}
             otherButtons={otherButtons}
+            setFormValues={formValue}
+            // renderSummary={renderSummary}
         />
     );
 });

@@ -105,14 +105,14 @@ const List = React.memo(props => {
                 moment(a.ngay_thang, "DD/MM/YYYY").unix() -
                 moment(b.ngay_thang, "DD/MM/YYYY").unix()
         },
-        {
-            title: "Hoàn đổi",
-            dataIndex: "ngay_hoan_doi",
-            width: 120,
-            sorter: (a, b) =>
-                moment(a.ngay_thang, "DD/MM/YYYY").unix() -
-                moment(b.ngay_thang, "DD/MM/YYYY").unix()
-        },
+        // {
+        //     title: "Hoàn đổi",
+        //     dataIndex: "ngay_hoan_doi",
+        //     width: 120,
+        //     sorter: (a, b) =>
+        //         moment(a.ngay_thang, "DD/MM/YYYY").unix() -
+        //         moment(b.ngay_thang, "DD/MM/YYYY").unix()
+        // },
         {
             title: "Ghi chú",
             dataIndex: "ghi_chu",

@@ -93,7 +93,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('ban-ra/deletes', 'BanRaController@deletes');
     Route::get('ban-ra/xuat-hoa-don', 'BanRaController@xuathoadon');
     Route::resource('ban-ra', 'BanRaController')->only(['index', 'store', 'update', 'destroy']);
-    Route::resource('hoan-doi', 'HoanDoiController')->only(['index', 'update']);
+    Route::resource('hoan-doi', 'HoanDoiController')->only(['index', 'store', 'update', 'destroy']);
 
     Route::delete('mua-vao/deletes', 'MuaVaoController@deletes');
     Route::get('mua-vao/xuat-hoa-don', 'MuaVaoController@xuathoadon');

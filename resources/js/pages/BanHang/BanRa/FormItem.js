@@ -154,7 +154,7 @@ const form = React.memo(props => {
                         />
                     </Form.Item>
                 </Col>
-                <Col span={12}>
+                {/* <Col span={12}>
                     <Form.Item name="ngay_hoan_doi" label="Hoàn đổi">
                         <MyDatePicker
                             format="DD/MM/YYYY"
@@ -162,7 +162,7 @@ const form = React.memo(props => {
                             allowClear
                         />
                     </Form.Item>
-                </Col>
+                </Col> */}
                 <Col span={24}>
                     <Form.Item
                         name="ghi_chu"

@@ -14,16 +14,22 @@
         }
 
         h1 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: bold;
             background-color: #fff4ec;
-            padding: 10px;
+            padding: 5px 10px;
+            margin-bottom: 0;
+        }
+
+        p {
+            margin-bottom: 0;
         }
 
         .table .thead-light th {
             color: #495057;
             background-color: #cfffdad7;
-            border-color: #cfffdad7;
+            border-color: #dee2e6;
+            border-bottom: none;
         }
     </style>
 </head>

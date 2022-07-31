@@ -142,7 +142,7 @@ class BanRaController extends BaseController
         $sheet->setCellValue("A7", "Số HĐ: " . str_pad($ban_ras[0]->so_hoa_don, 4, '0', STR_PAD_LEFT));
         $ngay = new DateTime($ban_ras[0]->ngay_thang);
         $sheet->setCellValue("A8", "Ngày " . $ngay->format('d') . " tháng " . $ngay->format('m') . " năm " . $ngay->format('Y'));
-        $sheet->setCellValue("B9", "$khach_hang->ho_ten ($khach_hang->ma_khach_hang)");
+        $sheet->setCellValue("B9", "$khach_hang->ho_ten");
         $sheet->setCellValue("B10", $khach_hang->sdt);
         $sheet->setCellValue("B11", $khach_hang->dia_chi);
 

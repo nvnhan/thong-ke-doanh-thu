@@ -14,16 +14,22 @@
         }
 
         h1 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: bold;
             background-color: #fff4ec;
-            padding: 10px;
+            padding: 5px 10px;
+            margin-bottom: 0;
+        }
+
+        p {
+            margin-bottom: 0;
         }
 
         .table .thead-light th {
             color: #495057;
             background-color: #cfffdad7;
-            border-color: #cfffdad7;
+            border-color: #dee2e6;
+            border-bottom: none;
         }
     </style>
 </head>
@@ -55,7 +61,7 @@
 
         <div class="row mb-3">
             <div class="col">
-                Khách hàng: <b>{{ $khach_hang->ho_ten }} ({{ $khach_hang->ma_khach_hang }})</b><br>
+                Khách hàng: <b>{{ $khach_hang->ho_ten }}</b><br>
                 SĐT: <b>{{ $khach_hang->sdt }}</b><br>
                 Địa chỉ: <b>{{ $khach_hang->dia_chi }}</b>
             </div>

@@ -124,7 +124,7 @@ class ThemText
     }
 
     /**
-     * Parse VietJet
+     * Parse VietJet moi ngay 22/6
      */
     public static function parse_vj($lines, Request $request, $dinh_danh)
     {
@@ -170,6 +170,8 @@ class ThemText
                 break;
         }
 
+        if (count($hanh_khach) === 0) return parse_vj_old($lines, $request, $dinh_danh);
+
         // // Chuyến về tương tự
         for (; $i < count($lines); $i++) {
             $line = trim($lines[$i]);
@@ -194,6 +196,96 @@ class ThemText
             $obj->fill((array) $tmp);
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
             if ($em_be[$j]) $obj->loai_tuoi = 2;
+            DatVeHelper::add_gia($obj, $request);
+
+            // Chung code???
+            if ($obj->gia_net == 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $obj->refresh();        // Reload object from sql
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Parse VietJet
+     */
+    public static function parse_vj_old($lines, Request $request, $dinh_danh)
+    {
+        $hanh_khach = [];
+        $i = 0;
+        $line = "";
+        $tmp = new stdClass;
+        $tmp->so_ve = trim($lines[0]);
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "VJ";
+        $tmp->loai_tuoi = 0;
+        $tmp->ngay_thang = date('Y-m-d');
+        $tmp->dinh_danh  = $dinh_danh;
+
+        for ($i = 0; $i < count($lines); $i++) {
+            preg_match("/(\d+)\/(\d+)\/(\d+)/", $lines[$i], $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
+            if (count($matches) > 0) {
+                $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
+                break;
+            }
+        }
+        for (; $i < 10; $i++) {
+            $line = trim($lines[$i]);
+            if (strpos($line, "Tên hành khách") !== false || strpos($line, "Passenger Name") !== false)
+                break;
+        }
+        $i++;
+        for (; $i < count($lines); $i += 2) {
+            preg_match("/^[A-Z ,]+$/", $lines[$i], $matches); // Định dạng ngày tháng: dd Tháng MM YYYY
+            if (count($matches) > 0)
+                $hanh_khach[] = trim(str_replace(',', '', $lines[$i]));
+            else
+                break;
+        }
+        $i += 2;
+
+        // Chiều đi
+        $line = $lines[$i++];
+        $tmp->cb_di = explode(' ', str_replace("\t", ' ', $line))[0];
+
+        preg_match("/(\d+)\/(\d+)\/(\d+)/", $line, $matches);
+        preg_match("/(\d+):(\d+)/", $line, $matches1);
+        $tmp->ngay_gio_di = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
+        preg_match_all("/\(([A-Z]{3})\)/", $line, $matches);
+        $tmp->sb_di = $matches[1][0];
+        $tmp->sb_di1 = $matches[1][1];
+
+        // // Chuyến về tương tự
+        if (count($lines) > $i) {
+            $line = $lines[$i];
+            $tmp->cb_ve = explode(' ', str_replace("\t", ' ', $line))[0];
+
+            preg_match("/(\d+)\/(\d+)\/(\d+)/", $line, $matches);
+            preg_match("/(\d+):(\d+)/", $line, $matches1);
+            if (count($matches) > 0 && count($matches1) > 0) {
+                $tmp->ngay_gio_ve = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
+                preg_match_all("/\(([A-Z]{3})\)/", $line, $matches);
+                $tmp->sb_ve = $matches[1][0];
+                $tmp->sb_ve1 = $matches[1][1];
+            }
+        }
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
             DatVeHelper::add_gia($obj, $request);
 
             // Chung code???

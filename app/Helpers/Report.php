@@ -332,7 +332,7 @@ class Report
             $obj->ngay_thang = $ngay;
             $obj->chung_tu = $tc->ma_hang;
             $obj->no = $tc->thanh_tien_ban;
-            $obj->noi_dung = "$tc->ten_hang | $tc->so_luong | $tc->phan_loai | $tc->nha_cung_cap";
+            $obj->noi_dung = "$tc->phan_loai | $tc->ten_hang | $tc->so_luong | $tc->don_gia_ban";
 
             $sno += $obj->no;
             $data[$ngay][] = $obj;

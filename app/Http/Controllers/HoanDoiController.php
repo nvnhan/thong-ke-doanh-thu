@@ -37,10 +37,10 @@ class HoanDoiController extends BaseController
         $obj->username = $request->user()->username;
         $obj->ngay_thang = $obj->ngay_hoan_doi;
         $obj->don_gia_ban = 0;
-        // if (empty($request->so_hoa_don)) {
-        //     $hoa_don = BanRa::max('so_hoa_don') ?? 0;
-        //     $obj->so_hoa_don = $hoa_don + 1;
-        // }
+        if (empty($request->so_hoa_don)) {
+            $hoa_don = BanRa::max('so_hoa_don') ?? 0;
+            $obj->so_hoa_don = $hoa_don + 1;
+        }
         $obj->save();
         $obj->refresh();
         return $this->sendResponse($obj, "Thêm mới thành công");
@@ -71,7 +71,7 @@ class HoanDoiController extends BaseController
     public function destroy($id)
     {
         BanRa::find($id)->delete();
-        return $this->sendResponse('', "Xóa thành công khách hàng");
+        return $this->sendResponse('', "Xóa thành công hoàn đổi");
     }
 
     /**

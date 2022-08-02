@@ -38,6 +38,19 @@ const form = React.memo(props => {
     return (
         <React.Fragment>
             <Row gutter={[5, 5]}>
+                <Col span={24}>
+                    <Form.Item
+                        name="so_hoa_don"
+                        label="Số hóa đơn"
+                        labelCol={{ sm: { span: 4 } }}
+                        wrapperCol={{ sm: { span: 20 } }}
+                    >
+                        <Input
+                            placeholder="Tự động thêm vào hóa đơn bán hàng"
+                            disabled
+                        />
+                    </Form.Item>
+                </Col>
                 <Col span={12}>
                     <Form.Item
                         name="ngay_hoan_doi"

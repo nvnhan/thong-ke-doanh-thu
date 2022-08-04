@@ -117,11 +117,7 @@ const form = React.memo(props => {
                             }
                         ]}
                     >
-                        <InputNumber
-                            style={{ width: "100%" }}
-                            min={1}
-                            step={1}
-                        />
+                        <InputNumber style={{ width: "100%" }} step={1} />
                     </Form.Item>
                 </Col>
                 <Col span={12}>

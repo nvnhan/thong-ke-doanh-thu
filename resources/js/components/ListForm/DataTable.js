@@ -28,7 +28,8 @@ const DataTable = React.memo(props => {
         otherActions,
         expandedRowRender,
         renderFooter,
-        renderSummary
+        renderSummary,
+        dependency
     } = props;
     const [myColumns, setMyColumns] = useState([]);
     const authUser = useSelector(state => state.authUser);
@@ -44,7 +45,7 @@ const DataTable = React.memo(props => {
     useEffect(() => {
         // if (!isEmpty(data))
         setMyColumns(calColumns());
-    }, [isLoading]);
+    }, [isLoading, dependency]);
 
     /**
      * Tính các cột cần thiết

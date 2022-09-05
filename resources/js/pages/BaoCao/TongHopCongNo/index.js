@@ -1,3 +1,4 @@
+import Checkbox from "antd/lib/checkbox";
 import Tabs from "antd/lib/tabs/index";
 import groupBy from "lodash/groupBy";
 import isEmpty from "lodash/isEmpty";
@@ -23,6 +24,7 @@ const List = props => {
     });
     const { data, isLoading } = state;
     const [ownFilter, setOwnFilter] = useState(undefined);
+    const [nhomPhanLoai, setNhomPhanLoai] = useState(false);
     let isComponentMounted = false;
 
     useEffect(() => {
@@ -204,7 +206,7 @@ const List = props => {
         {
             title: "Khách hàng",
             dataIndex: "khach_hang",
-            // optFind: true,
+            optFind: !nhomPhanLoai,
             width: 170
         },
         {
@@ -277,9 +279,18 @@ const List = props => {
             />
             <Tabs defaultActiveKey="1">
                 <Tabs.TabPane tab="Tổng hợp bán ra" key={1}>
+                    <Checkbox
+                        checked={nhomPhanLoai}
+                        onChange={e => setNhomPhanLoai(e.target.checked)}
+                        style={{ marginBottom: 8, marginLeft: 8 }}
+                    >
+                        Nhóm theo phân loại
+                    </Checkbox>
                     <DataTable
                         tableSize={{ x: 800 }}
-                        data={convertBanRa(data.banra)}
+                        data={
+                            nhomPhanLoai ? convertBanRa(data.banra) : data.banra
+                        }
                         columns={columnsBanRa}
                         isLoading={isLoading}
                         deleteable={false}
@@ -287,6 +298,7 @@ const List = props => {
                         editable={false}
                         primaryKey="id"
                         renderSummary={renderSummaryBanRa}
+                        dependency={nhomPhanLoai}
                     />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Tổng hợp mua vào" key={2}>

@@ -5,6 +5,7 @@ namespace App\Scopes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
+use Illuminate\Support\Facades\Auth;
 
 class OfUserScope implements Scope
 {
@@ -17,6 +18,7 @@ class OfUserScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->whereIn('username', optional(\Auth::user())->user_zone);
+        if (Auth::user())
+            $builder->whereIn('username', optional(\Auth::user())->user_zone);
     }
 }

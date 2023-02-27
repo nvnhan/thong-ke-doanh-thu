@@ -161,6 +161,7 @@ class MuaVaoController extends BaseController
             $sheet->setCellValue("C" . $rowIndex, $mv->so_luong ?? '');      // 
             $sheet->setCellValue("D" . $rowIndex, $mv->don_gia ?? '');      // 
             $sheet->setCellValue("E" . $rowIndex, $mv->thanh_tien ?? '');      // 
+            $sheet->setCellValue("F" . $rowIndex, $mv->ghi_chu ?? '');      // 
             $sum += $mv->thanh_tien ?? 0;
             $rowIndex++;
         }

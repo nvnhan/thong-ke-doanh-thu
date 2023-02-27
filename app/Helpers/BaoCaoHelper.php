@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\HangHoa;
 use App\KhachHang;
 use App\TaiKhoan;
+use App\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class BaoCaoHelper
@@ -19,7 +20,7 @@ class BaoCaoHelper
      * @param  mixed $date1
      * @return void
      */
-    public  static function TinhTongThanhToanBanRa(KhachHang $khachHang, string $date2, string $date1 = '')
+    public  static function TinhTongThanhToanBanRa(KhachHang $khachHang, string $date2, string $date1 = '', User $user = null)
     {
         if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
             $date1 = $khachHang->ngay_tao;
@@ -27,7 +28,11 @@ class BaoCaoHelper
             return 0;
 
         $date2 = date('Y-m-d', strtotime($date2 . ' +1 days'));
-        $sum = $khachHang->thu_chis->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
+        if ($user == null)
+            $sum = $khachHang->thu_chis->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
+        else        // In web route: has no Auth::user => send $user from function parameter
+            $sum = $khachHang->thu_chis->whereIn('username', $user->user_zone)->whereBetween('ngay_thang', [$date1, $date2])->sum('so_tien');
+
         return (float) $sum;
     }
 
@@ -41,7 +46,7 @@ class BaoCaoHelper
      * @param  mixed $date1
      * @return void
      */
-    public static function TinhTongGiaoDichBanRa(KhachHang $khachHang, string $date2, string $date1 = '')
+    public static function TinhTongGiaoDichBanRa(KhachHang $khachHang, string $date2, string $date1 = '', User $user = null)
     {
         if ($khachHang->ngay_tao != null && ($date1 == '' || $date1 < $khachHang->ngay_tao))
             $date1 = $khachHang->ngay_tao;
@@ -49,13 +54,18 @@ class BaoCaoHelper
             return 0;
 
         $date2 = date('Y-m-d', strtotime($date2 . ' +1 days'));
-        $sum = $khachHang->dat_ves->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
 
-        $sum += $khachHang->ban_ras->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
-
-        $sum += $khachHang->visas->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
-
-        $sum += $khachHang->tours->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_ban');
+        if ($user == null) {
+            $sum = $khachHang->dat_ves->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
+            $sum += $khachHang->ban_ras->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
+            $sum += $khachHang->visas->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
+            $sum += $khachHang->tours->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_ban');
+        } else {
+            $sum = $khachHang->dat_ves->whereIn('username', $user->user_zone)->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_thu_khach');
+            $sum += $khachHang->ban_ras->whereIn('username', $user->user_zone)->whereBetween('ngay_thang', [$date1, $date2])->sum('thanh_tien_ban');
+            $sum += $khachHang->visas->whereIn('username', $user->user_zone)->whereBetween('ngay_thang', [$date1, $date2])->sum('gia_ban');
+            $sum += $khachHang->tours->whereIn('username', $user->user_zone)->whereBetween('ngay_thang', [$date1, $date2])->sum('tong_tien_ban');
+        }
 
         return (float) $sum;
     }

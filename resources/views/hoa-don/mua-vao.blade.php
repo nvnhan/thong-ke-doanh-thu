@@ -78,6 +78,7 @@
                                 <th scope="col">Số lượng</th>
                                 <th scope="col">Đơn giá</th>
                                 <th scope="col">Thành tiền</th>
+                                <th scope="col">Ghi chú</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,6 +92,7 @@
                                 <td>{{$obj['so_luong']}}</td>
                                 <td>{{number_format($obj['don_gia'])}}₫</td>
                                 <td>{{number_format($obj['thanh_tien'])}}₫</td>
+                                <td>{{$obj['ghi_chu']}}</td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -9,6 +9,7 @@ use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Symfony\Component\ErrorHandler\Debug;
 
 class BanRaController extends BaseController
 {
@@ -100,17 +101,14 @@ class BanRaController extends BaseController
         $user = User::find($u);
         $objs = BanRa::withoutGlobalScopes()->allowUser($user)->where('so_hoa_don', $id)->get();
         if (count($objs) >= 1) {
-            $khach_hang = KhachHang::withoutGlobalScopes()->where('id', $objs[0]->id_khach_hang)->get()[0];
-            // ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
-            // ->get()[0];
+            $khach_hang = KhachHang::withoutGlobalScopes()->where('id', $objs[0]->id_khach_hang)
+                ->with(['thu_chis', 'dat_ves', 'ban_ras', 'tours', 'visas'])
+                ->get()[0];
 
-            // Lấy các tour chi tiết và mua vào của user hiện tại
-            // $tours = Tour::pluck('id');
-            // $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
-            // $mua_vaos = MuaVao::all();
-
-            // $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
-            $dau_ky = 0; //BaoCaoHelper::TongThuTK($khach_hang, $ngayTruoc) - BaoCaoHelper::TongChiTK($khach_hang, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
+            $ngayTruoc = date('Y-m-d', strtotime($objs[0]->ngay_thang . ' - 1 days'));
+            $dau_ky = $khach_hang->so_du_ky_truoc
+                + BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc, '', $user)
+                - BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc, '', $user);
 
             return view('hoa-don.ban-ra', compact('user', 'objs', 'khach_hang', 'dau_ky'));
         } else return redirect('/');

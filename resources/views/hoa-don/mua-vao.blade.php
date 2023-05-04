@@ -50,11 +50,11 @@
             </div>
         </div>
 
-        <?php $ngay = new DateTime($objs[0]->ngay_thang); ?>
+        <?php $ngay = new DateTime($mua_vaos[0]->ngay_thang); ?>
         <div class="row mb-3">
             <div class="col text-center">
                 <h1>HÓA ĐƠN NHẬP HÀNG</h1>
-                Số hóa đơn: <b>{{ str_pad($objs[0]->so_hoa_don, 4, '0', STR_PAD_LEFT) }}</b><br>
+                Số hóa đơn: <b>{{ str_pad($mua_vaos[0]->so_hoa_don, 4, '0', STR_PAD_LEFT) }}</b><br>
                 Ngày {{ $ngay->format('d') }} tháng {{ $ngay->format('m') }} năm {{ $ngay->format('Y') }}
             </div>
         </div>
@@ -84,7 +84,7 @@
                         <tbody>
                             <?php $cnt = 1;
                             $sum = 0; ?>
-                            @foreach ($objs as $obj)
+                            @foreach ($mua_vaos as $obj)
                             <?php $sum += $obj['thanh_tien']; ?>
                             <tr>
                                 <th scope="row">{{$cnt++}}</th>

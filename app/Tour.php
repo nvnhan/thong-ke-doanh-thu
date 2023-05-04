@@ -56,6 +56,11 @@ class Tour extends Model
         static::addGlobalScope(new OfUserScope);
     }
 
+    public function scopeAllowUser($query, $user)
+    {
+        return $query->where('username', $user->username);
+    }
+
     public function tour_chi_tiets()
     {
         return $this->hasMany('App\TourChiTiet', 'id_tour');

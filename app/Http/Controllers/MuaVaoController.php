@@ -100,21 +100,22 @@ class MuaVaoController extends BaseController
     public function hoadon(Request $request, $u, $id)
     {
         $user = User::find($u);
-        $objs = MuaVao::withoutGlobalScopes()->allowUser($user)->where('so_hoa_don', $id)->get();
-        if (count($objs) >= 1) {
-            $nha_cung_cap = TaiKhoan::where('id', $objs[0]->hang_hoa->tai_khoan->id)->get()[0];
-            // ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
-            // ->get()[0];
+        // Đây là Route web public nên sẽ ko có Auth
+        // thay vào đó phải dùng scope allowUser để truyền chính xác user vào
+        $mua_vaos = MuaVao::withoutGlobalScopes()->allowUser($user)->where('so_hoa_don', $id)->get();
+        if (count($mua_vaos) >= 1) {
+            $nha_cung_cap = TaiKhoan::where('id', $mua_vaos[0]->hang_hoa->tai_khoan->id)
+                ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
+                ->get()[0];
 
             // Lấy các tour chi tiết và mua vào của user hiện tại
-            // $tours = Tour::pluck('id');
-            // $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
-            // $mua_vaos = MuaVao::all();
+            $tours = Tour::withoutGlobalScopes()->allowUser($user)->pluck('id');
+            $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
 
-            // $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
-            $dau_ky = 0; //BaoCaoHelper::TongThuTK($nha_cung_cap, $ngayTruoc) - BaoCaoHelper::TongChiTK($nha_cung_cap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
+            $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
+            $dau_ky = BaoCaoHelper::TongThuTK($nha_cung_cap, $ngayTruoc) - BaoCaoHelper::TongChiTK($nha_cung_cap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
 
-            return view('hoa-don.mua-vao', compact('user', 'objs', 'nha_cung_cap', 'dau_ky'));
+            return view('hoa-don.mua-vao', compact('user', 'mua_vaos', 'nha_cung_cap', 'dau_ky'));
         } else return redirect('/');
     }
 
@@ -132,7 +133,7 @@ class MuaVaoController extends BaseController
         $sheet = $spreadSheet->getSheet(0);
 
         // Get data from SQL
-        $mua_vaos = MuaVao::where('so_hoa_don', $hoa_don)->with('hang_hoa')->get();
+        $mua_vaos = MuaVao::where('so_hoa_don', $hoa_don)->get();
         $nhaCungCap = TaiKhoan::where('id', $mua_vaos[0]->hang_hoa->tai_khoan->id)
             ->with(['thu_chi_dens', 'thu_chi_dis', 'dat_ves', 'ban_ra_hoa_dois', 'visas', 'hang_hoas'])
             ->get()[0];
@@ -169,7 +170,6 @@ class MuaVaoController extends BaseController
         // Lấy các tour chi tiết và mua vào của user hiện tại
         $tours = Tour::pluck('id');
         $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
-        $mua_vaos = MuaVao::all();
 
         $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
         $dau_ky = BaoCaoHelper::TongThuTK($nhaCungCap, $ngayTruoc) - BaoCaoHelper::TongChiTK($nhaCungCap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);

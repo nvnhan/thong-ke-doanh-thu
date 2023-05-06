@@ -6,6 +6,7 @@ use App\DatVe;
 use App\KhachHang;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpParser\Node\Stmt\Continue_;
 use stdClass;
 
 class ThemFile
@@ -235,7 +236,7 @@ class ThemFile
                         $tmp->ngay_gio_di = $matches4[3][0] . "-" . $mon . "-" . $matches4[2][0];
                     }
                     // Ngay ve
-                    if (count($matches4[0]) > 1) { 
+                    if (count($matches4[0]) > 1) {
                         $mon = array_search(strtoupper($matches4[1][1]), Util::$thang);
                         if ($mon !== false) {
                             $mon++;
@@ -271,6 +272,12 @@ class ThemFile
 
             if (count($rows) > 0)
                 self::parse_html_vj($parse, $rows, $dinh_danh, $request->user()->username);
+            else {
+                $rows = $content->find('tr.odd, tr.even');
+
+                if (count($rows) > 0)
+                    self::parse_html_1($parse, $rows, $dinh_danh, $request->user()->username);
+            }
         }
 
         // insert rows to db
@@ -411,6 +418,64 @@ class ThemFile
                 if (count($matches[1]) > 1)
                     $tmp->ngay_gio_ve = $matches[3][1] . "-" . $matches[2][1] . "-" . $matches[1][1];
             }
+
+            $parse[] = $tmp;
+        }
+    }
+
+    /**
+     * File VJ + VN 25/02/2023
+     */
+    public static function parse_html_1(&$parse, $rows, string $dinh_danh, $username)
+    {
+        foreach ($rows as $row) {
+            $tmp = new stdClass;
+            $tmp->ngay_thang = date("Y-m-d");
+            $tmp->username = $username;
+            $tmp->dinh_danh = $dinh_danh;
+
+            $cols = $row->find('td');
+            if (count($cols) < 23) continue;
+
+            // So Ve
+            $tmp->so_ve = $cols[2]->plaintext;
+            if (empty($tmp->so_ve)) continue;
+
+            $tmp->ma_giu_cho = $cols[3]->plaintext;
+            $tmp->ten_khach = str_replace('/', ' ', $cols[4]->plaintext);
+
+            // Ngay dat
+            $tmp->ngay_thang = self::parse_date($cols[5]->plaintext);
+
+            // Hang bay
+            $tmp->hang_bay = $cols[7]->plaintext;
+
+            // Loai tuoi
+            $tmp->loai_tuoi = 0;
+
+            // tong Tien
+            $tmp->phu_phi = self::parse_money($cols[9]->plaintext);
+            $tmp->tong_tien = self::parse_money($cols[14]->plaintext);
+            $tmp->tong_tien_thu_khach = self::parse_money($cols[18]->plaintext);
+
+            // Hanh trinh, ngay bay, chuyen bay
+            $hanh_trinh = $cols[11]->plaintext;
+            if (preg_match("/\b([a-zA-Z]{8,})\b/", $hanh_trinh, $matches)) {       // Đối với các hành trình dạng này HANVNSGNVNDAD, DADVNBMV....
+                $ht1 = strtoupper($matches[0]);
+                $ht1 = str_replace(['VN', 'BL', "VJ", "QH"], "", $ht1);
+                preg_match("/[A-Z]+/", $ht1, $matches);
+                $tmp->sb_di = substr($matches[0], 0, 3);
+                $tmp->sb_di1 = substr($matches[0], 3, 3);
+                if (strlen($matches[0]) >= 9) {
+                    $tmp->sb_ve = $tmp->sb_di1;
+                    $tmp->sb_ve1 = substr($matches[0], 6, 3);
+                }
+            }
+
+            $tmp->ngay_gio_di = self::parse_date($cols[22]->plaintext);
+            $ngay_gio_ve = $cols[20]->plaintext;
+            if (!empty($ngay_gio_ve))
+                $tmp->ngay_gio_ve = self::parse_date($ngay_gio_ve);
 
             $parse[] = $tmp;
         }

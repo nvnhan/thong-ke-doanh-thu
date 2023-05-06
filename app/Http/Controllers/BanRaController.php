@@ -107,8 +107,8 @@ class BanRaController extends BaseController
 
             $ngayTruoc = date('Y-m-d', strtotime($objs[0]->ngay_thang . ' - 1 days'));
             $dau_ky = $khach_hang->so_du_ky_truoc
-                + BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc, '', $user)
-                - BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc, '', $user);
+                - BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc, '', $user)
+                + BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc, '', $user);
 
             return view('hoa-don.ban-ra', compact('user', 'objs', 'khach_hang', 'dau_ky'));
         } else return redirect('/');
@@ -162,7 +162,7 @@ class BanRaController extends BaseController
         }
 
         $ngayTruoc = date('Y-m-d', strtotime($ban_ras[0]->ngay_thang . ' - 1 days'));
-        $dau_ky = $khach_hang->so_du_ky_truoc + BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc) - BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
+        $dau_ky = $khach_hang->so_du_ky_truoc - BaoCaoHelper::TinhTongThanhToanBanRa($khach_hang, $ngayTruoc) + BaoCaoHelper::TinhTongGiaoDichBanRa($khach_hang, $ngayTruoc);
         $rowIndex += 1;
         $sheet->setCellValue("E" . $rowIndex, $dau_ky);
         $rowIndex += 1;

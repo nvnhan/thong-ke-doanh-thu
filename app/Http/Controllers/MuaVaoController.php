@@ -113,7 +113,7 @@ class MuaVaoController extends BaseController
             $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
 
             $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
-            $dau_ky = BaoCaoHelper::TongThuTK($nha_cung_cap, $ngayTruoc) - BaoCaoHelper::TongChiTK($nha_cung_cap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
+            $dau_ky = -BaoCaoHelper::TongThuTK($nha_cung_cap, $ngayTruoc) + BaoCaoHelper::TongChiTK($nha_cung_cap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
 
             return view('hoa-don.mua-vao', compact('user', 'mua_vaos', 'nha_cung_cap', 'dau_ky'));
         } else return redirect('/');
@@ -172,7 +172,7 @@ class MuaVaoController extends BaseController
         $tour_chi_tiets = TourChiTiet::whereIn('id_tour', $tours)->get();
 
         $ngayTruoc = date('Y-m-d', strtotime($mua_vaos[0]->ngay_thang . ' - 1 days'));
-        $dau_ky = BaoCaoHelper::TongThuTK($nhaCungCap, $ngayTruoc) - BaoCaoHelper::TongChiTK($nhaCungCap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
+        $dau_ky = -BaoCaoHelper::TongThuTK($nhaCungCap, $ngayTruoc) + BaoCaoHelper::TongChiTK($nhaCungCap, $tour_chi_tiets, $mua_vaos, $ngayTruoc);
         $rowIndex += 1;
         $sheet->setCellValue("E" . $rowIndex, $dau_ky);
         $rowIndex += 1;

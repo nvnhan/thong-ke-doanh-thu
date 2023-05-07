@@ -124,6 +124,108 @@ class ThemText
     }
 
     /**
+     * Parse Bamboo Airline 25/02/2023
+     */
+    public static function parse_bamboo1($lines, Request $request, $dinh_danh)
+    {
+        $hanh_khach = [];
+        $so_ve = [];
+        $i = 0;
+        $line = "";
+        $tmp = new stdClass;
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "BB";
+        $tmp->ma_giu_cho = trim($lines[0]);
+        $tmp->ngay_thang = date("Y-m-d");
+        $tmp->loai_tuoi = 0;
+        $tmp->dinh_danh = $dinh_danh;
+
+        for ($i = 1; $i < count($lines); $i++) {    // Tên khách từ Passengers
+            $line = trim($lines[$i]);
+            if ($line == "ITINERARY")
+                break;
+
+            if (preg_match("/^[0-9]+. ([A-Z \/]+)$/", $line, $matches) != false) {
+                $hanh_khach[] = trim(DatVeHelper::remove_prefix_name(str_replace('/', ' ', $matches[1])));
+            }
+        }
+        $line =  $lines[++$i];
+        $year = date("Y");
+        // 1 QH 1544 26APR ECONOMYSMART SGNHPH 1030 1240
+        if (preg_match("/QH (\d{3,}) (\d{2})([A-Z]{3}) ([a-zA-Z]+) ([A-Z]{3})([A-Z]{3}) (\d{2})(\d{2})/", $line, $matches)) {
+
+            $tmp->cb_di = "QH $matches[1]";
+            // Ngày giờ bay  đi
+            $imonth = array_search($matches[3], Util::$thang) + 1;
+            $tmp->ngay_gio_di = "$year-$imonth-$matches[2] $matches[7]:$matches[8]:0";
+
+            // Sân bay đi
+            $tmp->sb_di = $matches[5];
+            $tmp->sb_di1 = $matches[6];
+        }
+
+        /////////////////////////////////////
+        // Chuyến về???????????
+        $line =  $lines[++$i];
+        if (!strpos("TIMELIMIT", $line)) {
+            if (preg_match("/QH (\d{3,}) (\d{2})([A-Z]{3}) ([a-zA-Z]+) ([A-Z]{3})([A-Z]{3}) (\d{2})(\d{2})/", $line, $matches)) {
+
+                $tmp->cb_ve = "QH $matches[1]";
+                // Ngày giờ bay  đi
+                $imonth = array_search($matches[3], Util::$thang) + 1;
+                $tmp->ngay_gio_ve = "$year-$imonth-$matches[2] $matches[7]:$matches[8]:0";
+
+                // Sân bay đi
+                $tmp->sb_ve = $matches[5];
+                $tmp->sb_ve1 = $matches[6];
+            }
+            $line =  $lines[++$i];
+        }
+        if (strpos("TIMELIMIT", $line) >= 0) {
+            // Ngày đặt vé
+            if (preg_match("/(\d{2})\/(\d{2})\/(\d{4})/", $line, $matches))
+                $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
+        }
+
+        // Số vé
+        for (; $i < count($lines); $i++) {
+            $line = $lines[$i];
+            if (preg_match("/[0-9]{10,13}/", $line, $matches))
+                $so_ve[] = $matches[0];
+        }
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+            $obj->fill((array) $tmp);
+
+            if (count($so_ve) > $j)
+                $obj->so_ve = $so_ve[$j];
+            else
+                $obj->so_ve = env('SO_VE_VN_MAC_DINH');
+
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
+
+            // Chung code???
+            if ($obj->gia_net == 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $obj->refresh();        // Reload object from sql
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
+    /**
      * Parse VietJet moi ngay 22/6
      */
     public static function parse_vj($lines, Request $request, $dinh_danh)

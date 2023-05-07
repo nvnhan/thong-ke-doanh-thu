@@ -62,7 +62,7 @@ class ThemFile
             // Ko set ngay thanh toan truc tiep => bat buoc phai qua Thu chi
             // if (!empty($request->ngay_thanh_toan)) $dv->ngay_thanh_toan = $request->ngay_thanh_toan;
 
-            $so_nguoi = count(explode(";", $item->ten_khach));
+            $so_nguoi = empty($item->ten_khach) ? 1 : count(explode(";", $item->ten_khach));
             $so_chieu = empty($item->sb_ve) ? 1 : 2;
 
             // Nếu trong file không có tổng tiền thu khách

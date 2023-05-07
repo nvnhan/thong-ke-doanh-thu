@@ -138,7 +138,7 @@ class DatVeController extends BaseController
         else if (count($lines) > 1 && strpos($lines[1], '1.1') !== false)
             $data = ThemText::parse_vn($lines, $request, $dinh_danh);
         else  if (strpos($text, "ITINERARY") !== false)
-            $data = ThemText::parse_bamboo1($lines, $request, $dinh_danh);
+            $data = ThemText::parse_bamboo_vj($lines, $request, $dinh_danh);
         // else if (strpos($text, "Chuyến bay đi") !== false)
         //     parseJetsChuaXuat();
         // else if (strpos($text, "Jetstar") !== false)

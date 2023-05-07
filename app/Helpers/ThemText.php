@@ -124,9 +124,9 @@ class ThemText
     }
 
     /**
-     * Parse Bamboo Airline 25/02/2023
+     * Parse Bamboo Airline + VJ 25/02/2023
      */
-    public static function parse_bamboo1($lines, Request $request, $dinh_danh)
+    public static function parse_bamboo_vj($lines, Request $request, $dinh_danh)
     {
         $hanh_khach = [];
         $so_ve = [];
@@ -152,36 +152,37 @@ class ThemText
         $line =  $lines[++$i];
         $year = date("Y");
         // 1 QH 1544 26APR ECONOMYSMART SGNHPH 1030 1240
-        if (preg_match("/QH (\d{3,}) (\d{2})([A-Z]{3}) ([a-zA-Z]+) ([A-Z]{3})([A-Z]{3}) (\d{2})(\d{2})/", $line, $matches)) {
+        if (preg_match("/(QH|VJ) (\d{3,}) (\d{2})([A-Z]{3}) ([a-zA-Z0-9_\-]+) ([A-Z]{3})([A-Z]{3}) (\d{2})(\d{2})/", $line, $matches)) {
+            $tmp->hang_bay = $matches[1] == "QH" ? "BB" : "VJ";
 
-            $tmp->cb_di = "QH $matches[1]";
+            $tmp->cb_di = "$matches[1] $matches[2]";
             // Ngày giờ bay  đi
-            $imonth = array_search($matches[3], Util::$thang) + 1;
-            $tmp->ngay_gio_di = "$year-$imonth-$matches[2] $matches[7]:$matches[8]:0";
+            $imonth = array_search($matches[4], Util::$thang) + 1;
+            $tmp->ngay_gio_di = "$year-$imonth-$matches[3] $matches[8]:$matches[9]:0";
 
             // Sân bay đi
-            $tmp->sb_di = $matches[5];
-            $tmp->sb_di1 = $matches[6];
+            $tmp->sb_di = $matches[6];
+            $tmp->sb_di1 = $matches[7];
         }
 
         /////////////////////////////////////
         // Chuyến về???????????
         $line =  $lines[++$i];
-        if (!strpos("TIMELIMIT", $line)) {
-            if (preg_match("/QH (\d{3,}) (\d{2})([A-Z]{3}) ([a-zA-Z]+) ([A-Z]{3})([A-Z]{3}) (\d{2})(\d{2})/", $line, $matches)) {
+        if (!str_contains($line, "TIMELIMIT")) {
+            if (preg_match("/(QH|VJ) (\d{3,}) (\d{2})([A-Z]{3}) ([a-zA-Z0-9_\-]+) ([A-Z]{3})([A-Z]{3}) (\d{2})(\d{2})/", $line, $matches)) {
 
-                $tmp->cb_ve = "QH $matches[1]";
-                // Ngày giờ bay  đi
-                $imonth = array_search($matches[3], Util::$thang) + 1;
-                $tmp->ngay_gio_ve = "$year-$imonth-$matches[2] $matches[7]:$matches[8]:0";
+                $tmp->cb_ve = "$matches[1] $matches[2]";
+                // Ngày giờ bay  về
+                $imonth = array_search($matches[4], Util::$thang) + 1;
+                $tmp->ngay_gio_ve = "$year-$imonth-$matches[3] $matches[8]:$matches[9]:0";
 
-                // Sân bay đi
-                $tmp->sb_ve = $matches[5];
-                $tmp->sb_ve1 = $matches[6];
+                // Sân bay về
+                $tmp->sb_ve = $matches[6];
+                $tmp->sb_ve1 = $matches[7];
             }
-            $line =  $lines[++$i];
+            $line = $lines[++$i];
         }
-        if (strpos("TIMELIMIT", $line) >= 0) {
+        if (strpos($line, "TIMELIMIT") >= 0) {
             // Ngày đặt vé
             if (preg_match("/(\d{2})\/(\d{2})\/(\d{4})/", $line, $matches))
                 $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
@@ -202,7 +203,7 @@ class ThemText
             if (count($so_ve) > $j)
                 $obj->so_ve = $so_ve[$j];
             else
-                $obj->so_ve = env('SO_VE_VN_MAC_DINH');
+                $obj->so_ve = $tmp->ma_giu_cho;
 
             $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
             DatVeHelper::add_gia($obj, $request);

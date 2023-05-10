@@ -65,19 +65,19 @@ class ThemFile
             $so_nguoi = empty($item->ten_khach) ? 1 : count(explode(";", $item->ten_khach));
             $so_chieu = empty($item->sb_ve) ? 1 : 2;
 
+            $kh = null;
+            // Find KhachHang has Ma Dai Ly
+            if (!empty($item->ma_dai_ly))
+                $kh = KhachHang::all()->filter(function ($model) use ($item) {
+                    return in_array($item->ma_dai_ly, $model->dai_ly);
+                })->first(null);
+            if (empty($kh)) $kh = $khach_hang;
+            if (!empty($kh))
+                $dv->id_khach_hang = $kh->id;
+
             // Nếu trong file không có tổng tiền thu khách
             if (empty($item->tong_tien_thu_khach)) {
-                $kh = null;
-                // Find KhachHang has Ma Dai Ly
-                if (!empty($item->ma_dai_ly))
-                    $kh = KhachHang::all()->filter(function ($model) use ($item) {
-                        return in_array($item->ma_dai_ly, $model->dai_ly);
-                    })->first(null);
-                if (empty($kh)) $kh = $khach_hang;
-
                 if (!empty($kh)) {
-                    $dv->id_khach_hang = $kh->id;
-
                     switch ($item->hang_bay) {
                         case "VN":
                             $dv->tong_tien_thu_khach = $kh->phi_vn;

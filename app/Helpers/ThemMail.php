@@ -342,7 +342,7 @@ class ThemMail
         }
         #endregion
 
-        $node = $content->find('th[style=background:#58585a;color:#ffffff;]', 2);
+        $node = $content->find('th[style=background:#58585a;color:#ffffff;]', 1);
         $node = $node->next_sibling();
         preg_match("/(\d+)\/(\d+)\/(\d+)/", $node->plaintext, $matches);
         $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";

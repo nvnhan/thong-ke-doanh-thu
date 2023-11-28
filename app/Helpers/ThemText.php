@@ -245,11 +245,15 @@ class ThemText
 
         // Mẫu ngày 20/07/2022: Không có ngày tháng đặt vé
 
+        $fail = true;
         for ($i = 1; $i < 10; $i++) {
             $line = trim($lines[$i]);
-            if (strpos($line, "Chặng 1") !== false)
+            if (strpos($line, "Chặng 1") !== false) {
+                $fail = false;
                 break;
+            }
         }
+        if ($fail) return self::parse_vj_new($lines, $request, $dinh_danh);
         // Chiều đi
         $line = $lines[$i];
         preg_match("/([A-Z]{3})-([A-Z]{3})([A-Z0-9]+)$/", $line, $matches);
@@ -273,7 +277,7 @@ class ThemText
                 break;
         }
 
-        if (count($hanh_khach) === 0) return parse_vj_old($lines, $request, $dinh_danh);
+        if (count($hanh_khach) === 0) return self::parse_vj_old($lines, $request, $dinh_danh);
 
         // // Chuyến về tương tự
         for (; $i < count($lines); $i++) {
@@ -290,6 +294,88 @@ class ThemText
                 $tmp->ngay_gio_ve = "$matches[3]-$matches[2]-$matches[1] $matches1[1]:$matches1[2]:0";
                 break;
             }
+        }
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            if ($em_be[$j]) $obj->loai_tuoi = 2;
+            DatVeHelper::add_gia($obj, $request);
+
+            // Chung code???
+            if ($obj->gia_net == 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $obj->refresh();        // Reload object from sql
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
+      /**
+     * Parse VietJet moi ngay 20/11/2023
+     */
+    public static function parse_vj_new($lines, Request $request, $dinh_danh)
+    {
+        $hanh_khach = [];
+        $em_be = [];
+        $i = 0;
+        $line = "";
+        $tmp = new stdClass;
+        $tmp->so_ve = trim($lines[0]);
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "VJ";
+        $tmp->loai_tuoi = 0;
+        $tmp->ngay_thang = date('Y-m-d');
+        $tmp->dinh_danh  = $dinh_danh;
+
+        for ($i = 1; $i < 10; $i++) {
+            $line = trim($lines[$i]);
+            if (strpos($line, "Ngày đặt") !== false) {
+                preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/", $line, $matches);
+                $tmp->ngay_thang = "$matches[3]-$matches[2]-$matches[1]";
+                $i += 4;
+                break;
+            }
+        }      
+        // Hành khách
+        for (; $i < count($lines); $i += 2) {
+            preg_match("/([A-Z]+[A-Z, ]+)$/", $lines[$i], $matches); // Họ tên hành khách 
+            if (count($matches) > 0) {
+                $hanh_khach[] = trim(str_replace(',', '', $matches[1]));
+                if (strpos($lines[$i], 'Em bé') !== false) $em_be[] = true;
+                else $em_be[] = false;
+            } else
+                break;
+        }
+        
+        // Chiều đi
+        $i += 2;
+        $line = $lines[$i];
+        if (preg_match("/([A-Z0-9]+)(.*)([0-9]{2})\/([0-9]{2})\/([0-9]{4})(.*)([0-9]{2}):([0-9]{2})(.*)([A-Z]{3})(.*)([A-Z]{3})/", $line, $matches)) {
+            $tmp->cb_di = $matches[1];
+            $tmp->ngay_gio_di = "$matches[5]-$matches[4]-$matches[3] $matches[7]:$matches[8]:0";
+            $tmp->sb_di = $matches[10];
+            $tmp->sb_di1 = $matches[12];       
+        }
+
+        // // Chuyến về tương tự
+        if ($i < count($lines) - 1 && preg_match("/([A-Z0-9]+)(.*)([0-9]{2})\/([0-9]{2})\/([0-9]{4})(.*)([0-9]{2}):([0-9]{2})(.*)([A-Z]{3})(.*)([A-Z]{3})/", $lines[$i + 1], $matches)) {
+            $tmp->cb_ve = $matches[1];
+            $tmp->ngay_gio_ve = "$matches[5]-$matches[4]-$matches[3] $matches[7]:$matches[8]:0";
+            $tmp->sb_ve = $matches[10];
+            $tmp->sb_ve1 = $matches[12];       
         }
 
         $result = [];
@@ -430,10 +516,10 @@ class ThemText
             $line = trim($lines[$i]);
             $line = str_replace('/', ' ', $line);
             $line = DatVeHelper::remove_prefix_name($line);
-            preg_match_all("/\d\.(I )?1([A-Z ]+)/", $line, $matches);
-            if (count($matches[2]) > 0) {
-                foreach ($matches[2] as $key => $value) { // Trong 1 hàng có thể có nhiều khách
-                    if (strpos($matches[0][$key], "I 1") !== false)      // EM bé
+            preg_match_all("/\d\.(I )?1([A-Z ]+)/", $line, $matches1);
+            if (count($matches1[2]) > 0) {
+                foreach ($matches1[2] as $key => $value) { // Trong 1 hàng có thể có nhiều khách
+                    if (strpos($matches1[0][$key], "I 1") !== false)      // EM bé
                         $tre_em[] = true;
                     else $tre_em[] = false;
                     $hanh_khach[] = trim($value);
@@ -459,9 +545,9 @@ class ThemText
         if ($thang !== false) $thang += 1;
         $nam = date('Y');
         // Giờ bay
-        preg_match_all('/ (\d{4}) /', $line, $matches);         // Exclude: VN7578A 
-        $gio = substr($matches[1][0], 0, 2);
-        $phut = substr($matches[1][0], 2, 2);
+        preg_match_all('/ (\d{4}) /', $line, $matches1);         // Exclude: VN7578A 
+        $gio = substr($matches1[1][0], 0, 2);
+        $phut = substr($matches1[1][0], 2, 2);
         $tmp->ngay_gio_di = "$nam-$thang-$ngay $gio:$phut:00";
 
         // Hành trình bay
@@ -491,9 +577,9 @@ class ThemText
             if ($thang !== false) $thang += 1;
             $nam = date('Y');
             // Giờ bay
-            preg_match_all('/ (\d{4}) /', $line, $matches);         // Exclude: VN7578A 
-            $gio = substr($matches[1][0], 0, 2);
-            $phut = substr($matches[1][0], 2, 2);
+            preg_match_all('/ (\d{4}) /', $line, $matches1);         // Exclude: VN7578A 
+            $gio = substr($matches1[1][0], 0, 2);
+            $phut = substr($matches1[1][0], 2, 2);
             $tmp->ngay_gio_ve = "$nam-$thang-$ngay $gio:$phut:00";
 
             // Hành trình bay

@@ -78,7 +78,7 @@ class ThuChiChiTietController extends BaseController
                 $tmp->noi_dung =  "$t->ma_visa";
                 $result[] = $tmp;
             }
-        } else {
+        } else if ($thuChi->tai_khoan_dens != null) {
             $tkDen = $thuChi->tai_khoan_dens;
             // Mua vào của user ứng với hàng hóa của nhà cung cấp tkDen
             $muaVaos = $tkDen->mua_vaos()

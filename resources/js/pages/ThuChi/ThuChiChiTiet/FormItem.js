@@ -1,24 +1,10 @@
-import Table from "antd/lib/table/index";
 import React from "react";
+import DataTable from "../../../components/ListForm/DataTable";
 import { vndFormater } from "../../../utils";
 
 const form = React.memo(props => {
     const doiTuong = props.doiTuong || [];
     const { selectedRowKeys, onChangeSelect } = props;
-
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onChangeSelect,
-        hideDefaultSelections: true,
-        columnWidth: 43,
-        selections: [
-            {
-                key: "invert_all",
-                text: "Bỏ chọn tất cả",
-                onSelect: () => onChangeSelect([])
-            }
-        ]
-    };
 
     const myColumns = [
         {
@@ -34,7 +20,8 @@ const form = React.memo(props => {
         {
             title: "Nội dung",
             dataIndex: "noi_dung",
-            width: 250
+            width: 250,
+            optFind: true
         },
         {
             title: "Số tiền",
@@ -45,11 +32,14 @@ const form = React.memo(props => {
     ];
 
     return (
-        <Table
-            rowSelection={rowSelection}
-            dataSource={doiTuong}
+        <DataTable
+            selectedRowKeys={selectedRowKeys}
+            onChangeSelect={onChangeSelect}
+            data={doiTuong}
             columns={myColumns}
-            rowKey={row => row["id"]}
+            primaryKey="id"
+            selectable
+            tableSize={{ x: 400 }}
         />
     );
 });

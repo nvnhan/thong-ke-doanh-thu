@@ -101,15 +101,17 @@ const List = props => {
                 };
             });
             return (
-                <>
-                    <tr>
-                        <th colSpan={2}>Tổng cộng</th>
-                        <td>{vndFormater.format(sumObj.dau_ky)}</td>
-                        <td>{vndFormater.format(sumObj.cuoi_ky)}</td>
-                        <td>{vndFormater.format(sumObj.thanh_toan)}</td>
-                        <td>{vndFormater.format(sumObj.giao_dich)}</td>
-                    </tr>
-                </>
+                <tr>
+                    <th colSpan={2}>Tổng cộng</th>
+                    <td align="right">{vndFormater.format(sumObj.dau_ky)}</td>
+                    <td align="right">{vndFormater.format(sumObj.cuoi_ky)}</td>
+                    <td align="right">
+                        {vndFormater.format(sumObj.thanh_toan)}
+                    </td>
+                    <td align="right">
+                        {vndFormater.format(sumObj.giao_dich)}
+                    </td>
+                </tr>
             );
         }
     };
@@ -126,15 +128,17 @@ const List = props => {
                 };
             });
             return (
-                <>
-                    <tr>
-                        <th>Tổng cộng</th>
-                        <td>{vndFormater.format(sumObj.dau_ky)}</td>
-                        <td>{vndFormater.format(sumObj.cuoi_ky)}</td>
-                        <td>{vndFormater.format(sumObj.thanh_toan)}</td>
-                        <td>{vndFormater.format(sumObj.giao_dich)}</td>
-                    </tr>
-                </>
+                <tr>
+                    <th>Tổng cộng</th>
+                    <td align="right">{vndFormater.format(sumObj.dau_ky)}</td>
+                    <td align="right">{vndFormater.format(sumObj.cuoi_ky)}</td>
+                    <td align="right">
+                        {vndFormater.format(sumObj.thanh_toan)}
+                    </td>
+                    <td align="right">
+                        {vndFormater.format(sumObj.giao_dich)}
+                    </td>
+                </tr>
             );
         }
     };
@@ -213,25 +217,33 @@ const List = props => {
             title: "Dư - Nợ đầu kỳ",
             dataIndex: "dau_ky",
             render: number => vndFormater.format(number),
-            width: 100
+            width: 100,
+            align: "right",
+            sorter: (a, b) => a.dau_ky - b.dau_ky
         },
         {
             title: "Dư - Nợ cuối kỳ",
             dataIndex: "cuoi_ky",
             render: number => vndFormater.format(number),
-            width: 100
+            width: 100,
+            align: "right",
+            sorter: (a, b) => a.cuoi_ky - b.cuoi_ky
         },
         {
             title: "Số tiền thanh toán",
             dataIndex: "thanh_toan",
             render: number => vndFormater.format(number),
-            width: 100
+            width: 100,
+            align: "right",
+            sorter: (a, b) => a.thanh_toan - b.thanh_toan
         },
         {
             title: "Tổng tiền giao dịch",
             dataIndex: "giao_dich",
             render: number => vndFormater.format(number),
-            width: 100
+            width: 100,
+            align: "right",
+            sorter: (a, b) => a.giao_dich - b.giao_dich
         }
     ];
 
@@ -246,25 +258,33 @@ const List = props => {
             title: "Dư - Nợ đầu kỳ",
             dataIndex: "dau_ky",
             render: number => vndFormater.format(number),
-            width: 100
+            width: 100,
+            align: "right",
+            sorter: (a, b) => a.dau_ky - b.dau_ky
         },
         {
             title: "Dư - Nợ cuối kỳ",
             dataIndex: "cuoi_ky",
             render: number => vndFormater.format(number),
-            width: 100
+            width: 100,
+            align: "right",
+            sorter: (a, b) => a.cuoi_ky - b.cuoi_ky
         },
         {
             title: "Số tiền thanh toán",
             dataIndex: "thanh_toan",
             render: number => vndFormater.format(number),
-            width: 100
+            width: 100,
+            align: "right",
+            sorter: (a, b) => a.thanh_toan - b.thanh_toan
         },
         {
             title: "Tổng tiền giao dịch",
             dataIndex: "giao_dich",
             render: number => vndFormater.format(number),
-            width: 100
+            width: 100,
+            align: "right",
+            sorter: (a, b) => a.giao_dich - b.giao_dich
         }
     ];
 

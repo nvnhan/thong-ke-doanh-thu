@@ -139,6 +139,8 @@ class DatVeController extends BaseController
             $data = ThemText::parse_vn($lines, $request, $dinh_danh);
         else  if (strpos($text, "ITINERARY") !== false)
             $data = ThemText::parse_bamboo_vj($lines, $request, $dinh_danh);
+        else if (count($lines) > 1 && preg_match("/^([A-Z]{3}) ([A-Z]{3}) ([A-Z0-9]+) ([0-9]{4}) ([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/", $lines[1]))
+            $data = ThemText::parse_vj_vn_custom($lines, $request, $dinh_danh);
         // else if (strpos($text, "Chuyến bay đi") !== false)
         //     parseJetsChuaXuat();
         // else if (strpos($text, "Jetstar") !== false)

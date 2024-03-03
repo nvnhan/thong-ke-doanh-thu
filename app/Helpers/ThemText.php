@@ -323,7 +323,7 @@ class ThemText
         return $result;
     }
 
-      /**
+    /**
      * Parse VietJet moi ngay 20/11/2023
      */
     public static function parse_vj_new($lines, Request $request, $dinh_danh)
@@ -348,7 +348,7 @@ class ThemText
                 $i += 4;
                 break;
             }
-        }      
+        }
         // Hành khách
         for (; $i < count($lines); $i += 2) {
             preg_match("/([A-Z]+[A-Z, ]+)$/", $lines[$i], $matches); // Họ tên hành khách 
@@ -359,7 +359,7 @@ class ThemText
             } else
                 break;
         }
-        
+
         // Chiều đi
         $i += 2;
         $line = $lines[$i];
@@ -367,7 +367,7 @@ class ThemText
             $tmp->cb_di = $matches[1];
             $tmp->ngay_gio_di = "$matches[5]-$matches[4]-$matches[3] $matches[7]:$matches[8]:0";
             $tmp->sb_di = $matches[10];
-            $tmp->sb_di1 = $matches[12];       
+            $tmp->sb_di1 = $matches[12];
         }
 
         // // Chuyến về tương tự
@@ -375,7 +375,7 @@ class ThemText
             $tmp->cb_ve = $matches[1];
             $tmp->ngay_gio_ve = "$matches[5]-$matches[4]-$matches[3] $matches[7]:$matches[8]:0";
             $tmp->sb_ve = $matches[10];
-            $tmp->sb_ve1 = $matches[12];       
+            $tmp->sb_ve1 = $matches[12];
         }
 
         $result = [];
@@ -762,6 +762,91 @@ class ThemText
             }
 
             $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $obj->refresh();        // Reload object from sql
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Parse VietJet, VietNam moi ngay 20/02/2024
+     * MJDNJC
+     * HAN SGN VN213 1300 25/02/2024
+     * SGN HAN VN214 1400 26/02/2024
+     * DO THI LAN 7382465684635
+     */
+    public static function parse_vj_vn_custom($lines, Request $request, $dinh_danh)
+    {
+        $hanh_khach = [];
+        $so_ve = [];
+        $i = 0;
+        $tmp = new stdClass;
+        $tmp->username = $request->user()->username;
+        $tmp->loai_tuoi = 0;
+        $tmp->ngay_thang = date('Y-m-d');
+        $tmp->dinh_danh  = $dinh_danh;
+
+        if (strpos($lines[1], 'VJ') !== false) {
+            $tmp->hang_bay = "VJ";
+            $tmp->so_ve = trim($lines[0]);
+        } else if (strpos($lines[1], 'VN') !== false) {
+            $tmp->hang_bay = "VN";
+            $tmp->ma_giu_cho = trim($lines[0]);
+        } else return [];
+
+        $i++;
+        $regex_chuyen_bay = "/^([A-Z]{3}) ([A-Z]{3}) ([A-Z0-9]+) ([0-9]{2})([0-9]{2}) ([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/";
+        // Chiều đi
+        if (preg_match($regex_chuyen_bay, $lines[$i], $matches)) {
+            $tmp->sb_di = $matches[1];
+            $tmp->sb_di1 = $matches[2];
+            $tmp->cb_di = $matches[3];
+            $tmp->ngay_gio_di = "$matches[8]-$matches[7]-$matches[6] $matches[4]:$matches[5]:0";
+            $i++;
+
+            // Chuyến về tương tự
+            if (preg_match($regex_chuyen_bay, $lines[$i], $matches)) {
+                $tmp->sb_ve = $matches[1];
+                $tmp->sb_ve1 = $matches[2];
+                $tmp->cb_ve = $matches[3];
+                $tmp->ngay_gio_ve = "$matches[8]-$matches[7]-$matches[6] $matches[4]:$matches[5]:0";
+                $i++;
+            }
+        }
+
+        // Hành khách
+        for (; $i < count($lines); $i++) {
+            preg_match("/^([A-Z ]+)([0-9]*)$/", $lines[$i], $matches); // Họ tên hành khách 
+            if (count($matches) > 1) {
+                $hanh_khach[] = trim($matches[1]);
+                if (count($matches) > 2 && !empty($matches[2]))
+                    $so_ve[] = trim($matches[2]);
+            } else
+                break;
+        }
+        // \Log::debug($so_ve);
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
+
+            // Chung code???
+            if ($obj->gia_net == 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+
+            $obj->ten_khach = $hanh_khach[$j];
+            if (count($so_ve) > $j) $obj->so_ve = $so_ve[$j];
             $obj->save();
             $obj->refresh();        // Reload object from sql
             $result[] = $obj;

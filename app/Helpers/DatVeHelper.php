@@ -122,4 +122,15 @@ class DatVeHelper
             if (!empty($obj->sb_ve)) $obj->phu_phi *= 2;
         }
     }
+
+    /**
+     * Tìm mã sân bay theo tên
+     */
+    public static function tim_san_bay(string $ten_san_bay)
+    {
+        if (empty($ten_san_bay)) return null;
+
+        $q = SanBay::where('ten_san_bay', 'LIKE', "%$ten_san_bay%")->first();
+        return $q->ma_san_bay;
+    }
 }

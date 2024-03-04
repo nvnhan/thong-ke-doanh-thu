@@ -406,6 +406,79 @@ class ThemText
     }
 
     /**
+     * Parse VietJet tu Mail ngay 20/02/2024
+     */
+    public static function parse_vj_mail($lines, Request $request, $dinh_danh)
+    {
+        $hanh_khach = [];
+        $i = 1;
+        $tmp = new stdClass;
+        $tmp->so_ve = trim($lines[0]);
+        $tmp->username = $request->user()->username;
+        $tmp->hang_bay = "VJ";
+        $tmp->loai_tuoi = 0;
+        $tmp->ngay_thang = date('Y-m-d');
+        $tmp->dinh_danh  = $dinh_danh;
+
+        // Hành khách
+        for (; $i < count($lines); $i++) {
+            // Họ tên hành khách 
+            if (preg_match("/^([A-Z, ]+) /", $lines[$i], $matches)) {
+                $hanh_khach[] = trim(str_replace(',', '', $matches[1]));
+            } else
+                break;
+        }
+
+        // Chiều đi
+        // VJ163 May 17, 2024 Eco 22:50 - Ha Noi 01:00 - Ho Chi Minh
+        $regex_chuyen_bay = "/^([A-Z0-9]+) ([a-zA-Z]{3}) ([0-9]+), ([0-9]{4})[a-zA-Z ]+([0-9]+):([0-9]+) - ([a-zA-Z ]+) [0-9]+:[0-9]+ - ([a-zA-Z ]+)$/";
+        if (preg_match($regex_chuyen_bay, $lines[$i], $matches)) {
+            $tmp->cb_di = $matches[1];
+            $thang = array_search(strtoupper($matches[2]), Util::$thang);
+            if ($thang !== false) $thang += 1;
+            $tmp->ngay_gio_di = "$matches[4]-$thang-$matches[3] $matches[5]:$matches[6]:0";
+            $tmp->sb_di = DatVeHelper::tim_san_bay($matches[7]);
+            $tmp->sb_di1 = DatVeHelper::tim_san_bay($matches[8]);
+            $i++;
+
+            // Chuyến về tương tự
+            if (count($lines) > $i && preg_match($regex_chuyen_bay, $lines[$i], $matches)) {
+                $tmp->cb_ve = $matches[1];
+                $thang = array_search(strtoupper($matches[2]), Util::$thang);
+                if ($thang !== false) $thang += 1;
+                $tmp->ngay_gio_ve = "$matches[4]-$thang-$matches[3] $matches[5]:$matches[6]:0";
+                $tmp->sb_ve = DatVeHelper::tim_san_bay($matches[7]);
+                $tmp->sb_ve1 = DatVeHelper::tim_san_bay($matches[8]);
+            }
+        }
+
+        $result = [];
+        for ($j = 0; $j < count($hanh_khach); $j++) {
+            $obj = new DatVe();
+
+            $obj->fill((array) $tmp);
+            $obj->fill($request->all());        // Gia net, tong tien, thu khach, tai khoan mua, khach hang...
+            DatVeHelper::add_gia($obj, $request);
+
+            // Chung code???
+            if ($obj->gia_net == 0 && $request->chung_code) {
+                $obj->ten_khach = implode(", ", $hanh_khach);
+                $obj->save();
+                $obj->refresh();        // Reload object from sql
+                $result[] = $obj;
+                break;      // Chỉ add 1 hàng đặt vé, Cộng tất cả tên khách vào
+            }
+
+            $obj->ten_khach = $hanh_khach[$j];
+            $obj->save();
+            $obj->refresh();        // Reload object from sql
+            $result[] = $obj;
+        }
+
+        return $result;
+    }
+
+    /**
      * Parse VietJet
      */
     public static function parse_vj_old($lines, Request $request, $dinh_danh)
@@ -771,54 +844,50 @@ class ThemText
     }
 
     /**
-     * Parse VietJet, VietNam moi ngay 20/02/2024
+     * Parse Text custom (VietJet, VietNam...) moi ngay 20/02/2024
      * MJDNJC
      * HAN SGN VN213 1300 25/02/2024
      * SGN HAN VN214 1400 26/02/2024
      * DO THI LAN 7382465684635
      */
-    public static function parse_vj_vn_custom($lines, Request $request, $dinh_danh)
+    public static function parse_text_custom($lines, Request $request, $dinh_danh)
     {
         $hanh_khach = [];
         $so_ve = [];
-        $i = 0;
+        $i = 1;
         $tmp = new stdClass;
         $tmp->username = $request->user()->username;
         $tmp->loai_tuoi = 0;
         $tmp->ngay_thang = date('Y-m-d');
         $tmp->dinh_danh  = $dinh_danh;
 
-        if (strpos($lines[1], 'VJ') !== false) {
-            $tmp->hang_bay = "VJ";
-            $tmp->so_ve = trim($lines[0]);
-        } else if (strpos($lines[1], 'VN') !== false) {
-            $tmp->hang_bay = "VN";
-            $tmp->ma_giu_cho = trim($lines[0]);
-        } else return [];
-
-        $i++;
-        $regex_chuyen_bay = "/^([A-Z]{3}) ([A-Z]{3}) ([A-Z0-9]+) ([0-9]{2})([0-9]{2}) ([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/";
+        $regex_chuyen_bay = "/^([A-Z]{3}) ([A-Z]{3}) ([A-Z]+)([0-9]+) ([0-9]{2})([0-9]{2}) ([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/";
         // Chiều đi
-        if (preg_match($regex_chuyen_bay, $lines[$i], $matches)) {
+        if (preg_match($regex_chuyen_bay, strtoupper($lines[$i]), $matches)) {
             $tmp->sb_di = $matches[1];
             $tmp->sb_di1 = $matches[2];
-            $tmp->cb_di = $matches[3];
-            $tmp->ngay_gio_di = "$matches[8]-$matches[7]-$matches[6] $matches[4]:$matches[5]:0";
+            $tmp->cb_di = $matches[3] . $matches[4];
+            $tmp->ngay_gio_di = "$matches[9]-$matches[8]-$matches[7] $matches[5]:$matches[6]:0";
             $i++;
 
+            $tmp->hang_bay = $matches[3];
+            if ($matches[3] == 'VN')
+                $tmp->ma_giu_cho = trim($lines[0]);
+            else $tmp->so_ve = trim($lines[0]);
+
             // Chuyến về tương tự
-            if (preg_match($regex_chuyen_bay, $lines[$i], $matches)) {
+            if (preg_match($regex_chuyen_bay, strtoupper($lines[$i]), $matches)) {
                 $tmp->sb_ve = $matches[1];
                 $tmp->sb_ve1 = $matches[2];
                 $tmp->cb_ve = $matches[3];
-                $tmp->ngay_gio_ve = "$matches[8]-$matches[7]-$matches[6] $matches[4]:$matches[5]:0";
+                $tmp->ngay_gio_ve = "$matches[9]-$matches[8]-$matches[7] $matches[5]:$matches[6]:0";
                 $i++;
             }
         }
 
         // Hành khách
         for (; $i < count($lines); $i++) {
-            preg_match("/^([A-Z ]+)([0-9]*)$/", $lines[$i], $matches); // Họ tên hành khách 
+            preg_match("/^([A-Z ]+)([0-9]*)$/", strtoupper($lines[$i]), $matches); // Họ tên hành khách 
             if (count($matches) > 1) {
                 $hanh_khach[] = trim($matches[1]);
                 if (count($matches) > 2 && !empty($matches[2]))

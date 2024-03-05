@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\KhachHang;
 use App\TaiKhoan;
 use App\ThuChi;
+use App\User;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use stdClass;

@@ -871,15 +871,12 @@ class ThemText
             $i++;
 
             $tmp->hang_bay = $matches[3];
-            if ($matches[3] == 'VN')
-                $tmp->ma_giu_cho = trim($lines[0]);
-            else $tmp->so_ve = trim($lines[0]);
 
             // Chuyến về tương tự
             if (preg_match($regex_chuyen_bay, strtoupper($lines[$i]), $matches)) {
                 $tmp->sb_ve = $matches[1];
                 $tmp->sb_ve1 = $matches[2];
-                $tmp->cb_ve = $matches[3];
+                $tmp->cb_ve = $matches[3] . $matches[4];
                 $tmp->ngay_gio_ve = "$matches[9]-$matches[8]-$matches[7] $matches[5]:$matches[6]:0";
                 $i++;
             }
@@ -915,7 +912,10 @@ class ThemText
             }
 
             $obj->ten_khach = $hanh_khach[$j];
-            if (count($so_ve) > $j) $obj->so_ve = $so_ve[$j];
+            if (count($so_ve) > $j) {
+                $obj->so_ve = $so_ve[$j];
+                $obj->ma_giu_cho = trim($lines[0]);
+            } else $obj->so_ve = trim($lines[0]);
             $obj->save();
             $obj->refresh();        // Reload object from sql
             $result[] = $obj;

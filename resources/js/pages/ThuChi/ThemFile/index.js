@@ -35,12 +35,12 @@ const index = props => {
     };
 
     const getFormData = values => {
+        delete values.file;
         values = parseValues(values, "YYYY-MM-DD");
 
         const data = new FormData();
         data.append("file", fileList[0]);
 
-        delete values.file;
         for (let key in values)
             if (values[key] !== undefined) data.append(key, values[key]);
         return data;
